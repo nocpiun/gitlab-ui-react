@@ -1,0 +1,1272 @@
+
+// Do not edit directly, this file was auto-generated.
+
+$gl-border-radius-full: 9999px;
+$gl-color-alpha-0: rgba(0, 0, 0, 0);
+$gl-color-alpha-dark-2: rgba(5, 5, 6, 0.02);
+$gl-color-alpha-dark-4: rgba(5, 5, 6, 0.04);
+$gl-color-alpha-dark-6: rgba(5, 5, 6, 0.06);
+$gl-color-alpha-dark-8: rgba(5, 5, 6, 0.08);
+$gl-color-alpha-dark-16: rgba(5, 5, 6, 0.16);
+$gl-color-alpha-dark-24: rgba(5, 5, 6, 0.24);
+$gl-color-alpha-dark-40: rgba(5, 5, 6, 0.4);
+$gl-color-alpha-light-2: rgba(255, 255, 255, 0.02);
+$gl-color-alpha-light-4: rgba(255, 255, 255, 0.04);
+$gl-color-alpha-light-6: rgba(255, 255, 255, 0.06);
+$gl-color-alpha-light-8: rgba(255, 255, 255, 0.08);
+$gl-color-alpha-light-16: rgba(255, 255, 255, 0.16);
+$gl-color-alpha-light-24: rgba(255, 255, 255, 0.24);
+$gl-color-alpha-light-36: rgba(255, 255, 255, 0.36);
+$gl-color-alpha-light-40: rgba(255, 255, 255, 0.4);
+$gl-color-blue-50: #e9f3fc;
+$gl-color-blue-100: #cbe2f9;
+$gl-color-blue-200: #9dc7f1;
+$gl-color-blue-300: #63a6e9;
+$gl-color-blue-400: #428fdc;
+$gl-color-blue-500: #1f75cb;
+$gl-color-blue-600: #2f68b4;
+$gl-color-blue-700: #2f5ca0;
+$gl-color-blue-800: #284779;
+$gl-color-blue-900: #213454;
+$gl-color-blue-950: #1d283e;
+$gl-color-brand-white: #fff;
+$gl-color-brand-charcoal: #171321;
+$gl-color-brand-orange-01g: #ffd1bf;
+$gl-color-brand-orange-01p: #fca326;
+$gl-color-brand-orange-02p: #fc6d26;
+$gl-color-brand-orange-03p: #e24329;
+$gl-color-brand-purple-01g: #ceb3ef;
+$gl-color-brand-purple-01p: #a989f5;
+$gl-color-brand-purple-02p: #7759c2;
+$gl-color-brand-gray-01: #d1d0d3;
+$gl-color-brand-gray-02: #a2a1a6;
+$gl-color-brand-gray-03: #74717a;
+$gl-color-brand-gray-04: #45424d;
+$gl-color-brand-gray-05: #2b2838;
+$gl-color-brand-pink-01g: #ffb9c9;
+$gl-color-data-green-50: #ddfab7;
+$gl-color-data-green-100: #c6ed94;
+$gl-color-data-green-200: #b0d97b;
+$gl-color-data-green-300: #94c25e;
+$gl-color-data-green-400: #81ac41;
+$gl-color-data-green-500: #619025;
+$gl-color-data-green-600: #4e7f0e;
+$gl-color-data-green-700: #366800;
+$gl-color-data-green-800: #275600;
+$gl-color-data-green-900: #1a4500;
+$gl-color-data-green-950: #133a03;
+$gl-color-data-aqua-50: #b5fefd;
+$gl-color-data-aqua-100: #93f2ef;
+$gl-color-data-aqua-200: #5edee3;
+$gl-color-data-aqua-300: #32c5d2;
+$gl-color-data-aqua-400: #00acc4;
+$gl-color-data-aqua-500: #0090b1;
+$gl-color-data-aqua-600: #007b9b;
+$gl-color-data-aqua-700: #006381;
+$gl-color-data-aqua-800: #00516c;
+$gl-color-data-aqua-900: #004059;
+$gl-color-data-aqua-950: #00344b;
+$gl-color-data-blue-50: #e9ebff;
+$gl-color-data-blue-100: #d2dcff;
+$gl-color-data-blue-200: #b7c6ff;
+$gl-color-data-blue-300: #97acff;
+$gl-color-data-blue-400: #7992f5;
+$gl-color-data-blue-500: #617ae2;
+$gl-color-data-blue-600: #4e65cd;
+$gl-color-data-blue-700: #3f51ae;
+$gl-color-data-blue-800: #374291;
+$gl-color-data-blue-900: #303470;
+$gl-color-data-blue-950: #2a2b59;
+$gl-color-data-magenta-50: #ffe3eb;
+$gl-color-data-magenta-100: #ffccdb;
+$gl-color-data-magenta-200: #fcacc5;
+$gl-color-data-magenta-300: #f88aaf;
+$gl-color-data-magenta-400: #e86e9a;
+$gl-color-data-magenta-500: #cf4d81;
+$gl-color-data-magenta-600: #b93d71;
+$gl-color-data-magenta-700: #9a2e5d;
+$gl-color-data-magenta-800: #7c214f;
+$gl-color-data-magenta-900: #661e3a;
+$gl-color-data-magenta-950: #541d31;
+$gl-color-data-orange-50: #fae8d1;
+$gl-color-data-orange-100: #f5d6b3;
+$gl-color-data-orange-200: #eebd8c;
+$gl-color-data-orange-300: #e99b60;
+$gl-color-data-orange-400: #e07e41;
+$gl-color-data-orange-500: #c95d2e;
+$gl-color-data-orange-600: #b14f18;
+$gl-color-data-orange-700: #92430a;
+$gl-color-data-orange-800: #6f3500;
+$gl-color-data-orange-900: #5e2f05;
+$gl-color-data-orange-950: #4b2707;
+$gl-color-green-50: #ecf4ee;
+$gl-color-green-100: #c3e6cd;
+$gl-color-green-200: #91d4a8;
+$gl-color-green-300: #52b87a;
+$gl-color-green-400: #2da160;
+$gl-color-green-500: #108548;
+$gl-color-green-600: #2f7549;
+$gl-color-green-700: #306440;
+$gl-color-green-800: #225131;
+$gl-color-green-900: #1e3e28;
+$gl-color-green-950: #17291c;
+$gl-color-neutral-0: #fff;
+$gl-color-neutral-10: #fbfafd;
+$gl-color-neutral-50: #ececef;
+$gl-color-neutral-100: #dcdcde;
+$gl-color-neutral-200: #bfbfc3;
+$gl-color-neutral-300: #a4a3a8;
+$gl-color-neutral-400: #89888d;
+$gl-color-neutral-500: #737278;
+$gl-color-neutral-600: #626168;
+$gl-color-neutral-700: #4c4b51;
+$gl-color-neutral-800: #3a383f;
+$gl-color-neutral-900: #28272d;
+$gl-color-neutral-950: #18171d;
+$gl-color-neutral-1000: #050506;
+$gl-color-orange-50: #fdf1dd;
+$gl-color-orange-100: #f5d9a8;
+$gl-color-orange-200: #e9be74;
+$gl-color-orange-300: #d99530;
+$gl-color-orange-400: #c17d10;
+$gl-color-orange-500: #ab6100;
+$gl-color-orange-600: #995715;
+$gl-color-orange-700: #894b16;
+$gl-color-orange-800: #693c14;
+$gl-color-orange-900: #532e16;
+$gl-color-orange-950: #382315;
+$gl-color-purple-50: #f4f0ff;
+$gl-color-purple-100: #e1d8f9;
+$gl-color-purple-200: #cbbbf2;
+$gl-color-purple-300: #ac93e6;
+$gl-color-purple-400: #9475db;
+$gl-color-purple-500: #7b58cf;
+$gl-color-purple-600: #6a4fb4;
+$gl-color-purple-700: #5c47a6;
+$gl-color-purple-800: #493c83;
+$gl-color-purple-900: #342d59;
+$gl-color-purple-950: #27243e;
+$gl-color-red-50: #fcf1ef;
+$gl-color-red-100: #fdd4cd;
+$gl-color-red-200: #fcb5aa;
+$gl-color-red-300: #f6806d;
+$gl-color-red-400: #ec5941;
+$gl-color-red-500: #dd2b0e;
+$gl-color-red-600: #c02f12;
+$gl-color-red-700: #a32c12;
+$gl-color-red-800: #812713;
+$gl-color-red-900: #582014;
+$gl-color-red-950: #3e1a14;
+$gl-font-family-regular: var(--default-regular-font, 'GitLab Sans'),'GitLab Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Noto Sans',Ubuntu,Cantarell,'Helvetica Neue',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+$gl-font-family-monospace: var(--default-mono-font, 'GitLab Mono'),'GitLab Mono','JetBrains Mono',Menlo,'DejaVu Sans Mono','Liberation Mono',Consolas,'Ubuntu Mono','Courier New','andale mono','lucida console',monospace;
+$gl-font-size-100: 0.75rem; // Used for meta text and small labels.
+$gl-font-size-200: 0.8125rem; // Used for level 6 headings.
+$gl-font-size-300: 0.875rem; // Used for level 5 headings, body text, input labels, and help text.
+$gl-font-size-400: 1rem; // Used for level 4 headings, large body text.
+$gl-font-size-500: clamp(1.125rem, 0.9027777778rem + 0.462962963vw, 1.25rem); // Used for responsive level 3 headings.
+$gl-font-size-600: clamp(1.3125rem, 0.8680555556rem + 0.9259259259vw, 1.5625rem); // Used for responsive level 2 headings.
+$gl-font-size-700: clamp(1.5rem, 0.8333333333rem + 1.3888888889vw, 1.875rem); // Used for responsive level 1 headings
+$gl-font-size-800: clamp(1.75rem, 0.8611111111rem + 1.8518518519vw, 2.25rem); // Used for a responsive display option that can be applied to a level 1 heading to increase its prominence.
+$gl-font-size-xs: 0.625rem;
+$gl-font-size-100-fixed: 0.75rem; // Used for meta text and small labels.
+$gl-font-size-200-fixed: 0.8125rem; // Used for level 6 headings.
+$gl-font-size-300-fixed: 0.875rem; // Used for level 5 headings, body text, input labels, and help text.
+$gl-font-size-400-fixed: 1rem; // Used for level 4 headings, large body text.
+$gl-font-size-500-fixed: 1.125rem; // Used for level 3 headings.
+$gl-font-size-600-fixed: 1.3125rem; // Used for level 2 headings.
+$gl-font-size-700-fixed: 1.5rem; // Used for level 1 headings
+$gl-font-size-800-fixed: 1.75rem; // Used for a display option that can be applied to a level 1 heading to increase its prominence.
+$gl-font-weight-100: 100;
+$gl-font-weight-300: 300;
+$gl-font-weight-normal: 400;
+$gl-font-weight-semibold: 500;
+$gl-font-weight-bold: 600;
+$gl-line-height-12: 0.75rem;
+$gl-line-height-16: 1rem;
+$gl-line-height-20: 1.25rem;
+$gl-line-height-24: 1.5rem;
+$gl-line-height-28: 1.75rem;
+$gl-line-height-32: 2rem;
+$gl-line-height-36: 2.25rem;
+$gl-line-height-42: 2.625rem;
+$gl-line-height-44: 2.75rem;
+$gl-line-height-52: 3.25rem;
+$gl-line-height-heading: 1.25;
+$gl-opacity-0: 0;
+$gl-opacity-1: .1;
+$gl-opacity-2: .2;
+$gl-opacity-3: .3;
+$gl-opacity-4: .4;
+$gl-opacity-5: .5;
+$gl-opacity-6: .6;
+$gl-opacity-7: .7;
+$gl-opacity-8: .8;
+$gl-opacity-9: .9;
+$gl-opacity-10: 1;
+$gl-spacing-scale-0: 0px;
+$gl-spacing-scale-1: 0.125rem;
+$gl-spacing-scale-2: 0.25rem;
+$gl-spacing-scale-3: 0.5rem;
+$gl-spacing-scale-4: 0.75rem;
+$gl-spacing-scale-5: 1rem;
+$gl-spacing-scale-6: 1.5rem;
+$gl-spacing-scale-7: 2rem;
+$gl-spacing-scale-8: 2.5rem;
+$gl-spacing-scale-9: 3rem;
+$gl-spacing-scale-10: 3.5rem;
+$gl-spacing-scale-11: 4rem;
+$gl-spacing-scale-12: 5rem;
+$gl-spacing-scale-13: 6rem;
+$gl-spacing-scale-15: 7.5rem;
+$gl-spacing-scale-18: 9rem;
+$gl-spacing-scale-20: 10rem;
+$gl-spacing-scale-26: 13rem;
+$gl-spacing-scale-28: 14rem;
+$gl-spacing-scale-30: 15rem;
+$gl-spacing-scale-31: 15.5rem;
+$gl-spacing-scale-33: 16.5rem;
+$gl-spacing-scale-34: 17rem;
+$gl-spacing-scale-37: 18.5rem;
+$gl-spacing-scale-48: 24rem;
+$gl-spacing-scale-62: 31rem;
+$gl-spacing-scale-75: 37.5rem;
+$gl-spacing-scale-80: 40rem;
+$gl-spacing-scale-88: 44rem;
+$gl-spacing-scale-px: 1px;
+$gl-spacing-scale-2-5: 0.375rem;
+$gl-spacing-scale-11-5: 4.5rem;
+$gl-zindex-0: 0;
+$gl-zindex-1: 1;
+$gl-zindex-2: 2;
+$gl-zindex-3: 3;
+$gl-zindex-4: 4;
+$gl-zindex-200: 200;
+$gl-zindex-9999: 9999;
+$gl-avatar-fallback-background-color-red: rgba(252, 181, 170, 0.23921568627450981); // Red background for avatar fallback with no particular meaning.
+$gl-avatar-fallback-background-color-purple: rgba(203, 187, 242, 0.23921568627450981); // Purple background for avatar fallback with no particular meaning.
+$gl-avatar-fallback-background-color-blue: rgba(157, 199, 241, 0.23921568627450981); // Blue background for avatar fallback with no particular meaning.
+$gl-avatar-fallback-background-color-green: rgba(145, 212, 168, 0.23921568627450981); // Green background for avatar fallback with no particular meaning.
+$gl-avatar-fallback-background-color-orange: rgba(233, 190, 116, 0.23921568627450981); // Orange background for avatar fallback with no particular meaning.
+$gl-avatar-fallback-background-color-neutral: rgba(191, 191, 195, 0.23921568627450981); // Neutral background for avatar fallback with no particular meaning.
+$gl-broadcast-banner-background-color-blue: #235180; // Used for the background for the blue banner type.
+$gl-broadcast-banner-background-color-green: #1b653f; // Used for the background for the green banner type.
+$gl-broadcast-banner-background-color-indigo: #41419f; // Used for the background for the indigo banner type.
+$gl-broadcast-banner-background-color-lightblue: #4977a5; // Used for the background for the lightblue banner type.
+$gl-broadcast-banner-background-color-lightgreen: #308258; // Used for the background for the lightgreen banner type.
+$gl-broadcast-banner-background-color-lightindigo: #6666c4; // Used for the background for the lightindigo banner type.
+$gl-broadcast-banner-background-color-lightred: #ad4a3b; // Used for the background for the lightred banner type.
+$gl-broadcast-banner-background-color-red: #8f2110; // Used for the background for the red banner type.
+$gl-broadcast-banner-border-color-blue: #0b2640; // Used for the border for the blue banner type.
+$gl-broadcast-banner-border-color-green: #0e4328; // Used for the border for the green banner type.
+$gl-broadcast-banner-border-color-indigo: #222261; // Used for the border for the indigo banner type.
+$gl-broadcast-banner-border-color-lightblue: #235180; // Used for the border for the lightblue banner type.
+$gl-broadcast-banner-border-color-lightgreen: #1b653f; // Used for the border for the lightgreen banner type.
+$gl-broadcast-banner-border-color-lightindigo: #41419f; // Used for the border for the lightindigo banner type.
+$gl-broadcast-banner-border-color-lightred: #8f2110; // Used for the border for the lightred banner type.
+$gl-broadcast-banner-border-color-red: #580d02; // Used for the border for the red banner type.
+$gl-chart-threshold-area-color: rgba(221, 43, 14, 0.1); // Used in charts to delineate a threshold area in a chart.
+$gl-illustration-stroke-color-default: #171321; // Default stroke color to define shape and provide essential detail.
+$gl-illustration-stroke-width-default: 2; // Default stroke width to define shape and provide essential detail.
+$gl-illustration-fill-color-default: #fff; // Default fill color for an element where specific meaning or emphasis is not required.
+$gl-illustration-status-fill-color-neutral: #aea5d6; // Used as a fill to convey a concept which is neither positive or negative.
+$gl-illustration-status-fill-color-success: #6fdac9; // Used as a fill to convey a success or active concept, has a positive connotation.
+$gl-illustration-status-fill-color-warning: #fca326; // Used as a fill to convey a caution or warning concept, has a slightly negative connotation.
+$gl-illustration-status-fill-color-danger: #ff9d73; // Used as a fill to convey a critical or danger concept, has a negative connotation.
+$gl-illustration-accent-stroke-color-orange: #ff9d73; // Used for orange accent stroke detail on an object or attention-drawing element.
+$gl-illustration-accent-stroke-color-teal: #6fdac9; // Used for teal accent stroke detail on an object or attention-drawing element.
+$gl-illustration-accent-stroke-color-strong: #aea5d6; // Used for dark accent stroke detail on an object or attention-drawing element.
+$gl-illustration-accent-fill-color-subtle: #d0c5e2; // Used to add depth to a secondary element and supporting surface.
+$gl-illustration-accent-fill-color-strong: #aea5d6; // Used for an element requiring visual emphasis without competing with primary content or status indicators.
+$gl-illustration-accent-fill-color-orange: #ff9d73; // Used to add orange to a secondary element and supporting surface.
+$gl-illustration-accent-fill-color-teal: #6fdac9; // Used to add teal to a secondary element and supporting surface.
+$gl-illustration-base-fill-color: #e7e4f2; // Used for the consistent background shape present across all illustrations. Provides a unified foundation that visually grounds each illustration while maintaining system cohesion.
+$gl-illustration-isometric-stroke-color-default: #171321; // Default stroke color to define shape and provide essential detail in isometric illustration.
+$gl-illustration-isometric-stroke-width-default: 2; // Default stroke width to define shape and provide essential detail in isometric illustration.
+$gl-illustration-isometric-glyph-top-fill-color: #c5f4ec; // Used for the top face of isometric text and number elements.
+$gl-illustration-isometric-glyph-front-fill-color: #fff; // Used for the front face of isometric text and number elements.
+$gl-illustration-isometric-glyph-side-fill-color: #6fdac9; // Used for the side face of isometric text and number elements.
+$gl-illustration-isometric-glyph-shadow-fill-color: #10b1b1; // Used for the shadow of isometric text and number elements.
+$gl-illustration-isometric-object-top-fill-color: #ff9d73; // Used for the top face of an isometric object or symbol.
+$gl-illustration-isometric-object-front-fill-color: #ffc2a8; // Used for the front face of an isometric object or symbol.
+$gl-illustration-isometric-object-side-fill-color: #ff7b42; // Used for the side face of an isometric object or symbol.
+$gl-illustration-isometric-object-highlight-fill-color: #fff; // Used for the face of an isometric object or symbol that requires maximum distinction from other elements.
+$gl-illustration-isometric-object-shadow-fill-color: #e24329; // Used for the shadow of an isometric object or symbol.
+$gl-illustration-isometric-accent-top-fill-color: #45424d; // Used for the top face of a supporting isometric element. Provides subtle dimensional variation without competing with primary content.
+$gl-illustration-isometric-accent-front-fill-color: #74717a; // Used for the front face of a supporting isometric element. Provides subtle dimensional variation without competing with primary content.
+$gl-illustration-isometric-accent-side-fill-color: #2b2838; // Used for the side face of a supporting isometric element. Provides subtle dimensional variation without competing with primary content.
+$gl-illustration-isometric-base-top-fill-color: #e7e4f2; // Used for the top surface of an isometric base platform.
+$gl-illustration-isometric-base-front-fill-color: #d5d0e8; // Used for the front face of an isometric base platform.
+$gl-illustration-isometric-base-side-fill-color: #aea5d6; // Used for the side face of an isometric base platform.
+$gl-nav-item-font-weight: 425; // Used for the font weight of a navigation item
+$data-viz-green-50: #ddfab7 !default;
+$data-viz-green-100: #c6ed94 !default;
+$data-viz-green-200: #b0d97b !default;
+$data-viz-green-300: #94c25e !default;
+$data-viz-green-400: #81ac41 !default;
+$data-viz-green-500: #619025 !default;
+$data-viz-green-600: #4e7f0e !default;
+$data-viz-green-700: #366800 !default;
+$data-viz-green-800: #275600 !default;
+$data-viz-green-900: #1a4500 !default;
+$data-viz-green-950: #133a03 !default;
+$data-viz-aqua-50: #b5fefd !default;
+$data-viz-aqua-100: #93f2ef !default;
+$data-viz-aqua-200: #5edee3 !default;
+$data-viz-aqua-300: #32c5d2 !default;
+$data-viz-aqua-400: #00acc4 !default;
+$data-viz-aqua-500: #0090b1 !default;
+$data-viz-aqua-600: #007b9b !default;
+$data-viz-aqua-700: #006381 !default;
+$data-viz-aqua-800: #00516c !default;
+$data-viz-aqua-900: #004059 !default;
+$data-viz-aqua-950: #00344b !default;
+$data-viz-blue-50: #e9ebff !default;
+$data-viz-blue-100: #d2dcff !default;
+$data-viz-blue-200: #b7c6ff !default;
+$data-viz-blue-300: #97acff !default;
+$data-viz-blue-400: #7992f5 !default;
+$data-viz-blue-500: #617ae2 !default;
+$data-viz-blue-600: #4e65cd !default;
+$data-viz-blue-700: #3f51ae !default;
+$data-viz-blue-800: #374291 !default;
+$data-viz-blue-900: #303470 !default;
+$data-viz-blue-950: #2a2b59 !default;
+$data-viz-magenta-50: #ffe3eb !default;
+$data-viz-magenta-100: #ffccdb !default;
+$data-viz-magenta-200: #fcacc5 !default;
+$data-viz-magenta-300: #f88aaf !default;
+$data-viz-magenta-400: #e86e9a !default;
+$data-viz-magenta-500: #cf4d81 !default;
+$data-viz-magenta-600: #b93d71 !default;
+$data-viz-magenta-700: #9a2e5d !default;
+$data-viz-magenta-800: #7c214f !default;
+$data-viz-magenta-900: #661e3a !default;
+$data-viz-magenta-950: #541d31 !default;
+$data-viz-orange-50: #fae8d1 !default;
+$data-viz-orange-100: #f5d6b3 !default;
+$data-viz-orange-200: #eebd8c !default;
+$data-viz-orange-300: #e99b60 !default;
+$data-viz-orange-400: #e07e41 !default;
+$data-viz-orange-500: #c95d2e !default;
+$data-viz-orange-600: #b14f18 !default;
+$data-viz-orange-700: #92430a !default;
+$data-viz-orange-800: #6f3500 !default;
+$data-viz-orange-900: #5e2f05 !default;
+$data-viz-orange-950: #4b2707 !default;
+$brand-charcoal: #171321 !default; // Use color.brand-charcoal instead.
+$brand-orange-01: #fca326 !default; // Use color.brand-orange.01p instead.
+$brand-orange-02: #fc6d26 !default; // Use color.brand-orange.02p instead.
+$brand-orange-03: #e24329 !default; // Use color.brand-orange.03p instead.
+$brand-purple-01: #a989f5 !default; // Use color.purple.01p instead.
+$brand-purple-02: #7759c2 !default; // Use color.purple.02p instead.
+$brand-gray-01: #d1d0d3 !default; // Use color.brand-gray.01 instead.
+$brand-gray-02: #a2a1a6 !default; // Use color.brand-gray.02 instead.
+$brand-gray-03: #74717a !default; // Use color.brand-gray.03 instead.
+$brand-gray-04: #45424d !default; // Use color.brand-gray.04 instead.
+$brand-gray-05: #2b2838 !default; // Use color.brand-gray.05 instead.
+$t-gray-a-16: rgba(5, 5, 6, 0.16) !default; // Use color.alpha.dark.16 instead.
+$t-gray-a-24: rgba(5, 5, 6, 0.24) !default; // Use color.alpha.dark.24 instead.
+$t-gray-a-02: rgba(5, 5, 6, 0.02) !default; // Use color.alpha.dark.2 instead.
+$t-gray-a-04: rgba(5, 5, 6, 0.04) !default; // Use color.alpha.dark.4 instead.
+$t-gray-a-06: rgba(5, 5, 6, 0.06) !default; // Use color.alpha.dark.6 instead.
+$t-gray-a-08: rgba(5, 5, 6, 0.08) !default; // Use color.alpha.dark.8 instead.
+$t-white-a-16: rgba(255, 255, 255, 0.16) !default; // Use color.alpha.light.16 instead.
+$t-white-a-24: rgba(255, 255, 255, 0.24) !default; // Use color.alpha.light.24 instead.
+$t-white-a-36: rgba(255, 255, 255, 0.36) !default; // Use color.alpha.light.36 instead.
+$t-white-a-02: rgba(255, 255, 255, 0.02) !default; // Use color.alpha.light.2 instead.
+$t-white-a-04: rgba(255, 255, 255, 0.04) !default; // Use color.alpha.light.4 instead.
+$t-white-a-06: rgba(255, 255, 255, 0.06) !default; // Use color.alpha.light.6 instead.
+$t-white-a-08: rgba(255, 255, 255, 0.08) !default; // Use color.alpha.light.8 instead.
+$gl-action-danger-background-color-default: rgba(245, 127, 108, 0); // Used for the background of a danger (destructive) action in the default state.
+$gl-action-danger-background-color-hover: rgba(245, 127, 108, 0.16); // Used for the background of a danger (destructive) action in the hover state.
+$gl-action-danger-background-color-active: rgba(174, 24, 0, 0.24); // Used for the background of a danger (destructive) action in the active state.
+$gl-letter-spacing-heading: -0.01em;
+$gl-heading-3-letter-spacing: inherit;
+$gl-heading-4-letter-spacing: inherit;
+$gl-heading-5-letter-spacing: inherit;
+$gl-heading-6-letter-spacing: inherit;
+$gl-heading-scale-100-letter-spacing: inherit;
+$gl-heading-scale-200-letter-spacing: inherit;
+$gl-heading-scale-300-letter-spacing: inherit;
+$gl-heading-scale-400-letter-spacing: inherit;
+$gl-heading-scale-500-letter-spacing: inherit;
+$gl-heading-scale-800-line-height: 1.125;
+$gl-heading-scale-100-fixed-letter-spacing: inherit;
+$gl-heading-scale-200-fixed-letter-spacing: inherit;
+$gl-heading-scale-300-fixed-letter-spacing: inherit;
+$gl-heading-scale-400-fixed-letter-spacing: inherit;
+$gl-heading-scale-500-fixed-letter-spacing: inherit;
+$gl-heading-scale-800-fixed-line-height: 1.125;
+$gl-heading-display-line-height: 1.125;
+$gl-heading-3-fixed-letter-spacing: inherit;
+$gl-heading-4-fixed-letter-spacing: inherit;
+$gl-heading-5-fixed-letter-spacing: inherit;
+$gl-heading-6-fixed-letter-spacing: inherit;
+$gl-border-color-transparent: $gl-color-alpha-0; // Used when a border needs to be present, but not visibly perceived.
+$gl-border-color-default: $gl-color-neutral-100; // Used for the default border color.
+$gl-border-color-subtle: $gl-color-neutral-50; // Used for a subtle border in combination with the default background.
+$gl-border-color-strong: $gl-color-neutral-200; // Used for a distinct border that emphasizes an edge or boundaries.
+$gl-border-radius-none: $gl-spacing-scale-0;
+$gl-border-radius-xs: $gl-spacing-scale-px;
+$gl-border-radius-sm: $gl-spacing-scale-1;
+$gl-border-radius-md: $gl-spacing-scale-2;
+$gl-border-radius-lg: $gl-spacing-scale-3;
+$gl-border-radius-xl: $gl-spacing-scale-4;
+$gl-border-radius-2xl: $gl-spacing-scale-5;
+$gl-border-radius-3xl: $gl-spacing-scale-6;
+$gl-font-size-sm: $gl-font-size-100;
+$gl-font-size-md: $gl-font-size-300;
+$gl-font-size-lg: $gl-font-size-400;
+$gl-font-weight-heading: $gl-font-weight-bold;
+$gl-heading-default-margin-top: $gl-spacing-scale-0;
+$gl-heading-default-margin-bottom: $gl-spacing-scale-5;
+$gl-shadow-color-default: $gl-color-alpha-dark-16; // Used for the default shadow color.
+$gl-alert-neutral-border-top-color: $gl-color-alpha-0; // Used for the border center color of a neutral alert.
+$gl-alert-neutral-border-bottom-color: $gl-color-alpha-0; // Used for the border bottom color of a neutral alert.
+$gl-alert-info-border-top-color: $gl-color-alpha-0; // Used for the border color of an info alert.
+$gl-alert-info-border-bottom-color: $gl-color-alpha-0; // Used for the border bottom color of an info alert.
+$gl-alert-success-border-top-color: $gl-color-alpha-0; // Used for the border color of a success alert.
+$gl-alert-success-border-bottom-color: $gl-color-alpha-0; // Used for the border bottom color of a success alert.
+$gl-alert-warning-border-top-color: $gl-color-alpha-0; // Used for the border color of a warning alert.
+$gl-alert-warning-border-bottom-color: $gl-color-alpha-0; // Used for the border bottom color of a warning alert.
+$gl-alert-danger-border-top-color: $gl-color-alpha-0; // Used for the border color of a danger alert.
+$gl-alert-danger-border-bottom-color: $gl-color-alpha-0; // Used for the border bottom color of a danger alert.
+$gl-application-chrome-background-color: $gl-color-neutral-50; // Used for the application chrome background, the lowest layer of the interface that sits beneath panels and contains global navigation, user actions, application navigation, and AI navigation.
+$gl-avatar-border-color-default: $gl-color-alpha-dark-8; // Used to define the edge of an avatar.
+$gl-avatar-border-color-hover: $gl-color-alpha-dark-24; // Used to increase the edge definition of an avatar in the hover state.
+$gl-avatar-circle-border-radius-default: $gl-border-radius-full; // Border radius for cirlce avatars at all sizes.
+$gl-avatar-fallback-text-color-red: $gl-color-red-800; // Red text color for avatar fallback with no particular meaning.
+$gl-avatar-fallback-text-color-purple: $gl-color-purple-800; // Purple text color for avatar fallback with no particular meaning.
+$gl-avatar-fallback-text-color-blue: $gl-color-blue-800; // Blue text color for avatar fallback with no particular meaning.
+$gl-avatar-fallback-text-color-green: $gl-color-green-800; // Green text color for avatar fallback with no particular meaning.
+$gl-avatar-fallback-text-color-orange: $gl-color-orange-800; // Orange text color for avatar fallback with no particular meaning.
+$gl-avatar-fallback-text-color-neutral: $gl-color-neutral-800; // Neutral text color for avatar fallback with no particular meaning.
+$gl-badge-muted-background-color-default: $gl-color-neutral-50; // Used for the background of a muted badge when static or the default state when linked.
+$gl-badge-muted-background-color-active: $gl-color-neutral-100; // Used for the background of a muted badge in the active state.
+$gl-badge-muted-border-color-default: $gl-color-alpha-0; // Used for the border of a muted badge when static or the default state when linked.
+$gl-badge-muted-border-color-hover: $gl-color-neutral-200; // Used for the border of a muted badge in the hover state.
+$gl-badge-muted-border-color-focus: $gl-color-alpha-0; // Used for the border of a muted badge in the focus state.
+$gl-badge-muted-border-color-active: $gl-color-alpha-0; // Used for the border of a muted badge in the active state.
+$gl-badge-muted-text-color-default: $gl-color-neutral-600; // Used for the text of a muted badge when static or the default state when linked.
+$gl-badge-muted-text-color-hover: $gl-color-neutral-700; // Used for the text of a muted badge in the hover state.
+$gl-badge-muted-text-color-active: $gl-color-neutral-800; // Used for the text of a muted badge in the active state.
+$gl-badge-muted-icon-color-default: $gl-color-neutral-500; // Used for the icon of a muted badge when static or the default state when linked.
+$gl-badge-muted-icon-color-hover: $gl-color-neutral-600; // Used for the icon of a muted badge in the hover state.
+$gl-badge-muted-icon-color-active: $gl-color-neutral-700; // Used for the icon of a muted badge in the active state.
+$gl-badge-neutral-background-color-default: $gl-color-neutral-100; // Used for the background of a neutral badge when static or the default state when linked.
+$gl-badge-neutral-background-color-active: $gl-color-neutral-200; // Used for the background of a neutral badge in the active state.
+$gl-badge-neutral-border-color-default: $gl-color-alpha-0; // Used for the border of a neutral badge when static or the default state when linked.
+$gl-badge-neutral-border-color-hover: $gl-color-neutral-200; // Used for the border of a neutral badge in the hover state.
+$gl-badge-neutral-border-color-focus: $gl-color-alpha-0; // Used for the border of a neutral badge in the focus state.
+$gl-badge-neutral-border-color-active: $gl-color-alpha-0; // Used for the border of a neutral badge in the active state.
+$gl-badge-neutral-text-color-default: $gl-color-neutral-700; // Used for the text of a neutral badge when static or the default state when linked.
+$gl-badge-neutral-text-color-hover: $gl-color-neutral-800; // Used for the text of a neutral badge in the hover state.
+$gl-badge-neutral-text-color-active: $gl-color-neutral-900; // Used for the text of a neutral badge in the active state.
+$gl-badge-neutral-icon-color-default: $gl-color-neutral-500; // Used for the icon of a neutral badge when static or the default state when linked.
+$gl-badge-neutral-icon-color-hover: $gl-color-neutral-600; // Used for the icon of a neutral badge in the hover state.
+$gl-badge-neutral-icon-color-active: $gl-color-neutral-700; // Used for the icon of a neutral badge in the active state.
+$gl-badge-info-background-color-default: $gl-color-blue-100; // Used for the background of an informational badge when static or the default state when linked.
+$gl-badge-info-background-color-active: $gl-color-blue-200; // Used for the background of an informational badge in the active state.
+$gl-badge-info-border-color-default: $gl-color-alpha-0; // Used for the border of an informational badge when static or the default state when linked.
+$gl-badge-info-border-color-hover: $gl-color-blue-200; // Used for the border of an informational badge in the hover state.
+$gl-badge-info-border-color-focus: $gl-color-alpha-0; // Used for the border of an informational badge in the focus state.
+$gl-badge-info-border-color-active: $gl-color-alpha-0; // Used for the border of an informational badge in the active state.
+$gl-badge-info-text-color-default: $gl-color-blue-700; // Used for the text of an informational badge when static or the default state when linked.
+$gl-badge-info-text-color-hover: $gl-color-blue-800; // Used for the text of an informational badge in the hover state.
+$gl-badge-info-text-color-active: $gl-color-blue-900; // Used for the text of an informational badge in the active state.
+$gl-badge-info-icon-color-default: $gl-color-blue-500; // Used for the icon of an informational badge when static or the default state when linked.
+$gl-badge-info-icon-color-hover: $gl-color-blue-600; // Used for the icon of an informational badge in the hover state.
+$gl-badge-info-icon-color-active: $gl-color-blue-700; // Used for the icon of an informational badge in the active state.
+$gl-badge-success-background-color-default: $gl-color-green-100; // Used for the background of a success badge when static or the default state when linked.
+$gl-badge-success-background-color-active: $gl-color-green-200; // Used for the background of a success badge in the active state.
+$gl-badge-success-border-color-default: $gl-color-alpha-0; // Used for the border of a success badge when static or the default state when linked.
+$gl-badge-success-border-color-hover: $gl-color-green-200; // Used for the border of a success badge in the hover state.
+$gl-badge-success-border-color-focus: $gl-color-alpha-0; // Used for the border of a success badge in the focus state.
+$gl-badge-success-border-color-active: $gl-color-alpha-0; // Used for the border of a success badge in the active state.
+$gl-badge-success-text-color-default: $gl-color-green-700; // Used for the text of a success badge when static or the default state when linked.
+$gl-badge-success-text-color-hover: $gl-color-green-800; // Used for the text of a success badge in the hover state.
+$gl-badge-success-text-color-active: $gl-color-green-900; // Used for the text of a success badge in the active state.
+$gl-badge-success-icon-color-default: $gl-color-green-500; // Used for the icon of a success badge when static or the default state when linked.
+$gl-badge-success-icon-color-hover: $gl-color-green-600; // Used for the icon of a success badge in the hover state.
+$gl-badge-success-icon-color-active: $gl-color-green-700; // Used for the icon of a success badge in the active state.
+$gl-badge-warning-background-color-default: $gl-color-orange-100; // Used for the background of a warning badge when static or the default state when linked.
+$gl-badge-warning-background-color-active: $gl-color-orange-200; // Used for the background of a warning badge in the active state.
+$gl-badge-warning-border-color-default: $gl-color-alpha-0; // Used for the border of a warning badge when static or the default state when linked.
+$gl-badge-warning-border-color-hover: $gl-color-orange-200; // Used for the border of a warning badge in the hover state.
+$gl-badge-warning-border-color-focus: $gl-color-alpha-0; // Used for the border of a warning badge in the focus state.
+$gl-badge-warning-border-color-active: $gl-color-alpha-0; // Used for the border of a warning badge in the active state.
+$gl-badge-warning-text-color-default: $gl-color-orange-700; // Used for the text of a warning badge when static or the default state when linked.
+$gl-badge-warning-text-color-hover: $gl-color-orange-800; // Used for the text of a warning badge in the hover state.
+$gl-badge-warning-text-color-active: $gl-color-orange-900; // Used for the text of a warning badge in the active state.
+$gl-badge-warning-icon-color-default: $gl-color-orange-500; // Used for the icon of a warning badge when static or the default state when linked.
+$gl-badge-warning-icon-color-hover: $gl-color-orange-600; // Used for the icon of a warning badge in the hover state.
+$gl-badge-warning-icon-color-active: $gl-color-orange-700; // Used for the icon of a warning badge in the active state.
+$gl-badge-danger-background-color-default: $gl-color-red-100; // Used for the background of a danger badge when static or the default state when linked.
+$gl-badge-danger-background-color-active: $gl-color-red-200; // Used for the background of a danger badge in the active state.
+$gl-badge-danger-border-color-default: $gl-color-alpha-0; // Used for the border of a danger badge when static or the default state when linked.
+$gl-badge-danger-border-color-hover: $gl-color-red-200; // Used for the border of a danger badge in the hover state.
+$gl-badge-danger-border-color-focus: $gl-color-alpha-0; // Used for the border of a danger badge in the focus state.
+$gl-badge-danger-border-color-active: $gl-color-alpha-0; // Used for the border of a danger badge in the active state.
+$gl-badge-danger-text-color-default: $gl-color-red-700; // Used for the text of a danger badge when static or the default state when linked.
+$gl-badge-danger-text-color-hover: $gl-color-red-800; // Used for the text of a danger badge in the hover state.
+$gl-badge-danger-text-color-active: $gl-color-red-900; // Used for the text of a danger badge in the active state.
+$gl-badge-danger-icon-color-default: $gl-color-red-700; // Used for the icon of a danger badge when static or the default state when linked.
+$gl-badge-danger-icon-color-hover: $gl-color-red-800; // Used for the icon of a danger badge in the hover state.
+$gl-badge-danger-icon-color-active: $gl-color-red-900; // Used for the icon of a danger badge in the active state.
+$gl-badge-tier-background-color-default: $gl-color-purple-100; // Used for the background of a tier related badge when static or the default state when linked.
+$gl-badge-tier-background-color-active: $gl-color-purple-200; // Used for the background of a tier related badge in the active state.
+$gl-badge-tier-border-color-default: $gl-color-alpha-0; // Used for the border of a tier related badge when static or the default state when linked.
+$gl-badge-tier-border-color-hover: $gl-color-purple-200; // Used for the border of a tier related badge in the hover state.
+$gl-badge-tier-border-color-focus: $gl-color-alpha-0; // Used for the border of a tier related badge in the focus state.
+$gl-badge-tier-border-color-active: $gl-color-alpha-0; // Used for the border of a tier related badge in the active state.
+$gl-badge-tier-text-color-default: $gl-color-purple-700; // Used for the text of a tier related badge when static or the default state when linked.
+$gl-badge-tier-text-color-hover: $gl-color-purple-800; // Used for the text of a tier related badge in the hover state.
+$gl-badge-tier-text-color-active: $gl-color-purple-900; // Used for the text of a tier related badge in the active state.
+$gl-badge-tier-icon-color-default: $gl-color-purple-700; // Used for the icon of a tier related badge when static or the default state when linked.
+$gl-badge-tier-icon-color-hover: $gl-color-purple-800; // Used for the icon of a tier related badge in the hover state.
+$gl-badge-tier-icon-color-active: $gl-color-purple-900; // Used for the icon of a tier related badge in the active state.
+$gl-banner-intro-border-color: $gl-color-blue-200; // Used for the border of an info banner.
+$gl-banner-promo-background-color: $gl-color-purple-50; // Used for the background of a promo banner.
+$gl-banner-promo-border-color: $gl-color-purple-200; // Used for the border of a promo banner.
+$gl-breadcrumb-separator-color: $gl-color-neutral-400; // Used for the breadcrumb level separator.
+$gl-broadcast-banner-background-color-dark: $gl-color-neutral-500; // Used for the background for the dark banner type.
+$gl-broadcast-banner-background-color-light: $gl-color-neutral-50; // Used for the background for the light banner type.
+$gl-broadcast-banner-border-color-dark: $gl-color-neutral-700; // Used for the border for the dark banner type.
+$gl-broadcast-banner-border-color-light: $gl-color-neutral-100; // Used for the border for the light banner type.
+$gl-broadcast-banner-icon-color-blue: $gl-color-neutral-0; // Used for the icon for the blue banner type.
+$gl-broadcast-banner-icon-color-dark: $gl-color-neutral-0; // Used for the icon for the dark banner type.
+$gl-broadcast-banner-icon-color-green: $gl-color-neutral-0; // Used for the icon for the green banner type.
+$gl-broadcast-banner-icon-color-indigo: $gl-color-neutral-0; // Used for the icon for the indigo banner type.
+$gl-broadcast-banner-icon-color-light: $gl-color-neutral-900; // Used for the icon for the light banner type.
+$gl-broadcast-banner-icon-color-lightblue: $gl-color-neutral-0; // Used for the icon for the lightblue banner type.
+$gl-broadcast-banner-icon-color-lightgreen: $gl-color-neutral-0; // Used for the icon for the lightgreen banner type.
+$gl-broadcast-banner-icon-color-lightindigo: $gl-color-neutral-0; // Used for the icon for the lightindigo banner type.
+$gl-broadcast-banner-icon-color-lightred: $gl-color-neutral-0; // Used for the icon for the lightred banner type.
+$gl-broadcast-banner-icon-color-red: $gl-color-neutral-0; // Used for the icon for the red banner type.
+$gl-broadcast-banner-text-color-blue: $gl-color-neutral-0; // Used for the text for the blue banner type.
+$gl-broadcast-banner-text-color-dark: $gl-color-neutral-0; // Used for the text for the dark banner type.
+$gl-broadcast-banner-text-color-green: $gl-color-neutral-0; // Used for the text for the green banner type.
+$gl-broadcast-banner-text-color-indigo: $gl-color-neutral-0; // Used for the text for the indigo banner type.
+$gl-broadcast-banner-text-color-light: $gl-color-neutral-900; // Used for the text for the light banner type.
+$gl-broadcast-banner-text-color-lightblue: $gl-color-neutral-0; // Used for the text for the lightblue banner type.
+$gl-broadcast-banner-text-color-lightgreen: $gl-color-neutral-0; // Used for the text for the lightgreen banner type.
+$gl-broadcast-banner-text-color-lightindigo: $gl-color-neutral-0; // Used for the text for the lightindigo banner type.
+$gl-broadcast-banner-text-color-lightred: $gl-color-neutral-0; // Used for the text for the lightred banner type.
+$gl-broadcast-banner-text-color-red: $gl-color-neutral-0; // Used for the text for the red banner type.
+$gl-button-default-primary-foreground-color-default: $gl-color-neutral-800; // Used for the foreground of a default primary button in the default state.
+$gl-button-default-primary-background-color-default: $gl-color-neutral-0; // Used for the background of an default primary button in the default state.
+$gl-button-default-primary-background-color-hover: $gl-color-neutral-50; // Used for the background of an default primary button in the hover state.
+$gl-button-default-primary-background-color-active: $gl-color-neutral-100; // Used for the background of an default primary button in the active state.
+$gl-button-default-primary-border-color-default: $gl-color-neutral-200; // Used for the border of an default primary button in the default state.
+$gl-button-default-primary-border-color-hover: $gl-color-neutral-400; // Used for the border of an default primary button in the hover state.
+$gl-button-default-primary-border-color-active: $gl-color-neutral-600; // Used for the border of an default primary button in the active state.
+$gl-button-confirm-primary-foreground-color-default: $gl-color-neutral-0; // Used for the foreground of a confirm (positive) primary button in the default state.
+$gl-button-confirm-primary-background-color-default: $gl-color-neutral-800; // Used for the background of a confirm (positive) primary button in the default state.
+$gl-button-confirm-primary-background-color-hover: $gl-color-neutral-950; // Used for the background of a confirm (positive) primary button in the hover state.
+$gl-button-confirm-primary-background-color-active: $gl-color-neutral-1000; // Used for the background of a confirm (positive) primary button in the active state.
+$gl-button-confirm-primary-border-color-default: $gl-color-alpha-0; // Used for the border of a confirm (positive) primary button in the default state.
+$gl-button-confirm-secondary-foreground-color-default: $gl-color-neutral-800; // Used for the foreground of a confirm (positive) button in the default state.
+$gl-button-confirm-secondary-foreground-color-hover: $gl-color-neutral-950; // Used for the foreground of a confirm (positive) button in the hover state.
+$gl-button-confirm-secondary-foreground-color-active: $gl-color-neutral-1000; // Used for the foreground of a confirm (positive) button in the active state.
+$gl-button-confirm-secondary-background-color-default: $gl-color-neutral-0; // Used for the background of an outlined confirm (positive) button in the default state.
+$gl-button-confirm-secondary-background-color-hover: $gl-color-neutral-50; // Used for the background of an outlined confirm (positive) button in the hover state.
+$gl-button-confirm-secondary-background-color-active: $gl-color-neutral-100; // Used for the background of an outlined confirm (positive) button in the active state.
+$gl-button-confirm-secondary-border-color-default: $gl-color-neutral-800; // Used for the border of an outlined confirm (positive) button in the default state.
+$gl-button-confirm-secondary-border-color-hover: $gl-color-neutral-950; // Used for the border of an outlined confirm (positive) button in the hover state.
+$gl-button-confirm-secondary-border-color-active: $gl-color-neutral-1000; // Used for the border of an outlined confirm (positive) button in the active state.
+$gl-button-danger-primary-foreground-color-default: $gl-color-neutral-0; // Used for the foreground of a danger (destructive) primary button in the default state.
+$gl-button-danger-primary-background-color-default: $gl-color-red-500; // Used for the background of a danger (destructive) primary button in the default state.
+$gl-button-danger-primary-background-color-hover: $gl-color-red-600; // Used for the background of a danger (destructive) primary button in the hover state.
+$gl-button-danger-primary-background-color-active: $gl-color-red-800; // Used for the background of a danger (destructive) primary button in the active state.
+$gl-button-danger-primary-border-color-default: $gl-color-red-600; // Used for the border of a danger (destructive) primary button in the default state.
+$gl-button-danger-primary-border-color-hover: $gl-color-red-800; // Used for the border of a danger (destructive) primary button in the hover state.
+$gl-button-danger-primary-border-color-active: $gl-color-red-900; // Used for the border of a danger (destructive) primary button in the active state.
+$gl-button-danger-secondary-foreground-color-default: $gl-color-red-500; // Used for the foreground of a danger (destructive) button in the default state.
+$gl-button-danger-secondary-foreground-color-hover: $gl-color-red-700; // Used for the foreground of a danger (destructive) button in the hover state.
+$gl-button-danger-secondary-foreground-color-active: $gl-color-red-900; // Used for the foreground of a danger (destructive) button in the active state.
+$gl-button-danger-secondary-background-color-default: $gl-color-neutral-0; // Used for the background of an outlined danger (destructive) button in the default state.
+$gl-button-danger-secondary-background-color-hover: $gl-color-red-50; // Used for the background of an outlined danger (destructive) button in the hover state.
+$gl-button-danger-secondary-background-color-active: $gl-color-red-100; // Used for the background of an outlined danger (destructive) button in the active state.
+$gl-button-danger-secondary-border-color-default: $gl-color-red-500; // Used for the border of an outlined danger (destructive) button in the default state.
+$gl-button-danger-secondary-border-color-hover: $gl-color-red-700; // Used for the border of an outlined danger (destructive) button in the hover state.
+$gl-button-danger-secondary-border-color-active: $gl-color-red-900; // Used for the border of an outlined danger (destructive) button in the active state.
+$gl-button-danger-tertiary-background-color-default: $gl-action-danger-background-color-default; // Used for the background of a borderless, tertiary danger (destructive) button in the default state.
+$gl-button-danger-tertiary-background-color-hover: $gl-action-danger-background-color-hover; // Used for the background of a borderless, tertiary danger (destructive) button in the hover state.
+$gl-button-danger-tertiary-background-color-active: $gl-action-danger-background-color-active; // Used for the background of a borderless, tertiary danger (destructive) button in the active state.
+$gl-button-dashed-border-color-default: $gl-color-neutral-400; // Used for the border of a dashed button in the default state.
+$gl-button-dashed-border-color-active: $gl-color-neutral-600; // Used for the border of a dashed button in the active state.
+$gl-button-selected-background-color-default: $gl-color-neutral-50; // Used for the background of a selected button in the default state.
+$gl-button-selected-border-color-default: $gl-color-neutral-300; // Used for the border of a selected button in the default state.
+$gl-button-selected-border-color-hover: $gl-color-neutral-400; // Used for the border of a selected button in the hover state.
+$gl-button-selected-border-color-active: $gl-color-neutral-600; // Used for the border of a selected button in the active state.
+$gl-button-disabled-foreground-color: $gl-color-neutral-500; // Used for the foreground of a disabled button.
+$gl-button-disabled-background-color: $gl-color-neutral-10; // Used for the background of a disabled button.
+$gl-button-disabled-border-color: $gl-color-neutral-100; // Used for the border of a disabled button.
+$gl-button-count-background-color: $gl-color-alpha-dark-8; // Used for the background of a button count element.
+$gl-chart-axis-line-color: $gl-color-neutral-200; // Used in charts for axis line color.
+$gl-chart-threshold-line-color: $gl-color-red-500; // Used in charts to divide a threshold area in a chart from other data.
+$gl-chart-zoom-filler-color: $gl-color-alpha-dark-8; // Used in charts for the overlay color when zooming in on a specific area of data.
+$gl-datepicker-background-color: $gl-color-neutral-0; // Used for the background color of datepicker.
+$gl-dropdown-option-background-color-selected-default: $gl-color-neutral-50; // Used for the background of a selected dropdown option in the default state.
+$gl-dropdown-option-background-color-selected-hover: $gl-color-neutral-100; // Used for the background of a selected dropdown option in the hover state.
+$gl-dropdown-option-background-color-selected-active: $gl-color-neutral-200; // Used for the background of a selected dropdown option in the active state.
+$gl-dropdown-search-background-color: $gl-color-alpha-dark-2; // Used for the background of a search input in a dropdown listbox.
+$gl-filtered-search-token-type-background-color-default: $gl-color-neutral-50; // Used for the filtered search type token background color in the default state.
+$gl-filtered-search-token-type-background-color-hover: $gl-color-neutral-100; // Used for the filtered search type token background color in the hover state.
+$gl-filtered-search-token-data-background-color-default: $gl-color-neutral-100; // Used for the filtered search data background color in the default state.
+$gl-filtered-search-token-data-background-color-hover: $gl-color-neutral-200; // Used for the filtered search data token background color in the hover state.
+$gl-filtered-search-token-operator-background-color-default: $gl-color-neutral-50; // Used for the filtered search operator background color in the default state.
+$gl-filtered-search-token-operator-background-color-hover: $gl-color-neutral-100; // Used for the filtered search operator token background color in the hover state.
+$gl-label-light-text-color: $gl-color-neutral-950; // Used for the label text color on a light background color.
+$gl-label-light-button-background-color-default: $gl-color-alpha-0; // Used for the label remove button background on a light background color in the default state.
+$gl-label-light-button-background-color-hover: $gl-color-neutral-950; // Used for the label remove button background on a light background color in the hover state.
+$gl-label-light-button-icon-color-default: $gl-color-neutral-950; // Used for the label remove button icon on a light background color in the default state.
+$gl-label-dark-text-color: $gl-color-neutral-0; // Used for the label text color on a dark background color.
+$gl-label-dark-button-background-color-default: $gl-color-alpha-0; // Used for the label remove button background on a dark background color in the default state.
+$gl-label-dark-button-background-color-hover: $gl-color-neutral-0; // Used for the label remove button background on a dark background color in the hover state.
+$gl-label-dark-button-icon-color-default: $gl-color-neutral-0; // Used for the label remove button icon on a dark background color in the default state.
+$gl-label-scoped-text-color: $gl-color-neutral-950; // Used for the scoped label text color.
+$gl-label-scoped-button-background-color-hover: $gl-color-neutral-950; // Used for the scoped label remove button background in the hover state.
+$gl-label-scoped-button-icon-color-default: $gl-color-neutral-950; // Used for the scoped label remove button icon in the default state.
+$gl-label-scoped-button-icon-color-hover: $gl-color-neutral-0; // Used for the scoped label remove button icon in the hover state.
+$gl-link-mention-text-color-default: $gl-color-blue-800; // Used for the mention link text color.
+$gl-link-mention-text-color-current: $gl-color-orange-800; // Used for the mention link text color when referencing the current user.
+$gl-link-mention-background-color-default: $gl-color-blue-100; // Used for the mention link default background.
+$gl-link-mention-background-color-current: $gl-color-orange-100; // Used for the mention link background when referencing the current user.
+$gl-nav-item-font-size: $gl-font-size-300; // Used for the font size of a navigation item
+$gl-nav-item-foreground-color-default: $gl-color-neutral-600; // Used for the foreground of a default navigation item in the default state.
+$gl-nav-item-foreground-color-hover: $gl-color-neutral-950; // Used for the foreground of a default navigation item in the hover state.
+$gl-nav-item-background-color-default: $gl-color-alpha-0; // Used for the background of a default navigation item in the default state.
+$gl-nav-item-background-color-hover: $gl-color-neutral-100; // Used for the background of a default navigation item in the hover state.
+$gl-nav-item-background-color-active: $gl-color-neutral-200; // Used for the background of a default navigation item in the active state.
+$gl-nav-item-selected-font-weight: $gl-font-weight-bold; // Used for the font weight of a selected navigation item.
+$gl-nav-item-selected-foreground-color-default: $gl-color-neutral-950; // Used for the foreground of a selected navigation item in the default state.
+$gl-nav-item-selected-background-color-default: $gl-color-neutral-100; // Used for the background of a selected navigation item in the default state.
+$gl-progress-bar-track-color: $gl-color-neutral-200; // Used for the track color for all progress-bar variants.
+$gl-skeleton-loader-background-color: $gl-color-neutral-100; // Used for the skeleton loader background color.
+$gl-skeleton-loader-shimmer-color: $gl-color-neutral-50; // Used for the animated shimmer effect in a skeleton loader.
+$gl-spinner-track-color-default: $gl-color-neutral-100; // Used for the static track (background) of a loading spinner.
+$gl-spinner-track-color-light: $gl-color-neutral-800; // Used for the static track (background) of a loading spinner on a dark background.
+$gl-spinner-segment-color-default: $gl-color-neutral-700; // Used for the animated segment of a loading spinner.
+$gl-spinner-segment-color-light: $gl-color-neutral-200; // Used for the animated segment of a loading spinner on a dark background.
+$gl-token-selector-token-container-token-background-color-focus: $gl-color-neutral-300; // Used for the background color of a token in a token-selector when it's token-container is in the focus state.
+$gl-token-background-color: $gl-color-neutral-100; // Used for the token background color.
+$gl-tooltip-text-color-subtle: $gl-color-neutral-200; // Used for supplemental tooltip text that is less prominent than the default text and remains the same color regardless of mode.
+$black: $gl-color-neutral-1000 !default;
+$white: $gl-color-neutral-0 !default;
+$blue-50: $gl-color-blue-50 !default;
+$blue-100: $gl-color-blue-100 !default;
+$blue-200: $gl-color-blue-200 !default;
+$blue-300: $gl-color-blue-300 !default;
+$blue-400: $gl-color-blue-400 !default;
+$blue-500: $gl-color-blue-500 !default;
+$blue-600: $gl-color-blue-600 !default;
+$blue-700: $gl-color-blue-700 !default;
+$blue-800: $gl-color-blue-800 !default;
+$blue-900: $gl-color-blue-900 !default;
+$blue-950: $gl-color-blue-950 !default;
+$gray-10: $gl-color-neutral-10 !default;
+$gray-50: $gl-color-neutral-50 !default;
+$gray-100: $gl-color-neutral-100 !default;
+$gray-200: $gl-color-neutral-200 !default;
+$gray-300: $gl-color-neutral-300 !default;
+$gray-400: $gl-color-neutral-400 !default;
+$gray-500: $gl-color-neutral-500 !default;
+$gray-600: $gl-color-neutral-600 !default;
+$gray-700: $gl-color-neutral-700 !default;
+$gray-800: $gl-color-neutral-800 !default;
+$gray-900: $gl-color-neutral-900 !default;
+$gray-950: $gl-color-neutral-950 !default;
+$green-50: $gl-color-green-50 !default;
+$green-100: $gl-color-green-100 !default;
+$green-200: $gl-color-green-200 !default;
+$green-300: $gl-color-green-300 !default;
+$green-400: $gl-color-green-400 !default;
+$green-500: $gl-color-green-500 !default;
+$green-600: $gl-color-green-600 !default;
+$green-700: $gl-color-green-700 !default;
+$green-800: $gl-color-green-800 !default;
+$green-900: $gl-color-green-900 !default;
+$green-950: $gl-color-green-950 !default;
+$orange-50: $gl-color-orange-50 !default;
+$orange-100: $gl-color-orange-100 !default;
+$orange-200: $gl-color-orange-200 !default;
+$orange-300: $gl-color-orange-300 !default;
+$orange-400: $gl-color-orange-400 !default;
+$orange-500: $gl-color-orange-500 !default;
+$orange-600: $gl-color-orange-600 !default;
+$orange-700: $gl-color-orange-700 !default;
+$orange-800: $gl-color-orange-800 !default;
+$orange-900: $gl-color-orange-900 !default;
+$orange-950: $gl-color-orange-950 !default;
+$purple-50: $gl-color-purple-50 !default;
+$purple-100: $gl-color-purple-100 !default;
+$purple-200: $gl-color-purple-200 !default;
+$purple-300: $gl-color-purple-300 !default;
+$purple-400: $gl-color-purple-400 !default;
+$purple-500: $gl-color-purple-500 !default;
+$purple-600: $gl-color-purple-600 !default;
+$purple-700: $gl-color-purple-700 !default;
+$purple-800: $gl-color-purple-800 !default;
+$purple-900: $gl-color-purple-900 !default;
+$purple-950: $gl-color-purple-950 !default;
+$red-50: $gl-color-red-50 !default;
+$red-100: $gl-color-red-100 !default;
+$red-200: $gl-color-red-200 !default;
+$red-300: $gl-color-red-300 !default;
+$red-400: $gl-color-red-400 !default;
+$red-500: $gl-color-red-500 !default;
+$red-600: $gl-color-red-600 !default;
+$red-700: $gl-color-red-700 !default;
+$red-800: $gl-color-red-800 !default;
+$red-900: $gl-color-red-900 !default;
+$red-950: $gl-color-red-950 !default;
+$gl-action-disabled-foreground-color: $gl-color-neutral-400; // Used for the foreground of a disabled action.
+$gl-action-disabled-background-color: $gl-color-neutral-50; // Used for the background of a disabled action.
+$gl-action-disabled-border-color: $gl-color-neutral-100; // Used for the border of a disabled action.
+$gl-action-selected-foreground-color-default: $gl-color-neutral-0; // Used for the foreground of a selected action in the default state.
+$gl-action-selected-background-color-default: $gl-color-neutral-800; // Used for the background of a selected action in the default state.
+$gl-action-selected-background-color-hover: $gl-color-neutral-950; // Used for the background of a selected action in the hover state.
+$gl-action-selected-background-color-active: $gl-color-neutral-1000; // Used for the background of a selected action in the active state.
+$gl-action-selected-background-color-disabled: $gl-color-neutral-400; // Used for the background of a disabled action that stays selected. Sits between the disabled background and the enabled selected background so the selected state keeps 3:1 contrast against the page while still reading as disabled.
+$gl-action-neutral-foreground-color-default: $gl-color-neutral-900; // Used for the foreground of a neutral action in the default state.
+$gl-action-neutral-background-color-default: $gl-color-alpha-0; // Used for the background of a neutral action in the default state.
+$gl-action-neutral-background-color-hover: $gl-color-alpha-dark-6; // Used for the background of a neutral action in the hover state.
+$gl-action-neutral-background-color-active: $gl-color-alpha-dark-16; // Used for the background of a neutral action in the active state.
+$gl-action-neutral-border-color-default: $gl-color-alpha-0; // Used for the border of a neutral action in the default state.
+$gl-action-confirm-foreground-color-default: $gl-color-neutral-800; // Used for the foreground of a confirm (positive) action in the default state.
+$gl-action-confirm-foreground-color-hover: $gl-color-neutral-950; // Used for the foreground of a confirm (positive) action in the hover state.
+$gl-action-confirm-foreground-color-active: $gl-color-neutral-1000; // Used for the foreground of a confirm (positive) action in the active state.
+$gl-action-confirm-background-color-default: $gl-color-alpha-0; // Used for the background of a confirm (positive) action in the default state.
+$gl-action-confirm-background-color-hover: $gl-color-alpha-dark-6; // Used for the background of a confirm (positive) action in the hover state.
+$gl-action-confirm-background-color-active: $gl-color-alpha-dark-16; // Used for the background of a confirm (positive) action in the active state.
+$gl-action-confirm-border-color-default: $gl-color-alpha-0; // Used for the border of a confirm action in the default state.
+$gl-action-danger-foreground-color-default: $gl-color-red-500; // Used for the foreground of a danger (destructive) action in the default state.
+$gl-action-danger-foreground-color-hover: $gl-color-red-700; // Used for the foreground of a danger (destructive) action in the hover state.
+$gl-action-danger-foreground-color-active: $gl-color-red-900; // Used for the foreground of a danger (destructive) action in the active state.
+$gl-action-danger-background-color-focus: $gl-action-danger-background-color-hover; // Used for the background of a danger (destructive) action in the focus state.
+$gl-action-danger-border-color-default: $gl-color-alpha-0; // Used for the border of a danger action in the default state.
+$gl-action-strong-confirm-background-color-default: $gl-color-blue-500; // Used for the background of a strong confirm action in the default state.
+$gl-action-strong-confirm-background-color-hover: $gl-color-blue-600; // Used for the background of a strong confirm action in the hover state.
+$gl-action-strong-confirm-background-color-active: $gl-color-blue-700; // Used for the background of a strong confirm action in the active state.
+$gl-action-strong-confirm-foreground-color-default: $gl-color-neutral-0; // Used for the foreground of a strong confirm action in the default state.
+$gl-action-strong-confirm-border-color-default: $gl-color-alpha-0; // Used for the border of a strong confirm action in the default state.
+$gl-action-strong-neutral-background-color-default: $gl-color-neutral-600; // Used for the background of a strong neutral action in the default state.
+$gl-action-strong-neutral-background-color-hover: $gl-color-neutral-700; // Used for the background of a strong neutral action in the hover state.
+$gl-action-strong-neutral-background-color-active: $gl-color-neutral-800; // Used for the background of a strong neutral action in the active state.
+$gl-action-strong-neutral-foreground-color-default: $gl-color-neutral-0; // Used for the foreground of a strong neutral action in the default state.
+$gl-action-strong-neutral-border-color-default: $gl-color-alpha-0; // Used for the border of a strong neutral action in the default state.
+$gl-background-color-default: $gl-color-neutral-0; // Used for the default background color.
+$gl-background-color-subtle: $gl-color-neutral-10; // Used to slightly differentiate the background from the default.
+$gl-background-color-strong: $gl-color-neutral-50; // Used to make the background easily stand out from the default.
+$gl-background-color-disabled: $gl-color-neutral-10; // Used to identify a disabled section.
+$gl-background-color-overlap: $gl-color-neutral-0; // Used for components, like tooltips and drawers, and content, like a sticky header, that overlap other content.
+$gl-background-color-section: $gl-color-neutral-0; // Used for containers, like a card header, that are visually distinct from the default page background only when necessary to maintain affordance and hierarchy in different modes.
+$gl-background-color-overlay: $gl-color-alpha-dark-24; // Used for an overlay that covers other content.
+$gl-control-background-color-default: $gl-color-neutral-0; // Used for form control (input, radio button, checkbox, textarea) default background.
+$gl-control-background-color-disabled: $gl-color-neutral-10; // Used for disabled form control (checkbox, input, radio button, textarea) background.
+$gl-control-background-color-concatenation: $gl-color-neutral-10; // Used for the background of static content that prepends or appends a text input.
+$gl-control-background-color-readonly: $gl-color-alpha-dark-2; // Used for the background of static content that prepends or appends a text input.
+$gl-control-background-color-selected-default: $gl-color-neutral-800; // Used for checked and indeterminate (selected) form control (checkbox, radio button) background.
+$gl-control-background-color-selected-hover: $gl-color-neutral-950; // Used for checked and indeterminate (selected) form control (checkbox, radio button) background on hover.
+$gl-control-border-color-default: $gl-color-neutral-400; // Used for form control (input, radio button, checkbox, textarea) default border.
+$gl-control-border-color-hover: $gl-color-neutral-600; // Used for form control (input, radio button, checkbox, textarea) border on hover.
+$gl-control-border-color-focus: $gl-color-neutral-900; // Used for form control (input, radio button, checkbox, textarea) border on focus.
+$gl-control-border-color-disabled: $gl-color-neutral-100; // Used for disabled form control (input, radio button, checkbox, textarea) border.
+$gl-control-placeholder-color: $gl-color-neutral-500; // Used for placeholder text within inputs.
+$gl-control-indicator-color-selected: $gl-color-neutral-0; // Used for checkbox and radio button state indicators.
+$gl-control-indicator-color-disabled: $gl-color-neutral-500; // Used for disabled checkbox and radio button state indicators.
+$gl-feedback-strong-background-color: $gl-color-neutral-800; // Used for a background associated with strong feedback like a tooltip or toast message.
+$gl-feedback-strong-border-color: $gl-color-neutral-1000; // Used for the border associated with strong feedback.
+$gl-feedback-strong-text-color: $gl-color-neutral-0; // Used for text on a strong feedback background.
+$gl-feedback-strong-icon-color: $gl-color-neutral-0; // Used for an icon on a strong feedback background.
+$gl-feedback-strong-link-color: $gl-color-blue-300; // Used for a link on a strong feedback background.
+$gl-feedback-neutral-background-color: $gl-color-neutral-50; // Used for the background of a neutral feedback item when there isn't a specific meaning or urgency.
+$gl-feedback-neutral-border-color: $gl-color-neutral-200; // Used for the border of a neutral feedback item when there isn't a specific meaning or urgency.
+$gl-feedback-neutral-text-color: $gl-color-neutral-700; // Used for the text of a neutral feedback item when there isn't a specific meaning or urgency.
+$gl-feedback-neutral-icon-color: $gl-color-neutral-600; // Used for the icon of a neutral feedback item when there isn't a specific meaning or urgency.
+$gl-feedback-info-background-color: $gl-color-blue-50; // Used for the background of an informational feedback item when highlighting new information or a change that doesn't require immediate action.
+$gl-feedback-info-border-color: $gl-color-blue-200; // Used for the border of an informational feedback item when highlighting new information or a change that doesn't require immediate action.
+$gl-feedback-info-text-color: $gl-color-blue-700; // Used for the text of an informational feedback item when highlighting new information or a change that doesn't require immediate action.
+$gl-feedback-info-icon-color: $gl-color-blue-600; // Used for the icon of an informational feedback item when highlighting new information or a change that doesn't require immediate action.
+$gl-feedback-success-background-color: $gl-color-green-50; // Used for the background of a success feedback item when confirming the successful completion of a user-initiated action.
+$gl-feedback-success-border-color: $gl-color-green-200; // Used for the border of a success feedback item when confirming the successful completion of a user-initiated action.
+$gl-feedback-success-text-color: $gl-color-green-700; // Used for the text of a success feedback item when confirming the successful completion of a user-initiated action.
+$gl-feedback-success-icon-color: $gl-color-green-600; // Used for the icon of a success feedback item when confirming the successful completion of a user-initiated action.
+$gl-feedback-warning-background-color: $gl-color-orange-50; // Used for the background of a warning feedback item when notifying about a potential issue or sensitive information.
+$gl-feedback-warning-border-color: $gl-color-orange-200; // Used for the border of a warning feedback item when notifying about a potential issue or sensitive information.
+$gl-feedback-warning-text-color: $gl-color-orange-700; // Used for the text of a warning feedback item when notifying about a potential issue or sensitive information.
+$gl-feedback-warning-icon-color: $gl-color-orange-600; // Used for the icon of a warning feedback item when notifying about a potential issue or sensitive information.
+$gl-feedback-danger-background-color: $gl-color-red-50; // Used for the background of a danger feedback item when notifying about a critical issue that has just occurred and requires immediate attention.
+$gl-feedback-danger-border-color: $gl-color-red-500; // Used for the border of a danger feedback item when notifying about a critical issue that has just occurred and requires immediate attention.
+$gl-feedback-danger-text-color: $gl-color-red-700; // Used for the text of a danger feedback item when notifying about a critical issue that has just occurred and requires immediate attention.
+$gl-feedback-danger-icon-color: $gl-color-red-600; // Used for the icon of a danger feedback item when notifying about a critical issue that has just occurred and requires immediate attention.
+$gl-feedback-brand-background-color: $gl-color-purple-50; // Used for the background of a brand-related feedback item when highlighting information that pertains to GitLab.
+$gl-feedback-brand-border-color: $gl-color-purple-200; // Used for the border of a brand-related feedback item when highlighting information that pertains to GitLab.
+$gl-feedback-brand-text-color: $gl-color-purple-700; // Used for the text of a brand-related feedback item when highlighting information that pertains to GitLab.
+$gl-feedback-brand-icon-color: $gl-color-purple-600; // Used for the icon of a brand-related feedback item when highlighting information that pertains to GitLab.
+$gl-focus-ring-outer-color: $gl-color-blue-500; // Used for the outer color portion of the focus ring.
+$gl-highlight-match-background-color: $gl-color-orange-500; // Used for temporary visual emphasis of backgrounds of matched search terms, filtered results, or autocomplete suggestions without implying any particular state or meaning.
+$gl-highlight-match-text-color: $gl-color-neutral-0; // Used for text within temporarily highlighted matches to maintain readability while drawing attention without conveying status.
+$gl-highlight-target-background-color: $gl-color-blue-50; // Used for temporary visual emphasis for backgrounds of referenced elements (for example URL anchors, hover states) or to show relationships between content without implying status or requiring action.
+$gl-highlight-target-border-color: $gl-color-blue-200; // Used to provide additional visual emphasis for borders of temporarily targeted elements or when visualizing connections between related content, distinct from persistent states.
+$gl-icon-color-info: $gl-color-blue-700; // Used for an icon associated with information or help.
+$gl-status-neutral-background-color: $gl-color-neutral-100; // Used for the background of a neutral status item when the status is neither positive nor negative, or when indicating a special but stable state.
+$gl-status-neutral-text-color: $gl-color-neutral-700; // Used for the text of a neutral status item when the status is neither positive nor negative, or when indicating a special but stable state.
+$gl-status-neutral-icon-color: $gl-color-neutral-500; // Used for the icon of a neutral status item when the status is neither positive nor negative, or when indicating a special but stable state.
+$gl-status-info-background-color: $gl-color-blue-100; // Used for the background of an informational status item when indicating a noteworthy ongoing condition or a state of active progress.
+$gl-status-info-text-color: $gl-color-blue-700; // Used for the text of an informational status item when indicating a noteworthy ongoing condition or a state of active progress.
+$gl-status-info-icon-color: $gl-color-blue-500; // Used for the icon of an informational status item when indicating a noteworthy ongoing condition or a state of active progress.
+$gl-status-success-background-color: $gl-color-green-100; // Used for the background of a success status item when indicating a positive outcome, completion, or desired state. Clearly conveys a positive connotation.
+$gl-status-success-text-color: $gl-color-green-700; // Used for the text of a success status item when indicating a positive outcome, completion, or desired state. Clearly conveys a positive connotation.
+$gl-status-success-icon-color: $gl-color-green-500; // Used for the icon of a success status item when indicating a positive outcome, completion, or desired state. Clearly conveys a positive connotation.
+$gl-status-warning-background-color: $gl-color-orange-100; // Used for the background of a warning status item when indicating a state that requires heightened awareness or caution, but is not necessarily problematic. Represents a state that warrants extra attention or care when interacting with the item.
+$gl-status-warning-text-color: $gl-color-orange-700; // Used for the text of a warning status item when indicating a state that requires heightened awareness or caution, but is not necessarily problematic. Represents a state that warrants extra attention or care when interacting with the item.
+$gl-status-warning-icon-color: $gl-color-orange-500; // Used for the icon of a warning status item when indicating a state that requires heightened awareness or caution, but is not necessarily problematic. Represents a state that warrants extra attention or care when interacting with the item.
+$gl-status-danger-background-color: $gl-color-red-100; // Used for the background of a danger status item when indicating a critical or severely problematic current state. Clearly conveys a negative connotation, representing a serious, ongoing issue or undesired condition.
+$gl-status-danger-text-color: $gl-color-red-700; // Used for the text of a danger status item when indicating a critical or severely problematic current state. Clearly conveys a negative connotation, representing a serious, ongoing issue or undesired condition.
+$gl-status-danger-icon-color: $gl-color-red-500; // Used for the icon of a danger status item when indicating a critical or severely problematic current state. Clearly conveys a negative connotation, representing a serious, ongoing issue or undesired condition.
+$gl-status-brand-background-color: $gl-color-purple-100; // Used for the background of a brand-related status item when highlighting the state of unique features or elements specific to the GitLab brand identity. Helps distinguish and emphasize brand-specific elements within the interface.
+$gl-status-brand-text-color: $gl-color-purple-700; // Used for the text of a brand-related status item when highlighting the state of unique features or elements specific to the GitLab brand identity. Helps distinguish and emphasize brand-specific elements within the interface.
+$gl-status-brand-icon-color: $gl-color-purple-500; // Used for the icon of a brand-related status item when highlighting the state of unique features or elements specific to the GitLab brand identity. Helps distinguish and emphasize brand-specific elements within the interface.
+$gl-text-color-default: $gl-color-neutral-800; // Used for the default text color.
+$gl-text-color-subtle: $gl-color-neutral-600; // Used for supplemental text that doesn't need to be as prominent as other text.
+$gl-text-color-strong: $gl-color-neutral-950; // Used for text with the highest contrast.
+$gl-text-color-heading: $gl-color-neutral-950; // Used for headings level 1-6.
+$gl-text-color-link: $gl-color-blue-700; // Used for default text links.
+$gl-text-color-warning: $gl-color-orange-600; // Used for text that requires caution or careful attention.
+$gl-text-color-danger: $gl-color-red-600; // Used for text indicating a problem, critical state, destructive action, error, failure, removal, stop, or declination.
+$gl-text-color-success: $gl-color-green-600; // Used for text indicating success, completion, approval, addition, or validity.
+$gl-text-color-disabled: $gl-color-neutral-400; // Used for disabled text.
+$gl-heading-1-font-size: $gl-font-size-700;
+$gl-heading-1-letter-spacing: $gl-letter-spacing-heading;
+$gl-heading-1-line-height: $gl-line-height-heading;
+$gl-heading-2-font-size: $gl-font-size-600;
+$gl-heading-2-letter-spacing: $gl-letter-spacing-heading;
+$gl-heading-2-line-height: $gl-line-height-heading;
+$gl-heading-3-font-size: $gl-font-size-500;
+$gl-heading-3-line-height: $gl-line-height-heading;
+$gl-heading-4-font-size: $gl-font-size-400;
+$gl-heading-4-line-height: $gl-line-height-heading;
+$gl-heading-5-font-size: $gl-font-size-300;
+$gl-heading-5-line-height: $gl-line-height-heading;
+$gl-heading-6-font-size: $gl-font-size-200;
+$gl-heading-6-line-height: $gl-line-height-heading;
+$gl-heading-scale-100-font-size: $gl-font-size-100;
+$gl-heading-scale-100-line-height: $gl-line-height-heading;
+$gl-heading-scale-200-font-size: $gl-font-size-200;
+$gl-heading-scale-200-line-height: $gl-line-height-heading;
+$gl-heading-scale-300-font-size: $gl-font-size-300;
+$gl-heading-scale-300-line-height: $gl-line-height-heading;
+$gl-heading-scale-400-font-size: $gl-font-size-400;
+$gl-heading-scale-400-line-height: $gl-line-height-heading;
+$gl-heading-scale-500-font-size: $gl-font-size-500;
+$gl-heading-scale-500-line-height: $gl-line-height-heading;
+$gl-heading-scale-600-font-size: $gl-font-size-600;
+$gl-heading-scale-600-letter-spacing: $gl-letter-spacing-heading;
+$gl-heading-scale-600-line-height: $gl-line-height-heading;
+$gl-heading-scale-700-font-size: $gl-font-size-700;
+$gl-heading-scale-700-letter-spacing: $gl-letter-spacing-heading;
+$gl-heading-scale-700-line-height: $gl-line-height-heading;
+$gl-heading-scale-800-font-size: $gl-font-size-800;
+$gl-heading-scale-800-letter-spacing: $gl-letter-spacing-heading;
+$gl-heading-scale-100-fixed-font-size: $gl-font-size-100-fixed;
+$gl-heading-scale-100-fixed-line-height: $gl-line-height-heading;
+$gl-heading-scale-200-fixed-font-size: $gl-font-size-200-fixed;
+$gl-heading-scale-200-fixed-line-height: $gl-line-height-heading;
+$gl-heading-scale-300-fixed-font-size: $gl-font-size-300-fixed;
+$gl-heading-scale-300-fixed-line-height: $gl-line-height-heading;
+$gl-heading-scale-400-fixed-font-size: $gl-font-size-400-fixed;
+$gl-heading-scale-400-fixed-line-height: $gl-line-height-heading;
+$gl-heading-scale-500-fixed-font-size: $gl-font-size-500-fixed;
+$gl-heading-scale-500-fixed-line-height: $gl-line-height-heading;
+$gl-heading-scale-600-fixed-font-size: $gl-font-size-600-fixed;
+$gl-heading-scale-600-fixed-letter-spacing: $gl-letter-spacing-heading;
+$gl-heading-scale-600-fixed-line-height: $gl-line-height-heading;
+$gl-heading-scale-700-fixed-font-size: $gl-font-size-700-fixed;
+$gl-heading-scale-700-fixed-letter-spacing: $gl-letter-spacing-heading;
+$gl-heading-scale-700-fixed-line-height: $gl-line-height-heading;
+$gl-heading-scale-800-fixed-font-size: $gl-font-size-800-fixed;
+$gl-heading-scale-800-fixed-letter-spacing: $gl-letter-spacing-heading;
+$gl-heading-display-font-size: $gl-font-size-800;
+$gl-heading-display-letter-spacing: $gl-letter-spacing-heading;
+$gl-heading-display-margin-bottom: $gl-spacing-scale-6;
+$gl-heading-1-fixed-font-size: $gl-font-size-700-fixed;
+$gl-heading-1-fixed-letter-spacing: $gl-letter-spacing-heading;
+$gl-heading-1-fixed-line-height: $gl-line-height-heading;
+$gl-heading-2-fixed-font-size: $gl-font-size-600-fixed;
+$gl-heading-2-fixed-letter-spacing: $gl-letter-spacing-heading;
+$gl-heading-2-fixed-line-height: $gl-line-height-heading;
+$gl-heading-3-fixed-font-size: $gl-font-size-500-fixed;
+$gl-heading-3-fixed-line-height: $gl-line-height-heading;
+$gl-heading-4-fixed-font-size: $gl-font-size-400-fixed;
+$gl-heading-4-fixed-line-height: $gl-line-height-heading;
+$gl-heading-5-fixed-font-size: $gl-font-size-300-fixed;
+$gl-heading-5-fixed-line-height: $gl-line-height-heading;
+$gl-heading-6-fixed-font-size: $gl-font-size-200-fixed;
+$gl-heading-6-fixed-line-height: $gl-line-height-heading;
+$gl-border-color-section: $gl-border-color-default; // Used for the border color that surrounds content or elements when they appear as a closed container or closed section of the page.
+$gl-border-radius-default: $gl-border-radius-md;
+$gl-font-size-base: $gl-font-size-md;
+$gl-shadow-sm: 0 0 2px 0 $gl-shadow-color-default, 0 1px 4px 0 $gl-shadow-color-default; // Used for surfaces that need to indicate users can manually interact with them. For example, cards in issue board.
+$gl-shadow-md: 0 0 1px 0 $gl-shadow-color-default, 0 0 2px 0 $gl-shadow-color-default, 0 2px 8px 0 $gl-shadow-color-default; // Used for surfaces that need boundary definition and appear on hover. For example, popovers.
+$gl-shadow-lg: 0 0 2px 0 $gl-shadow-color-default, 0 0 2px 0 $gl-shadow-color-default, 0 4px 12px 0 $gl-shadow-color-default; // Used for large surfaces that present additional context to the user.
+$gl-alert-border-radius: $gl-border-radius-lg; // Used for alert border radius.
+$gl-alert-neutral-title-color: $gl-text-color-heading; // Used for the title color of a neutral alert.
+$gl-alert-neutral-background-color: $gl-feedback-neutral-background-color; // Used for the background color of a neutral alert.
+$gl-alert-info-title-color: $gl-text-color-heading; // Used for the title color of an info alert.
+$gl-alert-info-background-color: $gl-feedback-info-background-color; // Used for the background color of an info alert.
+$gl-alert-success-title-color: $gl-text-color-heading; // Used for the title color of a success alert.
+$gl-alert-success-background-color: $gl-feedback-success-background-color; // Used for the background color of a success alert.
+$gl-alert-warning-title-color: $gl-text-color-heading; // Used for the title color of a warning alert.
+$gl-alert-warning-background-color: $gl-feedback-warning-background-color; // Used for the background color of a warning alert.
+$gl-alert-danger-title-color: $gl-text-color-heading; // Used for the title color of a danger alert.
+$gl-alert-danger-background-color: $gl-feedback-danger-background-color; // Used for the background color of a danger alert.
+$gl-avatar-square-border-radius-lg: $gl-border-radius-lg; // Border radius for square avatars at larger sizes (48px, 64px, 96px).
+$gl-badge-muted-background-color-hover: $gl-badge-muted-background-color-default; // Used for the background of a muted badge in the hover state.
+$gl-badge-muted-text-color-focus: $gl-badge-muted-text-color-hover; // Used for the text of a muted badge in the focus state.
+$gl-badge-muted-icon-color-focus: $gl-badge-muted-icon-color-hover; // Used for the icon of a muted badge in the focus state.
+$gl-badge-neutral-background-color-hover: $gl-badge-neutral-background-color-default; // Used for the background of a neutral badge in the hover state.
+$gl-badge-neutral-text-color-focus: $gl-badge-neutral-text-color-hover; // Used for the text of a neutral badge in the focus state.
+$gl-badge-neutral-icon-color-focus: $gl-badge-neutral-icon-color-hover; // Used for the icon of a neutral badge in the focus state.
+$gl-badge-info-background-color-hover: $gl-badge-info-background-color-default; // Used for the background of an informational badge in the hover state.
+$gl-badge-info-text-color-focus: $gl-badge-info-text-color-hover; // Used for the text of an informational badge in the focus state.
+$gl-badge-info-icon-color-focus: $gl-badge-info-icon-color-hover; // Used for the icon of an informational badge in the focus state.
+$gl-badge-success-background-color-hover: $gl-badge-success-background-color-default; // Used for the background of a success badge in the hover state.
+$gl-badge-success-text-color-focus: $gl-badge-success-text-color-hover; // Used for the text of a success badge in the focus state.
+$gl-badge-success-icon-color-focus: $gl-badge-success-icon-color-hover; // Used for the icon of a success badge in the focus state.
+$gl-badge-warning-background-color-hover: $gl-badge-warning-background-color-default; // Used for the background of a warning badge in the hover state.
+$gl-badge-warning-text-color-focus: $gl-badge-warning-text-color-hover; // Used for the text of a warning badge in the focus state.
+$gl-badge-warning-icon-color-focus: $gl-badge-warning-icon-color-hover; // Used for the icon of a warning badge in the focus state.
+$gl-badge-danger-background-color-hover: $gl-badge-danger-background-color-default; // Used for the background of a danger badge in the hover state.
+$gl-badge-danger-text-color-focus: $gl-badge-danger-text-color-hover; // Used for the text of a danger badge in the focus state.
+$gl-badge-danger-icon-color-focus: $gl-badge-danger-icon-color-hover; // Used for the icon of a danger badge in the focus state.
+$gl-badge-tier-background-color-hover: $gl-badge-tier-background-color-default; // Used for the background of a tier related badge in the hover state.
+$gl-badge-tier-text-color-focus: $gl-badge-tier-text-color-hover; // Used for the text of a tier related badge in the focus state.
+$gl-badge-tier-icon-color-focus: $gl-badge-tier-icon-color-hover; // Used for the icon of a tier related badge in the focus state.
+$gl-button-default-primary-foreground-color-hover: $gl-button-default-primary-foreground-color-default; // Used for the foreground of a default primary button in the hover state.
+$gl-button-default-primary-foreground-color-focus: $gl-button-default-primary-foreground-color-default; // Used for the foreground of a default primary button in the focus state.
+$gl-button-default-primary-foreground-color-active: $gl-button-default-primary-foreground-color-default; // Used for the foreground of a default primary button in the active state.
+$gl-button-default-primary-background-color-focus: $gl-button-default-primary-background-color-hover; // Used for the background of an default primary button in the focus state.
+$gl-button-default-primary-border-color-focus: $gl-button-default-primary-border-color-hover; // Used for the border of an default primary button in the focus state.
+$gl-button-default-tertiary-foreground-color-default: $gl-action-neutral-foreground-color-default; // Used for the foreground of a default borderless, tertiary button in the default state.
+$gl-button-default-tertiary-background-color-default: $gl-action-neutral-background-color-default; // Used for the background of a default borderless, tertiary button in the default state.
+$gl-button-default-tertiary-background-color-hover: $gl-action-neutral-background-color-hover; // Used for the background of a default borderless, tertiary button in the hover state.
+$gl-button-default-tertiary-background-color-active: $gl-action-neutral-background-color-active; // Used for the background of a default borderless, tertiary button in the active state.
+$gl-button-default-tertiary-border-color-default: $gl-action-neutral-border-color-default; // Used for the border of a default borderless, tertiary button in the default state.
+$gl-button-confirm-primary-foreground-color-hover: $gl-button-confirm-primary-foreground-color-default; // Used for the foreground of a confirm (positive) primary button in the hover state.
+$gl-button-confirm-primary-background-color-focus: $gl-button-confirm-primary-background-color-hover; // Used for the background of a confirm (positive) primary button in the focus state.
+$gl-button-confirm-primary-border-color-hover: $gl-button-confirm-primary-border-color-default; // Used for the border of a confirm (positive) primary button in the hover state.
+$gl-button-confirm-primary-border-color-focus: $gl-button-confirm-primary-border-color-default; // Used for the border of a confirm (positive) primary button in the focus state.
+$gl-button-confirm-primary-border-color-active: $gl-button-confirm-primary-border-color-default; // Used for the border of a confirm (positive) primary button in the active state.
+$gl-button-confirm-secondary-foreground-color-focus: $gl-button-confirm-secondary-foreground-color-hover; // Used for the foreground of a confirm (positive) button in the focus state.
+$gl-button-confirm-secondary-background-color-focus: $gl-button-confirm-secondary-background-color-hover; // Used for the background of an outlined confirm (positive) button in the focus state.
+$gl-button-confirm-secondary-border-color-focus: $gl-button-confirm-secondary-border-color-hover; // Used for the border of an outlined confirm (positive) button in the focus state.
+$gl-button-confirm-tertiary-foreground-color-default: $gl-action-confirm-foreground-color-default; // Used for the foreground of a borderless, tertiary confirm (positive) button in the default state.
+$gl-button-confirm-tertiary-foreground-color-hover: $gl-action-confirm-foreground-color-hover; // Used for the foreground of a borderless, tertiary confirm (positive) button in the hover state.
+$gl-button-confirm-tertiary-foreground-color-active: $gl-action-confirm-foreground-color-active; // Used for the foreground of a borderless, tertiary confirm (positive) button in the active state.
+$gl-button-confirm-tertiary-background-color-default: $gl-action-confirm-background-color-default; // Used for the background of a borderless, tertiary confirm (positive) button in the default state.
+$gl-button-confirm-tertiary-background-color-hover: $gl-action-confirm-background-color-hover; // Used for the background of a borderless, tertiary confirm (positive) button in the hover state.
+$gl-button-confirm-tertiary-background-color-active: $gl-action-confirm-background-color-active; // Used for the background of a borderless, tertiary confirm (positive) button in the active state.
+$gl-button-confirm-tertiary-border-color-default: $gl-action-confirm-border-color-default; // Used for the border of a borderless, tertiary confirm (positive) button in the default state.
+$gl-button-danger-primary-foreground-color-hover: $gl-button-danger-primary-foreground-color-default; // Used for the foreground of a danger (destructive) primary button in the hover state.
+$gl-button-danger-primary-foreground-color-focus: $gl-button-danger-primary-foreground-color-default; // Used for the foreground of a danger (destructive) primary button in the focus state.
+$gl-button-danger-primary-foreground-color-active: $gl-button-danger-primary-foreground-color-default; // Used for the foreground of a danger (destructive) primary button in the active state.
+$gl-button-danger-primary-background-color-focus: $gl-button-danger-primary-background-color-hover; // Used for the background of a danger (destructive) primary button in the focus state.
+$gl-button-danger-primary-border-color-focus: $gl-button-danger-primary-border-color-hover; // Used for the border of a danger (destructive) primary button in the focus state.
+$gl-button-danger-secondary-foreground-color-focus: $gl-button-danger-secondary-foreground-color-hover; // Used for the foreground of a danger (destructive) button in the focus state.
+$gl-button-danger-secondary-background-color-focus: $gl-button-danger-secondary-background-color-hover; // Used for the background of an outlined danger (destructive) button in the focus state.
+$gl-button-danger-secondary-border-color-focus: $gl-button-danger-secondary-border-color-hover; // Used for the border of an outlined danger (destructive) button in the focus state.
+$gl-button-danger-tertiary-foreground-color-default: $gl-action-danger-foreground-color-default; // Used for the foreground of a borderless, tertiary danger (destructive) button in the default state.
+$gl-button-danger-tertiary-foreground-color-hover: $gl-action-danger-foreground-color-hover; // Used for the foreground of a borderless, tertiary danger (destructive) button in the hover state.
+$gl-button-danger-tertiary-foreground-color-active: $gl-action-danger-foreground-color-active; // Used for the foreground of a borderless, tertiary danger (destructive) button in the active state.
+$gl-button-danger-tertiary-background-color-focus: $gl-action-danger-background-color-focus; // Used for the background of a borderless, tertiary danger (destructive) button in the focus state.
+$gl-button-danger-tertiary-border-color-default: $gl-action-danger-border-color-default; // Used for the border of a borderless, tertiary danger (destructive) button in the default state.
+$gl-button-dashed-border-color-hover: $gl-button-dashed-border-color-default; // Used for the border of a dashed button in the hover state.
+$gl-button-dashed-border-color-focus: $gl-button-dashed-border-color-default; // Used for the border of a dashed button in the focus state.
+$gl-button-link-border-radius: $gl-border-radius-md; // Used for link button border radius.
+$gl-button-link-text-color-default: $gl-text-color-link; // Used for the text of a link button in the default state.
+$gl-button-selected-foreground-color-default: $gl-button-default-primary-foreground-color-default; // Used for the foreground of a selected button in the default state.
+$gl-button-selected-background-color-hover: $gl-button-default-primary-background-color-hover; // Used for the background of a selected button in the hover state.
+$gl-button-selected-background-color-active: $gl-button-default-primary-background-color-active; // Used for the background of a selected button in the active state.
+$gl-button-selected-border-color-focus: $gl-button-selected-border-color-hover; // Used for the border of a selected button in the focus state.
+$gl-card-border-radius: $gl-border-radius-xl; // Used for card border radius.
+$gl-chart-axis-text-color: $gl-text-color-subtle; // Used in charts for the text color of axis titles and labels.
+$gl-datepicker-date-text-color-selected: $gl-control-indicator-color-selected; // Used for the datepicker date text color state indicators.
+$gl-drawer-border-radius: $gl-border-radius-2xl; // Used for drawer border radius.
+$gl-dropdown-background-color: $gl-background-color-overlap; // Used for the background of a dropdown.
+$gl-dropdown-border-color: $gl-border-color-strong; // Used for the border of a dropdown.
+$gl-dropdown-border-radius: $gl-border-radius-lg; // Used for the border radius of a dropdown.
+$gl-dropdown-divider-color: $gl-border-color-default; // Used for the divider of a dropdown.
+$gl-dropdown-option-text-color-default: $gl-action-neutral-foreground-color-default; // Used for the text of a dropdown option in the default state.
+$gl-dropdown-option-text-color-disabled: $gl-action-disabled-foreground-color; // Used for the text of a dropdown option in the disabled state.
+$gl-dropdown-option-indicator-color-selected-default: $gl-control-background-color-selected-default; // Used for the dropdown selected option indicator in the default state.
+$gl-dropdown-option-indicator-color-selected-hover: $gl-control-background-color-selected-hover; // Used for the dropdown selected option indicator in the hover state.
+$gl-dropdown-option-background-color-unselected-default: $gl-action-neutral-background-color-default; // Used for the background of an unselected dropdown option in the default state.
+$gl-dropdown-option-background-color-unselected-hover: $gl-action-neutral-background-color-hover; // Used for the background of an unselected dropdown option in the hover state.
+$gl-dropdown-option-background-color-unselected-active: $gl-action-neutral-background-color-active; // Used for the background of an unselected dropdown option in the active state.
+$gl-dropdown-option-background-color-selected-focus: $gl-dropdown-option-background-color-selected-hover; // Used for the background of a selected dropdown option in the focus state.
+$gl-modal-border-radius: $gl-border-radius-2xl; // Used for modal border radius.
+$gl-nav-item-foreground-color-focus: $gl-nav-item-foreground-color-hover; // Used for the foreground of a default navigation item in the focus state.
+$gl-nav-item-background-color-focus: $gl-nav-item-background-color-hover; // Used for the background of a default navigation item in the focus state.
+$gl-nav-item-selected-foreground-color-hover: $gl-nav-item-foreground-color-hover; // Used for the foreground of a selected navigation item in the hover state.
+$gl-nav-item-selected-background-color-hover: $gl-nav-item-background-color-hover; // Used for the background of a selected navigation item in the hover state.
+$gl-nav-item-selected-background-color-active: $gl-nav-item-background-color-active; // Used for the background of a selected navigation item in the active state.
+$gl-progress-bar-indicator-color-default: $gl-status-info-icon-color; // Used for the indicator color for the primary progress-bar variant.
+$gl-progress-bar-indicator-color-success: $gl-status-success-icon-color; // Used for the indicator color for the success progress-bar variant.
+$gl-progress-bar-indicator-color-warning: $gl-status-warning-icon-color; // Used for the indicator color for the warning progress-bar variant.
+$gl-progress-bar-indicator-color-danger: $gl-status-danger-icon-color; // Used for the indicator color for the danger progress-bar variant.
+$gl-table-row-background-color-hover: $gl-highlight-target-background-color; // Used for the background of a table row in hover state.
+$gl-table-sorting-icon-color: $gl-text-color-heading; // Used for the color of the sorting icons in the column headers.
+$gl-toggle-switch-track-color-unchecked-default: $gl-control-background-color-default; // Used for the track color of an unchecked toggle switch in the default state.
+$gl-toggle-switch-track-color-unchecked-active: $gl-action-neutral-background-color-active; // Used for the track color of an unchecked toggle switch in the active state.
+$gl-toggle-switch-track-color-unchecked-disabled: $gl-control-background-color-default; // Used for the track color of a disabled unchecked toggle switch.
+$gl-toggle-switch-track-color-checked-default: $gl-action-selected-background-color-default; // Used for the track color of a checked toggle switch in the default state.
+$gl-toggle-switch-track-color-checked-hover: $gl-action-selected-background-color-hover; // Used for the track color of a checked toggle switch in the hover state.
+$gl-toggle-switch-track-color-checked-active: $gl-action-selected-background-color-active; // Used for the track color of a checked toggle switch in the active state.
+$gl-toggle-switch-track-color-checked-disabled: $gl-action-selected-background-color-disabled; // Used for the track color of a disabled checked toggle switch, which stays filled so the checked state remains legible.
+$gl-toggle-switch-track-color-loading: $gl-action-disabled-background-color; // Used for the track color of a loading toggle switch. A loading toggle renders no thumb and its value is still in flight, so the track carries no checked state.
+$gl-toggle-switch-track-border-color-unchecked-default: $gl-control-border-color-default; // Used for the track border color of an unchecked toggle switch in the default state.
+$gl-toggle-switch-track-border-color-unchecked-hover: $gl-control-border-color-hover; // Used for the track border color of an unchecked toggle switch in the hover state.
+$gl-toggle-switch-track-border-color-unchecked-disabled: $gl-action-disabled-border-color; // Used for the track border color of a disabled unchecked toggle switch.
+$gl-toggle-switch-background-color-unchecked-default: $gl-action-selected-background-color-default; // Used for the background color of the unchecked toggle switch thumb in the default state.
+$gl-toggle-switch-background-color-unchecked-disabled: $gl-action-disabled-foreground-color; // Used for the background color of the disabled unchecked toggle switch thumb.
+$gl-toggle-switch-background-color-checked-default: $gl-action-selected-foreground-color-default; // Used for the background color of the checked toggle switch thumb in the default state.
+$gl-toggle-switch-background-color-checked-disabled: $gl-action-selected-foreground-color-default; // Used for the background color of the disabled checked toggle switch thumb.
+$gl-toggle-switch-icon-color-unchecked-default: $gl-action-selected-foreground-color-default; // Used for the icon color of an unchecked toggle switch in the default state.
+$gl-toggle-switch-icon-color-checked-default: $gl-action-selected-background-color-default; // Used for the icon color of a checked toggle switch in the default state.
+$gl-toggle-switch-icon-color-checked-hover: $gl-action-selected-background-color-hover; // Used for the icon color of a checked toggle switch in the hover state.
+$gl-toggle-switch-icon-color-checked-active: $gl-action-selected-background-color-active; // Used for the icon color of a checked toggle switch in the active state.
+$gl-toggle-switch-icon-color-disabled: $gl-action-disabled-background-color; // Used for the icon color of a disabled toggle switch.
+$gl-token-foreground-color: $gl-text-color-default; // Used for the token foreground color.
+$gl-action-border-radius: $gl-border-radius-lg; // Used for the border radius of an action.
+$gl-action-selected-foreground-color-hover: $gl-action-selected-foreground-color-default; // Used for the foreground of a selected action in the hover state.
+$gl-action-selected-background-color-focus: $gl-action-selected-background-color-hover; // Used for the background of a selected action in the focus state.
+$gl-action-selected-border-color-default: $gl-action-selected-background-color-default; // Used for the border of a selected action in the default state.
+$gl-action-selected-border-color-hover: $gl-action-selected-background-color-hover; // Used for the border of a selected action in the hover state.
+$gl-action-selected-border-color-active: $gl-action-selected-background-color-active; // Used for the border of a selected action in the active state.
+$gl-action-neutral-foreground-color-hover: $gl-action-neutral-foreground-color-default; // Used for the foreground of a neutral action in the hover state.
+$gl-action-neutral-foreground-color-focus: $gl-action-neutral-foreground-color-default; // Used for the foreground of a neutral action in the focus state.
+$gl-action-neutral-foreground-color-active: $gl-action-neutral-foreground-color-default; // Used for the foreground of a neutral action in the active state.
+$gl-action-neutral-background-color-focus: $gl-action-neutral-background-color-hover; // Used for the background of a neutral action in the focus state.
+$gl-action-neutral-border-color-hover: $gl-action-neutral-border-color-default; // Used for the border of a neutral action in the hover state.
+$gl-action-neutral-border-color-focus: $gl-action-neutral-border-color-default; // Used for the border of a neutral action in the focus state.
+$gl-action-neutral-border-color-active: $gl-action-neutral-border-color-default; // Used for the border of a neutral action in the active state.
+$gl-action-confirm-foreground-color-focus: $gl-action-confirm-foreground-color-hover; // Used for the foreground of a confirm (positive) action in the focus state.
+$gl-action-confirm-background-color-focus: $gl-action-confirm-background-color-hover; // Used for the background of a confirm (positive) action in the focus state.
+$gl-action-confirm-border-color-hover: $gl-action-confirm-border-color-default; // Used for the border of a confirm action in the hover state.
+$gl-action-confirm-border-color-focus: $gl-action-confirm-border-color-default; // Used for the border of a confirm action in the focus state.
+$gl-action-confirm-border-color-active: $gl-action-confirm-border-color-default; // Used for the border of a confirm action in the active state.
+$gl-action-danger-foreground-color-focus: $gl-action-danger-foreground-color-hover; // Used for the foreground of a danger (destructive) action in the focus state.
+$gl-action-danger-border-color-hover: $gl-action-danger-border-color-default; // Used for the border of a danger action in the hover state.
+$gl-action-danger-border-color-focus: $gl-action-danger-border-color-default; // Used for the border of a danger action in the focus state.
+$gl-action-danger-border-color-active: $gl-action-danger-border-color-default; // Used for the border of a danger action in the active state.
+$gl-action-strong-confirm-background-color-focus: $gl-action-strong-confirm-background-color-hover; // Used for the background of a strong confirm action in the focus state.
+$gl-action-strong-confirm-foreground-color-hover: $gl-action-strong-confirm-foreground-color-default; // Used for the foreground of a strong confirm action in the hover state.
+$gl-action-strong-confirm-border-color-hover: $gl-action-strong-confirm-border-color-default; // Used for the border of a strong confirm action in the hover state.
+$gl-action-strong-neutral-background-color-focus: $gl-action-strong-neutral-background-color-hover; // Used for the background of a strong neutral action in the focus state.
+$gl-action-strong-neutral-foreground-color-hover: $gl-action-strong-neutral-foreground-color-default; // Used for the foreground of a strong neutral action in the hover state.
+$gl-action-strong-neutral-border-color-hover: $gl-action-strong-neutral-border-color-default; // Used for the border of a strong neutral action in the hover state.
+$gl-control-background-color-selected-focus: $gl-control-background-color-selected-hover; // Used for checked and indeterminate (selected) form control (checkbox, radio button) background on focus.
+$gl-control-border-color-error: $gl-feedback-danger-border-color; // Used for invalid form control (input, textarea) border.
+$gl-control-border-color-selected-default: $gl-control-background-color-selected-default; // Used for checked and indeterminate (selected) form control (checkbox, radio button) border.
+$gl-control-border-color-selected-hover: $gl-control-background-color-selected-hover; // Used for checked and indeterminate (selected) form control (checkbox, radio button) border on hover.
+$gl-control-border-radius: $gl-border-radius-lg; // Used for form control (input, radio button, checkbox, textarea) default border radius.
+$gl-control-text-color-error: $gl-text-color-danger; // Used for the helper text when the input is invalid.
+$gl-control-text-color-valid: $gl-text-color-success; // Used for the helper text when the input is valid.
+$gl-feedback-border-radius: $gl-border-radius-lg; // Used for the border radius of a feedback element.
+$gl-focus-ring-inner-color: $gl-background-color-default; // Used for the inner neutral portion of the focus ring.
+$gl-icon-color-default: $gl-text-color-default; // Used for the default icon color. Can be paired with default text.
+$gl-icon-color-subtle: $gl-text-color-subtle; // Used for a static or decorational icon. Can be paired with subtle text.
+$gl-icon-color-strong: $gl-text-color-strong; // Used for an icon with the highest contrast.
+$gl-icon-color-disabled: $gl-text-color-disabled; // Used for an icon within a disabled section.
+$gl-icon-color-link: $gl-text-color-link; // Used for an icon within a link.
+$gl-icon-color-warning: $gl-text-color-warning; // Used for an icon associated with a warning.
+$gl-icon-color-danger: $gl-text-color-danger; // Used for an icon associated with an error or danger.
+$gl-icon-color-success: $gl-text-color-success; // Used for an icon associated with success or validity.
+$gl-text-primary: $gl-text-color-default; // Use text.color.default instead.
+$gl-text-secondary: $gl-text-color-subtle; // Use text.color.subtle instead.
+$gl-text-tertiary: $gl-text-color-disabled; // Use text.color.disabled instead.
+$gl-heading-1-font-weight: $gl-font-weight-heading;
+$gl-heading-1-margin-top: $gl-heading-default-margin-top;
+$gl-heading-1-margin-bottom: $gl-heading-default-margin-bottom;
+$gl-heading-1-color: $gl-text-color-heading;
+$gl-heading-2-font-weight: $gl-font-weight-heading;
+$gl-heading-2-margin-top: $gl-heading-default-margin-top;
+$gl-heading-2-margin-bottom: $gl-heading-default-margin-bottom;
+$gl-heading-2-color: $gl-text-color-heading;
+$gl-heading-3-font-weight: $gl-font-weight-heading;
+$gl-heading-3-margin-top: $gl-heading-default-margin-top;
+$gl-heading-3-margin-bottom: $gl-heading-default-margin-bottom;
+$gl-heading-3-color: $gl-text-color-heading;
+$gl-heading-4-font-weight: $gl-font-weight-heading;
+$gl-heading-4-margin-top: $gl-heading-default-margin-top;
+$gl-heading-4-margin-bottom: $gl-heading-default-margin-bottom;
+$gl-heading-4-color: $gl-text-color-heading;
+$gl-heading-5-font-weight: $gl-font-weight-heading;
+$gl-heading-5-margin-top: $gl-heading-default-margin-top;
+$gl-heading-5-margin-bottom: $gl-heading-default-margin-bottom;
+$gl-heading-5-color: $gl-text-color-heading;
+$gl-heading-6-font-weight: $gl-font-weight-heading;
+$gl-heading-6-margin-top: $gl-heading-default-margin-top;
+$gl-heading-6-margin-bottom: $gl-heading-default-margin-bottom;
+$gl-heading-6-color: $gl-text-color-heading;
+$gl-heading-scale-100-font-weight: $gl-font-weight-heading;
+$gl-heading-scale-100-margin-top: $gl-heading-default-margin-top;
+$gl-heading-scale-100-color: $gl-text-color-heading;
+$gl-heading-scale-200-font-weight: $gl-font-weight-heading;
+$gl-heading-scale-200-margin-top: $gl-heading-default-margin-top;
+$gl-heading-scale-200-color: $gl-text-color-heading;
+$gl-heading-scale-300-font-weight: $gl-font-weight-heading;
+$gl-heading-scale-300-margin-top: $gl-heading-default-margin-top;
+$gl-heading-scale-300-color: $gl-text-color-heading;
+$gl-heading-scale-400-font-weight: $gl-font-weight-heading;
+$gl-heading-scale-400-margin-top: $gl-heading-default-margin-top;
+$gl-heading-scale-400-color: $gl-text-color-heading;
+$gl-heading-scale-500-font-weight: $gl-font-weight-heading;
+$gl-heading-scale-500-margin-top: $gl-heading-default-margin-top;
+$gl-heading-scale-500-color: $gl-text-color-heading;
+$gl-heading-scale-600-font-weight: $gl-font-weight-heading;
+$gl-heading-scale-600-margin-top: $gl-heading-default-margin-top;
+$gl-heading-scale-600-color: $gl-text-color-heading;
+$gl-heading-scale-700-font-weight: $gl-font-weight-heading;
+$gl-heading-scale-700-margin-top: $gl-heading-default-margin-top;
+$gl-heading-scale-700-color: $gl-text-color-heading;
+$gl-heading-scale-800-font-weight: $gl-font-weight-heading;
+$gl-heading-scale-800-margin-top: $gl-heading-default-margin-top;
+$gl-heading-scale-800-color: $gl-text-color-heading;
+$gl-heading-scale-100-fixed-font-weight: $gl-font-weight-heading;
+$gl-heading-scale-100-fixed-margin-top: $gl-heading-default-margin-top;
+$gl-heading-scale-100-fixed-color: $gl-text-color-heading;
+$gl-heading-scale-200-fixed-font-weight: $gl-font-weight-heading;
+$gl-heading-scale-200-fixed-margin-top: $gl-heading-default-margin-top;
+$gl-heading-scale-200-fixed-color: $gl-text-color-heading;
+$gl-heading-scale-300-fixed-font-weight: $gl-font-weight-heading;
+$gl-heading-scale-300-fixed-margin-top: $gl-heading-default-margin-top;
+$gl-heading-scale-300-fixed-color: $gl-text-color-heading;
+$gl-heading-scale-400-fixed-font-weight: $gl-font-weight-heading;
+$gl-heading-scale-400-fixed-margin-top: $gl-heading-default-margin-top;
+$gl-heading-scale-400-fixed-color: $gl-text-color-heading;
+$gl-heading-scale-500-fixed-font-weight: $gl-font-weight-heading;
+$gl-heading-scale-500-fixed-margin-top: $gl-heading-default-margin-top;
+$gl-heading-scale-500-fixed-color: $gl-text-color-heading;
+$gl-heading-scale-600-fixed-font-weight: $gl-font-weight-heading;
+$gl-heading-scale-600-fixed-margin-top: $gl-heading-default-margin-top;
+$gl-heading-scale-600-fixed-color: $gl-text-color-heading;
+$gl-heading-scale-700-fixed-font-weight: $gl-font-weight-heading;
+$gl-heading-scale-700-fixed-margin-top: $gl-heading-default-margin-top;
+$gl-heading-scale-700-fixed-color: $gl-text-color-heading;
+$gl-heading-scale-800-fixed-font-weight: $gl-font-weight-heading;
+$gl-heading-scale-800-fixed-margin-top: $gl-heading-default-margin-top;
+$gl-heading-scale-800-fixed-color: $gl-text-color-heading;
+$gl-heading-display-font-weight: $gl-font-weight-heading;
+$gl-heading-display-margin-top: $gl-heading-default-margin-top;
+$gl-heading-display-color: $gl-text-color-heading;
+$gl-heading-1-fixed-font-weight: $gl-font-weight-heading;
+$gl-heading-1-fixed-margin-top: $gl-heading-default-margin-top;
+$gl-heading-1-fixed-margin-bottom: $gl-heading-default-margin-bottom;
+$gl-heading-1-fixed-color: $gl-text-color-heading;
+$gl-heading-2-fixed-font-weight: $gl-font-weight-heading;
+$gl-heading-2-fixed-margin-top: $gl-heading-default-margin-top;
+$gl-heading-2-fixed-margin-bottom: $gl-heading-default-margin-bottom;
+$gl-heading-2-fixed-color: $gl-text-color-heading;
+$gl-heading-3-fixed-font-weight: $gl-font-weight-heading;
+$gl-heading-3-fixed-margin-top: $gl-heading-default-margin-top;
+$gl-heading-3-fixed-margin-bottom: $gl-heading-default-margin-bottom;
+$gl-heading-3-fixed-color: $gl-text-color-heading;
+$gl-heading-4-fixed-font-weight: $gl-font-weight-heading;
+$gl-heading-4-fixed-margin-top: $gl-heading-default-margin-top;
+$gl-heading-4-fixed-margin-bottom: $gl-heading-default-margin-bottom;
+$gl-heading-4-fixed-color: $gl-text-color-heading;
+$gl-heading-5-fixed-font-weight: $gl-font-weight-heading;
+$gl-heading-5-fixed-margin-top: $gl-heading-default-margin-top;
+$gl-heading-5-fixed-margin-bottom: $gl-heading-default-margin-bottom;
+$gl-heading-5-fixed-color: $gl-text-color-heading;
+$gl-heading-6-fixed-font-weight: $gl-font-weight-heading;
+$gl-heading-6-fixed-margin-top: $gl-heading-default-margin-top;
+$gl-heading-6-fixed-margin-bottom: $gl-heading-default-margin-bottom;
+$gl-heading-6-fixed-color: $gl-text-color-heading;
+$gl-avatar-square-border-radius-default: $gl-border-radius-default; // Border radius for square avatars at smaller sizes (16px, 24px, 32px).
+$gl-badge-muted-background-color-focus: $gl-badge-muted-background-color-hover; // Used for the background of a muted badge in the focus state.
+$gl-badge-neutral-background-color-focus: $gl-badge-neutral-background-color-hover; // Used for the background of a neutral badge in the focus state.
+$gl-badge-info-background-color-focus: $gl-badge-info-background-color-hover; // Used for the background of an informational badge in the focus state.
+$gl-badge-success-background-color-focus: $gl-badge-success-background-color-hover; // Used for the background of a success badge in the focus state.
+$gl-badge-warning-background-color-focus: $gl-badge-warning-background-color-hover; // Used for the background of a warning badge in the focus state.
+$gl-badge-danger-background-color-focus: $gl-badge-danger-background-color-hover; // Used for the background of a danger badge in the focus state.
+$gl-badge-tier-background-color-focus: $gl-badge-tier-background-color-hover; // Used for the background of a tier related badge in the focus state.
+$gl-broadcast-banner-border-radius: $gl-border-radius-default; // Used for broadcast banner border radius.
+$gl-button-border-radius: $gl-action-border-radius; // Used for button border radius.
+$gl-button-default-tertiary-foreground-color-hover: $gl-action-neutral-foreground-color-hover; // Used for the foreground of a default borderless, tertiary button in the hover state.
+$gl-button-default-tertiary-foreground-color-focus: $gl-action-neutral-foreground-color-focus; // Used for the foreground of a default borderless, tertiary button in the focus state.
+$gl-button-default-tertiary-foreground-color-active: $gl-action-neutral-foreground-color-active; // Used for the foreground of a default borderless, tertiary button in the active state.
+$gl-button-default-tertiary-background-color-focus: $gl-action-neutral-background-color-focus; // Used for the background of a default borderless, tertiary button in the focus state.
+$gl-button-default-tertiary-border-color-hover: $gl-action-neutral-border-color-hover; // Used for the border of a default borderless, tertiary button in the hover state.
+$gl-button-default-tertiary-border-color-focus: $gl-action-neutral-border-color-focus; // Used for the border of a default borderless, tertiary button in the focus state.
+$gl-button-default-tertiary-border-color-active: $gl-action-neutral-border-color-active; // Used for the border of a default borderless, tertiary button in the active state.
+$gl-button-confirm-primary-foreground-color-focus: $gl-button-confirm-primary-foreground-color-hover; // Used for the foreground of a confirm (positive) primary button in the focus state.
+$gl-button-confirm-tertiary-foreground-color-focus: $gl-action-confirm-foreground-color-focus; // Used for the foreground of a borderless, tertiary confirm (positive) button in the focus state.
+$gl-button-confirm-tertiary-background-color-focus: $gl-action-confirm-background-color-focus; // Used for the background of a borderless, tertiary confirm (positive) button in the focus state.
+$gl-button-confirm-tertiary-border-color-hover: $gl-action-confirm-border-color-hover; // Used for the border of a borderless, tertiary confirm (positive) button in the hover state.
+$gl-button-confirm-tertiary-border-color-focus: $gl-action-confirm-border-color-focus; // Used for the border of a borderless, tertiary confirm (positive) button in the focus state.
+$gl-button-confirm-tertiary-border-color-active: $gl-action-confirm-border-color-active; // Used for the border of a borderless, tertiary confirm (positive) button in the active state.
+$gl-button-danger-tertiary-foreground-color-focus: $gl-action-danger-foreground-color-focus; // Used for the foreground of a borderless, tertiary danger (destructive) button in the focus state.
+$gl-button-danger-tertiary-border-color-hover: $gl-action-danger-border-color-hover; // Used for the border of a borderless, tertiary danger (destructive) button in the hover state.
+$gl-button-danger-tertiary-border-color-focus: $gl-action-danger-border-color-focus; // Used for the border of a borderless, tertiary danger (destructive) button in the focus state.
+$gl-button-danger-tertiary-border-color-active: $gl-action-danger-border-color-active; // Used for the border of a borderless, tertiary danger (destructive) button in the active state.
+$gl-button-link-text-color-hover: $gl-button-link-text-color-default; // Used for the text of a link button in the hover state.
+$gl-button-link-text-color-focus: $gl-button-link-text-color-default; // Used for the text of a link button in the focus state.
+$gl-button-link-text-color-active: $gl-button-link-text-color-default; // Used for the text of a link button in the active state.
+$gl-button-selected-foreground-color-hover: $gl-button-default-primary-foreground-color-hover; // Used for the foreground of a selected button in the hover state.
+$gl-button-selected-foreground-color-focus: $gl-button-default-primary-foreground-color-focus; // Used for the foreground of a selected button in the focus state.
+$gl-button-selected-foreground-color-active: $gl-button-default-primary-foreground-color-active; // Used for the foreground of a selected button in the active state.
+$gl-button-selected-background-color-focus: $gl-button-default-primary-background-color-focus; // Used for the background of a selected button in the focus state.
+$gl-chart-axis-pointer-color: $gl-icon-color-subtle; // Used in charts for the color of the reference line and axis value under mouse pointer.
+$gl-chart-zoom-handle-color: $gl-icon-color-subtle; // Used in charts for the handle color when zooming in on a specific area of data.
+$gl-dropdown-option-text-color-hover: $gl-action-neutral-foreground-color-hover; // Used for the text of a dropdown option in the hover state.
+$gl-dropdown-option-text-color-focus: $gl-action-neutral-foreground-color-focus; // Used for the text of a dropdown option in the focus state.
+$gl-dropdown-option-text-color-active: $gl-action-neutral-foreground-color-active; // Used for the text of a dropdown option in the active state.
+$gl-dropdown-option-indicator-color-selected-focus: $gl-control-background-color-selected-focus; // Used for the dropdown selected option indicator in the focus state.
+$gl-dropdown-option-indicator-color-selected-active: $gl-control-background-color-selected-focus; // Used for the dropdown selected option indicator in the active state.
+$gl-dropdown-option-background-color-unselected-focus: $gl-action-neutral-background-color-focus; // Used for the background of an unselected dropdown option in the focus state.
+$gl-nav-item-border-radius: $gl-action-border-radius; // Used for the border radius of a navigation item
+$gl-nav-item-foreground-color-active: $gl-nav-item-foreground-color-focus; // Used for the foreground of a default navigation item in the active state.
+$gl-nav-item-selected-foreground-color-focus: $gl-nav-item-foreground-color-focus; // Used for the foreground of a selected navigation item in the focus state.
+$gl-nav-item-selected-background-color-focus: $gl-nav-item-background-color-focus; // Used for the background of a selected navigation item in the focus state.
+$gl-tab-selected-indicator-color-default: $gl-action-selected-border-color-active; // Used for the selected indicator of a tab.
+$gl-toggle-switch-track-color-unchecked-hover: $gl-toggle-switch-track-color-unchecked-default; // Used for the track color of an unchecked toggle switch in the hover state. The track is deliberately unchanged from the default state; hover is carried by the track border and the thumb size.
+$gl-toggle-switch-track-color-checked-focus: $gl-action-selected-background-color-focus; // Used for the track color of a checked toggle switch in the focus state.
+$gl-toggle-switch-track-border-color-unchecked-focus: $gl-toggle-switch-track-border-color-unchecked-hover; // Used for the track border color of an unchecked toggle switch in the focus state.
+$gl-toggle-switch-track-border-color-checked-default: $gl-action-selected-border-color-default; // Used for the track border color of a checked toggle switch in the default state.
+$gl-toggle-switch-track-border-color-checked-hover: $gl-action-selected-border-color-hover; // Used for the track border color of a checked toggle switch in the hover state.
+$gl-toggle-switch-track-border-color-checked-active: $gl-action-selected-border-color-active; // Used for the track border color of a checked toggle switch in the active state.
+$gl-toggle-switch-track-border-color-checked-disabled: $gl-toggle-switch-track-color-checked-disabled; // Used for the track border color of a disabled checked toggle switch, which matches the track color.
+$gl-toggle-switch-track-border-color-loading: $gl-toggle-switch-track-color-loading; // Used for the track border color of a loading toggle switch, which matches the track color so the track reads as a single flat fill.
+$gl-toggle-switch-background-color-unchecked-hover: $gl-toggle-switch-background-color-unchecked-default; // Used for the background color of the unchecked toggle switch thumb in the hover state.
+$gl-toggle-switch-background-color-unchecked-focus: $gl-toggle-switch-background-color-unchecked-default; // Used for the background color of the unchecked toggle switch thumb in the focus state.
+$gl-toggle-switch-background-color-unchecked-active: $gl-toggle-switch-background-color-unchecked-default; // Used for the background color of the unchecked toggle switch thumb in the active state.
+$gl-toggle-switch-background-color-checked-hover: $gl-action-selected-foreground-color-hover; // Used for the background color of the checked toggle switch thumb in the hover state.
+$gl-toggle-switch-background-color-disabled: $gl-toggle-switch-background-color-unchecked-disabled; // Use toggle.switch.background.color.unchecked.disabled instead.
+$gl-toggle-switch-icon-color-unchecked-hover: $gl-action-selected-foreground-color-hover; // Used for the icon color of an unchecked toggle switch in the hover state.
+$gl-toggle-switch-icon-color-checked-focus: $gl-action-selected-background-color-focus; // Used for the icon color of a checked toggle switch in the focus state.
+$gl-token-border-radius: $gl-border-radius-default; // Used for token border radius.
+$gl-action-selected-foreground-color-focus: $gl-action-selected-foreground-color-hover; // Used for the foreground of a selected action in the focus state.
+$gl-action-selected-border-color-focus: $gl-action-selected-background-color-focus; // Used for the border of a selected action in the focus state.
+$gl-action-strong-confirm-foreground-color-focus: $gl-action-strong-confirm-foreground-color-hover; // Used for the foreground of a strong confirm action in the focus state.
+$gl-action-strong-confirm-border-color-focus: $gl-action-strong-confirm-border-color-hover; // Used for the border of a strong confirm action in the focus state.
+$gl-action-strong-neutral-foreground-color-focus: $gl-action-strong-neutral-foreground-color-hover; // Used for the foreground of a strong neutral action in the focus state.
+$gl-action-strong-neutral-border-color-focus: $gl-action-strong-neutral-border-color-hover; // Used for the border of a strong neutral action in the focus state.
+$gl-control-border-color-selected-focus: $gl-control-background-color-selected-focus; // Used for checked and indeterminate (selected) form control (checkbox, radio button) border on focus.
+$gl-button-confirm-primary-foreground-color-active: $gl-button-confirm-primary-foreground-color-focus; // Used for the foreground of a confirm (positive) primary button in the active state.
+$gl-nav-item-selected-foreground-color-active: $gl-nav-item-foreground-color-active; // Used for the foreground of a selected navigation item in the active state.
+$gl-toggle-switch-track-color-unchecked-focus: $gl-toggle-switch-track-color-unchecked-hover; // Used for the track color of an unchecked toggle switch in the focus state. The track is deliberately unchanged from the default state; focus is carried by the focus ring, the track border and the thumb size.
+$gl-toggle-switch-track-border-color-unchecked-active: $gl-toggle-switch-track-border-color-unchecked-focus; // Used for the track border color of an unchecked toggle switch in the active state.
+$gl-toggle-switch-track-border-color-checked-focus: $gl-action-selected-border-color-focus; // Used for the track border color of a checked toggle switch in the focus state.
+$gl-toggle-switch-background-color-checked-focus: $gl-action-selected-foreground-color-focus; // Used for the background color of the checked toggle switch thumb in the focus state.
+$gl-toggle-switch-icon-color-unchecked-focus: $gl-action-selected-foreground-color-focus; // Used for the icon color of an unchecked toggle switch in the focus state.
+$gl-action-selected-foreground-color-active: $gl-action-selected-foreground-color-focus; // Used for the foreground of a selected action in the active state.
+$gl-action-strong-confirm-foreground-color-active: $gl-action-strong-confirm-foreground-color-focus; // Used for the foreground of a strong confirm action in the active state.
+$gl-action-strong-confirm-border-color-active: $gl-action-strong-confirm-border-color-focus; // Used for the border of a strong confirm action in the active state.
+$gl-action-strong-neutral-foreground-color-active: $gl-action-strong-neutral-foreground-color-focus; // Used for the foreground of a strong neutral action in the active state.
+$gl-action-strong-neutral-border-color-active: $gl-action-strong-neutral-border-color-focus; // Used for the border of a strong neutral action in the active state.
+$gl-toggle-switch-background-color-checked-active: $gl-action-selected-foreground-color-active; // Used for the background color of the checked toggle switch thumb in the active state.
+$gl-toggle-switch-icon-color-unchecked-active: $gl-action-selected-foreground-color-active; // Used for the icon color of an unchecked toggle switch in the active state.

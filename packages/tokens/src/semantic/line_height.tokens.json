@@ -1,0 +1,13 @@
+{
+  "line-height": {
+    "heading": {
+      "$value": 1.25,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "LINE_HEIGHT"
+        ]
+      }
+    }
+  }
+}

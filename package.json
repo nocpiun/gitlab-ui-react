@@ -1,0 +1,19 @@
+{
+  "name": "@gitlab-ui-react/monorepo",
+  "private": true,
+  "description": "",
+  "scripts": {
+    "lint": "oxlint .",
+    "tokens:build": "pnpm --filter @gitlab-ui-react/tokens build"
+  },
+  "keywords": [],
+  "author": "NriotHrreion",
+  "license": "MIT",
+  "packageManager": "pnpm@10.33.0",
+  "devDependencies": {
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-react": "^7.37.5",
+    "oxlint": "^1.80.0"
+  }
+}

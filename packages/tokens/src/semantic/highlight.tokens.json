@@ -1,0 +1,70 @@
+{
+  "highlight": {
+    "match": {
+      "background": {
+        "color": {
+          "$value": {
+            "default": "{color.orange.500}",
+            "dark": "{color.orange.200}"
+          },
+          "$type": "color",
+          "$description": "Used for temporary visual emphasis of backgrounds of matched search terms, filtered results, or autocomplete suggestions without implying any particular state or meaning.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        }
+      },
+      "text": {
+        "color": {
+          "$value": {
+            "default": "{color.neutral.0}",
+            "dark": "{color.neutral.950}"
+          },
+          "$type": "color",
+          "$description": "Used for text within temporarily highlighted matches to maintain readability while drawing attention without conveying status.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "TEXT_FILL"
+            ]
+          }
+        }
+      }
+    },
+    "target": {
+      "background": {
+        "color": {
+          "$value": {
+            "default": "{color.blue.50}",
+            "dark": "{color.blue.950}"
+          },
+          "$type": "color",
+          "$description": "Used for temporary visual emphasis for backgrounds of referenced elements (for example URL anchors, hover states) or to show relationships between content without implying status or requiring action.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        }
+      },
+      "border": {
+        "color": {
+          "$value": {
+            "default": "{color.blue.200}",
+            "dark": "{color.blue.700}"
+          },
+          "$type": "color",
+          "$description": "Used to provide additional visual emphasis for borders of temporarily targeted elements or when visualizing connections between related content, distinct from persistent states.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "STROKE_COLOR"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

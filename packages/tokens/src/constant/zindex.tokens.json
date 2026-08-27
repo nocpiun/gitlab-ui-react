@@ -1,0 +1,53 @@
+{
+  "zindex": {
+    "0": {
+      "$value": "0",
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "1": {
+      "$value": "1",
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "2": {
+      "$value": "2",
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "3": {
+      "$value": "3",
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "4": {
+      "$value": "4",
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "200": {
+      "$value": "200",
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "9999": {
+      "$value": "9999",
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    }
+  }
+}

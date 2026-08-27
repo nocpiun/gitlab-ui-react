@@ -1,0 +1,182 @@
+{
+  "heading": {
+    "scale": {
+      "100": {
+        "$value": {
+          "fontWeight": "{font.weight.heading}",
+          "marginTop": "{heading.default.margin.top}",
+          "fontSize": "{font.size.100}",
+          "letterSpacing": "inherit",
+          "lineHeight": "{line-height.heading}",
+          "color": "{text.color.heading}"
+        },
+        "$type": "typography"
+      },
+      "100-fixed": {
+        "$value": {
+          "fontWeight": "{font.weight.heading}",
+          "marginTop": "{heading.default.margin.top}",
+          "fontSize": "{font.size.100-fixed}",
+          "letterSpacing": "inherit",
+          "lineHeight": "{line-height.heading}",
+          "color": "{text.color.heading}"
+        },
+        "$type": "typography"
+      },
+      "200": {
+        "$value": {
+          "fontWeight": "{font.weight.heading}",
+          "marginTop": "{heading.default.margin.top}",
+          "fontSize": "{font.size.200}",
+          "letterSpacing": "inherit",
+          "lineHeight": "{line-height.heading}",
+          "color": "{text.color.heading}"
+        },
+        "$type": "typography"
+      },
+      "200-fixed": {
+        "$value": {
+          "fontWeight": "{font.weight.heading}",
+          "marginTop": "{heading.default.margin.top}",
+          "fontSize": "{font.size.200-fixed}",
+          "letterSpacing": "inherit",
+          "lineHeight": "{line-height.heading}",
+          "color": "{text.color.heading}"
+        },
+        "$type": "typography"
+      },
+      "300": {
+        "$value": {
+          "fontWeight": "{font.weight.heading}",
+          "marginTop": "{heading.default.margin.top}",
+          "fontSize": "{font.size.300}",
+          "letterSpacing": "inherit",
+          "lineHeight": "{line-height.heading}",
+          "color": "{text.color.heading}"
+        },
+        "$type": "typography"
+      },
+      "300-fixed": {
+        "$value": {
+          "fontWeight": "{font.weight.heading}",
+          "marginTop": "{heading.default.margin.top}",
+          "fontSize": "{font.size.300-fixed}",
+          "letterSpacing": "inherit",
+          "lineHeight": "{line-height.heading}",
+          "color": "{text.color.heading}"
+        },
+        "$type": "typography"
+      },
+      "400": {
+        "$value": {
+          "fontWeight": "{font.weight.heading}",
+          "marginTop": "{heading.default.margin.top}",
+          "fontSize": "{font.size.400}",
+          "letterSpacing": "inherit",
+          "lineHeight": "{line-height.heading}",
+          "color": "{text.color.heading}"
+        },
+        "$type": "typography"
+      },
+      "400-fixed": {
+        "$value": {
+          "fontWeight": "{font.weight.heading}",
+          "marginTop": "{heading.default.margin.top}",
+          "fontSize": "{font.size.400-fixed}",
+          "letterSpacing": "inherit",
+          "lineHeight": "{line-height.heading}",
+          "color": "{text.color.heading}"
+        },
+        "$type": "typography"
+      },
+      "500": {
+        "$value": {
+          "fontWeight": "{font.weight.heading}",
+          "marginTop": "{heading.default.margin.top}",
+          "fontSize": "{font.size.500}",
+          "letterSpacing": "inherit",
+          "lineHeight": "{line-height.heading}",
+          "color": "{text.color.heading}"
+        },
+        "$type": "typography"
+      },
+      "500-fixed": {
+        "$value": {
+          "fontWeight": "{font.weight.heading}",
+          "marginTop": "{heading.default.margin.top}",
+          "fontSize": "{font.size.500-fixed}",
+          "letterSpacing": "inherit",
+          "lineHeight": "{line-height.heading}",
+          "color": "{text.color.heading}"
+        },
+        "$type": "typography"
+      },
+      "600": {
+        "$value": {
+          "fontWeight": "{font.weight.heading}",
+          "marginTop": "{heading.default.margin.top}",
+          "fontSize": "{font.size.600}",
+          "letterSpacing": "{letter-spacing.heading}",
+          "lineHeight": "{line-height.heading}",
+          "color": "{text.color.heading}"
+        },
+        "$type": "typography"
+      },
+      "600-fixed": {
+        "$value": {
+          "fontWeight": "{font.weight.heading}",
+          "marginTop": "{heading.default.margin.top}",
+          "fontSize": "{font.size.600-fixed}",
+          "letterSpacing": "{letter-spacing.heading}",
+          "lineHeight": "{line-height.heading}",
+          "color": "{text.color.heading}"
+        },
+        "$type": "typography"
+      },
+      "700": {
+        "$value": {
+          "fontWeight": "{font.weight.heading}",
+          "marginTop": "{heading.default.margin.top}",
+          "fontSize": "{font.size.700}",
+          "letterSpacing": "{letter-spacing.heading}",
+          "lineHeight": "{line-height.heading}",
+          "color": "{text.color.heading}"
+        },
+        "$type": "typography"
+      },
+      "700-fixed": {
+        "$value": {
+          "fontWeight": "{font.weight.heading}",
+          "marginTop": "{heading.default.margin.top}",
+          "fontSize": "{font.size.700-fixed}",
+          "letterSpacing": "{letter-spacing.heading}",
+          "lineHeight": "{line-height.heading}",
+          "color": "{text.color.heading}"
+        },
+        "$type": "typography"
+      },
+      "800": {
+        "$value": {
+          "fontWeight": "{font.weight.heading}",
+          "marginTop": "{heading.default.margin.top}",
+          "fontSize": "{font.size.800}",
+          "letterSpacing": "{letter-spacing.heading}",
+          "lineHeight": 1.125,
+          "color": "{text.color.heading}"
+        },
+        "$type": "typography"
+      },
+      "800-fixed": {
+        "$value": {
+          "fontWeight": "{font.weight.heading}",
+          "marginTop": "{heading.default.margin.top}",
+          "fontSize": "{font.size.800-fixed}",
+          "letterSpacing": "{letter-spacing.heading}",
+          "lineHeight": 1.125,
+          "color": "{text.color.heading}"
+        },
+        "$type": "typography"
+      }
+    }
+  }
+}

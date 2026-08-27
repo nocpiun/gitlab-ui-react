@@ -1,0 +1,298 @@
+{
+  "status": {
+    "neutral": {
+      "background": {
+        "color": {
+          "$value": {
+            "default": "{color.neutral.100}",
+            "dark": "{color.neutral.800}"
+          },
+          "$type": "color",
+          "$description": "Used for the background of a neutral status item when the status is neither positive nor negative, or when indicating a special but stable state.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        }
+      },
+      "text": {
+        "color": {
+          "$value": {
+            "default": "{color.neutral.700}",
+            "dark": "{color.neutral.200}"
+          },
+          "$type": "color",
+          "$description": "Used for the text of a neutral status item when the status is neither positive nor negative, or when indicating a special but stable state.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "TEXT_FILL"
+            ]
+          }
+        }
+      },
+      "icon": {
+        "color": {
+          "$value": {
+            "default": "{color.neutral.500}",
+            "dark": "{color.neutral.300}"
+          },
+          "$type": "color",
+          "$description": "Used for the icon of a neutral status item when the status is neither positive nor negative, or when indicating a special but stable state.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "SHAPE_FILL",
+              "TEXT_FILL"
+            ]
+          }
+        }
+      }
+    },
+    "info": {
+      "background": {
+        "color": {
+          "$value": {
+            "default": "{color.blue.100}",
+            "dark": "{color.blue.800}"
+          },
+          "$type": "color",
+          "$description": "Used for the background of an informational status item when indicating a noteworthy ongoing condition or a state of active progress.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        }
+      },
+      "text": {
+        "color": {
+          "$value": {
+            "default": "{color.blue.700}",
+            "dark": "{color.blue.200}"
+          },
+          "$type": "color",
+          "$description": "Used for the text of an informational status item when indicating a noteworthy ongoing condition or a state of active progress.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "TEXT_FILL"
+            ]
+          }
+        }
+      },
+      "icon": {
+        "color": {
+          "$value": {
+            "default": "{color.blue.500}",
+            "dark": "{color.blue.300}"
+          },
+          "$type": "color",
+          "$description": "Used for the icon of an informational status item when indicating a noteworthy ongoing condition or a state of active progress.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "SHAPE_FILL",
+              "TEXT_FILL"
+            ]
+          }
+        }
+      }
+    },
+    "success": {
+      "background": {
+        "color": {
+          "$value": {
+            "default": "{color.green.100}",
+            "dark": "{color.green.800}"
+          },
+          "$type": "color",
+          "$description": "Used for the background of a success status item when indicating a positive outcome, completion, or desired state. Clearly conveys a positive connotation.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        }
+      },
+      "text": {
+        "color": {
+          "$value": {
+            "default": "{color.green.700}",
+            "dark": "{color.green.200}"
+          },
+          "$type": "color",
+          "$description": "Used for the text of a success status item when indicating a positive outcome, completion, or desired state. Clearly conveys a positive connotation.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "TEXT_FILL"
+            ]
+          }
+        }
+      },
+      "icon": {
+        "color": {
+          "$value": {
+            "default": "{color.green.500}",
+            "dark": "{color.green.300}"
+          },
+          "$type": "color",
+          "$description": "Used for the icon of a success status item when indicating a positive outcome, completion, or desired state. Clearly conveys a positive connotation.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "SHAPE_FILL",
+              "TEXT_FILL"
+            ]
+          }
+        }
+      }
+    },
+    "warning": {
+      "background": {
+        "color": {
+          "$value": {
+            "default": "{color.orange.100}",
+            "dark": "{color.orange.800}"
+          },
+          "$type": "color",
+          "$description": "Used for the background of a warning status item when indicating a state that requires heightened awareness or caution, but is not necessarily problematic. Represents a state that warrants extra attention or care when interacting with the item.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        }
+      },
+      "text": {
+        "color": {
+          "$value": {
+            "default": "{color.orange.700}",
+            "dark": "{color.orange.200}"
+          },
+          "$type": "color",
+          "$description": "Used for the text of a warning status item when indicating a state that requires heightened awareness or caution, but is not necessarily problematic. Represents a state that warrants extra attention or care when interacting with the item.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "TEXT_FILL"
+            ]
+          }
+        }
+      },
+      "icon": {
+        "color": {
+          "$value": {
+            "default": "{color.orange.500}",
+            "dark": "{color.orange.300}"
+          },
+          "$type": "color",
+          "$description": "Used for the icon of a warning status item when indicating a state that requires heightened awareness or caution, but is not necessarily problematic. Represents a state that warrants extra attention or care when interacting with the item.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "SHAPE_FILL",
+              "TEXT_FILL"
+            ]
+          }
+        }
+      }
+    },
+    "danger": {
+      "background": {
+        "color": {
+          "$value": {
+            "default": "{color.red.100}",
+            "dark": "{color.red.800}"
+          },
+          "$type": "color",
+          "$description": "Used for the background of a danger status item when indicating a critical or severely problematic current state. Clearly conveys a negative connotation, representing a serious, ongoing issue or undesired condition.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        }
+      },
+      "text": {
+        "color": {
+          "$value": {
+            "default": "{color.red.700}",
+            "dark": "{color.red.200}"
+          },
+          "$type": "color",
+          "$description": "Used for the text of a danger status item when indicating a critical or severely problematic current state. Clearly conveys a negative connotation, representing a serious, ongoing issue or undesired condition.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "TEXT_FILL"
+            ]
+          }
+        }
+      },
+      "icon": {
+        "color": {
+          "$value": {
+            "default": "{color.red.500}",
+            "dark": "{color.red.300}"
+          },
+          "$type": "color",
+          "$description": "Used for the icon of a danger status item when indicating a critical or severely problematic current state. Clearly conveys a negative connotation, representing a serious, ongoing issue or undesired condition.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "SHAPE_FILL",
+              "TEXT_FILL"
+            ]
+          }
+        }
+      }
+    },
+    "brand": {
+      "background": {
+        "color": {
+          "$value": {
+            "default": "{color.purple.100}",
+            "dark": "{color.purple.900}"
+          },
+          "$type": "color",
+          "$description": "Used for the background of a brand-related status item when highlighting the state of unique features or elements specific to the GitLab brand identity. Helps distinguish and emphasize brand-specific elements within the interface.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        }
+      },
+      "text": {
+        "color": {
+          "$value": {
+            "default": "{color.purple.700}",
+            "dark": "{color.purple.300}"
+          },
+          "$type": "color",
+          "$description": "Used for the text of a brand-related status item when highlighting the state of unique features or elements specific to the GitLab brand identity. Helps distinguish and emphasize brand-specific elements within the interface.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "TEXT_FILL"
+            ]
+          }
+        }
+      },
+      "icon": {
+        "color": {
+          "$value": {
+            "default": "{color.purple.500}",
+            "dark": "{color.purple.500}"
+          },
+          "$type": "color",
+          "$description": "Used for the icon of a brand-related status item when highlighting the state of unique features or elements specific to the GitLab brand identity. Helps distinguish and emphasize brand-specific elements within the interface.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "SHAPE_FILL",
+              "TEXT_FILL"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,337 @@
+{
+  "font": {
+    "family": {
+      "regular": {
+        "$value": [
+          "var(--default-regular-font, 'GitLab Sans')",
+          "'GitLab Sans'",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "'Segoe UI'",
+          "Roboto",
+          "'Noto Sans'",
+          "Ubuntu",
+          "Cantarell",
+          "'Helvetica Neue'",
+          "sans-serif",
+          "'Apple Color Emoji'",
+          "'Segoe UI Emoji'",
+          "'Segoe UI Symbol'",
+          "'Noto Color Emoji'"
+        ],
+        "$type": "fontFamily",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_FAMILY"
+          ]
+        }
+      },
+      "monospace": {
+        "$value": [
+          "var(--default-mono-font, 'GitLab Mono')",
+          "'GitLab Mono'",
+          "'JetBrains Mono'",
+          "Menlo",
+          "'DejaVu Sans Mono'",
+          "'Liberation Mono'",
+          "Consolas",
+          "'Ubuntu Mono'",
+          "'Courier New'",
+          "'andale mono'",
+          "'lucida console'",
+          "monospace"
+        ],
+        "$type": "fontFamily",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_FAMILY"
+          ]
+        }
+      }
+    },
+    "size": {
+      "xs": {
+        "$value": {
+          "value": 0.625,
+          "unit": "rem"
+        },
+        "$type": "dimension",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ]
+        }
+      },
+      "sm": {
+        "$value": "{font.size.100}",
+        "$type": "dimension",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ]
+        }
+      },
+      "md": {
+        "$value": "{font.size.300}",
+        "$type": "dimension",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ]
+        }
+      },
+      "lg": {
+        "$value": "{font.size.400}",
+        "$type": "dimension",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ]
+        }
+      },
+      "100": {
+        "$value": {
+          "value": 0.75,
+          "unit": "rem"
+        },
+        "$type": "dimension",
+        "$description": "Used for meta text and small labels.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ]
+        }
+      },
+      "100-fixed": {
+        "$value": {
+          "value": 0.75,
+          "unit": "rem"
+        },
+        "$type": "dimension",
+        "$description": "Used for meta text and small labels.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ]
+        }
+      },
+      "200": {
+        "$value": {
+          "value": 0.8125,
+          "unit": "rem"
+        },
+        "$type": "dimension",
+        "$description": "Used for level 6 headings.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ]
+        }
+      },
+      "200-fixed": {
+        "$value": {
+          "value": 0.8125,
+          "unit": "rem"
+        },
+        "$type": "dimension",
+        "$description": "Used for level 6 headings.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ]
+        }
+      },
+      "300": {
+        "$value": {
+          "value": 0.875,
+          "unit": "rem"
+        },
+        "$type": "dimension",
+        "$description": "Used for level 5 headings, body text, input labels, and help text.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ]
+        }
+      },
+      "300-fixed": {
+        "$value": {
+          "value": 0.875,
+          "unit": "rem"
+        },
+        "$type": "dimension",
+        "$description": "Used for level 5 headings, body text, input labels, and help text.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ]
+        }
+      },
+      "400": {
+        "$value": {
+          "value": 1,
+          "unit": "rem"
+        },
+        "$type": "dimension",
+        "$description": "Used for level 4 headings, large body text.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ]
+        }
+      },
+      "400-fixed": {
+        "$value": {
+          "value": 1,
+          "unit": "rem"
+        },
+        "$type": "dimension",
+        "$description": "Used for level 4 headings, large body text.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ]
+        }
+      },
+      "500": {
+        "$value": "clamp(1.125rem, 0.9027777778rem + 0.462962963vw, 1.25rem)",
+        "$type": "string",
+        "$description": "Used for responsive level 3 headings.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ]
+        }
+      },
+      "500-fixed": {
+        "$value": {
+          "value": 1.125,
+          "unit": "rem"
+        },
+        "$type": "dimension",
+        "$description": "Used for level 3 headings.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ]
+        }
+      },
+      "600": {
+        "$value": "clamp(1.3125rem, 0.8680555556rem + 0.9259259259vw, 1.5625rem)",
+        "$type": "string",
+        "$description": "Used for responsive level 2 headings.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ]
+        }
+      },
+      "600-fixed": {
+        "$value": {
+          "value": 1.3125,
+          "unit": "rem"
+        },
+        "$type": "dimension",
+        "$description": "Used for level 2 headings.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ]
+        }
+      },
+      "700": {
+        "$value": "clamp(1.5rem, 0.8333333333rem + 1.3888888889vw, 1.875rem)",
+        "$type": "string",
+        "$description": "Used for responsive level 1 headings",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ]
+        }
+      },
+      "700-fixed": {
+        "$value": {
+          "value": 1.5,
+          "unit": "rem"
+        },
+        "$type": "dimension",
+        "$description": "Used for level 1 headings",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ]
+        }
+      },
+      "800": {
+        "$value": "clamp(1.75rem, 0.8611111111rem + 1.8518518519vw, 2.25rem)",
+        "$type": "string",
+        "$description": "Used for a responsive display option that can be applied to a level 1 heading to increase its prominence.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ]
+        }
+      },
+      "800-fixed": {
+        "$value": {
+          "value": 1.75,
+          "unit": "rem"
+        },
+        "$type": "dimension",
+        "$description": "Used for a display option that can be applied to a level 1 heading to increase its prominence.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ]
+        }
+      }
+    },
+    "weight": {
+      "100": {
+        "$value": 100,
+        "$type": "fontWeight",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_WEIGHT"
+          ]
+        }
+      },
+      "300": {
+        "$value": 300,
+        "$type": "fontWeight",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_WEIGHT"
+          ]
+        }
+      },
+      "normal": {
+        "$value": 400,
+        "$type": "fontWeight",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_WEIGHT"
+          ]
+        }
+      },
+      "semibold": {
+        "$value": 500,
+        "$type": "fontWeight",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_WEIGHT"
+          ]
+        }
+      },
+      "bold": {
+        "$value": 600,
+        "$type": "fontWeight",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_WEIGHT"
+          ]
+        }
+      }
+    }
+  }
+}

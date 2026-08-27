@@ -1,0 +1,54 @@
+{
+  "banner": {
+    "intro": {
+      "border": {
+        "color": {
+          "$value": {
+            "default": "{color.blue.200}",
+            "dark": "{color.blue.700}"
+          },
+          "$type": "color",
+          "$description": "Used for the border of an info banner.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "STROKE_COLOR"
+            ]
+          }
+        }
+      }
+    },
+    "promo": {
+      "background": {
+        "color": {
+          "$value": {
+            "default": "{color.purple.50}",
+            "dark": "{color.purple.950}"
+          },
+          "$type": "color",
+          "$description": "Used for the background of a promo banner.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        }
+      },
+      "border": {
+        "color": {
+          "$value": {
+            "default": "{color.purple.200}",
+            "dark": "{color.purple.700}"
+          },
+          "$type": "color",
+          "$description": "Used for the border of a promo banner.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "STROKE_COLOR"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

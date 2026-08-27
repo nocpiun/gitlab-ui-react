@@ -1,0 +1,16 @@
+{
+  "drawer": {
+    "border": {
+      "radius": {
+        "$value": "{border.radius.2xl}",
+        "$type": "dimension",
+        "$description": "Used for drawer border radius.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "CORNER_RADIUS"
+          ]
+        }
+      }
+    }
+  }
+}

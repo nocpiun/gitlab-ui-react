@@ -1,0 +1,156 @@
+{
+  "text": {
+    "primary": {
+      "$value": "{text.color.default}",
+      "$type": "color",
+      "$description": "Use text.color.default instead.",
+      "$extensions": {
+        "com.figma.scopes": [
+          "TEXT_FILL"
+        ]
+      },
+      "$deprecated": true
+    },
+    "secondary": {
+      "$value": "{text.color.subtle}",
+      "$type": "color",
+      "$description": "Use text.color.subtle instead.",
+      "$extensions": {
+        "com.figma.scopes": [
+          "TEXT_FILL"
+        ]
+      },
+      "$deprecated": true
+    },
+    "tertiary": {
+      "$value": "{text.color.disabled}",
+      "$type": "color",
+      "$description": "Use text.color.disabled instead.",
+      "$extensions": {
+        "com.figma.scopes": [
+          "TEXT_FILL"
+        ]
+      },
+      "$deprecated": true
+    },
+    "color": {
+      "default": {
+        "$value": {
+          "default": "{color.neutral.800}",
+          "dark": "{color.neutral.50}"
+        },
+        "$type": "color",
+        "$description": "Used for the default text color.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "subtle": {
+        "$value": {
+          "default": "{color.neutral.600}",
+          "dark": "{color.neutral.200}"
+        },
+        "$type": "color",
+        "$description": "Used for supplemental text that doesn't need to be as prominent as other text.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "strong": {
+        "$value": {
+          "default": "{color.neutral.950}",
+          "dark": "{color.neutral.0}"
+        },
+        "$type": "color",
+        "$description": "Used for text with the highest contrast.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "heading": {
+        "$value": {
+          "default": "{color.neutral.950}",
+          "dark": "{color.neutral.0}"
+        },
+        "$type": "color",
+        "$description": "Used for headings level 1-6.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "link": {
+        "$value": {
+          "default": "{color.blue.700}",
+          "dark": "{color.blue.200}"
+        },
+        "$type": "color",
+        "$description": "Used for default text links.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "warning": {
+        "$value": {
+          "default": "{color.orange.600}",
+          "dark": "{color.orange.300}"
+        },
+        "$type": "color",
+        "$description": "Used for text that requires caution or careful attention.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "danger": {
+        "$value": {
+          "default": "{color.red.600}",
+          "dark": "{color.red.300}"
+        },
+        "$type": "color",
+        "$description": "Used for text indicating a problem, critical state, destructive action, error, failure, removal, stop, or declination.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "success": {
+        "$value": {
+          "default": "{color.green.600}",
+          "dark": "{color.green.300}"
+        },
+        "$type": "color",
+        "$description": "Used for text indicating success, completion, approval, addition, or validity.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "disabled": {
+        "$value": {
+          "default": "{color.neutral.400}",
+          "dark": "{color.neutral.400}"
+        },
+        "$type": "color",
+        "$description": "Used for disabled text.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "TEXT_FILL"
+          ]
+        }
+      }
+    }
+  }
+}

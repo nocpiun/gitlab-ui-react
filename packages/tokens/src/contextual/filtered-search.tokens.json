@@ -1,0 +1,108 @@
+{
+  "filtered-search": {
+    "token": {
+      "type": {
+        "background": {
+          "color": {
+            "default": {
+              "$value": {
+                "default": "{color.neutral.50}",
+                "dark": "{color.neutral.900}"
+              },
+              "$type": "color",
+              "$description": "Used for the filtered search type token background color in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": {
+                "default": "{color.neutral.100}",
+                "dark": "{color.neutral.800}"
+              },
+              "$type": "color",
+              "$description": "Used for the filtered search type token background color in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "data": {
+        "background": {
+          "color": {
+            "default": {
+              "$value": {
+                "default": "{color.neutral.100}",
+                "dark": "{color.neutral.800}"
+              },
+              "$type": "color",
+              "$description": "Used for the filtered search data background color in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": {
+                "default": "{color.neutral.200}",
+                "dark": "{color.neutral.700}"
+              },
+              "$type": "color",
+              "$description": "Used for the filtered search data token background color in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "operator": {
+        "background": {
+          "color": {
+            "default": {
+              "$value": {
+                "default": "{color.neutral.50}",
+                "dark": "{color.neutral.900}"
+              },
+              "$type": "color",
+              "$description": "Used for the filtered search operator background color in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": {
+                "default": "{color.neutral.100}",
+                "dark": "{color.neutral.800}"
+              },
+              "$type": "color",
+              "$description": "Used for the filtered search operator token background color in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

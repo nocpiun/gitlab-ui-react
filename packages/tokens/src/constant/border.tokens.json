@@ -1,0 +1,102 @@
+{
+  "border": {
+    "color": {
+      "transparent": {
+        "$value": "{color.alpha.0}",
+        "$type": "color",
+        "$description": "Used when a border needs to be present, but not visibly perceived.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      }
+    },
+    "radius": {
+      "none": {
+        "$value": "{spacing-scale.0}",
+        "$type": "dimension",
+        "$extensions": {
+          "com.figma.scopes": [
+            "CORNER_RADIUS"
+          ]
+        }
+      },
+      "xs": {
+        "$value": "{spacing-scale.px}",
+        "$type": "dimension",
+        "$extensions": {
+          "com.figma.scopes": [
+            "CORNER_RADIUS"
+          ]
+        }
+      },
+      "sm": {
+        "$value": "{spacing-scale.1}",
+        "$type": "dimension",
+        "$extensions": {
+          "com.figma.scopes": [
+            "CORNER_RADIUS"
+          ]
+        }
+      },
+      "md": {
+        "$value": "{spacing-scale.2}",
+        "$type": "dimension",
+        "$extensions": {
+          "com.figma.scopes": [
+            "CORNER_RADIUS"
+          ]
+        }
+      },
+      "lg": {
+        "$value": "{spacing-scale.3}",
+        "$type": "dimension",
+        "$extensions": {
+          "com.figma.scopes": [
+            "CORNER_RADIUS"
+          ]
+        }
+      },
+      "xl": {
+        "$value": "{spacing-scale.4}",
+        "$type": "dimension",
+        "$extensions": {
+          "com.figma.scopes": [
+            "CORNER_RADIUS"
+          ]
+        }
+      },
+      "2xl": {
+        "$value": "{spacing-scale.5}",
+        "$type": "dimension",
+        "$extensions": {
+          "com.figma.scopes": [
+            "CORNER_RADIUS"
+          ]
+        }
+      },
+      "3xl": {
+        "$value": "{spacing-scale.6}",
+        "$type": "dimension",
+        "$extensions": {
+          "com.figma.scopes": [
+            "CORNER_RADIUS"
+          ]
+        }
+      },
+      "full": {
+        "$value": {
+          "value": 9999,
+          "unit": "px"
+        },
+        "$type": "dimension",
+        "$extensions": {
+          "com.figma.scopes": [
+            "CORNER_RADIUS"
+          ]
+        }
+      }
+    }
+  }
+}

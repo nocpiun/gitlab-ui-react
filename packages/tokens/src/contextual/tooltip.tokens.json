@@ -1,0 +1,18 @@
+{
+  "tooltip": {
+    "text": {
+      "color": {
+        "subtle": {
+          "$value": "{color.neutral.200}",
+          "$type": "color",
+          "$description": "Used for supplemental tooltip text that is less prominent than the default text and remains the same color regardless of mode.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "TEXT_FILL"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

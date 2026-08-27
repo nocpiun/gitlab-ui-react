@@ -1,0 +1,467 @@
+{
+  "feedback": {
+    "border": {
+      "radius": {
+        "$value": "{border.radius.lg}",
+        "$type": "dimension",
+        "$description": "Used for the border radius of a feedback element.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "CORNER_RADIUS"
+          ]
+        }
+      }
+    },
+    "strong": {
+      "background": {
+        "color": {
+          "$value": "{color.neutral.800}",
+          "$type": "color",
+          "$description": "Used for a background associated with strong feedback like a tooltip or toast message.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        }
+      },
+      "border": {
+        "color": {
+          "$value": {
+            "default": "{color.neutral.1000}",
+            "dark": "{color.neutral.300}"
+          },
+          "$type": "color",
+          "$description": "Used for the border associated with strong feedback.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "STROKE_COLOR"
+            ]
+          }
+        }
+      },
+      "text": {
+        "color": {
+          "$value": "{color.neutral.0}",
+          "$type": "color",
+          "$description": "Used for text on a strong feedback background.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "TEXT_FILL"
+            ]
+          }
+        }
+      },
+      "icon": {
+        "color": {
+          "$value": "{color.neutral.0}",
+          "$type": "color",
+          "$description": "Used for an icon on a strong feedback background.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "SHAPE_FILL",
+              "TEXT_FILL"
+            ]
+          }
+        }
+      },
+      "link": {
+        "color": {
+          "$value": "{color.blue.300}",
+          "$type": "color",
+          "$description": "Used for a link on a strong feedback background.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "TEXT_FILL"
+            ]
+          }
+        }
+      }
+    },
+    "neutral": {
+      "background": {
+        "color": {
+          "$value": {
+            "default": "{color.neutral.50}",
+            "dark": "{color.neutral.900}"
+          },
+          "$type": "color",
+          "$description": "Used for the background of a neutral feedback item when there isn't a specific meaning or urgency.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        }
+      },
+      "border": {
+        "color": {
+          "$value": {
+            "default": "{color.neutral.200}",
+            "dark": "{color.neutral.600}"
+          },
+          "$type": "color",
+          "$description": "Used for the border of a neutral feedback item when there isn't a specific meaning or urgency.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "STROKE_COLOR"
+            ]
+          }
+        }
+      },
+      "text": {
+        "color": {
+          "$value": {
+            "default": "{color.neutral.700}",
+            "dark": "{color.neutral.200}"
+          },
+          "$type": "color",
+          "$description": "Used for the text of a neutral feedback item when there isn't a specific meaning or urgency.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "TEXT_FILL"
+            ]
+          }
+        }
+      },
+      "icon": {
+        "color": {
+          "$value": {
+            "default": "{color.neutral.600}",
+            "dark": "{color.neutral.300}"
+          },
+          "$type": "color",
+          "$description": "Used for the icon of a neutral feedback item when there isn't a specific meaning or urgency.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "SHAPE_FILL",
+              "TEXT_FILL"
+            ]
+          }
+        }
+      }
+    },
+    "info": {
+      "background": {
+        "color": {
+          "$value": {
+            "default": "{color.blue.50}",
+            "dark": "{color.blue.950}"
+          },
+          "$type": "color",
+          "$description": "Used for the background of an informational feedback item when highlighting new information or a change that doesn't require immediate action.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        }
+      },
+      "border": {
+        "color": {
+          "$value": {
+            "default": "{color.blue.200}",
+            "dark": "{color.blue.600}"
+          },
+          "$type": "color",
+          "$description": "Used for the border of an informational feedback item when highlighting new information or a change that doesn't require immediate action.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "STROKE_COLOR"
+            ]
+          }
+        }
+      },
+      "text": {
+        "color": {
+          "$value": {
+            "default": "{color.blue.700}",
+            "dark": "{color.blue.200}"
+          },
+          "$type": "color",
+          "$description": "Used for the text of an informational feedback item when highlighting new information or a change that doesn't require immediate action.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "TEXT_FILL"
+            ]
+          }
+        }
+      },
+      "icon": {
+        "color": {
+          "$value": {
+            "default": "{color.blue.600}",
+            "dark": "{color.blue.300}"
+          },
+          "$type": "color",
+          "$description": "Used for the icon of an informational feedback item when highlighting new information or a change that doesn't require immediate action.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "SHAPE_FILL",
+              "TEXT_FILL"
+            ]
+          }
+        }
+      }
+    },
+    "success": {
+      "background": {
+        "color": {
+          "$value": {
+            "default": "{color.green.50}",
+            "dark": "{color.green.900}"
+          },
+          "$type": "color",
+          "$description": "Used for the background of a success feedback item when confirming the successful completion of a user-initiated action.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        }
+      },
+      "border": {
+        "color": {
+          "$value": {
+            "default": "{color.green.200}",
+            "dark": "{color.green.600}"
+          },
+          "$type": "color",
+          "$description": "Used for the border of a success feedback item when confirming the successful completion of a user-initiated action.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "STROKE_COLOR"
+            ]
+          }
+        }
+      },
+      "text": {
+        "color": {
+          "$value": {
+            "default": "{color.green.700}",
+            "dark": "{color.green.200}"
+          },
+          "$type": "color",
+          "$description": "Used for the text of a success feedback item when confirming the successful completion of a user-initiated action.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "TEXT_FILL"
+            ]
+          }
+        }
+      },
+      "icon": {
+        "color": {
+          "$value": {
+            "default": "{color.green.600}",
+            "dark": "{color.green.300}"
+          },
+          "$type": "color",
+          "$description": "Used for the icon of a success feedback item when confirming the successful completion of a user-initiated action.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "SHAPE_FILL",
+              "TEXT_FILL"
+            ]
+          }
+        }
+      }
+    },
+    "warning": {
+      "background": {
+        "color": {
+          "$value": {
+            "default": "{color.orange.50}",
+            "dark": "{color.orange.900}"
+          },
+          "$type": "color",
+          "$description": "Used for the background of a warning feedback item when notifying about a potential issue or sensitive information.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        }
+      },
+      "border": {
+        "color": {
+          "$value": {
+            "default": "{color.orange.200}",
+            "dark": "{color.orange.600}"
+          },
+          "$type": "color",
+          "$description": "Used for the border of a warning feedback item when notifying about a potential issue or sensitive information.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "STROKE_COLOR"
+            ]
+          }
+        }
+      },
+      "text": {
+        "color": {
+          "$value": {
+            "default": "{color.orange.700}",
+            "dark": "{color.orange.200}"
+          },
+          "$type": "color",
+          "$description": "Used for the text of a warning feedback item when notifying about a potential issue or sensitive information.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "TEXT_FILL"
+            ]
+          }
+        }
+      },
+      "icon": {
+        "color": {
+          "$value": {
+            "default": "{color.orange.600}",
+            "dark": "{color.orange.300}"
+          },
+          "$type": "color",
+          "$description": "Used for the icon of a warning feedback item when notifying about a potential issue or sensitive information.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "SHAPE_FILL",
+              "TEXT_FILL"
+            ]
+          }
+        }
+      }
+    },
+    "danger": {
+      "background": {
+        "color": {
+          "$value": {
+            "default": "{color.red.50}",
+            "dark": "{color.red.900}"
+          },
+          "$type": "color",
+          "$description": "Used for the background of a danger feedback item when notifying about a critical issue that has just occurred and requires immediate attention.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        }
+      },
+      "border": {
+        "color": {
+          "$value": {
+            "default": "{color.red.500}",
+            "dark": "{color.red.300}"
+          },
+          "$type": "color",
+          "$description": "Used for the border of a danger feedback item when notifying about a critical issue that has just occurred and requires immediate attention.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "STROKE_COLOR"
+            ]
+          }
+        }
+      },
+      "text": {
+        "color": {
+          "$value": {
+            "default": "{color.red.700}",
+            "dark": "{color.red.200}"
+          },
+          "$type": "color",
+          "$description": "Used for the text of a danger feedback item when notifying about a critical issue that has just occurred and requires immediate attention.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "TEXT_FILL"
+            ]
+          }
+        }
+      },
+      "icon": {
+        "color": {
+          "$value": {
+            "default": "{color.red.600}",
+            "dark": "{color.red.300}"
+          },
+          "$type": "color",
+          "$description": "Used for the icon of a danger feedback item when notifying about a critical issue that has just occurred and requires immediate attention.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "SHAPE_FILL",
+              "TEXT_FILL"
+            ]
+          }
+        }
+      }
+    },
+    "brand": {
+      "background": {
+        "color": {
+          "$value": {
+            "default": "{color.purple.50}",
+            "dark": "{color.purple.950}"
+          },
+          "$type": "color",
+          "$description": "Used for the background of a brand-related feedback item when highlighting information that pertains to GitLab.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        }
+      },
+      "border": {
+        "color": {
+          "$value": {
+            "default": "{color.purple.200}",
+            "dark": "{color.purple.600}"
+          },
+          "$type": "color",
+          "$description": "Used for the border of a brand-related feedback item when highlighting information that pertains to GitLab.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "STROKE_COLOR"
+            ]
+          }
+        }
+      },
+      "text": {
+        "color": {
+          "$value": {
+            "default": "{color.purple.700}",
+            "dark": "{color.purple.200}"
+          },
+          "$type": "color",
+          "$description": "Used for the text of a brand-related feedback item when highlighting information that pertains to GitLab.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "TEXT_FILL"
+            ]
+          }
+        }
+      },
+      "icon": {
+        "color": {
+          "$value": {
+            "default": "{color.purple.600}",
+            "dark": "{color.purple.300}"
+          },
+          "$type": "color",
+          "$description": "Used for the icon of a brand-related feedback item when highlighting information that pertains to GitLab.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "SHAPE_FILL",
+              "TEXT_FILL"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

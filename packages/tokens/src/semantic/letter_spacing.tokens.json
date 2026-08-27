@@ -1,0 +1,13 @@
+{
+  "letter-spacing": {
+    "heading": {
+      "$value": "-0.01em",
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": [
+          "LETTER_SPACING"
+        ]
+      }
+    }
+  }
+}

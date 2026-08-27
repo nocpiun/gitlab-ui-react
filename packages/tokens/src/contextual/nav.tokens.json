@@ -1,0 +1,248 @@
+{
+  "nav": {
+    "item": {
+      "border": {
+        "radius": {
+          "$value": "{action.border.radius}",
+          "$type": "dimension",
+          "$description": "Used for the border radius of a navigation item",
+          "$extensions": {
+            "com.figma.scopes": [
+              "CORNER_RADIUS"
+            ]
+          }
+        }
+      },
+      "font": {
+        "size": {
+          "$value": "{font.size.300}",
+          "$type": "dimension",
+          "$description": "Used for the font size of a navigation item",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FONT_SIZE"
+            ]
+          }
+        },
+        "weight": {
+          "$value": 425,
+          "$type": "fontWeight",
+          "$description": "Used for the font weight of a navigation item",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FONT_WEIGHT"
+            ]
+          }
+        }
+      },
+      "foreground": {
+        "color": {
+          "default": {
+            "$value": {
+              "default": "{color.neutral.600}",
+              "dark": "{color.neutral.200}"
+            },
+            "$type": "color",
+            "$description": "Used for the foreground of a default navigation item in the default state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "hover": {
+            "$value": {
+              "default": "{color.neutral.950}",
+              "dark": "{color.neutral.0}"
+            },
+            "$type": "color",
+            "$description": "Used for the foreground of a default navigation item in the hover state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "focus": {
+            "$value": "{nav.item.foreground.color.hover}",
+            "$type": "color",
+            "$description": "Used for the foreground of a default navigation item in the focus state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "active": {
+            "$value": "{nav.item.foreground.color.focus}",
+            "$type": "color",
+            "$description": "Used for the foreground of a default navigation item in the active state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          }
+        }
+      },
+      "background": {
+        "color": {
+          "default": {
+            "$value": "{color.alpha.0}",
+            "$type": "color",
+            "$description": "Used for the background of a default navigation item in the default state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "hover": {
+            "$value": {
+              "default": "{color.neutral.100}",
+              "dark": "{color.neutral.900}"
+            },
+            "$type": "color",
+            "$description": "Used for the background of a default navigation item in the hover state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "focus": {
+            "$value": "{nav.item.background.color.hover}",
+            "$type": "color",
+            "$description": "Used for the background of a default navigation item in the focus state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "active": {
+            "$value": {
+              "default": "{color.neutral.200}",
+              "dark": "{color.neutral.950}"
+            },
+            "$type": "color",
+            "$description": "Used for the background of a default navigation item in the active state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL"
+              ]
+            }
+          }
+        }
+      },
+      "selected": {
+        "font": {
+          "weight": {
+            "$value": "{font.weight.bold}",
+            "$type": "fontWeight",
+            "$description": "Used for the font weight of a selected navigation item.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FONT_WEIGHT"
+              ]
+            }
+          }
+        },
+        "foreground": {
+          "color": {
+            "default": {
+              "$value": {
+                "default": "{color.neutral.950}",
+                "dark": "{color.neutral.0}"
+              },
+              "$type": "color",
+              "$description": "Used for the foreground of a selected navigation item in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{nav.item.foreground.color.hover}",
+              "$type": "color",
+              "$description": "Used for the foreground of a selected navigation item in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{nav.item.foreground.color.focus}",
+              "$type": "color",
+              "$description": "Used for the foreground of a selected navigation item in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{nav.item.foreground.color.active}",
+              "$type": "color",
+              "$description": "Used for the foreground of a selected navigation item in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "TEXT_FILL"
+                ]
+              }
+            }
+          }
+        },
+        "background": {
+          "color": {
+            "default": {
+              "$value": {
+                "default": "{color.neutral.100}",
+                "dark": "{color.neutral.900}"
+              },
+              "$type": "color",
+              "$description": "Used for the background of a selected navigation item in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{nav.item.background.color.hover}",
+              "$type": "color",
+              "$description": "Used for the background of a selected navigation item in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{nav.item.background.color.focus}",
+              "$type": "color",
+              "$description": "Used for the background of a selected navigation item in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{nav.item.background.color.active}",
+              "$type": "color",
+              "$description": "Used for the background of a selected navigation item in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

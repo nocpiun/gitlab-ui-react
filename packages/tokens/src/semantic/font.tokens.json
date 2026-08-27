@@ -1,0 +1,26 @@
+{
+  "font": {
+    "size": {
+      "base": {
+        "$value": "{font.size.md}",
+        "$type": "dimension",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ]
+        }
+      }
+    },
+    "weight": {
+      "heading": {
+        "$value": "{font.weight.bold}",
+        "$type": "fontWeight",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FONT_WEIGHT"
+          ]
+        }
+      }
+    }
+  }
+}

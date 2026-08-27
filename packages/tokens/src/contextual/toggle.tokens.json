@@ -1,0 +1,481 @@
+{
+  "toggle": {
+    "switch": {
+      "track": {
+        "color": {
+          "unchecked": {
+            "default": {
+              "$value": "{control.background.color.default}",
+              "$type": "color",
+              "$description": "Used for the track color of an unchecked toggle switch in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "FRAME_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{toggle.switch.track.color.unchecked.default}",
+              "$type": "color",
+              "$description": "Used for the track color of an unchecked toggle switch in the hover state. The track is deliberately unchanged from the default state; hover is carried by the track border and the thumb size.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "FRAME_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{toggle.switch.track.color.unchecked.hover}",
+              "$type": "color",
+              "$description": "Used for the track color of an unchecked toggle switch in the focus state. The track is deliberately unchanged from the default state; focus is carried by the focus ring, the track border and the thumb size.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "FRAME_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{action.neutral.background.color.active}",
+              "$type": "color",
+              "$description": "Used for the track color of an unchecked toggle switch in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "FRAME_FILL"
+                ]
+              }
+            },
+            "disabled": {
+              "$value": "{control.background.color.default}",
+              "$type": "color",
+              "$description": "Used for the track color of a disabled unchecked toggle switch.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "FRAME_FILL"
+                ]
+              }
+            }
+          },
+          "checked": {
+            "default": {
+              "$value": "{action.selected.background.color.default}",
+              "$type": "color",
+              "$description": "Used for the track color of a checked toggle switch in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "FRAME_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{action.selected.background.color.hover}",
+              "$type": "color",
+              "$description": "Used for the track color of a checked toggle switch in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "FRAME_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{action.selected.background.color.focus}",
+              "$type": "color",
+              "$description": "Used for the track color of a checked toggle switch in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "FRAME_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{action.selected.background.color.active}",
+              "$type": "color",
+              "$description": "Used for the track color of a checked toggle switch in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "FRAME_FILL"
+                ]
+              }
+            },
+            "disabled": {
+              "$value": "{action.selected.background.color.disabled}",
+              "$type": "color",
+              "$description": "Used for the track color of a disabled checked toggle switch, which stays filled so the checked state remains legible.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "FRAME_FILL"
+                ]
+              }
+            }
+          },
+          "loading": {
+            "$value": "{action.disabled.background.color}",
+            "$type": "color",
+            "$description": "Used for the track color of a loading toggle switch. A loading toggle renders no thumb and its value is still in flight, so the track carries no checked state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "FRAME_FILL"
+              ]
+            }
+          }
+        },
+        "border": {
+          "color": {
+            "unchecked": {
+              "default": {
+                "$value": "{control.border.color.default}",
+                "$type": "color",
+                "$description": "Used for the track border color of an unchecked toggle switch in the default state.",
+                "$extensions": {
+                  "com.figma.scopes": [
+                    "STROKE_COLOR"
+                  ]
+                }
+              },
+              "hover": {
+                "$value": "{control.border.color.hover}",
+                "$type": "color",
+                "$description": "Used for the track border color of an unchecked toggle switch in the hover state.",
+                "$extensions": {
+                  "com.figma.scopes": [
+                    "STROKE_COLOR"
+                  ]
+                }
+              },
+              "focus": {
+                "$value": "{toggle.switch.track.border.color.unchecked.hover}",
+                "$type": "color",
+                "$description": "Used for the track border color of an unchecked toggle switch in the focus state.",
+                "$extensions": {
+                  "com.figma.scopes": [
+                    "STROKE_COLOR"
+                  ]
+                }
+              },
+              "active": {
+                "$value": "{toggle.switch.track.border.color.unchecked.focus}",
+                "$type": "color",
+                "$description": "Used for the track border color of an unchecked toggle switch in the active state.",
+                "$extensions": {
+                  "com.figma.scopes": [
+                    "STROKE_COLOR"
+                  ]
+                }
+              },
+              "disabled": {
+                "$value": "{action.disabled.border.color}",
+                "$type": "color",
+                "$description": "Used for the track border color of a disabled unchecked toggle switch.",
+                "$extensions": {
+                  "com.figma.scopes": [
+                    "STROKE_COLOR"
+                  ]
+                }
+              }
+            },
+            "checked": {
+              "default": {
+                "$value": "{action.selected.border.color.default}",
+                "$type": "color",
+                "$description": "Used for the track border color of a checked toggle switch in the default state.",
+                "$extensions": {
+                  "com.figma.scopes": [
+                    "STROKE_COLOR"
+                  ]
+                }
+              },
+              "hover": {
+                "$value": "{action.selected.border.color.hover}",
+                "$type": "color",
+                "$description": "Used for the track border color of a checked toggle switch in the hover state.",
+                "$extensions": {
+                  "com.figma.scopes": [
+                    "STROKE_COLOR"
+                  ]
+                }
+              },
+              "focus": {
+                "$value": "{action.selected.border.color.focus}",
+                "$type": "color",
+                "$description": "Used for the track border color of a checked toggle switch in the focus state.",
+                "$extensions": {
+                  "com.figma.scopes": [
+                    "STROKE_COLOR"
+                  ]
+                }
+              },
+              "active": {
+                "$value": "{action.selected.border.color.active}",
+                "$type": "color",
+                "$description": "Used for the track border color of a checked toggle switch in the active state.",
+                "$extensions": {
+                  "com.figma.scopes": [
+                    "STROKE_COLOR"
+                  ]
+                }
+              },
+              "disabled": {
+                "$value": "{toggle.switch.track.color.checked.disabled}",
+                "$type": "color",
+                "$description": "Used for the track border color of a disabled checked toggle switch, which matches the track color.",
+                "$extensions": {
+                  "com.figma.scopes": [
+                    "STROKE_COLOR"
+                  ]
+                }
+              }
+            },
+            "loading": {
+              "$value": "{toggle.switch.track.color.loading}",
+              "$type": "color",
+              "$description": "Used for the track border color of a loading toggle switch, which matches the track color so the track reads as a single flat fill.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "background": {
+        "color": {
+          "unchecked": {
+            "default": {
+              "$value": "{action.selected.background.color.default}",
+              "$type": "color",
+              "$description": "Used for the background color of the unchecked toggle switch thumb in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "FRAME_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{toggle.switch.background.color.unchecked.default}",
+              "$type": "color",
+              "$description": "Used for the background color of the unchecked toggle switch thumb in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "FRAME_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{toggle.switch.background.color.unchecked.default}",
+              "$type": "color",
+              "$description": "Used for the background color of the unchecked toggle switch thumb in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "FRAME_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{toggle.switch.background.color.unchecked.default}",
+              "$type": "color",
+              "$description": "Used for the background color of the unchecked toggle switch thumb in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "FRAME_FILL"
+                ]
+              }
+            },
+            "disabled": {
+              "$value": "{action.disabled.foreground.color}",
+              "$type": "color",
+              "$description": "Used for the background color of the disabled unchecked toggle switch thumb.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "FRAME_FILL"
+                ]
+              }
+            }
+          },
+          "checked": {
+            "default": {
+              "$value": "{action.selected.foreground.color.default}",
+              "$type": "color",
+              "$description": "Used for the background color of the checked toggle switch thumb in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "FRAME_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{action.selected.foreground.color.hover}",
+              "$type": "color",
+              "$description": "Used for the background color of the checked toggle switch thumb in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "FRAME_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{action.selected.foreground.color.focus}",
+              "$type": "color",
+              "$description": "Used for the background color of the checked toggle switch thumb in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "FRAME_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{action.selected.foreground.color.active}",
+              "$type": "color",
+              "$description": "Used for the background color of the checked toggle switch thumb in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "FRAME_FILL"
+                ]
+              }
+            },
+            "disabled": {
+              "$value": "{action.selected.foreground.color.default}",
+              "$type": "color",
+              "$description": "Used for the background color of the disabled checked toggle switch thumb.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "FRAME_FILL"
+                ]
+              }
+            }
+          },
+          "disabled": {
+            "$value": "{toggle.switch.background.color.unchecked.disabled}",
+            "$type": "color",
+            "$description": "Use toggle.switch.background.color.unchecked.disabled instead.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "FRAME_FILL"
+              ]
+            },
+            "$deprecated": true
+          }
+        }
+      },
+      "icon": {
+        "color": {
+          "unchecked": {
+            "default": {
+              "$value": "{action.selected.foreground.color.default}",
+              "$type": "color",
+              "$description": "Used for the icon color of an unchecked toggle switch in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{action.selected.foreground.color.hover}",
+              "$type": "color",
+              "$description": "Used for the icon color of an unchecked toggle switch in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{action.selected.foreground.color.focus}",
+              "$type": "color",
+              "$description": "Used for the icon color of an unchecked toggle switch in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{action.selected.foreground.color.active}",
+              "$type": "color",
+              "$description": "Used for the icon color of an unchecked toggle switch in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL"
+                ]
+              }
+            }
+          },
+          "checked": {
+            "default": {
+              "$value": "{action.selected.background.color.default}",
+              "$type": "color",
+              "$description": "Used for the icon color of a checked toggle switch in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{action.selected.background.color.hover}",
+              "$type": "color",
+              "$description": "Used for the icon color of a checked toggle switch in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{action.selected.background.color.focus}",
+              "$type": "color",
+              "$description": "Used for the icon color of a checked toggle switch in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{action.selected.background.color.active}",
+              "$type": "color",
+              "$description": "Used for the icon color of a checked toggle switch in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL"
+                ]
+              }
+            }
+          },
+          "disabled": {
+            "$value": "{action.disabled.background.color}",
+            "$type": "color",
+            "$description": "Used for the icon color of a disabled toggle switch.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

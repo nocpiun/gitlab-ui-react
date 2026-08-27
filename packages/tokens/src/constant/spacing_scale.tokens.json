@@ -1,0 +1,324 @@
+{
+  "spacing-scale": {
+    "0": {
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "px": {
+      "$value": {
+        "value": 1,
+        "unit": "px"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "1": {
+      "$value": {
+        "value": 0.125,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "2": {
+      "$value": {
+        "value": 0.25,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "2-5": {
+      "$value": {
+        "value": 0.375,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "3": {
+      "$value": {
+        "value": 0.5,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "4": {
+      "$value": {
+        "value": 0.75,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "5": {
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "6": {
+      "$value": {
+        "value": 1.5,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "7": {
+      "$value": {
+        "value": 2,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "8": {
+      "$value": {
+        "value": 2.5,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "9": {
+      "$value": {
+        "value": 3,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "10": {
+      "$value": {
+        "value": 3.5,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "11": {
+      "$value": {
+        "value": 4,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "11-5": {
+      "$value": {
+        "value": 4.5,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "12": {
+      "$value": {
+        "value": 5,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "13": {
+      "$value": {
+        "value": 6,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "15": {
+      "$value": {
+        "value": 7.5,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "18": {
+      "$value": {
+        "value": 9,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "20": {
+      "$value": {
+        "value": 10,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "26": {
+      "$value": {
+        "value": 13,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "28": {
+      "$value": {
+        "value": 14,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "30": {
+      "$value": {
+        "value": 15,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "31": {
+      "$value": {
+        "value": 15.5,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "33": {
+      "$value": {
+        "value": 16.5,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "34": {
+      "$value": {
+        "value": 17,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "37": {
+      "$value": {
+        "value": 18.5,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "48": {
+      "$value": {
+        "value": 24,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "62": {
+      "$value": {
+        "value": 31,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "75": {
+      "$value": {
+        "value": 37.5,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "80": {
+      "$value": {
+        "value": 40,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "88": {
+      "$value": {
+        "value": 44,
+        "unit": "rem"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    }
+  }
+}

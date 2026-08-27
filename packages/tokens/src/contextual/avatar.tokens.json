@@ -1,0 +1,278 @@
+{
+  "avatar": {
+    "border": {
+      "color": {
+        "default": {
+          "$value": {
+            "default": "{color.alpha.dark.8}",
+            "dark": "{color.alpha.light.8}"
+          },
+          "$type": "color",
+          "$description": "Used to define the edge of an avatar.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "STROKE_COLOR"
+            ]
+          }
+        },
+        "hover": {
+          "$value": {
+            "default": "{color.alpha.dark.24}",
+            "dark": "{color.alpha.light.24}"
+          },
+          "$type": "color",
+          "$description": "Used to increase the edge definition of an avatar in the hover state.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "STROKE_COLOR"
+            ]
+          }
+        }
+      }
+    },
+    "circle": {
+      "border": {
+        "radius": {
+          "default": {
+            "$value": "{border.radius.full}",
+            "$type": "dimension",
+            "$description": "Border radius for cirlce avatars at all sizes.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "CORNER_RADIUS"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "square": {
+      "border": {
+        "radius": {
+          "default": {
+            "$value": "{border.radius.default}",
+            "$type": "dimension",
+            "$description": "Border radius for square avatars at smaller sizes (16px, 24px, 32px).",
+            "$extensions": {
+              "com.figma.scopes": [
+                "CORNER_RADIUS"
+              ]
+            }
+          },
+          "lg": {
+            "$value": "{border.radius.lg}",
+            "$type": "dimension",
+            "$description": "Border radius for square avatars at larger sizes (48px, 64px, 96px).",
+            "$extensions": {
+              "com.figma.scopes": [
+                "CORNER_RADIUS"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "fallback": {
+      "text": {
+        "color": {
+          "red": {
+            "$value": {
+              "default": "{color.red.800}",
+              "dark": "{color.red.200}"
+            },
+            "$type": "color",
+            "$description": "Red text color for avatar fallback with no particular meaning.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "purple": {
+            "$value": {
+              "default": "{color.purple.800}",
+              "dark": "{color.purple.200}"
+            },
+            "$type": "color",
+            "$description": "Purple text color for avatar fallback with no particular meaning.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "blue": {
+            "$value": {
+              "default": "{color.blue.800}",
+              "dark": "{color.blue.200}"
+            },
+            "$type": "color",
+            "$description": "Blue text color for avatar fallback with no particular meaning.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "green": {
+            "$value": {
+              "default": "{color.green.800}",
+              "dark": "{color.green.200}"
+            },
+            "$type": "color",
+            "$description": "Green text color for avatar fallback with no particular meaning.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "orange": {
+            "$value": {
+              "default": "{color.orange.800}",
+              "dark": "{color.orange.200}"
+            },
+            "$type": "color",
+            "$description": "Orange text color for avatar fallback with no particular meaning.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "neutral": {
+            "$value": {
+              "default": "{color.neutral.800}",
+              "dark": "{color.neutral.200}"
+            },
+            "$type": "color",
+            "$description": "Neutral text color for avatar fallback with no particular meaning.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          }
+        }
+      },
+      "background": {
+        "color": {
+          "red": {
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.9882352941176471,
+                0.7098039215686275,
+                0.6666666666666666
+              ],
+              "alpha": 0.23921568627450981
+            },
+            "$type": "color",
+            "$description": "Red background for avatar fallback with no particular meaning.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "purple": {
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.796078431372549,
+                0.7333333333333333,
+                0.9490196078431372
+              ],
+              "alpha": 0.23921568627450981
+            },
+            "$type": "color",
+            "$description": "Purple background for avatar fallback with no particular meaning.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "blue": {
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.615686274509804,
+                0.7803921568627451,
+                0.9450980392156862
+              ],
+              "alpha": 0.23921568627450981
+            },
+            "$type": "color",
+            "$description": "Blue background for avatar fallback with no particular meaning.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "green": {
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.5686274509803921,
+                0.8313725490196079,
+                0.6588235294117647
+              ],
+              "alpha": 0.23921568627450981
+            },
+            "$type": "color",
+            "$description": "Green background for avatar fallback with no particular meaning.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "orange": {
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.9137254901960784,
+                0.7450980392156863,
+                0.4549019607843137
+              ],
+              "alpha": 0.23921568627450981
+            },
+            "$type": "color",
+            "$description": "Orange background for avatar fallback with no particular meaning.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "neutral": {
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.7490196078431373,
+                0.7490196078431373,
+                0.7647058823529411
+              ],
+              "alpha": 0.23921568627450981
+            },
+            "$type": "color",
+            "$description": "Neutral background for avatar fallback with no particular meaning.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "progress-bar": {
+    "indicator": {
+      "color": {
+        "default": {
+          "$value": "{status.info.icon.color}",
+          "$type": "color",
+          "$description": "Used for the indicator color for the primary progress-bar variant.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        },
+        "success": {
+          "$value": "{status.success.icon.color}",
+          "$type": "color",
+          "$description": "Used for the indicator color for the success progress-bar variant.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        },
+        "warning": {
+          "$value": "{status.warning.icon.color}",
+          "$type": "color",
+          "$description": "Used for the indicator color for the warning progress-bar variant.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        },
+        "danger": {
+          "$value": "{status.danger.icon.color}",
+          "$type": "color",
+          "$description": "Used for the indicator color for the danger progress-bar variant.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        }
+      }
+    },
+    "track": {
+      "color": {
+        "$value": {
+          "default": "{color.neutral.200}",
+          "dark": "{color.neutral.700}"
+        },
+        "$type": "color",
+        "$description": "Used for the track color for all progress-bar variants.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      }
+    }
+  }
+}

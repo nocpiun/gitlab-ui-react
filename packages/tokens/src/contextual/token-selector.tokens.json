@@ -1,0 +1,26 @@
+{
+  "token-selector": {
+    "token-container": {
+      "token": {
+        "background": {
+          "color": {
+            "focus": {
+              "$value": {
+                "default": "{color.neutral.300}",
+                "dark": "{color.neutral.600}"
+              },
+              "$type": "color",
+              "$description": "Used for the background color of a token in a token-selector when it's token-container is in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,596 @@
+{
+  "broadcast": {
+    "banner": {
+      "background": {
+        "color": {
+          "blue": {
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.13725490196078433,
+                0.3176470588235294,
+                0.5019607843137255
+              ],
+              "alpha": 1,
+              "hex": "#235180"
+            },
+            "$type": "color",
+            "$description": "Used for the background for the blue banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "dark": {
+            "$value": "{color.neutral.500}",
+            "$type": "color",
+            "$description": "Used for the background for the dark banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "green": {
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.10588235294117647,
+                0.396078431372549,
+                0.24705882352941178
+              ],
+              "alpha": 1,
+              "hex": "#1b653f"
+            },
+            "$type": "color",
+            "$description": "Used for the background for the green banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "indigo": {
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.2549019607843137,
+                0.2549019607843137,
+                0.6235294117647059
+              ],
+              "alpha": 1,
+              "hex": "#41419f"
+            },
+            "$type": "color",
+            "$description": "Used for the background for the indigo banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "light": {
+            "$value": "{color.neutral.50}",
+            "$type": "color",
+            "$description": "Used for the background for the light banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "lightblue": {
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.28627450980392155,
+                0.4666666666666667,
+                0.6470588235294118
+              ],
+              "alpha": 1,
+              "hex": "#4977a5"
+            },
+            "$type": "color",
+            "$description": "Used for the background for the lightblue banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "lightgreen": {
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.18823529411764706,
+                0.5098039215686274,
+                0.34509803921568627
+              ],
+              "alpha": 1,
+              "hex": "#308258"
+            },
+            "$type": "color",
+            "$description": "Used for the background for the lightgreen banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "lightindigo": {
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.4,
+                0.4,
+                0.7686274509803922
+              ],
+              "alpha": 1,
+              "hex": "#6666c4"
+            },
+            "$type": "color",
+            "$description": "Used for the background for the lightindigo banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "lightred": {
+            "$value":{
+              "colorSpace": "srgb",
+              "components": [
+                0.6784313725490196,
+                0.2901960784313726,
+                0.23137254901960785
+              ],
+              "alpha": 1,
+              "hex": "#ad4a3b"
+            },
+            "$type": "color",
+            "$description": "Used for the background for the lightred banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "red": {
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.5607843137254902,
+                0.12941176470588237,
+                0.06274509803921569
+              ],
+              "alpha": 1,
+              "hex": "#8f2110"
+            },
+            "$type": "color",
+            "$description": "Used for the background for the red banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          }
+        }
+      },
+      "border": {
+        "color": {
+          "blue": {
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.043137254901960784,
+                0.14901960784313725,
+                0.25098039215686274
+              ],
+              "alpha": 1,
+              "hex": "#0b2640"
+            },
+            "$type": "color",
+            "$description": "Used for the border for the blue banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "STROKE_COLOR"
+              ]
+            }
+          },
+          "dark": {
+            "$value": "{color.neutral.700}",
+            "$type": "color",
+            "$description": "Used for the border for the dark banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "STROKE_COLOR"
+              ]
+            }
+          },
+          "green": {
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.054901960784313725,
+                0.2627450980392157,
+                0.1568627450980392
+              ],
+              "alpha": 1,
+              "hex": "#0e4328"
+            },
+            "$type": "color",
+            "$description": "Used for the border for the green banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "STROKE_COLOR"
+              ]
+            }
+          },
+          "indigo": {
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.13333333333333333,
+                0.13333333333333333,
+                0.3803921568627451
+              ],
+              "alpha": 1,
+              "hex": "#222261"
+            },
+            "$type": "color",
+            "$description": "Used for the border for the indigo banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "STROKE_COLOR"
+              ]
+            }
+          },
+          "light": {
+            "$value": "{color.neutral.100}",
+            "$type": "color",
+            "$description": "Used for the border for the light banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "STROKE_COLOR"
+              ]
+            }
+          },
+          "lightblue": {
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.13725490196078433,
+                0.3176470588235294,
+                0.5019607843137255
+              ],
+              "alpha": 1,
+              "hex": "#235180"
+            },
+            "$type": "color",
+            "$description": "Used for the border for the lightblue banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "STROKE_COLOR"
+              ]
+            }
+          },
+          "lightgreen": {
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.10588235294117647,
+                0.396078431372549,
+                0.24705882352941178
+              ],
+              "alpha": 1,
+              "hex": "#1b653f"
+            },
+            "$type": "color",
+            "$description": "Used for the border for the lightgreen banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "STROKE_COLOR"
+              ]
+            }
+          },
+          "lightindigo": {
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.2549019607843137,
+                0.2549019607843137,
+                0.6235294117647059
+              ],
+              "alpha": 1,
+              "hex": "#41419f"
+            },
+            "$type": "color",
+            "$description": "Used for the border for the lightindigo banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "STROKE_COLOR"
+              ]
+            }
+          },
+          "lightred": {
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.5607843137254902,
+                0.12941176470588237,
+                0.06274509803921569
+              ],
+              "alpha": 1,
+              "hex": "#8f2110"
+            },
+            "$type": "color",
+            "$description": "Used for the border for the lightred banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "STROKE_COLOR"
+              ]
+            }
+          },
+          "red": {
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.34509803921568627,
+                0.050980392156862744,
+                0.00784313725490196
+              ],
+              "alpha": 1,
+              "hex": "#580d02"
+            },
+            "$type": "color",
+            "$description": "Used for the border for the red banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "radius": {
+          "$value": "{border.radius.default}",
+          "$type": "dimension",
+          "$description": "Used for broadcast banner border radius.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "CORNER_RADIUS"
+            ]
+          }
+        }
+      },
+      "icon": {
+        "color": {
+          "blue": {
+            "$value": "{color.neutral.0}",
+            "$type": "color",
+            "$description": "Used for the icon for the blue banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "dark": {
+            "$value": "{color.neutral.0}",
+            "$type": "color",
+            "$description": "Used for the icon for the dark banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "green": {
+            "$value": "{color.neutral.0}",
+            "$type": "color",
+            "$description": "Used for the icon for the green banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "indigo": {
+            "$value": "{color.neutral.0}",
+            "$type": "color",
+            "$description": "Used for the icon for the indigo banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "light": {
+            "$value": "{color.neutral.900}",
+            "$type": "color",
+            "$description": "Used for the icon for the light banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "lightblue": {
+            "$value": "{color.neutral.0}",
+            "$type": "color",
+            "$description": "Used for the icon for the lightblue banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "lightgreen": {
+            "$value": "{color.neutral.0}",
+            "$type": "color",
+            "$description": "Used for the icon for the lightgreen banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "lightindigo": {
+            "$value": "{color.neutral.0}",
+            "$type": "color",
+            "$description": "Used for the icon for the lightindigo banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "lightred": {
+            "$value": "{color.neutral.0}",
+            "$type": "color",
+            "$description": "Used for the icon for the lightred banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "red": {
+            "$value": "{color.neutral.0}",
+            "$type": "color",
+            "$description": "Used for the icon for the red banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "TEXT_FILL"
+              ]
+            }
+          }
+        }
+      },
+      "text": {
+        "color": {
+          "blue": {
+            "$value": "{color.neutral.0}",
+            "$type": "color",
+            "$description": "Used for the text for the blue banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "dark": {
+            "$value": "{color.neutral.0}",
+            "$type": "color",
+            "$description": "Used for the text for the dark banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "green": {
+            "$value": "{color.neutral.0}",
+            "$type": "color",
+            "$description": "Used for the text for the green banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "indigo": {
+            "$value": "{color.neutral.0}",
+            "$type": "color",
+            "$description": "Used for the text for the indigo banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "light": {
+            "$value": "{color.neutral.900}",
+            "$type": "color",
+            "$description": "Used for the text for the light banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "lightblue": {
+            "$value": "{color.neutral.0}",
+            "$type": "color",
+            "$description": "Used for the text for the lightblue banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "lightgreen": {
+            "$value": "{color.neutral.0}",
+            "$type": "color",
+            "$description": "Used for the text for the lightgreen banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "lightindigo": {
+            "$value": "{color.neutral.0}",
+            "$type": "color",
+            "$description": "Used for the text for the lightindigo banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "lightred": {
+            "$value": "{color.neutral.0}",
+            "$type": "color",
+            "$description": "Used for the text for the lightred banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "red": {
+            "$value": "{color.neutral.0}",
+            "$type": "color",
+            "$description": "Used for the text for the red banner type.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

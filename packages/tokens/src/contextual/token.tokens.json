@@ -1,0 +1,45 @@
+{
+  "token": {
+    "border": {
+      "radius": {
+        "$value": "{border.radius.default}",
+        "$type": "dimension",
+        "$description": "Used for token border radius.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "CORNER_RADIUS"
+          ]
+        }
+      }
+    },
+    "foreground": {
+      "color": {
+        "$value": "{text.color.default}",
+        "$type": "color",
+        "$description": "Used for the token foreground color.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "SHAPE_FILL",
+            "TEXT_FILL"
+          ]
+        }
+      }
+    },
+    "background": {
+      "color": {
+        "$value": {
+          "default": "{color.neutral.100}",
+          "dark": "{color.neutral.800}"
+        },
+        "$type": "color",
+        "$description": "Used for the token background color.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      }
+    }
+  }
+}

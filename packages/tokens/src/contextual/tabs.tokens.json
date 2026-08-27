@@ -1,0 +1,18 @@
+{
+  "tab": {
+    "selected": {
+      "indicator": {
+        "color": {
+          "default": {
+            "$value": "{action.selected.border.color.active}",
+            "$type": "color",
+            "$description": "Used for the selected indicator of a tab.",
+            "$extensions": {
+              "com.figma.scopes": ["FRAME_FILL", "SHAPE_FILL"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

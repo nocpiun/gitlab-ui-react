@@ -1,0 +1,36 @@
+{
+  "datepicker": {
+    "background": {
+      "color": {
+        "$value": {
+          "default": "{color.neutral.0}",
+          "dark": "{color.neutral.900}"
+        },
+        "$type": "color",
+        "$description": "Used for the background color of datepicker.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "SHAPE_FILL",
+            "TEXT_FILL"
+          ]
+        }
+      }
+    },
+    "date": {
+      "text": {
+        "color": {
+          "selected": {
+            "$value": "{control.indicator.color.selected}",
+            "$type": "color",
+            "$description": "Used for the datepicker date text color state indicators.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

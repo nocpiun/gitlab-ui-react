@@ -1,0 +1,20 @@
+{
+  "application-chrome": {
+    "background": {
+      "color": {
+        "$value": {
+          "default": "{color.neutral.50}",
+          "dark": "{color.neutral.1000}"
+        },
+        "$type": "color",
+        "$description": "Used for the application chrome background, the lowest layer of the interface that sits beneath panels and contains global navigation, user actions, application navigation, and AI navigation.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "shadow": {
+    "sm": {
+      "$value": [
+        {
+          "color": "{shadow.color.default}",
+          "offsetX": 0,
+          "offsetY": 0,
+          "blur": {
+            "value": 2,
+            "unit": "px"
+          },
+          "spread": 0
+        },
+        {
+          "color": "{shadow.color.default}",
+          "offsetX": 0,
+          "offsetY": {
+            "value": 1,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 4,
+            "unit": "px"
+          },
+          "spread": 0
+        }
+      ],
+      "$type": "shadow",
+      "$description": "Used for surfaces that need to indicate users can manually interact with them. For example, cards in issue board.",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "md": {
+      "$value": [
+        {
+          "color": "{shadow.color.default}",
+          "offsetX": 0,
+          "offsetY": 0,
+          "blur": {
+            "value": 1,
+            "unit": "px"
+          },
+          "spread": 0
+        },
+        {
+          "color": "{shadow.color.default}",
+          "offsetX": 0,
+          "offsetY": 0,
+          "blur": {
+            "value": 2,
+            "unit": "px"
+          },
+          "spread": 0
+        },
+        {
+          "color": "{shadow.color.default}",
+          "offsetX": 0,
+          "offsetY": {
+            "value": 2,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 8,
+            "unit": "px"
+          },
+          "spread": 0
+        }
+      ],
+      "$type": "shadow",
+      "$description": "Used for surfaces that need boundary definition and appear on hover. For example, popovers.",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    },
+    "lg": {
+      "$value": [
+        {
+          "color": "{shadow.color.default}",
+          "offsetX": 0,
+          "offsetY": 0,
+          "blur":  {
+            "value": 2,
+            "unit": "px"
+          },
+          "spread": 0
+        },
+        {
+          "color": "{shadow.color.default}",
+          "offsetX": 0,
+          "offsetY": 0,
+          "blur":  {
+            "value": 2,
+            "unit": "px"
+          },
+          "spread": 0
+        },
+        {
+          "color": "{shadow.color.default}",
+          "offsetX": 0,
+          "offsetY":  {
+            "value": 4,
+            "unit": "px"
+          },
+          "blur":  {
+            "value": 12,
+            "unit": "px"
+          },
+          "spread": 0
+        }
+      ],
+      "$type": "shadow",
+      "$description": "Used for large surfaces that present additional context to the user.",
+      "$extensions": {
+        "com.figma.scopes": []
+      }
+    }
+  }
+}

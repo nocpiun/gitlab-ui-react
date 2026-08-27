@@ -1,0 +1,111 @@
+{
+  "chart": {
+    "axis": {
+      "pointer": {
+        "color": {
+          "$value": "{icon.color.subtle}",
+          "$type": "color",
+          "$description": "Used in charts for the color of the reference line and axis value under mouse pointer.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "ALL_SCOPES"
+            ]
+          }
+        }
+      },
+      "line": {
+        "color": {
+          "$value": {
+            "default": "{color.neutral.200}",
+            "dark": "{color.neutral.700}"
+          },
+          "$type": "color",
+          "$description": "Used in charts for axis line color.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "ALL_SCOPES"
+            ]
+          }
+        }
+      },
+      "text": {
+        "color": {
+          "$value": "{text.color.subtle}",
+          "$type": "color",
+          "$description": "Used in charts for the text color of axis titles and labels.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "ALL_SCOPES"
+            ]
+          }
+        }
+      }
+    },
+    "threshold": {
+      "area": {
+        "color": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.8666666666666667,
+              0.16862745098039217,
+              0.054901960784313725
+            ],
+            "alpha": 0.1
+          },
+          "$type": "color",
+          "$description": "Used in charts to delineate a threshold area in a chart.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "ALL_SCOPES"
+            ]
+          }
+        }
+      },
+      "line": {
+        "color": {
+          "$value": {
+            "default": "{color.red.500}",
+            "dark": "{color.red.600}"
+          },
+          "$type": "color",
+          "$description": "Used in charts to divide a threshold area in a chart from other data.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "ALL_SCOPES"
+            ]
+          }
+        }
+      }
+    },
+    "zoom": {
+      "filler": {
+        "color": {
+          "$value": {
+            "default": "{color.alpha.dark.8}",
+            "dark": "{color.alpha.light.16}"
+          },
+          "$type": "color",
+          "$description": "Used in charts for the overlay color when zooming in on a specific area of data.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "ALL_SCOPES"
+            ]
+          }
+        }
+      },
+      "handle": {
+        "color": {
+          "$value": "{icon.color.subtle}",
+          "$type": "color",
+          "$description": "Used in charts for the handle color when zooming in on a specific area of data.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "ALL_SCOPES"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

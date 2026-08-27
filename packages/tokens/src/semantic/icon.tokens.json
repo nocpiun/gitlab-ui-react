@@ -1,0 +1,108 @@
+{
+  "icon": {
+    "color": {
+      "default": {
+        "$value": "{text.color.default}",
+        "$type": "color",
+        "$description": "Used for the default icon color. Can be paired with default text.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "SHAPE_FILL",
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "subtle": {
+        "$value": "{text.color.subtle}",
+        "$type": "color",
+        "$description": "Used for a static or decorational icon. Can be paired with subtle text.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "SHAPE_FILL",
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "strong": {
+        "$value": "{text.color.strong}",
+        "$type": "color",
+        "$description": "Used for an icon with the highest contrast.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "SHAPE_FILL",
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "disabled": {
+        "$value": "{text.color.disabled}",
+        "$type": "color",
+        "$description": "Used for an icon within a disabled section.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "SHAPE_FILL",
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "link": {
+        "$value": "{text.color.link}",
+        "$type": "color",
+        "$description": "Used for an icon within a link.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "SHAPE_FILL",
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "info": {
+        "$value": {
+          "default": "{color.blue.700}",
+          "dark": "{color.blue.200}"
+        },
+        "$type": "color",
+        "$description": "Used for an icon associated with information or help.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "SHAPE_FILL",
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "warning": {
+        "$value": "{text.color.warning}",
+        "$type": "color",
+        "$description": "Used for an icon associated with a warning.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "SHAPE_FILL",
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "danger": {
+        "$value": "{text.color.danger}",
+        "$type": "color",
+        "$description": "Used for an icon associated with an error or danger.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "SHAPE_FILL",
+            "TEXT_FILL"
+          ]
+        }
+      },
+      "success": {
+        "$value": "{text.color.success}",
+        "$type": "color",
+        "$description": "Used for an icon associated with success or validity.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "SHAPE_FILL",
+            "TEXT_FILL"
+          ]
+        }
+      }
+    }
+  }
+}

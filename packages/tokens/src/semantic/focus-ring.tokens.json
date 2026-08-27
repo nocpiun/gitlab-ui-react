@@ -1,0 +1,31 @@
+{
+  "focus-ring": {
+    "outer": {
+      "color": {
+        "$value": {
+          "default": "{color.blue.500}",
+          "dark": "{color.blue.400}"
+        },
+        "$type": "color",
+        "$description": "Used for the outer color portion of the focus ring.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      }
+    },
+    "inner": {
+      "color": {
+        "$value": "{background.color.default}",
+        "$type": "color",
+        "$description": "Used for the inner neutral portion of the focus ring.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      }
+    }
+  }
+}

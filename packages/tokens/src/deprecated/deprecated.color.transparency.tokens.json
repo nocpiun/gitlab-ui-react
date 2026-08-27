@@ -1,0 +1,254 @@
+{
+  "t-gray-a": {
+    "16": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0196078431372549,
+          0.0196078431372549,
+          0.023529411764705882
+        ],
+        "alpha": 0.16
+      },
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": []
+      },
+      "$description": "Use color.alpha.dark.16 instead.",
+      "themeable": true,
+      "prefix": false,
+      "$deprecated": true
+    },
+    "24": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0196078431372549,
+          0.0196078431372549,
+          0.023529411764705882
+        ],
+        "alpha": 0.24
+      },
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": []
+      },
+      "$description": "Use color.alpha.dark.24 instead.",
+      "themeable": true,
+      "prefix": false,
+      "$deprecated": true
+    },
+    "02": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0196078431372549,
+          0.0196078431372549,
+          0.023529411764705882
+        ],
+        "alpha": 0.02
+      },
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": []
+      },
+      "$description": "Use color.alpha.dark.2 instead.",
+      "themeable": true,
+      "prefix": false,
+      "$deprecated": true
+    },
+    "04": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0196078431372549,
+          0.0196078431372549,
+          0.023529411764705882
+        ],
+        "alpha": 0.04
+      },
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": []
+      },
+      "$description": "Use color.alpha.dark.4 instead.",
+      "themeable": true,
+      "prefix": false,
+      "$deprecated": true
+    },
+    "06": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0196078431372549,
+          0.0196078431372549,
+          0.023529411764705882
+        ],
+        "alpha": 0.06
+      },
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": []
+      },
+      "$description": "Use color.alpha.dark.6 instead.",
+      "themeable": true,
+      "prefix": false,
+      "$deprecated": true
+    },
+    "08": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0196078431372549,
+          0.0196078431372549,
+          0.023529411764705882
+        ],
+        "alpha": 0.08
+      },
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": []
+      },
+      "$description": "Use color.alpha.dark.8 instead.",
+      "themeable": true,
+      "prefix": false,
+      "$deprecated": true
+    }
+  },
+  "t-white-a": {
+    "16": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 0.16
+      },
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": []
+      },
+      "$description": "Use color.alpha.light.16 instead.",
+      "themeable": true,
+      "prefix": false,
+      "$deprecated": true
+    },
+    "24": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 0.24
+      },
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": []
+      },
+      "$description": "Use color.alpha.light.24 instead.",
+      "themeable": true,
+      "prefix": false,
+      "$deprecated": true
+    },
+    "36": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 0.36
+      },
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": []
+      },
+      "$description": "Use color.alpha.light.36 instead.",
+      "themeable": true,
+      "prefix": false,
+      "$deprecated": true
+    },
+    "02": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 0.02
+      },
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scope": []
+      },
+      "$description": "Use color.alpha.light.2 instead.",
+      "themeable": true,
+      "prefix": false,
+      "$deprecated": true
+    },
+    "04": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 0.04
+      },
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scope": []
+      },
+      "$description": "Use color.alpha.light.4 instead.",
+      "themeable": true,
+      "prefix": false,
+      "$deprecated": true
+    },
+    "06": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 0.06
+      },
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scope": []
+      },
+      "$description": "Use color.alpha.light.6 instead.",
+      "themeable": true,
+      "prefix": false,
+      "$deprecated": true
+    },
+    "08": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 0.08
+      },
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scope": []
+      },
+      "$description": "Use color.alpha.light.8 instead.",
+      "themeable": true,
+      "prefix": false,
+      "$deprecated": true
+    }
+  }
+}
+

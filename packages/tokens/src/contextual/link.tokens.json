@@ -1,0 +1,68 @@
+{
+  "link": {
+    "mention": {
+      "text": {
+        "color": {
+          "default": {
+            "$value": {
+              "default": "{color.blue.800}",
+              "dark": "{color.blue.100}"
+            },
+            "$type": "color",
+            "$description": "Used for the mention link text color.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "current": {
+            "$value": {
+              "default": "{color.orange.800}",
+              "dark": "{color.orange.100}"
+            },
+            "$type": "color",
+            "$description": "Used for the mention link text color when referencing the current user.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          }
+        }
+      },
+      "background": {
+        "color": {
+          "default": {
+            "$value": {
+              "default": "{color.blue.100}",
+              "dark": "{color.blue.800}"
+            },
+            "$type": "color",
+            "$description": "Used for the mention link default background.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "current": {
+            "$value": {
+              "default": "{color.orange.100}",
+              "dark": "{color.orange.800}"
+            },
+            "$type": "color",
+            "$description": "Used for the mention link background when referencing the current user.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

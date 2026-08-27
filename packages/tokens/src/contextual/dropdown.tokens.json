@@ -1,0 +1,289 @@
+{
+  "dropdown": {
+    "background": {
+      "color": {
+        "$value": "{background.color.overlap}",
+        "$type": "color",
+        "$description": "Used for the background of a dropdown.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ]
+        }
+      }
+    },
+    "border": {
+      "color": {
+        "$value": {
+          "default": "{border.color.strong}",
+          "dark": "{border.color.default}"
+        },
+        "$type": "color",
+        "$description": "Used for the border of a dropdown.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "EFFECT_COLOR",
+            "STROKE_COLOR"
+          ]
+        },
+        "$deprecated": true
+      },
+      "radius": {
+        "$value": "{border.radius.lg}",
+        "$type": "dimension",
+        "$description": "Used for the border radius of a dropdown.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "CORNER_RADIUS"
+          ]
+        }
+      }
+    },
+    "divider": {
+      "color": {
+        "$value": {
+          "default": "{border.color.default}",
+          "dark": "{border.color.subtle}"
+        },
+        "$type": "color",
+        "$description": "Used for the divider of a dropdown.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "EFFECT_COLOR",
+            "STROKE_COLOR"
+          ]
+        }
+      }
+    },
+    "option": {
+      "text": {
+        "color": {
+          "default": {
+            "$value": "{action.neutral.foreground.color.default}",
+            "$type": "color",
+            "$description": "Used for the text of a dropdown option in the default state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "hover": {
+            "$value": "{action.neutral.foreground.color.hover}",
+            "$type": "color",
+            "$description": "Used for the text of a dropdown option in the hover state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "focus": {
+            "$value": "{action.neutral.foreground.color.focus}",
+            "$type": "color",
+            "$description": "Used for the text of a dropdown option in the focus state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "active": {
+            "$value": "{action.neutral.foreground.color.active}",
+            "$type": "color",
+            "$description": "Used for the text of a dropdown option in the active state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "disabled": {
+            "$value": "{action.disabled.foreground.color}",
+            "$type": "color",
+            "$description": "Used for the text of a dropdown option in the disabled state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "TEXT_FILL"
+              ]
+            }
+          }
+        }
+      },
+      "indicator": {
+        "color": {
+          "selected": {
+            "default": {
+              "$value": "{control.background.color.selected.default}",
+              "$type": "color",
+              "$description": "Used for the dropdown selected option indicator in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{control.background.color.selected.hover}",
+              "$type": "color",
+              "$description": "Used for the dropdown selected option indicator in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{control.background.color.selected.focus}",
+              "$type": "color",
+              "$description": "Used for the dropdown selected option indicator in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{control.background.color.selected.focus}",
+              "$type": "color",
+              "$description": "Used for the dropdown selected option indicator in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "background": {
+        "color": {
+          "unselected": {
+            "default": {
+              "$value": "{action.neutral.background.color.default}",
+              "$type": "color",
+              "$description": "Used for the background of an unselected dropdown option in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{action.neutral.background.color.hover}",
+              "$type": "color",
+              "$description": "Used for the background of an unselected dropdown option in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{action.neutral.background.color.focus}",
+              "$type": "color",
+              "$description": "Used for the background of an unselected dropdown option in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{action.neutral.background.color.active}",
+              "$type": "color",
+              "$description": "Used for the background of an unselected dropdown option in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            }
+          },
+          "selected": {
+            "default": {
+              "$value": {
+                "default": "{color.neutral.50}",
+                "dark": "{color.neutral.800}"
+              },
+              "$type": "color",
+              "$description": "Used for the background of a selected dropdown option in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": {
+                "default": "{color.neutral.100}",
+                "dark": "{color.neutral.700}"
+              },
+              "$type": "color",
+              "$description": "Used for the background of a selected dropdown option in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{dropdown.option.background.color.selected.hover}",
+              "$type": "color",
+              "$description": "Used for the background of a selected dropdown option in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": {
+                "default": "{color.neutral.200}",
+                "dark": "{color.neutral.900}"
+              },
+              "$type": "color",
+              "$description": "Used for the background of a selected dropdown option in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "search": {
+      "background": {
+        "color": {
+          "$value": {
+            "default": "{color.alpha.dark.2}",
+            "dark": "{color.alpha.dark.16}"
+          },
+          "$type": "color",
+          "$description": "Used for the background of a search input in a dropdown listbox.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

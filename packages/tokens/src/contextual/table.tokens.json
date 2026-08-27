@@ -1,0 +1,36 @@
+{
+  "table": {
+    "row": {
+      "background": {
+        "color": {
+          "hover": {
+            "$value": "{highlight.target.background.color}",
+            "$type": "color",
+            "$description": "Used for the background of a table row in hover state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "sorting": {
+      "icon": {
+        "color": {
+          "$value": "{text.color.heading}",
+          "$type": "color",
+          "$description": "Used for the color of the sorting icons in the column headers.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "SHAPE_FILL",
+              "TEXT_FILL"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

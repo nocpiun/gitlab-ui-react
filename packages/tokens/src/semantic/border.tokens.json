@@ -1,0 +1,70 @@
+{
+  "border": {
+    "color": {
+      "default": {
+        "$value": {
+          "default": "{color.neutral.100}",
+          "dark": "{color.neutral.700}"
+        },
+        "$type": "color",
+        "$description": "Used for the default border color.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "subtle": {
+        "$value": {
+          "default": "{color.neutral.50}",
+          "dark": "{color.neutral.800}"
+        },
+        "$type": "color",
+        "$description": "Used for a subtle border in combination with the default background.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "strong": {
+        "$value": {
+          "default": "{color.neutral.200}",
+          "dark": "{color.neutral.600}"
+        },
+        "$type": "color",
+        "$description": "Used for a distinct border that emphasizes an edge or boundaries.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      },
+      "section": {
+        "$value": {
+          "default": "{border.color.default}",
+          "dark": "{background.color.default}"
+        },
+        "$type": "color",
+        "$description": "Used for the border color that surrounds content or elements when they appear as a closed container or closed section of the page.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "STROKE_COLOR"
+          ]
+        }
+      }
+    },
+    "radius": {
+      "default": {
+        "$value": "{border.radius.md}",
+        "$type": "dimension",
+        "$description": "",
+        "$extensions": {
+          "com.figma.scopes": [
+            "CORNER_RADIUS"
+          ]
+        }
+      }
+    }
+  }
+}

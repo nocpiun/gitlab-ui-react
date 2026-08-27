@@ -1,0 +1,19 @@
+{
+  "shadow": {
+    "color": {
+      "default": {
+        "$value": {
+          "default": "{color.alpha.dark.16}",
+          "dark": "{color.alpha.dark.40}"
+        },
+        "$type": "color",
+        "$description": "Used for the default shadow color.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "EFFECT_COLOR"
+          ]
+        }
+      }
+    }
+  }
+}

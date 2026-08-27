@@ -1,0 +1,1682 @@
+{
+  "button": {
+    "border": {
+      "radius": {
+        "$value": "{action.border.radius}",
+        "$type": "dimension",
+        "$description": "Used for button border radius.",
+        "$extensions": {
+          "com.figma.scopes": [
+            "CORNER_RADIUS"
+          ]
+        }
+      }
+    },
+    "default": {
+      "primary": {
+        "foreground": {
+          "color": {
+            "default": {
+              "$value": {
+                "default": "{color.neutral.800}",
+                "dark": "{color.neutral.50}"
+              },
+              "$type": "color",
+              "$description": "Used for the foreground of a default primary button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{button.default.primary.foreground.color.default}",
+              "$type": "color",
+              "$description": "Used for the foreground of a default primary button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{button.default.primary.foreground.color.default}",
+              "$type": "color",
+              "$description": "Used for the foreground of a default primary button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{button.default.primary.foreground.color.default}",
+              "$type": "color",
+              "$description": "Used for the foreground of a default primary button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            }
+          }
+        },
+        "background": {
+          "color": {
+            "default": {
+              "$value": {
+                "default": "{color.neutral.0}",
+                "dark": {
+                  "colorSpace": "srgb",
+                  "components": [
+                    0.5372549019607843,
+                    0.5333333333333333,
+                    0.5529411764705883
+                  ],
+                  "alpha": 0.4
+                }
+              },
+              "$type": "color",
+              "$description": "Used for the background of an default primary button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": {
+                "default": "{color.neutral.50}",
+                "dark": {
+                  "colorSpace": "srgb",
+                  "components": [
+                    0.5372549019607843,
+                    0.5333333333333333,
+                    0.5529411764705883
+                  ],
+                  "alpha": 0.64
+                }
+              },
+              "$type": "color",
+              "$description": "Used for the background of an default primary button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{button.default.primary.background.color.hover}",
+              "$type": "color",
+              "$description": "Used for the background of an default primary button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": {
+                "default": "{color.neutral.100}",
+                "dark": {
+                  "colorSpace": "srgb",
+                  "components": [
+                    0.5372549019607843,
+                    0.5333333333333333,
+                    0.5529411764705883
+                  ],
+                  "alpha": 0.32
+                }
+              },
+              "$type": "color",
+              "$description": "Used for the background of an default primary button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            }
+          }
+        },
+        "border": {
+          "color": {
+            "default": {
+              "$value": {
+                "default": "{color.neutral.200}",
+                "dark": "{color.alpha.0}"
+              },
+              "$type": "color",
+              "$description": "Used for the border of an default primary button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "hover": {
+              "$value": {
+                "default": "{color.neutral.400}",
+                "dark": "{color.alpha.0}"
+              },
+              "$type": "color",
+              "$description": "Used for the border of an default primary button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{button.default.primary.border.color.hover}",
+              "$type": "color",
+              "$description": "Used for the border of an default primary button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "active": {
+              "$value": {
+                "default": "{color.neutral.600}",
+                "dark": "{color.alpha.0}"
+              },
+              "$type": "color",
+              "$description": "Used for the border of an default primary button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "tertiary": {
+        "foreground": {
+          "color": {
+            "default": {
+              "$value": "{action.neutral.foreground.color.default}",
+              "$type": "color",
+              "$description": "Used for the foreground of a default borderless, tertiary button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{action.neutral.foreground.color.hover}",
+              "$type": "color",
+              "$description": "Used for the foreground of a default borderless, tertiary button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{action.neutral.foreground.color.focus}",
+              "$type": "color",
+              "$description": "Used for the foreground of a default borderless, tertiary button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{action.neutral.foreground.color.active}",
+              "$type": "color",
+              "$description": "Used for the foreground of a default borderless, tertiary button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            }
+          }
+        },
+        "background": {
+          "color": {
+            "default": {
+              "$value": "{action.neutral.background.color.default}",
+              "$type": "color",
+              "$description": "Used for the background of a default borderless, tertiary button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{action.neutral.background.color.hover}",
+              "$type": "color",
+              "$description": "Used for the background of a default borderless, tertiary button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{action.neutral.background.color.focus}",
+              "$type": "color",
+              "$description": "Used for the background of a default borderless, tertiary button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{action.neutral.background.color.active}",
+              "$type": "color",
+              "$description": "Used for the background of a default borderless, tertiary button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            }
+          }
+        },
+        "border": {
+          "color": {
+            "default": {
+              "$value": "{action.neutral.border.color.default}",
+              "$type": "color",
+              "$description": "Used for the border of a default borderless, tertiary button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{action.neutral.border.color.hover}",
+              "$type": "color",
+              "$description": "Used for the border of a default borderless, tertiary button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{action.neutral.border.color.focus}",
+              "$type": "color",
+              "$description": "Used for the border of a default borderless, tertiary button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{action.neutral.border.color.active}",
+              "$type": "color",
+              "$description": "Used for the border of a default borderless, tertiary button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "confirm": {
+      "primary": {
+        "foreground": {
+          "color": {
+            "default": {
+              "$value": {
+                "default": "{color.neutral.0}",
+                "dark": "{color.neutral.950}"
+              },
+              "$type": "color",
+              "$description": "Used for the foreground of a confirm (positive) primary button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{button.confirm.primary.foreground.color.default}",
+              "$type": "color",
+              "$description": "Used for the foreground of a confirm (positive) primary button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{button.confirm.primary.foreground.color.hover}",
+              "$type": "color",
+              "$description": "Used for the foreground of a confirm (positive) primary button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{button.confirm.primary.foreground.color.focus}",
+              "$type": "color",
+              "$description": "Used for the foreground of a confirm (positive) primary button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            }
+          }
+        },
+        "background": {
+          "color": {
+            "default": {
+              "$value": {
+                "default": "{color.neutral.800}",
+                "dark": "{color.neutral.50}"
+              },
+              "$type": "color",
+              "$description": "Used for the background of a confirm (positive) primary button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": {
+                "default": "{color.neutral.950}",
+                "dark": "{color.neutral.10}"
+              },
+              "$type": "color",
+              "$description": "Used for the background of a confirm (positive) primary button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{button.confirm.primary.background.color.hover}",
+              "$type": "color",
+              "$description": "Used for the background of a confirm (positive) primary button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": {
+                "default": "{color.neutral.1000}",
+                "dark": "{color.neutral.100}"
+              },
+              "$type": "color",
+              "$description": "Used for the background of a confirm (positive) primary button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            }
+          }
+        },
+        "border": {
+          "color": {
+            "default": {
+              "$value": "{color.alpha.0}",
+              "$type": "color",
+              "$description": "Used for the border of a confirm (positive) primary button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{button.confirm.primary.border.color.default}",
+              "$type": "color",
+              "$description": "Used for the border of a confirm (positive) primary button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{button.confirm.primary.border.color.default}",
+              "$type": "color",
+              "$description": "Used for the border of a confirm (positive) primary button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{button.confirm.primary.border.color.default}",
+              "$type": "color",
+              "$description": "Used for the border of a confirm (positive) primary button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "secondary": {
+        "foreground": {
+          "color": {
+            "default": {
+              "$value": {
+                "default": "{color.neutral.800}",
+                "dark": "{color.neutral.50}"
+              },
+              "$type": "color",
+              "$description": "Used for the foreground of a confirm (positive) button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": {
+                "default": "{color.neutral.950}",
+                "dark": "{color.neutral.10}"
+              },
+              "$type": "color",
+              "$description": "Used for the foreground of a confirm (positive) button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{button.confirm.secondary.foreground.color.hover}",
+              "$type": "color",
+              "$description": "Used for the foreground of a confirm (positive) button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": {
+                "default": "{color.neutral.1000}",
+                "dark": "{color.neutral.0}"
+              },
+              "$type": "color",
+              "$description": "Used for the foreground of a confirm (positive) button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            }
+          }
+        },
+        "background": {
+          "color": {
+            "default": {
+              "$value": {
+                "default": "{color.neutral.0}",
+                "dark": "{color.alpha.light.24}"
+              },
+              "$type": "color",
+              "$description": "Used for the background of an outlined confirm (positive) button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": {
+                "default": "{color.neutral.50}",
+                "dark": "{color.alpha.light.40}"
+              },
+              "$type": "color",
+              "$description": "Used for the background of an outlined confirm (positive) button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{button.confirm.secondary.background.color.hover}",
+              "$type": "color",
+              "$description": "Used for the background of an outlined confirm (positive) button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": {
+                "default": "{color.neutral.100}",
+                "dark": "{color.alpha.light.16}"
+              },
+              "$type": "color",
+              "$description": "Used for the background of an outlined confirm (positive) button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            }
+          }
+        },
+        "border": {
+          "color": {
+            "default": {
+              "$value": {
+                "default": "{color.neutral.800}",
+                "dark": "{color.alpha.0}"
+              },
+              "$type": "color",
+              "$description": "Used for the border of an outlined confirm (positive) button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "hover": {
+              "$value": {
+                "default": "{color.neutral.950}",
+                "dark": "{color.alpha.0}"
+              },
+              "$type": "color",
+              "$description": "Used for the border of an outlined confirm (positive) button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{button.confirm.secondary.border.color.hover}",
+              "$type": "color",
+              "$description": "Used for the border of an outlined confirm (positive) button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "active": {
+              "$value": {
+                "default": "{color.neutral.1000}",
+                "dark": "{color.alpha.0}"
+              },
+              "$type": "color",
+              "$description": "Used for the border of an outlined confirm (positive) button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "tertiary": {
+        "foreground": {
+          "color": {
+            "default": {
+              "$value": "{action.confirm.foreground.color.default}",
+              "$type": "color",
+              "$description": "Used for the foreground of a borderless, tertiary confirm (positive) button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{action.confirm.foreground.color.hover}",
+              "$type": "color",
+              "$description": "Used for the foreground of a borderless, tertiary confirm (positive) button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{action.confirm.foreground.color.focus}",
+              "$type": "color",
+              "$description": "Used for the foreground of a borderless, tertiary confirm (positive) button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{action.confirm.foreground.color.active}",
+              "$type": "color",
+              "$description": "Used for the foreground of a borderless, tertiary confirm (positive) button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            }
+          }
+        },
+        "background": {
+          "color": {
+            "default": {
+              "$value": "{action.confirm.background.color.default}",
+              "$type": "color",
+              "$description": "Used for the background of a borderless, tertiary confirm (positive) button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{action.confirm.background.color.hover}",
+              "$type": "color",
+              "$description": "Used for the background of a borderless, tertiary confirm (positive) button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{action.confirm.background.color.focus}",
+              "$type": "color",
+              "$description": "Used for the background of a borderless, tertiary confirm (positive) button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{action.confirm.background.color.active}",
+              "$type": "color",
+              "$description": "Used for the background of a borderless, tertiary confirm (positive) button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            }
+          }
+        },
+        "border": {
+          "color": {
+            "default": {
+              "$value": "{action.confirm.border.color.default}",
+              "$type": "color",
+              "$description": "Used for the border of a borderless, tertiary confirm (positive) button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{action.confirm.border.color.hover}",
+              "$type": "color",
+              "$description": "Used for the border of a borderless, tertiary confirm (positive) button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{action.confirm.border.color.focus}",
+              "$type": "color",
+              "$description": "Used for the border of a borderless, tertiary confirm (positive) button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{action.confirm.border.color.active}",
+              "$type": "color",
+              "$description": "Used for the border of a borderless, tertiary confirm (positive) button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "danger": {
+      "primary": {
+        "foreground": {
+          "color": {
+            "default": {
+              "$value": {
+                "default": "{color.neutral.0}",
+                "dark": "{color.neutral.950}"
+              },
+              "$type": "color",
+              "$description": "Used for the foreground of a danger (destructive) primary button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{button.danger.primary.foreground.color.default}",
+              "$type": "color",
+              "$description": "Used for the foreground of a danger (destructive) primary button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{button.danger.primary.foreground.color.default}",
+              "$type": "color",
+              "$description": "Used for the foreground of a danger (destructive) primary button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{button.danger.primary.foreground.color.default}",
+              "$type": "color",
+              "$description": "Used for the foreground of a danger (destructive) primary button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            }
+          }
+        },
+        "background": {
+          "color": {
+            "default": {
+              "$value": {
+                "default": "{color.red.500}",
+                "dark": "{color.red.300}"
+              },
+              "$type": "color",
+              "$description": "Used for the background of a danger (destructive) primary button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": {
+                "default": "{color.red.600}",
+                "dark": "{color.red.200}"
+              },
+              "$type": "color",
+              "$description": "Used for the background of a danger (destructive) primary button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{button.danger.primary.background.color.hover}",
+              "$type": "color",
+              "$description": "Used for the background of a danger (destructive) primary button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": {
+                "default": "{color.red.800}",
+                "dark": "{color.red.400}"
+              },
+              "$type": "color",
+              "$description": "Used for the background of a danger (destructive) primary button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            }
+          }
+        },
+        "border": {
+          "color": {
+            "default": {
+              "$value": {
+                "default": "{color.red.600}",
+                "dark": "{color.alpha.0}"
+              },
+              "$type": "color",
+              "$description": "Used for the border of a danger (destructive) primary button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "hover": {
+              "$value": {
+                "default": "{color.red.800}",
+                "dark": "{color.alpha.0}"
+              },
+              "$type": "color",
+              "$description": "Used for the border of a danger (destructive) primary button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{button.danger.primary.border.color.hover}",
+              "$type": "color",
+              "$description": "Used for the border of a danger (destructive) primary button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "active": {
+              "$value": {
+                "default": "{color.red.900}",
+                "dark": "{color.alpha.0}"
+              },
+              "$type": "color",
+              "$description": "Used for the border of a danger (destructive) primary button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "secondary": {
+        "foreground": {
+          "color": {
+            "default": {
+              "$value": {
+                "default": "{color.red.500}",
+                "dark": "{color.red.100}"
+              },
+              "$type": "color",
+              "$description": "Used for the foreground of a danger (destructive) button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": {
+                "default": "{color.red.700}",
+                "dark": "{color.red.50}"
+              },
+              "$type": "color",
+              "$description": "Used for the foreground of a danger (destructive) button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{button.danger.secondary.foreground.color.hover}",
+              "$type": "color",
+              "$description": "Used for the foreground of a danger (destructive) button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": {
+                "default": "{color.red.900}",
+                "dark": "{color.red.50}"
+              },
+              "$type": "color",
+              "$description": "Used for the foreground of a danger (destructive) button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            }
+          }
+        },
+        "background": {
+          "color": {
+            "default": {
+              "$value": {
+                "default": "{color.neutral.0}",
+                "dark": {
+                  "colorSpace": "srgb",
+                  "components": [
+                    0.9254901960784314,
+                    0.34901960784313724,
+                    0.2549019607843137
+                  ],
+                  "alpha": 0.4
+                }
+              },
+              "$type": "color",
+              "$description": "Used for the background of an outlined danger (destructive) button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": {
+                "default": "{color.red.50}",
+                "dark": {
+                  "colorSpace": "srgb",
+                  "components": [
+                    0.9254901960784314,
+                    0.34901960784313724,
+                    0.2549019607843137
+                  ],
+                  "alpha": 0.64
+                }
+              },
+              "$type": "color",
+              "$description": "Used for the background of an outlined danger (destructive) button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{button.danger.secondary.background.color.hover}",
+              "$type": "color",
+              "$description": "Used for the background of an outlined danger (destructive) button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": {
+                "default": "{color.red.100}",
+                "dark": {
+                  "colorSpace": "srgb",
+                  "components": [
+                    0.9254901960784314,
+                    0.34901960784313724,
+                    0.2549019607843137
+                  ],
+                  "alpha": 0.32
+                }
+              },
+              "$type": "color",
+              "$description": "Used for the background of an outlined danger (destructive) button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            }
+          }
+        },
+        "border": {
+          "color": {
+            "default": {
+              "$value": {
+                "default": "{color.red.500}",
+                "dark": "{color.alpha.0}"
+              },
+              "$type": "color",
+              "$description": "Used for the border of an outlined danger (destructive) button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "hover": {
+              "$value": {
+                "default": "{color.red.700}",
+                "dark": "{color.alpha.0}"
+              },
+              "$type": "color",
+              "$description": "Used for the border of an outlined danger (destructive) button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{button.danger.secondary.border.color.hover}",
+              "$type": "color",
+              "$description": "Used for the border of an outlined danger (destructive) button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "active": {
+              "$value": {
+                "default": "{color.red.900}",
+                "dark": "{color.alpha.0}"
+              },
+              "$type": "color",
+              "$description": "Used for the border of an outlined danger (destructive) button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "tertiary": {
+        "foreground": {
+          "color": {
+            "default": {
+              "$value": "{action.danger.foreground.color.default}",
+              "$type": "color",
+              "$description": "Used for the foreground of a borderless, tertiary danger (destructive) button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{action.danger.foreground.color.hover}",
+              "$type": "color",
+              "$description": "Used for the foreground of a borderless, tertiary danger (destructive) button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{action.danger.foreground.color.focus}",
+              "$type": "color",
+              "$description": "Used for the foreground of a borderless, tertiary danger (destructive) button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{action.danger.foreground.color.active}",
+              "$type": "color",
+              "$description": "Used for the foreground of a borderless, tertiary danger (destructive) button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL",
+                  "TEXT_FILL"
+                ]
+              }
+            }
+          }
+        },
+        "background": {
+          "color": {
+            "default": {
+              "$value": "{action.danger.background.color.default}",
+              "$type": "color",
+              "$description": "Used for the background of a borderless, tertiary danger (destructive) button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{action.danger.background.color.hover}",
+              "$type": "color",
+              "$description": "Used for the background of a borderless, tertiary danger (destructive) button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{action.danger.background.color.focus}",
+              "$type": "color",
+              "$description": "Used for the background of a borderless, tertiary danger (destructive) button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{action.danger.background.color.active}",
+              "$type": "color",
+              "$description": "Used for the background of a borderless, tertiary danger (destructive) button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              }
+            }
+          }
+        },
+        "border": {
+          "color": {
+            "default": {
+              "$value": "{action.danger.border.color.default}",
+              "$type": "color",
+              "$description": "Used for the border of a borderless, tertiary danger (destructive) button in the default state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "hover": {
+              "$value": "{action.danger.border.color.hover}",
+              "$type": "color",
+              "$description": "Used for the border of a borderless, tertiary danger (destructive) button in the hover state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "focus": {
+              "$value": "{action.danger.border.color.focus}",
+              "$type": "color",
+              "$description": "Used for the border of a borderless, tertiary danger (destructive) button in the focus state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            },
+            "active": {
+              "$value": "{action.danger.border.color.active}",
+              "$type": "color",
+              "$description": "Used for the border of a borderless, tertiary danger (destructive) button in the active state.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "dashed": {
+      "border": {
+        "color": {
+          "default": {
+            "$value": {
+              "default": "{color.neutral.400}",
+              "dark": "{color.neutral.400}"
+            },
+            "$type": "color",
+            "$description": "Used for the border of a dashed button in the default state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "STROKE_COLOR"
+              ]
+            },
+            "$deprecated": true
+          },
+          "hover": {
+            "$value": "{button.dashed.border.color.default}",
+            "$type": "color",
+            "$description": "Used for the border of a dashed button in the hover state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "STROKE_COLOR"
+              ]
+            },
+            "$deprecated": true
+          },
+          "focus": {
+            "$value": "{button.dashed.border.color.default}",
+            "$type": "color",
+            "$description": "Used for the border of a dashed button in the focus state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "STROKE_COLOR"
+              ]
+            },
+            "$deprecated": true
+          },
+          "active": {
+            "$value": {
+              "default": "{color.neutral.600}",
+              "dark": "{color.neutral.300}"
+            },
+            "$type": "color",
+            "$description": "Used for the border of a dashed button in the active state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "STROKE_COLOR"
+              ]
+            },
+            "$deprecated": true
+          }
+        }
+      }
+    },
+    "link": {
+      "border": {
+        "radius": {
+          "$value": "{border.radius.md}",
+          "$type": "dimension",
+          "$description": "Used for link button border radius.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "CORNER_RADIUS"
+            ]
+          }
+        }
+      },
+      "text": {
+        "color": {
+          "default": {
+            "$value": "{text.color.link}",
+            "$type": "color",
+            "$description": "Used for the text of a link button in the default state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "hover": {
+            "$value": "{button.link.text.color.default}",
+            "$type": "color",
+            "$description": "Used for the text of a link button in the hover state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "focus": {
+            "$value": "{button.link.text.color.default}",
+            "$type": "color",
+            "$description": "Used for the text of a link button in the focus state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "active": {
+            "$value": "{button.link.text.color.default}",
+            "$type": "color",
+            "$description": "Used for the text of a link button in the active state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "TEXT_FILL"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "selected": {
+      "foreground": {
+        "color": {
+          "default": {
+            "$value": {
+              "default": "{button.default.primary.foreground.color.default}",
+              "dark": "{color.neutral.900}"
+            },
+            "$type": "color",
+            "$description": "Used for the foreground of a selected button in the default state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "hover": {
+            "$value": {
+              "default": "{button.default.primary.foreground.color.hover}",
+              "dark": "{color.neutral.950}"
+            },
+            "$type": "color",
+            "$description": "Used for the foreground of a selected button in the hover state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "focus": {
+            "$value": {
+              "default": "{button.default.primary.foreground.color.focus}",
+              "dark": "{color.neutral.950}"
+            },
+            "$type": "color",
+            "$description": "Used for the foreground of a selected button in the focus state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "TEXT_FILL"
+              ]
+            }
+          },
+          "active": {
+            "$value": {
+              "default": "{button.default.primary.foreground.color.active}",
+              "dark": "{color.neutral.950}"
+            },
+            "$type": "color",
+            "$description": "Used for the foreground of a selected button in the active state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "TEXT_FILL"
+              ]
+            }
+          }
+        }
+      },
+      "background": {
+        "color": {
+          "default": {
+            "$value": {
+              "default": "{color.neutral.50}",
+              "dark": "{color.neutral.300}"
+            },
+            "$type": "color",
+            "$description": "Used for the background of a selected button in the default state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "hover": {
+            "$value": {
+              "default": "{button.default.primary.background.color.hover}",
+              "dark": "{color.neutral.200}"
+            },
+            "$type": "color",
+            "$description": "Used for the background of a selected button in the hover state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "focus": {
+            "$value": {
+              "default": "{button.default.primary.background.color.focus}",
+              "dark": "{color.neutral.200}"
+            },
+            "$type": "color",
+            "$description": "Used for the background of a selected button in the focus state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "active": {
+            "$value": {
+              "default": "{button.default.primary.background.color.active}",
+              "dark": "{color.neutral.400}"
+            },
+            "$type": "color",
+            "$description": "Used for the background of a selected button in the active state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          }
+        }
+      },
+      "border": {
+        "color": {
+          "default": {
+            "$value": {
+              "default": "{color.neutral.300}",
+              "dark": "{color.alpha.0}"
+            },
+            "$type": "color",
+            "$description": "Used for the border of a selected button in the default state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "STROKE_COLOR"
+              ]
+            }
+          },
+          "hover": {
+            "$value": {
+              "default": "{color.neutral.400}",
+              "dark": "{color.alpha.0}"
+            },
+            "$type": "color",
+            "$description": "Used for the border of a selected button in the hover state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "STROKE_COLOR"
+              ]
+            }
+          },
+          "focus": {
+            "$value": "{button.selected.border.color.hover}",
+            "$type": "color",
+            "$description": "Used for the border of a selected button in the focus state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "STROKE_COLOR"
+              ]
+            }
+          },
+          "active": {
+            "$value": {
+              "default": "{color.neutral.600}",
+              "dark": "{color.alpha.0}"
+            },
+            "$type": "color",
+            "$description": "Used for the border of a selected button in the active state.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "disabled": {
+      "foreground": {
+        "color": {
+          "$value": {
+            "default": "{color.neutral.500}",
+            "dark": "{color.neutral.400}"
+          },
+          "$type": "color",
+          "$description": "Used for the foreground of a disabled button.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "SHAPE_FILL",
+              "TEXT_FILL"
+            ]
+          }
+        }
+      },
+      "background": {
+        "color": {
+          "$value": {
+            "default": "{color.neutral.10}",
+            "dark": {
+              "colorSpace": "srgb",
+              "components": [
+                0.5372549019607843,
+                0.5333333333333333,
+                0.5529411764705883
+              ],
+              "alpha": 0.16
+            }
+          },
+          "$type": "color",
+          "$description": "Used for the background of a disabled button.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        }
+      },
+      "border": {
+        "color": {
+          "$value": {
+            "default": "{color.neutral.100}",
+            "dark": "{color.alpha.0}"
+          },
+          "$type": "color",
+          "$description": "Used for the border of a disabled button.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "STROKE_COLOR"
+            ]
+          }
+        }
+      }
+    },
+    "count": {
+      "background": {
+        "color": {
+          "$value": {
+            "default": "{color.alpha.dark.8}",
+            "dark": "{color.alpha.light.16}"
+          },
+          "$type": "color",
+          "$description": "Used for the background of a button count element.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
