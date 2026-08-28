@@ -3,17 +3,24 @@
   "private": true,
   "description": "",
   "scripts": {
+    "build": "pnpm --filter @gitlab-ui-react/styles... build",
     "lint": "oxlint .",
-    "tokens:build": "pnpm --filter @gitlab-ui-react/tokens build"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "tokens:build": "pnpm --filter @gitlab-ui-react/tokens build",
+    "styles:build": "pnpm --filter @gitlab-ui-react/styles build"
   },
   "keywords": [],
   "author": "NriotHrreion",
   "license": "MIT",
   "packageManager": "pnpm@10.33.0",
   "devDependencies": {
+    "@gitlab/ui": "^137.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-react": "^7.37.5",
-    "oxlint": "^1.80.0"
+    "lodash-es": "4.18.1",
+    "oxlint": "^1.80.0",
+    "vitest": "^4.1.11"
   }
 }

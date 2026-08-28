@@ -1,0 +1,15 @@
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+
+@config "../tailwind.config.js";
+
+/*
+ * React packages keep using the upstream gl-* API. The PostCSS compatibility
+ * plugin translates scanned candidates for Tailwind v4 and restores gl-* in
+ * the emitted CSS. Add exceptional source paths here when the globs miss them.
+ */
+@source "../../*/src/**/*.{html,js,jsx,mjs,cjs,ts,tsx,mdx}";
+@source not "../../tokens/src/**/*";
+@source "../../../apps/**/*.{html,js,jsx,mjs,cjs,ts,tsx,mdx}";

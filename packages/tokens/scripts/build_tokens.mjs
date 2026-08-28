@@ -49,7 +49,7 @@ import {
  */
 const PREFIX = 'gl';
 const ROOT = join(import.meta.dirname, '..');
-const BUILD_PATH = join(ROOT, 'build');
+const BUILD_PATH = join(ROOT, 'dist');
 // https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables#h_01KAGZ9T9H4P7RXY11SG4QXFY2
 const FIGMA_SUPPORTED_TYPES = [
   'color',
