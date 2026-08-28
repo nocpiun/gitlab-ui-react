@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v6
+    
+    - name: Use Node.js 24.x
+      uses: actions/setup-node@v6
+      with:
+        node-version: 24.x
+        cache: 'npm'
+    
+    - name: Use pnpm 10.x
+      uses: pnpm/action-setup@v6
+      with:
+        version: 10
+    
+    - name: Install dependencies
+      run: pnpm i --frozen-lockfile
+    
+    - name: Run lint
+      run: pnpm lint
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v6
+    
+    - name: Use Node.js 24.x
+      uses: actions/setup-node@v6
+      with:
+        node-version: 24.x
+        cache: 'npm'
+    
+    - name: Use pnpm 10.x
+      uses: pnpm/action-setup@v6
+      with:
+        version: 10
+    
+    - name: Install dependencies
+      run: pnpm i --frozen-lockfile
+    
+    - name: Run tests
+      run: pnpm test
