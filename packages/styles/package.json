@@ -1,0 +1,32 @@
+{
+  "name": "@gitlab-ui-react/styles",
+  "version": "0.1.0",
+  "description": "",
+  "type": "module",
+  "style": "./dist/gitlab-ui.css",
+  "exports": {
+    ".": "./dist/gitlab-ui.css",
+    "./gitlab-ui.css": "./dist/gitlab-ui.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "vitest run --root ../.. packages/styles"
+  },
+  "keywords": [],
+  "author": "NriotHrreion",
+  "license": "MIT",
+  "packageManager": "pnpm@10.33.0",
+  "devDependencies": {
+    "@tailwindcss/node": "4.3.3",
+    "@tailwindcss/oxide": "4.3.3",
+    "postcss": "^8.5.26",
+    "postcss-selector-parser": "7.1.0",
+    "tailwindcss": "^4.3.3"
+  },
+  "dependencies": {
+    "@gitlab-ui-react/tokens": "workspace:^"
+  }
+}

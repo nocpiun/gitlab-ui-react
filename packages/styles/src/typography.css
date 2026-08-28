@@ -1,0 +1,62 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  @apply gl-text-heading;
+}
+
+a {
+  @apply gl-text-link gl-no-underline hover:gl-text-link hover:gl-underline;
+}
+
+/*
+ * Undo link styles for placeholder links and named anchors without href.
+ * Using a[href] above would change specificity for existing component styles.
+ */
+a:not([href]):not([class]) {
+  @apply gl-text-inherit gl-no-underline hover:gl-text-inherit hover:gl-no-underline;
+}
+
+caption {
+  @apply gl-text-subtle;
+}
+
+pre {
+  @apply gl-text-strong;
+}
+
+kbd {
+  @apply gl-border gl-inline-block gl-border-b-strong gl-bg-subtle gl-leading-1 gl-text-default;
+
+  padding: 3px 5px;
+  border-image: none;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 var(--gl-border-color-strong);
+  font-size: 87.5%;
+  vertical-align: unset;
+}
+
+.table {
+  @apply gl-mb-3 gl-w-full gl-bg-transparent gl-text-default;
+}
+
+.table th,
+.table td {
+  @apply gl-border-t gl-p-4 gl-align-top;
+}
+
+.table thead th {
+  @apply gl-border-b gl-border-b-2 gl-align-bottom;
+}
+
+.table tbody + tbody {
+  @apply gl-border-t gl-border-t-2;
+}
