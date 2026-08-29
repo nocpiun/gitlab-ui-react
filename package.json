@@ -3,6 +3,7 @@
   "private": true,
   "description": "",
   "scripts": {
+    "dev": "storybook dev -p 6006 --config-dir apps/storybook",
     "build": "pnpm --filter @gitlab-ui-react/styles... build",
     "lint": "oxlint .",
     "test": "vitest run",
@@ -14,7 +15,6 @@
     "tokens:build": "pnpm --filter @gitlab-ui-react/tokens build",
     "styles:build": "pnpm --filter @gitlab-ui-react/styles build",
     "ui:build": "pnpm --filter gitlab-ui-react build",
-    "storybook": "storybook dev -p 6006 --config-dir apps/storybook",
     "storybook:build": "storybook build --config-dir apps/storybook -o apps/storybook/build"
   },
   "keywords": [],

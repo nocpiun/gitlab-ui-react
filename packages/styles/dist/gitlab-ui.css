@@ -2710,6 +2710,347 @@ kbd {
   --gl-color-neutral-950: #171717;
   --gl-color-neutral-1000: #050505;
 }
+.gl-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-weight: var(--gl-font-weight-normal);
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+}
+.gl-button:not(.btn-link):focus-visible, .gl-button:not(.btn-link):active, .gl-button:not(.btn-link):focus-visible:active {
+  text-decoration: none;
+}
+.gl-button.gl-button {
+  --gl-button-variant-foreground: var(--gl-button-default-primary-foreground-color-default);
+  --gl-button-variant-background: var(--gl-button-default-primary-background-color-default);
+  --gl-button-variant-border: var(--gl-button-default-primary-border-color-default);
+  --gl-button-variant-hover-foreground: var(--gl-button-default-primary-foreground-color-hover);
+  --gl-button-variant-hover-background: var(--gl-button-default-primary-background-color-hover);
+  --gl-button-variant-hover-border: var(--gl-button-default-primary-border-color-hover);
+  --gl-button-variant-focus-foreground: var(--gl-button-default-primary-foreground-color-focus);
+  --gl-button-variant-focus-background: var(--gl-button-default-primary-background-color-focus);
+  --gl-button-variant-focus-border: var(--gl-button-default-primary-border-color-focus);
+  --gl-button-variant-active-foreground: var(--gl-button-default-primary-foreground-color-active);
+  --gl-button-variant-active-background: var(--gl-button-default-primary-background-color-active);
+  --gl-button-variant-active-border: var(--gl-button-default-primary-border-color-active);
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0 var(--gl-spacing-scale-4);
+  border: 1px solid var(--gl-button-variant-border);
+  border-radius: var(--gl-button-border-radius);
+  color: var(--gl-button-variant-foreground);
+  background-color: var(--gl-button-variant-background);
+  fill: currentColor;
+  font-size: var(--gl-font-size-base);
+  line-height: 1rem;
+  transition: color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1), background-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1), border-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.2s cubic-bezier(0.22, 0.61, 0.36, 1), text-decoration-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.gl-button.gl-button::before {
+  background-color: var(--gl-button-variant-border);
+  transition: background-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1), border-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.gl-button.gl-button:hover {
+  color: var(--gl-button-variant-hover-foreground);
+  background-color: var(--gl-button-variant-hover-background);
+  border-color: var(--gl-button-variant-hover-border);
+}
+.gl-button.gl-button:focus-visible, .gl-button.gl-button:focus-visible:active {
+  color: var(--gl-button-variant-focus-foreground);
+  background-color: var(--gl-button-variant-focus-background);
+  border-color: var(--gl-button-variant-focus-border);
+  box-shadow: 0 0 0 1px var(--gl-focus-ring-inner-color), 0 0 0 3px var(--gl-focus-ring-outer-color);
+  outline: none;
+}
+.gl-button.gl-button:active, .gl-button.gl-button.active {
+  color: var(--gl-button-variant-active-foreground);
+  background-color: var(--gl-button-variant-active-background);
+  border-color: var(--gl-button-variant-active-border);
+}
+.gl-button.btn-default, .gl-button.btn-default-secondary {
+  --gl-button-variant-foreground: var(--gl-button-default-primary-foreground-color-default);
+  --gl-button-variant-background: var(--gl-button-default-primary-background-color-default);
+  --gl-button-variant-border: var(--gl-button-default-primary-border-color-default);
+  --gl-button-variant-hover-foreground: var(--gl-button-default-primary-foreground-color-hover);
+  --gl-button-variant-hover-background: var(--gl-button-default-primary-background-color-hover);
+  --gl-button-variant-hover-border: var(--gl-button-default-primary-border-color-hover);
+  --gl-button-variant-focus-foreground: var(--gl-button-default-primary-foreground-color-focus);
+  --gl-button-variant-focus-background: var(--gl-button-default-primary-background-color-focus);
+  --gl-button-variant-focus-border: var(--gl-button-default-primary-border-color-focus);
+  --gl-button-variant-active-foreground: var(--gl-button-default-primary-foreground-color-active);
+  --gl-button-variant-active-background: var(--gl-button-default-primary-background-color-active);
+  --gl-button-variant-active-border: var(--gl-button-default-primary-border-color-active);
+}
+.gl-button.btn-default-tertiary {
+  --gl-button-variant-foreground: var(--gl-button-default-tertiary-foreground-color-default);
+  --gl-button-variant-background: var(--gl-button-default-tertiary-background-color-default);
+  --gl-button-variant-border: var(--gl-button-default-tertiary-border-color-default);
+  --gl-button-variant-hover-foreground: var(--gl-button-default-tertiary-foreground-color-hover);
+  --gl-button-variant-hover-background: var(--gl-button-default-tertiary-background-color-hover);
+  --gl-button-variant-hover-border: var(--gl-button-default-tertiary-border-color-hover);
+  --gl-button-variant-focus-foreground: var(--gl-button-default-tertiary-foreground-color-focus);
+  --gl-button-variant-focus-background: var(--gl-button-default-tertiary-background-color-focus);
+  --gl-button-variant-focus-border: var(--gl-button-default-tertiary-border-color-focus);
+  --gl-button-variant-active-foreground: var(--gl-button-default-tertiary-foreground-color-active);
+  --gl-button-variant-active-background: var(--gl-button-default-tertiary-background-color-active);
+  --gl-button-variant-active-border: var(--gl-button-default-tertiary-border-color-active);
+}
+.gl-button.btn-confirm {
+  --gl-button-variant-foreground: var(--gl-button-confirm-primary-foreground-color-default);
+  --gl-button-variant-background: var(--gl-button-confirm-primary-background-color-default);
+  --gl-button-variant-border: var(--gl-button-confirm-primary-border-color-default);
+  --gl-button-variant-hover-foreground: var(--gl-button-confirm-primary-foreground-color-hover);
+  --gl-button-variant-hover-background: var(--gl-button-confirm-primary-background-color-hover);
+  --gl-button-variant-hover-border: var(--gl-button-confirm-primary-border-color-hover);
+  --gl-button-variant-focus-foreground: var(--gl-button-confirm-primary-foreground-color-focus);
+  --gl-button-variant-focus-background: var(--gl-button-confirm-primary-background-color-focus);
+  --gl-button-variant-focus-border: var(--gl-button-confirm-primary-border-color-focus);
+  --gl-button-variant-active-foreground: var(--gl-button-confirm-primary-foreground-color-active);
+  --gl-button-variant-active-background: var(--gl-button-confirm-primary-background-color-active);
+  --gl-button-variant-active-border: var(--gl-button-confirm-primary-border-color-active);
+}
+.gl-button.btn-confirm-secondary {
+  --gl-button-variant-foreground: var(--gl-button-confirm-secondary-foreground-color-default);
+  --gl-button-variant-background: var(--gl-button-confirm-secondary-background-color-default);
+  --gl-button-variant-border: var(--gl-button-confirm-secondary-border-color-default);
+  --gl-button-variant-hover-foreground: var(--gl-button-confirm-secondary-foreground-color-hover);
+  --gl-button-variant-hover-background: var(--gl-button-confirm-secondary-background-color-hover);
+  --gl-button-variant-hover-border: var(--gl-button-confirm-secondary-border-color-hover);
+  --gl-button-variant-focus-foreground: var(--gl-button-confirm-secondary-foreground-color-focus);
+  --gl-button-variant-focus-background: var(--gl-button-confirm-secondary-background-color-focus);
+  --gl-button-variant-focus-border: var(--gl-button-confirm-secondary-border-color-focus);
+  --gl-button-variant-active-foreground: var(--gl-button-confirm-secondary-foreground-color-active);
+  --gl-button-variant-active-background: var(--gl-button-confirm-secondary-background-color-active);
+  --gl-button-variant-active-border: var(--gl-button-confirm-secondary-border-color-active);
+}
+.gl-button.btn-confirm-tertiary {
+  --gl-button-variant-foreground: var(--gl-button-confirm-tertiary-foreground-color-default);
+  --gl-button-variant-background: var(--gl-button-confirm-tertiary-background-color-default);
+  --gl-button-variant-border: var(--gl-button-confirm-tertiary-border-color-default);
+  --gl-button-variant-hover-foreground: var(--gl-button-confirm-tertiary-foreground-color-hover);
+  --gl-button-variant-hover-background: var(--gl-button-confirm-tertiary-background-color-hover);
+  --gl-button-variant-hover-border: var(--gl-button-confirm-tertiary-border-color-hover);
+  --gl-button-variant-focus-foreground: var(--gl-button-confirm-tertiary-foreground-color-focus);
+  --gl-button-variant-focus-background: var(--gl-button-confirm-tertiary-background-color-focus);
+  --gl-button-variant-focus-border: var(--gl-button-confirm-tertiary-border-color-focus);
+  --gl-button-variant-active-foreground: var(--gl-button-confirm-tertiary-foreground-color-active);
+  --gl-button-variant-active-background: var(--gl-button-confirm-tertiary-background-color-active);
+  --gl-button-variant-active-border: var(--gl-button-confirm-tertiary-border-color-active);
+}
+.gl-button.btn-danger {
+  --gl-button-variant-foreground: var(--gl-button-danger-primary-foreground-color-default);
+  --gl-button-variant-background: var(--gl-button-danger-primary-background-color-default);
+  --gl-button-variant-border: var(--gl-button-danger-primary-border-color-default);
+  --gl-button-variant-hover-foreground: var(--gl-button-danger-primary-foreground-color-hover);
+  --gl-button-variant-hover-background: var(--gl-button-danger-primary-background-color-hover);
+  --gl-button-variant-hover-border: var(--gl-button-danger-primary-border-color-hover);
+  --gl-button-variant-focus-foreground: var(--gl-button-danger-primary-foreground-color-focus);
+  --gl-button-variant-focus-background: var(--gl-button-danger-primary-background-color-focus);
+  --gl-button-variant-focus-border: var(--gl-button-danger-primary-border-color-focus);
+  --gl-button-variant-active-foreground: var(--gl-button-danger-primary-foreground-color-active);
+  --gl-button-variant-active-background: var(--gl-button-danger-primary-background-color-active);
+  --gl-button-variant-active-border: var(--gl-button-danger-primary-border-color-active);
+}
+.gl-button.btn-danger-secondary {
+  --gl-button-variant-foreground: var(--gl-button-danger-secondary-foreground-color-default);
+  --gl-button-variant-background: var(--gl-button-danger-secondary-background-color-default);
+  --gl-button-variant-border: var(--gl-button-danger-secondary-border-color-default);
+  --gl-button-variant-hover-foreground: var(--gl-button-danger-secondary-foreground-color-hover);
+  --gl-button-variant-hover-background: var(--gl-button-danger-secondary-background-color-hover);
+  --gl-button-variant-hover-border: var(--gl-button-danger-secondary-border-color-hover);
+  --gl-button-variant-focus-foreground: var(--gl-button-danger-secondary-foreground-color-focus);
+  --gl-button-variant-focus-background: var(--gl-button-danger-secondary-background-color-focus);
+  --gl-button-variant-focus-border: var(--gl-button-danger-secondary-border-color-focus);
+  --gl-button-variant-active-foreground: var(--gl-button-danger-secondary-foreground-color-active);
+  --gl-button-variant-active-background: var(--gl-button-danger-secondary-background-color-active);
+  --gl-button-variant-active-border: var(--gl-button-danger-secondary-border-color-active);
+}
+.gl-button.btn-danger-tertiary {
+  --gl-button-variant-foreground: var(--gl-button-danger-tertiary-foreground-color-default);
+  --gl-button-variant-background: var(--gl-button-danger-tertiary-background-color-default);
+  --gl-button-variant-border: var(--gl-button-danger-tertiary-border-color-default);
+  --gl-button-variant-hover-foreground: var(--gl-button-danger-tertiary-foreground-color-hover);
+  --gl-button-variant-hover-background: var(--gl-button-danger-tertiary-background-color-hover);
+  --gl-button-variant-hover-border: var(--gl-button-danger-tertiary-border-color-hover);
+  --gl-button-variant-focus-foreground: var(--gl-button-danger-tertiary-foreground-color-focus);
+  --gl-button-variant-focus-background: var(--gl-button-danger-tertiary-background-color-focus);
+  --gl-button-variant-focus-border: var(--gl-button-danger-tertiary-border-color-focus);
+  --gl-button-variant-active-foreground: var(--gl-button-danger-tertiary-foreground-color-active);
+  --gl-button-variant-active-background: var(--gl-button-danger-tertiary-background-color-active);
+  --gl-button-variant-active-border: var(--gl-button-danger-tertiary-border-color-active);
+}
+.gl-button.gl-button.btn-default.selected {
+  color: var(--gl-button-selected-foreground-color-default);
+  background-color: var(--gl-button-selected-background-color-default);
+  border-color: var(--gl-button-selected-border-color-default);
+  box-shadow: inset 0 0 0 1px var(--gl-button-selected-border-color-default);
+}
+.gl-button.btn-default.selected::before, .gl-button.btn-default.selected + .gl-button::before {
+  background-color: var(--gl-button-selected-border-color-default);
+}
+.gl-button.gl-button.btn-default.selected:hover {
+  color: var(--gl-button-selected-foreground-color-hover);
+  background-color: var(--gl-button-selected-background-color-hover);
+  border-color: var(--gl-button-selected-border-color-hover);
+  box-shadow: inset 0 0 0 1px var(--gl-button-selected-border-color-hover);
+}
+.gl-button.gl-button.btn-default.selected:focus-visible {
+  color: var(--gl-button-selected-foreground-color-focus);
+  background-color: var(--gl-button-selected-background-color-focus);
+  border-color: var(--gl-button-selected-border-color-focus);
+  box-shadow: 0 0 0 1px var(--gl-focus-ring-inner-color), 0 0 0 3px var(--gl-focus-ring-outer-color);
+}
+.gl-button.gl-button.btn-default.selected:active, .gl-button.gl-button.btn-default.selected.active {
+  color: var(--gl-button-selected-foreground-color-active);
+  background-color: var(--gl-button-selected-background-color-active);
+  border-color: var(--gl-button-selected-border-color-active);
+  box-shadow: inset 0 0 0 1px var(--gl-button-selected-border-color-active);
+}
+.gl-button .gl-button-text {
+  overflow: hidden;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  margin-top: -1px;
+  margin-bottom: -1px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.gl-button .gl-button-icon {
+  position: static;
+  width: var(--gl-spacing-scale-5);
+  height: var(--gl-spacing-scale-5);
+  flex-shrink: 0;
+  margin-right: var(--gl-spacing-scale-2);
+}
+.gl-button .gl-button-emoji {
+  position: relative;
+  margin-right: var(--gl-spacing-scale-2);
+  font-size: var(--gl-font-size-lg);
+}
+.gl-button .gl-button-count {
+  display: inline-flex;
+  min-width: var(--gl-spacing-scale-3);
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--gl-spacing-scale-2);
+  margin-left: var(--gl-spacing-scale-2);
+  border: 1px solid transparent;
+  border-radius: var(--gl-border-radius-full);
+  background-color: var(--gl-button-count-background-color);
+  font-size: var(--gl-font-size-sm);
+  font-weight: var(--gl-font-weight-normal);
+  line-height: 1rem;
+}
+.gl-button.gl-button.btn-sm {
+  min-width: 24px;
+  min-height: 24px;
+  padding-right: var(--gl-spacing-scale-3);
+  padding-left: var(--gl-spacing-scale-3);
+}
+.gl-button.btn-sm .gl-button-emoji {
+  font-size: var(--gl-font-size-sm);
+}
+.gl-button.gl-button.btn-icon {
+  padding: 0;
+}
+.gl-button.btn-icon .gl-button-icon {
+  margin-right: 0;
+}
+.gl-button.gl-button.button-ellipsis-horizontal {
+  min-width: auto;
+  min-height: auto;
+  padding-right: var(--gl-spacing-scale-2);
+  padding-left: var(--gl-spacing-scale-2);
+}
+.gl-button.button-ellipsis-horizontal svg {
+  width: var(--gl-spacing-scale-5);
+  height: var(--gl-spacing-scale-5);
+  margin: 0;
+}
+.gl-button.gl-button.btn-label, .gl-button.gl-button.btn-label:hover, .gl-button.gl-button.btn-label:focus-visible, .gl-button.gl-button.btn-label:active {
+  background-color: var(--gl-background-color-subtle);
+  cursor: default;
+  user-select: text;
+}
+.gl-button.gl-button.btn-link {
+  min-width: auto;
+  min-height: auto;
+  padding-right: 0;
+  padding-left: 0;
+  border: 0;
+  border-radius: var(--gl-button-link-border-radius);
+  color: var(--gl-button-link-text-color-default);
+  background-color: transparent;
+  font-size: var(--gl-font-size-base);
+  line-height: 1rem;
+  text-decoration-color: transparent;
+  text-decoration-style: solid;
+  text-decoration-thickness: auto;
+}
+.gl-button.gl-button.btn-link:hover {
+  color: var(--gl-button-link-text-color-hover);
+  background-color: transparent;
+  text-decoration-color: var(--gl-button-link-text-color-hover);
+}
+.gl-button.gl-button.btn-link:active {
+  color: var(--gl-button-link-text-color-active);
+  background-color: transparent;
+  text-decoration-color: var(--gl-button-link-text-color-active);
+}
+.gl-button.gl-button.btn-link:focus-visible, .gl-button.gl-button.btn-link:focus-visible:active {
+  background-color: transparent;
+}
+.gl-button.gl-button.btn-block {
+  width: 100%;
+}
+.gl-button.btn-block + .gl-button.btn-block {
+  margin-top: var(--gl-spacing-scale-2);
+}
+.gl-button.gl-button.disabled, .gl-button.gl-button.disabled:hover, .gl-button.gl-button.disabled:focus-visible, .gl-button.gl-button.disabled:active, .gl-button.gl-button.disabled.selected {
+  border-color: var(--gl-button-disabled-border-color);
+  color: var(--gl-button-disabled-foreground-color);
+  background-color: var(--gl-button-disabled-background-color);
+  box-shadow: none;
+  opacity: 1;
+  cursor: not-allowed;
+}
+.gl-button.disabled::before {
+  background-color: var(--gl-button-disabled-border-color);
+}
+.gl-button.gl-button.disabled[class*="-tertiary"], .gl-button.gl-button.btn-link.disabled {
+  background-color: transparent;
+  box-shadow: none;
+}
+.gl-button-text:has(.gl-sr-only) {
+  position: relative;
+}
+@media (prefers-reduced-motion) {
+  .gl-button.gl-button, .gl-button.gl-button::before {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}
+@media (forced-colors: active) {
+  .gl-button.gl-button:focus-visible {
+    outline: 2px solid LinkText;
+  }
+  .gl-button.btn-default-secondary, .gl-button.btn-confirm-secondary, .gl-button.btn-danger-secondary, .gl-button.btn-reset-secondary, .gl-button.btn-reset-tertiary {
+    border: 1px solid LinkText;
+    color: LinkText;
+  }
+  .gl-button.btn-default-tertiary, .gl-button.btn-confirm-tertiary, .gl-button.btn-danger-tertiary {
+    border: 0;
+    color: LinkText;
+    mix-blend-mode: initial;
+  }
+}
 .gl-icon.s8 {
   width: 8px;
   height: 8px;
@@ -2744,6 +3085,17 @@ kbd {
 }
 @layer theme, base, components, utilities;
 @layer utilities {
+  .gl-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border-width: 0;
+  }
   .gl-fill-current {
     fill: currentcolor;
   }
