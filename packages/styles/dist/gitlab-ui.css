@@ -3083,6 +3083,67 @@ kbd {
   width: 72px;
   height: 72px;
 }
+.gl-link {
+  text-underline-offset: var(--gl-spacing-scale-1);
+}
+.gl-link:hover {
+  color: var(--gl-text-color-link);
+  cursor: pointer;
+}
+.gl-link, .gl-link:active, .gl-link:focus-visible {
+  color: var(--gl-text-color-link);
+}
+.gl-link:active, .gl-link:focus-visible, .gl-link:focus-visible:active {
+  text-decoration-line: underline;
+}
+.gl-link:focus-visible, .gl-link:focus-visible:active {
+  outline: 2px solid var(--gl-focus-ring-outer-color);
+  outline-offset: 2px;
+}
+.gl-link-inline, .gl-link-inline:hover {
+  text-decoration-line: underline;
+}
+.gl-link-external::after {
+  content: " ↗";
+  font-size: 1em;
+}
+.gl-link-meta {
+  text-decoration-line: none;
+}
+.gl-link-meta:hover {
+  text-decoration-line: underline;
+}
+.gl-link-meta, .gl-link-meta:hover, .gl-link-meta:focus-visible, .gl-link-meta:focus-visible:hover {
+  color: inherit;
+}
+.gl-link-mention, .gl-link-mention-current {
+  padding-inline: var(--gl-spacing-scale-1);
+  border-radius: var(--gl-border-radius-default);
+  text-decoration-line: none;
+}
+.gl-link-mention:hover, .gl-link-mention-current:hover {
+  text-decoration-line: underline;
+}
+.gl-link-mention:active, .gl-link-mention:focus-visible, .gl-link-mention:focus-visible:active, .gl-link-mention-current:active, .gl-link-mention-current:focus-visible, .gl-link-mention-current:focus-visible:active {
+  text-decoration-line: none;
+}
+.gl-link-mention {
+  background-color: var(--gl-link-mention-background-color-default);
+}
+.gl-link-mention, .gl-link-mention:hover, .gl-link-mention:active, .gl-link-mention:focus-visible, .gl-link-mention:focus-visible:active {
+  color: var(--gl-link-mention-text-color-default);
+}
+.gl-link-mention-current {
+  background-color: var(--gl-link-mention-background-color-current);
+}
+.gl-link-mention-current, .gl-link-mention-current:hover, .gl-link-mention-current:active, .gl-link-mention-current:focus-visible, .gl-link-mention-current:focus-visible:active {
+  color: var(--gl-link-mention-text-color-current);
+}
+@media (forced-colors: active) {
+  .gl-link:focus-visible {
+    outline-color: LinkText;
+  }
+}
 .gl-spinner-container, .gl-dots-loader {
   line-height: 0;
   text-align: center;
