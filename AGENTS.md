@@ -22,17 +22,15 @@
 - 保持改动聚焦。仓库可能已有未提交工作，不要覆盖、回退或顺手重排无关文件。
 - 遵循所在包的现有格式和命名，不要进行与任务无关的全仓格式化。代码采用 ESM；React 源码使用严格 TypeScript 与现代 JSX runtime。
 - `packages/tokens/dist` 和 `packages/styles/dist` 是由脚本生成且被版本控制的产物。修改其源文件或构建脚本后要重新生成并检查 diff；不要直接手改生成文件。
+- 不要手动执行 tokens 构建（`pnpm build`、`pnpm --filter @gitlab-ui-react/tokens build` 等会触发 tokens 构建的命令）：tokens 产物由上游同步工作流统一重建。验证组件或样式改动时跳过 tokens 构建，若不慎重建了 `packages/tokens/dist`，将其还原后再交付。
 - 从上游复制或实质性改编代码时，保留适用的版权与许可证头，并在有助于后续同步时记录上游文件路径。
 
 ## Vue 到 React 的移植规则
 
-- 实现组件前先核对上游组件源码、单元测试、stories 和 Pajamas 文档，整理 props、事件、slots、状态、DOM 语义、键盘交互和可访问性要求。
-- 默认保留 `Gl*` 组件名、prop 含义、视觉状态、CSS 类约定和对用户可观察的行为。将 Vue slots、events、`v-model` 等转换为清晰的 React children、组合 API、受控/非受控 props 与回调，不照搬 Vue 内部 API。
-- 组件使用函数组件和 React 类型。公共 props、组件和辅助类型应具有稳定的导出；新增公共组件后同步更新 `packages/ui/src/index.ts`。
-- 组件样式必须与组件源码放在同一组件目录内，并以组件名命名（例如 `src/base/icon/icon.css`）。在 `packages/styles/src/components.css` 中通过 `@import` 引用各组件样式；不得直接在 `components.css` 中编写组件样式规则。
-- 优先复用 `@gitlab-ui-react/tokens`、`@gitlab-ui-react/styles` 和 `@gitlab/svgs`，避免硬编码已有 token 能表达的颜色、间距、排版或图标。
-- 保持语义化 HTML、键盘可操作性、焦点行为和 ARIA 信息。不要只移植视觉外观；disabled、loading、错误态、暗色主题等上游支持的状态也应纳入实现和验证。
-- 不要为了逐行对应上游而牺牲 React 的类型安全或组合方式。若有意偏离上游公共行为，在代码或文档中说明兼容性取舍。
+- 移植或实质同步 `packages/ui` 组件时，使用项目 Skill：`.agents/skills/port-gitlab-ui-component/SKILL.md`；详细的上游核对、API 转换、样式、测试和交付流程以该文件为准。
+- 保留上游可观察行为、视觉语义和可访问性，并转换为符合 React 习惯的类型化 API；使用 Base UI 作为基底（icon 除外），使用 cva 管理变体和类名。
+- 公共组件和类型从 `packages/ui/src/index.ts` 导出。组件 CSS 与源码同目录，并由 `packages/styles/src/components.css` 导入；优先复用现有 tokens、styles 和 icons。
+- 覆盖语义、键盘、焦点、ARIA 及上游支持的状态；有意偏离或延后的行为必须在代码或文档中明确说明。
 
 ## 验证
 
@@ -40,10 +38,10 @@
 
 - `pnpm lint`：全仓静态检查。
 - `pnpm test`：运行根 Vitest 配置发现的全部测试。
-- `pnpm build`：构建 tokens 及 styles；该命令不会构建 React UI 包。
+- `pnpm build`：构建 tokens 及 styles；该命令不会构建 React UI 包。不要手动运行（见“工作约定”），styles 改动用下面的单包命令。
 - `pnpm --filter gitlab-ui-react build`：构建 React UI 的 ESM/CJS 输出和类型声明。
 - `pnpm --filter @gitlab-ui-react/styles test`：仅运行 styles 包测试。
-- `pnpm --filter @gitlab-ui-react/tokens build` 或 `pnpm --filter @gitlab-ui-react/styles build`：需要时单独重建对应包。
+- `pnpm --filter @gitlab-ui-react/styles build`：样式改动时单独重建 styles 包。
 
 组件改动至少运行 lint、相关测试和 UI 包构建；token/style 改动至少运行相关构建、测试并检查已跟踪的 `dist` 差异。若现有失败与本次改动无关，在交付说明中明确列出命令和失败原因。
 

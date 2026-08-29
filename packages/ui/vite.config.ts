@@ -9,6 +9,7 @@ export default defineConfig({
     },
     rollupOptions: {
       external: [
+        /^@base-ui\/react(?:\/.*)?$/,
         "class-variance-authority",
         "react",
         "react-dom",

@@ -37,6 +37,7 @@
     "react-dom": "^19.2.8"
   },
   "dependencies": {
+    "@base-ui/react": "^1.7.0",
     "@gitlab/svgs": "^3.163.0",
     "class-variance-authority": "^0.7.1"
   }
