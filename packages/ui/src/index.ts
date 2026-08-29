@@ -12,6 +12,11 @@ export type {
   GlIconSize,
   GlIconVariant,
 } from "./base/icon/icon";
+export { default as GlLink } from "./base/link/link";
+export type {
+  GlLinkProps,
+  GlLinkVariant,
+} from "./base/link/link";
 export { default as GlLoadingIcon } from "./base/loading-icon/loading-icon";
 export type {
   GlLoadingIconColor,
