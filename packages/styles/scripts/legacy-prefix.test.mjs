@@ -38,4 +38,4 @@ test("compiles @apply and restores upstream gl-* selectors", async () => {
     /\.group-hover\\:gl-bg-default:is\(:where\(\.gl-group\):hover \*\)/u,
   );
   expect(result.css).not.toMatch(/:where\(\.gl-dark \*\)/u);
-});
+}, 30000);

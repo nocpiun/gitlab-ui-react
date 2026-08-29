@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import iconsInfo from "@gitlab/svgs/dist/icons.json";
+import { expect } from "storybook/test";
 import GlIcon, { type GlIconSize, type GlIconVariant } from "./icon";
 
 const sizes = [8, 12, 14, 16, 24, 32, 48, 72] satisfies GlIconSize[];
@@ -63,11 +64,28 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  play: async ({ canvas }) => {
+    const icon = canvas.getByRole("img", { name: "Success" });
+
+    await expect(icon).toBeVisible();
+    await expect(icon).toHaveClass("gl-icon", "s16", "gl-fill-current");
+    await expect(icon).toHaveAttribute("data-testid", "check-circle-icon");
+    await expect(icon.querySelector("use")?.getAttribute("href")).toMatch(
+      /icons\.svg#check-circle$/,
+    );
+  },
+};
 
 export const Decorative: Story = {
   args: {
     ariaLabel: undefined,
+  },
+  play: async ({ canvas }) => {
+    const icon = canvas.getByTestId("check-circle-icon");
+
+    await expect(icon).toHaveAttribute("aria-hidden", "true");
+    await expect(icon).not.toHaveAttribute("aria-label");
   },
 };
 
@@ -82,6 +100,14 @@ export const Sizes: Story = {
       ))}
     </div>
   ),
+  play: async ({ canvas }) => {
+    const icons = canvas.getAllByRole("img");
+    const largestIcon = canvas.getByRole("img", { name: "72 pixel icon" });
+
+    await expect(icons).toHaveLength(sizes.length);
+    await expect(largestIcon).toHaveClass("s72");
+    await expect(largestIcon).toHaveStyle({ height: "72px", width: "72px" });
+  },
 };
 
 export const Variants: Story = {
@@ -95,4 +121,13 @@ export const Variants: Story = {
       ))}
     </div>
   ),
+  play: async ({ canvas }) => {
+    const icons = canvas.getAllByRole("img");
+    const dangerIcon = canvas.getByRole("img", { name: "danger icon" });
+    const successIcon = canvas.getByRole("img", { name: "success icon" });
+
+    await expect(icons).toHaveLength(variants.length);
+    await expect(dangerIcon).toHaveClass("gl-fill-icon-danger");
+    await expect(successIcon).toHaveClass("gl-fill-icon-success");
+  },
 };
