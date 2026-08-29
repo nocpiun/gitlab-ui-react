@@ -1,3 +1,9 @@
+export { default as GlBadge } from "./base/badge/badge";
+export type {
+  GlBadgeIconSize,
+  GlBadgeProps,
+  GlBadgeVariant,
+} from "./base/badge/badge";
 export { default as GlButton } from "./base/button/button";
 export type {
   GlButtonCategory,
