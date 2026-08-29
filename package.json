@@ -15,7 +15,10 @@
     "tokens:build": "pnpm --filter @gitlab-ui-react/tokens build",
     "styles:build": "pnpm --filter @gitlab-ui-react/styles build",
     "ui:build": "pnpm --filter gitlab-ui-react build",
-    "storybook:build": "storybook build --config-dir apps/storybook -o apps/storybook/build"
+    "storybook:build": "storybook build --config-dir apps/storybook -o apps/storybook/build",
+    "scaffold": "node scripts/scaffold-component.mjs",
+    "scaffold:validate": "node scripts/validate-component.mjs",
+    "upstream": "node scripts/upstream-baseline.mjs"
   },
   "keywords": [],
   "author": "NriotHrreion",
