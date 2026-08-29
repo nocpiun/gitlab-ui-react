@@ -57,6 +57,8 @@ importers:
         specifier: ^4.1.11
         version: 4.1.11(vite@8.2.2(esbuild@0.28.2)(jiti@2.7.0))
 
+  apps/storybook: {}
+
   packages/styles:
     dependencies:
       '@gitlab-ui-react/tokens':
