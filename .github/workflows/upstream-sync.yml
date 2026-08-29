@@ -20,7 +20,7 @@ permissions:
   issues: write
 
 env:
-  SYNC_DIR: ${{ runner.temp }}/upstream-sync
+  SYNC_DIR: /tmp/upstream-sync
 
 jobs:
   sync:
