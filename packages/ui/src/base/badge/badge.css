@@ -1,0 +1,389 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/badge/badge.scss
+ *
+ * Bootstrap's `.badge` / `.badge-pill` base (border-radius, white-space,
+ * vertical-align, text-align) is folded into `.gl-badge` because this
+ * package does not ship Bootstrap.
+ */
+
+.gl-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gl-spacing-scale-2);
+  padding: var(--gl-spacing-scale-1) 0.375rem;
+  border-radius: var(--gl-border-radius-full);
+  font-size: var(--gl-font-size-sm);
+  font-weight: var(--gl-font-weight-normal);
+  line-height: 1rem;
+  text-align: center;
+  vertical-align: baseline;
+  white-space: nowrap;
+  transition:
+    color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+    background-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+    border-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@media (prefers-reduced-motion) {
+  .gl-badge {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}
+
+.gl-badge:has(.gl-truncate, .gl-text-truncate) {
+  max-width: 100%;
+}
+
+@media (forced-colors: active) {
+  .gl-badge {
+    border: 1px solid;
+  }
+}
+
+.gl-badge .gl-badge-icon {
+  flex-shrink: 0;
+  width: var(--gl-spacing-scale-5);
+  height: var(--gl-spacing-scale-5);
+  top: auto;
+}
+
+.gl-badge .gl-badge-content {
+  display: flex;
+  justify-content: center;
+  min-width: var(--gl-spacing-scale-3);
+}
+
+a.gl-badge.disabled {
+  cursor: not-allowed;
+}
+
+/* Neutral */
+
+.gl-badge.badge-neutral {
+  color: var(--gl-badge-neutral-text-color-default);
+  background-color: var(--gl-badge-neutral-background-color-default);
+}
+
+.gl-badge.badge-neutral .gl-badge-icon {
+  color: var(--gl-badge-neutral-icon-color-default);
+  transition: inherit;
+}
+
+a.gl-badge.badge-neutral:not(.disabled):hover {
+  color: var(--gl-badge-neutral-text-color-hover);
+  background-color: var(--gl-badge-neutral-background-color-hover);
+  box-shadow: inset 0 0 0 1px var(--gl-badge-neutral-border-color-hover);
+  text-decoration-line: none;
+}
+
+a.gl-badge.badge-neutral:not(.disabled):hover .gl-badge-icon {
+  color: var(--gl-badge-neutral-icon-color-hover);
+}
+
+a.gl-badge.badge-neutral:not(.disabled):focus-visible {
+  color: var(--gl-badge-neutral-text-color-focus);
+  background-color: var(--gl-badge-neutral-background-color-focus);
+}
+
+a.gl-badge.badge-neutral:not(.disabled):focus-visible .gl-badge-icon {
+  color: var(--gl-badge-neutral-icon-color-focus);
+}
+
+a.gl-badge.badge-neutral:not(.disabled).active,
+a.gl-badge.badge-neutral:not(.disabled):active {
+  color: var(--gl-badge-neutral-text-color-active);
+  background-color: var(--gl-badge-neutral-background-color-active);
+}
+
+a.gl-badge.badge-neutral:not(.disabled).active .gl-badge-icon,
+a.gl-badge.badge-neutral:not(.disabled):active .gl-badge-icon {
+  color: var(--gl-badge-neutral-icon-color-active);
+}
+
+a.gl-badge.badge-neutral:not(.disabled):active,
+a.gl-badge.badge-neutral:not(.disabled):focus-visible,
+a.gl-badge.badge-neutral:not(.disabled):focus-visible:active {
+  box-shadow:
+    0 0 0 1px var(--gl-focus-ring-inner-color),
+    0 0 0 3px var(--gl-focus-ring-outer-color);
+  outline: none;
+}
+
+/* Info */
+
+.gl-badge.badge-info {
+  color: var(--gl-badge-info-text-color-default);
+  background-color: var(--gl-badge-info-background-color-default);
+}
+
+.gl-badge.badge-info .gl-badge-icon {
+  color: var(--gl-badge-info-icon-color-default);
+  transition: inherit;
+}
+
+a.gl-badge.badge-info:not(.disabled):hover {
+  color: var(--gl-badge-info-text-color-hover);
+  background-color: var(--gl-badge-info-background-color-hover);
+  box-shadow: inset 0 0 0 1px var(--gl-badge-info-border-color-hover);
+  text-decoration-line: none;
+}
+
+a.gl-badge.badge-info:not(.disabled):hover .gl-badge-icon {
+  color: var(--gl-badge-info-icon-color-hover);
+}
+
+a.gl-badge.badge-info:not(.disabled):focus-visible {
+  color: var(--gl-badge-info-text-color-focus);
+  background-color: var(--gl-badge-info-background-color-focus);
+}
+
+a.gl-badge.badge-info:not(.disabled):focus-visible .gl-badge-icon {
+  color: var(--gl-badge-info-icon-color-focus);
+}
+
+a.gl-badge.badge-info:not(.disabled).active,
+a.gl-badge.badge-info:not(.disabled):active {
+  color: var(--gl-badge-info-text-color-active);
+  background-color: var(--gl-badge-info-background-color-active);
+}
+
+a.gl-badge.badge-info:not(.disabled).active .gl-badge-icon,
+a.gl-badge.badge-info:not(.disabled):active .gl-badge-icon {
+  color: var(--gl-badge-info-icon-color-active);
+}
+
+a.gl-badge.badge-info:not(.disabled):active,
+a.gl-badge.badge-info:not(.disabled):focus-visible,
+a.gl-badge.badge-info:not(.disabled):focus-visible:active {
+  box-shadow:
+    0 0 0 1px var(--gl-focus-ring-inner-color),
+    0 0 0 3px var(--gl-focus-ring-outer-color);
+  outline: none;
+}
+
+/* Success */
+
+.gl-badge.badge-success {
+  color: var(--gl-badge-success-text-color-default);
+  background-color: var(--gl-badge-success-background-color-default);
+}
+
+.gl-badge.badge-success .gl-badge-icon {
+  color: var(--gl-badge-success-icon-color-default);
+  transition: inherit;
+}
+
+a.gl-badge.badge-success:not(.disabled):hover {
+  color: var(--gl-badge-success-text-color-hover);
+  background-color: var(--gl-badge-success-background-color-hover);
+  box-shadow: inset 0 0 0 1px var(--gl-badge-success-border-color-hover);
+  text-decoration-line: none;
+}
+
+a.gl-badge.badge-success:not(.disabled):hover .gl-badge-icon {
+  color: var(--gl-badge-success-icon-color-hover);
+}
+
+a.gl-badge.badge-success:not(.disabled):focus-visible {
+  color: var(--gl-badge-success-text-color-focus);
+  background-color: var(--gl-badge-success-background-color-focus);
+}
+
+a.gl-badge.badge-success:not(.disabled):focus-visible .gl-badge-icon {
+  color: var(--gl-badge-success-icon-color-focus);
+}
+
+a.gl-badge.badge-success:not(.disabled).active,
+a.gl-badge.badge-success:not(.disabled):active {
+  color: var(--gl-badge-success-text-color-active);
+  background-color: var(--gl-badge-success-background-color-active);
+}
+
+a.gl-badge.badge-success:not(.disabled).active .gl-badge-icon,
+a.gl-badge.badge-success:not(.disabled):active .gl-badge-icon {
+  color: var(--gl-badge-success-icon-color-active);
+}
+
+a.gl-badge.badge-success:not(.disabled):active,
+a.gl-badge.badge-success:not(.disabled):focus-visible,
+a.gl-badge.badge-success:not(.disabled):focus-visible:active {
+  box-shadow:
+    0 0 0 1px var(--gl-focus-ring-inner-color),
+    0 0 0 3px var(--gl-focus-ring-outer-color);
+  outline: none;
+}
+
+/* Warning */
+
+.gl-badge.badge-warning {
+  color: var(--gl-badge-warning-text-color-default);
+  background-color: var(--gl-badge-warning-background-color-default);
+}
+
+.gl-badge.badge-warning .gl-badge-icon {
+  color: var(--gl-badge-warning-icon-color-default);
+  transition: inherit;
+}
+
+a.gl-badge.badge-warning:not(.disabled):hover {
+  color: var(--gl-badge-warning-text-color-hover);
+  background-color: var(--gl-badge-warning-background-color-hover);
+  box-shadow: inset 0 0 0 1px var(--gl-badge-warning-border-color-hover);
+  text-decoration-line: none;
+}
+
+a.gl-badge.badge-warning:not(.disabled):hover .gl-badge-icon {
+  color: var(--gl-badge-warning-icon-color-hover);
+}
+
+a.gl-badge.badge-warning:not(.disabled):focus-visible {
+  color: var(--gl-badge-warning-text-color-focus);
+  background-color: var(--gl-badge-warning-background-color-focus);
+}
+
+a.gl-badge.badge-warning:not(.disabled):focus-visible .gl-badge-icon {
+  color: var(--gl-badge-warning-icon-color-focus);
+}
+
+a.gl-badge.badge-warning:not(.disabled).active,
+a.gl-badge.badge-warning:not(.disabled):active {
+  color: var(--gl-badge-warning-text-color-active);
+  background-color: var(--gl-badge-warning-background-color-active);
+}
+
+a.gl-badge.badge-warning:not(.disabled).active .gl-badge-icon,
+a.gl-badge.badge-warning:not(.disabled):active .gl-badge-icon {
+  color: var(--gl-badge-warning-icon-color-active);
+}
+
+a.gl-badge.badge-warning:not(.disabled):active,
+a.gl-badge.badge-warning:not(.disabled):focus-visible,
+a.gl-badge.badge-warning:not(.disabled):focus-visible:active {
+  box-shadow:
+    0 0 0 1px var(--gl-focus-ring-inner-color),
+    0 0 0 3px var(--gl-focus-ring-outer-color);
+  outline: none;
+}
+
+/* Danger */
+
+.gl-badge.badge-danger {
+  color: var(--gl-badge-danger-text-color-default);
+  background-color: var(--gl-badge-danger-background-color-default);
+}
+
+.gl-badge.badge-danger .gl-badge-icon {
+  color: var(--gl-badge-danger-icon-color-default);
+  transition: inherit;
+}
+
+a.gl-badge.badge-danger:not(.disabled):hover {
+  color: var(--gl-badge-danger-text-color-hover);
+  background-color: var(--gl-badge-danger-background-color-hover);
+  box-shadow: inset 0 0 0 1px var(--gl-badge-danger-border-color-hover);
+  text-decoration-line: none;
+}
+
+a.gl-badge.badge-danger:not(.disabled):hover .gl-badge-icon {
+  color: var(--gl-badge-danger-icon-color-hover);
+}
+
+a.gl-badge.badge-danger:not(.disabled):focus-visible {
+  color: var(--gl-badge-danger-text-color-focus);
+  background-color: var(--gl-badge-danger-background-color-focus);
+}
+
+a.gl-badge.badge-danger:not(.disabled):focus-visible .gl-badge-icon {
+  color: var(--gl-badge-danger-icon-color-focus);
+}
+
+a.gl-badge.badge-danger:not(.disabled).active,
+a.gl-badge.badge-danger:not(.disabled):active {
+  color: var(--gl-badge-danger-text-color-active);
+  background-color: var(--gl-badge-danger-background-color-active);
+}
+
+a.gl-badge.badge-danger:not(.disabled).active .gl-badge-icon,
+a.gl-badge.badge-danger:not(.disabled):active .gl-badge-icon {
+  color: var(--gl-badge-danger-icon-color-active);
+}
+
+a.gl-badge.badge-danger:not(.disabled):active,
+a.gl-badge.badge-danger:not(.disabled):focus-visible,
+a.gl-badge.badge-danger:not(.disabled):focus-visible:active {
+  box-shadow:
+    0 0 0 1px var(--gl-focus-ring-inner-color),
+    0 0 0 3px var(--gl-focus-ring-outer-color);
+  outline: none;
+}
+
+/* Tier */
+
+.gl-badge.badge-tier {
+  color: var(--gl-badge-tier-text-color-default);
+  background-color: var(--gl-badge-tier-background-color-default);
+}
+
+.gl-badge.badge-tier .gl-badge-icon {
+  color: var(--gl-badge-tier-icon-color-default);
+  transition: inherit;
+}
+
+a.gl-badge.badge-tier:not(.disabled):hover {
+  color: var(--gl-badge-tier-text-color-hover);
+  background-color: var(--gl-badge-tier-background-color-hover);
+  box-shadow: inset 0 0 0 1px var(--gl-badge-tier-border-color-hover);
+  text-decoration-line: none;
+}
+
+a.gl-badge.badge-tier:not(.disabled):hover .gl-badge-icon {
+  color: var(--gl-badge-tier-icon-color-hover);
+}
+
+a.gl-badge.badge-tier:not(.disabled):focus-visible {
+  color: var(--gl-badge-tier-text-color-focus);
+  background-color: var(--gl-badge-tier-background-color-focus);
+}
+
+a.gl-badge.badge-tier:not(.disabled):focus-visible .gl-badge-icon {
+  color: var(--gl-badge-tier-icon-color-focus);
+}
+
+a.gl-badge.badge-tier:not(.disabled).active,
+a.gl-badge.badge-tier:not(.disabled):active {
+  color: var(--gl-badge-tier-text-color-active);
+  background-color: var(--gl-badge-tier-background-color-active);
+}
+
+a.gl-badge.badge-tier:not(.disabled).active .gl-badge-icon,
+a.gl-badge.badge-tier:not(.disabled):active .gl-badge-icon {
+  color: var(--gl-badge-tier-icon-color-active);
+}
+
+a.gl-badge.badge-tier:not(.disabled):active,
+a.gl-badge.badge-tier:not(.disabled):focus-visible,
+a.gl-badge.badge-tier:not(.disabled):focus-visible:active {
+  box-shadow:
+    0 0 0 1px var(--gl-focus-ring-inner-color),
+    0 0 0 3px var(--gl-focus-ring-outer-color);
+  outline: none;
+}
+
+/*
+ * Overrides Bootstrap's `.btn .badge { top: -1px }` so the badge stays
+ * vertically centered inside buttons, and tightens its padding there.
+ */
+.gl-button .gl-badge {
+  top: 0;
+  padding: 0 var(--gl-spacing-scale-2);
+}
+
+.gl-new-dropdown-contents .gl-badge,
+.gl-tab-nav-item .gl-badge {
+  margin-top: calc(-1 * var(--gl-spacing-scale-1));
+  margin-bottom: calc(-1 * var(--gl-spacing-scale-1));
+}
