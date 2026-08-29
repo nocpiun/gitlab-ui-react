@@ -46,3 +46,10 @@
 - `pnpm --filter @gitlab-ui-react/tokens build` 或 `pnpm --filter @gitlab-ui-react/styles build`：需要时单独重建对应包。
 
 组件改动至少运行 lint、相关测试和 UI 包构建；token/style 改动至少运行相关构建、测试并检查已跟踪的 `dist` 差异。若现有失败与本次改动无关，在交付说明中明确列出命令和失败原因。
+
+## 上游同步工作流
+
+- `.github/workflows/upstream-sync.yml` 每天北京时间 07:00 运行，包含两个独立 job，跟踪清单由 `.github/upstream-sync.json` 声明。
+- `sync` job：遍历 manifest 的 `sync` 列表（目录 + `include` 通配符，当前为上游 `packages/gitlab-ui/src/tokens` 的 `*.tokens.json` ↔ 本地 `packages/tokens/src`），镜像语义直接覆盖本地文件、重建 tokens/styles 产物并创建带 `upstream-sync` label 的同步 PR。
+- `track` job：遍历 manifest 的 `track` 列表（单文件或目录），仅当该路径在观察窗口内有新上游 commit 时，把上游 diff、变更文件内容、本地对应内容和 open 的 `upstream-tracking` issue 列表交给 DeepSeek（`deepseek-v4-flash`）单轮分析，由模型判断本仓库是否需要更改并去重，返回结构化 JSON 后创建 issue；`workflow_dispatch` 可通过 `since_hours` 调整观察窗口（默认 24 小时）。
+- 该工作流使用 `upstream-sync` 环境，依赖其中的 `SYNC_PAT`（创建可触发 CI 的 PR）和 `DEEPSEEK_API_KEY` 两个 secret。

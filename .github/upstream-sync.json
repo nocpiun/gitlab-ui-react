@@ -1,0 +1,36 @@
+{
+  "upstream": {
+    "project": "gitlab-org/gitlab-services/design.gitlab.com",
+    "projectId": 4456656,
+    "branch": "main"
+  },
+  "sync": [
+    {
+      "upstream": "packages/gitlab-ui/src/tokens",
+      "local": "packages/tokens/src",
+      "include": ["*.tokens.json"]
+    }
+  ],
+  "track": [
+    {
+      "upstream": "packages/gitlab-ui/bin/build_tokens.mjs",
+      "local": "packages/tokens/scripts/build_tokens.mjs"
+    },
+    {
+      "upstream": "packages/gitlab-ui/bin/lib/build_tokens_formats.js",
+      "local": "packages/tokens/scripts/build_tokens_formats.js"
+    },
+    {
+      "upstream": "packages/gitlab-ui/bin/lib/build_tokens_preprocessors.js",
+      "local": "packages/tokens/scripts/build_tokens_preprocessors.js"
+    },
+    {
+      "upstream": "packages/gitlab-ui/src/scss",
+      "local": "packages/styles/src"
+    },
+    {
+      "upstream": "packages/gitlab-ui/src/components",
+      "local": "packages/ui/src"
+    }
+  ]
+}
