@@ -18,6 +18,7 @@ import {
 import { Button as BaseButton } from "@base-ui/react/button";
 import { cva } from "class-variance-authority";
 import GlIcon from "../icon/icon";
+import GlLoadingIcon from "../loading-icon/loading-icon";
 
 export type GlButtonCategory = "primary" | "secondary" | "tertiary";
 export type GlButtonVariant = "default" | "confirm" | "danger" | "link" | "reset";
@@ -66,6 +67,8 @@ export type GlButtonProps = BaseButtonProps & {
   isUnsafeLink?: boolean;
   /** Renders a non-interactive `span` styled as a button. */
   label?: boolean;
+  /** Displays a loading indicator and prevents activation of native buttons. */
+  loading?: boolean;
   /** Set this to `false` when `render` replaces the button with a non-button element. */
   nativeButton?: BaseButton.Props["nativeButton"];
   onClick?: MouseEventHandler<HTMLElement>;
@@ -81,8 +84,6 @@ export type GlButtonProps = BaseButtonProps & {
   target?: HTMLAttributeAnchorTarget;
   type?: GlButtonType;
   variant?: GlButtonVariant;
-
-  // TODO: Add the upstream `loading` prop after GlLoadingIcon is available.
 };
 
 const buttonVariants = cva(["btn", "gl-button"], {
@@ -203,6 +204,7 @@ const GlButton = forwardRef<HTMLElement, GlButtonProps>(function GlButton({
   icon,
   isUnsafeLink = false,
   label = false,
+  loading = false,
   nativeButton = true,
   onClick,
   onClickCapture,
@@ -220,12 +222,14 @@ const GlButton = forwardRef<HTMLElement, GlButtonProps>(function GlButton({
   const hasCount = count !== null && count >= 0;
   const hasIcon = Boolean(icon);
   const hasIconOnly = hasIcon && Children.toArray(children).length === 0 && count === null;
+  const isNativeButton = !label && href === undefined && nativeButton !== false;
+  const isDisabledOrLoading = disabled || (isNativeButton && loading);
   const classes = buttonVariants({
     active,
     block: !label && block,
     category,
     className,
-    disabled,
+    disabled: isDisabledOrLoading,
     ellipsis: hasIconOnly && icon === "ellipsis_h",
     iconOnly: hasIconOnly,
     label,
@@ -236,8 +240,12 @@ const GlButton = forwardRef<HTMLElement, GlButtonProps>(function GlButton({
 
   const content = (
     <>
-      {/* TODO: Render GlLoadingIcon here and replace an icon-only icon while loading. */}
-      {hasIcon ? <GlIcon className="gl-button-icon" name={icon!} /> : null}
+      {loading ? (
+        <GlLoadingIcon inline className="gl-button-icon gl-button-loading-indicator" />
+      ) : null}
+      {hasIcon && !(hasIconOnly && loading)
+        ? <GlIcon className="gl-button-icon" name={icon!} />
+        : null}
       {emoji ? <span className="gl-button-emoji">{emoji}</span> : null}
       {!hasIconOnly ? (
         <span className={buttonTextVariants({ className: buttonTextClasses })}>
@@ -254,8 +262,7 @@ const GlButton = forwardRef<HTMLElement, GlButtonProps>(function GlButton({
   );
 
   const handleClickCapture: MouseEventHandler<HTMLElement> = (event) => {
-    // TODO: Treat `loading` as disabled here after GlLoadingIcon is introduced.
-    if(disabled) {
+    if(isDisabledOrLoading) {
       stopDisabledEvent(event);
       return;
     }
@@ -324,7 +331,7 @@ const GlButton = forwardRef<HTMLElement, GlButtonProps>(function GlButton({
       ref={forwardedRef}
       aria-label={ariaLabel}
       className={classes}
-      disabled={disabled}
+      disabled={isDisabledOrLoading}
       focusableWhenDisabled
       nativeButton={nativeButton}
       onClick={onClick}

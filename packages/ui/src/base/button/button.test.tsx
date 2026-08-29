@@ -96,6 +96,48 @@ describe("GlButton", () => {
     expect(markup).not.toContain(" disabled=\"\"");
   });
 
+  it("renders a loading indicator and uses focusable disabled button behavior", () => {
+    const markup = renderButton({ loading: true });
+
+    expect(markup).toContain("disabled");
+    expect(markup).toContain("aria-disabled=\"true\"");
+    expect(markup).toContain("data-disabled=\"\"");
+    expect(markup).not.toContain(" disabled=\"\"");
+    expect(markup).toContain("aria-label=\"Loading\"");
+    expect(markup).toContain("gl-button-icon gl-button-loading-indicator");
+    expect(markup).toContain("role=\"status\"");
+  });
+
+  it("replaces an icon-only icon with the loading indicator", () => {
+    const markup = renderButton({
+      "aria-label": "Refresh",
+      icon: "retry",
+      loading: true,
+    }, null);
+
+    expect(markup).toContain("btn-icon");
+    expect(markup).toContain("gl-button-loading-indicator");
+    expect(markup).not.toContain("icons.svg#retry");
+    expect(markup).not.toContain("gl-button-text");
+  });
+
+  it("keeps a leading icon when a button with text is loading", () => {
+    const markup = renderButton({ icon: "star-o", loading: true });
+
+    expect(markup).toContain("gl-button-loading-indicator");
+    expect(markup).toContain("icons.svg#star-o");
+    expect(markup).toContain("gl-button-text");
+  });
+
+  it("does not disable a link solely because it is loading", () => {
+    const markup = renderButton({ href: "#", loading: true });
+
+    expect(markup).toContain("gl-button-loading-indicator");
+    expect(markup).not.toContain("aria-disabled");
+    expect(markup).not.toContain("data-disabled");
+    expect(markup).not.toContain("class=\"btn gl-button disabled");
+  });
+
   it("renders safe links and secures new browsing contexts", () => {
     const markup = renderButton({
       href: "https://example.com",
