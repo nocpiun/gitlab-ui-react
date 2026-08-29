@@ -40,7 +40,7 @@
  */
 const stripDescriptionsPreprocessor = (dictionary) => {
   function stripDescription(node) {
-    if(node === null || typeof node !== 'object') {
+    if(node === null || typeof node !== "object") {
       return node;
     }
     if(Array.isArray(node)) {
@@ -49,7 +49,7 @@ const stripDescriptionsPreprocessor = (dictionary) => {
 
     const entries = Object.entries(node)
       // recursively traverse token objects and skip $description attributes
-      .filter(([k]) => k !== '$description')
+      .filter(([k]) => k !== "$description")
       .map(([k, v]) => [k, stripDescription(v)]);
     return Object.fromEntries(entries);
   }
@@ -77,7 +77,7 @@ const stripDescriptionsPreprocessor = (dictionary) => {
  */
 const resolveUnitsPreprocessor = (dictionary) => {
   function traverse(node) {
-    if(node === null || typeof node !== 'object') {
+    if(node === null || typeof node !== "object") {
       return node;
     }
 
@@ -85,8 +85,8 @@ const resolveUnitsPreprocessor = (dictionary) => {
     if(
       node.value !== undefined &&
       node.unit !== undefined &&
-      (typeof node.value === 'number' || !Number.isNaN(Number(node.value))) &&
-      typeof node.unit === 'string' &&
+      (typeof node.value === "number" || !Number.isNaN(Number(node.value))) &&
+      typeof node.unit === "string" &&
       node.unit.trim().length > 0
     ) {
       return `${node.value}${node.unit}`;
@@ -121,7 +121,7 @@ const resolveUnitsPreprocessor = (dictionary) => {
  */
 const selectDefaultValuePreprocessor = (dictionary) => {
   function traverse(node) {
-    if(node === null || typeof node !== 'object' || Array.isArray(node)) {
+    if(node === null || typeof node !== "object" || Array.isArray(node)) {
       return node;
     }
 
@@ -157,7 +157,7 @@ const selectDefaultValuePreprocessor = (dictionary) => {
  */
 const selectDarkValuePreprocessor = (dictionary) => {
   function traverse(node) {
-    if(node === null || typeof node !== 'object' || Array.isArray(node)) {
+    if(node === null || typeof node !== "object" || Array.isArray(node)) {
       return node;
     }
 
@@ -192,17 +192,17 @@ const selectDarkValuePreprocessor = (dictionary) => {
  */
 const selectColorValuePreprocessor = (dictionary) => {
   function traverse(node) {
-    if(node === null || typeof node !== 'object' || Array.isArray(node)) {
+    if(node === null || typeof node !== "object" || Array.isArray(node)) {
       return node;
     }
 
     // Return HEX property if provided
-    if(node.colorSpace === 'srgb' && node.hex) {
+    if(node.colorSpace === "srgb" && node.hex) {
       return node.hex;
     }
 
     // Return CSS RGBA format if hex property not provided
-    if(node.colorSpace === 'srgb' && node.components && node.alpha !== undefined) {
+    if(node.colorSpace === "srgb" && node.components && node.alpha !== undefined) {
       const [r, g, b] = node.components.map((component) => Math.round(component * 255));
       return `rgba(${r}, ${g}, ${b}, ${node.alpha})`;
     }
@@ -236,11 +236,11 @@ const selectColorValuePreprocessor = (dictionary) => {
  */
 const convertClampStringToDimension = (dictionary) => {
   function traverse(node) {
-    if(node === null || typeof node !== 'object' || Array.isArray(node)) {
+    if(node === null || typeof node !== "object" || Array.isArray(node)) {
       return node;
     }
 
-    if(node.$type === 'string' && typeof node.$value === 'string') {
+    if(node.$type === "string" && typeof node.$value === "string") {
       const clampMatch = node.$value.match(/^clamp\s*\(\s*[^,]+,\s*[^,]+,\s*([^)]+)\s*\)$/);
 
       if(clampMatch) {
@@ -251,7 +251,7 @@ const convertClampStringToDimension = (dictionary) => {
           const [, value, unit] = valueMatch;
           return {
             ...node,
-            $type: 'dimension',
+            $type: "dimension",
             $value: {
               value: parseFloat(value),
               unit,

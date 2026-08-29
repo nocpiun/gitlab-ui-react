@@ -1,10 +1,10 @@
 // oxlint-disable typescript/no-require-imports
-const defaults = require('./tailwind.defaults');
+const defaults = require("./tailwind.defaults");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   presets: [defaults],
-  darkMode: ['variant', ['&:where(.dark *)']],
+  darkMode: ["variant", ["&:where(.dark *)"]],
   content: [
     // './.storybook/**/*.js',
     // './src/**/*.{vue,js}',

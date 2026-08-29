@@ -1,22 +1,22 @@
-import { readFile } from 'node:fs/promises';
-import { createRequire } from 'node:module';
-import path from 'node:path';
+import { readFile } from "node:fs/promises";
+import { createRequire } from "node:module";
+import path from "node:path";
 
-import { loadModule } from '@tailwindcss/node';
-import { Scanner } from '@tailwindcss/oxide';
-import { compile } from 'tailwindcss';
+import { loadModule } from "@tailwindcss/node";
+import { Scanner } from "@tailwindcss/oxide";
+import { compile } from "tailwindcss";
 
 import {
   createCandidateMap,
   restoreLegacySelectors,
   rewriteLegacyApplyDirectives,
-} from './legacy-prefix.mjs';
+} from "./legacy-prefix.mjs";
 
 const require = createRequire(import.meta.url);
 
 function resolveStylesheet(id, base) {
   if(path.isAbsolute(id)) return id;
-  if(id.startsWith('.')) return path.resolve(base, id);
+  if(id.startsWith(".")) return path.resolve(base, id);
 
   return require.resolve(id, { paths: [base] });
 }
@@ -25,8 +25,8 @@ function compilerSources(compiler, base) {
   const sources = [...compiler.sources];
 
   if(compiler.root === null) {
-    sources.unshift({ base, pattern: '**/*', negated: false });
-  } else if(compiler.root !== 'none') {
+    sources.unshift({ base, pattern: "**/*", negated: false });
+  } else if(compiler.root !== "none") {
     sources.unshift({ ...compiler.root, negated: false });
   }
 
@@ -35,7 +35,7 @@ function compilerSources(compiler, base) {
 
 export default function gitlabTailwind({ candidates = [], sources: additionalSources = [] } = {}) {
   return {
-    postcssPlugin: 'gitlab-tailwind-v3-prefix-compatibility',
+    postcssPlugin: "gitlab-tailwind-v3-prefix-compatibility",
     async Once(root, { postcss, result }) {
       const from = result.opts.from ? path.resolve(result.opts.from) : undefined;
       const base = from ? path.dirname(from) : process.cwd();
@@ -55,7 +55,7 @@ export default function gitlabTailwind({ candidates = [], sources: additionalSou
         },
         async loadStylesheet(id, stylesheetBase) {
           const stylesheetPath = resolveStylesheet(id, stylesheetBase);
-          const content = await readFile(stylesheetPath, 'utf8');
+          const content = await readFile(stylesheetPath, "utf8");
 
           dependencies.add(stylesheetPath);
 
@@ -80,8 +80,8 @@ export default function gitlabTailwind({ candidates = [], sources: additionalSou
 
       for(const dependency of dependencies) {
         result.messages.push({
-          type: 'dependency',
-          plugin: 'gitlab-tailwind-v3-prefix-compatibility',
+          type: "dependency",
+          plugin: "gitlab-tailwind-v3-prefix-compatibility",
           file: dependency,
           parent: from,
         });
@@ -89,8 +89,8 @@ export default function gitlabTailwind({ candidates = [], sources: additionalSou
 
       for(const source of sources) {
         result.messages.push({
-          type: 'dir-dependency',
-          plugin: 'gitlab-tailwind-v3-prefix-compatibility',
+          type: "dir-dependency",
+          plugin: "gitlab-tailwind-v3-prefix-compatibility",
           dir: source.base,
           glob: source.pattern,
           parent: from,

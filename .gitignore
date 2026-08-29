@@ -3,5 +3,6 @@ node_modules/
 *.tsbuildinfo
 
 .tmp/
+/.storybook-build/
 
 .DS_Store

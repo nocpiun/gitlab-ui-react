@@ -5,10 +5,16 @@ export default defineConfig({
     lib: {
       entry: "src/index.ts",
       formats: ["es", "cjs"],
-      fileName: format => format === "es" ? "index.js" : "index.cjs",
+      fileName: (format) => format === "es" ? "index.js" : "index.cjs",
     },
     rollupOptions: {
-      external: ["react", "react-dom", "react/jsx-runtime"],
+      external: [
+        "class-variance-authority",
+        "react",
+        "react-dom",
+        "react/jsx-runtime",
+        /^@gitlab\/svgs(?:\/.*)?$/,
+      ],
     },
   },
 });

@@ -8,7 +8,10 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "tokens:build": "pnpm --filter @gitlab-ui-react/tokens build",
-    "styles:build": "pnpm --filter @gitlab-ui-react/styles build"
+    "styles:build": "pnpm --filter @gitlab-ui-react/styles build",
+    "ui:build": "pnpm --filter gitlab-ui-react build",
+    "storybook": "storybook dev -p 6006",
+    "storybook:build": "storybook build -o .storybook-build"
   },
   "keywords": [],
   "author": "NriotHrreion",
@@ -16,12 +19,20 @@
   "packageManager": "pnpm@10.33.0",
   "devDependencies": {
     "@gitlab/ui": "^137.0.1",
+    "@storybook/addon-a11y": "10.5.10",
+    "@storybook/addon-docs": "10.5.10",
+    "@storybook/addon-themes": "10.5.10",
+    "@storybook/react-vite": "10.5.10",
     "@stylistic/eslint-plugin": "^5.10.0",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-react": "^7.37.5",
     "lodash-es": "4.18.1",
     "oxlint": "^1.80.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "storybook": "10.5.10",
     "typescript": "^7.0.2",
+    "vite": "8.2.2",
     "vitest": "^4.1.11"
   }
 }

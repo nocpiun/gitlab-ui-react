@@ -22,18 +22,18 @@
  * SOFTWARE.
  */
 
-import fs from 'node:fs';
-import { join } from 'node:path';
-import { format } from 'prettier';
-import StyleDictionary from 'style-dictionary';
-import { merge } from 'lodash-es';
+import fs from "node:fs";
+import { join } from "node:path";
+import { format } from "prettier";
+import StyleDictionary from "style-dictionary";
+import { merge } from "lodash-es";
 import {
   scssCustomPropertiesFormat,
   tailwindComponentsFormat,
   tailwindDocsFormat,
   tailwindFormat,
   figmaFormat,
-} from './build_tokens_formats.js';
+} from "./build_tokens_formats.js";
 import {
   stripDescriptionsPreprocessor,
   resolveUnitsPreprocessor,
@@ -41,24 +41,24 @@ import {
   selectDarkValuePreprocessor,
   selectColorValuePreprocessor,
   convertClampStringToDimension,
-} from './build_tokens_preprocessors.js';
+} from "./build_tokens_preprocessors.js";
 
 /**
  * Design tokens
  * https://docs.gitlab.com/ee/development/fe_guide/design_tokens.html
  */
-const PREFIX = 'gl';
-const ROOT = join(import.meta.dirname, '..');
-const BUILD_PATH = join(ROOT, 'dist');
+const PREFIX = "gl";
+const ROOT = join(import.meta.dirname, "..");
+const BUILD_PATH = join(ROOT, "dist");
 // https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables#h_01KAGZ9T9H4P7RXY11SG4QXFY2
 const FIGMA_SUPPORTED_TYPES = [
-  'color',
-  'dimension',
-  'fontWeight',
-  'fontFamily',
-  'duration',
-  'number',
-  'string',
+  "color",
+  "dimension",
+  "fontWeight",
+  "fontFamily",
+  "duration",
+  "number",
+  "string",
 ];
 
 /**
@@ -67,32 +67,32 @@ const FIGMA_SUPPORTED_TYPES = [
  */
 StyleDictionary.registerPreprocessor({
   // Descriptions are added as comments in some formats, remove those comments
-  name: 'gitlab/stripDescriptions',
+  name: "gitlab/stripDescriptions",
   preprocessor: stripDescriptionsPreprocessor,
 });
 
 StyleDictionary.registerPreprocessor({
-  name: 'gitlab/resolve-units',
+  name: "gitlab/resolve-units",
   preprocessor: resolveUnitsPreprocessor,
 });
 
 StyleDictionary.registerPreprocessor({
-  name: 'gitlab/select-default-value',
+  name: "gitlab/select-default-value",
   preprocessor: selectDefaultValuePreprocessor,
 });
 
 StyleDictionary.registerPreprocessor({
-  name: 'gitlab/select-dark-value',
+  name: "gitlab/select-dark-value",
   preprocessor: selectDarkValuePreprocessor,
 });
 
 StyleDictionary.registerPreprocessor({
-  name: 'gitlab/select-color-value',
+  name: "gitlab/select-color-value",
   preprocessor: selectColorValuePreprocessor,
 });
 
 StyleDictionary.registerPreprocessor({
-  name: 'gitlab/convert-clamp-string-to-dimension',
+  name: "gitlab/convert-clamp-string-to-dimension",
   preprocessor: convertClampStringToDimension,
 });
 
@@ -101,8 +101,8 @@ StyleDictionary.registerPreprocessor({
  * https://styledictionary.com/reference/api/#registertransform
  */
 StyleDictionary.registerTransform({
-  name: 'gitlab/name/stripPrefix',
-  type: 'name',
+  name: "gitlab/name/stripPrefix",
+  type: "name",
   filter: (token) => (
     // Prefix is added by `name/*` transform.
     // If token has `prefix` explicitly set to `false` then we remove the prefix.
@@ -116,23 +116,23 @@ StyleDictionary.registerTransform({
  * https://styledictionary.com/reference/api/#registertransformgroup
  */
 StyleDictionary.registerTransformGroup({
-  name: 'gitlab/css',
-  transforms: ['name/kebab', 'gitlab/name/stripPrefix', 'shadow/css/shorthand'],
+  name: "gitlab/css",
+  transforms: ["name/kebab", "gitlab/name/stripPrefix", "shadow/css/shorthand"],
 });
 
 StyleDictionary.registerTransformGroup({
-  name: 'gitlab/js',
-  transforms: ['name/constant', 'gitlab/name/stripPrefix'],
+  name: "gitlab/js",
+  transforms: ["name/constant", "gitlab/name/stripPrefix"],
 });
 
 StyleDictionary.registerTransformGroup({
-  name: 'gitlab/tailwind',
-  transforms: ['name/kebab'],
+  name: "gitlab/tailwind",
+  transforms: ["name/kebab"],
 });
 
 StyleDictionary.registerTransformGroup({
-  name: 'gitlab/figma',
-  transforms: ['name/kebab'],
+  name: "gitlab/figma",
+  transforms: ["name/kebab"],
 });
 
 /**
@@ -140,27 +140,27 @@ StyleDictionary.registerTransformGroup({
  * https://styledictionary.com/reference/api/#registerformat
  */
 StyleDictionary.registerFormat({
-  name: 'scss/customProperties',
+  name: "scss/customProperties",
   format: scssCustomPropertiesFormat,
 });
 
 StyleDictionary.registerFormat({
-  name: 'tailwind/components',
+  name: "tailwind/components",
   format: tailwindComponentsFormat,
 });
 
 StyleDictionary.registerFormat({
-  name: 'docs',
+  name: "docs",
   format: tailwindDocsFormat,
 });
 
 StyleDictionary.registerFormat({
-  name: 'tailwind',
+  name: "tailwind",
   format: tailwindFormat,
 });
 
 StyleDictionary.registerFormat({
-  name: 'figma',
+  name: "figma",
   format: figmaFormat,
 });
 
@@ -169,11 +169,11 @@ StyleDictionary.registerFormat({
  * https://styledictionary.com/reference/api/#registeraction
  */
 StyleDictionary.registerAction({
-  name: 'prettier',
+  name: "prettier",
   async do(dictionary, config) {
     await Promise.all(config.files.map(async (file) => {
       const filePath = `${config.buildPath}${file.destination}`;
-      const fileContent = await fs.promises.readFile(filePath, 'utf8');
+      const fileContent = await fs.promises.readFile(filePath, "utf8");
       const formattedOutput = await format(fileContent, {
         filepath: filePath,
         printWidth: 100,
@@ -197,23 +197,23 @@ StyleDictionary.registerAction({
  */
 const getStyleDictionaryConfigDefault = (buildPath) => (
   {
-    include: ['src/**/*.tokens.json'],
-    source: ['src/**/*.tokens.json'],
-    preprocessors: ['gitlab/select-default-value'],
+    include: ["src/**/*.tokens.json"],
+    source: ["src/**/*.tokens.json"],
+    preprocessors: ["gitlab/select-default-value"],
     hooks: {
       filters: {
-        isTypographyDesignToken: (token) => token.$type === 'typography',
+        isTypographyDesignToken: (token) => token.$type === "typography",
         isFigmaSupportedTypeAndConstantDesignToken: (token) => (
             FIGMA_SUPPORTED_TYPES.includes(token.$type) &&
             !token.$deprecated &&
             token.filePath &&
-            token.filePath.includes('/constant/')
+            token.filePath.includes("/constant/")
           ),
         isFigmaSupportedTypeAndNotConstantDesignToken: (token) => (
             FIGMA_SUPPORTED_TYPES.includes(token.$type) &&
             !token.$deprecated &&
             token.filePath &&
-            !token.filePath.includes('/constant/')
+            !token.filePath.includes("/constant/")
           ),
       },
     },
@@ -221,20 +221,20 @@ const getStyleDictionaryConfigDefault = (buildPath) => (
       css: {
         prefix: PREFIX,
         buildPath: `${buildPath}/css/`,
-        preprocessors: ['gitlab/resolve-units', 'gitlab/select-color-value'],
-        transformGroup: 'gitlab/css',
+        preprocessors: ["gitlab/resolve-units", "gitlab/select-color-value"],
+        transformGroup: "gitlab/css",
         options: {
           outputReferences: true,
         },
         expand: {
-          include: ['typography'],
+          include: ["typography"],
         },
         files: [
           {
-            destination: 'tokens.css',
-            format: 'css/variables',
+            destination: "tokens.css",
+            format: "css/variables",
             options: {
-              selector: ':root, .gl-light-scope',
+              selector: ":root, .gl-light-scope",
             },
           },
         ],
@@ -243,94 +243,94 @@ const getStyleDictionaryConfigDefault = (buildPath) => (
         prefix: PREFIX,
         buildPath: `${buildPath}/js/`,
         preprocessors: [
-          'gitlab/resolve-units',
-          'gitlab/select-color-value',
-          'gitlab/stripDescriptions',
+          "gitlab/resolve-units",
+          "gitlab/select-color-value",
+          "gitlab/stripDescriptions",
         ],
-        transformGroup: 'gitlab/js',
-        actions: ['prettier'],
+        transformGroup: "gitlab/js",
+        actions: ["prettier"],
         expand: {
-          include: ['typography'],
+          include: ["typography"],
         },
         files: [
           {
-            destination: 'tokens.js',
-            format: 'javascript/es6',
+            destination: "tokens.js",
+            format: "javascript/es6",
           },
         ],
       },
       json: {
         buildPath: `${buildPath}/json/`,
-        preprocessors: ['gitlab/resolve-units', 'gitlab/select-color-value'],
-        transformGroup: 'gitlab/js',
+        preprocessors: ["gitlab/resolve-units", "gitlab/select-color-value"],
+        transformGroup: "gitlab/js",
         files: [
           {
-            destination: 'tokens.json',
-            format: 'json',
+            destination: "tokens.json",
+            format: "json",
           },
         ],
       },
       scss: {
         prefix: PREFIX,
         buildPath: `${buildPath}/scss/`,
-        preprocessors: ['gitlab/resolve-units', 'gitlab/select-color-value'],
-        transformGroup: 'gitlab/css',
+        preprocessors: ["gitlab/resolve-units", "gitlab/select-color-value"],
+        transformGroup: "gitlab/css",
         options: {
           outputReferences: true,
         },
         expand: {
-          include: ['typography'],
+          include: ["typography"],
         },
         files: [
           {
-            destination: '_tokens.scss',
-            format: 'scss/variables',
+            destination: "_tokens.scss",
+            format: "scss/variables",
           },
           {
-            destination: '_tokens_custom_properties.scss',
-            format: 'scss/customProperties',
+            destination: "_tokens_custom_properties.scss",
+            format: "scss/customProperties",
           },
         ],
       },
       docs: {
         buildPath: `${buildPath}/docs/`,
-        preprocessors: ['gitlab/resolve-units', 'gitlab/select-color-value'],
-        transformGroup: 'gitlab/js',
+        preprocessors: ["gitlab/resolve-units", "gitlab/select-color-value"],
+        transformGroup: "gitlab/js",
         files: [
           {
-            destination: 'tokens-tailwind-docs.json',
-            format: 'docs',
+            destination: "tokens-tailwind-docs.json",
+            format: "docs",
           },
         ],
       },
       tailwind: {
         prefix: PREFIX,
         buildPath: `${buildPath}/tailwind/`,
-        preprocessors: ['gitlab/resolve-units', 'gitlab/select-color-value'],
-        transformGroup: 'gitlab/tailwind',
-        actions: ['prettier'],
+        preprocessors: ["gitlab/resolve-units", "gitlab/select-color-value"],
+        transformGroup: "gitlab/tailwind",
+        actions: ["prettier"],
         files: [
           {
-            destination: 'components.cjs',
-            format: 'tailwind/components',
-            filter: 'isTypographyDesignToken',
+            destination: "components.cjs",
+            format: "tailwind/components",
+            filter: "isTypographyDesignToken",
           },
         ],
       },
       figma: {
         buildPath: `${buildPath}/figma/`,
-        preprocessors: ['gitlab/convert-clamp-string-to-dimension'],
-        transformGroup: 'gitlab/figma',
+        preprocessors: ["gitlab/convert-clamp-string-to-dimension"],
+        transformGroup: "gitlab/figma",
         files: [
           {
-            destination: 'constants.json',
-            format: 'figma',
-            filter: 'isFigmaSupportedTypeAndConstantDesignToken',
+            destination: "constants.json",
+            format: "figma",
+            filter: "isFigmaSupportedTypeAndConstantDesignToken",
           },
           {
-            destination: 'mode.json',
-            format: 'figma',
-            filter: 'isFigmaSupportedTypeAndNotConstantDesignToken',
+            destination: "mode.json",
+            format: "figma",
+            filter: "isFigmaSupportedTypeAndNotConstantDesignToken",
           },
         ],
       },
@@ -344,11 +344,11 @@ const getStyleDictionaryConfigTailwind = (buildPath = BUILD_PATH) => (
     platforms: {
       tailwind: {
         buildPath: `${buildPath}/tailwind/`,
-        actions: ['prettier'],
+        actions: ["prettier"],
         files: [
           {
-            destination: 'tokens.cjs',
-            format: 'tailwind',
+            destination: "tokens.cjs",
+            format: "tailwind",
           },
         ],
       },
@@ -363,14 +363,14 @@ const getStyleDictionaryConfigTailwind = (buildPath = BUILD_PATH) => (
  * @returns {Object} style-dictionary config
  */
 const getStyleDictionaryConfigDarkMode = (buildPath) => merge(getStyleDictionaryConfigDefault(buildPath), {
-    preprocessors: ['gitlab/select-dark-value', 'gitlab/resolve-units'],
+    preprocessors: ["gitlab/select-dark-value", "gitlab/resolve-units"],
     platforms: {
       css: {
         files: [
           {
-            destination: 'tokens.dark.css',
+            destination: "tokens.dark.css",
             options: {
-              selector: ':root.gl-dark, .gl-dark-scope',
+              selector: ":root.gl-dark, .gl-dark-scope",
             },
           },
         ],
@@ -378,38 +378,38 @@ const getStyleDictionaryConfigDarkMode = (buildPath) => merge(getStyleDictionary
       js: {
         files: [
           {
-            destination: 'tokens.dark.js',
+            destination: "tokens.dark.js",
           },
         ],
       },
       json: {
         files: [
           {
-            destination: 'tokens.dark.json',
+            destination: "tokens.dark.json",
           },
         ],
       },
       scss: {
         files: [
           {
-            destination: '_tokens.dark.scss',
+            destination: "_tokens.dark.scss",
           },
         ],
       },
       docs: {
         files: [
           {
-            destination: 'tokens-tailwind-docs.dark.json',
+            destination: "tokens-tailwind-docs.dark.json",
           },
         ],
       },
       figma: {
         files: [
           {
-            destination: 'constants.dark.json',
+            destination: "constants.dark.json",
           },
           {
-            destination: 'mode.dark.json',
+            destination: "mode.dark.json",
           },
         ],
       },
@@ -435,7 +435,7 @@ async function main() {
     const tailwindDictionary = new StyleDictionary(getStyleDictionaryConfigTailwind(BUILD_PATH));
     await tailwindDictionary.buildAllPlatforms();
   } catch (error) {
-    console.error('🚨 Error building tokens:', error);
+    console.error("🚨 Error building tokens:", error);
     process.exit(1);
   }
 }
