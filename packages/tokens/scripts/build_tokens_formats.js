@@ -20,21 +20,21 @@
  * SOFTWARE.
  */
 
-import { fileHeader } from 'style-dictionary/utils';
+import { fileHeader } from "style-dictionary/utils";
 
-const CONTEXTUAL_PREFIX = '🔒/';
-const CONTEXTUAL_DIRECTORY = '/contextual/';
-const STATUS_VARIANTS = ['neutral', 'info', 'success', 'warning', 'danger', 'brand'];
-const FEEDBACK_VARIANTS = ['strong', 'neutral', 'info', 'success', 'warning', 'danger', 'brand'];
+const CONTEXTUAL_PREFIX = "🔒/";
+const CONTEXTUAL_DIRECTORY = "/contextual/";
+const STATUS_VARIANTS = ["neutral", "info", "success", "warning", "danger", "brand"];
+const FEEDBACK_VARIANTS = ["strong", "neutral", "info", "success", "warning", "danger", "brand"];
 const BRAND_VARIANTS = [
-  'brand-white',
-  'brand-charcoal',
-  'brand-orange',
-  'brand-purple',
-  'brand-gray',
-  'brand-pink',
+  "brand-white",
+  "brand-charcoal",
+  "brand-orange",
+  "brand-purple",
+  "brand-gray",
+  "brand-pink",
 ];
-const BASE_COLOR_VARIANTS = ['blue', 'gray', 'green', 'orange', 'purple', 'red'];
+const BASE_COLOR_VARIANTS = ["blue", "gray", "green", "orange", "purple", "red"];
 
 /**
  * Returns key/value pairs of token scales and CSS custom properties
@@ -61,7 +61,7 @@ const generateBaseColors = (colorTokens) => Object.entries(colorTokens).reduce(
   (acc, [, scales]) => {
     Object.entries(scales).forEach(([, token]) => {
       if(token.path) {
-        acc[token.path.join('-')] = token.cssWithValue;
+        acc[token.path.join("-")] = token.cssWithValue;
       }
     });
     return acc;
@@ -82,7 +82,7 @@ const generateColorMap = (
   tokens,
   variants,
   parent,
-  properties = ['background', 'text', 'fill'],
+  properties = ["background", "text", "fill"],
   // eslint-disable-next-line max-params
 ) => properties.reduce(
   (acc, property) => {
@@ -108,8 +108,8 @@ const generateColorMap = (
  * @returns {string} CSS custom property
  */
 const getTokenCssCustomProperty = (token) => {
-  const path = [token.prefix !== false ? 'gl' : false, ...token.path].filter(Boolean);
-  return `var(--${path.join('-')})`;
+  const path = [token.prefix !== false ? "gl" : false, ...token.path].filter(Boolean);
+  return `var(--${path.join("-")})`;
 };
 
 /**
@@ -133,7 +133,7 @@ const scssCustomPropertiesFormat = async ({ dictionary, file }) => {
   dictionary.allTokens.forEach((token) => {
     output = output.concat(`$${token.name}: var(--${token.name});`);
   });
-  return `${await fileHeader({ file })}${output.join('\n')}\n`;
+  return `${await fileHeader({ file })}${output.join("\n")}\n`;
 };
 
 /**
@@ -171,18 +171,18 @@ const tailwindComponentsFormat = async ({ dictionary, file }) => {
   const components = {};
 
   const propertyMap = {
-    fontFamily: 'font-family',
-    marginTop: 'margin-top',
-    fontSize: 'font-size',
-    fontWeight: 'font-weight',
-    letterSpacing: 'letter-spacing',
-    lineHeight: 'line-height',
-    marginBottom: 'margin-bottom',
-    color: 'color',
+    fontFamily: "font-family",
+    marginTop: "margin-top",
+    fontSize: "font-size",
+    fontWeight: "font-weight",
+    letterSpacing: "letter-spacing",
+    lineHeight: "line-height",
+    marginBottom: "margin-bottom",
+    color: "color",
   };
 
   tokens.forEach((token) => {
-    components[`.${token.path.join('-')}`] = Object.entries(token.$value).reduce(
+    components[`.${token.path.join("-")}`] = Object.entries(token.$value).reduce(
       // eslint-disable-next-line no-unused-vars
       (acc, [prop, _]) => {
         const cssProperty = propertyMap[prop];
@@ -265,7 +265,7 @@ const tailwindDocsFormat = async ({ dictionary }) => {
     },
     ...formatTokens(baseColors),
     ...formatTokens(brandColors),
-    'data-viz': formatTokens(dictionary.tokens['data-viz']),
+    "data-viz": formatTokens(dictionary.tokens["data-viz"]),
     neutral: formatTokens(dictionary.tokens.color.neutral),
     white: formatToken(dictionary.tokens.white),
     black: formatToken(dictionary.tokens.black),
@@ -274,9 +274,9 @@ const tailwindDocsFormat = async ({ dictionary }) => {
   const backgroundColors = {
     ...colorTokens,
     color: formatTokens(dictionary.tokens.background.color),
-    status: generateTokenObject('status', STATUS_VARIANTS, 'background'),
-    feedback: generateTokenObject('feedback', FEEDBACK_VARIANTS, 'background'),
-    'application-chrome': formatToken(dictionary.tokens['application-chrome'].background.color),
+    status: generateTokenObject("status", STATUS_VARIANTS, "background"),
+    feedback: generateTokenObject("feedback", FEEDBACK_VARIANTS, "background"),
+    "application-chrome": formatToken(dictionary.tokens["application-chrome"].background.color),
     dropdown: formatToken(dictionary.tokens.dropdown.background.color),
     control: {
       default: formatToken(dictionary.tokens.control.background.color.default),
@@ -289,9 +289,9 @@ const tailwindDocsFormat = async ({ dictionary }) => {
   const borderColors = {
     ...colorTokens,
     color: formatTokens(dictionary.tokens.border.color),
-    feedback: generateTokenObject('feedback', FEEDBACK_VARIANTS, 'border'),
+    feedback: generateTokenObject("feedback", FEEDBACK_VARIANTS, "border"),
     dropdown: formatToken(dictionary.tokens.dropdown.border.color),
-    'dropdown-divider': formatToken(dictionary.tokens.dropdown.divider.color),
+    "dropdown-divider": formatToken(dictionary.tokens.dropdown.divider.color),
     control: {
       default: formatToken(dictionary.tokens.control.border.color.default),
       disabled: formatToken(dictionary.tokens.control.border.color.disabled),
@@ -301,16 +301,16 @@ const tailwindDocsFormat = async ({ dictionary }) => {
 
   const fillColors = {
     ...colorTokens,
-    icon: formatTokens(dictionary.tokens.icon.color, 'fill-icon'),
-    status: generateTokenObject('status', STATUS_VARIANTS, 'icon'),
-    feedback: generateTokenObject('feedback', FEEDBACK_VARIANTS, 'icon'),
+    icon: formatTokens(dictionary.tokens.icon.color, "fill-icon"),
+    status: generateTokenObject("status", STATUS_VARIANTS, "icon"),
+    feedback: generateTokenObject("feedback", FEEDBACK_VARIANTS, "icon"),
   };
 
   const textColors = {
     ...colorTokens,
     color: formatTokens(dictionary.tokens.text.color),
-    status: generateTokenObject('status', STATUS_VARIANTS, 'text'),
-    feedback: generateTokenObject('feedback', FEEDBACK_VARIANTS, 'text'),
+    status: generateTokenObject("status", STATUS_VARIANTS, "text"),
+    feedback: generateTokenObject("feedback", FEEDBACK_VARIANTS, "text"),
     primary: formatToken(dictionary.tokens.text.primary),
     secondary: formatToken(dictionary.tokens.text.secondary),
     tertiary: formatToken(dictionary.tokens.text.tertiary),
@@ -322,10 +322,10 @@ const tailwindDocsFormat = async ({ dictionary }) => {
   };
 
   const outlineColor = {
-    focus: formatToken(dictionary.tokens['focus-ring'].outer.color),
+    focus: formatToken(dictionary.tokens["focus-ring"].outer.color),
   };
 
-  const spacingScale = formatTokens(dictionary.tokens['spacing-scale']);
+  const spacingScale = formatTokens(dictionary.tokens["spacing-scale"]);
   const borderRadiuses = {
     ...formatTokens(dictionary.tokens.border.radius),
     action: formatToken(dictionary.tokens.action.border.radius),
@@ -334,7 +334,7 @@ const tailwindDocsFormat = async ({ dictionary }) => {
   };
   const opacity = formatTokens(dictionary.tokens.opacity);
   const zindexes = formatTokens(dictionary.tokens.zindex);
-  const lineHeight = formatTokens(dictionary.tokens['line-height']);
+  const lineHeight = formatTokens(dictionary.tokens["line-height"]);
   const fontFamily = formatTokens(dictionary.tokens.font.family);
   const fontSize = formatTokens(dictionary.tokens.font.size);
   const fontWeight = formatTokens(dictionary.tokens.font.weight);
@@ -402,26 +402,26 @@ const tailwindFormat = async ({ dictionary, file }) => {
     Object.entries(dictionary.tokens.colors.neutral)
       .filter(([, token]) => token.path)
       .map(([, token]) => [
-        token.path.filter((segment) => segment !== 'color').join('-'),
+        token.path.filter((segment) => segment !== "color").join("-"),
         token.cssWithValue,
       ]),
   );
 
-  const feedbackColorObjects = generateColorMap(dictionary.tokens, FEEDBACK_VARIANTS, 'feedback', [
-    'background',
-    'text',
-    'fill',
-    'border',
+  const feedbackColorObjects = generateColorMap(dictionary.tokens, FEEDBACK_VARIANTS, "feedback", [
+    "background",
+    "text",
+    "fill",
+    "border",
   ]);
   const { feedbackBackgroundColors, feedbackTextColors, feedbackFillColors, feedbackBorderColors } =
     feedbackColorObjects;
 
-  const statusColorObjects = generateColorMap(dictionary.tokens, STATUS_VARIANTS, 'status');
+  const statusColorObjects = generateColorMap(dictionary.tokens, STATUS_VARIANTS, "status");
   const { statusBackgroundColors, statusTextColors, statusFillColors } = statusColorObjects;
 
   return `${await fileHeader({ file })}
   const baseColors = ${JSON.stringify(generateBaseColors(baseColorsTokens))};
-  const dataVizColors = ${JSON.stringify(generateBaseColors(dictionary.tokens.colors['data-viz']))};
+  const dataVizColors = ${JSON.stringify(generateBaseColors(dictionary.tokens.colors["data-viz"]))};
   const neutralColors = ${JSON.stringify(neutralColors)};
   const textColors = ${JSON.stringify(getScalesAndCSSCustomProperties(dictionary.tokens.text.color))};
   const backgroundColors = ${JSON.stringify(getScalesAndCSSCustomProperties(dictionary.tokens.background.color))};
@@ -468,7 +468,7 @@ const tailwindFormat = async ({ dictionary, file }) => {
     ...backgroundColors,
     ...statusBackgroundColors,
     ...feedbackBackgroundColors,
-    'application-chrome': '${dictionary.tokens.background['application-chrome'].cssWithValue}',
+    'application-chrome': '${dictionary.tokens.background["application-chrome"].cssWithValue}',
     dropdown: '${dictionary.tokens.background.dropdown.cssWithValue}',
     control: {
       default: '${dictionary.tokens.background.control.default.cssWithValue}',
@@ -483,7 +483,7 @@ const tailwindFormat = async ({ dictionary, file }) => {
     ...borderColors,
     ...feedbackBorderColors,
     dropdown: '${dictionary.tokens.border.dropdown.cssWithValue}',
-    'dropdown-divider': '${dictionary.tokens.border['dropdown-divider'].cssWithValue}',
+    'dropdown-divider': '${dictionary.tokens.border["dropdown-divider"].cssWithValue}',
     control: {
       default: '${dictionary.tokens.border.control.default.cssWithValue}',
       disabled: '${dictionary.tokens.border.control.disabled.cssWithValue}',
@@ -548,7 +548,7 @@ tailwindFormat.nested = true;
  * @returns {boolean} True if the value is an alias reference, false otherwise
  */
 function isAliasValue(value) {
-  return typeof value === 'string' && value.startsWith('{') && value.endsWith('}');
+  return typeof value === "string" && value.startsWith("{") && value.endsWith("}");
 }
 
 /**
@@ -557,7 +557,7 @@ function isAliasValue(value) {
  * @returns {string} The processed value with flattened aliases (e.g., "{color-primary}")
  */
 function flattenAliasValue(value) {
-  return value.replace(/\./g, '-');
+  return value.replace(/\./g, "-");
 }
 
 /**
@@ -569,13 +569,13 @@ function flattenAliasValue(value) {
 function findDesignTokenByPath(tokens, path) {
   let current = tokens;
   for(const segment of path) {
-    if(current && typeof current === 'object' && segment in current) {
+    if(current && typeof current === "object" && segment in current) {
       current = current[segment];
     } else {
       return null;
     }
   }
-  return current && typeof current === 'object' && '$value' in current ? current : null;
+  return current && typeof current === "object" && "$value" in current ? current : null;
 }
 
 /**
@@ -595,7 +595,7 @@ function isContextualDesignToken(token) {
  * @returns {string} Flattened key, prefixed if contextual
  */
 function createDesignTokenKey(path, isContextual) {
-  const flatKey = path.join('-');
+  const flatKey = path.join("-");
   return isContextual ? `${CONTEXTUAL_PREFIX}${flatKey}` : flatKey;
 }
 
@@ -607,9 +607,9 @@ function createDesignTokenKey(path, isContextual) {
  * @returns {string} Processed alias with contextual prefix if target is contextual
  */
 function processDesignTokenAlias(value, flattenedAlias, allTokens) {
-  if(flattenedAlias.includes('/')) return flattenedAlias;
+  if(flattenedAlias.includes("/")) return flattenedAlias;
 
-  const aliasToken = findDesignTokenByPath(allTokens, value.slice(1, -1).split('.'));
+  const aliasToken = findDesignTokenByPath(allTokens, value.slice(1, -1).split("."));
 
   return isContextualDesignToken(aliasToken)
     ? `{${CONTEXTUAL_PREFIX}${flattenedAlias.slice(1, -1)}}`
@@ -649,22 +649,22 @@ function resolveFigmaValue(token, isContextual = false, allTokens = null) {
   // Figma expects font families as a single string rather than an array
   // Select first font family name value, ignore first value CSS custom
   // property in font stack
-  if(type === 'fontFamily') {
-    return value[1].replace(/'/g, '');
+  if(type === "fontFamily") {
+    return value[1].replace(/'/g, "");
   }
 
   // Ensure numeric values are proper JavaScript numbers
   // Converts string representations of numbers to actual number types
-  if(type === 'number') {
+  if(type === "number") {
     return Number(value);
   }
 
   // Convert rem units to pixels for Figma compatibility
   // Figma works primarily with pixel values, so we convert rem using 16px base
-  if(type === 'dimension' && value?.unit === 'rem') {
+  if(type === "dimension" && value?.unit === "rem") {
     return {
       value: parseFloat(value.value) * 16,
-      unit: 'px',
+      unit: "px",
     };
   }
 
@@ -702,7 +702,7 @@ function getFigmaFormattedTokens(tokens, { result = {}, path = [], allTokens = n
   Object.entries(tokens).forEach(([key, token]) => {
     const currentPath = [...path, key];
 
-    if(token && typeof token === 'object' && !token.$value) {
+    if(token && typeof token === "object" && !token.$value) {
       getFigmaFormattedTokens(token, { result, path: currentPath, allTokens });
     } else {
       // Check if token is from contextual folder and add prefix

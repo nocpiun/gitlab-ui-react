@@ -1,7 +1,7 @@
-import postcss from 'postcss';
-import selectorParser from 'postcss-selector-parser';
+import postcss from "postcss";
+import selectorParser from "postcss-selector-parser";
 
-const LEGACY_PREFIX = 'gl-';
+const LEGACY_PREFIX = "gl-";
 
 function splitCandidate(candidate) {
   const parts = [];
@@ -18,17 +18,17 @@ function splitCandidate(candidate) {
       continue;
     }
 
-    if(character === '\\') {
+    if(character === "\\") {
       escaped = true;
       continue;
     }
 
-    if(character === '[') squareDepth += 1;
-    if(character === ']') squareDepth -= 1;
-    if(character === '(') parenthesisDepth += 1;
-    if(character === ')') parenthesisDepth -= 1;
+    if(character === "[") squareDepth += 1;
+    if(character === "]") squareDepth -= 1;
+    if(character === "(") parenthesisDepth += 1;
+    if(character === ")") parenthesisDepth -= 1;
 
-    if(character === ':' && squareDepth === 0 && parenthesisDepth === 0) {
+    if(character === ":" && squareDepth === 0 && parenthesisDepth === 0) {
       parts.push(candidate.slice(start, index));
       start = index + 1;
     }
@@ -41,7 +41,7 @@ function splitCandidate(candidate) {
 function stripLegacyPrefix(utility) {
   let modifierEnd = 0;
 
-  while(utility[modifierEnd] === '!' || utility[modifierEnd] === '-') {
+  while(utility[modifierEnd] === "!" || utility[modifierEnd] === "-") {
     modifierEnd += 1;
   }
 
@@ -71,7 +71,7 @@ export function toTailwindCandidate(candidate) {
   if(utility === null) return null;
 
   parts[parts.length - 1] = utility;
-  return parts.join(':');
+  return parts.join(":");
 }
 
 export function createCandidateMap(candidates) {
@@ -99,11 +99,11 @@ export function createCandidateMap(candidates) {
 export function rewriteLegacyApplyDirectives(css, from) {
   const root = postcss.parse(css, { from });
 
-  root.walkAtRules('apply', (atRule) => {
+  root.walkAtRules("apply", (atRule) => {
     atRule.params = atRule.params
       .split(/\s+/u)
       .map((candidate) => toTailwindCandidate(candidate) ?? candidate)
-      .join(' ');
+      .join(" ");
   });
 
   return root.toString();
@@ -119,7 +119,7 @@ export function restoreLegacySelectors(root, legacyByTailwindCandidate) {
   });
 
   root.walkRules((rule) => {
-    if(!rule.selector.includes('.')) return;
+    if(!rule.selector.includes(".")) return;
 
     rule.selector = processor.processSync(rule.selector, { lossless: true });
   });

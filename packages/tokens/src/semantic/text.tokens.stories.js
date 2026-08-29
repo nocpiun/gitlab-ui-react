@@ -1,6 +1,6 @@
-import COMPILED_TOKENS from '../build/json/tokens.json';
-import COMPILED_TOKENS_DARK from '../build/json/tokens.dark.json';
-import { createDesignTokenStory } from '../common_story_options';
+import COMPILED_TOKENS from "../build/json/tokens.json";
+import COMPILED_TOKENS_DARK from "../build/json/tokens.dark.json";
+import { createDesignTokenStory } from "../common_story_options";
 
 export const Default = createDesignTokenStory({
   tokens: {
@@ -22,5 +22,5 @@ export const Dark = createDesignTokenStory({
 
 // eslint-disable-next-line storybook/csf-component
 export default {
-  title: 'tokens/semantic/text',
+  title: "tokens/semantic/text",
 };

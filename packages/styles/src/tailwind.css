@@ -13,3 +13,4 @@
 @source "../../*/src/**/*.{html,js,jsx,mjs,cjs,ts,tsx,mdx}";
 @source not "../../tokens/src/**/*";
 @source "../../../apps/**/*.{html,js,jsx,mjs,cjs,ts,tsx,mdx}";
+@source not "../../../apps/storybook/**/*";

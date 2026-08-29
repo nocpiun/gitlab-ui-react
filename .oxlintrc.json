@@ -13,7 +13,7 @@
     }
   },
   "ignorePatterns": [
-    
+    "**/dist/**"
   ],
   "plugins": [
     "typescript",
@@ -96,6 +96,8 @@
         "@stylistic/implicit-arrow-linebreak": ["error", "beside"],
         "@stylistic/nonblock-statement-body-position": ["error", "beside"],
         "@stylistic/semi": ["error", "always"],
+        "@stylistic/quotes": ["error", "double"],
+        "@stylistic/arrow-parens": ["error", "always"],
         "react-js/jsx-closing-bracket-location": ["error", "after-props"],
         "react-js/jsx-closing-tag-location": ["error", "tag-aligned"],
         "react-js/jsx-uses-vars": "error",
