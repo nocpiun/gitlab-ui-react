@@ -1,0 +1,110 @@
+name: Upstream sync
+
+on:
+  schedule:
+    - cron: "0 23 * * *"
+  workflow_dispatch:
+    inputs:
+      since_hours:
+        description: "How many hours back to look for upstream commits (track job)"
+        required: false
+        default: "24"
+
+concurrency:
+  group: upstream-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+env:
+  SYNC_DIR: /tmp/upstream-sync
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    environment: upstream-sync
+
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        token: ${{ secrets.SYNC_PAT }}
+
+    - name: Use pnpm 10.33.0
+      uses: pnpm/action-setup@v6
+      with:
+        version: 10.33.0
+
+    - name: Use Node.js 24.x
+      uses: actions/setup-node@v6
+      with:
+        node-version: 24.x
+        cache: 'pnpm'
+
+    - name: Apply sync mappings
+      id: sync
+      run: node .github/scripts/sync-upstream.mjs sync
+
+    - name: Install dependencies
+      if: steps.sync.outputs.changed == 'true'
+      run: pnpm i --frozen-lockfile
+
+    - name: Rebuild tokens and styles
+      if: steps.sync.outputs.changed == 'true'
+      run: pnpm build
+
+    - name: Create or update sync PR
+      if: steps.sync.outputs.changed == 'true'
+      env:
+        GH_TOKEN: ${{ secrets.SYNC_PAT }}
+      run: |
+        set -euo pipefail
+        branch="bot/upstream-token-sync"
+        date="$(date +%F)"
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git checkout -B "$branch"
+        git add packages/tokens/src packages/tokens/dist packages/styles/dist
+        git commit -m "chore(tokens): sync upstream design tokens ($date)"
+        git push -f origin "$branch"
+        if [ -z "$(gh pr list --head "$branch" --state open --json number --jq '.[0].number // empty')" ]; then
+          files="$(jq -r '.files[] | "- `\(.path)` (\(.status))"' "$SYNC_DIR/sync-result.json")"
+          gh pr create --base main --head "$branch" \
+            --title "chore(tokens): sync upstream design tokens ($date)" \
+            --label upstream-sync \
+            --body "$(printf 'Automatically syncs design token changes from upstream [design.gitlab.com](https://gitlab.com/gitlab-org/gitlab-services/design.gitlab.com).\n\n%s\n\nCreated automatically by the upstream-sync workflow.' "$files")"
+        fi
+
+  track:
+    runs-on: ubuntu-latest
+    environment: upstream-sync
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Use Node.js 24.x
+      uses: actions/setup-node@v6
+      with:
+        node-version: 24.x
+
+    - name: Analyze tracked entries
+      id: track
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        SINCE_HOURS: ${{ github.event.inputs.since_hours || '24' }}
+      run: node .github/scripts/sync-upstream.mjs track
+
+    - name: Create tracking issues
+      if: steps.track.outputs.issue_count != '0'
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        set -euo pipefail
+        for row in $(jq -c '.[]' "$SYNC_DIR/track-issues.json"); do
+          title="$(jq -r '.title' <<<"$row")"
+          body_file="$(jq -r '.bodyFile' <<<"$row")"
+          gh issue create --title "$title" --body-file "$body_file" --label upstream-tracking
+        done
