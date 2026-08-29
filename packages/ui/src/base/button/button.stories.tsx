@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, MouseEvent } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn, userEvent } from "storybook/test";
 import GlButton, {
@@ -32,6 +32,7 @@ const meta = {
     category: "primary",
     children: "Button text",
     disabled: false,
+    loading: false,
     selected: false,
     size: "medium",
     variant: "default",
@@ -195,4 +196,67 @@ export const CustomElement: Story = {
   },
 };
 
-// TODO: Add loading stories after GlLoadingIcon is ported and the loading prop is implemented.
+export const Loading: Story = {
+  args: {
+    children: "Loading button",
+    loading: true,
+    onClick: fn(),
+  },
+  play: async ({ args, canvas }) => {
+    const button = canvas.getByRole("button");
+    const indicator = canvas.getByRole("status", { name: "Loading" });
+
+    await userEvent.click(button);
+    await expect(button).toHaveAttribute("aria-disabled", "true");
+    await expect(button).not.toHaveAttribute("disabled");
+    await expect(button).toHaveClass("disabled");
+    await expect(indicator).toHaveClass(
+      "gl-button-icon",
+      "gl-button-loading-indicator",
+    );
+    await expect(args.onClick).not.toHaveBeenCalled();
+  },
+};
+
+export const LoadingLink: Story = {
+  args: {
+    children: "Loading link button",
+    href: "#",
+    loading: true,
+    // to prevent auto redirection
+    onClick: fn((event: MouseEvent<HTMLElement>) => event.preventDefault()),
+  },
+  play: async ({ args, canvas }) => {
+    const linkButton = canvas.getByRole("button");
+    const previewUrl = linkButton.ownerDocument.location.href;
+
+    await userEvent.click(linkButton);
+    await expect(linkButton).not.toHaveAttribute("aria-disabled");
+    await expect(linkButton).not.toHaveClass("disabled");
+    await expect(args.onClick).toHaveBeenCalledOnce();
+    await expect(linkButton.ownerDocument.location.href).toBe(previewUrl);
+  },
+};
+
+export const LoadingWithIcons: Story = {
+  render: (args) => (
+    <div style={collectionStyle}>
+      <GlButton {...args} loading>Loading button</GlButton>
+      <GlButton {...args} icon="star-o" loading>Loading with icon</GlButton>
+      <GlButton
+        {...args}
+        aria-label="Refresh"
+        children={undefined}
+        icon="retry"
+        loading />
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const iconOnlyButton = canvas.getByRole("button", { name: "Refresh" });
+
+    await expect(canvas.getAllByRole("status", { name: "Loading" })).toHaveLength(3);
+    await expect(canvas.getAllByTestId("star-o-icon")).toHaveLength(1);
+    await expect(iconOnlyButton).toHaveClass("btn-icon", "disabled");
+    await expect(iconOnlyButton.querySelector("[data-testid='retry-icon']")).toBeNull();
+  },
+};
