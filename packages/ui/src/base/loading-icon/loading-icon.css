@@ -1,0 +1,138 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/loading_icon/loading_icon.scss
+ */
+
+.gl-spinner-container,
+.gl-dots-loader {
+  line-height: 0;
+  text-align: center;
+}
+
+.gl-spinner {
+  --gl-loading-spinner-size: var(--gl-spacing-scale-5);
+  --gl-loading-spinner-border-width: 2px;
+
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  width: var(--gl-loading-spinner-size);
+  height: var(--gl-loading-spinner-size);
+  margin: 0 auto;
+  border-style: solid;
+  border-width: var(--gl-loading-spinner-border-width);
+  border-radius: 9999px;
+  font-size: var(--gl-font-size-base);
+  vertical-align: text-bottom !important;
+  transform-origin: 50% 50%
+    calc(var(--gl-loading-spinner-size) / 2 + var(--gl-loading-spinner-border-width));
+  animation: gl-spinner-animation 0.6s infinite linear;
+}
+
+.gl-spinner-md {
+  --gl-loading-spinner-size: var(--gl-spacing-scale-6);
+  --gl-loading-spinner-border-width: 3px;
+}
+
+.gl-spinner-lg {
+  --gl-loading-spinner-size: var(--gl-spacing-scale-7);
+  --gl-loading-spinner-border-width: 3px;
+}
+
+.gl-spinner-xl {
+  --gl-loading-spinner-size: var(--gl-spacing-scale-11);
+  --gl-loading-spinner-border-width: 4px;
+}
+
+.gl-spinner-dark {
+  border-color: var(--gl-spinner-track-color-default);
+  border-top-color: var(--gl-spinner-segment-color-default);
+}
+
+.gl-spinner-light {
+  border-color: var(--gl-spinner-track-color-light);
+  border-top-color: var(--gl-spinner-segment-color-light);
+}
+
+.gl-dots-loader {
+  --gl-dots-loader-size: 0.375rem;
+}
+
+.gl-dots-loader::before,
+.gl-dots-loader > span,
+.gl-dots-loader::after {
+  display: inline-block;
+  width: var(--gl-dots-loader-size);
+  height: var(--gl-dots-loader-size);
+  margin-right: calc(var(--gl-dots-loader-size) / 2);
+  border-radius: 100%;
+  background-color: var(--gl-icon-color-subtle);
+  content: "";
+  animation: gl-dots-loader-animation 1400ms ease-in-out infinite;
+  animation-fill-mode: both;
+}
+
+.gl-dots-loader::before {
+  animation-delay: -0.3s;
+}
+
+.gl-dots-loader > span {
+  animation-delay: -0.15s;
+}
+
+.gl-dots-loader::after {
+  margin-right: 0 !important;
+}
+
+.gl-dots-loader-md {
+  --gl-dots-loader-size: var(--gl-spacing-scale-3);
+}
+
+.gl-dots-loader-lg {
+  --gl-dots-loader-size: var(--gl-spacing-scale-4);
+}
+
+.gl-dots-loader-xl {
+  --gl-dots-loader-size: var(--gl-spacing-scale-5);
+}
+
+@keyframes gl-spinner-animation {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes gl-dots-loader-animation {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+
+  40% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gl-spinner,
+  .gl-dots-loader::before,
+  .gl-dots-loader > span,
+  .gl-dots-loader::after {
+    animation: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .gl-spinner-dark,
+  .gl-spinner-light {
+    border-color: CanvasText;
+    border-top-color: Highlight;
+  }
+
+  .gl-dots-loader::before,
+  .gl-dots-loader > span,
+  .gl-dots-loader::after {
+    background-color: CanvasText;
+  }
+}
