@@ -18,6 +18,8 @@ export type {
   GlIconSize,
   GlIconVariant,
 } from "./base/icon/icon";
+export { default as GlLabel } from "./base/label/label";
+export type { GlLabelProps } from "./base/label/label";
 export { default as GlLink } from "./base/link/link";
 export type {
   GlLinkProps,

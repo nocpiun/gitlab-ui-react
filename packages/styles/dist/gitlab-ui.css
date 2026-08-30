@@ -3344,6 +3344,128 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
   width: 72px;
   height: 72px;
 }
+.gl-label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  color: inherit;
+  background-color: var(--gl-background-color-default);
+  box-shadow: var(--label-inset-border) !important;
+  font-size: var(--gl-font-size-sm);
+  line-height: 1rem;
+}
+@media (forced-colors: active) {
+  .gl-label {
+    border: 1px solid;
+  }
+}
+.gl-label:not(.gl-label-scoped) {
+  background-color: var(--label-background-color);
+}
+.gl-label:has(> :first-child:focus-visible) {
+  box-shadow: inset 0 0 0 1px var(--label-background-color, var(--gl-background-color-default)), 0 0 0 1px var(--gl-focus-ring-inner-color), 0 0 0 3px var(--gl-focus-ring-outer-color) !important;
+  outline: none !important;
+}
+@media (forced-colors: active) {
+  .gl-label:has(> :first-child:focus-visible) {
+    outline: 2px solid LinkText !important;
+  }
+}
+.gl-label .gl-label-link {
+  display: flex;
+  max-width: 100%;
+  overflow: hidden;
+  color: inherit;
+  font-weight: var(--gl-font-weight-normal);
+}
+.gl-label .gl-label-link:hover, .gl-label .gl-label-link:focus-visible, .gl-label .gl-label-link:focus-visible:active {
+  color: inherit;
+  box-shadow: none;
+  outline: none;
+}
+.gl-label .gl-label-link-underline {
+  text-decoration: none;
+}
+.gl-label .gl-label-link-underline:hover .gl-label-text, .gl-label .gl-label-link-underline:hover .gl-label-text-scoped, .gl-label .gl-label-link-underline:focus-visible .gl-label-text, .gl-label .gl-label-link-underline:focus-visible .gl-label-text-scoped, .gl-label .gl-label-link-underline:focus-visible:active .gl-label-text, .gl-label .gl-label-link-underline:focus-visible:active .gl-label-text-scoped {
+  text-decoration: underline;
+}
+.gl-label .gl-label-text, .gl-label .gl-label-text-scoped {
+  display: inline-block;
+  min-width: 0;
+  max-width: 100%;
+  padding: var(--gl-spacing-scale-1) 0.375rem;
+  overflow-x: clip;
+  overflow-y: visible;
+  text-overflow: ellipsis;
+  vertical-align: top;
+  white-space: nowrap;
+}
+.gl-label > .gl-label-close.gl-button {
+  display: flex;
+  width: 0.875rem;
+  min-width: auto !important;
+  height: 0.875rem;
+  min-height: auto !important;
+  padding: 0;
+  margin-right: 0.1875rem;
+  margin-left: -0.1875rem;
+  border-width: 0;
+  border-radius: var(--gl-border-radius-full);
+  box-shadow: none;
+}
+.gl-label > .gl-label-close.gl-button:focus-visible, .gl-label > .gl-label-close.gl-button:active {
+  box-shadow: 0 0 0 1px var(--gl-focus-ring-inner-color), 0 0 0 3px var(--gl-focus-ring-outer-color);
+  outline: none;
+}
+.gl-label > .gl-label-close.gl-button .gl-icon {
+  vertical-align: -1px;
+}
+.gl-label-text-dark {
+  color: var(--gl-label-light-text-color);
+}
+.gl-label-text-dark .gl-label-close.gl-button {
+  color: var(--gl-label-light-button-icon-color-default);
+  background-color: var(--gl-label-light-button-background-color-default);
+}
+.gl-label-text-dark .gl-label-close.gl-button:hover, .gl-label-text-dark .gl-label-close.gl-button:focus-visible {
+  color: var(--label-background-color);
+  background-color: var(--gl-label-light-button-background-color-hover);
+}
+.gl-label-text-light {
+  color: var(--gl-label-dark-text-color);
+}
+.gl-label-text-light .gl-label-close.gl-button {
+  color: var(--gl-label-dark-button-icon-color-default);
+  background-color: var(--gl-label-dark-button-background-color-default);
+}
+.gl-label-text-light .gl-label-close.gl-button:hover, .gl-label-text-light .gl-label-close.gl-button:focus-visible {
+  color: var(--label-background-color);
+  background-color: var(--gl-label-dark-button-background-color-hover);
+}
+.gl-label-scoped .gl-label-close.gl-button {
+  margin-left: -0.375rem;
+  color: var(--gl-label-scoped-button-icon-color-default);
+}
+.gl-label-scoped .gl-label-close.gl-button:hover, .gl-label-scoped .gl-label-close.gl-button:focus-visible {
+  color: var(--gl-label-scoped-button-icon-color-hover);
+  background-color: var(--gl-label-scoped-button-background-color-hover);
+}
+.gl-label-scoped .gl-label-text {
+  background-color: var(--label-background-color);
+}
+@media (forced-colors: active) {
+  .gl-label-scoped .gl-label-text {
+    border-right: 1px solid;
+  }
+}
+.gl-label-scoped .gl-label-text-scoped {
+  padding-right: var(--gl-spacing-scale-3);
+  padding-left: var(--gl-spacing-scale-2);
+  color: var(--gl-label-scoped-text-color);
+}
 .gl-link {
   text-underline-offset: var(--gl-spacing-scale-1);
 }
