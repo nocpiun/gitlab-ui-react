@@ -63,6 +63,22 @@ describe("GlLabel", () => {
     expect(renderLabel({ target: "javascript:alert(1)" })).toContain("href=\"about:blank\"");
   });
 
+  describe("tooltip", () => {
+    it("keeps the description and footer out of the closed markup", () => {
+      const markup = renderLabel({
+        description: "lorem ipsum",
+        footer: "Archived",
+        scoped: true,
+        title: "scoped::label",
+      });
+
+      expect(markup).not.toContain("lorem ipsum");
+      expect(markup).not.toContain("Archived");
+      expect(markup).not.toContain("gl-label-tooltip-title");
+      expect(markup).toContain("gl-label-scoped");
+    });
+  });
+
   describe("remove button", () => {
     it("does not render by default", () => {
       expect(renderLabel()).not.toContain("gl-label-close");
