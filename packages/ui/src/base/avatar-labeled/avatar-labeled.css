@@ -4,41 +4,26 @@
  */
 
 .gl-avatar-labeled {
-  display: inline-flex;
+  @apply gl-inline-flex;
 }
 
 .gl-avatar-labeled-labels {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-left: var(--gl-spacing-scale-3);
-  color: var(--gl-text-color-strong);
-  font-size: var(--gl-font-size-base);
-  line-height: 1rem;
-  text-align: left !important;
+  @apply gl-ml-3 gl-flex gl-flex-col gl-justify-center gl-text-base gl-leading-normal gl-text-strong !gl-text-left;
 }
 
 .gl-avatar-labeled-labels.inline-labels {
-  flex-direction: row;
-  align-items: center;
-  gap: var(--gl-spacing-scale-2);
+  @apply gl-flex-row gl-items-center gl-gap-2;
 }
 
 .gl-avatar-labeled-label-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  margin: calc(var(--gl-spacing-scale-1) * -1);
-  text-align: left !important;
+  @apply -gl-mx-1 -gl-my-1 gl-flex gl-flex-wrap gl-items-center !gl-text-left;
 }
 
 .gl-avatar-labeled-label {
-  padding: var(--gl-spacing-scale-1);
-  color: var(--gl-text-color-strong);
-  font-weight: var(--gl-font-weight-bold);
+  @apply gl-p-1 gl-font-bold gl-text-strong;
 }
 
 .gl-avatar-labeled-sublabel {
-  color: var(--gl-text-color-subtle);
+  @apply gl-text-subtle;
   overflow-wrap: anywhere;
 }

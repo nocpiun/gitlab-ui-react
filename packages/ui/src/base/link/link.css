@@ -8,20 +8,20 @@
 }
 
 .gl-link:hover {
-  color: var(--gl-text-color-link);
-  cursor: pointer;
+  @apply gl-cursor-pointer;
 }
 
 .gl-link,
+.gl-link:hover,
 .gl-link:active,
 .gl-link:focus-visible {
-  color: var(--gl-text-color-link);
+  @apply gl-text-link;
 }
 
 .gl-link:active,
 .gl-link:focus-visible,
 .gl-link:focus-visible:active {
-  text-decoration-line: underline;
+  @apply gl-underline;
 }
 
 .gl-link:focus-visible,
@@ -32,7 +32,7 @@
 
 .gl-link-inline,
 .gl-link-inline:hover {
-  text-decoration-line: underline;
+  @apply gl-underline;
 }
 
 .gl-link-external::after {
@@ -41,30 +41,28 @@
 }
 
 .gl-link-meta {
-  text-decoration-line: none;
+  @apply gl-no-underline;
 }
 
 .gl-link-meta:hover {
-  text-decoration-line: underline;
+  @apply gl-underline;
 }
 
 .gl-link-meta,
 .gl-link-meta:hover,
 .gl-link-meta:focus-visible,
 .gl-link-meta:focus-visible:hover {
-  color: inherit;
+  @apply gl-text-inherit;
 }
 
 .gl-link-mention,
 .gl-link-mention-current {
-  padding-inline: var(--gl-spacing-scale-1);
-  border-radius: var(--gl-border-radius-default);
-  text-decoration-line: none;
+  @apply gl-px-1 gl-rounded-default gl-no-underline;
 }
 
 .gl-link-mention:hover,
 .gl-link-mention-current:hover {
-  text-decoration-line: underline;
+  @apply gl-underline;
 }
 
 .gl-link-mention:active,
@@ -73,7 +71,7 @@
 .gl-link-mention-current:active,
 .gl-link-mention-current:focus-visible,
 .gl-link-mention-current:focus-visible:active {
-  text-decoration-line: none;
+  @apply gl-no-underline;
 }
 
 .gl-link-mention {

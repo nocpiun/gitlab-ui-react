@@ -4,17 +4,15 @@
  */
 
 .gl-avatar-link {
-  display: inline-flex;
+  @apply gl-inline-flex;
 }
 
 .gl-avatar-link .gl-avatar {
-  transition-timing-function: ease;
-  transition-duration: 0.4s;
-  transition-property: border-color;
+  @apply gl-transition-border-color gl-duration-slow gl-ease-ease;
 }
 
 .gl-avatar-link:hover {
-  text-decoration-line: none;
+  @apply gl-no-underline;
 }
 
 .gl-avatar-link:hover .gl-avatar {
@@ -23,7 +21,7 @@
 
 .gl-avatar-link:hover .gl-avatar-labeled-label,
 .gl-avatar-link:hover .gl-avatar-labeled-sublabel {
-  text-decoration-line: underline;
+  @apply gl-underline;
 }
 
 .gl-avatar-link:active,
@@ -36,8 +34,5 @@
 .gl-avatar-link:active .gl-avatar,
 .gl-avatar-link:focus-visible .gl-avatar,
 .gl-avatar-link:focus-visible:active .gl-avatar {
-  box-shadow:
-    0 0 0 1px var(--gl-focus-ring-inner-color),
-    0 0 0 3px var(--gl-focus-ring-outer-color);
-  outline: none;
+  @apply gl-focus;
 }
