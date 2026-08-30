@@ -40,11 +40,12 @@
   color: var(--gl-feedback-strong-text-color);
   --gl-text-color-subtle: var(--gl-tooltip-text-color-subtle);
   font-weight: var(--gl-font-weight-normal);
-  line-height: 1.5;
+  line-height: var(--gl-line-height-16);
   text-align: center;
   filter:
-    drop-shadow(0 4px 3px rgb(0 0 0 / 0.07))
-    drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+    drop-shadow(0 0 0.5px var(--gl-shadow-color-default))
+    drop-shadow(0 0.5px 1px var(--gl-shadow-color-default))
+    drop-shadow(0 1px 3px var(--gl-shadow-color-default));
 }
 
 .gl-tooltip .arrow {
@@ -65,22 +66,24 @@
   height: var(--gl-spacing-scale-2);
 }
 
-/* Base UI only sets the arrow's cross-axis coordinate; the main-axis offset
- * that pushes the arrow out of the popup toward the trigger is defined here. */
+/* The arrow lives inside the popup's 4px padding (like upstream, where the
+ * Bootstrap tooltip padding makes room for it): its tip is flush with the
+ * popup's outer edge — and therefore with the trigger at sideOffset 0 — while
+ * its base meets the visible `.tooltip-inner` box. */
 .gl-tooltip.bs-tooltip-top .arrow {
-  bottom: calc(-1 * var(--gl-spacing-scale-2));
+  bottom: 0;
 }
 
 .gl-tooltip.bs-tooltip-right .arrow {
-  left: calc(-1 * var(--gl-spacing-scale-2));
+  left: 0;
 }
 
 .gl-tooltip.bs-tooltip-bottom .arrow {
-  top: calc(-1 * var(--gl-spacing-scale-2));
+  top: 0;
 }
 
 .gl-tooltip.bs-tooltip-left .arrow {
-  right: calc(-1 * var(--gl-spacing-scale-2));
+  right: 0;
 }
 
 .gl-tooltip.bs-tooltip-top .arrow::before {

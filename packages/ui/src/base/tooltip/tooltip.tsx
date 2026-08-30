@@ -122,8 +122,7 @@ export default function GlTooltip({
           className="gl-tooltip-positioner"
           collisionBoundary={boundary as BaseTooltip.Positioner.Props["collisionBoundary"]}
           collisionPadding={5}
-          side={placement}
-          sideOffset={4}>
+          side={placement}>
           <BaseTooltip.Popup className={popupClassName} id={tooltipId} role="tooltip">
             <BaseTooltip.Arrow className="arrow" />
             <div className="tooltip-inner">{title}</div>
