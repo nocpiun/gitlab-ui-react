@@ -31,6 +31,18 @@ export { default as GlButtonGroup } from "./base/button-group/button-group";
 export type {
   GlButtonGroupProps,
 } from "./base/button-group/button-group";
+export {
+  default as GlCard,
+  GlCardContent,
+  GlCardFooter,
+  GlCardHeader,
+} from "./base/card/card";
+export type {
+  GlCardContentProps,
+  GlCardFooterProps,
+  GlCardHeaderProps,
+  GlCardProps,
+} from "./base/card/card";
 export { default as GlIcon } from "./base/icon/icon";
 export type {
   GlIconProps,

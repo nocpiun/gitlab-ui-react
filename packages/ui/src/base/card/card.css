@@ -1,0 +1,64 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/card/card.scss
+ *
+ * Sass constants are expanded: `$gl-border-size-1` is `1px` and
+ * `$gl-spacing-scale-2` is `.25rem`.
+ */
+
+.gl-card {
+  @apply gl-bg-strong;
+  @apply gl-border-1;
+  @apply gl-border-solid;
+  @apply gl-border-transparent;
+  @apply contrast-more:gl-border-strong;
+  @apply gl-flex;
+  @apply gl-flex-col;
+  @apply gl-break-words;
+  @apply gl-relative;
+  @apply gl-text-base;
+  @apply gl-p-2;
+  border-radius: var(--gl-card-border-radius);
+}
+
+.gl-card-header,
+.gl-card-body {
+  @apply gl-text-default;
+}
+
+.gl-card-header {
+  @apply gl-px-3;
+  @apply gl-pt-2;
+  @apply gl-pb-3;
+  @apply gl-my-1;
+  border-top-left-radius: calc(var(--gl-card-border-radius) - 1px);
+  border-top-right-radius: calc(var(--gl-card-border-radius) - 1px);
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply gl-text-base;
+    @apply gl-text-heading;
+    @apply gl-m-0;
+  }
+}
+
+.gl-card-body {
+  @apply gl-grow;
+  @apply gl-p-3;
+  @apply gl-bg-default;
+  @apply contrast-more:gl-border;
+  @apply forced-colors:gl-border;
+  border-radius: calc(var(--gl-card-border-radius) - 0.25rem);
+}
+
+.gl-card-footer {
+  @apply gl-px-3;
+  @apply gl-pt-3;
+  @apply gl-pb-2;
+  border-bottom-left-radius: calc(var(--gl-card-border-radius) - 1px);
+  border-bottom-right-radius: calc(var(--gl-card-border-radius) - 1px);
+  @apply gl-text-subtle;
+}
