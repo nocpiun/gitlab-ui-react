@@ -4,24 +4,14 @@
  */
 
 .gl-button {
-  box-sizing: border-box;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  @apply gl-box-border gl-inline-flex gl-items-center gl-justify-center gl-font-normal gl-text-center gl-no-underline gl-align-middle gl-whitespace-nowrap gl-select-none gl-cursor-pointer;
   font-family: inherit;
-  font-weight: var(--gl-font-weight-normal);
-  text-align: center;
-  text-decoration: none;
-  vertical-align: middle;
-  white-space: nowrap;
-  user-select: none;
-  cursor: pointer;
 }
 
 .gl-button:not(.btn-link):focus-visible,
 .gl-button:not(.btn-link):active,
 .gl-button:not(.btn-link):focus-visible:active {
-  text-decoration: none;
+  @apply gl-no-underline;
 }
 
 .gl-button.gl-button {
@@ -40,14 +30,11 @@
 
   min-width: 32px;
   min-height: 32px;
-  padding: 0 var(--gl-spacing-scale-4);
+  @apply gl-px-4 gl-py-0 gl-fill-current gl-justify-center gl-items-center gl-text-base gl-leading-normal;
   border: 1px solid var(--gl-button-variant-border);
   border-radius: var(--gl-button-border-radius);
   color: var(--gl-button-variant-foreground);
   background-color: var(--gl-button-variant-background);
-  fill: currentColor;
-  font-size: var(--gl-font-size-base);
-  line-height: 1rem;
   transition:
     color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
     background-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
@@ -71,13 +58,10 @@
 
 .gl-button.gl-button:focus-visible,
 .gl-button.gl-button:focus-visible:active {
+  @apply gl-focus;
   color: var(--gl-button-variant-focus-foreground);
   background-color: var(--gl-button-variant-focus-background);
   border-color: var(--gl-button-variant-focus-border);
-  box-shadow:
-    0 0 0 1px var(--gl-focus-ring-inner-color),
-    0 0 0 3px var(--gl-focus-ring-outer-color);
-  outline: none;
 }
 
 .gl-button.gl-button:active,
@@ -228,12 +212,10 @@
 }
 
 .gl-button.gl-button.btn-default.selected:focus-visible {
+  @apply gl-focus;
   color: var(--gl-button-selected-foreground-color-focus);
   background-color: var(--gl-button-selected-background-color-focus);
   border-color: var(--gl-button-selected-border-color-focus);
-  box-shadow:
-    0 0 0 1px var(--gl-focus-ring-inner-color),
-    0 0 0 3px var(--gl-focus-ring-outer-color);
 }
 
 .gl-button.gl-button.btn-default.selected:active,
@@ -245,125 +227,95 @@
 }
 
 .gl-button .gl-button-text {
-  overflow: hidden;
+  @apply gl-overflow-hidden gl-text-ellipsis gl-whitespace-nowrap;
   padding-top: 1px;
   padding-bottom: 1px;
   margin-top: -1px;
   margin-bottom: -1px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .gl-button .gl-button-icon {
-  position: static;
-  width: var(--gl-spacing-scale-5);
-  height: var(--gl-spacing-scale-5);
-  flex-shrink: 0;
-  margin-right: var(--gl-spacing-scale-2);
+  @apply gl-static gl-h-5 gl-w-5 gl-shrink-0 gl-mr-2;
 }
 
 .gl-button .gl-button-emoji {
-  position: relative;
-  margin-right: var(--gl-spacing-scale-2);
-  font-size: var(--gl-font-size-lg);
+  @apply gl-relative gl-mr-2 gl-text-lg;
 }
 
 .gl-button .gl-button-count {
-  display: inline-flex;
-  min-width: var(--gl-spacing-scale-3);
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  padding: 0 var(--gl-spacing-scale-2);
-  margin-left: var(--gl-spacing-scale-2);
-  border: 1px solid transparent;
-  border-radius: var(--gl-border-radius-full);
+  @apply gl-inline-flex gl-min-w-3 gl-shrink-0 gl-items-center gl-justify-center gl-px-2 gl-py-0 gl-ml-2 gl-border-1 gl-border-solid gl-border-transparent gl-rounded-full gl-text-sm gl-font-normal gl-leading-normal;
   background-color: var(--gl-button-count-background-color);
-  font-size: var(--gl-font-size-sm);
-  font-weight: var(--gl-font-weight-normal);
-  line-height: 1rem;
 }
 
 .gl-button.gl-button.btn-sm {
+  @apply gl-px-3 gl-leading-normal gl-text-base;
   min-width: 24px;
   min-height: 24px;
-  padding-right: var(--gl-spacing-scale-3);
-  padding-left: var(--gl-spacing-scale-3);
 }
 
 .gl-button.btn-sm .gl-button-emoji {
-  font-size: var(--gl-font-size-sm);
+  @apply gl-text-sm;
 }
 
 .gl-button.gl-button.btn-icon {
-  padding: 0;
+  @apply gl-leading-normal gl-p-0;
 }
 
 .gl-button.btn-icon .gl-button-icon {
-  margin-right: 0;
+  @apply gl-mr-0;
 }
 
 .gl-button.gl-button.button-ellipsis-horizontal {
+  @apply gl-px-2;
   min-width: auto;
   min-height: auto;
-  padding-right: var(--gl-spacing-scale-2);
-  padding-left: var(--gl-spacing-scale-2);
 }
 
 .gl-button.button-ellipsis-horizontal svg {
-  width: var(--gl-spacing-scale-5);
-  height: var(--gl-spacing-scale-5);
-  margin: 0;
+  @apply gl-h-5 gl-w-5 gl-m-0;
 }
 
 .gl-button.gl-button.btn-label,
 .gl-button.gl-button.btn-label:hover,
 .gl-button.gl-button.btn-label:focus-visible,
 .gl-button.gl-button.btn-label:active {
-  background-color: var(--gl-background-color-subtle);
-  cursor: default;
-  user-select: text;
+  @apply gl-bg-subtle gl-cursor-default gl-select-text;
 }
 
 .gl-button.gl-button.btn-link {
+  @apply gl-px-0 gl-border-0 gl-bg-transparent gl-text-base gl-leading-normal;
   min-width: auto;
   min-height: auto;
-  padding-right: 0;
-  padding-left: 0;
-  border: 0;
   border-radius: var(--gl-button-link-border-radius);
   color: var(--gl-button-link-text-color-default);
-  background-color: transparent;
-  font-size: var(--gl-font-size-base);
-  line-height: 1rem;
   text-decoration-color: transparent;
   text-decoration-style: solid;
   text-decoration-thickness: auto;
 }
 
 .gl-button.gl-button.btn-link:hover {
+  @apply gl-bg-transparent;
   color: var(--gl-button-link-text-color-hover);
-  background-color: transparent;
   text-decoration-color: var(--gl-button-link-text-color-hover);
 }
 
 .gl-button.gl-button.btn-link:active {
+  @apply gl-bg-transparent;
   color: var(--gl-button-link-text-color-active);
-  background-color: transparent;
   text-decoration-color: var(--gl-button-link-text-color-active);
 }
 
 .gl-button.gl-button.btn-link:focus-visible,
 .gl-button.gl-button.btn-link:focus-visible:active {
-  background-color: transparent;
+  @apply gl-bg-transparent;
 }
 
 .gl-button.gl-button.btn-block {
-  width: 100%;
+  @apply gl-w-full;
 }
 
 .gl-button.btn-block + .gl-button.btn-block {
-  margin-top: var(--gl-spacing-scale-2);
+  @apply gl-mt-2;
 }
 
 .gl-button.gl-button.disabled,
@@ -371,12 +323,10 @@
 .gl-button.gl-button.disabled:focus-visible,
 .gl-button.gl-button.disabled:active,
 .gl-button.gl-button.disabled.selected {
+  @apply gl-shadow-none gl-opacity-100 gl-cursor-not-allowed;
   border-color: var(--gl-button-disabled-border-color);
   color: var(--gl-button-disabled-foreground-color);
   background-color: var(--gl-button-disabled-background-color);
-  box-shadow: none;
-  opacity: 1;
-  cursor: not-allowed;
 }
 
 .gl-button.disabled::before {
@@ -385,12 +335,11 @@
 
 .gl-button.gl-button.disabled[class*="-tertiary"],
 .gl-button.gl-button.btn-link.disabled {
-  background-color: transparent;
-  box-shadow: none;
+  @apply gl-bg-transparent gl-shadow-none;
 }
 
 .gl-button-text:has(.gl-sr-only) {
-  position: relative;
+  @apply gl-relative;
 }
 
 @media (prefers-reduced-motion) {

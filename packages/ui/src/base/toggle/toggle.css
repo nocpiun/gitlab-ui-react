@@ -2,62 +2,46 @@
  * Ported from GitLab UI:
  * packages/gitlab-ui/src/components/base/toggle/toggle.scss
  *
- * The wrapper's `display` comes from the `gl-flex` / `gl-flex-col` utility
- * classes in the markup (matching the observed upstream behavior); the Sass
- * `@apply` rules are expanded to plain CSS here.
+ * The wrapper's `display` continues to come from the `gl-flex` / `gl-flex-col`
+ * utility classes in the markup so the component stylesheet does not outrank
+ * the utility layer's layout choice.
  */
 
 .gl-toggle-wrapper {
-  font-weight: var(--gl-font-weight-normal);
-  line-height: var(--gl-line-height-16);
+  @apply gl-font-normal gl-leading-normal;
 }
 
 .gl-description-label {
-  color: var(--gl-text-color-subtle);
+  @apply gl-text-subtle;
 }
 
 .gl-help-label {
-  margin-top: var(--gl-spacing-scale-3);
-  font-weight: var(--gl-font-weight-normal);
-  color: var(--gl-text-color-subtle);
+  @apply gl-mt-3 gl-font-normal gl-text-subtle;
 }
 
 .gl-toggle-label-inline {
-  flex-direction: row;
-  align-items: center;
+  @apply gl-flex-row gl-items-center;
 }
 
 .gl-toggle-label-inline .gl-toggle-label {
-  margin-right: var(--gl-spacing-scale-3);
-  margin-bottom: 0;
-  white-space: nowrap;
+  @apply gl-mr-3 gl-mb-0 gl-whitespace-nowrap;
 }
 
 .gl-toggle-label-inline .gl-help-label {
-  margin-top: 0;
-  margin-left: var(--gl-spacing-scale-3);
+  @apply gl-mt-0 gl-ml-3;
 }
 
 .gl-toggle-label {
-  font-weight: var(--gl-font-weight-bold);
-  color: var(--gl-text-color-strong);
+  @apply gl-font-bold gl-text-strong;
 }
 
 .gl-toggle {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  @apply gl-relative gl-inline-flex gl-items-center gl-justify-center gl-border-0 gl-rounded-pill gl-cursor-pointer gl-leading-normal gl-select-none;
   width: 2.25rem;
   height: 1.25rem;
-  border: 0;
-  border-radius: var(--gl-border-radius-xl);
   color: var(--gl-toggle-switch-icon-color-unchecked-default);
   background-color: var(--gl-toggle-switch-track-color-unchecked-default);
   box-shadow: inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-unchecked-default);
-  cursor: pointer;
-  line-height: var(--gl-line-height-16);
-  user-select: none;
   transition:
     color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
     background-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
@@ -82,7 +66,7 @@
 /* Upstream also lists `::before::selection` / `::after::selection`, which are
  * invalid selectors that browsers ignore and lightningcss rejects. */
 .gl-toggle::selection {
-  background-color: transparent;
+  @apply gl-bg-transparent;
 }
 
 .gl-toggle:hover {
@@ -126,15 +110,11 @@
 }
 
 .gl-toggle .toggle-loading {
-  height: var(--gl-spacing-scale-5);
+  @apply gl-h-5;
 }
 
 .gl-toggle .toggle-icon {
-  position: absolute;
-  top: var(--gl-spacing-scale-1);
-  left: var(--gl-spacing-scale-1);
-  width: var(--gl-spacing-scale-5);
-  height: var(--gl-spacing-scale-5);
+  @apply gl-absolute gl-top-1 gl-left-1 gl-w-5 gl-h-5;
   transition: transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
@@ -152,9 +132,7 @@
 }
 
 .gl-toggle .toggle-icon::before {
-  position: absolute;
-  inset: 0;
-  border-radius: var(--gl-border-radius-full);
+  @apply gl-absolute gl-inset-0 gl-rounded-full;
   background-color: var(--gl-toggle-switch-background-color-unchecked-default);
   content: "";
   transform: scale(0.75);
@@ -178,11 +156,9 @@
 }
 
 .gl-toggle .toggle-icon > svg {
-  position: absolute;
+  @apply gl-absolute gl-w-4 gl-h-4;
   top: 50%;
   left: 50%;
-  width: var(--gl-spacing-scale-4);
-  height: var(--gl-spacing-scale-4);
   /* Check/close icons are only rendered in Windows high contrast
    * (forced-colors) mode so the toggle state remains distinguishable
    * when background colors are overridden by the user agent. */
@@ -252,9 +228,9 @@
  * `.gl-toggle.is-disabled` carry equal specificity, so source order is what
  * lets the disabled styles win over the checked ones. */
 .gl-toggle.is-disabled {
+  @apply gl-cursor-not-allowed;
   background-color: var(--gl-toggle-switch-track-color-unchecked-disabled);
   box-shadow: inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-unchecked-disabled);
-  cursor: not-allowed;
 }
 
 .gl-toggle.is-disabled .toggle-icon {

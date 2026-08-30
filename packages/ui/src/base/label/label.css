@@ -4,17 +4,8 @@
  */
 
 .gl-label {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  max-width: 100%;
-  overflow: hidden;
-  border-radius: 0.75rem;
-  color: inherit;
-  background-color: var(--gl-background-color-default);
+  @apply gl-relative gl-inline-flex gl-items-center gl-max-w-full gl-overflow-hidden gl-rounded-pill gl-text-inherit gl-bg-default gl-text-sm gl-leading-normal;
   box-shadow: var(--label-inset-border) !important;
-  font-size: var(--gl-font-size-sm);
-  line-height: 1rem;
 }
 
 @media (forced-colors: active) {
@@ -42,23 +33,17 @@
 }
 
 .gl-label .gl-label-link {
-  display: flex;
-  max-width: 100%;
-  overflow: hidden;
-  color: inherit;
-  font-weight: var(--gl-font-weight-normal);
+  @apply gl-flex gl-max-w-full gl-overflow-hidden gl-text-inherit gl-font-normal;
 }
 
 .gl-label .gl-label-link:hover,
 .gl-label .gl-label-link:focus-visible,
 .gl-label .gl-label-link:focus-visible:active {
-  color: inherit;
-  box-shadow: none;
-  outline: none;
+  @apply gl-text-inherit gl-shadow-none gl-outline-none;
 }
 
 .gl-label .gl-label-link-underline {
-  text-decoration: none;
+  @apply gl-no-underline;
 }
 
 .gl-label .gl-label-link-underline:hover .gl-label-text,
@@ -67,42 +52,28 @@
 .gl-label .gl-label-link-underline:focus-visible .gl-label-text-scoped,
 .gl-label .gl-label-link-underline:focus-visible:active .gl-label-text,
 .gl-label .gl-label-link-underline:focus-visible:active .gl-label-text-scoped {
-  text-decoration: underline;
+  @apply gl-underline;
 }
 
 .gl-label .gl-label-text,
 .gl-label .gl-label-text-scoped {
-  display: inline-block;
-  min-width: 0;
-  max-width: 100%;
+  @apply gl-inline-block gl-min-w-0 gl-max-w-full gl-overflow-x-clip gl-overflow-y-visible gl-text-ellipsis gl-align-top gl-whitespace-nowrap;
   padding: var(--gl-spacing-scale-1) 0.375rem;
-  overflow-x: clip;
-  overflow-y: visible;
-  text-overflow: ellipsis;
-  vertical-align: top;
-  white-space: nowrap;
 }
 
 .gl-label > .gl-label-close.gl-button {
-  display: flex;
+  @apply gl-flex gl-border-0 gl-p-0 gl-rounded-full gl-shadow-none;
   width: 0.875rem;
   min-width: auto !important;
   height: 0.875rem;
   min-height: auto !important;
-  padding: 0;
   margin-right: 0.1875rem;
   margin-left: -0.1875rem;
-  border-width: 0;
-  border-radius: var(--gl-border-radius-full);
-  box-shadow: none;
 }
 
 .gl-label > .gl-label-close.gl-button:focus-visible,
 .gl-label > .gl-label-close.gl-button:active {
-  box-shadow:
-    0 0 0 1px var(--gl-focus-ring-inner-color),
-    0 0 0 3px var(--gl-focus-ring-outer-color);
-  outline: none;
+  @apply gl-focus;
 }
 
 .gl-label > .gl-label-close.gl-button .gl-icon {
@@ -161,13 +132,10 @@
 }
 
 .gl-label-scoped .gl-label-text-scoped {
-  padding-right: var(--gl-spacing-scale-3);
-  padding-left: var(--gl-spacing-scale-2);
+  @apply gl-pr-3 gl-pl-2;
   color: var(--gl-label-scoped-text-color);
 }
 
 .gl-label-tooltip-title {
-  display: block;
-  color: var(--gl-feedback-strong-text-color);
-  font-weight: var(--gl-font-weight-bold);
+  @apply gl-block gl-text-feedback-strong gl-font-bold;
 }

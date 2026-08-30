@@ -27,7 +27,12 @@ Use this reference after the upstream compatibility checklist is known. It captu
 ## Variants and CSS
 
 - Model closed variants with `cva` and exported literal unions. Keep structural classes separate from consumer `className` merging.
-- Translate Sass into colocated plain CSS using existing tokens and utilities. Inspect mixin definitions and transitive global styles before replacing them; do not approximate a hidden behavior by appearance alone.
+- Translate Sass into colocated CSS and prefer `@apply` with supported `gl-*` utilities whenever they express the same semantics.
+- When upstream already uses `@apply`, preserve the same utility candidates, variant prefixes, grouping, and source order wherever practical instead of rewriting them into merely equivalent utilities. Deviate only when required by unsupported local utilities or configuration, React or Base UI structure, or cascade and specificity constraints; record meaningful deviations.
+- Use the same `@apply` approach for exact utility equivalents introduced by React or Base UI adaptations.
+- Keep native CSS declarations for component-specific tokens, Sass variables/calculations/mixins after expansion, literal values without a meaningful utility, transitive global-style compensation, and cases where `@apply` would change cascade, specificity, or source-order behavior. Do not invent arbitrary utilities merely to eliminate native declarations.
+- Component source may contain `@apply`, but the published styles output must contain only compiled CSS. Verify that the styles package build expands every directive and regenerate `packages/styles/dist` rather than editing it directly.
+- Inspect mixin definitions and transitive global styles before replacing them; do not approximate a hidden behavior by appearance alone.
 - Cover hover, active, focus-visible, disabled, dark theme, forced colors, reduced motion, and responsive behavior only where upstream or shared foundations support them.
 - Import component CSS from `packages/styles/src/components.css`. Regenerate `packages/styles/dist` with the styles package build; never hand-edit generated output.
 

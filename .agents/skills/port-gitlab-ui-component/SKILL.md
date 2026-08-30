@@ -61,6 +61,8 @@ Read [references/react-porting.md](references/react-porting.md) before implement
 
 Build the smallest semantic core first, then styles, tests, and stories. Keep the implementation reviewable and avoid speculative abstractions. Add a concise upstream provenance comment to substantially ported source and style files.
 
+When authoring component CSS, prefer `@apply` with supported upstream `gl-*` utilities wherever it preserves the intended declaration and cascade. When upstream already uses `@apply`, keep its utility choices, variant prefixes, grouping, and source order as closely as the local Tailwind build and React structure allow. Keep native CSS for component-specific tokens, Sass-only constructs, compatibility adaptations, missing utilities, or cases where `@apply` would change specificity or source-order behavior. See [references/react-porting.md](references/react-porting.md) for the detailed boundary.
+
 If upstream behavior cannot be supported without a missing local primitive, either add the smallest reusable prerequisite within scope or preserve a clear typed API boundary and document the deliberate deferral. Never silently drop a supported state.
 
 ### 4. Verify in increasing cost order

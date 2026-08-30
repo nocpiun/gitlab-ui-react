@@ -1,39 +1,36 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/icon/icon.scss
+ */
+
 .gl-icon.s8 {
-  width: 8px;
-  height: 8px;
+  @apply gl-w-[8px] gl-h-[8px];
 }
 
 .gl-icon.s12 {
-  width: 12px;
-  height: 12px;
+  @apply gl-w-[12px] gl-h-[12px];
 }
 
 .gl-icon.s14 {
-  width: 14px;
-  height: 14px;
+  @apply gl-w-[14px] gl-h-[14px];
 }
 
 .gl-icon.s16 {
-  width: 16px;
-  height: 16px;
+  @apply gl-w-[16px] gl-h-[16px];
 }
 
 .gl-icon.s24 {
-  width: 24px;
-  height: 24px;
+  @apply gl-w-[24px] gl-h-[24px];
 }
 
 .gl-icon.s32 {
-  width: 32px;
-  height: 32px;
+  @apply gl-w-[32px] gl-h-[32px];
 }
 
 .gl-icon.s48 {
-  width: 48px;
-  height: 48px;
+  @apply gl-w-[48px] gl-h-[48px];
 }
 
 .gl-icon.s72 {
-  width: 72px;
-  height: 72px;
+  @apply gl-w-[72px] gl-h-[72px];
 }

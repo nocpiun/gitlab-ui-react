@@ -5,28 +5,19 @@
 
 .gl-spinner-container,
 .gl-dots-loader {
-  line-height: 0;
-  text-align: center;
+  @apply gl-leading-0 gl-text-center;
 }
 
 .gl-spinner {
   --gl-loading-spinner-size: var(--gl-spacing-scale-5);
   --gl-loading-spinner-border-width: 2px;
 
-  position: relative;
-  box-sizing: border-box;
-  display: inline-flex;
+  @apply gl-relative gl-box-border gl-inline-flex gl-mx-auto gl-my-0 gl-border-solid gl-rounded-full gl-text-base !gl-align-text-bottom gl-animate-spin;
   width: var(--gl-loading-spinner-size);
   height: var(--gl-loading-spinner-size);
-  margin: 0 auto;
-  border-style: solid;
   border-width: var(--gl-loading-spinner-border-width);
-  border-radius: 9999px;
-  font-size: var(--gl-font-size-base);
-  vertical-align: text-bottom !important;
   transform-origin: 50% 50%
     calc(var(--gl-loading-spinner-size) / 2 + var(--gl-loading-spinner-border-width));
-  animation: gl-spinner-animation 0.6s infinite linear;
 }
 
 .gl-spinner-md {
@@ -61,7 +52,7 @@
 .gl-dots-loader::before,
 .gl-dots-loader > span,
 .gl-dots-loader::after {
-  display: inline-block;
+  @apply gl-inline-block;
   width: var(--gl-dots-loader-size);
   height: var(--gl-dots-loader-size);
   margin-right: calc(var(--gl-dots-loader-size) / 2);
@@ -94,12 +85,6 @@
 
 .gl-dots-loader-xl {
   --gl-dots-loader-size: var(--gl-spacing-scale-5);
-}
-
-@keyframes gl-spinner-animation {
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 @keyframes gl-dots-loader-animation {
