@@ -3812,6 +3812,70 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
 :is(.gl-button-group-vertical, .btn-group-vertical) :is(.btn-confirm, .btn-danger):not(.disabled):not([disabled])::before {
   background-color: transparent;
 }
+.gl-card {
+  background-color: var(--gl-background-color-strong);
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+  --tw-border-style: solid;
+  border-style: solid;
+  border-color: transparent;
+  @media (prefers-contrast: more) {
+    border-color: var(--gl-border-color-strong);
+  }
+  display: flex;
+  flex-direction: column;
+  overflow-wrap: break-word;
+  position: relative;
+  font-size: var(--gl-font-size-base);
+  padding: var(--gl-spacing-scale-2);
+  border-radius: var(--gl-card-border-radius);
+}
+.gl-card-header, .gl-card-body {
+  color: var(--gl-text-color-default);
+}
+.gl-card-header {
+  padding-inline: var(--gl-spacing-scale-3);
+  padding-top: var(--gl-spacing-scale-2);
+  padding-bottom: var(--gl-spacing-scale-3);
+  margin-block: var(--gl-spacing-scale-1);
+  border-top-left-radius: calc(var(--gl-card-border-radius) - 1px);
+  border-top-right-radius: calc(var(--gl-card-border-radius) - 1px);
+  h2, h3, h4, h5, h6 {
+    font-size: var(--gl-font-size-base);
+    color: var(--gl-text-color-heading);
+    margin: var(--gl-spacing-scale-0);
+  }
+}
+.gl-card-body {
+  flex-grow: 1;
+  padding: var(--gl-spacing-scale-3);
+  background-color: var(--gl-background-color-default);
+  @media (prefers-contrast: more) {
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+  }
+  @media (prefers-contrast: more) {
+    border-style: solid;
+    border-color: var(--gl-border-color-default);
+  }
+  @media (forced-colors: active) {
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+  }
+  @media (forced-colors: active) {
+    border-style: solid;
+    border-color: var(--gl-border-color-default);
+  }
+  border-radius: calc(var(--gl-card-border-radius) - 0.25rem);
+}
+.gl-card-footer {
+  padding-inline: var(--gl-spacing-scale-3);
+  padding-top: var(--gl-spacing-scale-3);
+  padding-bottom: var(--gl-spacing-scale-2);
+  border-bottom-left-radius: calc(var(--gl-card-border-radius) - 1px);
+  border-bottom-right-radius: calc(var(--gl-card-border-radius) - 1px);
+  color: var(--gl-text-color-subtle);
+}
 .gl-icon.s8 {
   height: 8px;
   width: 8px;
@@ -4504,6 +4568,14 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
     clip-path: inset(50%);
     white-space: nowrap;
     border-width: 0;
+  }
+  .gl-heading-scale-300 {
+    font-weight: var(--gl-heading-scale-300-font-weight);
+    margin-top: var(--gl-heading-scale-300-margin-top);
+    font-size: var(--gl-heading-scale-300-font-size);
+    letter-spacing: var(--gl-heading-scale-300-letter-spacing);
+    line-height: var(--gl-heading-scale-300-line-height);
+    color: var(--gl-heading-scale-300-color);
   }
   .gl-mt-3 {
     margin-top: var(--gl-spacing-scale-3);
