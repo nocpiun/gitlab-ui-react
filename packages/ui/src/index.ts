@@ -27,6 +27,10 @@ export type {
   GlButtonType,
   GlButtonVariant,
 } from "./base/button/button";
+export { default as GlButtonGroup } from "./base/button-group/button-group";
+export type {
+  GlButtonGroupProps,
+} from "./base/button-group/button-group";
 export { default as GlIcon } from "./base/icon/icon";
 export type {
   GlIconProps,
