@@ -3958,6 +3958,35 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
     background-color: CanvasText;
   }
 }
+.gl-progress-bar {
+  display: flex;
+  overflow: hidden;
+  height: 1rem;
+  font-size: var(--gl-font-size-sm);
+  line-height: 0;
+  background-color: var(--gl-progress-bar-track-color);
+  border-radius: var(--gl-border-radius-full);
+}
+.gl-progress {
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+  white-space: nowrap;
+  transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.gl-progress-bar-primary {
+  background-color: var(--gl-progress-bar-indicator-color-default);
+}
+.gl-progress-bar-success {
+  background-color: var(--gl-progress-bar-indicator-color-success);
+}
+.gl-progress-bar-warning {
+  background-color: var(--gl-progress-bar-indicator-color-warning);
+}
+.gl-progress-bar-danger {
+  background-color: var(--gl-progress-bar-indicator-color-danger);
+}
 @layer theme, base, components, utilities;
 @layer utilities {
   .gl-sr-only {
@@ -4039,6 +4068,9 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
   }
   .\!gl-px-2 {
     padding-inline: var(--gl-spacing-scale-2) !important;
+  }
+  .gl-px-1 {
+    padding-inline: var(--gl-spacing-scale-1);
   }
   .\!gl-text-left {
     text-align: left !important;
