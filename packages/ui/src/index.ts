@@ -47,3 +47,8 @@ export type {
   GlLoadingIconSize,
   GlLoadingIconVariant,
 } from "./base/loading-icon/loading-icon";
+export { default as GlProgressBar } from "./base/progress-bar/progress-bar";
+export type {
+  GlProgressBarProps,
+  GlProgressBarVariant,
+} from "./base/progress-bar/progress-bar";
