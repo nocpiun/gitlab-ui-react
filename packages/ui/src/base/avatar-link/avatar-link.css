@@ -1,0 +1,43 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/avatar_link/avatar_link.scss
+ */
+
+.gl-avatar-link {
+  display: inline-flex;
+}
+
+.gl-avatar-link .gl-avatar {
+  transition-timing-function: ease;
+  transition-duration: 0.4s;
+  transition-property: border-color;
+}
+
+.gl-avatar-link:hover {
+  text-decoration-line: none;
+}
+
+.gl-avatar-link:hover .gl-avatar {
+  outline: 1px solid var(--gl-avatar-border-color-hover);
+}
+
+.gl-avatar-link:hover .gl-avatar-labeled-label,
+.gl-avatar-link:hover .gl-avatar-labeled-sublabel {
+  text-decoration-line: underline;
+}
+
+.gl-avatar-link:active,
+.gl-avatar-link:focus-visible,
+.gl-avatar-link:focus-visible:active {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.gl-avatar-link:active .gl-avatar,
+.gl-avatar-link:focus-visible .gl-avatar,
+.gl-avatar-link:focus-visible:active .gl-avatar {
+  box-shadow:
+    0 0 0 1px var(--gl-focus-ring-inner-color),
+    0 0 0 3px var(--gl-focus-ring-outer-color);
+  outline: none;
+}

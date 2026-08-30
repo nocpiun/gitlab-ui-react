@@ -1,4 +1,6 @@
 @import "../../ui/src/base/avatar/avatar.css";
+@import "../../ui/src/base/avatar-labeled/avatar-labeled.css";
+@import "../../ui/src/base/avatar-link/avatar-link.css";
 @import "../../ui/src/base/badge/badge.css";
 @import "../../ui/src/base/button/button.css";
 @import "../../ui/src/base/icon/icon.css";
