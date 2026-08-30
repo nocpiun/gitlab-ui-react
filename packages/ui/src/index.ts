@@ -52,6 +52,11 @@ export type {
   GlProgressBarProps,
   GlProgressBarVariant,
 } from "./base/progress-bar/progress-bar";
+export { default as GlToggle } from "./base/toggle/toggle";
+export type {
+  GlToggleLabelPosition,
+  GlToggleProps,
+} from "./base/toggle/toggle";
 export { default as GlTooltip } from "./base/tooltip/tooltip";
 export type {
   GlTooltipPlacement,
