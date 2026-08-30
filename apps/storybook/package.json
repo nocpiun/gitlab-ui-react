@@ -1,4 +1,7 @@
 {
   "private": true,
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@gitlab/fonts": "^1.3.1"
+  }
 }
