@@ -3714,6 +3714,104 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
     mix-blend-mode: initial;
   }
 }
+.gl-button-group, .gl-button-group-vertical, .btn-group, .btn-group-vertical {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+}
+:is(.gl-button-group, .gl-button-group-vertical, .btn-group, .btn-group-vertical) > .btn {
+  position: relative;
+  flex: 1 1 auto;
+}
+:is(.gl-button-group, .gl-button-group-vertical, .btn-group, .btn-group-vertical) > .btn:hover {
+  z-index: 1;
+}
+:is(.gl-button-group, .gl-button-group-vertical, .btn-group, .btn-group-vertical) > .btn:is(:focus-visible, :active, .active) {
+  z-index: 1;
+}
+:is( .gl-button-group:not(.gl-keyset-pagination), .btn-group:not(.gl-keyset-pagination), .gl-dropdown.btn-group ) > .gl-button:not(:first-child), :is( .gl-button-group:not(.gl-keyset-pagination), .btn-group:not(.gl-keyset-pagination), .gl-dropdown.btn-group ) > .btn-group:not(:first-child) > .gl-button, :is( .gl-button-group:not(.gl-keyset-pagination), .btn-group:not(.gl-keyset-pagination), .gl-dropdown.btn-group ) > .gl-new-dropdown:not(:first-child) > .gl-button {
+  border-top-left-radius: var(--gl-border-radius-none);
+  border-bottom-left-radius: var(--gl-border-radius-none);
+  border-left-style: var(--tw-border-style);
+  border-left-width: 0px;
+}
+:is( .gl-button-group:not(.gl-keyset-pagination), .btn-group:not(.gl-keyset-pagination), .gl-dropdown.btn-group ) > .gl-button:not(:last-child):not(.dropdown-toggle), :is( .gl-button-group:not(.gl-keyset-pagination), .btn-group:not(.gl-keyset-pagination), .gl-dropdown.btn-group ) > .btn-group:not(:last-child) > .gl-button, :is( .gl-button-group:not(.gl-keyset-pagination), .btn-group:not(.gl-keyset-pagination), .gl-dropdown.btn-group ) > .gl-new-dropdown:not(:last-child) > .gl-button {
+  border-top-right-radius: var(--gl-border-radius-none);
+  border-bottom-right-radius: var(--gl-border-radius-none);
+  border-right-style: var(--tw-border-style);
+  border-right-width: 0px;
+}
+:is( .gl-button-group:not(.gl-keyset-pagination), .btn-group:not(.gl-keyset-pagination), .gl-dropdown.btn-group ) > .gl-button:not(:first-child), :is( .gl-button-group:not(.gl-keyset-pagination), .btn-group:not(.gl-keyset-pagination), .gl-dropdown.btn-group ) > .btn-group:not(:first-child) > .gl-button, :is( .gl-button-group:not(.gl-keyset-pagination), .btn-group:not(.gl-keyset-pagination), .gl-dropdown.btn-group ) > .gl-new-dropdown:not(:first-child) > .gl-button {
+  position: relative;
+  isolation: isolate;
+  margin-left: 1px;
+}
+:is( .gl-button-group:not(.gl-keyset-pagination), .btn-group:not(.gl-keyset-pagination), .gl-dropdown.btn-group ) > .gl-button:not(:first-child)::before, :is( .gl-button-group:not(.gl-keyset-pagination), .btn-group:not(.gl-keyset-pagination), .gl-dropdown.btn-group ) > .btn-group:not(:first-child) > .gl-button::before, :is( .gl-button-group:not(.gl-keyset-pagination), .btn-group:not(.gl-keyset-pagination), .gl-dropdown.btn-group ) > .gl-new-dropdown:not(:first-child) > .gl-button::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: -1px;
+  display: block;
+  width: 1px;
+  z-index: 4;
+}
+:is( .gl-button-group:not(.gl-keyset-pagination), .btn-group:not(.gl-keyset-pagination), .gl-dropdown.btn-group ) > .gl-button:is(:focus-visible, :active, .active) {
+  z-index: 3;
+}
+:is( .gl-button-group:not(.gl-keyset-pagination), .btn-group:not(.gl-keyset-pagination), .gl-dropdown.btn-group ) :is(.btn-confirm, .btn-danger):not(.disabled):not([disabled])::before {
+  background-color: transparent;
+}
+:is( .gl-button-group:not(.gl-keyset-pagination), .btn-group:not(.gl-keyset-pagination), .gl-dropdown.btn-group ) .gl-button.btn-icon .gl-button-text .gl-button-icon {
+  margin-right: -1px;
+}
+:is( .gl-button-group:not(.gl-keyset-pagination), .btn-group:not(.gl-keyset-pagination), .gl-dropdown.btn-group ):is(.disabled, [disabled])::before {
+  background-color: var(--gl-button-disabled-border-color);
+}
+:is( .gl-button-group:not(.gl-keyset-pagination), .btn-group:not(.gl-keyset-pagination), .gl-dropdown.btn-group ) .btn-confirm-secondary:not(.disabled):not([disabled])::before {
+  background-color: var(--gl-button-confirm-secondary-border-color-default);
+}
+:is( .gl-button-group:not(.gl-keyset-pagination), .btn-group:not(.gl-keyset-pagination), .gl-dropdown.btn-group ) .btn-danger-secondary:not(.disabled):not([disabled])::before {
+  background-color: var(--gl-button-danger-secondary-border-color-default);
+}
+:is(.gl-button-group-vertical, .btn-group-vertical) {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+:is(.gl-button-group-vertical, .btn-group-vertical) > :is(.gl-button, .btn-group) {
+  position: relative;
+  width: 100%;
+}
+:is(.gl-button-group-vertical, .btn-group-vertical) > .gl-button:not(:first-child), :is(.gl-button-group-vertical, .btn-group-vertical) > .btn-group:not(:first-child) > .gl-button, :is(.gl-button-group-vertical, .btn-group-vertical) > .gl-new-dropdown:not(:first-child) > .gl-button {
+  border-top-left-radius: var(--gl-border-radius-none);
+  border-top-right-radius: var(--gl-border-radius-none);
+  border-top-style: var(--tw-border-style);
+  border-top-width: 0px;
+}
+:is(.gl-button-group-vertical, .btn-group-vertical) > .gl-button:not(:last-child):not(.dropdown-toggle), :is(.gl-button-group-vertical, .btn-group-vertical) > .btn-group:not(:last-child) > .gl-button, :is(.gl-button-group-vertical, .btn-group-vertical) > .gl-new-dropdown:not(:last-child) > .gl-button {
+  border-bottom-right-radius: var(--gl-border-radius-none);
+  border-bottom-left-radius: var(--gl-border-radius-none);
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 0px;
+}
+:is(.gl-button-group-vertical, .btn-group-vertical) > .gl-button:not(:first-child), :is(.gl-button-group-vertical, .btn-group-vertical) > .btn-group:not(:first-child) > .gl-button, :is(.gl-button-group-vertical, .btn-group-vertical) > .gl-new-dropdown:not(:first-child) > .gl-button {
+  position: relative;
+  margin-top: 1px;
+}
+:is(.gl-button-group-vertical, .btn-group-vertical) > .gl-button:not(:first-child)::before, :is(.gl-button-group-vertical, .btn-group-vertical) > .btn-group:not(:first-child) > .gl-button::before, :is(.gl-button-group-vertical, .btn-group-vertical) > .gl-new-dropdown:not(:first-child) > .gl-button::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  left: -1px;
+  display: block;
+  height: 1px;
+  z-index: 4;
+}
+:is(.gl-button-group-vertical, .btn-group-vertical) :is(.btn-confirm, .btn-danger):not(.disabled):not([disabled])::before {
+  background-color: transparent;
+}
 .gl-icon.s8 {
   height: 8px;
   width: 8px;
