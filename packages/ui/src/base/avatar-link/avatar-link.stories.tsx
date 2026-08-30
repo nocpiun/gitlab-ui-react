@@ -96,7 +96,7 @@ export const WithNoImageAvatar: Story = {
     </GlAvatarLink>
   ),
   play: async ({ canvas, canvasElement }) => {
-    await expect(canvasElement.querySelector(".gl-avatar-identicon")).toHaveTextContent("G");
+    await expect(canvasElement.querySelector(".gl-avatar-identicon")).toHaveTextContent("N");
     await expect(canvas.getByRole("link", { name: "Norcleeh @NriotHrreion" })).toBeVisible();
   },
 };
