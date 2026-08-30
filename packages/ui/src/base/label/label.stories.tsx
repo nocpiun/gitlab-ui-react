@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, fn, userEvent } from "storybook/test";
+import { expect, fn, userEvent, waitFor, within } from "storybook/test";
 import GlLabel from "./label";
 
 const meta = {
@@ -89,5 +89,41 @@ export const WithoutTarget: Story = {
     await expect(canvas.queryByRole("link")).not.toBeInTheDocument();
     await expect(content?.tagName).toBe("SPAN");
     await expect(content).toHaveAttribute("tabindex", "0");
+  },
+};
+
+export const WithTooltip: Story = {
+  args: {
+    description: "Label description",
+    footer: "Archived",
+  },
+  play: async ({ canvas }) => {
+    await userEvent.hover(canvas.getByRole("link", { name: "Label title" }));
+
+    const tooltip = await within(document.body).findByRole("tooltip");
+
+    await waitFor(() => expect(tooltip).toBeVisible());
+    await expect(tooltip).toHaveTextContent("Label description");
+    await expect(tooltip).toHaveTextContent("Archived");
+    await expect(tooltip).not.toHaveTextContent("Scoped label");
+    await expect(tooltip.querySelector(".gl-text-subtle")).toHaveTextContent("Archived");
+  },
+};
+
+export const ScopedWithTooltip: Story = {
+  args: {
+    description: "Label description",
+    scoped: true,
+    title: "scoped::label",
+  },
+  play: async ({ canvas }) => {
+    await userEvent.hover(canvas.getByRole("link", { name: "scoped label" }));
+
+    const tooltip = await within(document.body).findByRole("tooltip");
+
+    await waitFor(() => expect(tooltip).toBeVisible());
+    await expect(tooltip).toHaveTextContent("Scoped label");
+    await expect(tooltip).toHaveTextContent("Label description");
+    await expect(tooltip.querySelector(".gl-label-tooltip-title")).toHaveTextContent("Scoped label");
   },
 };

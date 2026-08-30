@@ -3797,6 +3797,11 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
   padding-left: var(--gl-spacing-scale-2);
   color: var(--gl-label-scoped-text-color);
 }
+.gl-label-tooltip-title {
+  display: block;
+  color: var(--gl-feedback-strong-text-color);
+  font-weight: var(--gl-font-weight-bold);
+}
 .gl-link {
   text-underline-offset: var(--gl-spacing-scale-1);
 }
@@ -4080,6 +4085,9 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
   .-gl-ml-2 {
     margin-left: calc(var(--gl-spacing-scale-2) * -1);
   }
+  .gl-block {
+    display: block;
+  }
   .gl-flex {
     display: flex;
   }
@@ -4148,6 +4156,9 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
   }
   .\!gl-align-text-bottom {
     vertical-align: text-bottom !important;
+  }
+  .gl-text-subtle {
+    color: var(--gl-text-color-subtle);
   }
 }
 @property --tw-border-style {

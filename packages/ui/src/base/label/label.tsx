@@ -13,6 +13,7 @@ import { cva } from "class-variance-authority";
 import GlButton from "../button/button";
 import GlIcon from "../icon/icon";
 import GlLink from "../link/link";
+import GlTooltip, { type GlTooltipPlacement } from "../tooltip/tooltip";
 
 type LabelElementProps = Omit<
   HTMLAttributes<HTMLSpanElement>,
@@ -23,6 +24,12 @@ export type GlLabelProps = LabelElementProps & {
   /** Background color in hex, rgb, or rgba format. */
   backgroundColor: string;
   className?: string;
+  /** Description text shown in the tooltip. */
+  description?: string;
+  /** Prevents activation of the optional remove button. */
+  disabled?: boolean;
+  /** Additional text shown in a muted footer line of the tooltip (e.g. "Archived"). */
+  footer?: string;
   onClick?: MouseEventHandler<HTMLSpanElement>;
   /** Called when the optional remove button is activated. */
   onClose?: MouseEventHandler<HTMLElement>;
@@ -35,11 +42,9 @@ export type GlLabelProps = LabelElementProps & {
   target?: string;
   /** Visible label title and accessible link name. */
   title: string;
-  /** Prevents activation of the optional remove button. */
-  disabled?: boolean;
+  /** Placement of the tooltip. */
+  tooltipPlacement?: GlTooltipPlacement;
 };
-
-// TODO: Add the upstream description, footer, and tooltipPlacement props after GlTooltip is ported.
 
 type Rgb = [number, number, number];
 type LabelTextColor = "dark" | "light";
@@ -115,7 +120,9 @@ function colorFromBackground(backgroundColor: string, contrastRatio = 2.4): Labe
 const GlLabel = forwardRef<HTMLSpanElement, GlLabelProps>(function GlLabel({
   backgroundColor,
   className,
+  description = "",
   disabled = false,
+  footer = "",
   onClick,
   onClose,
   scoped = false,
@@ -123,6 +130,7 @@ const GlLabel = forwardRef<HTMLSpanElement, GlLabelProps>(function GlLabel({
   style,
   target = "",
   title,
+  tooltipPlacement = "top",
   ...elementProps
 }, forwardedRef) {
   const splitScopedLabelIndex = title.lastIndexOf("::");
@@ -156,6 +164,15 @@ const GlLabel = forwardRef<HTMLSpanElement, GlLabelProps>(function GlLabel({
     <span className="gl-label-link" tabIndex={0}>{labelText}</span>
   );
 
+  const hasTooltip = Boolean(description || footer);
+  const tooltipTitle = (
+    <>
+      {scoped ? <span className="gl-label-tooltip-title">Scoped label</span> : null}
+      {description}
+      {footer ? <span className="gl-block gl-text-subtle">{footer}</span> : null}
+    </>
+  );
+
   return (
     <span
       {...elementProps}
@@ -163,7 +180,11 @@ const GlLabel = forwardRef<HTMLSpanElement, GlLabelProps>(function GlLabel({
       className={classes}
       onClick={onClick}
       style={labelStyle}>
-      {labelContent}
+      {hasTooltip ? (
+        <GlTooltip boundary="viewport" placement={tooltipPlacement} title={tooltipTitle}>
+          {labelContent}
+        </GlTooltip>
+      ) : labelContent}
       {showCloseButton ? (
         <GlButton
           aria-label={`Remove label - ${title}`}

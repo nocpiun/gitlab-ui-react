@@ -4,7 +4,7 @@
  *
  * The upstream `target` prop and the `v-gl-tooltip` directive are replaced by
  * Base UI's trigger composition: the single child element is the trigger.
- * The bootstrap-vue `triggers`, `boundary`, `fallbackPlacement`, `offset`, and
+ * The bootstrap-vue `triggers`, `fallbackPlacement`, `offset`, and
  * `variant` props are not ported; hover/focus triggers, collision flipping,
  * and a zero-gap arrow are the built-in behavior. The `show` v-model pair and
  * the imperative open/close/enable/disable root events map to the controlled
@@ -18,6 +18,11 @@ import { getGlTooltipDefaultContainer } from "./container";
 export type GlTooltipPlacement = "top" | "right" | "bottom" | "left";
 
 export type GlTooltipProps = {
+  /**
+   * Collision boundary used when flipping the tooltip. `"viewport"` matches the
+   * upstream bootstrap-vue value; defaults to the clipping ancestors.
+   */
+  boundary?: "viewport" | "clipping-ancestors" | HTMLElement;
   /** A single trigger element; the tooltip opens when it is hovered or focused. */
   children: ReactElement;
   /** Extra class applied to the tooltip popup. */
@@ -61,6 +66,7 @@ const resolveContainer = (
 };
 
 export default function GlTooltip({
+  boundary,
   children,
   className,
   closeDelay = 0,
@@ -114,6 +120,7 @@ export default function GlTooltip({
       <BaseTooltip.Portal container={portalContainer}>
         <BaseTooltip.Positioner
           className="gl-tooltip-positioner"
+          collisionBoundary={boundary as BaseTooltip.Positioner.Props["collisionBoundary"]}
           collisionPadding={5}
           side={placement}
           sideOffset={4}>

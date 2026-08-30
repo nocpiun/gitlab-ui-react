@@ -165,3 +165,9 @@
   padding-left: var(--gl-spacing-scale-2);
   color: var(--gl-label-scoped-text-color);
 }
+
+.gl-label-tooltip-title {
+  display: block;
+  color: var(--gl-feedback-strong-text-color);
+  font-weight: var(--gl-font-weight-bold);
+}
