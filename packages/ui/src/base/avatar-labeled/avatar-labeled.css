@@ -1,0 +1,44 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/avatar_labeled/avatar_labeled.scss
+ */
+
+.gl-avatar-labeled {
+  display: inline-flex;
+}
+
+.gl-avatar-labeled-labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: var(--gl-spacing-scale-3);
+  color: var(--gl-text-color-strong);
+  font-size: var(--gl-font-size-base);
+  line-height: 1rem;
+  text-align: left !important;
+}
+
+.gl-avatar-labeled-labels.inline-labels {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gl-spacing-scale-2);
+}
+
+.gl-avatar-labeled-label-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: calc(var(--gl-spacing-scale-1) * -1);
+  text-align: left !important;
+}
+
+.gl-avatar-labeled-label {
+  padding: var(--gl-spacing-scale-1);
+  color: var(--gl-text-color-strong);
+  font-weight: var(--gl-font-weight-bold);
+}
+
+.gl-avatar-labeled-sublabel {
+  color: var(--gl-text-color-subtle);
+  overflow-wrap: anywhere;
+}

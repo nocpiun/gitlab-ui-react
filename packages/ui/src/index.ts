@@ -1,3 +1,18 @@
+export { default as GlAvatar } from "./base/avatar/avatar";
+export type {
+  GlAvatarProps,
+  GlAvatarResponsiveSize,
+  GlAvatarShape,
+  GlAvatarSize,
+} from "./base/avatar/avatar";
+export { default as GlAvatarLabeled } from "./base/avatar-labeled/avatar-labeled";
+export type {
+  GlAvatarLabeledProps,
+} from "./base/avatar-labeled/avatar-labeled";
+export { default as GlAvatarLink } from "./base/avatar-link/avatar-link";
+export type {
+  GlAvatarLinkProps,
+} from "./base/avatar-link/avatar-link";
 export { default as GlBadge } from "./base/badge/badge";
 export type {
   GlBadgeIconSize,

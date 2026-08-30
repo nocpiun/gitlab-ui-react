@@ -19,6 +19,7 @@ export default defineConfig({
         "react-dom",
         "react/jsx-runtime",
         /^@gitlab\/svgs(?:\/.*)?$/,
+        "emoji-regex",
       ],
     },
   },

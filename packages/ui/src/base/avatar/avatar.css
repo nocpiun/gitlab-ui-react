@@ -1,0 +1,329 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/avatar/avatar.scss
+ */
+
+.gl-avatar {
+  --gl-avatar-size: var(--gl-spacing-scale-7);
+  --gl-avatar-font-size: var(--gl-font-size-500);
+  --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+
+  display: inline-flex;
+  flex-shrink: 0;
+  width: var(--gl-avatar-size);
+  height: var(--gl-avatar-size);
+  overflow: hidden;
+  border-radius: var(--gl-avatar-square-radius);
+  font-size: var(--gl-avatar-font-size);
+  line-height: 1;
+  object-fit: contain;
+  outline: 1px solid var(--gl-avatar-border-color-default);
+  outline-offset: -1px;
+}
+
+.gl-avatar-s16 {
+  --gl-avatar-size: var(--gl-spacing-scale-5);
+  --gl-avatar-font-size: var(--gl-font-size-100);
+  --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+}
+
+.gl-avatar-s24 {
+  --gl-avatar-size: var(--gl-spacing-scale-6);
+  --gl-avatar-font-size: var(--gl-font-size-400);
+  --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+}
+
+.gl-avatar-s32 {
+  --gl-avatar-size: var(--gl-spacing-scale-7);
+  --gl-avatar-font-size: var(--gl-font-size-500);
+  --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+}
+
+.gl-avatar-s48 {
+  --gl-avatar-size: var(--gl-spacing-scale-9);
+  --gl-avatar-font-size: var(--gl-font-size-600);
+  --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-lg);
+}
+
+.gl-avatar-s64 {
+  --gl-avatar-size: var(--gl-spacing-scale-11);
+  --gl-avatar-font-size: var(--gl-font-size-700);
+  --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-lg);
+}
+
+.gl-avatar-s96 {
+  --gl-avatar-size: var(--gl-spacing-scale-13);
+  --gl-avatar-font-size: var(--gl-font-size-800);
+  --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-lg);
+}
+
+.gl-avatar-circle {
+  border-radius: var(--gl-avatar-circle-border-radius-default);
+}
+
+.gl-avatar-identicon {
+  align-items: center;
+  justify-content: center;
+  color: var(--gl-text-color-strong);
+  text-align: center;
+  vertical-align: top;
+}
+
+.gl-avatar-identicon-bg1 {
+  color: var(--gl-avatar-fallback-text-color-red);
+  background-color: var(--gl-avatar-fallback-background-color-red);
+}
+
+.gl-avatar-identicon-bg2,
+.gl-avatar-identicon-bg3 {
+  color: var(--gl-avatar-fallback-text-color-purple);
+  background-color: var(--gl-avatar-fallback-background-color-purple);
+}
+
+.gl-avatar-identicon-bg4 {
+  color: var(--gl-avatar-fallback-text-color-blue);
+  background-color: var(--gl-avatar-fallback-background-color-blue);
+}
+
+.gl-avatar-identicon-bg5 {
+  color: var(--gl-avatar-fallback-text-color-green);
+  background-color: var(--gl-avatar-fallback-background-color-green);
+}
+
+.gl-avatar-identicon-bg6 {
+  color: var(--gl-avatar-fallback-text-color-orange);
+  background-color: var(--gl-avatar-fallback-background-color-orange);
+}
+
+.gl-avatar-identicon-bg7 {
+  color: var(--gl-avatar-fallback-text-color-neutral);
+  background-color: var(--gl-avatar-fallback-background-color-neutral);
+}
+
+@container (width >= 576px) {
+  :where(html.with-gl-container-queries) .gl-sm-avatar-s16 {
+    --gl-avatar-size: var(--gl-spacing-scale-5);
+    --gl-avatar-font-size: var(--gl-font-size-100);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+  }
+
+  :where(html.with-gl-container-queries) .gl-sm-avatar-s24 {
+    --gl-avatar-size: var(--gl-spacing-scale-6);
+    --gl-avatar-font-size: var(--gl-font-size-400);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+  }
+
+  :where(html.with-gl-container-queries) .gl-sm-avatar-s32 {
+    --gl-avatar-size: var(--gl-spacing-scale-7);
+    --gl-avatar-font-size: var(--gl-font-size-500);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+  }
+
+  :where(html.with-gl-container-queries) .gl-sm-avatar-s48 {
+    --gl-avatar-size: var(--gl-spacing-scale-9);
+    --gl-avatar-font-size: var(--gl-font-size-600);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-lg);
+  }
+
+  :where(html.with-gl-container-queries) .gl-sm-avatar-s64 {
+    --gl-avatar-size: var(--gl-spacing-scale-11);
+    --gl-avatar-font-size: var(--gl-font-size-700);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-lg);
+  }
+
+  :where(html.with-gl-container-queries) .gl-sm-avatar-s96 {
+    --gl-avatar-size: var(--gl-spacing-scale-13);
+    --gl-avatar-font-size: var(--gl-font-size-800);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-lg);
+  }
+}
+
+@media (width >= 576px) {
+  :where(html:not(.with-gl-container-queries)) .gl-sm-avatar-s16 {
+    --gl-avatar-size: var(--gl-spacing-scale-5);
+    --gl-avatar-font-size: var(--gl-font-size-100);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+  }
+
+  :where(html:not(.with-gl-container-queries)) .gl-sm-avatar-s24 {
+    --gl-avatar-size: var(--gl-spacing-scale-6);
+    --gl-avatar-font-size: var(--gl-font-size-400);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+  }
+
+  :where(html:not(.with-gl-container-queries)) .gl-sm-avatar-s32 {
+    --gl-avatar-size: var(--gl-spacing-scale-7);
+    --gl-avatar-font-size: var(--gl-font-size-500);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+  }
+
+  :where(html:not(.with-gl-container-queries)) .gl-sm-avatar-s48 {
+    --gl-avatar-size: var(--gl-spacing-scale-9);
+    --gl-avatar-font-size: var(--gl-font-size-600);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-lg);
+  }
+
+  :where(html:not(.with-gl-container-queries)) .gl-sm-avatar-s64 {
+    --gl-avatar-size: var(--gl-spacing-scale-11);
+    --gl-avatar-font-size: var(--gl-font-size-700);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-lg);
+  }
+
+  :where(html:not(.with-gl-container-queries)) .gl-sm-avatar-s96 {
+    --gl-avatar-size: var(--gl-spacing-scale-13);
+    --gl-avatar-font-size: var(--gl-font-size-800);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-lg);
+  }
+}
+
+@container (width >= 768px) {
+  :where(html.with-gl-container-queries) .gl-md-avatar-s16 {
+    --gl-avatar-size: var(--gl-spacing-scale-5);
+    --gl-avatar-font-size: var(--gl-font-size-100);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+  }
+
+  :where(html.with-gl-container-queries) .gl-md-avatar-s24 {
+    --gl-avatar-size: var(--gl-spacing-scale-6);
+    --gl-avatar-font-size: var(--gl-font-size-400);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+  }
+
+  :where(html.with-gl-container-queries) .gl-md-avatar-s32 {
+    --gl-avatar-size: var(--gl-spacing-scale-7);
+    --gl-avatar-font-size: var(--gl-font-size-500);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+  }
+
+  :where(html.with-gl-container-queries) .gl-md-avatar-s48 {
+    --gl-avatar-size: var(--gl-spacing-scale-9);
+    --gl-avatar-font-size: var(--gl-font-size-600);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-lg);
+  }
+
+  :where(html.with-gl-container-queries) .gl-md-avatar-s64 {
+    --gl-avatar-size: var(--gl-spacing-scale-11);
+    --gl-avatar-font-size: var(--gl-font-size-700);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-lg);
+  }
+
+  :where(html.with-gl-container-queries) .gl-md-avatar-s96 {
+    --gl-avatar-size: var(--gl-spacing-scale-13);
+    --gl-avatar-font-size: var(--gl-font-size-800);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-lg);
+  }
+}
+
+@media (width >= 768px) {
+  :where(html:not(.with-gl-container-queries)) .gl-md-avatar-s16 {
+    --gl-avatar-size: var(--gl-spacing-scale-5);
+    --gl-avatar-font-size: var(--gl-font-size-100);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+  }
+
+  :where(html:not(.with-gl-container-queries)) .gl-md-avatar-s24 {
+    --gl-avatar-size: var(--gl-spacing-scale-6);
+    --gl-avatar-font-size: var(--gl-font-size-400);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+  }
+
+  :where(html:not(.with-gl-container-queries)) .gl-md-avatar-s32 {
+    --gl-avatar-size: var(--gl-spacing-scale-7);
+    --gl-avatar-font-size: var(--gl-font-size-500);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+  }
+
+  :where(html:not(.with-gl-container-queries)) .gl-md-avatar-s48 {
+    --gl-avatar-size: var(--gl-spacing-scale-9);
+    --gl-avatar-font-size: var(--gl-font-size-600);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-lg);
+  }
+
+  :where(html:not(.with-gl-container-queries)) .gl-md-avatar-s64 {
+    --gl-avatar-size: var(--gl-spacing-scale-11);
+    --gl-avatar-font-size: var(--gl-font-size-700);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-lg);
+  }
+
+  :where(html:not(.with-gl-container-queries)) .gl-md-avatar-s96 {
+    --gl-avatar-size: var(--gl-spacing-scale-13);
+    --gl-avatar-font-size: var(--gl-font-size-800);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-lg);
+  }
+}
+
+@container (width >= 992px) {
+  :where(html.with-gl-container-queries) .gl-lg-avatar-s16 {
+    --gl-avatar-size: var(--gl-spacing-scale-5);
+    --gl-avatar-font-size: var(--gl-font-size-100);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+  }
+
+  :where(html.with-gl-container-queries) .gl-lg-avatar-s24 {
+    --gl-avatar-size: var(--gl-spacing-scale-6);
+    --gl-avatar-font-size: var(--gl-font-size-400);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+  }
+
+  :where(html.with-gl-container-queries) .gl-lg-avatar-s32 {
+    --gl-avatar-size: var(--gl-spacing-scale-7);
+    --gl-avatar-font-size: var(--gl-font-size-500);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+  }
+
+  :where(html.with-gl-container-queries) .gl-lg-avatar-s48 {
+    --gl-avatar-size: var(--gl-spacing-scale-9);
+    --gl-avatar-font-size: var(--gl-font-size-600);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-lg);
+  }
+
+  :where(html.with-gl-container-queries) .gl-lg-avatar-s64 {
+    --gl-avatar-size: var(--gl-spacing-scale-11);
+    --gl-avatar-font-size: var(--gl-font-size-700);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-lg);
+  }
+
+  :where(html.with-gl-container-queries) .gl-lg-avatar-s96 {
+    --gl-avatar-size: var(--gl-spacing-scale-13);
+    --gl-avatar-font-size: var(--gl-font-size-800);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-lg);
+  }
+}
+
+@media (width >= 992px) {
+  :where(html:not(.with-gl-container-queries)) .gl-lg-avatar-s16 {
+    --gl-avatar-size: var(--gl-spacing-scale-5);
+    --gl-avatar-font-size: var(--gl-font-size-100);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+  }
+
+  :where(html:not(.with-gl-container-queries)) .gl-lg-avatar-s24 {
+    --gl-avatar-size: var(--gl-spacing-scale-6);
+    --gl-avatar-font-size: var(--gl-font-size-400);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+  }
+
+  :where(html:not(.with-gl-container-queries)) .gl-lg-avatar-s32 {
+    --gl-avatar-size: var(--gl-spacing-scale-7);
+    --gl-avatar-font-size: var(--gl-font-size-500);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-default);
+  }
+
+  :where(html:not(.with-gl-container-queries)) .gl-lg-avatar-s48 {
+    --gl-avatar-size: var(--gl-spacing-scale-9);
+    --gl-avatar-font-size: var(--gl-font-size-600);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-lg);
+  }
+
+  :where(html:not(.with-gl-container-queries)) .gl-lg-avatar-s64 {
+    --gl-avatar-size: var(--gl-spacing-scale-11);
+    --gl-avatar-font-size: var(--gl-font-size-700);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-lg);
+  }
+
+  :where(html:not(.with-gl-container-queries)) .gl-lg-avatar-s96 {
+    --gl-avatar-size: var(--gl-spacing-scale-13);
+    --gl-avatar-font-size: var(--gl-font-size-800);
+    --gl-avatar-square-radius: var(--gl-avatar-square-border-radius-lg);
+  }
+}
