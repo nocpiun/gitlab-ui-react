@@ -52,3 +52,12 @@ export type {
   GlProgressBarProps,
   GlProgressBarVariant,
 } from "./base/progress-bar/progress-bar";
+export { default as GlTooltip } from "./base/tooltip/tooltip";
+export type {
+  GlTooltipPlacement,
+  GlTooltipProps,
+} from "./base/tooltip/tooltip";
+export {
+  getGlTooltipDefaultContainer,
+  setGlTooltipDefaultContainer,
+} from "./base/tooltip/container";

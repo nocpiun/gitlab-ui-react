@@ -1,0 +1,104 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/tooltip/tooltip.scss
+ *
+ * Bootstrap's `.tooltip` base (z-index, font reset, word wrap) is folded into
+ * `.gl-tooltip` because this package does not ship Bootstrap. Positioning and
+ * arrow placement are handled by Base UI instead of Popper, and the fade
+ * transition uses Base UI's `data-starting-style` / `data-ending-style`
+ * attributes instead of Bootstrap's `.fade` / `.show` opacity toggle.
+ */
+
+.gl-tooltip-positioner {
+  z-index: 1070;
+}
+
+.gl-tooltip {
+  padding: var(--gl-spacing-scale-2);
+  font-size: var(--gl-font-size-sm);
+  overflow-wrap: break-word;
+}
+
+.gl-tooltip.noninteractive {
+  pointer-events: none;
+}
+
+.gl-tooltip.fade {
+  transition: opacity 0.15s linear;
+}
+
+.gl-tooltip.fade[data-starting-style],
+.gl-tooltip.fade[data-ending-style] {
+  opacity: 0;
+}
+
+.gl-tooltip .tooltip-inner {
+  max-width: 200px;
+  padding: var(--gl-spacing-scale-3) var(--gl-spacing-scale-4);
+  border-radius: var(--gl-feedback-border-radius);
+  background: var(--gl-feedback-strong-background-color);
+  color: var(--gl-feedback-strong-text-color);
+  --gl-text-color-subtle: var(--gl-tooltip-text-color-subtle);
+  font-weight: var(--gl-font-weight-normal);
+  line-height: 1.5;
+  text-align: center;
+  filter:
+    drop-shadow(0 4px 3px rgb(0 0 0 / 0.07))
+    drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+}
+
+.gl-tooltip .arrow {
+  display: block;
+  width: var(--gl-spacing-scale-2);
+  height: var(--gl-spacing-scale-3);
+}
+
+.gl-tooltip .arrow::before {
+  position: absolute;
+  border: var(--gl-spacing-scale-2) solid transparent;
+  content: "";
+}
+
+.gl-tooltip.bs-tooltip-top .arrow,
+.gl-tooltip.bs-tooltip-bottom .arrow {
+  width: var(--gl-spacing-scale-3);
+  height: var(--gl-spacing-scale-2);
+}
+
+/* Base UI only sets the arrow's cross-axis coordinate; the main-axis offset
+ * that pushes the arrow out of the popup toward the trigger is defined here. */
+.gl-tooltip.bs-tooltip-top .arrow {
+  bottom: calc(-1 * var(--gl-spacing-scale-2));
+}
+
+.gl-tooltip.bs-tooltip-right .arrow {
+  left: calc(-1 * var(--gl-spacing-scale-2));
+}
+
+.gl-tooltip.bs-tooltip-bottom .arrow {
+  top: calc(-1 * var(--gl-spacing-scale-2));
+}
+
+.gl-tooltip.bs-tooltip-left .arrow {
+  right: calc(-1 * var(--gl-spacing-scale-2));
+}
+
+.gl-tooltip.bs-tooltip-top .arrow::before {
+  border-top-color: var(--gl-feedback-strong-background-color);
+  border-bottom-width: 0;
+}
+
+.gl-tooltip.bs-tooltip-right .arrow::before {
+  border-right-color: var(--gl-feedback-strong-background-color);
+  border-left-width: 0;
+}
+
+.gl-tooltip.bs-tooltip-bottom .arrow::before {
+  border-bottom-color: var(--gl-feedback-strong-background-color);
+  border-top-width: 0;
+}
+
+.gl-tooltip.bs-tooltip-left .arrow::before {
+  border-left-color: var(--gl-feedback-strong-background-color);
+  border-right-width: 0;
+}
