@@ -50,6 +50,10 @@ export type {
   GlCardHeaderProps,
   GlCardProps,
 } from "./base/card/card";
+export { default as GlFormRadio } from "./base/form-radio/form-radio";
+export type {
+  GlFormRadioProps,
+} from "./base/form-radio/form-radio";
 export { default as GlIcon } from "./base/icon/icon";
 export type {
   GlIconProps,
