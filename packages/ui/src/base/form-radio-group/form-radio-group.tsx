@@ -9,8 +9,9 @@
  *   `localChecked`, internal state is seeded from `checked` and re-synced when
  *   the prop changes, so the group also works uncontrolled.
  * - The `first` and default slots map to the `first` prop and `children`.
- * - Option `html` is sanitized and rendered by the colocated SafeHtml
- *   component, the React counterpart of upstream's `safe_html` directive.
+ * - Option `html` is sanitized and rendered by the internal SafeHtml
+ *   component, the React counterpart of upstream's `safe_html` directive; on
+ *   the server it fails closed and renders the option text as fallback.
  * - Group state is shared with child GlFormRadios through
  *   GlFormRadioGroupContext (upstream's `getRadioGroup` provide/inject), so
  *   radios rendered from `options` or passed as children share the model,
@@ -34,7 +35,7 @@ import GlFormRadio, {
   looseEqual,
   type GlFormRadioGroupContextValue,
 } from "../form-radio/form-radio";
-import SafeHtml from "./safe-html";
+import SafeHtml from "../../internal/safe-html/safe-html";
 
 export type GlFormRadioGroupOption = string | number | {
   /** Value returned when this option is selected. Defaults to `text`. */
@@ -205,7 +206,7 @@ export default function GlFormRadioGroup({
             aria-labelledby={ariaLabelledby}
             disabled={option.disabled}
             value={option.value}>
-            {option.html ? <SafeHtml html={option.html} /> : option.text}
+            {option.html ? <SafeHtml fallback={option.text} html={option.html} /> : option.text}
           </GlFormRadio>
         ))}
         {children}

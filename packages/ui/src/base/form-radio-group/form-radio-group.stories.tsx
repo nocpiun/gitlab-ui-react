@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { expect, fn, userEvent } from "storybook/test";
+import { hydrateRoot } from "react-dom/client";
+import { expect, fn, userEvent, waitFor } from "storybook/test";
+import SafeHtml from "../../internal/safe-html/safe-html";
 import GlFormRadio from "../form-radio/form-radio";
 import GlFormRadioGroup, { type GlFormRadioGroupProps } from "./form-radio-group";
 
@@ -157,18 +159,115 @@ export const Required: Story = {
 export const HtmlOption: Story = {
   args: {
     options: [
-      { text: "fallback", html: "<strong>HTML</strong> option<script>window.__xss = true;</script>" },
+      {
+        text: "fallback",
+        html: [
+          "<strong>HTML</strong> option<script>window.__xss = true;</script>",
+          "<a href=\"javascript:alert(1)\" onclick=\"alert(2)\" data-remote=\"true\" data-safe=\"1\">link</a>",
+          "<a href=\"slack://open\">app link</a>",
+          "<style>p { width: 50%; }</style>",
+          "<form method=\"post\" action=\"/x\"></form>",
+          "<math><mstyle displaystyle=\"true\"></mstyle></math>",
+        ].join(""),
+      },
       { text: "Plain option" },
     ],
   },
   play: async ({ canvas }) => {
-    // The html option is sanitized (upstream's safe_html directive): markup is
-    // rendered, scripts are stripped
+    // The html option is sanitized (upstream's safe_html directive)
     const group = canvas.getByRole("radiogroup");
     const radio = canvas.getByRole("radio", { name: /HTML option/ });
     await expect(radio).toBeInTheDocument();
-    await expect(group.querySelector("strong")).not.toBeNull();
-    await expect(canvas.queryByText("fallback")).not.toBeInTheDocument();
+
+    // Benign formatting markup is preserved
+    await expect(group.querySelector("strong")?.textContent).toBe("HTML");
+
+    // Scripts are stripped and never execute
     await expect(group.querySelector("script")).toBeNull();
+    await expect((window as unknown as Record<string, unknown>).__xss).toBeUndefined();
+
+    // Dangerous URLs, event handlers and forbidden data attributes are
+    // stripped; the anchor itself and safe data attributes stay
+    const link = group.querySelector("a[data-safe]");
+    await expect(link).not.toBeNull();
+    await expect(link?.getAttribute("href")).toBeNull();
+    await expect(link?.getAttribute("onclick")).toBeNull();
+    await expect(link?.getAttribute("data-remote")).toBeNull();
+    await expect(link?.getAttribute("data-safe")).toBe("1");
+
+    // Unknown application protocols stay allowed (ALLOW_UNKNOWN_PROTOCOLS)
+    await expect(group.querySelector("a[href=\"slack://open\"]")).not.toBeNull();
+
+    // Upstream-forbidden tags are removed
+    await expect(group.querySelector("style")).toBeNull();
+    await expect(group.querySelector("form")).toBeNull();
+    await expect(group.querySelector("mstyle")).toBeNull();
+
+    // The plain-text fallback is only rendered when sanitization is
+    // unavailable (server rendering)
+    await expect(canvas.queryByText("fallback")).not.toBeInTheDocument();
+  },
+};
+
+function UpdatingHtmlOptionExample(args: GlFormRadioGroupProps) {
+  const [html, setHtml] = useState(
+    "<strong>first</strong><script>window.__xss = true;</script>",
+  );
+  return (
+    <div>
+      <button onClick={() => setHtml("<em>second</em>")} type="button">
+        Update HTML
+      </button>
+      <GlFormRadioGroup {...args} options={[{ html, text: "fallback", value: "opt" }]} />
+    </div>
+  );
+}
+
+export const HtmlOptionUpdate: Story = {
+  render: (args) => <UpdatingHtmlOptionExample {...args} />,
+  play: async ({ canvas }) => {
+    const group = canvas.getByRole("radiogroup");
+    await expect(group.querySelector("strong")?.textContent).toBe("first");
+
+    await userEvent.click(canvas.getByRole("button", { name: "Update HTML" }));
+
+    // The previous fragment is fully replaced: no stale nodes remain
+    await expect(group.querySelector("strong")).toBeNull();
+    await expect(group.querySelector("em")?.textContent).toBe("second");
+    await expect(group.querySelector("script")).toBeNull();
+  },
+};
+
+export const HtmlOptionHydration: Story = {
+  render: () => <div data-testid="hydration-host" />,
+  play: async ({ canvas }) => {
+    const host = canvas.getByTestId("hydration-host");
+    const element = (
+      <SafeHtml fallback="fallback" html={"<strong>HTML</strong> option<script>alert(1)</script>"} />
+    );
+
+    // The server-rendered markup (covered by the unit tests) contains the
+    // escaped fallback, never the raw HTML
+    host.innerHTML = "<span>fallback</span>";
+
+    const errors: unknown[][] = [];
+    const originalError = console.error;
+    console.error = (...args: unknown[]) => {
+      errors.push(args);
+    };
+    try {
+      // Hydration over the fail-closed server markup must not error; the
+      // client effect then swaps in the sanitized fragment
+      const root = hydrateRoot(host, element);
+      await waitFor(() => expect(host.querySelector("strong")).not.toBeNull());
+      await expect(host.querySelector("script")).toBeNull();
+      await expect(errors).toEqual([]);
+
+      // Unmounting leaves no nodes behind
+      root.unmount();
+      await expect(host.innerHTML).toBe("");
+    } finally {
+      console.error = originalError;
+    }
   },
 };
