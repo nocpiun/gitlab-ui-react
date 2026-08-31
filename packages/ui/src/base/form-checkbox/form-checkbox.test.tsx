@@ -51,7 +51,9 @@ describe("GlFormCheckbox", () => {
     });
 
     it("transfers custom attributes to the input element", () => {
-      expect(renderCheckbox({ "data-foo": "bar" })).toMatch(/<input[^>]*data-foo="bar"/);
+      const props = { id: "custom-attribute", "data-foo": "bar" };
+
+      expect(renderCheckbox(props)).toMatch(/<input[^>]*data-foo="bar"/);
     });
   });
 
