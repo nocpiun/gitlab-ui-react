@@ -153,7 +153,8 @@ describe("GlFormTextarea", () => {
     });
 
     it("forwards extra attributes to the native textarea", () => {
-      const markup = renderTextarea({ "data-testid": "my-textarea", maxLength: 2048 });
+      const props = { "data-testid": "my-textarea", maxLength: 2048 };
+      const markup = renderTextarea(props);
 
       expect(markup).toContain("data-testid=\"my-textarea\"");
       expect(markup).toContain("maxLength=\"2048\"");
@@ -243,7 +244,8 @@ describe("GlFormTextarea", () => {
     });
 
     it("forwards extra attributes when the character count is rendered", () => {
-      const markup = renderTextareaWithCount({ "data-testid": "my-textarea", maxLength: 2048 });
+      const props = { "data-testid": "my-textarea", maxLength: 2048 };
+      const markup = renderTextareaWithCount(props);
 
       expect(markup).toContain("data-testid=\"my-textarea\"");
       expect(markup).toContain("maxLength=\"2048\"");
