@@ -40,7 +40,8 @@ describe("GlFormSelect", () => {
     });
 
     it("transfers custom attributes to the select element", () => {
-      const markup = renderSelect({ "data-foo": "bar" });
+      const props = { id: "custom-attribute", "data-foo": "bar" };
+      const markup = renderSelect(props);
 
       expect(markup).toMatch(/<select[^>]*data-foo="bar"/);
       expect(markup).not.toMatch(/<span[^>]*data-foo/);

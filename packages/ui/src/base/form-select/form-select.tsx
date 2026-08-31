@@ -249,7 +249,7 @@ export type GlFormSelectProps = SelectElementProps & {
   /** Attempts to focus the control on mount when visible. Does not set the `autofocus` attribute. */
   autofocus?: boolean;
   /** Additional CSS class(es) merged onto the select element. */
-  selectClass?: string | string[] | Record<string, boolean | undefined>;
+  selectClass?: string | string[] | Record<string, boolean | undefined> | null;
   /** Options rendered before the options generated from `options` (upstream's `first` slot). */
   first?: ReactNode;
   /** Explicit `<option>`/`<optgroup>` elements rendered after the generated options. */

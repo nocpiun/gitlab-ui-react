@@ -64,8 +64,15 @@ export const Default: Story = {
     await expect(select).toHaveValue("Tacos");
     await expect(args.onInput).toHaveBeenLastCalledWith("Tacos");
     await expect(args.onChange).toHaveBeenLastCalledWith("Tacos");
-    const inputCall = args.onInput.mock.invocationCallOrder.at(-1);
-    const changeCall = args.onChange.mock.invocationCallOrder.at(-1);
+    const { onInput, onChange } = args;
+    if(!onInput || !onChange) {
+      throw new Error("Expected input and change callbacks to be configured");
+    }
+    const inputCall = onInput.mock.invocationCallOrder.at(-1);
+    const changeCall = onChange.mock.invocationCallOrder.at(-1);
+    if(inputCall === undefined || changeCall === undefined) {
+      throw new Error("Expected input and change callbacks to have been called");
+    }
     expect(inputCall).toBeLessThan(changeCall);
   },
 };
