@@ -1,0 +1,238 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/alert/alert.scss
+ *
+ * Sass constants are expanded to match the upstream compiled output:
+ * `$gl-spacing-scale-9` is `3rem`, `$gl-spacing-scale-5` is `1rem`,
+ * `$gl-spacing-scale-4` is `.75rem`, `$gl-line-height-20` is `1.25rem`,
+ * and `$gl-alert-top-border-size` is `2px`. The `gl-container-width-up(sm)`
+ * mixin is written out as the established local `@container`/`@media` pair.
+ */
+
+/*
+ * --gl-alert-padding-x
+ *
+ * Way to hook into spacing of gl-alert.
+ * This is used e.g. for page wide containers
+ * in GitLab.
+ */
+.gl-alert {
+  @apply gl-py-5;
+  @apply gl-text-base;
+  border-radius: var(--gl-alert-border-radius);
+  padding-inline: calc(3rem + var(--gl-alert-padding-x, 0px));
+  position: relative;
+
+  @media (forced-colors: active) {
+    border: 1px solid transparent;
+  }
+
+  &::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    top: -1px; /* To accumulate for the border width */
+    left: 0;
+  }
+
+  .gl-link:not(.gl-label-link) {
+    @apply gl-underline;
+  }
+}
+
+.gl-alert-not-dismissible {
+  padding-right: calc(1rem + var(--gl-alert-padding-x, 0px));
+}
+
+.gl-alert-sticky {
+  position: sticky;
+  top: 0;
+}
+
+.gl-alert-title {
+  @apply gl-heading-scale-400 -gl-mt-1 gl-mb-2;
+}
+
+.gl-alert-icon-container {
+  position: absolute;
+  top: 1rem;
+  left: calc(1rem + var(--gl-alert-padding-x, 0px));
+  @apply gl-flex;
+  @apply gl-items-center;
+  height: 1.25rem;
+
+  .gl-alert-has-title & {
+    top: calc(0.75rem + 2px);
+  }
+}
+
+.gl-alert-body {
+  @apply gl-leading-20;
+  @apply gl-text-default;
+}
+
+.gl-alert-actions {
+  @apply gl-flex gl-flex-col gl-flex-wrap gl-gap-y-3;
+  @apply gl-mt-3;
+}
+
+.gl-alert-action {
+  @apply gl-mr-0 gl-w-full;
+  @apply gl-text-base;
+  @apply gl-leading-normal;
+}
+
+@container (width >= 576px) {
+  :where(html.with-gl-container-queries) .gl-alert-actions {
+    @apply gl-flex-row;
+  }
+
+  :where(html.with-gl-container-queries) .gl-alert-action {
+    @apply gl-mr-3 gl-w-auto;
+  }
+}
+
+@media (width >= 576px) {
+  :where(html:not(.with-gl-container-queries)) .gl-alert-actions {
+    @apply gl-flex-row;
+  }
+
+  :where(html:not(.with-gl-container-queries)) .gl-alert-action {
+    @apply gl-mr-3 gl-w-auto;
+  }
+}
+
+/* This is the replacement for .gl-alert-dismiss */
+.gl-dismiss-btn {
+  position: absolute;
+  top: calc(0.75rem + 2px);
+  right: calc(0.75rem + var(--gl-alert-padding-x, 0px));
+
+  .gl-alert-has-title & {
+    top: 0.75rem;
+  }
+}
+
+/* Variants */
+
+.gl-alert-danger {
+  background-color: var(--gl-alert-danger-background-color);
+  border-bottom: 1px solid var(--gl-alert-danger-border-bottom-color);
+
+  &::before {
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      var(--gl-alert-danger-border-top-color) 50%,
+      transparent 100%
+    );
+  }
+
+  .gl-alert-title {
+    color: var(--gl-alert-danger-title-color);
+  }
+
+  @media (forced-colors: none) {
+    .gl-alert-icon {
+      color: var(--gl-feedback-danger-icon-color);
+    }
+  }
+}
+
+.gl-alert-warning {
+  background-color: var(--gl-alert-warning-background-color);
+  border-bottom: 1px solid var(--gl-alert-warning-border-bottom-color);
+
+  &::before {
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      var(--gl-alert-warning-border-top-color) 50%,
+      transparent 100%
+    );
+  }
+
+  .gl-alert-title {
+    color: var(--gl-alert-warning-title-color);
+  }
+
+  @media (forced-colors: none) {
+    .gl-alert-icon {
+      color: var(--gl-feedback-warning-icon-color);
+    }
+  }
+}
+
+.gl-alert-tip {
+  background-color: var(--gl-alert-neutral-background-color);
+  border-bottom: 1px solid var(--gl-alert-neutral-border-bottom-color);
+
+  &::before {
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      var(--gl-alert-neutral-border-top-color) 50%,
+      transparent 100%
+    );
+  }
+
+  .gl-alert-title {
+    color: var(--gl-alert-neutral-title-color);
+  }
+
+  @media (forced-colors: none) {
+    .gl-alert-icon {
+      color: var(--gl-feedback-neutral-icon-color);
+    }
+  }
+}
+
+.gl-alert-info {
+  background-color: var(--gl-alert-info-background-color);
+  border-bottom: 1px solid var(--gl-alert-info-border-bottom-color);
+
+  &::before {
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      var(--gl-alert-info-border-top-color) 50%,
+      transparent 100%
+    );
+  }
+
+  .gl-alert-title {
+    color: var(--gl-alert-info-title-color);
+  }
+
+  @media (forced-colors: none) {
+    .gl-alert-icon {
+      color: var(--gl-feedback-info-icon-color);
+    }
+  }
+}
+
+.gl-alert-success {
+  background-color: var(--gl-alert-success-background-color);
+  border-bottom: 1px solid var(--gl-alert-success-border-bottom-color);
+
+  &::before {
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      var(--gl-alert-success-border-top-color) 50%,
+      transparent 100%
+    );
+  }
+
+  .gl-alert-title {
+    color: var(--gl-alert-success-title-color);
+  }
+
+  @media (forced-colors: none) {
+    .gl-alert-icon {
+      color: var(--gl-feedback-success-icon-color);
+    }
+  }
+}

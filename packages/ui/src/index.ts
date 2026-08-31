@@ -1,3 +1,10 @@
+export { default as GlAlert } from "./base/alert/alert";
+export type {
+  GlAlertHeaderLevel,
+  GlAlertPoliteness,
+  GlAlertProps,
+  GlAlertVariant,
+} from "./base/alert/alert";
 export { default as GlAvatar } from "./base/avatar/avatar";
 export type {
   GlAvatarProps,
