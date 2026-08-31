@@ -40,7 +40,9 @@ describe("GlFormRadioGroup", () => {
     });
 
     it("transfers custom attributes to the wrapper", () => {
-      expect(renderGroup({ "data-foo": "bar" })).toMatch(/<div[^>]*data-foo="bar"/);
+      const props = { id: "custom-attribute", "data-foo": "bar" };
+
+      expect(renderGroup(props)).toMatch(/<div[^>]*data-foo="bar"/);
     });
   });
 
