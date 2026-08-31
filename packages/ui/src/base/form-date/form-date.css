@@ -1,0 +1,23 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/form/form_date/form_date.scss
+ *
+ * Adaptations:
+ * - Bootstrap's `.invalid-feedback` base styles are not shipped in this
+ *   repository; they are compensated here (the component renders the feedback
+ *   itself, and only when invalid). The text color matches the form-group
+ *   override in packages/gitlab-ui/src/components/base/form/form_group/form_group.scss.
+ */
+
+.gl-form-date {
+  input::-webkit-datetime-edit {
+    line-height: 1;
+    padding: 0;
+    margin-bottom: -2px;
+  }
+
+  .invalid-feedback {
+    @apply gl-mt-2 gl-text-base gl-leading-normal gl-block gl-w-full;
+    color: var(--gl-control-text-color-error);
+  }
+}
