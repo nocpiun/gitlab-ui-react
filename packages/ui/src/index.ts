@@ -54,6 +54,13 @@ export { default as GlFormCharacterCount } from "./base/form-character-count/for
 export type {
   GlFormCharacterCountProps,
 } from "./base/form-character-count/form-character-count";
+export { default as GlFormTextarea } from "./base/form-textarea/form-textarea";
+export type {
+  GlFormTextareaClasses,
+  GlFormTextareaFormatter,
+  GlFormTextareaProps,
+  GlFormTextareaSize,
+} from "./base/form-textarea/form-textarea";
 export { default as GlIcon } from "./base/icon/icon";
 export type {
   GlIconProps,

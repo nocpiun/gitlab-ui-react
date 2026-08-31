@@ -1,0 +1,113 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/form/form_input/form_input.scss
+ *
+ * `GlFormTextarea` renders the upstream `gl-form-input gl-form-textarea
+ * form-control` classes; upstream's styles for them live in form_input.scss
+ * (form_textarea has no SCSS of its own).
+ *
+ * Adaptations:
+ * - Bootstrap's `.form-control` base styles are not shipped in this
+ *   repository; `display: block` and `width: 100%` are added to
+ *   `.gl-form-input` as compensation.
+ * - Only the rules that apply to a `<textarea>` are ported. The
+ *   `input[type="color"]` sizing, `.custom-range` (range input), and
+ *   `$gl-form-input-sizes` width classes belong to form inputs and are
+ *   deferred to the form-input port.
+ * - The custom-range `.was-validated :valid`/`:invalid` native validation
+ *   selectors are not ported; only the component-controlled `.is-valid`/
+ *   `.is-invalid` classes are covered (`.is-valid` has no rule upstream).
+ * - Bootstrap's `.form-control-sm`/`.form-control-lg` sizing styles are not
+ *   shipped in this repository; the classes are rendered for API parity but
+ *   currently only affect styling through the base rules above.
+ */
+
+.gl-form-input,
+.gl-form-input.form-control {
+  appearance: none;
+  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-default);
+  background: var(--gl-control-background-color-default);
+  /* Bootstrap's `.form-control` base provides these upstream. */
+  @apply gl-block gl-w-full;
+  @apply gl-rounded-control;
+  @apply gl-font-regular;
+  @apply gl-text-base;
+  @apply gl-leading-normal;
+  @apply gl-py-3;
+  @apply gl-px-4;
+  @apply gl-h-auto;
+  @apply gl-border-none;
+  @apply gl-text-default;
+
+  /* Bootstrap's deprecated `form-control-focus` mixin output; the
+   * `:not(.form-control-plaintext):focus-visible` rule below overrides it. */
+  &:focus-visible {
+    color: #4c4b51;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+
+  @media (forced-colors: active) {
+    border: 1px solid;
+  }
+
+  &:hover {
+    box-shadow: inset 0 0 0 1px var(--gl-control-border-color-hover);
+  }
+
+  &:not(.gl-form-input-not-readonly):not(:disabled):not(.form-control-plaintext):not(
+      [type="color"]
+    ):read-only {
+    background: var(--gl-control-background-color-readonly);
+    box-shadow: none;
+  }
+
+  &:disabled {
+    @apply gl-cursor-not-allowed;
+    background: var(--gl-control-background-color-disabled);
+    box-shadow: inset 0 0 0 1px var(--gl-control-border-color-disabled);
+    @apply gl-text-disabled;
+  }
+
+  /* `gl-focus($color: var(--gl-control-border-color-focus))` */
+  &:not(.form-control-plaintext):focus-visible {
+    background: var(--gl-control-background-color-default);
+    @apply gl-text-default;
+    box-shadow:
+      inset 0 0 0 1px var(--gl-control-border-color-focus),
+      0 0 0 1px var(--gl-focus-ring-inner-color),
+      0 0 0 3px var(--gl-focus-ring-outer-color);
+    outline: none;
+
+    @media (forced-colors: active) {
+      outline: 2px solid LinkText;
+    }
+  }
+
+  &.is-invalid {
+    box-shadow: inset 0 0 0 1px var(--gl-control-border-color-error);
+
+    /* `gl-focus($color: var(--gl-control-border-color-error))` */
+    &:focus-visible {
+      box-shadow:
+        inset 0 0 0 1px var(--gl-control-border-color-error),
+        0 0 0 1px var(--gl-focus-ring-inner-color),
+        0 0 0 3px var(--gl-focus-ring-outer-color);
+      outline: none;
+
+      @media (forced-colors: active) {
+        outline: 2px solid LinkText;
+      }
+    }
+  }
+
+  &::placeholder {
+    color: var(--gl-control-placeholder-color);
+  }
+
+  &.form-control-plaintext {
+    @apply gl-shadow-none;
+  }
+}
