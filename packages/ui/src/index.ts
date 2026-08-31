@@ -50,6 +50,14 @@ export type {
   GlCardHeaderProps,
   GlCardProps,
 } from "./base/card/card";
+export { default as GlFormSelect } from "./base/form-select/form-select";
+export type {
+  GlFormSelectOption,
+  GlFormSelectOptionGroup,
+  GlFormSelectProps,
+  GlFormSelectResponsiveWidth,
+  GlFormSelectWidth,
+} from "./base/form-select/form-select";
 export { default as GlIcon } from "./base/icon/icon";
 export type {
   GlIconProps,
