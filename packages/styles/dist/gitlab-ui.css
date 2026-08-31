@@ -4688,6 +4688,11 @@ input[type="color"].form-control:disabled {
     color: var(--gl-text-color-subtle);
   }
 }
+.gl-form-radio-group {
+  font-size: var(--gl-font-size-base);
+  --tw-leading: 1rem;
+  line-height: 1rem;
+}
 .gl-icon.s8 {
   height: 8px;
   width: 8px;
@@ -5497,6 +5502,10 @@ input[type="color"].form-control:disabled {
   .gl-focus {
     box-shadow: 0 0 0 1px var(--gl-focus-ring-inner-color), 0 0 0 3px var(--gl-focus-ring-outer-color);
     outline: none;
+  }
+  .gl-outline-none {
+    --tw-outline-style: none;
+    outline-style: none;
   }
 }
 @property --tw-border-style {
