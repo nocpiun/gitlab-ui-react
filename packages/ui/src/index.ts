@@ -71,6 +71,11 @@ export { default as GlFormRadio } from "./base/form-radio/form-radio";
 export type {
   GlFormRadioProps,
 } from "./base/form-radio/form-radio";
+export { default as GlFormRadioGroup } from "./base/form-radio-group/form-radio-group";
+export type {
+  GlFormRadioGroupOption,
+  GlFormRadioGroupProps,
+} from "./base/form-radio-group/form-radio-group";
 export { default as GlIcon } from "./base/icon/icon";
 export type {
   GlIconProps,

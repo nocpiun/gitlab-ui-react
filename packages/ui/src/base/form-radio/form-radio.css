@@ -1,13 +1,6 @@
 /**
  * Ported from GitLab UI:
  * packages/gitlab-ui/src/components/base/form/form_checkbox/form_checkbox.scss
- * (which also carries the `.gl-form-radio` rules; form_radio.scss only notes
- * "styles are inherited from form_checkbox.scss"), plus the Bootstrap
- * `.custom-control` / `.custom-radio` base styles from
- * packages/gitlab-ui/src/vendor/bootstrap/scss/_custom-forms.scss and the
- * `form-validation-state` output from
- * packages/gitlab-ui/src/vendor/bootstrap/scss/mixins/_forms.scss, neither of
- * which this repository ships.
  *
  * Adaptations:
  * - Only the `.gl-form-radio` / `.custom-radio` selectors are ported; the
@@ -55,40 +48,42 @@
   position: relative;
   margin-bottom: 0;
   vertical-align: top;
+}
 
-  /* Background-color and border (the box) */
-  &::before {
-    position: absolute;
-    top: 0.25rem;
-    left: -1.5rem;
-    display: block;
-    width: 1rem;
-    height: 1rem;
-    pointer-events: none;
-    content: "";
-    border-width: 1px;
-    border-style: solid;
-    transition:
-      background-color 0.15s ease-in-out,
-      border-color 0.15s ease-in-out,
-      box-shadow 0.15s ease-in-out;
+/* Background-color and border (the box) */
+.custom-control-label::before {
+  position: absolute;
+  top: 0.25rem;
+  left: -1.5rem;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
+  content: "";
+  border-width: 1px;
+  border-style: solid;
+  transition:
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
 
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
-    }
+@media (prefers-reduced-motion: reduce) {
+  .custom-control-label::before {
+    transition: none;
   }
+}
 
-  /* Foreground (the indicator icon) */
-  &::after {
-    position: absolute;
-    top: 0.25rem;
-    left: -1.5rem;
-    display: block;
-    width: 1rem;
-    height: 1rem;
-    content: "";
-    background: 50% / 50% 50% no-repeat;
-  }
+/* Foreground (the indicator icon) */
+.custom-control-label::after {
+  position: absolute;
+  top: 0.25rem;
+  left: -1.5rem;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  content: "";
+  background: 50% / 50% 50% no-repeat;
 }
 
 /* Bootstrap `$custom-radio-indicator-border-radius` (`50%`). */
@@ -145,138 +140,160 @@
   @apply gl-text-base;
   @apply gl-leading-normal;
   @apply gl-text-default;
+}
 
-  .custom-control-input:disabled,
-  .custom-control-input:disabled ~ .custom-control-label,
-  .custom-control-input:disabled ~ .custom-control-label > .help-text {
-    @apply gl-cursor-not-allowed;
-    @apply gl-text-disabled;
+.gl-form-radio .custom-control-input:disabled,
+.gl-form-radio .custom-control-input:disabled ~ .custom-control-label,
+.gl-form-radio .custom-control-input:disabled ~ .custom-control-label > .help-text {
+  @apply gl-cursor-not-allowed;
+  @apply gl-text-disabled;
+}
+
+.gl-form-radio.custom-control {
+  @apply gl-pl-5;
+}
+
+.gl-form-radio.custom-control .custom-control-input ~ .custom-control-label {
+  @apply gl-cursor-pointer;
+  @apply gl-pl-3;
+  @apply gl-mb-3;
+}
+
+.gl-form-radio.custom-control .custom-control-input ~ .custom-control-label::before,
+.gl-form-radio.custom-control .custom-control-input ~ .custom-control-label::after {
+  top: 0;
+  /* -$gl-spacing-scale-5 */
+  left: -1rem;
+}
+
+.gl-form-radio.custom-control .custom-control-input ~ .custom-control-label::before {
+  background-color: var(--gl-control-background-color-default);
+  border-color: var(--gl-control-border-color-default);
+}
+
+.gl-form-radio.custom-control
+  .custom-control-input:not(:disabled):hover
+  ~ .custom-control-label::before {
+  border-color: var(--gl-control-border-color-hover);
+}
+
+.gl-form-radio.custom-control
+  .custom-control-input:not(:disabled):focus-visible
+  ~ .custom-control-label::before {
+  @apply gl-focus;
+  border-color: var(--gl-control-border-color-focus);
+}
+
+.gl-form-radio.custom-control .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: var(--gl-control-background-color-selected-default);
+  border-color: var(--gl-control-border-color-selected-default);
+}
+
+@media (forced-colors: active) {
+  .gl-form-radio.custom-control .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: LinkText;
+    border-color: LinkText;
   }
+}
 
-  &.custom-control {
-    @apply gl-pl-5;
+.gl-form-radio.custom-control
+  .custom-control-input[type="radio"]:checked
+  ~ .custom-control-label::after {
+  background: 50% 50% no-repeat;
+  background-color: var(--gl-control-indicator-color-selected);
+  mask-repeat: no-repeat;
+  mask-position: center center;
+}
 
-    .custom-control-input ~ .custom-control-label {
-      @apply gl-cursor-pointer;
-      @apply gl-pl-3;
-      @apply gl-mb-3;
+.gl-form-radio.custom-control
+  .custom-control-input[type="radio"]:checked
+  ~ .custom-control-label::after {
+  background-color: var(--gl-control-indicator-color-selected);
+  /* $gl-icon-radio */
+  mask-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='3' cy='3' r='3' fill='white'/%3E%3C/svg%3E%0A");
+}
 
-      &::before,
-      &::after {
-        top: 0;
-        /* -$gl-spacing-scale-5 */
-        left: -1rem;
-      }
+.gl-form-radio.custom-control
+  .custom-control-input:not(:disabled):checked
+  ~ .custom-control-label:hover::before,
+.gl-form-radio.custom-control
+  .custom-control-input:not(:disabled):hover:checked
+  ~ .custom-control-label::before {
+  background-color: var(--gl-control-background-color-selected-hover);
+  border-color: var(--gl-control-border-color-selected-hover);
+}
 
-      &::before {
-        background-color: var(--gl-control-background-color-default);
-        border-color: var(--gl-control-border-color-default);
-      }
-    }
+.gl-form-radio.custom-control
+  .custom-control-input:not(:disabled):focus-visible:checked
+  ~ .custom-control-label::before {
+  background-color: var(--gl-control-background-color-selected-focus);
+  border-color: var(--gl-control-border-color-selected-focus);
+}
 
-    .custom-control-input:not(:disabled):hover ~ .custom-control-label::before {
-      border-color: var(--gl-control-border-color-hover);
-    }
-
-    .custom-control-input:not(:disabled):focus-visible ~ .custom-control-label::before {
-      @apply gl-focus;
-      border-color: var(--gl-control-border-color-focus);
-    }
-
-    .custom-control-input:checked ~ .custom-control-label::before {
-      background-color: var(--gl-control-background-color-selected-default);
-      border-color: var(--gl-control-border-color-selected-default);
-
-      @media (forced-colors: active) {
-        background-color: LinkText;
-        border-color: LinkText;
-      }
-    }
-
-    .custom-control-input[type="radio"]:checked ~ .custom-control-label {
-      &::after {
-        background: 50% 50% no-repeat;
-        background-color: var(--gl-control-indicator-color-selected);
-        mask-repeat: no-repeat;
-        mask-position: center center;
-      }
-    }
-
-    .custom-control-input[type="radio"]:checked ~ .custom-control-label::after {
-      background-color: var(--gl-control-indicator-color-selected);
-      /* $gl-icon-radio */
-      mask-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='3' cy='3' r='3' fill='white'/%3E%3C/svg%3E%0A");
-    }
-
-    .custom-control-input:not(:disabled):checked ~ .custom-control-label:hover,
-    .custom-control-input:not(:disabled):hover:checked ~ .custom-control-label {
-      &::before {
-        background-color: var(--gl-control-background-color-selected-hover);
-        border-color: var(--gl-control-border-color-selected-hover);
-      }
-    }
-
-    .custom-control-input:not(:disabled):focus-visible:checked ~ .custom-control-label::before {
-      background-color: var(--gl-control-background-color-selected-focus);
-      border-color: var(--gl-control-border-color-selected-focus);
-    }
-
-    .custom-control-input:not(:disabled):checked ~ .custom-control-label:hover,
-    .custom-control-input:not(:disabled):hover:checked ~ .custom-control-label,
-    .custom-control-input:not(:disabled):focus-visible:checked ~ .custom-control-label {
-      &::before {
-        @media (forced-colors: active) {
-          background-color: LinkText;
-          border-color: LinkText;
-        }
-      }
-    }
-
-    .custom-control-input:not(:disabled) ~ .custom-control-label {
-      @apply gl-text-default;
-    }
-
-    .custom-control-input:disabled ~ .custom-control-label {
-      @apply gl-cursor-not-allowed;
-
-      &::before {
-        @apply gl-pointer-events-auto;
-        background-color: var(--gl-control-background-color-disabled);
-        border-color: var(--gl-control-border-color-disabled);
-
-        @media (forced-colors: active) {
-          opacity: 0.5;
-        }
-      }
-    }
-
-    .custom-control-input:checked:disabled ~ .custom-control-label {
-      &::before {
-        background-color: var(--gl-control-background-color-disabled);
-        border-color: var(--gl-control-border-color-disabled);
-      }
-
-      &::after {
-        background-image: none;
-        background-color: var(--gl-control-indicator-color-disabled);
-
-        /* Ensure the state indicator is visible in Windows High Contrast
-         * Mode. */
-        @media screen and (forced-colors: active) {
-          forced-color-adjust: none;
-          /* system color reference for disabled text applied to
-           * background here. */
-          background-color: GrayText;
-        }
-      }
-    }
+@media (forced-colors: active) {
+  .gl-form-radio.custom-control
+    .custom-control-input:not(:disabled):checked
+    ~ .custom-control-label:hover::before,
+  .gl-form-radio.custom-control
+    .custom-control-input:not(:disabled):hover:checked
+    ~ .custom-control-label::before,
+  .gl-form-radio.custom-control
+    .custom-control-input:not(:disabled):focus-visible:checked
+    ~ .custom-control-label::before {
+    background-color: LinkText;
+    border-color: LinkText;
   }
+}
 
-  .help-text {
-    @apply gl-mt-2;
-    @apply gl-mb-0;
-    @apply gl-text-base;
-    @apply gl-leading-normal;
-    @apply gl-text-subtle;
+.gl-form-radio.custom-control .custom-control-input:not(:disabled) ~ .custom-control-label {
+  @apply gl-text-default;
+}
+
+.gl-form-radio.custom-control .custom-control-input:disabled ~ .custom-control-label {
+  @apply gl-cursor-not-allowed;
+}
+
+.gl-form-radio.custom-control
+  .custom-control-input:disabled
+  ~ .custom-control-label::before {
+  @apply gl-pointer-events-auto;
+  background-color: var(--gl-control-background-color-disabled);
+  border-color: var(--gl-control-border-color-disabled);
+}
+
+@media (forced-colors: active) {
+  .gl-form-radio.custom-control
+    .custom-control-input:disabled
+    ~ .custom-control-label::before {
+    opacity: 0.5;
   }
+}
+
+.gl-form-radio.custom-control
+  .custom-control-input:checked:disabled
+  ~ .custom-control-label::before {
+  background-color: var(--gl-control-background-color-disabled);
+  border-color: var(--gl-control-border-color-disabled);
+}
+
+.gl-form-radio.custom-control
+  .custom-control-input:checked:disabled
+  ~ .custom-control-label::after {
+  background-image: none;
+  background-color: var(--gl-control-indicator-color-disabled);
+}
+
+/* Ensure the state indicator is visible in Windows High Contrast Mode. */
+@media screen and (forced-colors: active) {
+  .gl-form-radio.custom-control
+    .custom-control-input:checked:disabled
+    ~ .custom-control-label::after {
+    forced-color-adjust: none;
+    /* system color reference for disabled text applied to background here. */
+    background-color: GrayText;
+  }
+}
+
+.gl-form-radio .help-text {
+  @apply gl-mt-2 gl-mb-0 gl-text-base gl-leading-normal gl-text-subtle;
 }

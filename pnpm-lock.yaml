@@ -117,6 +117,9 @@ importers:
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
+      dompurify:
+        specifier: 3.4.14
+        version: 3.4.14
       emoji-regex:
         specifier: 10.6.0
         version: 10.6.0

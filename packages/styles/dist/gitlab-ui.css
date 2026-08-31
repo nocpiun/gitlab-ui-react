@@ -4518,32 +4518,34 @@ input[type="color"].form-control:disabled {
   position: relative;
   margin-bottom: 0;
   vertical-align: top;
-  &::before {
-    position: absolute;
-    top: 0.25rem;
-    left: -1.5rem;
-    display: block;
-    width: 1rem;
-    height: 1rem;
-    pointer-events: none;
-    content: "";
-    border-width: 1px;
-    border-style: solid;
-    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
-    }
+}
+.custom-control-label::before {
+  position: absolute;
+  top: 0.25rem;
+  left: -1.5rem;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
+  content: "";
+  border-width: 1px;
+  border-style: solid;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .custom-control-label::before {
+    transition: none;
   }
-  &::after {
-    position: absolute;
-    top: 0.25rem;
-    left: -1.5rem;
-    display: block;
-    width: 1rem;
-    height: 1rem;
-    content: "";
-    background: 50% / 50% 50% no-repeat;
-  }
+}
+.custom-control-label::after {
+  position: absolute;
+  top: 0.25rem;
+  left: -1.5rem;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  content: "";
+  background: 50% / 50% 50% no-repeat;
 }
 .custom-radio .custom-control-label::before {
   border-radius: 50%;
@@ -4585,108 +4587,108 @@ input[type="color"].form-control:disabled {
   --tw-leading: 1rem;
   line-height: 1rem;
   color: var(--gl-text-color-default);
-  .custom-control-input:disabled, .custom-control-input:disabled ~ .custom-control-label, .custom-control-input:disabled ~ .custom-control-label > .help-text {
-    cursor: not-allowed;
-    color: var(--gl-text-color-disabled);
+}
+.gl-form-radio .custom-control-input:disabled, .gl-form-radio .custom-control-input:disabled ~ .custom-control-label, .gl-form-radio .custom-control-input:disabled ~ .custom-control-label > .help-text {
+  cursor: not-allowed;
+  color: var(--gl-text-color-disabled);
+}
+.gl-form-radio.custom-control {
+  padding-left: var(--gl-spacing-scale-5);
+}
+.gl-form-radio.custom-control .custom-control-input ~ .custom-control-label {
+  cursor: pointer;
+  padding-left: var(--gl-spacing-scale-3);
+  margin-bottom: var(--gl-spacing-scale-3);
+}
+.gl-form-radio.custom-control .custom-control-input ~ .custom-control-label::before, .gl-form-radio.custom-control .custom-control-input ~ .custom-control-label::after {
+  top: 0;
+  left: -1rem;
+}
+.gl-form-radio.custom-control .custom-control-input ~ .custom-control-label::before {
+  background-color: var(--gl-control-background-color-default);
+  border-color: var(--gl-control-border-color-default);
+}
+.gl-form-radio.custom-control .custom-control-input:not(:disabled):hover ~ .custom-control-label::before {
+  border-color: var(--gl-control-border-color-hover);
+}
+.gl-form-radio.custom-control .custom-control-input:not(:disabled):focus-visible ~ .custom-control-label::before {
+  box-shadow: 0 0 0 1px var(--gl-focus-ring-inner-color), 0 0 0 3px var(--gl-focus-ring-outer-color);
+  outline: none;
+  border-color: var(--gl-control-border-color-focus);
+}
+.gl-form-radio.custom-control .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: var(--gl-control-background-color-selected-default);
+  border-color: var(--gl-control-border-color-selected-default);
+}
+@media (forced-colors: active) {
+  .gl-form-radio.custom-control .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: LinkText;
+    border-color: LinkText;
   }
-  &.custom-control {
-    padding-left: var(--gl-spacing-scale-5);
-    .custom-control-input ~ .custom-control-label {
-      cursor: pointer;
-      padding-left: var(--gl-spacing-scale-3);
-      margin-bottom: var(--gl-spacing-scale-3);
-      &::before, &::after {
-        top: 0;
-        left: -1rem;
-      }
-      &::before {
-        background-color: var(--gl-control-background-color-default);
-        border-color: var(--gl-control-border-color-default);
-      }
-    }
-    .custom-control-input:not(:disabled):hover ~ .custom-control-label::before {
-      border-color: var(--gl-control-border-color-hover);
-    }
-    .custom-control-input:not(:disabled):focus-visible ~ .custom-control-label::before {
-      box-shadow: 0 0 0 1px var(--gl-focus-ring-inner-color), 0 0 0 3px var(--gl-focus-ring-outer-color);
-      outline: none;
-      border-color: var(--gl-control-border-color-focus);
-    }
-    .custom-control-input:checked ~ .custom-control-label::before {
-      background-color: var(--gl-control-background-color-selected-default);
-      border-color: var(--gl-control-border-color-selected-default);
-      @media (forced-colors: active) {
-        background-color: LinkText;
-        border-color: LinkText;
-      }
-    }
-    .custom-control-input[type="radio"]:checked ~ .custom-control-label {
-      &::after {
-        background: 50% 50% no-repeat;
-        background-color: var(--gl-control-indicator-color-selected);
-        mask-repeat: no-repeat;
-        mask-position: center center;
-      }
-    }
-    .custom-control-input[type="radio"]:checked ~ .custom-control-label::after {
-      background-color: var(--gl-control-indicator-color-selected);
-      mask-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='3' cy='3' r='3' fill='white'/%3E%3C/svg%3E%0A");
-    }
-    .custom-control-input:not(:disabled):checked ~ .custom-control-label:hover, .custom-control-input:not(:disabled):hover:checked ~ .custom-control-label {
-      &::before {
-        background-color: var(--gl-control-background-color-selected-hover);
-        border-color: var(--gl-control-border-color-selected-hover);
-      }
-    }
-    .custom-control-input:not(:disabled):focus-visible:checked ~ .custom-control-label::before {
-      background-color: var(--gl-control-background-color-selected-focus);
-      border-color: var(--gl-control-border-color-selected-focus);
-    }
-    .custom-control-input:not(:disabled):checked ~ .custom-control-label:hover, .custom-control-input:not(:disabled):hover:checked ~ .custom-control-label, .custom-control-input:not(:disabled):focus-visible:checked ~ .custom-control-label {
-      &::before {
-        @media (forced-colors: active) {
-          background-color: LinkText;
-          border-color: LinkText;
-        }
-      }
-    }
-    .custom-control-input:not(:disabled) ~ .custom-control-label {
-      color: var(--gl-text-color-default);
-    }
-    .custom-control-input:disabled ~ .custom-control-label {
-      cursor: not-allowed;
-      &::before {
-        pointer-events: auto;
-        background-color: var(--gl-control-background-color-disabled);
-        border-color: var(--gl-control-border-color-disabled);
-        @media (forced-colors: active) {
-          opacity: 0.5;
-        }
-      }
-    }
-    .custom-control-input:checked:disabled ~ .custom-control-label {
-      &::before {
-        background-color: var(--gl-control-background-color-disabled);
-        border-color: var(--gl-control-border-color-disabled);
-      }
-      &::after {
-        background-image: none;
-        background-color: var(--gl-control-indicator-color-disabled);
-        @media screen and (forced-colors: active) {
-          forced-color-adjust: none;
-          background-color: GrayText;
-        }
-      }
-    }
+}
+.gl-form-radio.custom-control .custom-control-input[type="radio"]:checked ~ .custom-control-label::after {
+  background: 50% 50% no-repeat;
+  mask-repeat: no-repeat;
+  mask-position: center center;
+  background-color: var(--gl-control-indicator-color-selected);
+  mask-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='3' cy='3' r='3' fill='white'/%3E%3C/svg%3E%0A");
+}
+.gl-form-radio.custom-control .custom-control-input:not(:disabled):checked ~ .custom-control-label:hover::before, .gl-form-radio.custom-control .custom-control-input:not(:disabled):hover:checked ~ .custom-control-label::before {
+  background-color: var(--gl-control-background-color-selected-hover);
+  border-color: var(--gl-control-border-color-selected-hover);
+}
+.gl-form-radio.custom-control .custom-control-input:not(:disabled):focus-visible:checked ~ .custom-control-label::before {
+  background-color: var(--gl-control-background-color-selected-focus);
+  border-color: var(--gl-control-border-color-selected-focus);
+}
+@media (forced-colors: active) {
+  .gl-form-radio.custom-control .custom-control-input:not(:disabled):checked ~ .custom-control-label:hover::before, .gl-form-radio.custom-control .custom-control-input:not(:disabled):hover:checked ~ .custom-control-label::before, .gl-form-radio.custom-control .custom-control-input:not(:disabled):focus-visible:checked ~ .custom-control-label::before {
+    background-color: LinkText;
+    border-color: LinkText;
   }
-  .help-text {
-    margin-top: var(--gl-spacing-scale-2);
-    margin-bottom: var(--gl-spacing-scale-0);
-    font-size: var(--gl-font-size-base);
-    --tw-leading: 1rem;
-    line-height: 1rem;
-    color: var(--gl-text-color-subtle);
+}
+.gl-form-radio.custom-control .custom-control-input:not(:disabled) ~ .custom-control-label {
+  color: var(--gl-text-color-default);
+}
+.gl-form-radio.custom-control .custom-control-input:disabled ~ .custom-control-label {
+  cursor: not-allowed;
+}
+.gl-form-radio.custom-control .custom-control-input:disabled ~ .custom-control-label::before {
+  pointer-events: auto;
+  background-color: var(--gl-control-background-color-disabled);
+  border-color: var(--gl-control-border-color-disabled);
+}
+@media (forced-colors: active) {
+  .gl-form-radio.custom-control .custom-control-input:disabled ~ .custom-control-label::before {
+    opacity: 0.5;
   }
+}
+.gl-form-radio.custom-control .custom-control-input:checked:disabled ~ .custom-control-label::before {
+  background-color: var(--gl-control-background-color-disabled);
+  border-color: var(--gl-control-border-color-disabled);
+}
+.gl-form-radio.custom-control .custom-control-input:checked:disabled ~ .custom-control-label::after {
+  background-image: none;
+  background-color: var(--gl-control-indicator-color-disabled);
+}
+@media screen and (forced-colors: active) {
+  .gl-form-radio.custom-control .custom-control-input:checked:disabled ~ .custom-control-label::after {
+    forced-color-adjust: none;
+    background-color: GrayText;
+  }
+}
+.gl-form-radio .help-text {
+  margin-top: var(--gl-spacing-scale-2);
+  margin-bottom: var(--gl-spacing-scale-0);
+  font-size: var(--gl-font-size-base);
+  --tw-leading: 1rem;
+  line-height: 1rem;
+  color: var(--gl-text-color-subtle);
+}
+.gl-form-radio-group {
+  font-size: var(--gl-font-size-base);
+  --tw-leading: 1rem;
+  line-height: 1rem;
 }
 .gl-icon.s8 {
   height: 8px;
@@ -5497,6 +5499,10 @@ input[type="color"].form-control:disabled {
   .gl-focus {
     box-shadow: 0 0 0 1px var(--gl-focus-ring-inner-color), 0 0 0 3px var(--gl-focus-ring-outer-color);
     outline: none;
+  }
+  .gl-outline-none {
+    --tw-outline-style: none;
+    outline-style: none;
   }
 }
 @property --tw-border-style {
