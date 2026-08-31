@@ -199,9 +199,9 @@ describe("GlFormGroup", () => {
     });
 
     it("respects an explicit aria-invalid over the state", () => {
-      const markup = renderGroup({ "aria-invalid": "grammar-error", labelFor: "x", state: true });
+      const markup = renderGroup({ "aria-invalid": "grammar", labelFor: "x", state: true });
 
-      expect(markup).toContain("aria-invalid=\"grammar-error\"");
+      expect(markup).toContain("aria-invalid=\"grammar\"");
     });
   });
 
