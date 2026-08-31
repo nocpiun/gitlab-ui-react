@@ -4068,34 +4068,37 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
 }
 .custom-control-label {
   position: relative;
+  display: inline-block;
   margin-bottom: 0;
   vertical-align: top;
-  &::before {
-    position: absolute;
-    top: 0.25rem;
-    left: -1.5rem;
-    display: block;
-    width: 1rem;
-    height: 1rem;
-    pointer-events: none;
-    content: "";
-    border-width: 1px;
-    border-style: solid;
-    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
-    }
+}
+.custom-control-label::before {
+  position: absolute;
+  top: 0.25rem;
+  left: -1.5rem;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
+  content: "";
+  border-width: 1px;
+  border-style: solid;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .custom-control-label::before {
+    transition: none;
   }
-  &::after {
-    position: absolute;
-    top: 0.25rem;
-    left: -1.5rem;
-    display: block;
-    width: 1rem;
-    height: 1rem;
-    content: "";
-    background: 50% / 50% 50% no-repeat;
-  }
+}
+.custom-control-label::after {
+  position: absolute;
+  top: 0.25rem;
+  left: -1.5rem;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  content: "";
+  background: 50% / 50% 50% no-repeat;
 }
 .custom-checkbox .custom-control-label::before {
   border-radius: .25rem;
@@ -4137,136 +4140,134 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
   --tw-leading: 1rem;
   line-height: 1rem;
   color: var(--gl-text-color-default);
-  .custom-control-input:disabled, .custom-control-input:disabled ~ .custom-control-label, .custom-control-input:disabled ~ .custom-control-label > .help-text {
-    cursor: not-allowed;
-    color: var(--gl-text-color-disabled);
+}
+.gl-form-checkbox .custom-control-input:disabled, .gl-form-checkbox .custom-control-input:disabled ~ .custom-control-label, .gl-form-checkbox .custom-control-input:disabled ~ .custom-control-label > .help-text {
+  cursor: not-allowed;
+  color: var(--gl-text-color-disabled);
+}
+.gl-form-checkbox.custom-control {
+  padding-left: var(--gl-spacing-scale-5);
+}
+.gl-form-checkbox.custom-control .custom-control-input ~ .custom-control-label {
+  cursor: pointer;
+  padding-left: var(--gl-spacing-scale-3);
+  margin-bottom: var(--gl-spacing-scale-3);
+}
+.gl-form-checkbox.custom-control .custom-control-input ~ .custom-control-label::before, .gl-form-checkbox.custom-control .custom-control-input ~ .custom-control-label::after {
+  top: 0;
+  left: -1rem;
+}
+.gl-form-checkbox.custom-control .custom-control-input ~ .custom-control-label::before {
+  background-color: var(--gl-control-background-color-default);
+  border-color: var(--gl-control-border-color-default);
+}
+.gl-form-checkbox.custom-control .custom-control-input:not(:disabled):hover ~ .custom-control-label::before {
+  border-color: var(--gl-control-border-color-hover);
+}
+.gl-form-checkbox.custom-control .custom-control-input:not(:disabled):focus-visible ~ .custom-control-label::before {
+  box-shadow: 0 0 0 1px var(--gl-focus-ring-inner-color), 0 0 0 3px var(--gl-focus-ring-outer-color);
+  outline: none;
+  border-color: var(--gl-control-border-color-focus);
+}
+.gl-form-checkbox.custom-control .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: var(--gl-control-background-color-selected-default);
+  border-color: var(--gl-control-border-color-selected-default);
+}
+@media (forced-colors: active) {
+  .gl-form-checkbox.custom-control .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: LinkText;
+    border-color: LinkText;
   }
-  &.custom-control {
-    padding-left: var(--gl-spacing-scale-5);
-    .custom-control-input ~ .custom-control-label {
-      cursor: pointer;
-      padding-left: var(--gl-spacing-scale-3);
-      margin-bottom: var(--gl-spacing-scale-3);
-      &::before, &::after {
-        top: 0;
-        left: -1rem;
-      }
-      &::before {
-        background-color: var(--gl-control-background-color-default);
-        border-color: var(--gl-control-border-color-default);
-      }
-    }
-    .custom-control-input:not(:disabled):hover ~ .custom-control-label::before {
-      border-color: var(--gl-control-border-color-hover);
-    }
-    .custom-control-input:not(:disabled):focus-visible ~ .custom-control-label::before {
-      box-shadow: 0 0 0 1px var(--gl-focus-ring-inner-color), 0 0 0 3px var(--gl-focus-ring-outer-color);
-      outline: none;
-      border-color: var(--gl-control-border-color-focus);
-    }
-    .custom-control-input:checked ~ .custom-control-label::before {
-      background-color: var(--gl-control-background-color-selected-default);
-      border-color: var(--gl-control-border-color-selected-default);
-      @media (forced-colors: active) {
-        background-color: LinkText;
-        border-color: LinkText;
-      }
-    }
-    .custom-control-input[type="checkbox"]:checked ~ .custom-control-label, .custom-control-input[type="checkbox"]:indeterminate ~ .custom-control-label {
-      &::after {
-        background: 50% 50% no-repeat;
-        background-color: var(--gl-control-indicator-color-selected);
-        mask-repeat: no-repeat;
-        mask-position: center center;
-      }
-    }
-    .custom-control-input[type="checkbox"]:checked ~ .custom-control-label::after {
-      background-color: var(--gl-control-indicator-color-selected);
-      mask-image: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.75 4.76289L3.15312 7.24678L9.25 1.1499' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
-    }
-    .custom-control-input[type="checkbox"]:indeterminate ~ .custom-control-label::after {
-      background-color: var(--gl-control-indicator-color-selected);
-      mask-image: url("data:image/svg+xml,%3Csvg width='10' height='2' viewBox='0 0 10 2' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.75 1H8.25' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
-    }
-    .custom-control-input:not(:disabled):checked ~ .custom-control-label:hover, .custom-control-input:not(:disabled):hover:checked ~ .custom-control-label {
-      &::before {
-        background-color: var(--gl-control-background-color-selected-hover);
-        border-color: var(--gl-control-border-color-selected-hover);
-      }
-    }
-    .custom-control-input:not(:disabled):focus-visible:checked ~ .custom-control-label::before {
-      background-color: var(--gl-control-background-color-selected-focus);
-      border-color: var(--gl-control-border-color-selected-focus);
-    }
-    .custom-control-input:not(:disabled):checked ~ .custom-control-label:hover, .custom-control-input:not(:disabled):hover:checked ~ .custom-control-label, .custom-control-input:not(:disabled):focus-visible:checked ~ .custom-control-label {
-      &::before {
-        @media (forced-colors: active) {
-          background-color: LinkText;
-          border-color: LinkText;
-        }
-      }
-    }
-    .custom-control-input:not(:disabled) ~ .custom-control-label {
-      color: var(--gl-text-color-default);
-    }
-    &.custom-checkbox {
-      .custom-control-input:indeterminate ~ .custom-control-label::before {
-        background-color: var(--gl-control-background-color-selected-default);
-        border-color: var(--gl-control-border-color-selected-default);
-        @media (forced-colors: active) {
-          background-color: LinkText;
-          border-color: LinkText;
-        }
-      }
-      .custom-control-input:not(:disabled):indeterminate ~ .custom-control-label:hover::before {
-        background-color: var(--gl-control-background-color-selected-hover);
-        border-color: var(--gl-control-border-color-selected-hover);
-      }
-      .custom-control-input:not(:disabled):focus-visible:indeterminate ~ .custom-control-label::before {
-        background-color: var(--gl-control-background-color-selected-focus);
-        border-color: var(--gl-control-border-color-selected-focus);
-      }
-      .custom-control-input:not(:disabled):indeterminate ~ .custom-control-label:hover::before, .custom-control-input:not(:disabled):focus-visible:indeterminate ~ .custom-control-label::before {
-        @media (forced-colors: active) {
-          background-color: LinkText;
-          border-color: LinkText;
-        }
-      }
-    }
-    .custom-control-input:disabled ~ .custom-control-label {
-      cursor: not-allowed;
-      &::before {
-        pointer-events: auto;
-        background-color: var(--gl-control-background-color-disabled);
-        border-color: var(--gl-control-border-color-disabled);
-        @media (forced-colors: active) {
-          opacity: 0.5;
-        }
-      }
-    }
-    .custom-control-input:checked:disabled ~ .custom-control-label, .custom-control-input[type="checkbox"]:indeterminate:disabled ~ .custom-control-label {
-      &::before {
-        background-color: var(--gl-control-background-color-disabled);
-        border-color: var(--gl-control-border-color-disabled);
-      }
-      &::after {
-        background-image: none;
-        background-color: var(--gl-control-indicator-color-disabled);
-        @media screen and (forced-colors: active) {
-          forced-color-adjust: none;
-          background-color: GrayText;
-        }
-      }
-    }
+}
+.gl-form-checkbox.custom-control .custom-control-input[type="checkbox"]:checked ~ .custom-control-label::after, .gl-form-checkbox.custom-control .custom-control-input[type="checkbox"]:indeterminate ~ .custom-control-label::after {
+  background: 50% 50% no-repeat;
+  background-color: var(--gl-control-indicator-color-selected);
+  mask-repeat: no-repeat;
+  mask-position: center center;
+}
+.gl-form-checkbox.custom-control .custom-control-input[type="checkbox"]:checked ~ .custom-control-label::after {
+  background-color: var(--gl-control-indicator-color-selected);
+  mask-image: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.75 4.76289L3.15312 7.24678L9.25 1.1499' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+}
+.gl-form-checkbox.custom-control .custom-control-input[type="checkbox"]:indeterminate ~ .custom-control-label::after {
+  background-color: var(--gl-control-indicator-color-selected);
+  mask-image: url("data:image/svg+xml,%3Csvg width='10' height='2' viewBox='0 0 10 2' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.75 1H8.25' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+}
+.gl-form-checkbox.custom-control .custom-control-input:not(:disabled):checked ~ .custom-control-label:hover::before, .gl-form-checkbox.custom-control .custom-control-input:not(:disabled):hover:checked ~ .custom-control-label::before {
+  background-color: var(--gl-control-background-color-selected-hover);
+  border-color: var(--gl-control-border-color-selected-hover);
+}
+.gl-form-checkbox.custom-control .custom-control-input:not(:disabled):focus-visible:checked ~ .custom-control-label::before {
+  background-color: var(--gl-control-background-color-selected-focus);
+  border-color: var(--gl-control-border-color-selected-focus);
+}
+@media (forced-colors: active) {
+  .gl-form-checkbox.custom-control .custom-control-input:not(:disabled):checked ~ .custom-control-label:hover::before, .gl-form-checkbox.custom-control .custom-control-input:not(:disabled):hover:checked ~ .custom-control-label::before, .gl-form-checkbox.custom-control .custom-control-input:not(:disabled):focus-visible:checked ~ .custom-control-label::before {
+    background-color: LinkText;
+    border-color: LinkText;
   }
-  .help-text {
-    margin-top: var(--gl-spacing-scale-2);
-    margin-bottom: var(--gl-spacing-scale-0);
-    font-size: var(--gl-font-size-base);
-    --tw-leading: 1rem;
-    line-height: 1rem;
-    color: var(--gl-text-color-subtle);
+}
+.gl-form-checkbox.custom-control .custom-control-input:not(:disabled) ~ .custom-control-label {
+  color: var(--gl-text-color-default);
+}
+.gl-form-checkbox.custom-control.custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::before {
+  background-color: var(--gl-control-background-color-selected-default);
+  border-color: var(--gl-control-border-color-selected-default);
+}
+@media (forced-colors: active) {
+  .gl-form-checkbox.custom-control.custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::before {
+    background-color: LinkText;
+    border-color: LinkText;
   }
+}
+.gl-form-checkbox.custom-control.custom-checkbox .custom-control-input:not(:disabled):indeterminate ~ .custom-control-label:hover::before {
+  background-color: var(--gl-control-background-color-selected-hover);
+  border-color: var(--gl-control-border-color-selected-hover);
+}
+.gl-form-checkbox.custom-control.custom-checkbox .custom-control-input:not(:disabled):focus-visible:indeterminate ~ .custom-control-label::before {
+  background-color: var(--gl-control-background-color-selected-focus);
+  border-color: var(--gl-control-border-color-selected-focus);
+}
+@media (forced-colors: active) {
+  .gl-form-checkbox.custom-control.custom-checkbox .custom-control-input:not(:disabled):indeterminate ~ .custom-control-label:hover::before, .gl-form-checkbox.custom-control.custom-checkbox .custom-control-input:not(:disabled):focus-visible:indeterminate ~ .custom-control-label::before {
+    background-color: LinkText;
+    border-color: LinkText;
+  }
+}
+.gl-form-checkbox.custom-control .custom-control-input:disabled ~ .custom-control-label {
+  cursor: not-allowed;
+}
+.gl-form-checkbox.custom-control .custom-control-input:disabled ~ .custom-control-label::before {
+  pointer-events: auto;
+  background-color: var(--gl-control-background-color-disabled);
+  border-color: var(--gl-control-border-color-disabled);
+}
+@media (forced-colors: active) {
+  .gl-form-checkbox.custom-control .custom-control-input:disabled ~ .custom-control-label::before {
+    opacity: 0.5;
+  }
+}
+.gl-form-checkbox.custom-control .custom-control-input:checked:disabled ~ .custom-control-label::before, .gl-form-checkbox.custom-control .custom-control-input[type="checkbox"]:indeterminate:disabled ~ .custom-control-label::before {
+  background-color: var(--gl-control-background-color-disabled);
+  border-color: var(--gl-control-border-color-disabled);
+}
+.gl-form-checkbox.custom-control .custom-control-input:checked:disabled ~ .custom-control-label::after, .gl-form-checkbox.custom-control .custom-control-input[type="checkbox"]:indeterminate:disabled ~ .custom-control-label::after {
+  background-image: none;
+  background-color: var(--gl-control-indicator-color-disabled);
+}
+@media screen and (forced-colors: active) {
+  .gl-form-checkbox.custom-control .custom-control-input:checked:disabled ~ .custom-control-label::after, .gl-form-checkbox.custom-control .custom-control-input[type="checkbox"]:indeterminate:disabled ~ .custom-control-label::after {
+    forced-color-adjust: none;
+    background-color: GrayText;
+  }
+}
+.gl-form-checkbox .help-text {
+  margin-top: var(--gl-spacing-scale-2);
+  margin-bottom: var(--gl-spacing-scale-0);
+  font-size: var(--gl-font-size-base);
+  --tw-leading: 1rem;
+  line-height: 1rem;
+  color: var(--gl-text-color-subtle);
 }
 .gl-icon.s8 {
   height: 8px;

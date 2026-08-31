@@ -68,6 +68,9 @@ export const Default: Story = {
     const helpTexts = canvas.getAllByText("With help text.");
     await expect(helpTexts).toHaveLength(2);
     await expect(helpTexts[0]).toHaveClass("help-text");
+    const helpLabel = helpTexts[0].parentElement!;
+    await expect(helpLabel).toHaveClass("custom-control-label");
+    await expect(getComputedStyle(helpLabel).display).toBe("inline-block");
   },
 };
 
