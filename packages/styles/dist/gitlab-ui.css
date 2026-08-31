@@ -4046,6 +4046,20 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
   border-bottom-right-radius: calc(var(--gl-card-border-radius) - 1px);
   color: var(--gl-text-color-subtle);
 }
+.gl-form-date input::-webkit-datetime-edit {
+  line-height: 1;
+  padding: 0;
+  margin-bottom: -2px;
+}
+.gl-form-date .invalid-feedback {
+  margin-top: var(--gl-spacing-scale-2);
+  display: block;
+  width: 100%;
+  font-size: var(--gl-font-size-base);
+  --tw-leading: 1rem;
+  line-height: 1rem;
+  color: var(--gl-control-text-color-error);
+}
 input[type="color"].form-control {
   height: calc(1.5em + 0.75rem + 2px);
   padding: 0.125rem 0.25rem;

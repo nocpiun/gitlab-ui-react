@@ -50,6 +50,10 @@ export type {
   GlCardHeaderProps,
   GlCardProps,
 } from "./base/card/card";
+export { default as GlFormDate } from "./base/form-date/form-date";
+export type {
+  GlFormDateProps,
+} from "./base/form-date/form-date";
 export { default as GlFormInput } from "./base/form-input/form-input";
 export type {
   GlFormInputFormatter,
