@@ -51,7 +51,9 @@ describe("GlFormRadio", () => {
     });
 
     it("transfers custom attributes to the input element", () => {
-      expect(renderRadio({ "data-foo": "bar" })).toMatch(/<input[^>]*data-foo="bar"/);
+      const props = { id: "custom-attribute", "data-foo": "bar" };
+
+      expect(renderRadio(props)).toMatch(/<input[^>]*data-foo="bar"/);
     });
   });
 
