@@ -4494,6 +4494,200 @@ input[type="color"].form-control:disabled {
     max-width: 35rem;
   }
 }
+.custom-control {
+  position: relative;
+  z-index: 1;
+  display: block;
+  min-height: 1.5rem;
+  padding-left: 1.5rem;
+  print-color-adjust: exact;
+}
+.custom-control-input {
+  position: absolute;
+  left: 0;
+  z-index: -1;
+  width: 1rem;
+  height: 1.25rem;
+  opacity: 0;
+}
+.custom-control-input:not(:disabled):active ~ .custom-control-label::before {
+  background-color: #b3d7ff;
+  border-color: #b3d7ff;
+}
+.custom-control-label {
+  position: relative;
+  margin-bottom: 0;
+  vertical-align: top;
+  &::before {
+    position: absolute;
+    top: 0.25rem;
+    left: -1.5rem;
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    pointer-events: none;
+    content: "";
+    border-width: 1px;
+    border-style: solid;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+  &::after {
+    position: absolute;
+    top: 0.25rem;
+    left: -1.5rem;
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    content: "";
+    background: 50% / 50% 50% no-repeat;
+  }
+}
+.custom-radio .custom-control-label::before {
+  border-radius: 50%;
+}
+.custom-control-input.is-valid ~ .custom-control-label {
+  color: #2f7549;
+}
+.custom-control-input.is-valid ~ .custom-control-label::before {
+  border-color: #2f7549;
+}
+.custom-control-input.is-valid:checked ~ .custom-control-label::before {
+  background-color: #3e9960;
+  border-color: #3e9960;
+}
+.custom-control-input.is-valid:focus-visible ~ .custom-control-label::before {
+  box-shadow: 0 0 0 0.2rem rgba(47, 117, 73, 0.25);
+}
+.custom-control-input.is-valid:focus-visible:not(:checked) ~ .custom-control-label::before {
+  border-color: #2f7549;
+}
+.custom-control-input.is-invalid ~ .custom-control-label {
+  color: #c02f12;
+}
+.custom-control-input.is-invalid ~ .custom-control-label::before {
+  border-color: #c02f12;
+}
+.custom-control-input.is-invalid:checked ~ .custom-control-label::before {
+  background-color: #ea3e1b;
+  border-color: #ea3e1b;
+}
+.custom-control-input.is-invalid:focus-visible ~ .custom-control-label::before {
+  box-shadow: 0 0 0 0.2rem rgba(192, 47, 18, 0.25);
+}
+.custom-control-input.is-invalid:focus-visible:not(:checked) ~ .custom-control-label::before {
+  border-color: #c02f12;
+}
+.gl-form-radio {
+  font-size: var(--gl-font-size-base);
+  --tw-leading: 1rem;
+  line-height: 1rem;
+  color: var(--gl-text-color-default);
+  .custom-control-input:disabled, .custom-control-input:disabled ~ .custom-control-label, .custom-control-input:disabled ~ .custom-control-label > .help-text {
+    cursor: not-allowed;
+    color: var(--gl-text-color-disabled);
+  }
+  &.custom-control {
+    padding-left: var(--gl-spacing-scale-5);
+    .custom-control-input ~ .custom-control-label {
+      cursor: pointer;
+      padding-left: var(--gl-spacing-scale-3);
+      margin-bottom: var(--gl-spacing-scale-3);
+      &::before, &::after {
+        top: 0;
+        left: -1rem;
+      }
+      &::before {
+        background-color: var(--gl-control-background-color-default);
+        border-color: var(--gl-control-border-color-default);
+      }
+    }
+    .custom-control-input:not(:disabled):hover ~ .custom-control-label::before {
+      border-color: var(--gl-control-border-color-hover);
+    }
+    .custom-control-input:not(:disabled):focus-visible ~ .custom-control-label::before {
+      box-shadow: 0 0 0 1px var(--gl-focus-ring-inner-color), 0 0 0 3px var(--gl-focus-ring-outer-color);
+      outline: none;
+      border-color: var(--gl-control-border-color-focus);
+    }
+    .custom-control-input:checked ~ .custom-control-label::before {
+      background-color: var(--gl-control-background-color-selected-default);
+      border-color: var(--gl-control-border-color-selected-default);
+      @media (forced-colors: active) {
+        background-color: LinkText;
+        border-color: LinkText;
+      }
+    }
+    .custom-control-input[type="radio"]:checked ~ .custom-control-label {
+      &::after {
+        background: 50% 50% no-repeat;
+        background-color: var(--gl-control-indicator-color-selected);
+        mask-repeat: no-repeat;
+        mask-position: center center;
+      }
+    }
+    .custom-control-input[type="radio"]:checked ~ .custom-control-label::after {
+      background-color: var(--gl-control-indicator-color-selected);
+      mask-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='3' cy='3' r='3' fill='white'/%3E%3C/svg%3E%0A");
+    }
+    .custom-control-input:not(:disabled):checked ~ .custom-control-label:hover, .custom-control-input:not(:disabled):hover:checked ~ .custom-control-label {
+      &::before {
+        background-color: var(--gl-control-background-color-selected-hover);
+        border-color: var(--gl-control-border-color-selected-hover);
+      }
+    }
+    .custom-control-input:not(:disabled):focus-visible:checked ~ .custom-control-label::before {
+      background-color: var(--gl-control-background-color-selected-focus);
+      border-color: var(--gl-control-border-color-selected-focus);
+    }
+    .custom-control-input:not(:disabled):checked ~ .custom-control-label:hover, .custom-control-input:not(:disabled):hover:checked ~ .custom-control-label, .custom-control-input:not(:disabled):focus-visible:checked ~ .custom-control-label {
+      &::before {
+        @media (forced-colors: active) {
+          background-color: LinkText;
+          border-color: LinkText;
+        }
+      }
+    }
+    .custom-control-input:not(:disabled) ~ .custom-control-label {
+      color: var(--gl-text-color-default);
+    }
+    .custom-control-input:disabled ~ .custom-control-label {
+      cursor: not-allowed;
+      &::before {
+        pointer-events: auto;
+        background-color: var(--gl-control-background-color-disabled);
+        border-color: var(--gl-control-border-color-disabled);
+        @media (forced-colors: active) {
+          opacity: 0.5;
+        }
+      }
+    }
+    .custom-control-input:checked:disabled ~ .custom-control-label {
+      &::before {
+        background-color: var(--gl-control-background-color-disabled);
+        border-color: var(--gl-control-border-color-disabled);
+      }
+      &::after {
+        background-image: none;
+        background-color: var(--gl-control-indicator-color-disabled);
+        @media screen and (forced-colors: active) {
+          forced-color-adjust: none;
+          background-color: GrayText;
+        }
+      }
+    }
+  }
+  .help-text {
+    margin-top: var(--gl-spacing-scale-2);
+    margin-bottom: var(--gl-spacing-scale-0);
+    font-size: var(--gl-font-size-base);
+    --tw-leading: 1rem;
+    line-height: 1rem;
+    color: var(--gl-text-color-subtle);
+  }
+}
 .gl-icon.s8 {
   height: 8px;
   width: 8px;

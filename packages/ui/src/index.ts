@@ -67,6 +67,10 @@ export type {
   GlFormInputValue,
   GlFormInputWidth,
 } from "./base/form-input/form-input";
+export { default as GlFormRadio } from "./base/form-radio/form-radio";
+export type {
+  GlFormRadioProps,
+} from "./base/form-radio/form-radio";
 export { default as GlIcon } from "./base/icon/icon";
 export type {
   GlIconProps,
