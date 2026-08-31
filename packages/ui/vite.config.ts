@@ -15,6 +15,7 @@ export default defineConfig({
       external: [
         /^@base-ui\/react(?:\/.*)?$/,
         "class-variance-authority",
+        "dompurify",
         "react",
         "react-dom",
         "react/jsx-runtime",

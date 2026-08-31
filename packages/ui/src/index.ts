@@ -50,6 +50,32 @@ export type {
   GlCardHeaderProps,
   GlCardProps,
 } from "./base/card/card";
+export { default as GlFormCheckbox } from "./base/form-checkbox/form-checkbox";
+export type {
+  GlFormCheckboxProps,
+} from "./base/form-checkbox/form-checkbox";
+export { default as GlFormDate } from "./base/form-date/form-date";
+export type {
+  GlFormDateProps,
+} from "./base/form-date/form-date";
+export { default as GlFormInput } from "./base/form-input/form-input";
+export type {
+  GlFormInputFormatter,
+  GlFormInputProps,
+  GlFormInputResponsiveWidth,
+  GlFormInputType,
+  GlFormInputValue,
+  GlFormInputWidth,
+} from "./base/form-input/form-input";
+export { default as GlFormRadio } from "./base/form-radio/form-radio";
+export type {
+  GlFormRadioProps,
+} from "./base/form-radio/form-radio";
+export { default as GlFormRadioGroup } from "./base/form-radio-group/form-radio-group";
+export type {
+  GlFormRadioGroupOption,
+  GlFormRadioGroupProps,
+} from "./base/form-radio-group/form-radio-group";
 export { default as GlFormSelect } from "./base/form-select/form-select";
 export type {
   GlFormSelectOption,
