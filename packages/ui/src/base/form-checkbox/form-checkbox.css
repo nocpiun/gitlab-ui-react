@@ -1,0 +1,322 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/form/form_checkbox/form_checkbox.scss
+ * plus the Bootstrap `.custom-control` / `.custom-checkbox` base styles from
+ * packages/gitlab-ui/src/vendor/bootstrap/scss/_custom-forms.scss and the
+ * `form-validation-state` output from
+ * packages/gitlab-ui/src/vendor/bootstrap/scss/mixins/_forms.scss, neither of
+ * which this repository ships.
+ *
+ * Adaptations:
+ * - Only the `.gl-form-checkbox` selectors are ported; the parallel
+ *   `.gl-form-radio` rules belong to the form-radio port. When form-radio is
+ *   ported, the shared `.custom-control*` base block below should be
+ *   extracted into a common stylesheet. The `.gl-form-checkbox-group` rule
+ *   belongs to the form-checkbox-group port.
+ * - The `.form-check` / `.form-check-inline` rules target bootstrap-vue's
+ *   "plain" checkbox markup, which GlFormCheckbox does not render, and are
+ *   not ported. The same applies to `.custom-control-inline` and the
+ *   `.was-validated :valid`/`:invalid` native validation selectors.
+ * - Bootstrap base declarations fully overridden by the GitLab rules (the
+ *   default `#007bff`/`#626168` state colors) are omitted; the GitLab token
+ *   rules win on specificity upstream.
+ */
+
+/* Bootstrap `.custom-control` base (`$custom-control-gutter: .5rem`,
+ * `$custom-control-indicator-size: 1rem`, `$font-size-base: 1rem`,
+ * `$line-height-base: 1.5`). */
+.custom-control {
+  position: relative;
+  z-index: 1;
+  display: block;
+  min-height: 1.5rem;
+  padding-left: 1.5rem;
+  print-color-adjust: exact;
+}
+
+.custom-control-input {
+  position: absolute;
+  left: 0;
+  z-index: -1; /* Put the input behind the label so it doesn't overlay text */
+  width: 1rem;
+  height: 1.25rem;
+  opacity: 0;
+}
+
+/* The active (pressed) state is the only Bootstrap interaction color the
+ * GitLab overrides do not replace. */
+.custom-control-input:not(:disabled):active ~ .custom-control-label::before {
+  background-color: #b3d7ff;
+  border-color: #b3d7ff;
+}
+
+.custom-control-label {
+  position: relative;
+  margin-bottom: 0;
+  vertical-align: top;
+
+  /* Background-color and border (the box) */
+  &::before {
+    position: absolute;
+    top: 0.25rem;
+    left: -1.5rem;
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    pointer-events: none;
+    content: "";
+    border-width: 1px;
+    border-style: solid;
+    transition:
+      background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out,
+      box-shadow 0.15s ease-in-out;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+
+  /* Foreground (the indicator icon) */
+  &::after {
+    position: absolute;
+    top: 0.25rem;
+    left: -1.5rem;
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    content: "";
+    background: 50% / 50% 50% no-repeat;
+  }
+}
+
+.custom-checkbox .custom-control-label::before {
+  /* Bootstrap `$custom-checkbox-indicator-border-radius` (`$border-radius`). */
+  @apply gl-rounded-base;
+}
+
+/* Bootstrap `form-validation-state` for `.custom-control-input`; only the
+ * component-controlled `.is-valid` / `.is-invalid` selectors are ported. */
+.custom-control-input.is-valid ~ .custom-control-label {
+  color: #2f7549;
+}
+
+.custom-control-input.is-valid ~ .custom-control-label::before {
+  border-color: #2f7549;
+}
+
+.custom-control-input.is-valid:checked ~ .custom-control-label::before {
+  background-color: #3e9960;
+  border-color: #3e9960;
+}
+
+.custom-control-input.is-valid:focus-visible ~ .custom-control-label::before {
+  box-shadow: 0 0 0 0.2rem rgba(47, 117, 73, 0.25);
+}
+
+.custom-control-input.is-valid:focus-visible:not(:checked) ~ .custom-control-label::before {
+  border-color: #2f7549;
+}
+
+.custom-control-input.is-invalid ~ .custom-control-label {
+  color: #c02f12;
+}
+
+.custom-control-input.is-invalid ~ .custom-control-label::before {
+  border-color: #c02f12;
+}
+
+.custom-control-input.is-invalid:checked ~ .custom-control-label::before {
+  background-color: #ea3e1b;
+  border-color: #ea3e1b;
+}
+
+.custom-control-input.is-invalid:focus-visible ~ .custom-control-label::before {
+  box-shadow: 0 0 0 0.2rem rgba(192, 47, 18, 0.25);
+}
+
+.custom-control-input.is-invalid:focus-visible:not(:checked) ~ .custom-control-label::before {
+  border-color: #c02f12;
+}
+
+/* GitLab UI `form_checkbox.scss` overrides. */
+.gl-form-checkbox {
+  @apply gl-text-base;
+  @apply gl-leading-normal;
+  @apply gl-text-default;
+
+  .custom-control-input:disabled,
+  .custom-control-input:disabled ~ .custom-control-label,
+  .custom-control-input:disabled ~ .custom-control-label > .help-text {
+    @apply gl-cursor-not-allowed;
+    @apply gl-text-disabled;
+  }
+
+  &.custom-control {
+    @apply gl-pl-5;
+
+    .custom-control-input ~ .custom-control-label {
+      @apply gl-cursor-pointer;
+      @apply gl-pl-3;
+      @apply gl-mb-3;
+
+      &::before,
+      &::after {
+        top: 0;
+        /* -$gl-spacing-scale-5 */
+        left: -1rem;
+      }
+
+      &::before {
+        background-color: var(--gl-control-background-color-default);
+        border-color: var(--gl-control-border-color-default);
+      }
+    }
+
+    .custom-control-input:not(:disabled):hover ~ .custom-control-label::before {
+      border-color: var(--gl-control-border-color-hover);
+    }
+
+    .custom-control-input:not(:disabled):focus-visible ~ .custom-control-label::before {
+      @apply gl-focus;
+      border-color: var(--gl-control-border-color-focus);
+    }
+
+    .custom-control-input:checked ~ .custom-control-label::before {
+      background-color: var(--gl-control-background-color-selected-default);
+      border-color: var(--gl-control-border-color-selected-default);
+
+      @media (forced-colors: active) {
+        background-color: LinkText;
+        border-color: LinkText;
+      }
+    }
+
+    .custom-control-input[type="checkbox"]:checked ~ .custom-control-label,
+    .custom-control-input[type="checkbox"]:indeterminate ~ .custom-control-label {
+      &::after {
+        background: 50% 50% no-repeat;
+        background-color: var(--gl-control-indicator-color-selected);
+        mask-repeat: no-repeat;
+        mask-position: center center;
+      }
+    }
+
+    .custom-control-input[type="checkbox"]:checked ~ .custom-control-label::after {
+      background-color: var(--gl-control-indicator-color-selected);
+      /* $gl-icon-check */
+      mask-image: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.75 4.76289L3.15312 7.24678L9.25 1.1499' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+    }
+
+    .custom-control-input[type="checkbox"]:indeterminate ~ .custom-control-label::after {
+      background-color: var(--gl-control-indicator-color-selected);
+      /* $gl-icon-indeterminate */
+      mask-image: url("data:image/svg+xml,%3Csvg width='10' height='2' viewBox='0 0 10 2' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.75 1H8.25' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+    }
+
+    .custom-control-input:not(:disabled):checked ~ .custom-control-label:hover,
+    .custom-control-input:not(:disabled):hover:checked ~ .custom-control-label {
+      &::before {
+        background-color: var(--gl-control-background-color-selected-hover);
+        border-color: var(--gl-control-border-color-selected-hover);
+      }
+    }
+
+    .custom-control-input:not(:disabled):focus-visible:checked ~ .custom-control-label::before {
+      background-color: var(--gl-control-background-color-selected-focus);
+      border-color: var(--gl-control-border-color-selected-focus);
+    }
+
+    .custom-control-input:not(:disabled):checked ~ .custom-control-label:hover,
+    .custom-control-input:not(:disabled):hover:checked ~ .custom-control-label,
+    .custom-control-input:not(:disabled):focus-visible:checked ~ .custom-control-label {
+      &::before {
+        @media (forced-colors: active) {
+          background-color: LinkText;
+          border-color: LinkText;
+        }
+      }
+    }
+
+    .custom-control-input:not(:disabled) ~ .custom-control-label {
+      @apply gl-text-default;
+    }
+
+    &.custom-checkbox {
+      .custom-control-input:indeterminate ~ .custom-control-label::before {
+        background-color: var(--gl-control-background-color-selected-default);
+        border-color: var(--gl-control-border-color-selected-default);
+
+        @media (forced-colors: active) {
+          background-color: LinkText;
+          border-color: LinkText;
+        }
+      }
+
+      .custom-control-input:not(:disabled):indeterminate ~ .custom-control-label:hover::before {
+        background-color: var(--gl-control-background-color-selected-hover);
+        border-color: var(--gl-control-border-color-selected-hover);
+      }
+
+      .custom-control-input:not(:disabled):focus-visible:indeterminate
+        ~ .custom-control-label::before {
+        background-color: var(--gl-control-background-color-selected-focus);
+        border-color: var(--gl-control-border-color-selected-focus);
+      }
+
+      .custom-control-input:not(:disabled):indeterminate ~ .custom-control-label:hover::before,
+      .custom-control-input:not(:disabled):focus-visible:indeterminate
+        ~ .custom-control-label::before {
+        @media (forced-colors: active) {
+          background-color: LinkText;
+          border-color: LinkText;
+        }
+      }
+    }
+
+    .custom-control-input:disabled ~ .custom-control-label {
+      @apply gl-cursor-not-allowed;
+
+      &::before {
+        @apply gl-pointer-events-auto;
+        background-color: var(--gl-control-background-color-disabled);
+        border-color: var(--gl-control-border-color-disabled);
+
+        @media (forced-colors: active) {
+          opacity: 0.5;
+        }
+      }
+    }
+
+    .custom-control-input:checked:disabled ~ .custom-control-label,
+    .custom-control-input[type="checkbox"]:indeterminate:disabled ~ .custom-control-label {
+      &::before {
+        background-color: var(--gl-control-background-color-disabled);
+        border-color: var(--gl-control-border-color-disabled);
+      }
+
+      &::after {
+        background-image: none;
+        background-color: var(--gl-control-indicator-color-disabled);
+
+        /* Ensure state indicators (like the checkmark for checked or
+         * the dash for indeterminate) are visible in Windows High
+         * Contrast Mode. */
+        @media screen and (forced-colors: active) {
+          forced-color-adjust: none;
+          /* system color reference for disabled text applied to
+           * background here. */
+          background-color: GrayText;
+        }
+      }
+    }
+  }
+
+  .help-text {
+    @apply gl-mt-2;
+    @apply gl-mb-0;
+    @apply gl-text-base;
+    @apply gl-leading-normal;
+    @apply gl-text-subtle;
+  }
+}

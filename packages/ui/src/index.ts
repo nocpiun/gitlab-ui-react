@@ -50,6 +50,10 @@ export type {
   GlCardHeaderProps,
   GlCardProps,
 } from "./base/card/card";
+export { default as GlFormCheckbox } from "./base/form-checkbox/form-checkbox";
+export type {
+  GlFormCheckboxProps,
+} from "./base/form-checkbox/form-checkbox";
 export { default as GlIcon } from "./base/icon/icon";
 export type {
   GlIconProps,
