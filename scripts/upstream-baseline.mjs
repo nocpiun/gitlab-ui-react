@@ -147,7 +147,8 @@ if(!existsSync(path.join(root, "packages/ui/src/index.ts"))) {
 }
 
 const upstreamDir =
-  options.upstreamDir ?? `${UPSTREAM_SOURCE_ROOT}/components/base/${upstreamName}`;
+  options.upstreamDir ??
+  `${UPSTREAM_SOURCE_ROOT}/components/base/${upstreamName.startsWith("form_") ? `form/${upstreamName}` : upstreamName}`;
 const docsPath = options.docs ?? `contents/components/${localName}.md`;
 assertRelativeApiPath(upstreamDir, "--upstream-dir");
 if(!options.skipDocs) assertRelativeApiPath(docsPath, "--docs");
