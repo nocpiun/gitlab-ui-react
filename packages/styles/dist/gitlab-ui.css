@@ -4046,6 +4046,10 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
   border-bottom-right-radius: calc(var(--gl-card-border-radius) - 1px);
   color: var(--gl-text-color-subtle);
 }
+.gl-form-character-count .form-text {
+  margin-top: var(--gl-spacing-scale-2);
+  display: block;
+}
 .gl-icon.s8 {
   height: 8px;
   width: 8px;
@@ -4842,6 +4846,9 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
   }
   .\!gl-align-text-bottom {
     vertical-align: text-bottom !important;
+  }
+  .gl-text-danger {
+    color: var(--gl-text-color-danger);
   }
   .gl-text-subtle {
     color: var(--gl-text-color-subtle);

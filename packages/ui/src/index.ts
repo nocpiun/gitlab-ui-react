@@ -50,6 +50,10 @@ export type {
   GlCardHeaderProps,
   GlCardProps,
 } from "./base/card/card";
+export { default as GlFormCharacterCount } from "./base/form-character-count/form-character-count";
+export type {
+  GlFormCharacterCountProps,
+} from "./base/form-character-count/form-character-count";
 export { default as GlIcon } from "./base/icon/icon";
 export type {
   GlIconProps,
