@@ -1,0 +1,231 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/form/form_input/form_input.scss
+ *
+ * Adaptations:
+ * - Bootstrap's `.form-control` / `.form-control-plaintext` / `.custom-range`
+ *   base styles are not shipped in this repository; `display: block` and
+ *   `width: 100%` are added to `.gl-form-input` as compensation. The vendor
+ *   `.custom-range` base (thumb/track styling) is deliberately not ported, so
+ *   `type="range"` keeps the browser's native appearance.
+ * - The `.input-group > .custom-range` rules belong to the form-input-group
+ *   composition and are deferred to that component's port. The same applies
+ *   to the `.form-control-sm`/`.form-control-lg` color-input sizing.
+ * - The custom-range validation states only cover the component-controlled
+ *   `.is-valid`/`.is-invalid` classes; the `.was-validated :valid`/`:invalid`
+ *   native validation selectors, the `~ .valid-feedback` reveal rules (this
+ *   repository reveals feedback via the `!gl-block` utility), and the legacy
+ *   `::-ms-*` pseudo-element rules are not ported.
+ * - Responsive width classes use plain media queries with the shared
+ *   breakpoints; upstream additionally emits container queries gated behind
+ *   `html.with-gl-container-queries`, which this repository does not support.
+ */
+
+/* Bootstrap v4.x does not have special styling for color input,
+ * so we define some basic styles to compensate. */
+input[type="color"].form-control {
+  height: calc(1.5em + 0.75rem + 2px);
+  /* We use the smaller padding to make the color block larger */
+  padding: 0.125rem 0.25rem;
+}
+
+input[type="color"].form-control:disabled {
+  /* Disabled styling needs to be a bit different than regular inputs */
+  background-color: #737278;
+  opacity: 0.65;
+}
+
+.gl-form-input,
+.gl-form-input.form-control {
+  appearance: none;
+  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-default);
+  background: var(--gl-control-background-color-default);
+  /* Bootstrap's `.form-control` base provides these upstream. */
+  @apply gl-block gl-w-full;
+  @apply gl-rounded-control;
+  @apply gl-font-regular;
+  @apply gl-text-base;
+  @apply gl-leading-normal;
+  @apply gl-py-3;
+  @apply gl-px-4;
+  @apply gl-h-auto;
+  @apply gl-border-none;
+  @apply gl-text-default;
+
+  /* Bootstrap's deprecated `form-control-focus` mixin output; the
+   * `:not(.form-control-plaintext):focus-visible` rule below overrides it. */
+  &:focus-visible {
+    color: #4c4b51;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+
+  @media (forced-colors: active) {
+    border: 1px solid;
+  }
+
+  &:hover {
+    box-shadow: inset 0 0 0 1px var(--gl-control-border-color-hover);
+  }
+
+  &:not(.gl-form-input-not-readonly):not(:disabled):not(.form-control-plaintext):not(
+      [type="color"]
+    ):read-only {
+    background: var(--gl-control-background-color-readonly);
+    box-shadow: none;
+  }
+
+  &:disabled {
+    @apply gl-cursor-not-allowed;
+    background: var(--gl-control-background-color-disabled);
+    box-shadow: inset 0 0 0 1px var(--gl-control-border-color-disabled);
+    @apply gl-text-disabled;
+  }
+
+  /* `gl-focus($color: var(--gl-control-border-color-focus))` */
+  &:not(.form-control-plaintext):focus-visible {
+    background: var(--gl-control-background-color-default);
+    @apply gl-text-default;
+    box-shadow:
+      inset 0 0 0 1px var(--gl-control-border-color-focus),
+      0 0 0 1px var(--gl-focus-ring-inner-color),
+      0 0 0 3px var(--gl-focus-ring-outer-color);
+    outline: none;
+
+    @media (forced-colors: active) {
+      outline: 2px solid LinkText;
+    }
+  }
+
+  &.is-invalid {
+    box-shadow: inset 0 0 0 1px var(--gl-control-border-color-error);
+
+    /* `gl-focus($color: var(--gl-control-border-color-error))` */
+    &:focus-visible {
+      box-shadow:
+        inset 0 0 0 1px var(--gl-control-border-color-error),
+        0 0 0 1px var(--gl-focus-ring-inner-color),
+        0 0 0 3px var(--gl-focus-ring-outer-color);
+      outline: none;
+
+      @media (forced-colors: active) {
+        outline: 2px solid LinkText;
+      }
+    }
+  }
+
+  &::placeholder {
+    color: var(--gl-control-placeholder-color);
+  }
+
+  &.form-control-plaintext {
+    @apply gl-shadow-none;
+  }
+}
+
+/* `<gl-form-input>` custom-range validation styling (standalone control only) */
+.custom-range {
+  &.is-valid,
+  &.is-invalid {
+    &:focus {
+      &::-webkit-slider-thumb {
+        box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem var(--_range-focus-color);
+      }
+
+      &::-moz-range-thumb {
+        box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem var(--_range-focus-color);
+      }
+    }
+
+    &::-webkit-slider-thumb {
+      background-color: var(--_range-color);
+      background-image: none;
+
+      &:active {
+        background-color: var(--_range-focus-color);
+        background-image: none;
+      }
+    }
+
+    &::-webkit-slider-runnable-track {
+      background-color: var(--_range-track-color);
+    }
+
+    &::-moz-range-thumb {
+      background-color: var(--_range-color);
+      background-image: none;
+
+      &:active {
+        background-color: var(--_range-focus-color);
+        background-image: none;
+      }
+    }
+
+    &::-moz-range-track {
+      background: var(--_range-track-color);
+    }
+  }
+
+  &.is-valid {
+    --_range-color: #2f7549;
+    --_range-focus-color: #88cfa2;
+    --_range-track-color: rgba(47, 117, 73, 0.35);
+  }
+
+  &.is-invalid {
+    --_range-color: #c02f12;
+    --_range-focus-color: #f5a190;
+    --_range-track-color: rgba(192, 47, 18, 0.35);
+  }
+}
+
+/* `$gl-form-input-sizes` at `$grid-size: 8px` */
+.gl-form-input-xs {
+  max-width: 5rem;
+}
+.gl-form-input-sm {
+  max-width: 10rem;
+}
+.gl-form-input-md {
+  max-width: 15rem;
+}
+.gl-form-input-lg {
+  max-width: 20rem;
+}
+.gl-form-input-xl {
+  max-width: 35rem;
+}
+
+@media (min-width: 576px) {
+  .gl-sm-form-input-xs { max-width: 5rem; }
+  .gl-sm-form-input-sm { max-width: 10rem; }
+  .gl-sm-form-input-md { max-width: 15rem; }
+  .gl-sm-form-input-lg { max-width: 20rem; }
+  .gl-sm-form-input-xl { max-width: 35rem; }
+}
+
+@media (min-width: 768px) {
+  .gl-md-form-input-xs { max-width: 5rem; }
+  .gl-md-form-input-sm { max-width: 10rem; }
+  .gl-md-form-input-md { max-width: 15rem; }
+  .gl-md-form-input-lg { max-width: 20rem; }
+  .gl-md-form-input-xl { max-width: 35rem; }
+}
+
+@media (min-width: 992px) {
+  .gl-lg-form-input-xs { max-width: 5rem; }
+  .gl-lg-form-input-sm { max-width: 10rem; }
+  .gl-lg-form-input-md { max-width: 15rem; }
+  .gl-lg-form-input-lg { max-width: 20rem; }
+  .gl-lg-form-input-xl { max-width: 35rem; }
+}
+
+@media (min-width: 1200px) {
+  .gl-xl-form-input-xs { max-width: 5rem; }
+  .gl-xl-form-input-sm { max-width: 10rem; }
+  .gl-xl-form-input-md { max-width: 15rem; }
+  .gl-xl-form-input-lg { max-width: 20rem; }
+  .gl-xl-form-input-xl { max-width: 35rem; }
+}
