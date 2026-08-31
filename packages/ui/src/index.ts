@@ -50,6 +50,15 @@ export type {
   GlCardHeaderProps,
   GlCardProps,
 } from "./base/card/card";
+export { default as GlFormInput } from "./base/form-input/form-input";
+export type {
+  GlFormInputFormatter,
+  GlFormInputProps,
+  GlFormInputResponsiveWidth,
+  GlFormInputType,
+  GlFormInputValue,
+  GlFormInputWidth,
+} from "./base/form-input/form-input";
 export { default as GlIcon } from "./base/icon/icon";
 export type {
   GlIconProps,
