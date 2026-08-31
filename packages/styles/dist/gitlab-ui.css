@@ -4046,6 +4046,52 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
   border-bottom-right-radius: calc(var(--gl-card-border-radius) - 1px);
   color: var(--gl-text-color-subtle);
 }
+.gl-form-group {
+  margin-bottom: var(--gl-spacing-scale-5);
+  .col-form-label {
+    font-size: var(--gl-font-size-base);
+    --tw-font-weight: var(--gl-font-weight-bold);
+    font-weight: var(--gl-font-weight-bold);
+    --tw-leading: 1rem;
+    line-height: 1rem;
+    padding-top: var(--gl-spacing-scale-0);
+    padding-bottom: var(--gl-spacing-scale-3);
+    color: var(--gl-text-color-strong);
+    > .label-description {
+      margin-top: var(--gl-spacing-scale-2);
+      color: var(--gl-text-color-subtle);
+    }
+  }
+  .optional-label, .label-description {
+    --tw-font-weight: var(--gl-font-weight-normal);
+    font-weight: var(--gl-font-weight-normal);
+  }
+  .invalid-feedback, .valid-feedback {
+    display: none;
+  }
+  .invalid-feedback {
+    color: var(--gl-control-text-color-error);
+  }
+  .valid-feedback {
+    color: var(--gl-control-text-color-valid);
+  }
+  .invalid-feedback, .valid-feedback, .text-muted, .gl-text-secondary {
+    font-size: var(--gl-font-size-base);
+    --tw-leading: 1rem;
+    line-height: 1rem;
+  }
+  .text-muted {
+    color: var(--gl-text-color-subtle) !important;
+  }
+  .form-control {
+    + .invalid-feedback, + .valid-feedback, + .gl-text-secondary, + .text-muted, &.is-valid + .invalid-feedback + .text-muted, &.is-valid + .invalid-feedback + .gl-text-secondary {
+      margin-top: var(--gl-spacing-scale-3);
+    }
+  }
+  legend {
+    border-bottom: 0;
+  }
+}
 .gl-icon.s8 {
   height: 8px;
   width: 8px;
@@ -4765,6 +4811,9 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
   .-gl-ml-2 {
     margin-left: calc(var(--gl-spacing-scale-2) * -1);
   }
+  .\!gl-block {
+    display: block !important;
+  }
   .gl-block {
     display: block;
   }
@@ -4836,6 +4885,9 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
   }
   .gl-px-1 {
     padding-inline: var(--gl-spacing-scale-1);
+  }
+  .\!gl-pt-0 {
+    padding-top: var(--gl-spacing-scale-0) !important;
   }
   .\!gl-text-left {
     text-align: left !important;

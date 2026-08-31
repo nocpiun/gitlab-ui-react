@@ -50,6 +50,10 @@ export type {
   GlCardHeaderProps,
   GlCardProps,
 } from "./base/card/card";
+export { default as GlFormGroup } from "./base/form-group/form-group";
+export type {
+  GlFormGroupProps,
+} from "./base/form-group/form-group";
 export { default as GlIcon } from "./base/icon/icon";
 export type {
   GlIconProps,

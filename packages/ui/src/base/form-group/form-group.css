@@ -1,0 +1,74 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/form/form_group/form_group.scss
+ *
+ * The feedback display rules (`display: none` by default) come from
+ * Bootstrap's `.invalid-feedback` / `.valid-feedback` base styles, which this
+ * repository does not ship; the component adds the `!gl-block` utility to
+ * reveal the feedback matching the current validation state.
+ */
+
+.gl-form-group {
+  @apply gl-mb-5;
+
+  .col-form-label {
+    @apply gl-text-base;
+    @apply gl-font-bold;
+    @apply gl-leading-normal;
+    @apply gl-pt-0;
+    @apply gl-pb-3;
+    @apply gl-text-strong;
+
+    > .label-description {
+      @apply gl-mt-2;
+      @apply gl-text-subtle;
+    }
+  }
+
+  .optional-label,
+  .label-description {
+    @apply gl-font-normal;
+  }
+
+  .invalid-feedback,
+  .valid-feedback {
+    display: none;
+  }
+
+  .invalid-feedback {
+    color: var(--gl-control-text-color-error);
+  }
+
+  .valid-feedback {
+    color: var(--gl-control-text-color-valid);
+  }
+
+  .invalid-feedback,
+  .valid-feedback,
+  .text-muted,
+  .gl-text-secondary {
+    @apply gl-text-base;
+    @apply gl-leading-normal;
+  }
+
+  .text-muted {
+    @apply !gl-text-subtle;
+  }
+
+  .form-control {
+    + .invalid-feedback,
+    + .valid-feedback,
+    + .gl-text-secondary,
+    + .text-muted,
+    &.is-valid + .invalid-feedback + .text-muted,
+    &.is-valid + .invalid-feedback + .gl-text-secondary {
+      /* See https://gitlab.com/gitlab-org/gitlab-ui/-/merge_requests/2806
+       * for the reasoning behind the "valid+invalid" selector above */
+      @apply gl-mt-3;
+    }
+  }
+
+  legend {
+    border-bottom: 0;
+  }
+}
