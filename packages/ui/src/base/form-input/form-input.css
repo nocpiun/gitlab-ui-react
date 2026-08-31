@@ -35,150 +35,177 @@ input[type="color"].form-control:disabled {
   opacity: 0.65;
 }
 
+/* Bootstrap's `.form-control` base provides `$input-transition` upstream.
+ * Use ease-out in the unfocused state so the focus ring starts receding
+ * immediately on blur; the focus-visible rule restores the upstream entrance
+ * curve. */
+.gl-form-input.form-control {
+  transition: border-color 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gl-form-input.form-control {
+    transition: none;
+  }
+}
+
 .gl-form-input,
 .gl-form-input.form-control {
   appearance: none;
   box-shadow: inset 0 0 0 1px var(--gl-control-border-color-default);
   background: var(--gl-control-background-color-default);
   /* Bootstrap's `.form-control` base provides these upstream. */
-  @apply gl-block gl-w-full;
-  @apply gl-rounded-control;
-  @apply gl-font-regular;
-  @apply gl-text-base;
-  @apply gl-leading-normal;
-  @apply gl-py-3;
-  @apply gl-px-4;
-  @apply gl-h-auto;
-  @apply gl-border-none;
-  @apply gl-text-default;
+  @apply gl-block gl-w-full gl-rounded-control gl-font-regular gl-text-base gl-leading-normal gl-py-3 gl-px-4 gl-h-auto gl-border-none gl-text-default;
+}
 
-  /* Bootstrap's deprecated `form-control-focus` mixin output; the
-   * `:not(.form-control-plaintext):focus-visible` rule below overrides it. */
-  &:focus-visible {
-    color: #4c4b51;
-    background-color: #fff;
-    border-color: #80bdff;
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-  }
+/* Bootstrap's deprecated `form-control-focus` mixin output; the
+ * `:not(.form-control-plaintext):focus-visible` rule below overrides it. */
+.gl-form-input:focus-visible,
+.gl-form-input.form-control:focus-visible {
+  color: #4c4b51;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
 
-  @media (forced-colors: active) {
+@media (forced-colors: active) {
+  .gl-form-input,
+  .gl-form-input.form-control {
     border: 1px solid;
-  }
-
-  &:hover {
-    box-shadow: inset 0 0 0 1px var(--gl-control-border-color-hover);
-  }
-
-  &:not(.gl-form-input-not-readonly):not(:disabled):not(.form-control-plaintext):not(
-      [type="color"]
-    ):read-only {
-    background: var(--gl-control-background-color-readonly);
-    box-shadow: none;
-  }
-
-  &:disabled {
-    @apply gl-cursor-not-allowed;
-    background: var(--gl-control-background-color-disabled);
-    box-shadow: inset 0 0 0 1px var(--gl-control-border-color-disabled);
-    @apply gl-text-disabled;
-  }
-
-  /* `gl-focus($color: var(--gl-control-border-color-focus))` */
-  &:not(.form-control-plaintext):focus-visible {
-    background: var(--gl-control-background-color-default);
-    @apply gl-text-default;
-    box-shadow:
-      inset 0 0 0 1px var(--gl-control-border-color-focus),
-      0 0 0 1px var(--gl-focus-ring-inner-color),
-      0 0 0 3px var(--gl-focus-ring-outer-color);
-    outline: none;
-
-    @media (forced-colors: active) {
-      outline: 2px solid LinkText;
-    }
-  }
-
-  &.is-invalid {
-    box-shadow: inset 0 0 0 1px var(--gl-control-border-color-error);
-
-    /* `gl-focus($color: var(--gl-control-border-color-error))` */
-    &:focus-visible {
-      box-shadow:
-        inset 0 0 0 1px var(--gl-control-border-color-error),
-        0 0 0 1px var(--gl-focus-ring-inner-color),
-        0 0 0 3px var(--gl-focus-ring-outer-color);
-      outline: none;
-
-      @media (forced-colors: active) {
-        outline: 2px solid LinkText;
-      }
-    }
-  }
-
-  &::placeholder {
-    color: var(--gl-control-placeholder-color);
-  }
-
-  &.form-control-plaintext {
-    @apply gl-shadow-none;
   }
 }
 
+.gl-form-input:hover,
+.gl-form-input.form-control:hover {
+  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-hover);
+}
+
+.gl-form-input:not(.gl-form-input-not-readonly):not(:disabled):not(.form-control-plaintext):not(
+    [type="color"]
+  ):read-only,
+.gl-form-input.form-control:not(.gl-form-input-not-readonly):not(:disabled):not(
+    .form-control-plaintext
+  ):not([type="color"]):read-only {
+  background: var(--gl-control-background-color-readonly);
+  box-shadow: none;
+}
+
+.gl-form-input:disabled,
+.gl-form-input.form-control:disabled {
+  @apply gl-cursor-not-allowed;
+  background: var(--gl-control-background-color-disabled);
+  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-disabled);
+  @apply gl-text-disabled;
+}
+
+/* `gl-focus($color: var(--gl-control-border-color-focus))` */
+.gl-form-input:not(.form-control-plaintext):focus-visible,
+.gl-form-input.form-control:not(.form-control-plaintext):focus-visible {
+  background: var(--gl-control-background-color-default);
+  @apply gl-text-default;
+  transition-timing-function: ease-in-out, ease-in-out;
+  box-shadow:
+    inset 0 0 0 1px var(--gl-control-border-color-focus),
+    0 0 0 1px var(--gl-focus-ring-inner-color),
+    0 0 0 3px var(--gl-focus-ring-outer-color);
+  outline: none;
+}
+
+@media (forced-colors: active) {
+  .gl-form-input:not(.form-control-plaintext):focus-visible,
+  .gl-form-input.form-control:not(.form-control-plaintext):focus-visible {
+    outline: 2px solid LinkText;
+  }
+}
+
+.gl-form-input.is-invalid,
+.gl-form-input.form-control.is-invalid {
+  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-error);
+}
+
+/* `gl-focus($color: var(--gl-control-border-color-error))` */
+.gl-form-input.is-invalid:focus-visible,
+.gl-form-input.form-control.is-invalid:focus-visible {
+  box-shadow:
+    inset 0 0 0 1px var(--gl-control-border-color-error),
+    0 0 0 1px var(--gl-focus-ring-inner-color),
+    0 0 0 3px var(--gl-focus-ring-outer-color);
+  outline: none;
+}
+
+@media (forced-colors: active) {
+  .gl-form-input.is-invalid:focus-visible,
+  .gl-form-input.form-control.is-invalid:focus-visible {
+    outline: 2px solid LinkText;
+  }
+}
+
+.gl-form-input::placeholder,
+.gl-form-input.form-control::placeholder {
+  color: var(--gl-control-placeholder-color);
+}
+
+.gl-form-input.form-control-plaintext,
+.gl-form-input.form-control.form-control-plaintext {
+  @apply gl-shadow-none;
+}
+
 /* `<gl-form-input>` custom-range validation styling (standalone control only) */
-.custom-range {
-  &.is-valid,
-  &.is-invalid {
-    &:focus {
-      &::-webkit-slider-thumb {
-        box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem var(--_range-focus-color);
-      }
+.custom-range.is-valid:focus::-webkit-slider-thumb,
+.custom-range.is-invalid:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem var(--_range-focus-color);
+}
 
-      &::-moz-range-thumb {
-        box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem var(--_range-focus-color);
-      }
-    }
+.custom-range.is-valid:focus::-moz-range-thumb,
+.custom-range.is-invalid:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem var(--_range-focus-color);
+}
 
-    &::-webkit-slider-thumb {
-      background-color: var(--_range-color);
-      background-image: none;
+.custom-range.is-valid::-webkit-slider-thumb,
+.custom-range.is-invalid::-webkit-slider-thumb {
+  background-color: var(--_range-color);
+  background-image: none;
+}
 
-      &:active {
-        background-color: var(--_range-focus-color);
-        background-image: none;
-      }
-    }
+.custom-range.is-valid::-webkit-slider-thumb:active,
+.custom-range.is-invalid::-webkit-slider-thumb:active {
+  background-color: var(--_range-focus-color);
+  background-image: none;
+}
 
-    &::-webkit-slider-runnable-track {
-      background-color: var(--_range-track-color);
-    }
+.custom-range.is-valid::-webkit-slider-runnable-track,
+.custom-range.is-invalid::-webkit-slider-runnable-track {
+  background-color: var(--_range-track-color);
+}
 
-    &::-moz-range-thumb {
-      background-color: var(--_range-color);
-      background-image: none;
+.custom-range.is-valid::-moz-range-thumb,
+.custom-range.is-invalid::-moz-range-thumb {
+  background-color: var(--_range-color);
+  background-image: none;
+}
 
-      &:active {
-        background-color: var(--_range-focus-color);
-        background-image: none;
-      }
-    }
+.custom-range.is-valid::-moz-range-thumb:active,
+.custom-range.is-invalid::-moz-range-thumb:active {
+  background-color: var(--_range-focus-color);
+  background-image: none;
+}
 
-    &::-moz-range-track {
-      background: var(--_range-track-color);
-    }
-  }
+.custom-range.is-valid::-moz-range-track,
+.custom-range.is-invalid::-moz-range-track {
+  background: var(--_range-track-color);
+}
 
-  &.is-valid {
-    --_range-color: #2f7549;
-    --_range-focus-color: #88cfa2;
-    --_range-track-color: rgba(47, 117, 73, 0.35);
-  }
+.custom-range.is-valid {
+  --_range-color: #2f7549;
+  --_range-focus-color: #88cfa2;
+  --_range-track-color: rgba(47, 117, 73, 0.35);
+}
 
-  &.is-invalid {
-    --_range-color: #c02f12;
-    --_range-focus-color: #f5a190;
-    --_range-track-color: rgba(192, 47, 18, 0.35);
-  }
+.custom-range.is-invalid {
+  --_range-color: #c02f12;
+  --_range-focus-color: #f5a190;
+  --_range-track-color: rgba(192, 47, 18, 0.35);
 }
 
 /* `$gl-form-input-sizes` at `$grid-size: 8px` */

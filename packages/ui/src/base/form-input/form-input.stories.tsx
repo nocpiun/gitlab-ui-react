@@ -51,8 +51,12 @@ export const Default: Story = {
 
     await expect(input).toHaveValue("some text");
     await expect(input).toHaveClass("gl-form-input", "form-control");
+    await expect(getComputedStyle(input).transitionProperty).toBe("border-color, box-shadow");
+    await expect(getComputedStyle(input).transitionDuration).toBe("0.15s, 0.15s");
+    await expect(getComputedStyle(input).transitionTimingFunction).toBe("ease-out, ease-out");
 
     await userEvent.clear(input);
+    await expect(getComputedStyle(input).transitionTimingFunction).toBe("ease-in-out, ease-in-out");
     await userEvent.type(input, "foo");
 
     // `onUpdate` fires immediately per keystroke, `onInput` is the model event.
