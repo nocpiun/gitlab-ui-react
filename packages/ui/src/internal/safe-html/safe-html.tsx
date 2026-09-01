@@ -88,7 +88,9 @@ export default function SafeHtml({ fallback, html }: SafeHtmlProps) {
   // sanitized content before paint when DOMPurify is available.
   return (
     <span>
-      <span hidden={!showFallback}>{fallback ?? null}</span>
+      <span hidden={!showFallback}>
+        {showFallback ? (fallback ?? null) : null}
+      </span>
       <span ref={contentRef} hidden={showFallback} />
     </span>
   );
