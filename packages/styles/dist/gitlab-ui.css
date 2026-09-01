@@ -2814,6 +2814,17 @@ kbd {
 .gl-form-checkbox .custom-control-input.is-invalid:focus-visible:not(:checked) ~ .custom-control-label::before, .gl-form-radio .custom-control-input.is-invalid:focus-visible:not(:checked) ~ .custom-control-label::before {
   border-color: #c02f12;
 }
+.gl-form-select.custom-select {
+  display: inline-block;
+  width: 100%;
+  vertical-align: middle;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.gl-form-select.custom-select[multiple], .gl-form-select.custom-select[size]:not([size="1"]) {
+  height: auto;
+  padding-right: 0.75rem;
+  background-image: none;
+}
 .gl-form-input.custom-range {
   width: 100%;
   height: 1.4rem;
@@ -4589,17 +4600,6 @@ input[type="color"].gl-form-input.form-control:disabled {
   font-size: var(--gl-font-size-base);
   --tw-leading: 1rem;
   line-height: 1rem;
-}
-.gl-form-select.custom-select {
-  display: inline-block;
-  width: 100%;
-  vertical-align: middle;
-  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-.gl-form-select.custom-select[multiple], .gl-form-select.custom-select[size]:not([size="1"]) {
-  height: auto;
-  padding-right: 0.75rem;
-  background-image: none;
 }
 .gl-form-select {
   font-size: var(--gl-font-size-base);

@@ -2,29 +2,12 @@
  * Ported from GitLab UI:
  * packages/gitlab-ui/src/components/base/form/form_select/form_select.scss
  *
- * The small `.custom-select` foundation below is the transitive Bootstrap
- * styling used by upstream. It is scoped to GlFormSelect because this
- * repository deliberately does not publish Bootstrap's global selector.
+ * The transitive Bootstrap `.custom-select` foundation is kept in
+ * packages/styles/src/forms/bootstrap-custom-forms.css and loaded before this
+ * component stylesheet.
  * Responsive width classes use the repository's established viewport-query
  * adaptation; upstream can additionally emit opt-in container-query aliases.
  */
-
-.gl-form-select.custom-select {
-  display: inline-block;
-  width: 100%;
-  vertical-align: middle;
-  transition:
-    background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out,
-    box-shadow 0.15s ease-in-out;
-}
-
-.gl-form-select.custom-select[multiple],
-.gl-form-select.custom-select[size]:not([size="1"]) {
-  height: auto;
-  padding-right: 0.75rem;
-  background-image: none;
-}
 
 .gl-form-select {
   @apply gl-text-base;
