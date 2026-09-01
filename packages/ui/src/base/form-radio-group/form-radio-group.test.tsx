@@ -119,15 +119,17 @@ describe("GlFormRadioGroup", () => {
       expect(inputs[1]).toContain("disabled");
     });
 
-    it("renders option html inside a span", () => {
-      // Server-side DOMPurify passes content through unchanged; browser
-      // sanitization is covered by the Storybook play tests.
+    it("fails closed on the server: renders the plain-text fallback, not the raw HTML", () => {
+      // Server-side sanitization is unavailable, so SafeHtml must not pass the
+      // raw HTML through; browser sanitization is covered by the Storybook
+      // play tests.
       const markup = renderGroup({
-        options: [{ text: "fallback", html: "<strong>HTML</strong> option" }],
+        options: [{ text: "fallback", html: "<strong>HTML</strong> option<script>alert(1)</script>" }],
       });
 
-      expect(markup).toContain("<span><strong>HTML</strong> option</span>");
-      expect(markup).not.toContain(">fallback</label>");
+      expect(markup).toContain("<span>fallback</span>");
+      expect(markup).not.toContain("<strong>");
+      expect(markup).not.toContain("<script>");
     });
 
     it("renders nothing for a non-array options value", () => {
