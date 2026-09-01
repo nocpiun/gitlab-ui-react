@@ -15,12 +15,12 @@ describe("SafeHtml (server rendering)", () => {
     expect(markup).not.toContain("alert(1)");
   });
 
-  it("renders the plain-text fallback inside a span", () => {
+  it("renders the plain-text fallback in a React-owned subtree", () => {
     const markup = renderToStaticMarkup(
       <SafeHtml fallback="fallback text" html="<strong>HTML</strong>" />,
     );
 
-    expect(markup).toBe("<span>fallback text</span>");
+    expect(markup).toBe("<span><span>fallback text</span><span hidden=\"\"></span></span>");
   });
 
   it("escapes a fallback that itself looks like markup", () => {
@@ -28,13 +28,15 @@ describe("SafeHtml (server rendering)", () => {
       <SafeHtml fallback={"<img src=x onerror=\"alert(1)\">"} html="<b>html</b>" />,
     );
 
-    expect(markup).toBe("<span>&lt;img src=x onerror=&quot;alert(1)&quot;&gt;</span>");
+    expect(markup).toBe(
+      "<span><span>&lt;img src=x onerror=&quot;alert(1)&quot;&gt;</span><span hidden=\"\"></span></span>",
+    );
   });
 
-  it("renders an empty container when no fallback is provided", () => {
+  it("renders empty fallback and content containers when no fallback is provided", () => {
     const markup = renderToStaticMarkup(<SafeHtml html={"<script>alert(1)</script>"} />);
 
-    expect(markup).toBe("<span></span>");
+    expect(markup).toBe("<span><span></span><span hidden=\"\"></span></span>");
   });
 
   it("produces identical output with renderToString (hydration contract)", () => {

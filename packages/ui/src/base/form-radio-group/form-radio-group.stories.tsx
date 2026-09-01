@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { hydrateRoot } from "react-dom/client";
 import { expect, fn, userEvent, waitFor } from "storybook/test";
-import SafeHtml from "@/internal/safe-html/safe-html";
+import SafeHtml from "../../internal/safe-html/safe-html";
 import GlFormRadio from "../form-radio/form-radio";
 import GlFormRadioGroup, { type GlFormRadioGroupProps } from "./form-radio-group";
 
@@ -238,6 +238,42 @@ export const HtmlOptionUpdate: Story = {
   },
 };
 
+function UpdatingSafeHtmlFallbackExample() {
+  const [removeFallbacks, setRemoveFallbacks] = useState(false);
+
+  return (
+    <div>
+      <button onClick={() => setRemoveFallbacks(true)} type="button">
+        Remove fallbacks
+      </button>
+      <SafeHtml
+        fallback={removeFallbacks ? "" : "empty fallback"}
+        html="<strong>empty fallback HTML</strong>" />
+      <SafeHtml
+        fallback={removeFallbacks ? undefined : "undefined fallback"}
+        html="<em>undefined fallback HTML</em>" />
+    </div>
+  );
+}
+
+export const HtmlFallbackUpdate: Story = {
+  render: () => <UpdatingSafeHtmlFallbackExample />,
+  play: async ({ canvas }) => {
+    await expect(canvas.getByText("empty fallback HTML")).toBeInTheDocument();
+    await expect(canvas.getByText("undefined fallback HTML")).toBeInTheDocument();
+
+    // React owns the hidden fallback nodes while the sanitized fragments live
+    // in separate imperative subtrees. Removing either fallback must not make
+    // React attempt to detach a node already replaced by the layout effect.
+    await userEvent.click(canvas.getByRole("button", { name: "Remove fallbacks" }));
+
+    await expect(canvas.getByText("empty fallback HTML")).toBeInTheDocument();
+    await expect(canvas.getByText("undefined fallback HTML")).toBeInTheDocument();
+    await expect(canvas.queryByText("empty fallback")).not.toBeInTheDocument();
+    await expect(canvas.queryByText("undefined fallback")).not.toBeInTheDocument();
+  },
+};
+
 export const HtmlOptionHydration: Story = {
   render: () => <div data-testid="hydration-host" />,
   play: async ({ canvas }) => {
@@ -248,7 +284,7 @@ export const HtmlOptionHydration: Story = {
 
     // The server-rendered markup (covered by the unit tests) contains the
     // escaped fallback, never the raw HTML
-    host.innerHTML = "<span>fallback</span>";
+    host.innerHTML = "<span><span>fallback</span><span hidden></span></span>";
 
     const errors: unknown[][] = [];
     const originalError = console.error;
@@ -260,6 +296,14 @@ export const HtmlOptionHydration: Story = {
       // client effect then swaps in the sanitized fragment
       const root = hydrateRoot(host, element);
       await waitFor(() => expect(host.querySelector("strong")).not.toBeNull());
+      await expect(host.querySelector("script")).toBeNull();
+      await expect(errors).toEqual([]);
+
+      // Updating both the HTML and fallback after hydration exercises the
+      // same ownership boundary as a dynamic radio-group option update.
+      root.render(<SafeHtml fallback="" html="<em>updated</em><script>alert(2)</script>" />);
+      await waitFor(() => expect(host.querySelector("em")?.textContent).toBe("updated"));
+      await expect(host.querySelector("strong")).toBeNull();
       await expect(host.querySelector("script")).toBeNull();
       await expect(errors).toEqual([]);
 

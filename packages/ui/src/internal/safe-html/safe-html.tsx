@@ -16,7 +16,7 @@
  */
 
 import DOMPurify, { type Config } from "dompurify";
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 // Upstream constants.js: https://gitlab.com/gitlab-org/gitlab-ui/-/issues/1421#note_617098438
 const FORBIDDEN_DATA_ATTRS = [
@@ -62,28 +62,34 @@ export type SafeHtmlProps = {
 };
 
 export default function SafeHtml({ fallback, html }: SafeHtmlProps) {
-  const ref = useRef<HTMLSpanElement>(null);
+  const contentRef = useRef<HTMLSpanElement>(null);
+  const [showFallback, setShowFallback] = useState(true);
 
   useIsomorphicLayoutEffect(() => {
-    const element = ref.current;
-    if(!element) {
+    const content = contentRef.current;
+    if(!content) {
       return;
     }
-    // Replace the previous content wholesale, like upstream's transform: old
-    // nodes (and anything attached to them) are discarded before inserting.
-    element.textContent = "";
     const fragment = sanitizeToFragment(html);
     if(fragment) {
-      element.appendChild(fragment);
+      // This span never has React children, so the fragment can be replaced
+      // wholesale without detaching a node that React still tracks.
+      content.replaceChildren(fragment);
+      setShowFallback(false);
     } else {
-      element.textContent = fallback ?? "";
+      content.replaceChildren();
+      setShowFallback(true);
     }
-  }, [html, fallback]);
+  }, [html]);
 
-  // Both server and client render the deterministic plain-text fallback, so
-  // SSR output fails closed and hydration matches exactly. On the client the
-  // layout effect replaces it with the sanitized fragment before paint.
-  // React's later updates to the fallback text node are harmless: the effect
-  // above re-runs whenever `fallback` changes and restores the fragment.
-  return <span ref={ref}>{fallback ?? null}</span>;
+  // The fallback remains in a React-owned subtree while sanitized HTML is
+  // inserted into a separate, imperatively owned subtree. The initial state
+  // is deterministic for SSR and hydration; the layout effect switches to the
+  // sanitized content before paint when DOMPurify is available.
+  return (
+    <span>
+      <span hidden={!showFallback}>{fallback ?? null}</span>
+      <span ref={contentRef} hidden={showFallback} />
+    </span>
+  );
 }
