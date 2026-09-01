@@ -1,7 +1,10 @@
 /**
  * Ported from GitLab UI:
  * packages/gitlab-ui/src/components/base/form/form_radio_group/form_radio_group.vue
- * packages/gitlab-ui/src/utils/form_options_utils.js
+ *
+ * Uses the shared option normalization in
+ * `src/internal/form/form-options-utils.ts` (ported from
+ * packages/gitlab-ui/src/utils/form_options_utils.js).
  *
  * Adaptations:
  * - The `v-model` pair maps to the `checked` prop plus `onInput` (the model
@@ -30,12 +33,15 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from "react";
-import GlFormRadio, {
-  GlFormRadioGroupContext,
-  looseEqual,
-  type GlFormRadioGroupContextValue,
-} from "../form-radio/form-radio";
+import GlFormRadio from "../form-radio/form-radio";
 import SafeHtml from "../../internal/safe-html/safe-html";
+import { normalizeAriaInvalid } from "../../internal/form/aria-invalid-utils";
+import { looseEqual } from "../../internal/form/equality-utils";
+import { normalizeFormOptions } from "../../internal/form/form-options-utils";
+import {
+  GlFormRadioGroupContext,
+  type GlFormRadioGroupContextValue,
+} from "./form-radio-group-context";
 
 export type GlFormRadioGroupOption = string | number | {
   /** Value returned when this option is selected. Defaults to `text`. */
@@ -47,38 +53,6 @@ export type GlFormRadioGroupOption = string | number | {
   /** Renders this option disabled. */
   disabled?: boolean;
 };
-
-type NormalizedOption = {
-  value: unknown;
-  text: string;
-  html?: string;
-  disabled: boolean;
-};
-
-// Ported from packages/gitlab-ui/src/utils/form_options_utils.js: primitives
-// become { value, text, disabled: false }; object options default `value` to
-// `text` and `disabled` to false.
-function normalizeOptions(options: GlFormRadioGroupOption[]): NormalizedOption[] {
-  if(!Array.isArray(options)) {
-    return [];
-  }
-  return options.map((option) => {
-    if(option !== null && typeof option === "object") {
-      const { value, text, html, disabled } = option;
-      return {
-        value: value === undefined ? text : value,
-        text: String(text),
-        html,
-        disabled: Boolean(disabled),
-      };
-    }
-    return {
-      value: option,
-      text: String(option),
-      disabled: false,
-    };
-  });
-}
 
 type GroupElementProps = Omit<
   HTMLAttributes<HTMLDivElement>,
@@ -158,14 +132,7 @@ export default function GlFormRadioGroup({
   }
 
   const computedState = typeof state === "boolean" ? state : null;
-  let computedAriaInvalid: HTMLAttributes<HTMLDivElement>["aria-invalid"];
-  if(ariaInvalid === true || ariaInvalid === "true" || ariaInvalid === "") {
-    computedAriaInvalid = "true";
-  } else if(computedState === false) {
-    computedAriaInvalid = "true";
-  } else if(typeof ariaInvalid === "string" && ariaInvalid) {
-    computedAriaInvalid = ariaInvalid as "true" | "false" | "grammar" | "spelling";
-  }
+  const computedAriaInvalid = normalizeAriaInvalid(ariaInvalid, computedState);
 
   // A user selection updates the shared model and emits the model event
   // first, then the change event, like upstream.
@@ -186,7 +153,7 @@ export default function GlFormRadioGroup({
     state: computedState,
   }), [localChecked, disabled, name, internalId, required, select, computedState]);
 
-  const formOptions = normalizeOptions(options);
+  const formOptions = normalizeFormOptions(options);
 
   return (
     <GlFormRadioGroupContext.Provider value={contextValue}>
