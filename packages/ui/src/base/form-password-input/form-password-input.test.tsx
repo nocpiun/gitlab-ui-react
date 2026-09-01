@@ -22,6 +22,16 @@ describe("GlFormPasswordInput", () => {
         .toMatch(/^<div class="gl-form-password-input custom-class"/);
     });
 
+    it("applies a consumer style to the wrapper, not the input", () => {
+      // Vue's class/style fallthrough targets the root even with
+      // inheritAttrs: false; the wrapper is also the toggle's positioning
+      // anchor, so an inline max-width must constrain the whole control.
+      const markup = renderPasswordInput({ style: { maxWidth: "10rem" } });
+
+      expect(markup).toMatch(/^<div[^>]*style="max-width:10rem"/);
+      expect(markup).not.toMatch(/<input[^>]*style=/);
+    });
+
     it("renders the input with the gl-form-password-input-field class", () => {
       expect(renderPasswordInput()).toMatch(/<input[^>]*class="[^"]*gl-form-password-input-field/);
     });

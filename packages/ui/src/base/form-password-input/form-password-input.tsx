@@ -13,9 +13,10 @@
  * - The i18n defaults for the toggle labels resolve to the upstream English
  *   defaults; this package has no i18n runtime.
  * - Additional attributes are forwarded to the inner input, like upstream's
- *   `v-bind="$attrs"`; `className` is applied to the root wrapper, matching
- *   Vue's class fallthrough with `inheritAttrs: false`. A consumer-passed
- *   `type` is not accepted: the component keeps control of it, like upstream.
+ *   `v-bind="$attrs"`; `className` and `style` are applied to the root
+ *   wrapper, matching Vue's class/style fallthrough with
+ *   `inheritAttrs: false`. A consumer-passed `type` is not accepted: the
+ *   component keeps control of it, like upstream.
  * - The inherited `width` prop constrains the root wrapper instead of the
  *   input: the toggle button is positioned against the wrapper, so this keeps
  *   the toggle aligned with the constrained input (upstream leaves it at the
@@ -28,7 +29,7 @@
  *   available while disabled, which a natively disabled button cannot do.
  */
 
-import { forwardRef, useState } from "react";
+import { forwardRef, useState, type CSSProperties } from "react";
 import GlButton from "../button/button";
 import GlFormInput, { type GlFormInputProps, widthClasses } from "../form-input/form-input";
 import GlTooltip from "../tooltip/tooltip";
@@ -37,6 +38,7 @@ export type GlFormPasswordInputProps = Omit<
   GlFormInputProps,
   | "className"
   | "disabled"
+  | "style"
   | "type"
   | "value"
 > & {
@@ -56,6 +58,8 @@ export type GlFormPasswordInputProps = Omit<
   onVisibilityChange?: (visible: boolean) => void;
   /** Accessible label and tooltip for the toggle button while the value is masked. */
   revealLabel?: string;
+  /** Inline style applied to the root wrapper (Vue's style fallthrough). */
+  style?: CSSProperties;
   /** The input's value. */
   value?: string;
 };
@@ -71,6 +75,7 @@ const GlFormPasswordInput = forwardRef<HTMLInputElement, GlFormPasswordInputProp
     onInput,
     onVisibilityChange,
     revealLabel = "Reveal password",
+    style,
     value = "",
     width = null,
     ...inputProps
@@ -91,7 +96,8 @@ const GlFormPasswordInput = forwardRef<HTMLInputElement, GlFormPasswordInputProp
           "gl-form-password-input",
           ...widthClasses(width),
           className,
-        ].filter(Boolean).join(" ")}>
+        ].filter(Boolean).join(" ")}
+        style={style}>
         <GlFormInput
           {...inputProps}
           ref={forwardedRef}
