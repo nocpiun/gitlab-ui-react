@@ -28,6 +28,7 @@ const WATCHED_CLASSES = new Set([
   "custom-checkbox",
   "custom-radio",
   "custom-range",
+  "custom-select",
   "form-control",
   "form-control-plaintext",
   "invalid-feedback",
@@ -38,6 +39,7 @@ const MARKER_CLASSES = new Set([
   "gl-form-radio-group",
   "gl-form-input",
   "gl-form-date",
+  "gl-form-select",
 ]);
 
 function selectorClassNames(selector) {
@@ -67,7 +69,6 @@ test("compiled output contains no @apply and no unexpected Bootstrap globals", a
   expect(css).not.toMatch(/@apply/u);
   // No full-Bootstrap constructs that were deliberately omitted.
   expect(css).not.toMatch(/\.form-check/u);
-  expect(css).not.toMatch(/\.custom-select/u);
   expect(css).not.toMatch(/\.custom-file/u);
   expect(css).not.toMatch(/\.custom-switch/u);
   expect(css).not.toMatch(/\.input-group/u);
@@ -85,6 +86,7 @@ test("key compatibility selectors exist", async () => {
   expect(selectors).toContain(".gl-form-input.custom-range::-webkit-slider-thumb");
   expect(selectors).toContain(".gl-form-input.custom-range::-moz-range-track");
   expect(selectors).toContain(".gl-form-date .invalid-feedback");
+  expect(selectors).toContain(".gl-form-select.custom-select");
 }, 30000);
 
 test("shared blocks are emitted exactly once", async () => {

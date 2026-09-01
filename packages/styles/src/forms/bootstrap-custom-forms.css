@@ -8,10 +8,11 @@
  * (Bootstrap v4.6 semantics with the GitLab variable overrides from
  * packages/gitlab-ui/src/scss/variables.scss).
  *
- * Subset rationale: covers exactly the two Bootstrap foundations the current
- * components render — the `.custom-control*` checkbox/radio base (GlFormCheckbox,
- * GlFormRadio, and GlFormRadioGroup's generated radios) and the `.custom-range`
- * thumb/track base (GlFormInput type="range").
+ * Subset rationale: covers the Bootstrap foundations shared from this file —
+ * the `.custom-control*` checkbox/radio base (GlFormCheckbox, GlFormRadio, and
+ * GlFormRadioGroup's generated radios) and the `.custom-range` thumb/track base
+ * (GlFormInput type="range"). GlFormSelect keeps its scoped `.custom-select`
+ * foundation in its component-private CSS.
  *
  * Values are the upstream Sass expansions: `$custom-control-gutter: .5rem`,
  * `$custom-control-indicator-size: 1rem`, `$font-size-base: 1rem`,
@@ -26,8 +27,8 @@
  * `$form-feedback-valid-color`/`$form-feedback-invalid-color` overrides.
  *
  * Deliberately omitted (no current consumer):
- * - `.custom-control-inline`, `.custom-switch`, `.custom-select`,
- *   `.custom-file` and all `.input-group` rules;
+ * - `.custom-control-inline`, `.custom-switch`, `.custom-file` and all
+ *   `.input-group` rules;
  * - the `.was-validated :valid`/`:invalid` native validation selectors (only
  *   the component-controlled `.is-valid`/`.is-invalid` classes are ported);
  * - the legacy `::-ms-*` pseudo-element rules;
