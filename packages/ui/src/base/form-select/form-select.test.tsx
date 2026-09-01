@@ -52,6 +52,14 @@ describe("GlFormSelect", () => {
       expect(markup).toMatch(/^<span class="gl-form-select-wrapper wrapper-class">/);
       expect(markup).toContain("class=\"gl-form-select custom-select select-class\"");
     });
+
+    it("hides both the wrapper and native select", () => {
+      const markup = renderSelect({ hidden: true });
+
+      expect(markup).toMatch(/^<span[^>]*hidden=""/);
+      expect(markup).toMatch(/<select[^>]*hidden=""/);
+      expect(markup.match(/hidden=""/gu)).toHaveLength(2);
+    });
   });
 
   describe("validation and form state", () => {

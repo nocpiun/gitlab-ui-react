@@ -2820,6 +2820,11 @@ kbd {
   vertical-align: middle;
   transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+@media (prefers-reduced-motion: reduce) {
+  .gl-form-select.custom-select {
+    transition: none;
+  }
+}
 .gl-form-select.custom-select[multiple], .gl-form-select.custom-select[size]:not([size="1"]) {
   height: auto;
   padding-right: 0.75rem;

@@ -151,7 +151,7 @@ test("$input-transition and $custom-forms-transition are consistent and reduced-
     && normalizedDeclarations(rule).some((decl) => decl.startsWith("transition-timing-function")));
   expect(timingOverrides).toHaveLength(0);
 
-  // Reduced-motion overrides exist for the input and the custom controls.
+  // Reduced-motion overrides exist for the input and custom form controls.
   const reducedMotionSelectors = [];
   root.walkAtRules("media", (atRule) => {
     if(atRule.params.includes("prefers-reduced-motion")) {
@@ -166,6 +166,9 @@ test("$input-transition and $custom-forms-transition are consistent and reduced-
   ).toBe(true);
   expect(
     reducedMotionSelectors.some((selector) => selector.includes(".custom-range")),
+  ).toBe(true);
+  expect(
+    reducedMotionSelectors.some((selector) => selector.includes(".gl-form-select.custom-select")),
   ).toBe(true);
 }, 30000);
 

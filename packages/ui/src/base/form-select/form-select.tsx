@@ -117,6 +117,7 @@ const GlFormSelect = forwardRef<HTMLSelectElement, GlFormSelectProps>(function G
   children,
   className,
   defaultValue,
+  hidden,
   id,
   onChange,
   onInput,
@@ -146,7 +147,8 @@ const GlFormSelect = forwardRef<HTMLSelectElement, GlFormSelectProps>(function G
         "gl-form-select-wrapper",
         ...widthClasses(width),
         wrapperClassName,
-      ].filter(Boolean).join(" ")}>
+      ].filter(Boolean).join(" ")}
+      hidden={hidden}>
       <select
         {...elementProps}
         ref={forwardedRef}
@@ -157,6 +159,7 @@ const GlFormSelect = forwardRef<HTMLSelectElement, GlFormSelectProps>(function G
           state: computedState === true ? "valid" : computedState === false ? "invalid" : "none",
         })}
         defaultValue={defaultValue}
+        hidden={hidden}
         id={id ?? `gl-form-select-${generatedId}`}
         onChange={handleChange}
         required={required}
