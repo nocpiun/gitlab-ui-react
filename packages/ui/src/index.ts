@@ -76,6 +76,15 @@ export type {
   GlFormRadioGroupOption,
   GlFormRadioGroupProps,
 } from "./base/form-radio-group/form-radio-group";
+export { default as GlFormSelect } from "./base/form-select/form-select";
+export type {
+  GlFormSelectOption,
+  GlFormSelectOptionGroup,
+  GlFormSelectProps,
+  GlFormSelectResponsiveWidth,
+  GlFormSelectValue,
+  GlFormSelectWidth,
+} from "./base/form-select/form-select";
 export { default as GlIcon } from "./base/icon/icon";
 export type {
   GlIconProps,

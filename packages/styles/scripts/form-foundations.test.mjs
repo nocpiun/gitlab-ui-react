@@ -28,6 +28,7 @@ const WATCHED_CLASSES = new Set([
   "custom-checkbox",
   "custom-radio",
   "custom-range",
+  "custom-select",
   "form-control",
   "form-control-plaintext",
   "invalid-feedback",
@@ -38,6 +39,7 @@ const MARKER_CLASSES = new Set([
   "gl-form-radio-group",
   "gl-form-input",
   "gl-form-date",
+  "gl-form-select",
 ]);
 
 function selectorClassNames(selector) {
@@ -65,9 +67,11 @@ test("compiled output contains no @apply and no unexpected Bootstrap globals", a
   const css = root.toString();
 
   expect(css).not.toMatch(/@apply/u);
-  // No full-Bootstrap constructs that were deliberately omitted.
+  // No full-Bootstrap constructs that were deliberately omitted (the scoped
+  // `.gl-form-select.custom-select` compatibility rules are covered by the
+  // marker-scoping test below).
   expect(css).not.toMatch(/\.form-check/u);
-  expect(css).not.toMatch(/\.custom-select/u);
+  expect(css).not.toMatch(/(?<!gl-form-select)\.custom-select/u);
   expect(css).not.toMatch(/\.custom-file/u);
   expect(css).not.toMatch(/\.custom-switch/u);
   expect(css).not.toMatch(/\.input-group/u);
@@ -111,6 +115,8 @@ test("shared blocks are emitted exactly once", async () => {
   expect(css.match(/mask-image: var\(--gl-icon-check\)/gu)).toHaveLength(1);
   expect(css.match(/mask-image: var\(--gl-icon-indeterminate\)/gu)).toHaveLength(1);
   expect(css.match(/mask-image: var\(--gl-icon-radio\)/gu)).toHaveLength(1);
+  expect(css.match(/--gl-icon-select-chevron-down: url/gu)).toHaveLength(1);
+  expect(css.match(/mask-image: var\(--gl-icon-select-chevron-down\)/gu)).toHaveLength(1);
 }, 30000);
 
 test("foundation rules come before shared overrides and component-private CSS", async () => {

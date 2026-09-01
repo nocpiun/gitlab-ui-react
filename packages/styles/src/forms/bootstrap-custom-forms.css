@@ -8,17 +8,20 @@
  * (Bootstrap v4.6 semantics with the GitLab variable overrides from
  * packages/gitlab-ui/src/scss/variables.scss).
  *
- * Subset rationale: covers exactly the two Bootstrap foundations the current
+ * Subset rationale: covers exactly the three Bootstrap foundations the current
  * components render — the `.custom-control*` checkbox/radio base (GlFormCheckbox,
- * GlFormRadio, and GlFormRadioGroup's generated radios) and the `.custom-range`
- * thumb/track base (GlFormInput type="range").
+ * GlFormRadio, and GlFormRadioGroup's generated radios), the `.custom-range`
+ * thumb/track base (GlFormInput type="range") and the `.custom-select` base
+ * (GlFormSelect).
  *
  * Values are the upstream Sass expansions: `$custom-control-gutter: .5rem`,
  * `$custom-control-indicator-size: 1rem`, `$font-size-base: 1rem`,
  * `$line-height-base: 1.5`, `$custom-forms-transition:
  * background-color .15s ease-in-out, border-color .15s ease-in-out,
  * box-shadow .15s ease-in-out`, `$component-active-bg: #007bff`,
- * `$custom-range-track-bg: #dee2e6`, `$custom-range-thumb-active-bg: #b3d7ff`,
+ * `$custom-select-padding-x: .75rem`, `$custom-select-color: #4c4b51` (GitLab's
+ * `$gray-700` override), `$custom-range-track-bg: #dee2e6`,
+ * `$custom-range-thumb-active-bg: #b3d7ff`,
  * `$custom-range-thumb-disabled-bg: #adb5bd`,
  * `$custom-range-thumb-focus-box-shadow: 0 0 0 1px #fff, 0 0 0 .2rem
  * rgba(0, 123, 255, .25)`; box-shadow mixins expand to nothing because
@@ -26,21 +29,26 @@
  * `$form-feedback-valid-color`/`$form-feedback-invalid-color` overrides.
  *
  * Deliberately omitted (no current consumer):
- * - `.custom-control-inline`, `.custom-switch`, `.custom-select`,
+ * - `.custom-control-inline`, `.custom-switch`,
  *   `.custom-file` and all `.input-group` rules;
  * - the `.was-validated :valid`/`:invalid` native validation selectors (only
  *   the component-controlled `.is-valid`/`.is-invalid` classes are ported);
  * - the legacy `::-ms-*` pseudo-element rules;
  * - the Bootstrap default state colors (checked/focus/disabled) that the
  *   GitLab overrides in gitlab-check-controls.css replace upstream;
+ * - the `.custom-select` properties that the `.gl-form-select` GitLab override
+ *   replaces upstream (height, padding, typography, colors, background,
+ *   border, radius, `appearance`), its `:focus-visible` state, and the
+ *   `.custom-select-sm`/`.custom-select-lg` sizing (every property they set is
+ *   replaced by the `.gl-form-select` override);
  * - `.custom-checkbox`/`.custom-radio` indicator shapes, which stay in the
  *   component-private CSS.
  *
  * React scoping adaptation: every rule is scoped under the component marker
- * classes (`.gl-form-checkbox`, `.gl-form-radio`, `.gl-form-input`) so
- * consumer markup that coincidentally uses Bootstrap class names is not
- * affected. One marker class is added uniformly to every upstream selector,
- * preserving all upstream specificity relationships.
+ * classes (`.gl-form-checkbox`, `.gl-form-radio`, `.gl-form-input`,
+ * `.gl-form-select`) so consumer markup that coincidentally uses Bootstrap
+ * class names is not affected. One marker class is added uniformly to every
+ * upstream selector, preserving all upstream specificity relationships.
  */
 
 /* `.custom-control` base. */
@@ -282,4 +290,37 @@
 
 .gl-form-input.custom-range:disabled::-moz-range-track {
   cursor: default;
+}
+
+/* `.custom-select` base. Only the properties that the `.gl-form-select`
+ * GitLab override does not already replace; the `:focus-visible` state is
+ * replaced by the GitLab `gl-focus` treatment. */
+.gl-form-select.custom-select {
+  display: inline-block;
+  width: 100%;
+  vertical-align: middle;
+  /* `$custom-forms-transition` */
+  transition:
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gl-form-select.custom-select {
+    transition: none;
+  }
+}
+
+/* A multiple or sized select has no dropdown indicator, so the indicator
+ * padding is removed. */
+.gl-form-select.custom-select[multiple],
+.gl-form-select.custom-select[size]:not([size="1"]) {
+  padding-right: 0.75rem;
+}
+
+/* Remove the outline from the select box in Firefox. */
+.gl-form-select.custom-select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #4c4b51;
 }

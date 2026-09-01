@@ -1,0 +1,188 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/form/form_select/form_select.scss
+ *
+ * Component-private rules: the `.gl-form-select` control states, the wrapper
+ * chevron icon and the width aliases. The Bootstrap `.custom-select` base
+ * (width, vertical alignment, transition, multiple/size padding-right reset)
+ * lives in packages/styles/src/forms/bootstrap-custom-forms.css.
+ *
+ * Adaptations:
+ * - Sass variables expand to the token custom properties
+ *   (`$gl-border-size-1` → 1px, `$gl-spacing-scale-2 + $gl-spacing-scale-6` →
+ *   `calc(var(--gl-spacing-scale-2) + var(--gl-spacing-scale-6))`).
+ * - `gl-focus($color, $important: true)` expands to the same box-shadow ring
+ *   as `.gl-form-input` in gitlab-text-controls.css, with `!important`.
+ * - Responsive width classes use plain media queries with the shared
+ *   breakpoints; upstream additionally emits container queries gated behind
+ *   `html.with-gl-container-queries`, which this repository does not support.
+ */
+
+.gl-form-select {
+  @apply gl-text-base;
+  @apply gl-font-regular;
+  @apply gl-opacity-10;
+  @apply gl-leading-normal;
+  @apply gl-py-3;
+  @apply gl-pl-4;
+  @apply gl-h-auto;
+  @apply gl-truncate;
+  @apply gl-bg-no-repeat;
+  @apply gl-border-none;
+  @apply gl-rounded-control;
+  appearance: none;
+  background-color: var(--gl-control-background-color-default);
+  background-image: none;
+  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-default);
+  @apply gl-text-default;
+  padding-right: calc(var(--gl-spacing-scale-2) + var(--gl-spacing-scale-6));
+  position: relative;
+}
+
+@media (forced-colors: active) {
+  .gl-form-select {
+    box-shadow: none;
+    border: 1px solid;
+  }
+}
+
+.gl-form-select:hover {
+  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-hover);
+}
+
+/* `gl-focus($color: var(--gl-control-border-color-focus), $important: true)` */
+.gl-form-select:focus-visible,
+.gl-form-select:focus-visible:active {
+  box-shadow:
+    inset 0 0 0 1px var(--gl-control-border-color-focus),
+    0 0 0 1px var(--gl-focus-ring-inner-color),
+    0 0 0 3px var(--gl-focus-ring-outer-color) !important;
+  outline: none !important;
+}
+
+@media (forced-colors: active) {
+  .gl-form-select:focus-visible,
+  .gl-form-select:focus-visible:active {
+    outline: 2px solid LinkText !important;
+  }
+}
+
+.gl-form-select:disabled {
+  @apply gl-cursor-not-allowed;
+  @apply gl-text-disabled;
+  background-color: var(--gl-control-background-color-disabled);
+  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-disabled);
+}
+
+.gl-form-select.is-invalid:not(:disabled) {
+  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-error);
+}
+
+.gl-form-select.is-invalid:not(:disabled):hover {
+  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-error);
+}
+
+/* `gl-focus($color: var(--gl-control-border-color-error), $important: true)` */
+.gl-form-select.is-invalid:not(:disabled):focus-visible {
+  box-shadow:
+    inset 0 0 0 1px var(--gl-control-border-color-error),
+    0 0 0 1px var(--gl-focus-ring-inner-color),
+    0 0 0 3px var(--gl-focus-ring-outer-color) !important;
+  outline: none !important;
+}
+
+@media (forced-colors: active) {
+  .gl-form-select.is-invalid:not(:disabled):focus-visible {
+    outline: 2px solid LinkText !important;
+  }
+}
+
+/* Chevron dropdown icon.
+ * References the wrapper because a select cannot have pseudo-elements reliably. */
+.gl-form-select-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.gl-form-select-wrapper::after {
+  content: "";
+  background-color: var(--gl-icon-color-default);
+  /* Shared glyph custom property (`--gl-icon-select-chevron-down`,
+   * `$gl-icon-select-chevron-down` upstream). */
+  mask-image: var(--gl-icon-select-chevron-down);
+  mask-repeat: no-repeat;
+  mask-position: center center;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  right: var(--gl-spacing-scale-4);
+  transform: translateY(-50%);
+  height: 5px;
+  width: 8px;
+}
+
+@media (forced-colors: active) {
+  .gl-form-select-wrapper::after {
+    background-color: CanvasText;
+  }
+}
+
+.gl-form-select-wrapper:has(> .gl-form-select:disabled)::after {
+  background-color: var(--gl-icon-color-disabled);
+}
+
+@media (forced-colors: active) {
+  .gl-form-select-wrapper:has(> .gl-form-select:disabled)::after {
+    background-color: GrayText;
+  }
+}
+
+/* `$gl-form-input-sizes` at `$grid-size: 8px` */
+.gl-form-select-xs {
+  max-width: 5rem;
+}
+.gl-form-select-sm {
+  max-width: 10rem;
+}
+.gl-form-select-md {
+  max-width: 15rem;
+}
+.gl-form-select-lg {
+  max-width: 20rem;
+}
+.gl-form-select-xl {
+  max-width: 35rem;
+}
+
+@media (min-width: 576px) {
+  .gl-sm-form-select-xs { max-width: 5rem; }
+  .gl-sm-form-select-sm { max-width: 10rem; }
+  .gl-sm-form-select-md { max-width: 15rem; }
+  .gl-sm-form-select-lg { max-width: 20rem; }
+  .gl-sm-form-select-xl { max-width: 35rem; }
+}
+
+@media (min-width: 768px) {
+  .gl-md-form-select-xs { max-width: 5rem; }
+  .gl-md-form-select-sm { max-width: 10rem; }
+  .gl-md-form-select-md { max-width: 15rem; }
+  .gl-md-form-select-lg { max-width: 20rem; }
+  .gl-md-form-select-xl { max-width: 35rem; }
+}
+
+@media (min-width: 992px) {
+  .gl-lg-form-select-xs { max-width: 5rem; }
+  .gl-lg-form-select-sm { max-width: 10rem; }
+  .gl-lg-form-select-md { max-width: 15rem; }
+  .gl-lg-form-select-lg { max-width: 20rem; }
+  .gl-lg-form-select-xl { max-width: 35rem; }
+}
+
+@media (min-width: 1200px) {
+  .gl-xl-form-select-xs { max-width: 5rem; }
+  .gl-xl-form-select-sm { max-width: 10rem; }
+  .gl-xl-form-select-md { max-width: 15rem; }
+  .gl-xl-form-select-lg { max-width: 20rem; }
+  .gl-xl-form-select-xl { max-width: 35rem; }
+}
