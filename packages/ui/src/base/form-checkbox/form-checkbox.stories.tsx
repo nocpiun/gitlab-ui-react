@@ -71,6 +71,17 @@ export const Default: Story = {
     const helpLabel = helpTexts[0].parentElement!;
     await expect(helpLabel).toHaveClass("custom-control-label");
     await expect(getComputedStyle(helpLabel).display).toBe("inline-block");
+
+    // The shared custom-control foundation: the GitLab padding override wins
+    // over the scoped Bootstrap base, and the box carries
+    // `$custom-forms-transition`.
+    const wrapper = option.closest(".gl-form-checkbox")!;
+    await expect(getComputedStyle(wrapper).paddingLeft).toBe("16px");
+    await expect(getComputedStyle(wrapper).minHeight).toBe("24px");
+    const indicator = getComputedStyle(helpLabel, "::before");
+    await expect(indicator.transitionProperty).toBe("background-color, border-color, box-shadow");
+    await expect(indicator.transitionDuration).toBe("0.15s, 0.15s, 0.15s");
+    await expect(indicator.transitionTimingFunction).toBe("ease-in-out, ease-in-out, ease-in-out");
   },
 };
 

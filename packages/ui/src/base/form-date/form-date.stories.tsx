@@ -142,6 +142,10 @@ export const InvalidDate: Story = {
     const feedback = canvas.getByText("Must be before 2020-01-31.");
     await expect(feedback).toHaveClass("invalid-feedback");
     await expect(input.getAttribute("aria-describedby")).toContain(feedback.id);
+
+    // The shared feedback foundation: visible block with the GitLab spacing.
+    await expect(getComputedStyle(feedback).display).toBe("block");
+    await expect(getComputedStyle(feedback).marginTop).toBe("4px");
   },
 };
 

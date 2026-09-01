@@ -2,207 +2,96 @@
  * Ported from GitLab UI:
  * packages/gitlab-ui/src/components/base/form/form_input/form_input.scss
  *
+ * Component-private rules only: the color-input compensation, the range
+ * validation states and the width aliases. The Bootstrap `.form-control`
+ * transition lives in packages/styles/src/forms/bootstrap-forms.css, the
+ * `.custom-range` thumb/track base in
+ * packages/styles/src/forms/bootstrap-custom-forms.css, and the shared
+ * `.gl-form-input` GitLab states in
+ * packages/styles/src/forms/gitlab-text-controls.css.
+ *
  * Adaptations:
- * - Bootstrap's `.form-control` / `.form-control-plaintext` / `.custom-range`
- *   base styles are not shipped in this repository; `display: block` and
- *   `width: 100%` are added to `.gl-form-input` as compensation. The vendor
- *   `.custom-range` base (thumb/track styling) is deliberately not ported, so
- *   `type="range"` keeps the browser's native appearance.
  * - The `.input-group > .custom-range` rules belong to the form-input-group
  *   composition and are deferred to that component's port. The same applies
- *   to the `.form-control-sm`/`.form-control-lg` color-input sizing.
+ *   to the `.form-control-sm`/`.form-control-lg` color-input sizing (no
+ *   component exposes a size prop).
  * - The custom-range validation states only cover the component-controlled
  *   `.is-valid`/`.is-invalid` classes; the `.was-validated :valid`/`:invalid`
- *   native validation selectors, the `~ .valid-feedback` reveal rules (this
- *   repository reveals feedback via the `!gl-block` utility), and the legacy
- *   `::-ms-*` pseudo-element rules are not ported.
+ *   native validation selectors, the `~ .valid-feedback` reveal rules and the
+ *   legacy `::-ms-*` pseudo-element rules are not ported.
  * - Responsive width classes use plain media queries with the shared
  *   breakpoints; upstream additionally emits container queries gated behind
  *   `html.with-gl-container-queries`, which this repository does not support.
+ * - Selectors are scoped under the `.gl-form-input` marker so consumer
+ *   markup that coincidentally uses Bootstrap class names is not affected.
  */
 
 /* Bootstrap v4.x does not have special styling for color input,
  * so we define some basic styles to compensate. */
-input[type="color"].form-control {
+input[type="color"].gl-form-input.form-control {
   height: calc(1.5em + 0.75rem + 2px);
   /* We use the smaller padding to make the color block larger */
   padding: 0.125rem 0.25rem;
 }
 
-input[type="color"].form-control:disabled {
+input[type="color"].gl-form-input.form-control:disabled {
   /* Disabled styling needs to be a bit different than regular inputs */
   background-color: #737278;
   opacity: 0.65;
 }
 
-/* Bootstrap's `.form-control` base provides `$input-transition` upstream.
- * Use ease-out in the unfocused state so the focus ring starts receding
- * immediately on blur; the focus-visible rule restores the upstream entrance
- * curve. */
-.gl-form-input.form-control {
-  transition: border-color 0.15s ease-out, box-shadow 0.15s ease-out;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .gl-form-input.form-control {
-    transition: none;
-  }
-}
-
-.gl-form-input,
-.gl-form-input.form-control {
-  appearance: none;
-  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-default);
-  background: var(--gl-control-background-color-default);
-  /* Bootstrap's `.form-control` base provides these upstream. */
-  @apply gl-block gl-w-full gl-rounded-control gl-font-regular gl-text-base gl-leading-normal gl-py-3 gl-px-4 gl-h-auto gl-border-none gl-text-default;
-}
-
-/* Bootstrap's deprecated `form-control-focus` mixin output; the
- * `:not(.form-control-plaintext):focus-visible` rule below overrides it. */
-.gl-form-input:focus-visible,
-.gl-form-input.form-control:focus-visible {
-  color: #4c4b51;
-  background-color: #fff;
-  border-color: #80bdff;
-  outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-@media (forced-colors: active) {
-  .gl-form-input,
-  .gl-form-input.form-control {
-    border: 1px solid;
-  }
-}
-
-.gl-form-input:hover,
-.gl-form-input.form-control:hover {
-  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-hover);
-}
-
-.gl-form-input:not(.gl-form-input-not-readonly):not(:disabled):not(.form-control-plaintext):not(
-    [type="color"]
-  ):read-only,
-.gl-form-input.form-control:not(.gl-form-input-not-readonly):not(:disabled):not(
-    .form-control-plaintext
-  ):not([type="color"]):read-only {
-  background: var(--gl-control-background-color-readonly);
-  box-shadow: none;
-}
-
-.gl-form-input:disabled,
-.gl-form-input.form-control:disabled {
-  @apply gl-cursor-not-allowed;
-  background: var(--gl-control-background-color-disabled);
-  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-disabled);
-  @apply gl-text-disabled;
-}
-
-/* `gl-focus($color: var(--gl-control-border-color-focus))` */
-.gl-form-input:not(.form-control-plaintext):focus-visible,
-.gl-form-input.form-control:not(.form-control-plaintext):focus-visible {
-  background: var(--gl-control-background-color-default);
-  @apply gl-text-default;
-  transition-timing-function: ease-in-out, ease-in-out;
-  box-shadow:
-    inset 0 0 0 1px var(--gl-control-border-color-focus),
-    0 0 0 1px var(--gl-focus-ring-inner-color),
-    0 0 0 3px var(--gl-focus-ring-outer-color);
-  outline: none;
-}
-
-@media (forced-colors: active) {
-  .gl-form-input:not(.form-control-plaintext):focus-visible,
-  .gl-form-input.form-control:not(.form-control-plaintext):focus-visible {
-    outline: 2px solid LinkText;
-  }
-}
-
-.gl-form-input.is-invalid,
-.gl-form-input.form-control.is-invalid {
-  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-error);
-}
-
-/* `gl-focus($color: var(--gl-control-border-color-error))` */
-.gl-form-input.is-invalid:focus-visible,
-.gl-form-input.form-control.is-invalid:focus-visible {
-  box-shadow:
-    inset 0 0 0 1px var(--gl-control-border-color-error),
-    0 0 0 1px var(--gl-focus-ring-inner-color),
-    0 0 0 3px var(--gl-focus-ring-outer-color);
-  outline: none;
-}
-
-@media (forced-colors: active) {
-  .gl-form-input.is-invalid:focus-visible,
-  .gl-form-input.form-control.is-invalid:focus-visible {
-    outline: 2px solid LinkText;
-  }
-}
-
-.gl-form-input::placeholder,
-.gl-form-input.form-control::placeholder {
-  color: var(--gl-control-placeholder-color);
-}
-
-.gl-form-input.form-control-plaintext,
-.gl-form-input.form-control.form-control-plaintext {
-  @apply gl-shadow-none;
-}
-
 /* `<gl-form-input>` custom-range validation styling (standalone control only) */
-.custom-range.is-valid:focus::-webkit-slider-thumb,
-.custom-range.is-invalid:focus::-webkit-slider-thumb {
+.gl-form-input.custom-range.is-valid:focus::-webkit-slider-thumb,
+.gl-form-input.custom-range.is-invalid:focus::-webkit-slider-thumb {
   box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem var(--_range-focus-color);
 }
 
-.custom-range.is-valid:focus::-moz-range-thumb,
-.custom-range.is-invalid:focus::-moz-range-thumb {
+.gl-form-input.custom-range.is-valid:focus::-moz-range-thumb,
+.gl-form-input.custom-range.is-invalid:focus::-moz-range-thumb {
   box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem var(--_range-focus-color);
 }
 
-.custom-range.is-valid::-webkit-slider-thumb,
-.custom-range.is-invalid::-webkit-slider-thumb {
+.gl-form-input.custom-range.is-valid::-webkit-slider-thumb,
+.gl-form-input.custom-range.is-invalid::-webkit-slider-thumb {
   background-color: var(--_range-color);
   background-image: none;
 }
 
-.custom-range.is-valid::-webkit-slider-thumb:active,
-.custom-range.is-invalid::-webkit-slider-thumb:active {
+.gl-form-input.custom-range.is-valid::-webkit-slider-thumb:active,
+.gl-form-input.custom-range.is-invalid::-webkit-slider-thumb:active {
   background-color: var(--_range-focus-color);
   background-image: none;
 }
 
-.custom-range.is-valid::-webkit-slider-runnable-track,
-.custom-range.is-invalid::-webkit-slider-runnable-track {
+.gl-form-input.custom-range.is-valid::-webkit-slider-runnable-track,
+.gl-form-input.custom-range.is-invalid::-webkit-slider-runnable-track {
   background-color: var(--_range-track-color);
 }
 
-.custom-range.is-valid::-moz-range-thumb,
-.custom-range.is-invalid::-moz-range-thumb {
+.gl-form-input.custom-range.is-valid::-moz-range-thumb,
+.gl-form-input.custom-range.is-invalid::-moz-range-thumb {
   background-color: var(--_range-color);
   background-image: none;
 }
 
-.custom-range.is-valid::-moz-range-thumb:active,
-.custom-range.is-invalid::-moz-range-thumb:active {
+.gl-form-input.custom-range.is-valid::-moz-range-thumb:active,
+.gl-form-input.custom-range.is-invalid::-moz-range-thumb:active {
   background-color: var(--_range-focus-color);
   background-image: none;
 }
 
-.custom-range.is-valid::-moz-range-track,
-.custom-range.is-invalid::-moz-range-track {
+.gl-form-input.custom-range.is-valid::-moz-range-track,
+.gl-form-input.custom-range.is-invalid::-moz-range-track {
   background: var(--_range-track-color);
 }
 
-.custom-range.is-valid {
+.gl-form-input.custom-range.is-valid {
   --_range-color: #2f7549;
   --_range-focus-color: #88cfa2;
   --_range-track-color: rgba(47, 117, 73, 0.35);
 }
 
-.custom-range.is-invalid {
+.gl-form-input.custom-range.is-invalid {
   --_range-color: #c02f12;
   --_range-focus-color: #f5a190;
   --_range-track-color: rgba(192, 47, 18, 0.35);

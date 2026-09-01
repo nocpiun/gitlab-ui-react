@@ -11,7 +11,7 @@
 
 - `packages/ui`：React 组件库，包名为 `gitlab-ui-react`。组件源码位于 `src/base/<component>/`，公共 API 从 `src/index.ts` 导出，Vite 负责 JS 构建，TypeScript 单独生成声明文件。
 - `packages/tokens`：设计 token 的源 JSON、Style Dictionary 构建脚本及生成产物，包名为 `@gitlab-ui-react/tokens`。
-- `packages/styles`：基础样式、组件样式、Tailwind 集成和最终 CSS，包名为 `@gitlab-ui-react/styles`，通过 `workspace:^` 依赖 tokens。
+- `packages/styles`：基础样式、组件样式、Tailwind 集成和最终 CSS，包名为 `@gitlab-ui-react/styles`，通过 `workspace:^` 依赖 tokens。跨组件共享的表单样式（Bootstrap 兼容层、GitLab shared override、feedback）集中在 `src/forms/`，由 `src/components.css` 在任何组件私有 CSS 之前导入。
 - `apps`：workspace 已预留的应用目录；不存在具体应用时不要假设其运行方式。
 - 各包的 `package.json`、根 `pnpm-workspace.yaml` 和 `pnpm-lock.yaml` 是依赖、版本与脚本的事实来源。
 

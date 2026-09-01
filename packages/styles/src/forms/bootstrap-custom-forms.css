@@ -1,0 +1,285 @@
+/**
+ * Bootstrap compatibility: custom form controls.
+ *
+ * Upstream sources:
+ * - packages/gitlab-ui/src/vendor/bootstrap/scss/_custom-forms.scss
+ * - the `.custom-control-input` part of the `form-validation-state` mixin in
+ *   packages/gitlab-ui/src/vendor/bootstrap/scss/mixins/_forms.scss
+ * (Bootstrap v4.6 semantics with the GitLab variable overrides from
+ * packages/gitlab-ui/src/scss/variables.scss).
+ *
+ * Subset rationale: covers exactly the two Bootstrap foundations the current
+ * components render — the `.custom-control*` checkbox/radio base (GlFormCheckbox,
+ * GlFormRadio, and GlFormRadioGroup's generated radios) and the `.custom-range`
+ * thumb/track base (GlFormInput type="range").
+ *
+ * Values are the upstream Sass expansions: `$custom-control-gutter: .5rem`,
+ * `$custom-control-indicator-size: 1rem`, `$font-size-base: 1rem`,
+ * `$line-height-base: 1.5`, `$custom-forms-transition:
+ * background-color .15s ease-in-out, border-color .15s ease-in-out,
+ * box-shadow .15s ease-in-out`, `$component-active-bg: #007bff`,
+ * `$custom-range-track-bg: #dee2e6`, `$custom-range-thumb-active-bg: #b3d7ff`,
+ * `$custom-range-thumb-disabled-bg: #adb5bd`,
+ * `$custom-range-thumb-focus-box-shadow: 0 0 0 1px #fff, 0 0 0 .2rem
+ * rgba(0, 123, 255, .25)`; box-shadow mixins expand to nothing because
+ * `$enable-shadows: false`. The validation colors are GitLab's
+ * `$form-feedback-valid-color`/`$form-feedback-invalid-color` overrides.
+ *
+ * Deliberately omitted (no current consumer):
+ * - `.custom-control-inline`, `.custom-switch`, `.custom-select`,
+ *   `.custom-file` and all `.input-group` rules;
+ * - the `.was-validated :valid`/`:invalid` native validation selectors (only
+ *   the component-controlled `.is-valid`/`.is-invalid` classes are ported);
+ * - the legacy `::-ms-*` pseudo-element rules;
+ * - the Bootstrap default state colors (checked/focus/disabled) that the
+ *   GitLab overrides in gitlab-check-controls.css replace upstream;
+ * - `.custom-checkbox`/`.custom-radio` indicator shapes, which stay in the
+ *   component-private CSS.
+ *
+ * React scoping adaptation: every rule is scoped under the component marker
+ * classes (`.gl-form-checkbox`, `.gl-form-radio`, `.gl-form-input`) so
+ * consumer markup that coincidentally uses Bootstrap class names is not
+ * affected. One marker class is added uniformly to every upstream selector,
+ * preserving all upstream specificity relationships.
+ */
+
+/* `.custom-control` base. */
+.gl-form-checkbox.custom-control,
+.gl-form-radio.custom-control {
+  position: relative;
+  z-index: 1;
+  display: block;
+  min-height: 1.5rem;
+  padding-left: 1.5rem;
+  print-color-adjust: exact;
+}
+
+.gl-form-checkbox .custom-control-input,
+.gl-form-radio .custom-control-input {
+  position: absolute;
+  left: 0;
+  z-index: -1; /* Put the input behind the label so it doesn't overlay text */
+  width: 1rem;
+  height: 1.25rem;
+  opacity: 0;
+}
+
+/* The active (pressed) state. */
+.gl-form-checkbox .custom-control-input:not(:disabled):active ~ .custom-control-label::before,
+.gl-form-radio .custom-control-input:not(:disabled):active ~ .custom-control-label::before {
+  background-color: #b3d7ff;
+  border-color: #b3d7ff;
+}
+
+.gl-form-checkbox .custom-control-label,
+.gl-form-radio .custom-control-label {
+  position: relative;
+  /* Bootstrap Reboot sets every label to inline-block upstream. */
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: top;
+}
+
+/* Background-color and border (the box) */
+.gl-form-checkbox .custom-control-label::before,
+.gl-form-radio .custom-control-label::before {
+  position: absolute;
+  top: 0.25rem;
+  left: -1.5rem;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
+  content: "";
+  border-width: 1px;
+  border-style: solid;
+  /* `$custom-forms-transition` */
+  transition:
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gl-form-checkbox .custom-control-label::before,
+  .gl-form-radio .custom-control-label::before {
+    transition: none;
+  }
+}
+
+/* Foreground (the indicator icon) */
+.gl-form-checkbox .custom-control-label::after,
+.gl-form-radio .custom-control-label::after {
+  position: absolute;
+  top: 0.25rem;
+  left: -1.5rem;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  content: "";
+  background: 50% / 50% 50% no-repeat;
+}
+
+/* `form-validation-state` for `.custom-control-input`; only the
+ * component-controlled `.is-valid` / `.is-invalid` selectors. */
+.gl-form-checkbox .custom-control-input.is-valid ~ .custom-control-label,
+.gl-form-radio .custom-control-input.is-valid ~ .custom-control-label {
+  color: #2f7549;
+}
+
+.gl-form-checkbox .custom-control-input.is-valid ~ .custom-control-label::before,
+.gl-form-radio .custom-control-input.is-valid ~ .custom-control-label::before {
+  border-color: #2f7549;
+}
+
+.gl-form-checkbox .custom-control-input.is-valid:checked ~ .custom-control-label::before,
+.gl-form-radio .custom-control-input.is-valid:checked ~ .custom-control-label::before {
+  background-color: #3e9960;
+  border-color: #3e9960;
+}
+
+.gl-form-checkbox .custom-control-input.is-valid:focus-visible ~ .custom-control-label::before,
+.gl-form-radio .custom-control-input.is-valid:focus-visible ~ .custom-control-label::before {
+  box-shadow: 0 0 0 0.2rem rgba(47, 117, 73, 0.25);
+}
+
+.gl-form-checkbox .custom-control-input.is-valid:focus-visible:not(:checked)
+  ~ .custom-control-label::before,
+.gl-form-radio .custom-control-input.is-valid:focus-visible:not(:checked)
+  ~ .custom-control-label::before {
+  border-color: #2f7549;
+}
+
+.gl-form-checkbox .custom-control-input.is-invalid ~ .custom-control-label,
+.gl-form-radio .custom-control-input.is-invalid ~ .custom-control-label {
+  color: #c02f12;
+}
+
+.gl-form-checkbox .custom-control-input.is-invalid ~ .custom-control-label::before,
+.gl-form-radio .custom-control-input.is-invalid ~ .custom-control-label::before {
+  border-color: #c02f12;
+}
+
+.gl-form-checkbox .custom-control-input.is-invalid:checked ~ .custom-control-label::before,
+.gl-form-radio .custom-control-input.is-invalid:checked ~ .custom-control-label::before {
+  background-color: #ea3e1b;
+  border-color: #ea3e1b;
+}
+
+.gl-form-checkbox .custom-control-input.is-invalid:focus-visible ~ .custom-control-label::before,
+.gl-form-radio .custom-control-input.is-invalid:focus-visible ~ .custom-control-label::before {
+  box-shadow: 0 0 0 0.2rem rgba(192, 47, 18, 0.25);
+}
+
+.gl-form-checkbox .custom-control-input.is-invalid:focus-visible:not(:checked)
+  ~ .custom-control-label::before,
+.gl-form-radio .custom-control-input.is-invalid:focus-visible:not(:checked)
+  ~ .custom-control-label::before {
+  border-color: #c02f12;
+}
+
+/* `.custom-range` base (thumb/track). */
+.gl-form-input.custom-range {
+  width: 100%;
+  height: 1.4rem;
+  padding: 0; /* Need to reset padding */
+  background-color: transparent;
+  appearance: none;
+}
+
+.gl-form-input.custom-range:focus-visible {
+  outline: 0;
+}
+
+/* Pseudo-elements must be split across multiple rulesets to have an effect. */
+.gl-form-input.custom-range:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.gl-form-input.custom-range:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.gl-form-input.custom-range::-moz-focus-outer {
+  border: 0;
+}
+
+.gl-form-input.custom-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  margin-top: -0.25rem; /* WebKit specific */
+  background-color: #007bff;
+  border: 0;
+  border-radius: 1rem;
+  /* `$custom-forms-transition` */
+  transition:
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+
+.gl-form-input.custom-range::-webkit-slider-thumb:active {
+  background-color: #b3d7ff;
+}
+
+.gl-form-input.custom-range::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 0.5rem;
+  color: transparent;
+  cursor: pointer;
+  background-color: #dee2e6;
+  border-color: transparent;
+  border-radius: 1rem;
+}
+
+.gl-form-input.custom-range::-moz-range-thumb {
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  background-color: #007bff;
+  border: 0;
+  border-radius: 1rem;
+  /* `$custom-forms-transition` */
+  transition:
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+
+.gl-form-input.custom-range::-moz-range-thumb:active {
+  background-color: #b3d7ff;
+}
+
+.gl-form-input.custom-range::-moz-range-track {
+  width: 100%;
+  height: 0.5rem;
+  color: transparent;
+  cursor: pointer;
+  background-color: #dee2e6;
+  border-color: transparent;
+  border-radius: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gl-form-input.custom-range::-webkit-slider-thumb,
+  .gl-form-input.custom-range::-moz-range-thumb {
+    transition: none;
+  }
+}
+
+.gl-form-input.custom-range:disabled::-webkit-slider-thumb {
+  background-color: #adb5bd;
+}
+
+.gl-form-input.custom-range:disabled::-webkit-slider-runnable-track {
+  cursor: default;
+}
+
+.gl-form-input.custom-range:disabled::-moz-range-thumb {
+  background-color: #adb5bd;
+}
+
+.gl-form-input.custom-range:disabled::-moz-range-track {
+  cursor: default;
+}

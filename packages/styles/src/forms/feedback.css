@@ -1,0 +1,26 @@
+/**
+ * Bootstrap compatibility: form validation feedback.
+ *
+ * Upstream sources:
+ * - the `.invalid-feedback` base of the `form-validation-state` mixin in
+ *   packages/gitlab-ui/src/vendor/bootstrap/scss/mixins/_forms.scss
+ *   (Bootstrap v4.6 semantics);
+ * - the color override in
+ *   packages/gitlab-ui/src/components/base/form/form_group/form_group.scss.
+ *
+ * Subset rationale: covers only what GlFormDate actually depends on — the
+ * feedback display, spacing, typography and error color. The component
+ * renders the feedback element itself and only when invalid, so the upstream
+ * `display: none` default and the `.is-invalid ~ .invalid-feedback` reveal
+ * rules are not needed. Deliberately omitted (no current consumer):
+ * `.valid-feedback`, both tooltip variants and the `.was-validated` selectors.
+ *
+ * React scoping adaptation: scoped under the `.gl-form-date` marker (the only
+ * current consumer) so consumer markup using Bootstrap class names is not
+ * affected.
+ */
+
+.gl-form-date .invalid-feedback {
+  @apply gl-mt-2 gl-text-base gl-leading-normal gl-block gl-w-full;
+  color: var(--gl-control-text-color-error);
+}

@@ -1,0 +1,112 @@
+/**
+ * GitLab shared override: text controls.
+ *
+ * Upstream source: the `.gl-form-input` block of
+ * packages/gitlab-ui/src/components/base/form/form_input/form_input.scss.
+ *
+ * Shared by GlFormInput and GlFormDate (which renders GlFormInput). The
+ * `$input-transition` base lives in bootstrap-forms.css; the color-input
+ * compensation, width aliases and range validation stay in the component's
+ * private CSS.
+ */
+
+.gl-form-input,
+.gl-form-input.form-control {
+  appearance: none;
+  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-default);
+  background: var(--gl-control-background-color-default);
+  /* Bootstrap's `.form-control` base provides these upstream. */
+  @apply gl-block gl-w-full gl-rounded-control gl-font-regular gl-text-base gl-leading-normal gl-py-3 gl-px-4 gl-h-auto gl-border-none gl-text-default;
+}
+
+/* Bootstrap's deprecated `form-control-focus` mixin output; the
+ * `:not(.form-control-plaintext):focus-visible` rule below overrides it. */
+.gl-form-input:focus-visible,
+.gl-form-input.form-control:focus-visible {
+  color: #4c4b51;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+@media (forced-colors: active) {
+  .gl-form-input,
+  .gl-form-input.form-control {
+    border: 1px solid;
+  }
+}
+
+.gl-form-input:hover,
+.gl-form-input.form-control:hover {
+  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-hover);
+}
+
+.gl-form-input:not(.gl-form-input-not-readonly):not(:disabled):not(.form-control-plaintext):not(
+    [type="color"]
+  ):read-only,
+.gl-form-input.form-control:not(.gl-form-input-not-readonly):not(:disabled):not(
+    .form-control-plaintext
+  ):not([type="color"]):read-only {
+  background: var(--gl-control-background-color-readonly);
+  box-shadow: none;
+}
+
+.gl-form-input:disabled,
+.gl-form-input.form-control:disabled {
+  @apply gl-cursor-not-allowed;
+  background: var(--gl-control-background-color-disabled);
+  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-disabled);
+  @apply gl-text-disabled;
+}
+
+/* `gl-focus($color: var(--gl-control-border-color-focus))` */
+.gl-form-input:not(.form-control-plaintext):focus-visible,
+.gl-form-input.form-control:not(.form-control-plaintext):focus-visible {
+  background: var(--gl-control-background-color-default);
+  @apply gl-text-default;
+  box-shadow:
+    inset 0 0 0 1px var(--gl-control-border-color-focus),
+    0 0 0 1px var(--gl-focus-ring-inner-color),
+    0 0 0 3px var(--gl-focus-ring-outer-color);
+  outline: none;
+}
+
+@media (forced-colors: active) {
+  .gl-form-input:not(.form-control-plaintext):focus-visible,
+  .gl-form-input.form-control:not(.form-control-plaintext):focus-visible {
+    outline: 2px solid LinkText;
+  }
+}
+
+.gl-form-input.is-invalid,
+.gl-form-input.form-control.is-invalid {
+  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-error);
+}
+
+/* `gl-focus($color: var(--gl-control-border-color-error))` */
+.gl-form-input.is-invalid:focus-visible,
+.gl-form-input.form-control.is-invalid:focus-visible {
+  box-shadow:
+    inset 0 0 0 1px var(--gl-control-border-color-error),
+    0 0 0 1px var(--gl-focus-ring-inner-color),
+    0 0 0 3px var(--gl-focus-ring-outer-color);
+  outline: none;
+}
+
+@media (forced-colors: active) {
+  .gl-form-input.is-invalid:focus-visible,
+  .gl-form-input.form-control.is-invalid:focus-visible {
+    outline: 2px solid LinkText;
+  }
+}
+
+.gl-form-input::placeholder,
+.gl-form-input.form-control::placeholder {
+  color: var(--gl-control-placeholder-color);
+}
+
+.gl-form-input.form-control-plaintext,
+.gl-form-input.form-control.form-control-plaintext {
+  @apply gl-shadow-none;
+}

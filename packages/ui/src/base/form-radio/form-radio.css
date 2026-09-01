@@ -1,299 +1,31 @@
 /**
  * Ported from GitLab UI:
  * packages/gitlab-ui/src/components/base/form/form_checkbox/form_checkbox.scss
+ * (upstream form_radio.scss inherits its styles from form_checkbox.scss).
+ *
+ * Component-private rules only: the radio indicator shape and mask image. The
+ * Bootstrap `.custom-control*` base lives in
+ * packages/styles/src/forms/bootstrap-custom-forms.css; the GitLab states
+ * shared with GlFormCheckbox live in
+ * packages/styles/src/forms/gitlab-check-controls.css.
  *
  * Adaptations:
- * - Only the `.gl-form-radio` / `.custom-radio` selectors are ported; the
- *   parallel `.gl-form-checkbox` rules belong to the form-checkbox port. Both
- *   ports carry the shared `.custom-control*` base block below; once both
- *   land on main it should be extracted into a common stylesheet.
  * - The `.form-check` / `.form-check-inline` rules target bootstrap-vue's
  *   "plain" radio markup, which GlFormRadio does not render, and are not
  *   ported. The same applies to `.custom-control-inline` and the
  *   `.was-validated :valid`/`:invalid` native validation selectors.
- * - Bootstrap base declarations fully overridden by the GitLab rules (the
- *   default `#007bff`/`#626168` state colors) are omitted; the GitLab token
- *   rules win on specificity upstream.
+ * - Selectors are scoped under the `.gl-form-radio` marker so consumer
+ *   markup that coincidentally uses Bootstrap class names is not affected.
  */
 
-/* Bootstrap `.custom-control` base (`$custom-control-gutter: .5rem`,
- * `$custom-control-indicator-size: 1rem`, `$font-size-base: 1rem`,
- * `$line-height-base: 1.5`). */
-.custom-control {
-  position: relative;
-  z-index: 1;
-  display: block;
-  min-height: 1.5rem;
-  padding-left: 1.5rem;
-  print-color-adjust: exact;
-}
-
-.custom-control-input {
-  position: absolute;
-  left: 0;
-  z-index: -1; /* Put the input behind the label so it doesn't overlay text */
-  width: 1rem;
-  height: 1.25rem;
-  opacity: 0;
-}
-
-/* The active (pressed) state is the only Bootstrap interaction color the
- * GitLab overrides do not replace. */
-.custom-control-input:not(:disabled):active ~ .custom-control-label::before {
-  background-color: #b3d7ff;
-  border-color: #b3d7ff;
-}
-
-.custom-control-label {
-  position: relative;
-  margin-bottom: 0;
-  vertical-align: top;
-}
-
-/* Background-color and border (the box) */
-.custom-control-label::before {
-  position: absolute;
-  top: 0.25rem;
-  left: -1.5rem;
-  display: block;
-  width: 1rem;
-  height: 1rem;
-  pointer-events: none;
-  content: "";
-  border-width: 1px;
-  border-style: solid;
-  transition:
-    background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out,
-    box-shadow 0.15s ease-in-out;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .custom-control-label::before {
-    transition: none;
-  }
-}
-
-/* Foreground (the indicator icon) */
-.custom-control-label::after {
-  position: absolute;
-  top: 0.25rem;
-  left: -1.5rem;
-  display: block;
-  width: 1rem;
-  height: 1rem;
-  content: "";
-  background: 50% / 50% 50% no-repeat;
-}
-
 /* Bootstrap `$custom-radio-indicator-border-radius` (`50%`). */
-.custom-radio .custom-control-label::before {
+.gl-form-radio.custom-radio .custom-control-label::before {
   border-radius: 50%;
 }
 
-/* Bootstrap `form-validation-state` for `.custom-control-input`; only the
- * component-controlled `.is-valid` / `.is-invalid` selectors are ported. */
-.custom-control-input.is-valid ~ .custom-control-label {
-  color: #2f7549;
-}
-
-.custom-control-input.is-valid ~ .custom-control-label::before {
-  border-color: #2f7549;
-}
-
-.custom-control-input.is-valid:checked ~ .custom-control-label::before {
-  background-color: #3e9960;
-  border-color: #3e9960;
-}
-
-.custom-control-input.is-valid:focus-visible ~ .custom-control-label::before {
-  box-shadow: 0 0 0 0.2rem rgba(47, 117, 73, 0.25);
-}
-
-.custom-control-input.is-valid:focus-visible:not(:checked) ~ .custom-control-label::before {
-  border-color: #2f7549;
-}
-
-.custom-control-input.is-invalid ~ .custom-control-label {
-  color: #c02f12;
-}
-
-.custom-control-input.is-invalid ~ .custom-control-label::before {
-  border-color: #c02f12;
-}
-
-.custom-control-input.is-invalid:checked ~ .custom-control-label::before {
-  background-color: #ea3e1b;
-  border-color: #ea3e1b;
-}
-
-.custom-control-input.is-invalid:focus-visible ~ .custom-control-label::before {
-  box-shadow: 0 0 0 0.2rem rgba(192, 47, 18, 0.25);
-}
-
-.custom-control-input.is-invalid:focus-visible:not(:checked) ~ .custom-control-label::before {
-  border-color: #c02f12;
-}
-
-/* GitLab UI `form_checkbox.scss` overrides for `.gl-form-radio`. */
-.gl-form-radio {
-  @apply gl-text-base;
-  @apply gl-leading-normal;
-  @apply gl-text-default;
-}
-
-.gl-form-radio .custom-control-input:disabled,
-.gl-form-radio .custom-control-input:disabled ~ .custom-control-label,
-.gl-form-radio .custom-control-input:disabled ~ .custom-control-label > .help-text {
-  @apply gl-cursor-not-allowed;
-  @apply gl-text-disabled;
-}
-
-.gl-form-radio.custom-control {
-  @apply gl-pl-5;
-}
-
-.gl-form-radio.custom-control .custom-control-input ~ .custom-control-label {
-  @apply gl-cursor-pointer;
-  @apply gl-pl-3;
-  @apply gl-mb-3;
-}
-
-.gl-form-radio.custom-control .custom-control-input ~ .custom-control-label::before,
-.gl-form-radio.custom-control .custom-control-input ~ .custom-control-label::after {
-  top: 0;
-  /* -$gl-spacing-scale-5 */
-  left: -1rem;
-}
-
-.gl-form-radio.custom-control .custom-control-input ~ .custom-control-label::before {
-  background-color: var(--gl-control-background-color-default);
-  border-color: var(--gl-control-border-color-default);
-}
-
-.gl-form-radio.custom-control
-  .custom-control-input:not(:disabled):hover
-  ~ .custom-control-label::before {
-  border-color: var(--gl-control-border-color-hover);
-}
-
-.gl-form-radio.custom-control
-  .custom-control-input:not(:disabled):focus-visible
-  ~ .custom-control-label::before {
-  @apply gl-focus;
-  border-color: var(--gl-control-border-color-focus);
-}
-
-.gl-form-radio.custom-control .custom-control-input:checked ~ .custom-control-label::before {
-  background-color: var(--gl-control-background-color-selected-default);
-  border-color: var(--gl-control-border-color-selected-default);
-}
-
-@media (forced-colors: active) {
-  .gl-form-radio.custom-control .custom-control-input:checked ~ .custom-control-label::before {
-    background-color: LinkText;
-    border-color: LinkText;
-  }
-}
-
+/* $gl-icon-radio */
 .gl-form-radio.custom-control
   .custom-control-input[type="radio"]:checked
   ~ .custom-control-label::after {
-  background: 50% 50% no-repeat;
-  background-color: var(--gl-control-indicator-color-selected);
-  mask-repeat: no-repeat;
-  mask-position: center center;
-}
-
-.gl-form-radio.custom-control
-  .custom-control-input[type="radio"]:checked
-  ~ .custom-control-label::after {
-  background-color: var(--gl-control-indicator-color-selected);
-  /* $gl-icon-radio */
   mask-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='3' cy='3' r='3' fill='white'/%3E%3C/svg%3E%0A");
-}
-
-.gl-form-radio.custom-control
-  .custom-control-input:not(:disabled):checked
-  ~ .custom-control-label:hover::before,
-.gl-form-radio.custom-control
-  .custom-control-input:not(:disabled):hover:checked
-  ~ .custom-control-label::before {
-  background-color: var(--gl-control-background-color-selected-hover);
-  border-color: var(--gl-control-border-color-selected-hover);
-}
-
-.gl-form-radio.custom-control
-  .custom-control-input:not(:disabled):focus-visible:checked
-  ~ .custom-control-label::before {
-  background-color: var(--gl-control-background-color-selected-focus);
-  border-color: var(--gl-control-border-color-selected-focus);
-}
-
-@media (forced-colors: active) {
-  .gl-form-radio.custom-control
-    .custom-control-input:not(:disabled):checked
-    ~ .custom-control-label:hover::before,
-  .gl-form-radio.custom-control
-    .custom-control-input:not(:disabled):hover:checked
-    ~ .custom-control-label::before,
-  .gl-form-radio.custom-control
-    .custom-control-input:not(:disabled):focus-visible:checked
-    ~ .custom-control-label::before {
-    background-color: LinkText;
-    border-color: LinkText;
-  }
-}
-
-.gl-form-radio.custom-control .custom-control-input:not(:disabled) ~ .custom-control-label {
-  @apply gl-text-default;
-}
-
-.gl-form-radio.custom-control .custom-control-input:disabled ~ .custom-control-label {
-  @apply gl-cursor-not-allowed;
-}
-
-.gl-form-radio.custom-control
-  .custom-control-input:disabled
-  ~ .custom-control-label::before {
-  @apply gl-pointer-events-auto;
-  background-color: var(--gl-control-background-color-disabled);
-  border-color: var(--gl-control-border-color-disabled);
-}
-
-@media (forced-colors: active) {
-  .gl-form-radio.custom-control
-    .custom-control-input:disabled
-    ~ .custom-control-label::before {
-    opacity: 0.5;
-  }
-}
-
-.gl-form-radio.custom-control
-  .custom-control-input:checked:disabled
-  ~ .custom-control-label::before {
-  background-color: var(--gl-control-background-color-disabled);
-  border-color: var(--gl-control-border-color-disabled);
-}
-
-.gl-form-radio.custom-control
-  .custom-control-input:checked:disabled
-  ~ .custom-control-label::after {
-  background-image: none;
-  background-color: var(--gl-control-indicator-color-disabled);
-}
-
-/* Ensure the state indicator is visible in Windows High Contrast Mode. */
-@media screen and (forced-colors: active) {
-  .gl-form-radio.custom-control
-    .custom-control-input:checked:disabled
-    ~ .custom-control-label::after {
-    forced-color-adjust: none;
-    /* system color reference for disabled text applied to background here. */
-    background-color: GrayText;
-  }
-}
-
-.gl-form-radio .help-text {
-  @apply gl-mt-2 gl-mb-0 gl-text-base gl-leading-normal gl-text-subtle;
 }
