@@ -1,0 +1,14 @@
+/**
+ * Form style foundations for the form components on `main`
+ * (GlFormCheckbox, GlFormRadio, GlFormRadioGroup, GlFormInput, GlFormDate).
+ *
+ * Load order contract: Bootstrap compatibility first, then GitLab shared
+ * overrides; `components.css` imports this entry before any
+ * component-private CSS. Do not rely on selector specificity alone.
+ */
+
+@import "./bootstrap-forms.css";
+@import "./bootstrap-custom-forms.css";
+@import "./gitlab-text-controls.css";
+@import "./gitlab-check-controls.css";
+@import "./feedback.css";

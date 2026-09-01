@@ -1,0 +1,14 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/scss/variables.scss (only $gl-icon-* variables)
+ */
+
+:root {
+  --gl-icon-chevron-left: url('data:image/svg+xml;utf8,<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 0 0 0 1.414l3 3a1 1 0 0 0 1.414-1.414L7.414 8l2.293-2.293a1 1 0 0 0-1.414-1.414l-3 3z"/></svg>');
+  --gl-icon-chevron-right: url('data:image/svg+xml;utf8,<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill-rule="evenodd" d="M10.707 7.293a1 1 0 0 1 0 1.414l-3 3a1 1 0 0 1-1.414-1.414L8.586 8 6.293 5.707a1 1 0 0 1 1.414-1.414l3 3z"/></svg>');
+  --gl-icon-chevron-down: url('data:image/svg+xml;utf8,<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill-rule="evenodd" d="M7.293 10.707a1 1 0 0 0 1.414 0l3-3a1 1 0 0 0-1.414-1.414L8 8.586 5.707 6.293a1 1 0 0 0-1.414 1.414l3 3z"/></svg>');
+  --gl-icon-select-chevron-down: url('data:image/svg+xml,%3Csvg width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath fill-rule="evenodd" clip-rule="evenodd" d="M0.21967 0.21967C0.512563 -0.0732232 0.987437 -0.0732232 1.28033 0.21967L4 2.93934L6.71967 0.21967C7.01256 -0.073223 7.48744 -0.0732229 7.78033 0.21967C8.07322 0.512563 8.07322 0.987437 7.78033 1.28033L4.53033 4.53033C4.23744 4.82322 3.76256 4.82322 3.46967 4.53033L0.21967 1.28033C-0.0732233 0.987437 -0.0732233 0.512563 0.21967 0.21967Z" fill="%23666666"/%3E%3C/svg%3E%0A');
+  --gl-icon-check: url('data:image/svg+xml,%3Csvg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M0.75 4.76289L3.15312 7.24678L9.25 1.1499" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/%3E%3C/svg%3E%0A');
+  --gl-icon-indeterminate: url('data:image/svg+xml,%3Csvg width="10" height="2" viewBox="0 0 10 2" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M1.75 1H8.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/%3E%3C/svg%3E%0A');
+  --gl-icon-radio: url('data:image/svg+xml,%3Csvg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Ccircle cx="3" cy="3" r="3" fill="white"/%3E%3C/svg%3E%0A');
+}

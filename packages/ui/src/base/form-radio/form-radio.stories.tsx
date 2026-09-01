@@ -58,6 +58,19 @@ export const Default: Story = {
     const helpTexts = canvas.getAllByText("With help text.");
     await expect(helpTexts).toHaveLength(2);
     await expect(helpTexts[0]).toHaveClass("help-text");
+
+    // The shared custom-control foundation, identical to the checkbox's: the
+    // label is inline-block (Bootstrap Reboot compensation), the GitLab
+    // padding override wins, and the box carries `$custom-forms-transition`.
+    const helpLabel = helpTexts[0].parentElement!;
+    await expect(helpLabel).toHaveClass("custom-control-label");
+    await expect(getComputedStyle(helpLabel).display).toBe("inline-block");
+    const wrapper = option.closest(".gl-form-radio")!;
+    await expect(getComputedStyle(wrapper).paddingLeft).toBe("16px");
+    await expect(getComputedStyle(wrapper).minHeight).toBe("24px");
+    const indicator = getComputedStyle(helpLabel, "::before");
+    await expect(indicator.transitionProperty).toBe("background-color, border-color, box-shadow");
+    await expect(indicator.borderRadius).toBe("50%");
   },
 };
 
