@@ -100,9 +100,17 @@ test("shared blocks are emitted exactly once", async () => {
   expect(
     allDeclarations.filter((decl) => decl === "background: 50% / 50% 50% no-repeat"),
   ).toHaveLength(1);
-  // Each component-private mask image appears exactly once.
+  // Each component-private mask image references the shared glyph custom
+  // property, and each glyph SVG data URI is defined exactly once (in
+  // glyph-icons.css).
   const css = root.toString();
-  expect(css.match(/mask-image: url/gu)).toHaveLength(3);
+  expect(css.match(/mask-image: url/gu)).toBeNull();
+  expect(css.match(/--gl-icon-check: url/gu)).toHaveLength(1);
+  expect(css.match(/--gl-icon-indeterminate: url/gu)).toHaveLength(1);
+  expect(css.match(/--gl-icon-radio: url/gu)).toHaveLength(1);
+  expect(css.match(/mask-image: var\(--gl-icon-check\)/gu)).toHaveLength(1);
+  expect(css.match(/mask-image: var\(--gl-icon-indeterminate\)/gu)).toHaveLength(1);
+  expect(css.match(/mask-image: var\(--gl-icon-radio\)/gu)).toHaveLength(1);
 }, 30000);
 
 test("foundation rules come before shared overrides and component-private CSS", async () => {

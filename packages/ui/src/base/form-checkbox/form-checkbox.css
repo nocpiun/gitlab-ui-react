@@ -23,18 +23,16 @@
   @apply gl-rounded-base;
 }
 
-/* $gl-icon-check */
 .gl-form-checkbox.custom-control
   .custom-control-input[type="checkbox"]:checked
   ~ .custom-control-label::after {
-  mask-image: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.75 4.76289L3.15312 7.24678L9.25 1.1499' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+  mask-image: var(--gl-icon-check);
 }
 
-/* $gl-icon-indeterminate */
 .gl-form-checkbox.custom-control
   .custom-control-input[type="checkbox"]:indeterminate
   ~ .custom-control-label::after {
-  mask-image: url("data:image/svg+xml,%3Csvg width='10' height='2' viewBox='0 0 10 2' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.75 1H8.25' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+  mask-image: var(--gl-icon-indeterminate);
 }
 
 .gl-form-checkbox.custom-control.custom-checkbox
