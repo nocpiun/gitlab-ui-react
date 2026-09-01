@@ -54,6 +54,11 @@ export { default as GlFormCheckbox } from "./base/form-checkbox/form-checkbox";
 export type {
   GlFormCheckboxProps,
 } from "./base/form-checkbox/form-checkbox";
+export { default as GlFormCheckboxGroup } from "./base/form-checkbox/form-checkbox-group";
+export type {
+  GlFormCheckboxGroupOption,
+  GlFormCheckboxGroupProps,
+} from "./base/form-checkbox/form-checkbox-group";
 export { default as GlFormDate } from "./base/form-date/form-date";
 export type {
   GlFormDateProps,

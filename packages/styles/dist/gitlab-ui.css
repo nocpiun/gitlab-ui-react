@@ -4428,6 +4428,10 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
   border-bottom-right-radius: calc(var(--gl-card-border-radius) - 1px);
   color: var(--gl-text-color-subtle);
 }
+.gl-form-checkbox-group {
+  --tw-leading: 1rem;
+  line-height: 1rem;
+}
 .gl-form-checkbox.custom-checkbox .custom-control-label::before {
   border-radius: .25rem;
 }

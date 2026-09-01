@@ -15,8 +15,14 @@
  *   applied to the `<input>` element, like upstream's `v-bind="computedAttrs"`;
  *   `className` is applied to the root wrapper, matching Vue's class
  *   fallthrough with `inheritAttrs: false`.
- * - Group integration (upstream's `getCheckboxGroup` injection) is deferred
- *   until GlFormCheckboxGroup is ported; standalone behavior is complete.
+ * - Group integration (upstream's `getCheckboxGroup` provide/inject) maps to
+ *   GlFormCheckboxGroupContext: inside a GlFormCheckboxGroup the checkbox
+ *   takes the shared model array, name, required, disabled, and validation
+ *   state from the group, and user interaction toggles through the group's
+ *   `updateChecked` callback. The checkbox's own `checked` prop is ignored
+ *   inside a group; the group is the source of truth. The group also carries
+ *   its `aria-describedby`/`aria-labelledby` through the context; a
+ *   checkbox's own attributes take precedence.
  * - The fallback input ID is generated with `useId` during render (SSR-safe)
  *   instead of upstream's post-mount `uniqueId`.
  * - Upstream's `indeterminate` / `update:indeterminate` events map to
@@ -28,6 +34,7 @@
 
 import {
   forwardRef,
+  useContext,
   useEffect,
   useId,
   useRef,
@@ -39,6 +46,7 @@ import {
 import { cva } from "class-variance-authority";
 import { looseEqual, looseIndexOf } from "../../internal/form/equality-utils";
 import { mergeRefs } from "../../internal/utils/merge-refs";
+import { GlFormCheckboxGroupContext } from "./form-checkbox-group-context";
 
 type CheckboxElementProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -103,6 +111,7 @@ const inputVariants = cva("custom-control-input", {
 });
 
 const GlFormCheckbox = forwardRef<HTMLInputElement, GlFormCheckboxProps>(function GlFormCheckbox({
+  "aria-describedby": ariaDescribedby,
   ariaLabel,
   ariaLabelledby,
   checked = null,
@@ -126,9 +135,13 @@ const GlFormCheckbox = forwardRef<HTMLInputElement, GlFormCheckboxProps>(functio
   const inputId = id || `gitlab_ui_checkbox_${generatedId}`;
   const inputRef = useRef<HTMLInputElement | null>(null);
 
+  const group = useContext(GlFormCheckboxGroupContext);
+  const isGroup = group !== null;
+
   // Internal checked state seeded from the `checked` prop, mirroring
   // upstream's `localChecked`. The prop watcher maps to a render-phase
-  // adjustment so the input stays in sync before paint.
+  // adjustment so the input stays in sync before paint. Inside a group the
+  // shared group value is the source of truth and this state is unused.
   const [localChecked, setLocalChecked] = useState<unknown>(checked);
   const [prevChecked, setPrevChecked] = useState(checked);
   if(!Object.is(prevChecked, checked)) {
@@ -138,14 +151,27 @@ const GlFormCheckbox = forwardRef<HTMLInputElement, GlFormCheckboxProps>(functio
     }
   }
 
-  const isArrayMode = Array.isArray(localChecked);
+  const effectiveChecked = isGroup ? group.checked : localChecked;
+  const isArrayMode = Array.isArray(effectiveChecked);
   const isChecked = isArrayMode
-    ? looseIndexOf(localChecked, value) > -1
-    : looseEqual(localChecked, value);
+    ? looseIndexOf(effectiveChecked, value) > -1
+    : looseEqual(effectiveChecked, value);
 
-  const computedState = typeof state === "boolean" ? state : null;
-  // Required only works when a name is provided for the input
-  const isRequired = Boolean(name) && required;
+  // Inside a group, the group's validation state wins (upstream's
+  // `computedState` reads `group.computedState`).
+  const computedState = isGroup ? group.state : typeof state === "boolean" ? state : null;
+  // The group name is preferred over the local name; groups always have one.
+  const computedName = (isGroup ? group.name : name) || undefined;
+  // A child can be disabled while the group isn't, but is always disabled
+  // when the group is.
+  const isDisabled = isGroup ? group.disabled || disabled : disabled;
+  // Required only works when a name is provided for the input(s); a child can
+  // only be required when its group is.
+  const isRequired = Boolean(computedName) && (isGroup ? group.required : required);
+  // Group-level ARIA references apply to every grouped checkbox, unless the
+  // checkbox sets its own (the group carries upstream's PASS_DOWN_ATTRS).
+  const computedAriaDescribedby = ariaDescribedby ?? group?.ariaDescribedby;
+  const computedAriaLabelledby = ariaLabelledby ?? group?.ariaLabelledby;
 
   // The DOM `indeterminate` property is only supported in single-checkbox
   // mode, never when the model is an array (upstream `setIndeterminate`).
@@ -160,24 +186,29 @@ const GlFormCheckbox = forwardRef<HTMLInputElement, GlFormCheckboxProps>(functio
     const { checked: targetChecked, indeterminate: targetIndeterminate } = event.target;
 
     let newChecked: unknown;
-    if(Array.isArray(localChecked)) {
-      const index = looseIndexOf(localChecked, value);
+    if(Array.isArray(effectiveChecked)) {
+      const index = looseIndexOf(effectiveChecked, value);
       if(targetChecked && index < 0) {
         // Add value to array
-        newChecked = [...localChecked, value];
+        newChecked = [...effectiveChecked, value];
       } else if(!targetChecked && index > -1) {
         // Remove value from array
-        newChecked = [...localChecked.slice(0, index), ...localChecked.slice(index + 1)];
+        newChecked = [...effectiveChecked.slice(0, index), ...effectiveChecked.slice(index + 1)];
       } else {
-        newChecked = localChecked;
+        newChecked = effectiveChecked;
       }
     } else {
       newChecked = targetChecked ? value : uncheckedValue;
     }
-    setLocalChecked(newChecked);
 
     // Upstream emits the model event first (via the `localChecked` watcher)
-    // and the `change` event on the next tick.
+    // and the `change` event on the next tick; inside a group the toggle also
+    // updates the group's shared model and fires the group's events.
+    if(isGroup) {
+      group.updateChecked(newChecked as unknown[]);
+    } else {
+      setLocalChecked(newChecked);
+    }
     onInput?.(newChecked);
     onChange?.(newChecked);
     onIndeterminateChange?.(targetIndeterminate);
@@ -192,17 +223,18 @@ const GlFormCheckbox = forwardRef<HTMLInputElement, GlFormCheckboxProps>(functio
       <input
         {...elementProps}
         ref={mergeRefs(inputRef, forwardedRef)}
+        aria-describedby={computedAriaDescribedby}
         aria-invalid={computedState === false ? "true" : undefined}
         aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledby}
+        aria-labelledby={computedAriaLabelledby}
         aria-required={isRequired || undefined}
         checked={isChecked}
         className={inputVariants({
           state: computedState === true ? "valid" : computedState === false ? "invalid" : "none",
         })}
-        disabled={disabled}
+        disabled={isDisabled}
         id={inputId}
-        name={name}
+        name={computedName}
         onChange={handleChange}
         required={isRequired}
         type="checkbox"

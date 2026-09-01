@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { expect, fn, userEvent, waitFor } from "storybook/test";
 import GlFormCheckbox, { type GlFormCheckboxProps } from "./form-checkbox";
+import GlFormCheckboxGroup, { type GlFormCheckboxGroupProps } from "./form-checkbox-group";
 
 const meta = {
   title: "UI/Base/Form Checkbox",
@@ -236,5 +237,169 @@ export const Required: Story = {
     await expect(input).toBeRequired();
     await expect(input).toHaveAttribute("aria-required", "true");
     await expect(input).toHaveAttribute("name", "required-option");
+  },
+};
+
+const groupOptions = [
+  { value: "pizza", text: "Pizza" },
+  { value: "tacos", text: "Tacos" },
+  { value: "burger", text: "Burger", disabled: true },
+];
+
+export const CheckboxGroup: Story = {
+  args: {
+    children: undefined,
+  },
+  render: (args) => (
+    <GlFormCheckboxGroup
+      checked={["slot-option"]}
+      first={(
+        <GlFormCheckbox help="Help text." value="slot-option">
+          Slot option with help text
+        </GlFormCheckbox>
+      )}
+      name="checkbox-group-name"
+      onChange={args.onChange}
+      onInput={args.onInput}
+      options={groupOptions}>
+      <GlFormCheckbox value="last-option">Last option</GlFormCheckbox>
+    </GlFormCheckboxGroup>
+  ),
+  play: async ({ args, canvas }) => {
+    const group = canvas.getByRole("group");
+    await expect(group).toHaveClass("gl-form-checkbox-group");
+    await expect(group).toHaveAttribute("tabindex", "-1");
+
+    // The shared model checks the matching checkboxes from slots and options
+    const slotOption = canvas.getByRole("checkbox", { name: /Slot option with help text/ });
+    const pizza = canvas.getByRole("checkbox", { name: "Pizza" });
+    const tacos = canvas.getByRole("checkbox", { name: "Tacos" });
+    const burger = canvas.getByRole("checkbox", { name: "Burger" });
+    const last = canvas.getByRole("checkbox", { name: "Last option" });
+
+    await expect(slotOption).toBeChecked();
+    await expect(pizza).not.toBeChecked();
+    await expect(burger).toBeDisabled();
+
+    // Every checkbox shares the group name
+    for(const checkbox of [slotOption, pizza, tacos, burger, last]) {
+      await expect(checkbox).toHaveAttribute("name", "checkbox-group-name");
+    }
+
+    // Checking adds the value to the shared model and emits input then change
+    await userEvent.click(tacos);
+    await expect(args.onInput).toHaveBeenLastCalledWith(["slot-option", "tacos"]);
+    await expect(args.onChange).toHaveBeenLastCalledWith(["slot-option", "tacos"]);
+    await expect(tacos).toBeChecked();
+    await expect(slotOption).toBeChecked();
+
+    // Unchecking removes it again
+    await userEvent.click(slotOption);
+    await expect(args.onInput).toHaveBeenLastCalledWith(["tacos"]);
+    await expect(args.onChange).toHaveBeenLastCalledWith(["tacos"]);
+    await expect(slotOption).not.toBeChecked();
+    await expect(tacos).toBeChecked();
+  },
+};
+
+function ControlledGroupExample(args: Pick<GlFormCheckboxGroupProps, "onChange" | "onInput">) {
+  const [checked, setChecked] = useState<unknown[]>(["tacos"]);
+  const handleInput = (value: unknown[]) => {
+    args.onInput?.(value);
+    setChecked(value);
+  };
+  return (
+    <div>
+      <GlFormCheckboxGroup
+        checked={checked}
+        onChange={args.onChange}
+        onInput={handleInput}
+        options={groupOptions} />
+      <p>
+        Selected:
+        {" "}
+        {checked.map(String).join(", ")}
+      </p>
+    </div>
+  );
+}
+
+export const ControlledCheckboxGroup: Story = {
+  args: {
+    children: undefined,
+  },
+  render: (args) => <ControlledGroupExample onChange={args.onChange} onInput={args.onInput} />,
+  play: async ({ canvas }) => {
+    const tacos = canvas.getByRole("checkbox", { name: "Tacos" });
+    const pizza = canvas.getByRole("checkbox", { name: "Pizza" });
+
+    await expect(tacos).toBeChecked();
+
+    // Checkboxes toggle independently: the model accumulates values
+    await userEvent.click(pizza);
+    await expect(pizza).toBeChecked();
+    await expect(tacos).toBeChecked();
+    await expect(canvas.getByText("Selected: tacos, pizza")).toBeInTheDocument();
+
+    await userEvent.click(tacos);
+    await expect(tacos).not.toBeChecked();
+    await expect(canvas.getByText("Selected: pizza")).toBeInTheDocument();
+  },
+};
+
+export const GroupValidationStates: Story = {
+  args: {
+    children: undefined,
+  },
+  render: (args) => (
+    <div>
+      <GlFormCheckboxGroup
+        name="valid-group"
+        onChange={args.onChange}
+        onInput={args.onInput}
+        options={["one", "two"]}
+        state />
+      <GlFormCheckboxGroup
+        name="invalid-group"
+        onChange={args.onChange}
+        onInput={args.onInput}
+        options={["one", "two"]}
+        state={false} />
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const [validGroup, invalidGroup] = canvas.getAllByRole("group");
+
+    await expect(validGroup).not.toHaveAttribute("aria-invalid");
+    await expect(invalidGroup).toHaveAttribute("aria-invalid", "true");
+
+    for(const checkbox of canvas.getAllByRole("checkbox", { name: "one" })) {
+      // The state class comes from the group, not the checkbox
+      const isValid = checkbox.getAttribute("name") === "valid-group";
+      await expect(checkbox).toHaveClass(isValid ? "is-valid" : "is-invalid");
+    }
+  },
+};
+
+export const GroupRequired: Story = {
+  args: {
+    children: undefined,
+  },
+  render: (args) => (
+    <GlFormCheckboxGroup
+      name="required-group"
+      onChange={args.onChange}
+      onInput={args.onInput}
+      options={["one", "two"]}
+      required />
+  ),
+  play: async ({ canvas }) => {
+    const group = canvas.getByRole("group");
+    await expect(group).toHaveAttribute("aria-required", "true");
+
+    for(const checkbox of canvas.getAllByRole("checkbox")) {
+      await expect(checkbox).toBeRequired();
+      await expect(checkbox).toHaveAttribute("aria-required", "true");
+    }
   },
 };

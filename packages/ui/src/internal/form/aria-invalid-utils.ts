@@ -1,6 +1,7 @@
 /**
  * Shared `aria-invalid` normalization for form components (currently
- * GlFormInput and GlFormRadioGroup). Internal; not part of the public API.
+ * GlFormInput, GlFormRadioGroup and GlFormCheckboxGroup). Internal; not part
+ * of the public API.
  */
 
 export type NormalizedAriaInvalid = "true" | "false" | "grammar" | "spelling" | undefined;
