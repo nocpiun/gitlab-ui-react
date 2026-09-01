@@ -2911,6 +2911,7 @@ kbd {
 }
 .gl-form-input, .gl-form-input.form-control {
   appearance: none;
+  box-sizing: border-box;
   box-shadow: inset 0 0 0 1px var(--gl-control-border-color-default);
   background: var(--gl-control-background-color-default);
   display: block;
@@ -4598,6 +4599,19 @@ input[type="color"].gl-form-input.form-control:disabled {
   .gl-xl-form-input-xl {
     max-width: 35rem;
   }
+}
+.gl-form-password-input {
+  position: relative;
+  width: 100%;
+}
+.gl-form-password-input-field.gl-form-input {
+  padding-inline-end: var(--gl-spacing-scale-7);
+}
+.gl-form-password-input-toggle {
+  position: absolute;
+  top: 50%;
+  inset-inline-end: var(--gl-spacing-scale-2);
+  transform: translateY(-50%);
 }
 .gl-form-radio.custom-radio .custom-control-label::before {
   border-radius: 50%;
