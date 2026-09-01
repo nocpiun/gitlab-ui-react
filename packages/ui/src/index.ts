@@ -72,6 +72,10 @@ export type {
   GlFormInputValue,
   GlFormInputWidth,
 } from "./base/form-input/form-input";
+export { default as GlFormPasswordInput } from "./base/form-password-input/form-password-input";
+export type {
+  GlFormPasswordInputProps,
+} from "./base/form-password-input/form-password-input";
 export { default as GlFormRadio } from "./base/form-radio/form-radio";
 export type {
   GlFormRadioProps,
