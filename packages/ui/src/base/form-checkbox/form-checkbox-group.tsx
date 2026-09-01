@@ -19,9 +19,12 @@
  *   GlFormCheckboxGroupContext (upstream's `getCheckboxGroup` provide/inject),
  *   so checkboxes rendered from `options` or passed as children share the
  *   model, name, required, disabled, and validation state.
- * - `aria-describedby`/`aria-labelledby` are passed down to the option
- *   checkboxes' inputs instead of the wrapper, like upstream's
- *   PASS_DOWN_ATTRS.
+ * - `aria-describedby`/`aria-labelledby` are carried through the group
+ *   context and applied to every grouped checkbox input instead of the
+ *   wrapper. Upstream's PASS_DOWN_ATTRS only reaches option-generated
+ *   checkboxes; here slotted checkboxes (`first`/`children`) receive them
+ *   too, so their accessible names/descriptions keep the group labelling. A
+ *   checkbox's own attributes still take precedence.
  * - The fallback group ID is generated with `useId` during render (SSR-safe)
  *   instead of upstream's post-mount `uniqueId`.
  */
@@ -152,6 +155,8 @@ export default function GlFormCheckboxGroup({
   }, [localChecked, onInput, onChange]);
 
   const contextValue = useMemo<GlFormCheckboxGroupContextValue>(() => ({
+    ariaDescribedby,
+    ariaLabelledby,
     checked: localChecked,
     disabled,
     // Checkboxes tied to the same model must have the same name, especially
@@ -160,7 +165,17 @@ export default function GlFormCheckboxGroup({
     required,
     state: computedState,
     updateChecked,
-  }), [localChecked, disabled, name, internalId, required, computedState, updateChecked]);
+  }), [
+    ariaDescribedby,
+    ariaLabelledby,
+    localChecked,
+    disabled,
+    name,
+    internalId,
+    required,
+    computedState,
+    updateChecked,
+  ]);
 
   const formOptions = normalizeFormOptions(options);
 
@@ -178,8 +193,6 @@ export default function GlFormCheckboxGroup({
         {formOptions.map((option, index) => (
           <GlFormCheckbox
             key={index}
-            aria-describedby={ariaDescribedby}
-            ariaLabelledby={ariaLabelledby}
             disabled={option.disabled}
             value={option.value}>
             {option.html ? <SafeHtml fallback={option.text} html={option.html} /> : option.text}

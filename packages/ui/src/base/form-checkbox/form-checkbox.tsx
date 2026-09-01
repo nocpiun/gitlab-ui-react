@@ -20,7 +20,9 @@
  *   takes the shared model array, name, required, disabled, and validation
  *   state from the group, and user interaction toggles through the group's
  *   `updateChecked` callback. The checkbox's own `checked` prop is ignored
- *   inside a group; the group is the source of truth.
+ *   inside a group; the group is the source of truth. The group also carries
+ *   its `aria-describedby`/`aria-labelledby` through the context; a
+ *   checkbox's own attributes take precedence.
  * - The fallback input ID is generated with `useId` during render (SSR-safe)
  *   instead of upstream's post-mount `uniqueId`.
  * - Upstream's `indeterminate` / `update:indeterminate` events map to
@@ -109,6 +111,7 @@ const inputVariants = cva("custom-control-input", {
 });
 
 const GlFormCheckbox = forwardRef<HTMLInputElement, GlFormCheckboxProps>(function GlFormCheckbox({
+  "aria-describedby": ariaDescribedby,
   ariaLabel,
   ariaLabelledby,
   checked = null,
@@ -165,6 +168,10 @@ const GlFormCheckbox = forwardRef<HTMLInputElement, GlFormCheckboxProps>(functio
   // Required only works when a name is provided for the input(s); a child can
   // only be required when its group is.
   const isRequired = Boolean(computedName) && (isGroup ? group.required : required);
+  // Group-level ARIA references apply to every grouped checkbox, unless the
+  // checkbox sets its own (the group carries upstream's PASS_DOWN_ATTRS).
+  const computedAriaDescribedby = ariaDescribedby ?? group?.ariaDescribedby;
+  const computedAriaLabelledby = ariaLabelledby ?? group?.ariaLabelledby;
 
   // The DOM `indeterminate` property is only supported in single-checkbox
   // mode, never when the model is an array (upstream `setIndeterminate`).
@@ -216,9 +223,10 @@ const GlFormCheckbox = forwardRef<HTMLInputElement, GlFormCheckboxProps>(functio
       <input
         {...elementProps}
         ref={mergeRefs(inputRef, forwardedRef)}
+        aria-describedby={computedAriaDescribedby}
         aria-invalid={computedState === false ? "true" : undefined}
         aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledby}
+        aria-labelledby={computedAriaLabelledby}
         aria-required={isRequired || undefined}
         checked={isChecked}
         className={inputVariants({

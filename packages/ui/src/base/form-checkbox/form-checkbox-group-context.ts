@@ -7,6 +7,14 @@
 import { createContext } from "react";
 
 export interface GlFormCheckboxGroupContextValue {
+  /**
+   * Group-level `aria-describedby`, applied to every grouped checkbox whose
+   * own attribute is unset (upstream's PASS_DOWN_ATTRS, extended to slotted
+   * children).
+   */
+  ariaDescribedby?: string;
+  /** Group-level `aria-labelledby`, applied like `ariaDescribedby`. */
+  ariaLabelledby?: string;
   /** The group's current value (the shared model array). */
   checked: unknown[];
   /** Whether the whole group is disabled. */

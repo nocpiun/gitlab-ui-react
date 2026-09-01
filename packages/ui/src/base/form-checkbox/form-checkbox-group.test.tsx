@@ -84,6 +84,35 @@ describe("GlFormCheckboxGroup", () => {
       expect(markup).toMatch(/<input[^>]*aria-describedby="description"/);
       expect(markup).toMatch(/<input[^>]*aria-labelledby="label"/);
     });
+
+    it("passes the group aria-describedby and aria-labelledby to slotted child checkboxes", () => {
+      const markup = renderToStaticMarkup(
+        <GlFormCheckboxGroup aria-describedby="description" aria-labelledby="label">
+          <GlFormCheckbox value="slot-option">Slot option</GlFormCheckbox>
+        </GlFormCheckboxGroup>,
+      );
+
+      expect(markup).toMatch(/<input[^>]*aria-describedby="description"/);
+      expect(markup).toMatch(/<input[^>]*aria-labelledby="label"/);
+    });
+
+    it("prefers a child checkbox's own aria attributes over the group's", () => {
+      const markup = renderToStaticMarkup(
+        <GlFormCheckboxGroup aria-describedby="group-description" aria-labelledby="group-label">
+          <GlFormCheckbox
+            aria-describedby="own-description"
+            ariaLabelledby="own-label"
+            value="slot-option">
+            Slot option
+          </GlFormCheckbox>
+        </GlFormCheckboxGroup>,
+      );
+
+      expect(markup).toMatch(/<input[^>]*aria-describedby="own-description"/);
+      expect(markup).toMatch(/<input[^>]*aria-labelledby="own-label"/);
+      expect(markup).not.toContain("group-description");
+      expect(markup).not.toContain("group-label");
+    });
   });
 
   describe("options", () => {
