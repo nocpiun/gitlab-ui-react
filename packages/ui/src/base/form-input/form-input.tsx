@@ -31,7 +31,7 @@ import {
 import { Input as BaseInput } from "@base-ui/react/input";
 import { cva } from "class-variance-authority";
 import { normalizeAriaInvalid } from "../../internal/form/aria-invalid-utils";
-import { mergeRefs } from "../../internal/merge-refs";
+import { mergeRefs } from "../../internal/utils/merge-refs";
 
 export type GlFormInputType =
   | "text"

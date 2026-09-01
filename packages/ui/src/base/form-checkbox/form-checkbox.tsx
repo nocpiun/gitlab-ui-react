@@ -38,7 +38,7 @@ import {
 } from "react";
 import { cva } from "class-variance-authority";
 import { looseEqual, looseIndexOf } from "../../internal/form/equality-utils";
-import { mergeRefs } from "../../internal/merge-refs";
+import { mergeRefs } from "../../internal/utils/merge-refs";
 
 type CheckboxElementProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,

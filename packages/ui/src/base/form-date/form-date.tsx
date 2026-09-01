@@ -27,7 +27,7 @@ import {
   type KeyboardEventHandler,
 } from "react";
 import GlFormInput, { type GlFormInputProps } from "../form-input/form-input";
-import { mergeRefs } from "../../internal/merge-refs";
+import { mergeRefs } from "../../internal/utils/merge-refs";
 
 type FormInputPassthroughProps = Omit<
   GlFormInputProps,
