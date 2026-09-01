@@ -107,5 +107,20 @@ describe("GlFormPasswordInput", () => {
 
       expect(markup).toMatch(/<input[^>]*type="password"/);
     });
+
+    it("constrains the wrapper, not the input, when width is set", () => {
+      // The toggle is positioned against the wrapper, so the width constraint
+      // must land on the wrapper to keep the toggle aligned with the input.
+      const markup = renderPasswordInput({ width: "sm" });
+
+      expect(markup).toMatch(/^<div class="gl-form-password-input gl-form-input-sm"/);
+      expect(markup).not.toMatch(/<input[^>]*gl-form-input-sm/);
+    });
+
+    it("supports responsive width objects on the wrapper", () => {
+      const markup = renderPasswordInput({ width: { default: "sm", md: "lg" } });
+
+      expect(markup).toMatch(/^<div class="gl-form-password-input gl-form-input-sm gl-md-form-input-lg"/);
+    });
   });
 });

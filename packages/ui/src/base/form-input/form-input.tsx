@@ -162,6 +162,11 @@ function widthClasses(width: GlFormInputProps["width"]): string[] {
   return [`gl-form-input-${width}`];
 }
 
+// Also used by GlFormPasswordInput, which constrains its wrapper (the toggle
+// button's positioning anchor) instead of the input. Internal; not part of
+// the public API.
+export { widthClasses };
+
 const inputVariants = cva("gl-form-input", {
   variants: {
     kind: {

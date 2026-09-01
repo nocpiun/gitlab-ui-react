@@ -126,3 +126,59 @@ export const Disabled: Story = {
     await expect(args.onVisibilityChange).not.toHaveBeenCalled();
   },
 };
+
+// The `width` prop is inherited from GlFormInput and maps to max-width
+// classes: xs 5rem, sm 10rem, md 15rem, lg 20rem, xl 35rem.
+const widthCases = [
+  { width: "xs", maxWidth: "80px" },
+  { width: "sm", maxWidth: "160px" },
+  { width: "md", maxWidth: "240px" },
+  { width: "lg", maxWidth: "320px" },
+  { width: "xl", maxWidth: "560px" },
+] as const;
+
+export const Widths: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "The `width` prop constrains the whole control: the max-width class lands on the wrapper, which is also the toggle's positioning anchor, so the toggle keeps overlaying the constrained input.",
+      },
+    },
+  },
+  render: (args) => (
+    <div>
+      {widthCases.map(({ width }) => (
+        <div className="gl-mb-4" key={width}>
+          <label htmlFor={`password-input-${width}`}>{width}</label>
+          <GlFormPasswordInput
+            {...args}
+            id={`password-input-${width}`}
+            width={width} />
+        </div>
+      ))}
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const inputs = canvas.getAllByDisplayValue("super-secret-token");
+    const toggles = canvas.getAllByRole("button", { name: "Reveal password" });
+
+    for(const [index, { width, maxWidth }] of widthCases.entries()) {
+      const input = inputs[index];
+      const wrapper = input.closest(".gl-form-password-input")!;
+      const inputRect = input.getBoundingClientRect();
+      const toggleRect = toggles[index].getBoundingClientRect();
+
+      // The width class lands on the wrapper and constrains the whole control
+      await expect(wrapper).toHaveClass(`gl-form-input-${width}`);
+      await expect(inputRect.width).toBe(parseFloat(maxWidth));
+
+      // The toggle keeps overlaying the constrained input's inline end
+      const inputCenter = (inputRect.top + inputRect.bottom) / 2;
+      const toggleCenter = (toggleRect.top + toggleRect.bottom) / 2;
+      await expect(Math.abs(toggleCenter - inputCenter)).toBeLessThan(1);
+      await expect(toggleRect.right).toBeLessThanOrEqual(inputRect.right);
+      await expect(toggleRect.right).toBeGreaterThan(inputRect.right - 40);
+    }
+  },
+};

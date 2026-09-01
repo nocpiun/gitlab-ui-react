@@ -16,6 +16,10 @@
  *   `v-bind="$attrs"`; `className` is applied to the root wrapper, matching
  *   Vue's class fallthrough with `inheritAttrs: false`. A consumer-passed
  *   `type` is not accepted: the component keeps control of it, like upstream.
+ * - The inherited `width` prop constrains the root wrapper instead of the
+ *   input: the toggle button is positioned against the wrapper, so this keeps
+ *   the toggle aligned with the constrained input (upstream leaves it at the
+ *   full-width wrapper's edge; deliberate fix).
  * - The forwarded ref exposes the underlying `<input>` element.
  * - Deliberate deviation: the disabled toggle follows this repo's GlButton
  *   policy (`focusableWhenDisabled`): it renders `aria-disabled="true"`,
@@ -26,7 +30,7 @@
 
 import { forwardRef, useState } from "react";
 import GlButton from "../button/button";
-import GlFormInput, { type GlFormInputProps } from "../form-input/form-input";
+import GlFormInput, { type GlFormInputProps, widthClasses } from "../form-input/form-input";
 import GlTooltip from "../tooltip/tooltip";
 
 export type GlFormPasswordInputProps = Omit<
@@ -68,6 +72,7 @@ const GlFormPasswordInput = forwardRef<HTMLInputElement, GlFormPasswordInputProp
     onVisibilityChange,
     revealLabel = "Reveal password",
     value = "",
+    width = null,
     ...inputProps
   }, forwardedRef) {
     const [isMasked, setIsMasked] = useState(!initialVisibility);
@@ -81,7 +86,12 @@ const GlFormPasswordInput = forwardRef<HTMLInputElement, GlFormPasswordInputProp
     }
 
     return (
-      <div className={["gl-form-password-input", className].filter(Boolean).join(" ")}>
+      <div
+        className={[
+          "gl-form-password-input",
+          ...widthClasses(width),
+          className,
+        ].filter(Boolean).join(" ")}>
         <GlFormInput
           {...inputProps}
           ref={forwardedRef}
