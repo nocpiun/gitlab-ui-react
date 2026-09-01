@@ -3,7 +3,9 @@
  * packages/gitlab-ui/src/components/base/form/form_checkbox/form_checkbox.scss
  *
  * Component-private rules only: the checkbox indicator shape, the
- * check/indeterminate mask images and the indeterminate box states. The
+ * check/indeterminate mask images and the indeterminate box states, plus the
+ * GlFormCheckboxGroup wrapper rule (the group has no separate upstream
+ * stylesheet; its rule lives in form_checkbox.scss). The
  * Bootstrap `.custom-control*` base lives in
  * packages/styles/src/forms/bootstrap-custom-forms.css; the GitLab states
  * shared with GlFormRadio live in
@@ -17,6 +19,10 @@
  * - Selectors are scoped under the `.gl-form-checkbox` marker so consumer
  *   markup that coincidentally uses Bootstrap class names is not affected.
  */
+
+.gl-form-checkbox-group {
+  @apply gl-leading-normal;
+}
 
 /* Bootstrap `$custom-checkbox-indicator-border-radius` (`$border-radius`). */
 .gl-form-checkbox.custom-checkbox .custom-control-label::before {

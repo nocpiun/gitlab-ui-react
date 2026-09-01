@@ -2,10 +2,10 @@
  * Ported from GitLab UI:
  * packages/gitlab-ui/src/utils/form_options_utils.js
  *
- * Normalizes the `options` arrays of form group components. Currently only
- * consumed by GlFormRadioGroup; the option shape intentionally covers only
- * the { value, text, html, disabled } semantics of that component. Internal;
- * not part of the public API.
+ * Normalizes the `options` arrays of form group components. Consumed by
+ * GlFormRadioGroup and GlFormCheckboxGroup; the option shape intentionally
+ * covers only the { value, text, html, disabled } semantics of those
+ * components. Internal; not part of the public API.
  */
 
 /** A raw option: a primitive, or an object with { value, text, html, disabled }. */
