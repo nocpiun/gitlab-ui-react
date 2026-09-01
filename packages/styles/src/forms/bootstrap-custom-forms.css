@@ -8,10 +8,11 @@
  * (Bootstrap v4.6 semantics with the GitLab variable overrides from
  * packages/gitlab-ui/src/scss/variables.scss).
  *
- * Subset rationale: covers exactly the two Bootstrap foundations the current
- * components render — the `.custom-control*` checkbox/radio base (GlFormCheckbox,
- * GlFormRadio, and GlFormRadioGroup's generated radios) and the `.custom-range`
- * thumb/track base (GlFormInput type="range").
+ * Subset rationale: covers the Bootstrap foundations consumed by current form
+ * components — the `.custom-control*` checkbox/radio base (GlFormCheckbox,
+ * GlFormRadio, and GlFormRadioGroup's generated radios), the `.custom-select`
+ * base (GlFormSelect), and the `.custom-range` thumb/track base (GlFormInput
+ * type="range").
  *
  * Values are the upstream Sass expansions: `$custom-control-gutter: .5rem`,
  * `$custom-control-indicator-size: 1rem`, `$font-size-base: 1rem`,
@@ -26,8 +27,8 @@
  * `$form-feedback-valid-color`/`$form-feedback-invalid-color` overrides.
  *
  * Deliberately omitted (no current consumer):
- * - `.custom-control-inline`, `.custom-switch`, `.custom-select`,
- *   `.custom-file` and all `.input-group` rules;
+ * - `.custom-control-inline`, `.custom-switch`, `.custom-file` and all
+ *   `.input-group` rules;
  * - the `.was-validated :valid`/`:invalid` native validation selectors (only
  *   the component-controlled `.is-valid`/`.is-invalid` classes are ported);
  * - the legacy `::-ms-*` pseudo-element rules;
@@ -37,10 +38,10 @@
  *   component-private CSS.
  *
  * React scoping adaptation: every rule is scoped under the component marker
- * classes (`.gl-form-checkbox`, `.gl-form-radio`, `.gl-form-input`) so
- * consumer markup that coincidentally uses Bootstrap class names is not
- * affected. One marker class is added uniformly to every upstream selector,
- * preserving all upstream specificity relationships.
+ * classes (`.gl-form-checkbox`, `.gl-form-radio`, `.gl-form-select`,
+ * `.gl-form-input`) so consumer markup that coincidentally uses Bootstrap
+ * class names is not affected. One marker class is added uniformly to every
+ * upstream selector, preserving all upstream specificity relationships.
  */
 
 /* `.custom-control` base. */
@@ -176,6 +177,31 @@
 .gl-form-radio .custom-control-input.is-invalid:focus-visible:not(:checked)
   ~ .custom-control-label::before {
   border-color: #c02f12;
+}
+
+/* `.custom-select` base. Component-specific overrides are kept in the
+ * GlFormSelect stylesheet, matching the upstream stylesheet boundary. */
+.gl-form-select.custom-select {
+  display: inline-block;
+  width: 100%;
+  vertical-align: middle;
+  transition:
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gl-form-select.custom-select {
+    transition: none;
+  }
+}
+
+.gl-form-select.custom-select[multiple],
+.gl-form-select.custom-select[size]:not([size="1"]) {
+  height: auto;
+  padding-right: 0.75rem;
+  background-image: none;
 }
 
 /* `.custom-range` base (thumb/track). */
