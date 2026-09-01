@@ -35,7 +35,7 @@ import GlFormRadio, {
   looseEqual,
   type GlFormRadioGroupContextValue,
 } from "../form-radio/form-radio";
-import SafeHtml from "../../internal/safe-html/safe-html";
+import SafeHtml from "@/internal/safe-html/safe-html";
 
 export type GlFormRadioGroupOption = string | number | {
   /** Value returned when this option is selected. Defaults to `text`. */

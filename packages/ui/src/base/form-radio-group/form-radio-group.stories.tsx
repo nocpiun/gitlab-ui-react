@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { hydrateRoot } from "react-dom/client";
 import { expect, fn, userEvent, waitFor } from "storybook/test";
-import SafeHtml from "../../internal/safe-html/safe-html";
+import SafeHtml from "@/internal/safe-html/safe-html";
 import GlFormRadio from "../form-radio/form-radio";
 import GlFormRadioGroup, { type GlFormRadioGroupProps } from "./form-radio-group";
 
