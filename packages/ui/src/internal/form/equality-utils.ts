@@ -59,6 +59,11 @@ export function looseEqual(a: unknown, b: unknown): boolean {
   }
   // Like upstream, objects that passed the key comparison fall through to the
   // string coercion, so e.g. RegExp sources are still compared.
+  // Known upstream issue (kept intentionally to stay aligned with
+  // packages/gitlab-ui/src/utils/equality_utils.js): the coercion throws a
+  // TypeError for values that cannot convert to a primitive, such as
+  // Object.create(null) models or objects with a throwing toString. Revisit
+  // only if upstream fixes it or a real consumer hits the crash.
   return String(a) === String(b);
 }
 
