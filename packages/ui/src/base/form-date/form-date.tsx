@@ -27,6 +27,7 @@ import {
   type KeyboardEventHandler,
 } from "react";
 import GlFormInput, { type GlFormInputProps } from "../form-input/form-input";
+import { mergeRefs } from "../../internal/utils/merge-refs";
 
 type FormInputPassthroughProps = Omit<
   GlFormInputProps,
@@ -137,14 +138,7 @@ const GlFormDate = forwardRef<HTMLInputElement, GlFormDateProps>(function GlForm
     <div className="gl-form-date">
       <GlFormInput
         {...inputProps}
-        ref={(element: HTMLInputElement | null) => {
-          inputRef.current = element;
-          if(typeof forwardedRef === "function") {
-            forwardedRef(element);
-          } else if(forwardedRef) {
-            forwardedRef.current = element;
-          }
-        }}
+        ref={mergeRefs(inputRef, forwardedRef)}
         aria-describedby={ariaDescribedBy}
         id={inputId}
         max={max ?? undefined}

@@ -30,6 +30,8 @@ import {
 } from "react";
 import { Input as BaseInput } from "@base-ui/react/input";
 import { cva } from "class-variance-authority";
+import { normalizeAriaInvalid } from "../../internal/form/aria-invalid-utils";
+import { mergeRefs } from "../../internal/utils/merge-refs";
 
 export type GlFormInputType =
   | "text"
@@ -418,14 +420,7 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
   // Clear a pending debounce on unmount (upstream `beforeDestroy`).
   useEffect(() => clearDebounce, []);
 
-  const computedAriaInvalid: BaseInput.Props["aria-invalid"] =
-    ariaInvalid === true || ariaInvalid === "true" || ariaInvalid === ""
-      ? "true"
-      : computedState === false
-        ? "true"
-        : ariaInvalid === false || ariaInvalid === undefined
-          ? undefined
-          : (ariaInvalid as "false" | "grammar" | "spelling" | "true");
+  const computedAriaInvalid = normalizeAriaInvalid(ariaInvalid, computedState);
 
   const isRange = localType === "range";
   const isColor = localType === "color";
@@ -440,14 +435,7 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
   return (
     <BaseInput
       {...elementProps}
-      ref={(element: HTMLInputElement | null) => {
-        inputRef.current = element;
-        if(typeof forwardedRef === "function") {
-          forwardedRef(element);
-        } else if(forwardedRef) {
-          forwardedRef.current = element;
-        }
-      }}
+      ref={mergeRefs(inputRef, forwardedRef)}
       aria-invalid={computedAriaInvalid}
       aria-required={required ? true : undefined}
       className={computedClass}

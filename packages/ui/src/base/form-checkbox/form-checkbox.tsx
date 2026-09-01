@@ -1,7 +1,9 @@
 /**
  * Ported from GitLab UI:
  * packages/gitlab-ui/src/components/base/form/form_checkbox/form_checkbox.vue
- * packages/gitlab-ui/src/utils/equality_utils.js
+ *
+ * Uses the shared equality helpers in `src/internal/form/equality-utils.ts`
+ * (ported from packages/gitlab-ui/src/utils/equality_utils.js).
  *
  * Adaptations:
  * - The `v-model` pair maps to the `checked` prop plus `onInput` (the model
@@ -35,6 +37,8 @@ import {
   type ReactNode,
 } from "react";
 import { cva } from "class-variance-authority";
+import { looseEqual, looseIndexOf } from "../../internal/form/equality-utils";
+import { mergeRefs } from "../../internal/utils/merge-refs";
 
 type CheckboxElementProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -87,63 +91,6 @@ export type GlFormCheckboxProps = CheckboxElementProps & {
   /** Value returned when this checkbox is checked. */
   value?: unknown;
 };
-
-// Ported from packages/gitlab-ui/src/utils/equality_utils.js: a deep,
-// type-coercing equality check (Dates by timestamp, arrays/objects by
-// structure, primitives coerced via String).
-function looseEqual(a: unknown, b: unknown): boolean {
-  if(a === b) {
-    return true;
-  }
-  if(a instanceof Date || b instanceof Date) {
-    return a instanceof Date && b instanceof Date ? a.getTime() === b.getTime() : false;
-  }
-  if(Array.isArray(a) || Array.isArray(b)) {
-    if(!Array.isArray(a) || !Array.isArray(b) || a.length !== b.length) {
-      return false;
-    }
-    for(let i = 0; i < a.length; i += 1) {
-      if(!looseEqual(a[i], b[i])) {
-        return false;
-      }
-    }
-    return true;
-  }
-  const aIsObject = a !== null && typeof a === "object";
-  const bIsObject = b !== null && typeof b === "object";
-  if(aIsObject || bIsObject) {
-    if(!aIsObject || !bIsObject) {
-      return false;
-    }
-    const aRecord = a as Record<string, unknown>;
-    const bRecord = b as Record<string, unknown>;
-    if(Object.keys(aRecord).length !== Object.keys(bRecord).length) {
-      return false;
-    }
-    // Intentionally iterates inherited properties to compare complex types
-    // like File objects where properties live on the prototype.
-    for(const key in aRecord) {
-      const aHasKey = Object.prototype.hasOwnProperty.call(aRecord, key);
-      const bHasKey = Object.prototype.hasOwnProperty.call(bRecord, key);
-      if((aHasKey && !bHasKey) || (!aHasKey && bHasKey) || !looseEqual(aRecord[key], bRecord[key])) {
-        return false;
-      }
-    }
-    return true;
-  }
-  return String(a) === String(b);
-}
-
-// Ported from packages/gitlab-ui/src/utils/equality_utils.js: like
-// `Array.prototype.indexOf`, but compares with `looseEqual`.
-function looseIndexOf(array: unknown[], value: unknown): number {
-  for(let i = 0; i < array.length; i += 1) {
-    if(looseEqual(array[i], value)) {
-      return i;
-    }
-  }
-  return -1;
-}
 
 const inputVariants = cva("custom-control-input", {
   variants: {
@@ -244,14 +191,7 @@ const GlFormCheckbox = forwardRef<HTMLInputElement, GlFormCheckboxProps>(functio
       ].filter(Boolean).join(" ")}>
       <input
         {...elementProps}
-        ref={(element: HTMLInputElement | null) => {
-          inputRef.current = element;
-          if(typeof forwardedRef === "function") {
-            forwardedRef(element);
-          } else if(forwardedRef) {
-            forwardedRef.current = element;
-          }
-        }}
+        ref={mergeRefs(inputRef, forwardedRef)}
         aria-invalid={computedState === false ? "true" : undefined}
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledby}
