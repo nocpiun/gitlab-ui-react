@@ -102,6 +102,12 @@ export type {
   GlFormSelectValue,
   GlFormSelectWidth,
 } from "./base/form-select/form-select";
+export { default as GlFormTextarea } from "./base/form-textarea/form-textarea";
+export type {
+  GlFormTextareaFormatter,
+  GlFormTextareaProps,
+  GlFormTextareaSize,
+} from "./base/form-textarea/form-textarea";
 export { default as GlIcon } from "./base/icon/icon";
 export type {
   GlIconProps,
