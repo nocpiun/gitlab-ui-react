@@ -61,11 +61,11 @@ describe("GlFormCharacterCount", () => {
   it("passes root attributes through and merges className with the component marker", () => {
     const markup = renderCharacterCount({
       className: "consumer-class",
-      "data-testid": "character-count",
+      title: "Character count",
     });
 
     expect(markup).toMatch(
-      /^<div data-testid="character-count" class="gl-form-character-count consumer-class">/,
+      /^<div title="Character count" class="gl-form-character-count consumer-class">/,
     );
   });
 });

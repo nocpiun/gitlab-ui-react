@@ -8,6 +8,7 @@ Use the cheapest proof that can catch each likely regression, then escalate only
 - Interaction tests must exercise keyboard/pointer behavior and composed `render` elements. DOM snapshots alone cannot prove navigation or event behavior.
 - Build small state matrices rather than one story per trivial permutation. Include only supported combinations and one or two boundary cases.
 - Storybook stories inherit `args` and `children`; clear inherited values explicitly when a story needs an empty-child or alternate-content case.
+- React accepts hyphenated `data-*` attributes in JSX, but `data-testid` is not a declared key of `HTMLAttributes`. An object literal passed to a helper typed as `Partial<ComponentProps<typeof Component>>` therefore fails excess-property checking. For a generic attribute-passthrough assertion, use a declared HTML attribute such as `title`; when the data attribute itself is under test, render it directly on the component in JSX. Do not widen the production props solely to make the test helper accept `data-testid`.
 - CSS-generated text may affect browser accessible names. Query by role with a regex or semantic prefix when that is intentional.
 - A static Storybook build validates compilation, not `play` assertions. Run the Storybook test command or inspect the built story when interaction behavior matters.
 
