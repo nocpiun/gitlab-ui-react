@@ -1,4 +1,5 @@
 @import "./forms/index.css";
+@import "./dropdowns/new-dropdown.css";
 @import "../../ui/src/base/alert/alert.css";
 @import "../../ui/src/base/avatar/avatar.css";
 @import "../../ui/src/base/avatar-labeled/avatar-labeled.css";
@@ -7,6 +8,7 @@
 @import "../../ui/src/base/button/button.css";
 @import "../../ui/src/base/button-group/button-group.css";
 @import "../../ui/src/base/card/card.css";
+@import "../../ui/src/base/disclosure-dropdown/disclosure-dropdown.css";
 @import "../../ui/src/base/form-checkbox/form-checkbox.css";
 @import "../../ui/src/base/form-date/form-date.css";
 @import "../../ui/src/base/form-input/form-input.css";

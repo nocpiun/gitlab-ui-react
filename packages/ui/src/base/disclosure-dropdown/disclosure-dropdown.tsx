@@ -1,0 +1,947 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/new_dropdowns/base_dropdown/base_dropdown.vue
+ * packages/gitlab-ui/src/components/base/new_dropdowns/disclosure/disclosure_dropdown.vue
+ * packages/gitlab-ui/src/components/base/new_dropdowns/disclosure/disclosure_dropdown_item.vue
+ */
+
+import {
+  Children,
+  Fragment,
+  createContext,
+  forwardRef,
+  isValidElement,
+  useCallback,
+  useContext,
+  useEffect,
+  useId,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+  type AnchorHTMLAttributes,
+  type ButtonHTMLAttributes,
+  type CSSProperties,
+  type HTMLAttributes,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type MouseEvent,
+  type MouseEventHandler,
+  type ReactNode,
+  type Ref,
+} from "react";
+import { Menu as BaseMenu } from "@base-ui/react/menu";
+import { cva } from "class-variance-authority";
+import clsx from "clsx";
+import GlButton, {
+  type GlButtonCategory,
+  type GlButtonSize,
+  type GlButtonVariant,
+} from "../button/button";
+import GlIcon from "../icon/icon";
+import GlLink from "../link/link";
+
+export type GlDisclosureDropdownCloseReason =
+  | "trigger"
+  | "outside"
+  | "escape"
+  | "item"
+  | "focus-out"
+  | "imperative";
+
+export type GlDisclosureDropdownOpenChangeDetails = {
+  /** The native event that caused the state change. */
+  event: Event;
+  /** A stable reason that does not expose Base UI's internal reason strings. */
+  reason: GlDisclosureDropdownCloseReason;
+};
+
+export type GlDisclosureDropdownBeforeCloseDetails =
+  GlDisclosureDropdownOpenChangeDetails & {
+    readonly defaultPrevented: boolean;
+    /** Prevents this close operation. */
+    preventDefault(): void;
+  };
+
+export type GlDisclosureDropdownActionDetails = {
+  /** The original React click event, including keyboard-generated clicks. */
+  event: MouseEvent<HTMLElement>;
+  value: unknown;
+};
+
+export type GlDisclosureDropdownHandle = {
+  /** Opens the menu and associates it with this dropdown's trigger. */
+  open(): void;
+  /** Closes the menu without moving focus. */
+  close(): void;
+  /** Closes the menu and restores focus to the trigger. */
+  closeAndFocus(): void;
+  /** Checks both the inline root and a possibly portalled popup. */
+  containsElement(element: Element | null): boolean;
+};
+
+export type GlDisclosureDropdownProps = Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "children" | "onChange"
+> & {
+  /** Controls whether item activation closes the menu unless an item overrides it. */
+  autoClose?: boolean;
+  children?: ReactNode;
+  defaultOpen?: boolean;
+  onAction?: (details: GlDisclosureDropdownActionDetails) => void;
+  onBeforeClose?: (details: GlDisclosureDropdownBeforeCloseDetails) => void;
+  onHidden?: () => void;
+  onOpenChange?: (
+    open: boolean,
+    details: GlDisclosureDropdownOpenChangeDetails,
+  ) => void;
+  onShown?: () => void;
+  open?: boolean;
+};
+
+export type GlDisclosureDropdownTriggerProps = Omit<
+  BaseMenu.Trigger.Props,
+  "children" | "className" | "disabled" | "nativeButton" | "render"
+> & {
+  block?: boolean;
+  category?: GlButtonCategory;
+  children?: ReactNode;
+  className?: string;
+  disabled?: boolean;
+  icon?: string;
+  loading?: boolean;
+  nativeButton?: boolean;
+  noCaret?: boolean;
+  render?: BaseMenu.Trigger.Props["render"];
+  size?: GlButtonSize;
+  textSrOnly?: boolean;
+  variant?: GlButtonVariant;
+};
+
+export type GlDisclosureDropdownPlacement =
+  | "right-start"
+  | "bottom-start"
+  | "bottom-end"
+  | "bottom"
+  /** @deprecated Use `bottom-start`. */
+  | "left"
+  /** @deprecated Use `bottom`. */
+  | "center"
+  /** @deprecated Use `bottom-end`. */
+  | "right";
+
+export type GlDisclosureDropdownOffset = number | {
+  alignmentAxis?: number;
+  crossAxis?: number;
+  mainAxis?: number;
+};
+
+export type GlDisclosureDropdownPositioningStrategy = "absolute" | "fixed";
+
+type PopupProps = Omit<
+  BaseMenu.Popup.Props,
+  "children" | "className" | "finalFocus" | "render" | "role" | "style"
+>;
+
+export type GlDisclosureDropdownContentProps = PopupProps & {
+  children?: ReactNode;
+  className?: string;
+  fluidWidth?: boolean;
+  footer?: ReactNode;
+  header?: ReactNode;
+  offset?: GlDisclosureDropdownOffset;
+  placement?: GlDisclosureDropdownPlacement;
+  positioningStrategy?: GlDisclosureDropdownPositioningStrategy;
+  /** Forces an icon column when direct item children are hidden behind wrapper components. */
+  reserveIconSpace?: boolean;
+  style?: CSSProperties;
+};
+
+type InteractiveElementProps = Omit<
+  BaseMenu.Item.Props,
+  | "children"
+  | "className"
+  | "disabled"
+  | "href"
+  | "label"
+  | "onClick"
+  | "ref"
+  | "render"
+  | "nativeButton"
+  | "type"
+  | "value"
+> & Pick<
+  AnchorHTMLAttributes<HTMLAnchorElement>,
+  "download" | "hrefLang" | "media" | "ping" | "referrerPolicy" | "rel" | "target"
+> & Pick<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  | "form"
+  | "formAction"
+  | "formEncType"
+  | "formMethod"
+  | "formNoValidate"
+  | "formTarget"
+  | "name"
+>;
+
+export type GlDisclosureDropdownItemVariant = "default" | "danger";
+
+export type GlDisclosureDropdownItemProps = InteractiveElementProps & {
+  children?: ReactNode;
+  className?: string;
+  closeOnClick?: boolean;
+  disabled?: boolean;
+  href?: string;
+  icon?: string;
+  /** Overrides the text used by Base UI typeahead. */
+  label?: string;
+  /** Set to true when a custom `render` ultimately renders a native button. */
+  nativeButton?: boolean;
+  onAction?: (details: GlDisclosureDropdownActionDetails) => void;
+  onClick?: MouseEventHandler<HTMLElement>;
+  render?: BaseMenu.Item.Props["render"];
+  value: unknown;
+  variant?: GlDisclosureDropdownItemVariant;
+};
+
+type DropdownContextValue = {
+  autoClose: boolean;
+  dispatchAction(details: GlDisclosureDropdownActionDetails): void;
+  handle: BaseMenu.Handle<unknown>;
+  returnFocusRef: React.MutableRefObject<boolean>;
+  rootElementRef: React.MutableRefObject<HTMLDivElement | null>;
+  setPopupElement(element: HTMLDivElement | null): void;
+  setTriggerElement(element: HTMLElement | null): void;
+  triggerElementRef: React.MutableRefObject<HTMLElement | null>;
+  triggerId: string;
+  updateTriggerId(id: string): void;
+};
+
+const DropdownContext = createContext<DropdownContextValue | null>(null);
+
+/** @internal Shared with the colocated group implementation. */
+export const DisclosureDropdownIconSpacingContext = createContext(false);
+
+const rootVariants = cva(["gl-disclosure-dropdown", "gl-new-dropdown"]);
+
+const triggerVariants = cva("gl-new-dropdown-toggle", {
+  variants: {
+    caretOnly: {
+      false: null,
+      true: "gl-new-dropdown-caret-only btn-icon",
+    },
+    iconOnly: {
+      false: null,
+      true: "gl-new-dropdown-icon-only btn-icon",
+    },
+    noCaret: {
+      false: null,
+      true: "gl-new-dropdown-toggle-no-caret",
+    },
+  },
+  defaultVariants: {
+    caretOnly: false,
+    iconOnly: false,
+    noCaret: false,
+  },
+});
+
+const popupVariants = cva("gl-new-dropdown-panel", {
+  variants: {
+    fluidWidth: {
+      false: "gl-new-dropdown-panel-fixed-width",
+      true: "gl-new-dropdown-panel-fluid-width",
+    },
+  },
+  defaultVariants: {
+    fluidWidth: false,
+  },
+});
+
+const itemVariants = cva("gl-new-dropdown-item", {
+  variants: {
+    disabled: {
+      false: null,
+      true: "disabled",
+    },
+    variant: {
+      danger: "gl-new-dropdown-item-danger",
+      default: null,
+    },
+  },
+  defaultVariants: {
+    disabled: false,
+    variant: "default",
+  },
+});
+
+function useDropdownContext(componentName: string) {
+  const context = useContext(DropdownContext);
+
+  if(!context) {
+    throw new Error(`${componentName} must be used inside GlDisclosureDropdown.`);
+  }
+
+  return context;
+}
+
+function assignRef<T>(ref: Ref<T> | undefined, value: T | null) {
+  if(typeof ref === "function") {
+    ref(value);
+  } else if(ref) {
+    ref.current = value;
+  }
+}
+
+function useMergedRefs<T>(...refs: Array<Ref<T> | undefined>) {
+  return useCallback((value: T | null) => {
+    refs.forEach((ref) => assignRef(ref, value));
+  // Ref identity changes must produce a fresh callback so React clears obsolete refs.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, refs);
+}
+
+function mapChangeReason(
+  reason: BaseMenu.Root.ChangeEventReason,
+): GlDisclosureDropdownCloseReason {
+  switch(reason) {
+    case "trigger-focus":
+    case "trigger-hover":
+    case "trigger-press":
+    case "list-navigation":
+      return "trigger";
+    case "outside-press":
+    case "sibling-open":
+      return "outside";
+    case "escape-key":
+      return "escape";
+    case "item-press":
+    case "close-press":
+      return "item";
+    case "focus-out":
+      return "focus-out";
+    default:
+      return "imperative";
+  }
+}
+
+function shouldRestoreFocus(reason: GlDisclosureDropdownCloseReason) {
+  return reason === "escape" || reason === "item" || reason === "trigger";
+}
+
+export const GlDisclosureDropdown = forwardRef<
+  GlDisclosureDropdownHandle,
+  GlDisclosureDropdownProps
+>(function GlDisclosureDropdown({
+  autoClose = true,
+  children,
+  className,
+  defaultOpen = false,
+  onAction,
+  onBeforeClose,
+  onHidden,
+  onOpenChange,
+  onShown,
+  open,
+  ...rootProps
+}, forwardedRef) {
+  const generatedTriggerId = useId();
+  const defaultTriggerId = `gl-disclosure-dropdown-trigger-${generatedTriggerId}`;
+  const [triggerId, setTriggerId] = useState(defaultTriggerId);
+  const rootElementRef = useRef<HTMLDivElement>(null);
+  const popupElementRef = useRef<HTMLDivElement | null>(null);
+  const triggerElementRef = useRef<HTMLElement | null>(null);
+  const returnFocusRef = useRef(false);
+  const forceReturnFocusRef = useRef(false);
+  const handle = useMemo(() => BaseMenu.createHandle<unknown>(), []);
+
+  const dispatchAction = useCallback((details: GlDisclosureDropdownActionDetails) => {
+    if(!onAction) return;
+
+    // Keep parity with upstream, which defers the root action until the item click finishes.
+    if(typeof requestAnimationFrame === "function") {
+      requestAnimationFrame(() => onAction(details));
+    } else {
+      setTimeout(() => onAction(details), 0);
+    }
+  }, [onAction]);
+
+  const handleOpenChange = useCallback((
+    nextOpen: boolean,
+    details: BaseMenu.Root.ChangeEventDetails,
+  ) => {
+    const reason = mapChangeReason(details.reason);
+    const publicDetails = { event: details.event, reason };
+
+    if(!nextOpen) {
+      let defaultPrevented = false;
+      const beforeCloseDetails: GlDisclosureDropdownBeforeCloseDetails = {
+        ...publicDetails,
+        get defaultPrevented() {
+          return defaultPrevented;
+        },
+        preventDefault() {
+          if(defaultPrevented) return;
+
+          defaultPrevented = true;
+          details.cancel();
+        },
+      };
+
+      onBeforeClose?.(beforeCloseDetails);
+      if(defaultPrevented) {
+        forceReturnFocusRef.current = false;
+        return;
+      }
+
+      returnFocusRef.current = forceReturnFocusRef.current || shouldRestoreFocus(reason);
+      forceReturnFocusRef.current = false;
+    }
+
+    onOpenChange?.(nextOpen, publicDetails);
+  }, [onBeforeClose, onOpenChange]);
+
+  const handleOpenChangeComplete = useCallback((nextOpen: boolean) => {
+    if(nextOpen) {
+      onShown?.();
+    } else {
+      onHidden?.();
+      forceReturnFocusRef.current = false;
+    }
+  }, [onHidden, onShown]);
+
+  const openMenu = useCallback(() => {
+    returnFocusRef.current = false;
+    forceReturnFocusRef.current = false;
+    handle.open(triggerId);
+  }, [handle, triggerId]);
+
+  const closeMenu = useCallback(() => {
+    returnFocusRef.current = false;
+    forceReturnFocusRef.current = false;
+    handle.close();
+  }, [handle]);
+
+  const closeMenuAndFocus = useCallback(() => {
+    forceReturnFocusRef.current = true;
+    handle.close();
+  }, [handle]);
+
+  const containsElement = useCallback((element: Element | null) => {
+    if(!element) return false;
+
+    return Boolean(
+      rootElementRef.current?.contains(element)
+      || popupElementRef.current?.contains(element),
+    );
+  }, []);
+
+  useImperativeHandle(forwardedRef, () => ({
+    close: closeMenu,
+    closeAndFocus: closeMenuAndFocus,
+    containsElement,
+    open: openMenu,
+  }), [closeMenu, closeMenuAndFocus, containsElement, openMenu]);
+
+  const contextValue = useMemo<DropdownContextValue>(() => ({
+    autoClose,
+    dispatchAction,
+    handle,
+    returnFocusRef,
+    rootElementRef,
+    setPopupElement(element) {
+      popupElementRef.current = element;
+    },
+    setTriggerElement(element) {
+      triggerElementRef.current = element;
+    },
+    triggerElementRef,
+    triggerId,
+    updateTriggerId: setTriggerId,
+  }), [autoClose, dispatchAction, handle, triggerId]);
+
+  return (
+    <DropdownContext.Provider value={contextValue}>
+      <BaseMenu.Root
+        defaultOpen={defaultOpen}
+        defaultTriggerId={defaultTriggerId}
+        handle={handle}
+        highlightItemOnHover={false}
+        loopFocus={false}
+        modal={false}
+        onOpenChange={handleOpenChange}
+        onOpenChangeComplete={handleOpenChangeComplete}
+        open={open}
+        triggerId={open === undefined ? undefined : triggerId}>
+        <div {...rootProps} ref={rootElementRef} className={rootVariants({ className })}>
+          {children}
+        </div>
+      </BaseMenu.Root>
+    </DropdownContext.Provider>
+  );
+});
+
+export const GlDisclosureDropdownTrigger = forwardRef<
+  HTMLElement,
+  GlDisclosureDropdownTriggerProps
+>(function GlDisclosureDropdownTrigger({
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
+  block = false,
+  category = "primary",
+  children,
+  className,
+  disabled = false,
+  icon,
+  id,
+  loading = false,
+  nativeButton,
+  noCaret = false,
+  onKeyDown,
+  render,
+  size = "medium",
+  textSrOnly = false,
+  variant = "default",
+  ...triggerProps
+}, forwardedRef) {
+  const context = useDropdownContext("GlDisclosureDropdownTrigger");
+  const actualId = id ?? context.triggerId;
+  const hasText = Children.toArray(children).length > 0;
+  const iconOnly = Boolean(icon) && (!hasText || textSrOnly);
+  const caretOnly = !noCaret && !icon && (!hasText || textSrOnly);
+  const mergedRef = useMergedRefs(forwardedRef, context.setTriggerElement);
+  const environment = typeof process === "undefined" ? undefined : process.env.NODE_ENV;
+
+  useEffect(() => {
+    context.updateTriggerId(actualId);
+  }, [actualId, context]);
+
+  if(environment !== "production" && ariaLabel && ariaLabelledBy) {
+    console.warn(
+      "[GlDisclosureDropdownTrigger] Do not provide both `aria-label` and "
+      + "`aria-labelledby`. `aria-labelledby` takes precedence.",
+    );
+  }
+
+  if(
+    environment !== "production"
+    && !render
+    && !hasText
+    && !ariaLabel
+    && !ariaLabelledBy
+  ) {
+    console.warn(
+      "[GlDisclosureDropdownTrigger] Icon-only triggers require accessible text, "
+      + "`aria-label`, or `aria-labelledby`.",
+    );
+  }
+
+  const classes = triggerVariants({ caretOnly, className, iconOnly, noCaret });
+  const handleKeyDown = useCallback((event: ReactKeyboardEvent<HTMLElement>) => {
+    onKeyDown?.(
+      event as Parameters<NonNullable<BaseMenu.Trigger.Props["onKeyDown"]>>[0],
+    );
+    if(event.defaultPrevented || event.key !== "ArrowDown") return;
+
+    event.preventDefault();
+    context.handle.open(actualId);
+  }, [actualId, context.handle, onKeyDown]);
+  const defaultContent = hasText || !noCaret ? (
+    <>
+      {hasText ? (
+        <span className={clsx("gl-new-dropdown-button-text", textSrOnly && "gl-sr-only")}>
+          {children}
+        </span>
+      ) : null}
+      {!noCaret ? (
+        <GlIcon
+          className="gl-button-icon gl-new-dropdown-chevron"
+          name="chevron-down"
+          size={16} />
+      ) : null}
+    </>
+  ) : null;
+
+  const triggerRender = render ?? (
+    <GlButton
+      block={block}
+      category={category}
+      disabled={disabled}
+      icon={icon}
+      loading={loading}
+      size={size}
+      variant={variant} />
+  );
+
+  return (
+    <BaseMenu.Trigger
+      {...triggerProps}
+      ref={mergedRef}
+      aria-label={ariaLabelledBy ? undefined : ariaLabel}
+      aria-labelledby={ariaLabelledBy}
+      className={classes}
+      disabled={disabled || loading}
+      handle={context.handle}
+      id={actualId}
+      nativeButton={render ? nativeButton : true}
+      onKeyDown={handleKeyDown}
+      render={triggerRender}>
+      {render ? children : defaultContent}
+    </BaseMenu.Trigger>
+  );
+});
+
+type ResolvedPlacement = {
+  align: BaseMenu.Positioner.Props["align"];
+  side: BaseMenu.Positioner.Props["side"];
+};
+
+/** @internal Exported for focused adapter tests, not from the package entry point. */
+export function resolveDisclosureDropdownPlacement(
+  placement: GlDisclosureDropdownPlacement,
+): ResolvedPlacement {
+  switch(placement) {
+    case "right-start":
+      return { align: "start", side: "right" };
+    case "bottom-end":
+    case "right":
+      return { align: "end", side: "bottom" };
+    case "bottom":
+    case "center":
+      return { align: "center", side: "bottom" };
+    default:
+      return { align: "start", side: "bottom" };
+  }
+}
+
+type ResolvedOffset = {
+  alignOffset: BaseMenu.Positioner.Props["alignOffset"];
+  sideOffset: BaseMenu.Positioner.Props["sideOffset"];
+};
+
+/** @internal Exported for focused adapter tests, not from the package entry point. */
+export function resolveDisclosureDropdownOffset(
+  offset: GlDisclosureDropdownOffset,
+): ResolvedOffset {
+  if(typeof offset === "number") {
+    return { alignOffset: 0, sideOffset: offset };
+  }
+
+  const { alignmentAxis, crossAxis = 0, mainAxis = 0 } = offset;
+  return {
+    alignOffset: alignmentAxis === undefined
+      ? crossAxis
+      : ({ align }) => align === "end" ? -alignmentAxis : alignmentAxis,
+    sideOffset: mainAxis,
+  };
+}
+
+export const GlDisclosureDropdownContent = forwardRef<
+  HTMLDivElement,
+  GlDisclosureDropdownContentProps
+>(function GlDisclosureDropdownContent({
+  children,
+  className,
+  fluidWidth = false,
+  footer,
+  header,
+  offset = 8,
+  onKeyDown,
+  placement = "bottom-start",
+  positioningStrategy = "absolute",
+  reserveIconSpace,
+  style,
+  ...popupProps
+}, forwardedRef) {
+  const context = useDropdownContext("GlDisclosureDropdownContent");
+  const [arrowPadding, setArrowPadding] = useState(5);
+  const [nonScrollableHeight, setNonScrollableHeight] = useState(0);
+  const [popupElement, setPopupElement] = useState<HTMLDivElement | null>(null);
+  const [scrollElement, setScrollElement] = useState<HTMLDivElement | null>(null);
+  const [showBottomScrim, setShowBottomScrim] = useState(false);
+  const [showTopScrim, setShowTopScrim] = useState(false);
+  const typeaheadRef = useRef({ timeout: 0, value: "" });
+  const popupRef = useMergedRefs(forwardedRef, context.setPopupElement, setPopupElement);
+  const resolvedPlacement = resolveDisclosureDropdownPlacement(placement);
+  const resolvedOffset = resolveDisclosureDropdownOffset(offset);
+  const hasIconColumn = reserveIconSpace
+    ?? hasDirectDisclosureDropdownItemIcon(children);
+
+  const updateScrims = useCallback(() => {
+    if(!scrollElement) return;
+
+    const currentTop = scrollElement.scrollTop > 0;
+    const currentBottom = Math.ceil(scrollElement.scrollTop + scrollElement.clientHeight)
+      < scrollElement.scrollHeight;
+
+    setShowTopScrim(currentTop);
+    setShowBottomScrim(currentBottom);
+  }, [scrollElement]);
+
+  const updateContentMeasurements = useCallback(() => {
+    if(!scrollElement) return;
+
+    const innerElement = scrollElement.parentElement;
+    const measuredHeight = innerElement
+      ? Math.max(
+        0,
+        innerElement.getBoundingClientRect().height
+          - scrollElement.getBoundingClientRect().height,
+      )
+      : 0;
+
+    setNonScrollableHeight((currentHeight) => (
+      Math.abs(currentHeight - measuredHeight) < 0.5 ? currentHeight : measuredHeight
+    ));
+    updateScrims();
+  }, [scrollElement, updateScrims]);
+
+  useEffect(() => {
+    if(!scrollElement) return;
+
+    const innerElement = scrollElement.parentElement;
+    updateContentMeasurements();
+    window.addEventListener("resize", updateContentMeasurements);
+
+    const resizeObserver = typeof ResizeObserver === "undefined"
+      ? null
+      : new ResizeObserver(updateContentMeasurements);
+    resizeObserver?.observe(scrollElement);
+    if(innerElement) resizeObserver?.observe(innerElement);
+
+    const mutationObserver = typeof MutationObserver === "undefined"
+      ? null
+      : new MutationObserver(updateContentMeasurements);
+    mutationObserver?.observe(innerElement ?? scrollElement, {
+      characterData: true,
+      childList: true,
+      subtree: true,
+    });
+
+    return () => {
+      mutationObserver?.disconnect();
+      resizeObserver?.disconnect();
+      window.removeEventListener("resize", updateContentMeasurements);
+    };
+  }, [scrollElement, updateContentMeasurements]);
+
+  useEffect(() => {
+    const triggerElement = context.triggerElementRef.current;
+    if(!popupElement || !triggerElement) return;
+
+    const updateArrowPadding = () => {
+      const shouldClampArrow = triggerElement.getBoundingClientRect().width
+        > popupElement.getBoundingClientRect().width;
+      setArrowPadding(shouldClampArrow ? 24 : 5);
+    };
+
+    updateArrowPadding();
+    window.addEventListener("resize", updateArrowPadding);
+
+    const resizeObserver = typeof ResizeObserver === "undefined"
+      ? null
+      : new ResizeObserver(updateArrowPadding);
+    resizeObserver?.observe(triggerElement);
+    resizeObserver?.observe(popupElement);
+
+    return () => {
+      resizeObserver?.disconnect();
+      window.removeEventListener("resize", updateArrowPadding);
+    };
+  }, [context.triggerElementRef, popupElement]);
+
+  useEffect(() => () => {
+    window.clearTimeout(typeaheadRef.current.timeout);
+  }, []);
+
+  const handleKeyDown = useCallback((event: ReactKeyboardEvent<HTMLDivElement>) => {
+    onKeyDown?.(event as Parameters<NonNullable<BaseMenu.Popup.Props["onKeyDown"]>>[0]);
+    if(event.defaultPrevented) return;
+
+    const items = Array.from(event.currentTarget.querySelectorAll<HTMLElement>(
+      "[role='menuitem']:not([data-disabled])",
+    ));
+    if(items.length === 0) return;
+
+    const currentIndex = items.indexOf(document.activeElement as HTMLElement);
+    let nextItem: HTMLElement | undefined;
+
+    if(event.key === "ArrowDown") {
+      nextItem = items[Math.min(currentIndex + 1, items.length - 1)];
+    } else if(event.key === "ArrowUp") {
+      nextItem = items[currentIndex < 0 ? items.length - 1 : Math.max(currentIndex - 1, 0)];
+    } else if(event.key === "Home") {
+      nextItem = items[0];
+    } else if(event.key === "End") {
+      nextItem = items.at(-1);
+    } else if(
+      event.key.length === 1
+      && !event.altKey
+      && !event.ctrlKey
+      && !event.metaKey
+    ) {
+      const character = event.key.toLocaleLowerCase();
+      const previousValue = typeaheadRef.current.value;
+      const isRepeatedCharacter = previousValue.length > 0
+        && [...previousValue].every((value) => value === character);
+      const search = isRepeatedCharacter ? character : previousValue + character;
+      const orderedItems = [
+        ...items.slice(currentIndex + 1),
+        ...items.slice(0, currentIndex + 1),
+      ];
+
+      nextItem = orderedItems.find((item) => (
+        item.dataset.typeaheadLabel ?? item.textContent ?? ""
+      ).trim().toLocaleLowerCase().startsWith(search));
+      typeaheadRef.current.value = search;
+      window.clearTimeout(typeaheadRef.current.timeout);
+      typeaheadRef.current.timeout = window.setTimeout(() => {
+        typeaheadRef.current.value = "";
+      }, 500);
+    }
+
+    if(!nextItem) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    (event as Parameters<NonNullable<BaseMenu.Popup.Props["onKeyDown"]>>[0])
+      .preventBaseUIHandler();
+    nextItem.focus();
+  }, [onKeyDown]);
+
+  const positionedPopup = (
+    <BaseMenu.Positioner
+      align={resolvedPlacement.align}
+      alignOffset={resolvedOffset.alignOffset}
+      arrowPadding={arrowPadding}
+      className="gl-new-dropdown-container"
+      collisionAvoidance={{ align: "shift", fallbackAxisSide: "none", side: "flip" }}
+      positionMethod={positioningStrategy}
+      side={resolvedPlacement.side}
+      sideOffset={resolvedOffset.sideOffset}>
+      <BaseMenu.Popup
+        {...popupProps}
+        ref={popupRef}
+        className={popupVariants({ className, fluidWidth })}
+        finalFocus={() => context.returnFocusRef.current
+          ? context.triggerElementRef.current
+          : false}
+        onKeyDown={handleKeyDown}
+        style={style}>
+        <BaseMenu.Arrow className="gl-new-dropdown-arrow" />
+        <div className="gl-new-dropdown-inner">
+          {header !== undefined ? (
+            <div className="gl-new-dropdown-header">{header}</div>
+          ) : null}
+          <div
+            ref={setScrollElement}
+            className={clsx(
+              "gl-new-dropdown-contents",
+              "gl-new-dropdown-contents-with-scrim-overlay",
+              showTopScrim && "top-scrim-visible",
+              showBottomScrim && "bottom-scrim-visible",
+            )}
+            onScroll={updateScrims}
+            style={{
+              "--gl-new-dropdown-non-scroll-height": `${nonScrollableHeight}px`,
+            } as CSSProperties}>
+            <span aria-hidden className="top-scrim-wrapper">
+              <span className={clsx(
+                "top-scrim",
+                header === undefined ? "top-scrim-light" : "top-scrim-dark",
+              )} />
+            </span>
+            <DisclosureDropdownIconSpacingContext.Provider value={hasIconColumn}>
+              {children}
+            </DisclosureDropdownIconSpacingContext.Provider>
+            <span aria-hidden className="bottom-scrim-wrapper">
+              <span className="bottom-scrim" />
+            </span>
+          </div>
+          {footer !== undefined ? (
+            <div className="gl-new-dropdown-footer">{footer}</div>
+          ) : null}
+        </div>
+      </BaseMenu.Popup>
+    </BaseMenu.Positioner>
+  );
+
+  return (
+    <BaseMenu.Portal
+      container={positioningStrategy === "absolute" ? context.rootElementRef : undefined}>
+      {positionedPopup}
+    </BaseMenu.Portal>
+  );
+});
+
+export const GlDisclosureDropdownItem = forwardRef<
+  HTMLElement,
+  GlDisclosureDropdownItemProps
+>(function GlDisclosureDropdownItem({
+  children,
+  className,
+  closeOnClick,
+  disabled = false,
+  href,
+  icon,
+  label,
+  nativeButton,
+  onAction,
+  onClick,
+  render,
+  value,
+  variant = "default",
+  ...elementProps
+}, forwardedRef) {
+  const context = useDropdownContext("GlDisclosureDropdownItem");
+  const reserveIconSpace = useContext(DisclosureDropdownIconSpacingContext);
+  const handleClick: MouseEventHandler<HTMLElement> = (event) => {
+    onClick?.(event);
+    if(event.defaultPrevented) return;
+
+    const details = { event, value };
+    onAction?.(details);
+    context.dispatchAction(details);
+  };
+
+  const itemRender = render
+    ?? (href !== undefined
+      ? <GlLink disabled={disabled} href={href} variant="unstyled" />
+      : <button disabled={disabled} type="button" />);
+
+  return (
+    <BaseMenu.Item
+      {...elementProps}
+      ref={forwardedRef}
+      className={itemVariants({ className, disabled, variant })}
+      closeOnClick={closeOnClick ?? context.autoClose}
+      disabled={disabled}
+      data-typeahead-label={label}
+      label={label}
+      nativeButton={render ? nativeButton : href === undefined}
+      onClick={handleClick}
+      render={itemRender}>
+      <span className="gl-new-dropdown-item-content">
+        <span className="gl-new-dropdown-item-text-wrapper">
+          {icon || reserveIconSpace ? (
+            <span aria-hidden className="gl-new-dropdown-item-icon">
+              {icon ? <GlIcon name={icon} variant="current" /> : null}
+            </span>
+          ) : null}
+          {children}
+        </span>
+      </span>
+    </BaseMenu.Item>
+  );
+});
+
+/** @internal Shared with the colocated group implementation. */
+export function hasDirectDisclosureDropdownItemIcon(children: ReactNode): boolean {
+  return Children.toArray(children).some((child) => {
+    if(!isValidElement<{ children?: ReactNode; icon?: string }>(child)) return false;
+    if(child.type === GlDisclosureDropdownItem) return Boolean(child.props.icon);
+    if(child.type === Fragment) return hasDirectDisclosureDropdownItemIcon(child.props.children);
+    return false;
+  });
+}
+
+export default GlDisclosureDropdown;

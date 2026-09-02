@@ -50,6 +50,36 @@ export type {
   GlCardHeaderProps,
   GlCardProps,
 } from "./base/card/card";
+export {
+  default as GlDisclosureDropdown,
+  GlDisclosureDropdownContent,
+  GlDisclosureDropdownItem,
+  GlDisclosureDropdownTrigger,
+} from "./base/disclosure-dropdown/disclosure-dropdown";
+export type {
+  GlDisclosureDropdownActionDetails,
+  GlDisclosureDropdownBeforeCloseDetails,
+  GlDisclosureDropdownCloseReason,
+  GlDisclosureDropdownContentProps,
+  GlDisclosureDropdownHandle,
+  GlDisclosureDropdownItemProps,
+  GlDisclosureDropdownItemVariant,
+  GlDisclosureDropdownOffset,
+  GlDisclosureDropdownOpenChangeDetails,
+  GlDisclosureDropdownPlacement,
+  GlDisclosureDropdownPositioningStrategy,
+  GlDisclosureDropdownProps,
+  GlDisclosureDropdownTriggerProps,
+} from "./base/disclosure-dropdown/disclosure-dropdown";
+export {
+  GlDisclosureDropdownGroup,
+  GlDisclosureDropdownGroupLabel,
+} from "./base/disclosure-dropdown/disclosure-dropdown-group";
+export type {
+  GlDisclosureDropdownGroupBorderPosition,
+  GlDisclosureDropdownGroupLabelProps,
+  GlDisclosureDropdownGroupProps,
+} from "./base/disclosure-dropdown/disclosure-dropdown-group";
 export { default as GlFormCharacterCount } from "./base/form-character-count/form-character-count";
 export type {
   GlFormCharacterCountProps,
