@@ -830,7 +830,9 @@ export const GlDisclosureDropdownContent = forwardRef<
         <BaseMenu.Arrow className="gl-new-dropdown-arrow" />
         <div className="gl-new-dropdown-inner">
           {header !== undefined ? (
-            <div className="gl-new-dropdown-header">{header}</div>
+            <div className="gl-new-dropdown-header">
+              <div className="gl-new-dropdown-header-content">{header}</div>
+            </div>
           ) : null}
           <div
             ref={setScrollElement}

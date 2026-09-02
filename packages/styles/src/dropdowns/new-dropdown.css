@@ -3,8 +3,8 @@
  * packages/gitlab-ui/src/components/base/new_dropdowns/dropdown.scss
  * packages/gitlab-ui/src/components/base/new_dropdowns/dropdown_item.scss
  *
- * Shared privately by the new dropdown family. Disclosure-specific rules live
- * beside GlDisclosureDropdown; a future Listbox port should reuse this file.
+ * Shared privately by the new dropdown family. Component-specific rules live
+ * beside their respective components.
  */
 
 .gl-new-dropdown {
@@ -93,6 +93,21 @@
 .gl-new-dropdown-inner {
   @apply gl-flex gl-flex-col;
   max-height: 19.5rem;
+}
+
+/* React adaptation: arbitrary header/footer content receives consistent dropdown chrome. */
+.gl-new-dropdown-header {
+  @apply gl-flex gl-min-h-8 gl-shrink-0 gl-items-center gl-border-b gl-border-b-dropdown-divider gl-px-4 gl-py-3;
+  box-sizing: border-box;
+}
+
+.gl-new-dropdown-header-content {
+  @apply gl-grow gl-pr-2 gl-text-sm gl-font-bold gl-text-strong;
+  line-height: 1.125rem;
+}
+
+.gl-new-dropdown-footer {
+  @apply gl-shrink-0 gl-border-t gl-border-t-dropdown-divider gl-px-4 gl-py-3;
 }
 
 .gl-new-dropdown-contents {

@@ -36,7 +36,7 @@ const storyLayout: CSSProperties = {
 };
 
 const meta = {
-  title: "UI/Base/DisclosureDropdown",
+  title: "UI/Base/Disclosure Dropdown",
   component: GlDisclosureDropdown,
   args: {
     autoClose: true,
@@ -412,7 +412,7 @@ export const GroupsAndButtonGroup: Story = {
         <GlDisclosureDropdownTrigger textSrOnly>More save actions</GlDisclosureDropdownTrigger>
         <GlDisclosureDropdownContent
           footer={<span>Custom footer</span>}
-          header={<strong>Custom header</strong>}>
+          header={<span>Custom header</span>}>
           <GlDisclosureDropdownGroup>
             <GlDisclosureDropdownGroupLabel>General</GlDisclosureDropdownGroupLabel>
             <GlDisclosureDropdownItem icon="download" value="download">
@@ -439,8 +439,13 @@ export const GroupsAndButtonGroup: Story = {
     await expect(generalGroup).toHaveAttribute("role", "group");
     await expect(generalGroup).toHaveAttribute("aria-labelledby", generalLabel.id);
     await expect(generalGroup?.querySelectorAll(".gl-new-dropdown-item-icon")).toHaveLength(2);
-    await expect(canvas.getByText("Custom header")).toBeVisible();
-    await expect(canvas.getByText("Custom footer")).toBeVisible();
+    const header = canvas.getByText("Custom header");
+    const footer = canvas.getByText("Custom footer");
+    await expect(header).toBeVisible();
+    await expect(header.parentElement).toHaveClass("gl-new-dropdown-header-content");
+    await expect(header.parentElement?.parentElement).toHaveClass("gl-new-dropdown-header");
+    await expect(footer).toBeVisible();
+    await expect(footer.parentElement).toHaveClass("gl-new-dropdown-footer");
   },
 };
 

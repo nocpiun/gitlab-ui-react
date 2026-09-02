@@ -7,10 +7,6 @@
   max-height: 19.5rem;
 }
 
-.gl-listbox-header {
-  @apply gl-flex gl-min-h-8 gl-shrink-0 gl-items-center gl-border-b gl-border-b-dropdown-divider gl-px-4 gl-py-3;
-}
-
 .gl-listbox-search-container {
   @apply gl-shrink-0 gl-border-b gl-border-b-dropdown-divider;
 }
@@ -93,10 +89,6 @@
 
 .gl-listbox-no-results {
   @apply gl-py-3 gl-pl-7 gl-pr-5 gl-text-base gl-text-subtle;
-}
-
-.gl-listbox-footer {
-  @apply gl-shrink-0 gl-border-t gl-border-t-dropdown-divider;
 }
 
 @media (forced-colors: active) {

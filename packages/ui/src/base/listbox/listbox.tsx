@@ -1106,7 +1106,9 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
           <ListboxContentContext.Provider value={contentContext}>
             <div className="gl-new-dropdown-inner gl-listbox-inner">
               {header !== undefined ? (
-                <div className="gl-listbox-header">{header}</div>
+                <div className="gl-new-dropdown-header">
+                  <div className="gl-new-dropdown-header-content">{header}</div>
+                </div>
               ) : null}
               {searchable ? <div className="gl-listbox-search-container">{search}</div> : null}
               {searching ? (
@@ -1198,7 +1200,9 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
                   {busyAnnouncement}
                 </span>
               ) : null}
-              {footer !== undefined ? <div className="gl-listbox-footer">{footer}</div> : null}
+              {footer !== undefined ? (
+                <div className="gl-new-dropdown-footer">{footer}</div>
+              ) : null}
             </div>
           </ListboxContentContext.Provider>
         </BaseMenu.Popup>

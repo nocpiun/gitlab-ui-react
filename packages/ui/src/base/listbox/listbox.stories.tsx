@@ -222,8 +222,8 @@ function GroupsExample() {
     <GlListbox multiple value={value} onValueChange={setValue}>
       <GlListboxTrigger>Grouped projects</GlListboxTrigger>
       <GlListboxContent
-        footer={<div className="gl-p-3">Custom footer</div>}
-        header={<strong>Custom header</strong>}>
+        footer={<span>Custom footer</span>}
+        header={<span>Custom header</span>}>
         <GlListboxGroup>
           <GlListboxGroupLabel>GitLab</GlListboxGroupLabel>
           <GlListboxItem value="gitlab-org">GitLab.org</GlListboxItem>
@@ -248,8 +248,13 @@ export const GroupsAndCustomRegions: Story = {
     await expect(label).toHaveAttribute("id");
     await expect(groups[0]).toHaveAttribute("aria-labelledby", label.id);
     await expect(canvas.getByText("Personal projects")).toHaveClass("gl-sr-only");
-    await expect(canvas.getByText("Custom header")).toBeVisible();
-    await expect(canvas.getByText("Custom footer")).toBeVisible();
+    const header = canvas.getByText("Custom header");
+    const footer = canvas.getByText("Custom footer");
+    await expect(header).toBeVisible();
+    await expect(header.parentElement).toHaveClass("gl-new-dropdown-header-content");
+    await expect(header.parentElement?.parentElement).toHaveClass("gl-new-dropdown-header");
+    await expect(footer).toBeVisible();
+    await expect(footer.parentElement).toHaveClass("gl-new-dropdown-footer");
   },
 };
 
