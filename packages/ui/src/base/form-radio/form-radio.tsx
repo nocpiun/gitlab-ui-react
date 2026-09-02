@@ -38,6 +38,7 @@ import {
   type ReactNode,
 } from "react";
 import { cva } from "class-variance-authority";
+import clsx from "clsx";
 import { looseEqual } from "../../internal/form/equality-utils";
 import { GlFormRadioGroupContext } from "../form-radio-group/form-radio-group-context";
 
@@ -158,10 +159,7 @@ const GlFormRadio = forwardRef<HTMLInputElement, GlFormRadioProps>(function GlFo
 
   return (
     <div
-      className={[
-        "gl-form-radio custom-radio custom-control",
-        className,
-      ].filter(Boolean).join(" ")}>
+      className={clsx("gl-form-radio custom-radio custom-control", className)}>
       <input
         {...elementProps}
         ref={forwardedRef}

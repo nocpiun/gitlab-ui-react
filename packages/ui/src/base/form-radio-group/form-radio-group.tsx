@@ -33,6 +33,7 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from "react";
+import clsx from "clsx";
 import GlFormRadio from "../form-radio/form-radio";
 import SafeHtml from "../../internal/safe-html/safe-html";
 import { normalizeAriaInvalid } from "../../internal/form/aria-invalid-utils";
@@ -161,7 +162,7 @@ export default function GlFormRadioGroup({
         {...elementProps}
         aria-invalid={computedAriaInvalid}
         aria-required={required || undefined}
-        className={["gl-form-radio-group gl-outline-none", className].filter(Boolean).join(" ")}
+        className={clsx("gl-form-radio-group gl-outline-none", className)}
         id={internalId}
         role="radiogroup"
         tabIndex={-1}>

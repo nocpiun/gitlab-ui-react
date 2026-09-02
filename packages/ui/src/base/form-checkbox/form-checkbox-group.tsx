@@ -37,6 +37,7 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from "react";
+import clsx from "clsx";
 import GlFormCheckbox from "./form-checkbox";
 import SafeHtml from "../../internal/safe-html/safe-html";
 import { normalizeAriaInvalid } from "../../internal/form/aria-invalid-utils";
@@ -185,7 +186,7 @@ export default function GlFormCheckboxGroup({
         {...elementProps}
         aria-invalid={computedAriaInvalid}
         aria-required={required || undefined}
-        className={["gl-form-checkbox-group gl-outline-none", className].filter(Boolean).join(" ")}
+        className={clsx("gl-form-checkbox-group gl-outline-none", className)}
         id={internalId}
         role="group"
         tabIndex={-1}>

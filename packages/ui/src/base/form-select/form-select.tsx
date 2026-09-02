@@ -25,6 +25,7 @@ import {
   type SelectHTMLAttributes,
 } from "react";
 import { cva } from "class-variance-authority";
+import clsx from "clsx";
 import { normalizeAriaInvalid } from "../../internal/form/aria-invalid-utils";
 
 export type GlFormSelectValue = string | readonly string[];
@@ -143,11 +144,7 @@ const GlFormSelect = forwardRef<HTMLSelectElement, GlFormSelectProps>(function G
 
   return (
     <span
-      className={[
-        "gl-form-select-wrapper",
-        ...widthClasses(width),
-        wrapperClassName,
-      ].filter(Boolean).join(" ")}
+      className={clsx("gl-form-select-wrapper", widthClasses(width), wrapperClassName)}
       hidden={hidden}>
       <select
         {...elementProps}

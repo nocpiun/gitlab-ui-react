@@ -13,6 +13,7 @@
 
 import { useId, useState, type ReactElement, type ReactNode } from "react";
 import { Tooltip as BaseTooltip } from "@base-ui/react/tooltip";
+import clsx from "clsx";
 import { getGlTooltipDefaultContainer } from "./container";
 
 export type GlTooltipPlacement = "top" | "right" | "bottom" | "left";
@@ -92,13 +93,13 @@ export default function GlTooltip({
     onOpenChange?.(nextOpen);
   };
 
-  const popupClassName = (state: BaseTooltip.Popup.State) => [
+  const popupClassName = (state: BaseTooltip.Popup.State) => clsx(
     "tooltip gl-tooltip",
     `bs-tooltip-${state.side}`,
     noFade ? null : "fade",
-    noninteractive ? "noninteractive" : null,
+    noninteractive && "noninteractive",
     className,
-  ].filter(Boolean).join(" ");
+  );
 
   const portalContainer = resolveContainer(
     container === undefined ? getGlTooltipDefaultContainer() : container,
