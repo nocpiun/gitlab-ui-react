@@ -22,6 +22,9 @@
  *   the toggle aligned with the constrained input (upstream leaves it at the
  *   full-width wrapper's edge; deliberate fix).
  * - The forwarded ref exposes the underlying `<input>` element.
+ * - Upstream's `inputClass` prop (String | Array | Object) maps to the
+ *   React-idiomatic string-only `inputClassName`, applied to the inner input
+ *   like upstream's `:class="inputClass"`; `className` stays on the wrapper.
  * - Deliberate deviation: the disabled toggle follows this repo's GlButton
  *   policy (`focusableWhenDisabled`): it renders `aria-disabled="true"`,
  *   stays in the tab order, and suppresses activation, instead of upstream's
@@ -45,6 +48,12 @@ export type GlFormPasswordInputProps = Omit<
   /** Additional CSS class(es) merged onto the root wrapper. */
   className?: string;
   /**
+   * Additional CSS class(es) applied to the inner input element, not the
+   * wrapper. Use it for hooks or styles that must target the input itself,
+   * since `className` lands on the wrapper.
+   */
+  inputClassName?: string;
+  /**
    * Disables the field and its toggle. Neither is in the tab order and the
    * value is not submitted with the form. To prevent edits while keeping the
    * value readable, copyable and submitted, use `readOnly` instead.
@@ -67,6 +76,7 @@ export type GlFormPasswordInputProps = Omit<
 const GlFormPasswordInput = forwardRef<HTMLInputElement, GlFormPasswordInputProps>(
   function GlFormPasswordInput({
     className,
+    inputClassName,
     disabled = false,
     // Upstream defaults resolve through its i18n runtime (`translate`); this
     // package has none, so the upstream English defaults are used directly.
@@ -101,7 +111,7 @@ const GlFormPasswordInput = forwardRef<HTMLInputElement, GlFormPasswordInputProp
         <GlFormInput
           {...inputProps}
           ref={forwardedRef}
-          className="gl-form-password-input-field"
+          className={["gl-form-password-input-field", inputClassName].filter(Boolean).join(" ")}
           disabled={disabled}
           onInput={onInput}
           type={isMasked ? "password" : "text"}

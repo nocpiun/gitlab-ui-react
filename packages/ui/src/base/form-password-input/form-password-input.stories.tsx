@@ -20,7 +20,10 @@ Attributes that are not props are forwarded to the underlying input, so \`id\`, 
 \`autocomplete\`, \`required\` and friends behave as they would on a plain \`GlFormInput\`.
 
 Use \`readOnly\` to prevent edits while keeping the value readable, copyable and submitted.
-Use \`disabled\` to make the whole control inert.`,
+Use \`disabled\` to make the whole control inert.
+
+Use \`inputClassName\` to add class(es) to the inner input itself (\`className\` on the component
+lands on the wrapper), for hooks or styles that must target the input.`,
       },
     },
   },
@@ -124,6 +127,26 @@ export const Disabled: Story = {
     await userEvent.click(toggle);
     await expect(input).toHaveAttribute("type", "password");
     await expect(args.onVisibilityChange).not.toHaveBeenCalled();
+  },
+};
+
+export const InputClassName: Story = {
+  args: {
+    inputClassName: "js-hook",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Classes passed via `inputClassName` land on the inner `<input>` (merged with `gl-form-password-input-field`), not on the wrapper, so test hooks and input-specific styles can target the field itself.",
+      },
+    },
+  },
+  play: async ({ canvas }) => {
+    const input = canvas.getByDisplayValue("super-secret-token");
+
+    await expect(input).toHaveClass("js-hook", "gl-form-password-input-field");
+    await expect(input.closest(".gl-form-password-input")).not.toHaveClass("js-hook");
   },
 };
 
