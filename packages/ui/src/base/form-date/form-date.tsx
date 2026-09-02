@@ -124,6 +124,7 @@ const GlFormDate = forwardRef<HTMLInputElement, GlFormDateProps>(function GlForm
     ? new Intl.DateTimeFormat(undefined, { dateStyle: "full" }).format(valueAsDate)
     : null;
 
+  // oxlint-disable-next-line gitlab-ui-react/prefer-clsx
   const ariaDescribedBy = [
     valueAsDate ? outputId : null,
     isInvalid ? invalidFeedbackId : null,
