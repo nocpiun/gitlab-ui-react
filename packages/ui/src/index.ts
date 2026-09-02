@@ -151,6 +151,42 @@ export type {
   GlLinkProps,
   GlLinkVariant,
 } from "./base/link/link";
+export {
+  default as GlListbox,
+  GlListboxContent,
+  GlListboxItem,
+  GlListboxTrigger,
+} from "./base/listbox/listbox";
+export type {
+  GlListboxBeforeCloseDetails,
+  GlListboxCloseReason,
+  GlListboxContentProps,
+  GlListboxHandle,
+  GlListboxItemProps,
+  GlListboxItemRenderState,
+  GlListboxMultipleProps,
+  GlListboxOffset,
+  GlListboxOpenChangeDetails,
+  GlListboxPlacement,
+  GlListboxPositioningStrategy,
+  GlListboxProps,
+  GlListboxSelectionDetails,
+  GlListboxSingleProps,
+  GlListboxTriggerProps,
+  GlListboxValue,
+} from "./base/listbox/listbox";
+export {
+  GlListboxGroup,
+  GlListboxGroupLabel,
+} from "./base/listbox/listbox-group";
+export type {
+  GlListboxGroupLabelProps,
+  GlListboxGroupProps,
+} from "./base/listbox/listbox-group";
+export { default as GlListboxSearchInput } from "./base/listbox/listbox-search-input";
+export type {
+  GlListboxSearchInputProps,
+} from "./base/listbox/listbox-search-input";
 export { default as GlLoadingIcon } from "./base/loading-icon/loading-icon";
 export type {
   GlLoadingIconColor,

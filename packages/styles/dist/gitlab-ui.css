@@ -3175,6 +3175,9 @@ textarea.gl-form-textarea {
   min-width: min(15.5rem, var(--available-width));
   max-width: min(28.5rem, var(--available-width));
 }
+.gl-new-dropdown-panel-match-trigger-width {
+  width: min(var(--anchor-width), var(--available-width));
+}
 .gl-new-dropdown-inner {
   display: flex;
   flex-direction: column;
@@ -3342,6 +3345,43 @@ textarea.gl-form-textarea {
 .gl-new-dropdown-item[data-disabled] > .gl-new-dropdown-item-content {
   color: var(--gl-text-color-disabled);
   pointer-events: none;
+}
+.gl-new-dropdown-item[aria-selected="true"] > .gl-new-dropdown-item-content {
+  background-color: var(--gl-dropdown-option-background-color-selected-default);
+}
+.gl-new-dropdown-item[aria-selected="true"][data-disabled] > .gl-new-dropdown-item-content, .gl-new-dropdown-item[aria-selected="true"].disabled > .gl-new-dropdown-item-content {
+  background-color: var(--gl-background-color-disabled);
+}
+.gl-new-dropdown-item[aria-selected="true"]:not([data-disabled], .disabled):hover > .gl-new-dropdown-item-content {
+  background-color: var(--gl-dropdown-option-background-color-selected-hover);
+}
+.gl-new-dropdown-item[aria-selected="true"]:not([data-disabled], .disabled):hover .gl-new-dropdown-item-check-icon {
+  color: var(--gl-dropdown-option-indicator-color-selected-hover);
+}
+.gl-new-dropdown-item[aria-selected="true"]:not([data-disabled], .disabled)[data-highlighted] > .gl-new-dropdown-item-content, .gl-new-dropdown-item[aria-selected="true"]:not([data-disabled], .disabled):focus-visible > .gl-new-dropdown-item-content {
+  background-color: var(--gl-dropdown-option-background-color-selected-focus);
+}
+.gl-new-dropdown-item[aria-selected="true"]:not([data-disabled], .disabled)[data-highlighted] .gl-new-dropdown-item-check-icon, .gl-new-dropdown-item[aria-selected="true"]:not([data-disabled], .disabled):focus-visible .gl-new-dropdown-item-check-icon {
+  color: var(--gl-dropdown-option-indicator-color-selected-focus);
+}
+.gl-new-dropdown-item[aria-selected="true"]:not([data-disabled], .disabled):active > .gl-new-dropdown-item-content, .gl-new-dropdown-item[aria-selected="true"]:not([data-disabled], .disabled):focus-visible:active > .gl-new-dropdown-item-content {
+  background-color: var(--gl-dropdown-option-background-color-selected-active);
+}
+.gl-new-dropdown-item[aria-selected="true"]:not([data-disabled], .disabled):active .gl-new-dropdown-item-check-icon, .gl-new-dropdown-item[aria-selected="true"]:not([data-disabled], .disabled):focus-visible:active .gl-new-dropdown-item-check-icon {
+  color: var(--gl-dropdown-option-indicator-color-selected-active);
+}
+.gl-new-dropdown-item.gl-new-dropdown-item-highlighted:not([data-disabled], .disabled) > .gl-new-dropdown-item-content {
+  color: var(--gl-dropdown-option-text-color-focus);
+  background-color: var(--gl-dropdown-option-background-color-unselected-focus);
+  box-shadow: inset 0 0 0 2px var(--gl-focus-ring-outer-color), inset 0 0 0 3px var(--gl-focus-ring-inner-color), inset 0 0 0 1px var(--gl-focus-ring-inner-color);
+}
+.gl-new-dropdown-item-check-icon {
+  margin-right: var(--gl-spacing-scale-3);
+  flex-shrink: 0;
+  color: var(--gl-dropdown-option-indicator-color-selected-default);
+}
+.gl-new-dropdown-item[data-disabled] .gl-new-dropdown-item-check-icon, .gl-new-dropdown-item.disabled .gl-new-dropdown-item-check-icon {
+  color: var(--gl-icon-color-disabled);
 }
 .gl-new-dropdown-item-text-wrapper {
   min-width: var(--gl-spacing-scale-0);
@@ -5348,6 +5388,124 @@ input[type="color"].gl-form-input.form-control:disabled {
     outline-color: LinkText;
   }
 }
+.gl-listbox-inner {
+  max-height: 19.5rem;
+}
+.gl-listbox-header {
+  display: flex;
+  min-height: var(--gl-spacing-scale-8);
+  flex-shrink: 0;
+  align-items: center;
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: var(--gl-border-color-default);
+  border-bottom-color: var(--gl-dropdown-divider-color);
+  padding-inline: var(--gl-spacing-scale-4);
+  padding-block: var(--gl-spacing-scale-3);
+}
+.gl-listbox-search-container {
+  flex-shrink: 0;
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: var(--gl-border-color-default);
+  border-bottom-color: var(--gl-dropdown-divider-color);
+}
+.gl-listbox-search {
+  position: relative;
+}
+.gl-listbox-search-input {
+  height: auto;
+  width: 100%;
+  border-radius: var(--gl-border-radius-none);
+  --tw-border-style: none;
+  border-style: none;
+  padding-block: var(--gl-spacing-scale-4);
+  font-size: var(--gl-font-size-base);
+  --tw-leading: 1rem;
+  line-height: 1rem;
+  color: var(--gl-text-color-default);
+  padding-right: 2rem;
+  padding-left: 2.25rem;
+  background-color: var(--gl-dropdown-search-background-color);
+}
+.gl-listbox-search-input:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--gl-focus-ring-outer-color), inset 0 0 0 3px var(--gl-focus-ring-inner-color), inset 0 0 0 1px var(--gl-focus-ring-inner-color);
+  outline: none;
+}
+.gl-listbox-topmost .gl-listbox-search-input {
+  border-top-left-radius: calc(var(--gl-dropdown-border-radius) - 1px);
+  border-top-right-radius: calc(var(--gl-dropdown-border-radius) - 1px);
+}
+.gl-listbox-search-input::placeholder {
+  color: var(--gl-control-placeholder-color);
+}
+.gl-listbox-search-input::-webkit-search-cancel-button {
+  display: none;
+}
+.gl-listbox-search-icon {
+  position: absolute;
+  top: calc(50% - 6px);
+  left: 1rem;
+  z-index: 1;
+  color: var(--gl-icon-color-subtle);
+  pointer-events: none;
+}
+.gl-listbox-search-clear-button {
+  position: absolute;
+  top: calc(50% - 12px);
+  right: 0.75rem;
+}
+.gl-listbox-options {
+  outline: none;
+}
+.gl-listbox-radio-group, .gl-listbox-group {
+  margin-bottom: var(--gl-spacing-scale-0);
+  list-style-type: none;
+  padding-left: var(--gl-spacing-scale-0);
+}
+.gl-listbox-group + .gl-listbox-group {
+  margin-top: var(--gl-spacing-scale-2);
+  border-top-style: var(--tw-border-style);
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: var(--gl-border-color-default);
+  border-top-color: var(--gl-dropdown-divider-color);
+  padding-top: var(--gl-spacing-scale-1);
+}
+.gl-listbox-search-loader, .gl-listbox-loading, .gl-listbox-infinite-loader {
+  margin-block: var(--gl-spacing-scale-3);
+}
+.gl-listbox-infinite-loader {
+  display: flex;
+  justify-content: center;
+}
+.gl-listbox-infinite-sentinel {
+  width: 100%;
+  height: 1px;
+}
+.gl-listbox-no-results {
+  padding-block: var(--gl-spacing-scale-3);
+  padding-right: var(--gl-spacing-scale-5);
+  padding-left: var(--gl-spacing-scale-7);
+  font-size: var(--gl-font-size-base);
+  color: var(--gl-text-color-subtle);
+}
+.gl-listbox-footer {
+  flex-shrink: 0;
+  border-top-style: var(--tw-border-style);
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: var(--gl-border-color-default);
+  border-top-color: var(--gl-dropdown-divider-color);
+}
+@media (forced-colors: active) {
+  .gl-new-dropdown-item.gl-new-dropdown-item-highlighted:not([data-disabled], .disabled) > .gl-new-dropdown-item-content {
+    outline: 2px solid LinkText;
+    box-shadow: none;
+  }
+}
 .gl-spinner-container, .gl-dots-loader {
   text-align: center;
   --tw-leading: 0;
@@ -5804,6 +5962,9 @@ input[type="color"].gl-form-input.form-control:disabled {
 }
 @layer theme, base, components, utilities;
 @layer utilities {
+  .gl-invisible {
+    visibility: hidden;
+  }
   .gl-sr-only {
     position: absolute;
     width: 1px;
@@ -5883,6 +6044,9 @@ input[type="color"].gl-form-input.form-control:disabled {
   .\!gl-rounded-lg {
     border-radius: var(--gl-border-radius-lg) !important;
   }
+  .gl-rounded-none {
+    border-radius: var(--gl-border-radius-none);
+  }
   .gl-border {
     border-style: var(--tw-border-style);
     border-width: 1px;
@@ -5950,6 +6114,9 @@ input[type="color"].gl-form-input.form-control:disabled {
   .gl-p-2 {
     padding: var(--gl-spacing-scale-2);
   }
+  .gl-p-3 {
+    padding: var(--gl-spacing-scale-3);
+  }
   .\!gl-px-2 {
     padding-inline: var(--gl-spacing-scale-2) !important;
   }
@@ -5961,6 +6128,9 @@ input[type="color"].gl-form-input.form-control:disabled {
   }
   .gl-pt-2 {
     padding-top: var(--gl-spacing-scale-2);
+  }
+  .gl-pt-3 {
+    padding-top: var(--gl-spacing-scale-3);
   }
   .gl-pb-2 {
     padding-bottom: var(--gl-spacing-scale-2);
