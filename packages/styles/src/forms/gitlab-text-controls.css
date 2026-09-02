@@ -4,10 +4,10 @@
  * Upstream source: the `.gl-form-input` block of
  * packages/gitlab-ui/src/components/base/form/form_input/form_input.scss.
  *
- * Shared by GlFormInput and GlFormDate (which renders GlFormInput). The
- * `$input-transition` base lives in bootstrap-forms.css; the color-input
- * compensation, width aliases and range validation stay in the component's
- * private CSS.
+ * Shared by GlFormInput, GlFormDate (which renders GlFormInput), and
+ * GlFormTextarea. The `$input-transition` base and textarea Reboot subset live
+ * in bootstrap-forms.css; the color-input compensation, width aliases and
+ * range validation stay in the form-input component's private CSS.
  */
 
 .gl-form-input,

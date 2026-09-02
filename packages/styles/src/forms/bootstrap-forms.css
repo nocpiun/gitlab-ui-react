@@ -1,5 +1,5 @@
 /**
- * Bootstrap compatibility: textual form controls and form character count.
+ * Bootstrap compatibility: textual form controls, textarea, and form character count.
  *
  * Upstream source: packages/gitlab-ui/src/vendor/bootstrap/scss/_forms.scss
  * (Bootstrap v4.6 semantics with the GitLab variable overrides from
@@ -9,19 +9,22 @@
  * rely on the Bootstrap `.form-control` `$input-transition` contract
  * (`border-color .15s ease-in-out, box-shadow .15s ease-in-out`).
  * GlFormCharacterCount relies on Bootstrap's `.form-text` display and top
- * margin. Everything else the upstream `.form-control` base provides
+ * margin. GlFormTextarea relies on the Bootstrap Reboot textarea margin,
+ * overflow, and vertical-resize rules. Everything else the upstream
+ * `.form-control` base provides
  * (display, width, padding, font, border, background) is redefined by the
  * GitLab `.gl-form-input` override in gitlab-text-controls.css with the same
  * winning cascade relationship as upstream, so it is not duplicated here.
  *
  * Deliberately omitted (no current consumer):
- * - `.form-control-sm` / `.form-control-lg` sizing: neither upstream
- *   GlFormInput nor this port exposes a size prop.
+ * - `.form-control-sm` / `.form-control-lg` declarations: GlFormTextarea emits
+ *   the classes for DOM parity, but every declaration is superseded upstream
+ *   by the later `.gl-form-input` block in gitlab-text-controls.css.
  * - `.form-control-plaintext` base: the upstream GitLab overrides fully
  *   determine the plaintext rendering (background, padding, shadow); adding
  *   the Bootstrap transparent background here would *change* the upstream
  *   appearance.
- * - `select`/`textarea`/file/range `.form-control` rules, `.form-check*`,
+ * - `select`/file/range `.form-control` rules, `.form-check*`,
  *   `.form-inline`, `.col-form-label*`, validation tooltips and
  *   the `.was-validated :valid`/`:invalid` native validation selectors.
  *
@@ -29,6 +32,14 @@
  * consumer markup that coincidentally uses Bootstrap class names is not
  * affected.
  */
+
+/* Scoped Bootstrap Reboot textarea rules. Inline component styles override
+ * `resize` and `overflow-y` in no-resize and automatic-height modes. */
+textarea.gl-form-textarea {
+  margin: 0;
+  overflow: auto;
+  resize: vertical;
+}
 
 /* `$input-transition`. Upstream applies it from the `.form-control` base; the
  * entrance and exit curves are the same `ease-in-out`. */

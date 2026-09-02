@@ -2720,6 +2720,11 @@ kbd {
   --gl-icon-indeterminate: url('data:image/svg+xml,%3Csvg width="10" height="2" viewBox="0 0 10 2" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M1.75 1H8.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/%3E%3C/svg%3E%0A');
   --gl-icon-radio: url('data:image/svg+xml,%3Csvg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Ccircle cx="3" cy="3" r="3" fill="white"/%3E%3C/svg%3E%0A');
 }
+textarea.gl-form-textarea {
+  margin: 0;
+  overflow: auto;
+  resize: vertical;
+}
 .gl-form-input.form-control {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
@@ -5566,9 +5571,18 @@ input[type="color"].gl-form-input.form-control:disabled {
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+  .\!gl-rounded-lg {
+    border-radius: var(--gl-border-radius-lg) !important;
+  }
   .gl-border {
     border-style: var(--tw-border-style);
     border-width: 1px;
+  }
+  .gl-border-2 {
+    border-style: var(--tw-border-style);
+    border-width: 2px;
+  }
+  .gl-border {
     border-style: solid;
     border-color: var(--gl-border-color-default);
   }
