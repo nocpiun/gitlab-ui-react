@@ -50,6 +50,10 @@ export type {
   GlCardHeaderProps,
   GlCardProps,
 } from "./base/card/card";
+export { default as GlFormCharacterCount } from "./base/form-character-count/form-character-count";
+export type {
+  GlFormCharacterCountProps,
+} from "./base/form-character-count/form-character-count";
 export { default as GlFormCheckbox } from "./base/form-checkbox/form-checkbox";
 export type {
   GlFormCheckboxProps,

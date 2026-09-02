@@ -2723,6 +2723,10 @@ kbd {
 .gl-form-input.form-control {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+.gl-form-character-count > .form-text {
+  display: block;
+  margin-top: 0.25rem;
+}
 @media (prefers-reduced-motion: reduce) {
   .gl-form-input.form-control {
     transition: none;
@@ -5609,6 +5613,9 @@ input[type="color"].gl-form-input.form-control:disabled {
   }
   .\!gl-align-text-bottom {
     vertical-align: text-bottom !important;
+  }
+  .gl-text-danger {
+    color: var(--gl-text-color-danger);
   }
   .gl-text-subtle {
     color: var(--gl-text-color-subtle);
