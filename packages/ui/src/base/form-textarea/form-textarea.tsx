@@ -12,6 +12,8 @@
  * - Native React names are used for `readOnly` and `autoComplete`.
  * - `useId` supplies SSR-safe textarea and character-count IDs instead of
  *   upstream's post-mount `uniqueId` calls.
+ * - When character counting is enabled, consumer-provided `aria-describedby`
+ *   IDs are retained alongside the counter ID instead of being overwritten.
  * - The forwarded ref exposes the underlying `<textarea>` and all of its
  *   focus, selection, range-text, and validity methods.
  */
@@ -415,12 +417,15 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
         }
       : undefined;
     const computedAriaInvalid = normalizeAriaInvalid(ariaInvalid, computedState);
+    const computedAriaDescribedBy = showCharacterCount
+      ? [ariaDescribedBy, characterCountTextId].filter(Boolean).join(" ")
+      : ariaDescribedBy;
 
     const textarea = (
       <textarea
         {...elementProps}
         ref={mergeRefs(textareaRef, forwardedRef)}
-        aria-describedby={showCharacterCount ? characterCountTextId : ariaDescribedBy}
+        aria-describedby={computedAriaDescribedBy}
         aria-invalid={computedAriaInvalid}
         aria-required={required ? true : undefined}
         autoComplete={autoComplete || undefined}

@@ -111,6 +111,21 @@ describe("GlFormTextarea", () => {
       expect(renderTextarea({ "aria-describedby": "help-text" }))
         .toContain("aria-describedby=\"help-text\"");
     });
+
+    it("preserves consumer descriptions alongside the character count", () => {
+      const markup = renderTextarea({
+        "aria-describedby": "help-text error-text",
+        characterCountLimit: 10,
+        remainingCharacterCountText: "10 characters remaining.",
+      });
+      const describedBy = markup.match(/aria-describedby="([^"]+)"/)?.[1];
+      const countTextId = describedBy?.split(" ").at(-1);
+
+      expect(describedBy).toMatch(
+        /^help-text error-text form-textarea-character-count-/,
+      );
+      expect(markup).toContain(`id="${countTextId}"`);
+    });
   });
 
   describe("classes and state", () => {
