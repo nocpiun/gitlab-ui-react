@@ -1,18 +1,18 @@
 /**
- * Bootstrap compatibility: textual form controls.
+ * Bootstrap compatibility: textual form controls and form character count.
  *
  * Upstream source: packages/gitlab-ui/src/vendor/bootstrap/scss/_forms.scss
  * (Bootstrap v4.6 semantics with the GitLab variable overrides from
  * packages/gitlab-ui/src/scss/variables.scss).
  *
- * Subset rationale: the only Bootstrap `.form-control` base contract the
- * current components actually rely on is `$input-transition`
- * (`border-color .15s ease-in-out, box-shadow .15s ease-in-out`), shared by
- * GlFormInput and GlFormDate (which renders GlFormInput). Everything else the
- * upstream `.form-control` base provides (display, width, padding, font,
- * border, background) is redefined by the GitLab `.gl-form-input` override in
- * gitlab-text-controls.css with the same winning cascade relationship as
- * upstream, so it is not duplicated here.
+ * Subset rationale: GlFormInput and GlFormDate (which renders GlFormInput)
+ * rely on the Bootstrap `.form-control` `$input-transition` contract
+ * (`border-color .15s ease-in-out, box-shadow .15s ease-in-out`).
+ * GlFormCharacterCount relies on Bootstrap's `.form-text` display and top
+ * margin. Everything else the upstream `.form-control` base provides
+ * (display, width, padding, font, border, background) is redefined by the
+ * GitLab `.gl-form-input` override in gitlab-text-controls.css with the same
+ * winning cascade relationship as upstream, so it is not duplicated here.
  *
  * Deliberately omitted (no current consumer):
  * - `.form-control-sm` / `.form-control-lg` sizing: neither upstream
@@ -22,18 +22,25 @@
  *   the Bootstrap transparent background here would *change* the upstream
  *   appearance.
  * - `select`/`textarea`/file/range `.form-control` rules, `.form-check*`,
- *   `.form-inline`, `.form-text`, `.col-form-label*`, validation tooltips and
+ *   `.form-inline`, `.col-form-label*`, validation tooltips and
  *   the `.was-validated :valid`/`:invalid` native validation selectors.
  *
- * React scoping adaptation: rules are scoped under the `.gl-form-input`
- * marker so consumer markup that coincidentally uses Bootstrap class names is
- * not affected.
+ * React scoping adaptation: rules are scoped under their component markers so
+ * consumer markup that coincidentally uses Bootstrap class names is not
+ * affected.
  */
 
 /* `$input-transition`. Upstream applies it from the `.form-control` base; the
  * entrance and exit curves are the same `ease-in-out`. */
 .gl-form-input.form-control {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* `$form-text-margin-top: .25rem`. Scoped to the React component marker so
+ * consumer-owned Bootstrap class names are not affected. */
+.gl-form-character-count > .form-text {
+  display: block;
+  margin-top: 0.25rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
