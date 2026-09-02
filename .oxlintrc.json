@@ -13,7 +13,8 @@
     }
   },
   "ignorePatterns": [
-    "**/dist/**"
+    "**/dist/**",
+    "oxlint-plugins/fixtures/**"
   ],
   "plugins": [
     "typescript",
