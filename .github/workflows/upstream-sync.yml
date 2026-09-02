@@ -104,7 +104,7 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         set -euo pipefail
-        for row in $(jq -c '.[]' "$SYNC_DIR/track-issues.json"); do
+        jq -c '.[]' "$SYNC_DIR/track-issues.json" | while IFS= read -r row; do
           title="$(jq -r '.title' <<<"$row")"
           body_file="$(jq -r '.bodyFile' <<<"$row")"
           gh issue create --title "$title" --body-file "$body_file" --label upstream-tracking
