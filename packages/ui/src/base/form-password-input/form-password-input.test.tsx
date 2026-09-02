@@ -36,6 +36,13 @@ describe("GlFormPasswordInput", () => {
       expect(renderPasswordInput()).toMatch(/<input[^>]*class="[^"]*gl-form-password-input-field/);
     });
 
+    it("applies inputClassName to the input, not the wrapper", () => {
+      const markup = renderPasswordInput({ inputClassName: "js-hook" });
+
+      expect(markup).toMatch(/<input[^>]*class="[^"]*js-hook/);
+      expect(markup).not.toMatch(/^<div[^>]*js-hook/);
+    });
+
     it("renders the toggle button with the gl-form-password-input-toggle class", () => {
       expect(renderPasswordInput()).toMatch(/<button[^>]*class="[^"]*gl-form-password-input-toggle/);
     });
