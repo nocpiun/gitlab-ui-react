@@ -40,6 +40,7 @@
     "@base-ui/react": "^1.7.0",
     "@gitlab/svgs": "^3.163.0",
     "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "dompurify": "3.4.14",
     "emoji-regex": "10.6.0"
   }

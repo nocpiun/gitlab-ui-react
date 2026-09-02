@@ -13,7 +13,8 @@
     }
   },
   "ignorePatterns": [
-    "**/dist/**"
+    "**/dist/**",
+    "oxlint-plugins/fixtures/**"
   ],
   "plugins": [
     "typescript",
@@ -29,6 +30,10 @@
     {
       "name": "import-js",
       "specifier": "eslint-plugin-import"
+    },
+    {
+      "name": "gitlab-ui-react",
+      "specifier": "./oxlint-plugins/prefer-clsx.mjs"
     }
   ],
   "overrides": [
@@ -111,7 +116,8 @@
             "external"
           ],
           "newlines-between": "ignore"
-        }]
+        }],
+        "gitlab-ui-react/prefer-clsx": "warn",
       }
     }
   ]

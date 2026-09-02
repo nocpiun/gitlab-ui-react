@@ -30,6 +30,7 @@ import {
 } from "react";
 import { Input as BaseInput } from "@base-ui/react/input";
 import { cva } from "class-variance-authority";
+import clsx from "clsx";
 import { normalizeAriaInvalid } from "../../internal/form/aria-invalid-utils";
 import { mergeRefs } from "../../internal/utils/merge-refs";
 
@@ -431,7 +432,7 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
   const isColor = localType === "color";
 
   const computedClass = inputVariants({
-    className: [...widthClasses(width), className].filter(Boolean).join(" ") || undefined,
+    className: clsx(widthClasses(width), className) || undefined,
     // `plaintext` is not supported by `type="range"` or `type="color"`
     kind: isRange ? "range" : plaintext && !isColor ? "plaintext" : "control",
     state: computedState === true ? "valid" : computedState === false ? "invalid" : "none",
