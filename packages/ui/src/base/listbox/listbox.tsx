@@ -510,7 +510,7 @@ export const GlListbox = forwardRef<GlListboxHandle, GlListboxProps>(
           onOpenChange={handleOpenChange}
           onOpenChangeComplete={handleOpenChangeComplete}
           open={controlledOpen}
-          triggerId={controlledOpen === undefined ? undefined : triggerId}>
+          triggerId={triggerId}>
           <div
             {...rootProps}
             ref={rootElementRef}
@@ -567,11 +567,10 @@ export const GlListboxTrigger = forwardRef<HTMLElement, GlListboxTriggerProps>(
     }
 
     const handleKeyDown = useCallback((event: ReactKeyboardEvent<HTMLElement>) => {
-      onKeyDown?.(event as Parameters<NonNullable<BaseMenu.Trigger.Props["onKeyDown"]>>[0]);
-      if(event.defaultPrevented || event.key !== "ArrowDown") return;
-      event.preventDefault();
-      context.handle.open(actualId);
-    }, [actualId, context.handle, onKeyDown]);
+      const baseEvent = event as Parameters<NonNullable<BaseMenu.Trigger.Props["onKeyDown"]>>[0];
+      onKeyDown?.(baseEvent);
+      if(event.defaultPrevented) baseEvent.preventBaseUIHandler();
+    }, [onKeyDown]);
     const defaultContent = hasText || !noCaret ? (
       <>
         {hasText ? (
@@ -1020,7 +1019,11 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
 
     const handleListboxKeyDown = useCallback((event: ReactKeyboardEvent<HTMLDivElement>) => {
       onKeyDown?.(event as Parameters<NonNullable<BaseMenu.Popup.Props["onKeyDown"]>>[0]);
-      if(event.defaultPrevented || searchable) return;
+      if(event.defaultPrevented) {
+        event.stopPropagation();
+        return;
+      }
+      if(searchable) return;
       const items = getOrderedItems().filter((item) => !item.disabled && item.element);
       if(items.length === 0) return;
       const currentIndex = items.findIndex((item) => item.element === document.activeElement);

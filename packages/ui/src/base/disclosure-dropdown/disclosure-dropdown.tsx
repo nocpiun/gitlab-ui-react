@@ -468,7 +468,7 @@ export const GlDisclosureDropdown = forwardRef<
         onOpenChange={handleOpenChange}
         onOpenChangeComplete={handleOpenChangeComplete}
         open={open}
-        triggerId={open === undefined ? undefined : triggerId}>
+        triggerId={triggerId}>
         <div {...rootProps} ref={rootElementRef} className={rootVariants({ className })}>
           {children}
         </div>
@@ -534,14 +534,10 @@ export const GlDisclosureDropdownTrigger = forwardRef<
 
   const classes = triggerVariants({ caretOnly, className, iconOnly, noCaret });
   const handleKeyDown = useCallback((event: ReactKeyboardEvent<HTMLElement>) => {
-    onKeyDown?.(
-      event as Parameters<NonNullable<BaseMenu.Trigger.Props["onKeyDown"]>>[0],
-    );
-    if(event.defaultPrevented || event.key !== "ArrowDown") return;
-
-    event.preventDefault();
-    context.handle.open(actualId);
-  }, [actualId, context.handle, onKeyDown]);
+    const baseEvent = event as Parameters<NonNullable<BaseMenu.Trigger.Props["onKeyDown"]>>[0];
+    onKeyDown?.(baseEvent);
+    if(event.defaultPrevented) baseEvent.preventBaseUIHandler();
+  }, [onKeyDown]);
   const defaultContent = hasText || !noCaret ? (
     <>
       {hasText ? (
@@ -813,8 +809,12 @@ export const GlDisclosureDropdownContent = forwardRef<
   }, []);
 
   const handleKeyDown = useCallback((event: ReactKeyboardEvent<HTMLDivElement>) => {
-    onKeyDown?.(event as Parameters<NonNullable<BaseMenu.Popup.Props["onKeyDown"]>>[0]);
-    if(event.defaultPrevented) return;
+    const baseEvent = event as Parameters<NonNullable<BaseMenu.Popup.Props["onKeyDown"]>>[0];
+    onKeyDown?.(baseEvent);
+    if(event.defaultPrevented) {
+      baseEvent.preventBaseUIHandler();
+      return;
+    }
 
     const items = Array.from(event.currentTarget.querySelectorAll<HTMLElement>(
       "[role='menuitem']:not([data-disabled])",
@@ -953,7 +953,11 @@ export const GlDisclosureDropdownItem = forwardRef<
   }
   const handleClick: MouseEventHandler<HTMLElement> = (event) => {
     onClick?.(event);
-    if(event.defaultPrevented) return;
+    if(event.defaultPrevented) {
+      (event as Parameters<NonNullable<BaseMenu.Item.Props["onClick"]>>[0])
+        .preventBaseUIHandler();
+      return;
+    }
 
     const details = { event, value };
     onAction?.(details);

@@ -99,9 +99,11 @@ export const Default: Story = {
   },
 };
 
+const keyboardOpenChange = fn();
+
 export const KeyboardNavigation: Story = {
   render: (args) => (
-    <GlDisclosureDropdown {...args}>
+    <GlDisclosureDropdown {...args} onOpenChange={keyboardOpenChange}>
       <GlDisclosureDropdownTrigger>Navigate actions</GlDisclosureDropdownTrigger>
       <GlDisclosureDropdownContent>
         <GlDisclosureDropdownGroup>
@@ -114,10 +116,14 @@ export const KeyboardNavigation: Story = {
     </GlDisclosureDropdown>
   ),
   play: async ({ canvas }) => {
+    keyboardOpenChange.mockClear();
     const trigger = canvas.getByRole("button", { name: "Navigate actions" });
     trigger.focus();
 
     await userEvent.keyboard("{ArrowDown}");
+    await expect(keyboardOpenChange).toHaveBeenLastCalledWith(true, expect.objectContaining({
+      reason: "trigger",
+    }));
     const add = await canvas.findByRole("menuitem", { name: "Add member" });
     const clone = canvas.getByRole("menuitem", { name: "Clone project" });
     const rename = canvas.getByRole("menuitem", { name: "Rename project" });
@@ -142,6 +148,75 @@ export const KeyboardNavigation: Story = {
     await waitFor(() => expect(trigger).toHaveFocus());
     await userEvent.keyboard(" ");
     await waitFor(() => expect(trigger).toHaveAttribute("aria-expanded", "true"));
+  },
+};
+
+const canceledItemAction = fn();
+const canceledRootAction = fn();
+
+export const BaseUiStateSynchronization: Story = {
+  render: () => (
+    <div style={{ display: "grid", gap: "1rem", justifyItems: "start" }}>
+      <GlDisclosureDropdown onAction={canceledRootAction}>
+        <GlDisclosureDropdownTrigger
+          onKeyDown={(event) => {
+            if(event.key === "ArrowDown") event.preventDefault();
+          }}>
+          Cancellable disclosure keyboard
+        </GlDisclosureDropdownTrigger>
+        <GlDisclosureDropdownContent
+          onKeyDown={(event) => {
+            if(event.key === "ArrowDown") event.preventDefault();
+          }}>
+          <GlDisclosureDropdownGroup>
+            <GlDisclosureDropdownItem value="first">First action</GlDisclosureDropdownItem>
+            <GlDisclosureDropdownItem
+              onAction={canceledItemAction}
+              onClick={(event) => event.preventDefault()}
+              value="canceled">
+              Canceled action
+            </GlDisclosureDropdownItem>
+          </GlDisclosureDropdownGroup>
+        </GlDisclosureDropdownContent>
+      </GlDisclosureDropdown>
+
+      <GlDisclosureDropdown defaultOpen>
+        <GlDisclosureDropdownTrigger id="default-open-disclosure-trigger">
+          Default-open custom disclosure trigger
+        </GlDisclosureDropdownTrigger>
+        <GlDisclosureDropdownContent>
+          <GlDisclosureDropdownGroup>
+            <GlDisclosureDropdownItem value="open">Open</GlDisclosureDropdownItem>
+          </GlDisclosureDropdownGroup>
+        </GlDisclosureDropdownContent>
+      </GlDisclosureDropdown>
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    canceledItemAction.mockClear();
+    canceledRootAction.mockClear();
+    const defaultOpenTrigger = canvas.getByRole("button", {
+      name: "Default-open custom disclosure trigger",
+    });
+    await waitFor(() => expect(defaultOpenTrigger).toHaveAttribute("aria-expanded", "true"));
+
+    const cancellableTrigger = canvas.getByRole("button", {
+      name: "Cancellable disclosure keyboard",
+    });
+    cancellableTrigger.focus();
+    await userEvent.keyboard("{ArrowDown}");
+    await expect(cancellableTrigger).not.toHaveAttribute("aria-expanded", "true");
+
+    await userEvent.click(cancellableTrigger);
+    const first = await canvas.findByRole("menuitem", { name: "First action" });
+    first.focus();
+    await userEvent.keyboard("{ArrowDown}");
+    await expect(first).toHaveFocus();
+
+    await userEvent.click(canvas.getByRole("menuitem", { name: "Canceled action" }));
+    await expect(cancellableTrigger).toHaveAttribute("aria-expanded", "true");
+    await expect(canceledItemAction).not.toHaveBeenCalled();
+    await expect(canceledRootAction).not.toHaveBeenCalled();
   },
 };
 

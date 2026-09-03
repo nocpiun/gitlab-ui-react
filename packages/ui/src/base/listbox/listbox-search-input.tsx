@@ -85,7 +85,10 @@ export const GlListboxSearchInput = forwardRef<
   };
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
     onKeyDown?.(event);
-    if(event.defaultPrevented) return;
+    if(event.defaultPrevented) {
+      event.stopPropagation();
+      return;
+    }
     contentContext?.handleSearchKeyDown(event);
     if(!event.defaultPrevented && event.key.length === 1) {
       // Keep Base UI Menu's typeahead from consuming text intended for the input.

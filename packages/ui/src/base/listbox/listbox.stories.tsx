@@ -149,9 +149,11 @@ export const MultipleSelection: Story = {
   },
 };
 
+const keyboardOpenChange = fn();
+
 export const KeyboardNavigation: Story = {
   render: () => (
-    <GlListbox>
+    <GlListbox onOpenChange={keyboardOpenChange}>
       <GlListboxTrigger>Keyboard selection</GlListboxTrigger>
       <GlListboxContent>
         <GlListboxGroup>
@@ -163,9 +165,13 @@ export const KeyboardNavigation: Story = {
     </GlListbox>
   ),
   play: async ({ canvas }) => {
+    keyboardOpenChange.mockClear();
     const trigger = canvas.getByRole("button", { name: "Keyboard selection" });
     trigger.focus();
     await userEvent.keyboard("{ArrowDown}");
+    await expect(keyboardOpenChange).toHaveBeenLastCalledWith(true, expect.objectContaining({
+      reason: "trigger",
+    }));
     const alpha = await canvas.findByRole("option", { name: "Alpha" });
     const gamma = canvas.getByRole("option", { name: "Gamma" });
     await waitFor(() => expect(alpha).toHaveFocus());
@@ -186,6 +192,80 @@ export const KeyboardNavigation: Story = {
     await expect(gamma).toHaveFocus();
     await userEvent.keyboard("{Escape}");
     await waitFor(() => expect(trigger).toHaveFocus());
+  },
+};
+
+export const BaseUiStateSynchronization: Story = {
+  render: () => (
+    <div style={{ display: "grid", gap: "1rem", justifyItems: "start" }}>
+      <GlListbox>
+        <GlListboxTrigger
+          onKeyDown={(event) => {
+            if(event.key === "ArrowDown") event.preventDefault();
+          }}>
+          Cancellable listbox keyboard
+        </GlListboxTrigger>
+        <GlListboxContent
+          onKeyDown={(event) => {
+            if(event.key === "ArrowDown") event.preventDefault();
+          }}>
+          <GlListboxGroup>
+            <GlListboxItem value="alpha">Alpha</GlListboxItem>
+            <GlListboxItem value="beta">Beta</GlListboxItem>
+          </GlListboxGroup>
+        </GlListboxContent>
+      </GlListbox>
+
+      <GlListbox>
+        <GlListboxTrigger>Cancellable search keyboard</GlListboxTrigger>
+        <GlListboxContent>
+          <GlListboxSearchInput
+            onKeyDown={(event) => {
+              if(event.key === "Escape") event.preventDefault();
+            }} />
+          <GlListboxGroup>
+            <GlListboxItem value="result">Result</GlListboxItem>
+          </GlListboxGroup>
+        </GlListboxContent>
+      </GlListbox>
+
+      <GlListbox defaultOpen>
+        <GlListboxTrigger id="default-open-listbox-trigger">
+          Default-open custom listbox trigger
+        </GlListboxTrigger>
+        <GlListboxContent>
+          <GlListboxGroup>
+            <GlListboxItem value="open">Open</GlListboxItem>
+          </GlListboxGroup>
+        </GlListboxContent>
+      </GlListbox>
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const defaultOpenTrigger = canvas.getByRole("button", {
+      name: "Default-open custom listbox trigger",
+    });
+    await waitFor(() => expect(defaultOpenTrigger).toHaveAttribute("aria-expanded", "true"));
+
+    const cancellableTrigger = canvas.getByRole("button", {
+      name: "Cancellable listbox keyboard",
+    });
+    cancellableTrigger.focus();
+    await userEvent.keyboard("{ArrowDown}");
+    await expect(cancellableTrigger).not.toHaveAttribute("aria-expanded", "true");
+
+    await userEvent.click(cancellableTrigger);
+    const alpha = await canvas.findByRole("option", { name: "Alpha" });
+    await waitFor(() => expect(alpha).toHaveFocus());
+    await userEvent.keyboard("{ArrowDown}");
+    await expect(alpha).toHaveFocus();
+
+    const searchTrigger = canvas.getByRole("button", { name: "Cancellable search keyboard" });
+    await userEvent.click(searchTrigger);
+    const searchInput = await canvas.findByRole("combobox", { name: "Search" });
+    await waitFor(() => expect(searchInput).toHaveFocus());
+    await userEvent.keyboard("{Escape}");
+    await expect(searchTrigger).toHaveAttribute("aria-expanded", "true");
   },
 };
 
