@@ -26,6 +26,11 @@ export type {
   GlBadgeProps,
   GlBadgeVariant,
 } from "./base/badge/badge";
+export { default as GlBanner } from "./base/banner/banner";
+export type {
+  GlBannerProps,
+  GlBannerVariant,
+} from "./base/banner/banner";
 export { default as GlButton } from "./base/button/button";
 export type {
   GlButtonCategory,
