@@ -53,6 +53,8 @@ export type {
 export {
   default as GlDisclosureDropdown,
   GlDisclosureDropdownContent,
+  GlDisclosureDropdownFooter,
+  GlDisclosureDropdownHeader,
   GlDisclosureDropdownItem,
   GlDisclosureDropdownTrigger,
 } from "./base/disclosure-dropdown/disclosure-dropdown";
@@ -61,7 +63,9 @@ export type {
   GlDisclosureDropdownBeforeCloseDetails,
   GlDisclosureDropdownCloseReason,
   GlDisclosureDropdownContentProps,
+  GlDisclosureDropdownFooterProps,
   GlDisclosureDropdownHandle,
+  GlDisclosureDropdownHeaderProps,
   GlDisclosureDropdownItemProps,
   GlDisclosureDropdownItemVariant,
   GlDisclosureDropdownOffset,
@@ -154,6 +158,8 @@ export type {
 export {
   default as GlListbox,
   GlListboxContent,
+  GlListboxFooter,
+  GlListboxHeader,
   GlListboxItem,
   GlListboxTrigger,
 } from "./base/listbox/listbox";
@@ -161,7 +167,9 @@ export type {
   GlListboxBeforeCloseDetails,
   GlListboxCloseReason,
   GlListboxContentProps,
+  GlListboxFooterProps,
   GlListboxHandle,
+  GlListboxHeaderProps,
   GlListboxItemProps,
   GlListboxItemRenderState,
   GlListboxMultipleProps,

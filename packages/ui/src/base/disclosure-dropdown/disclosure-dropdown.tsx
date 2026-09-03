@@ -26,6 +26,7 @@ import {
   type KeyboardEvent as ReactKeyboardEvent,
   type MouseEvent,
   type MouseEventHandler,
+  type ReactElement,
   type ReactNode,
   type Ref,
 } from "react";
@@ -146,15 +147,14 @@ export type GlDisclosureDropdownContentProps = PopupProps & {
   children?: ReactNode;
   className?: string;
   fluidWidth?: boolean;
-  footer?: ReactNode;
-  header?: ReactNode;
   offset?: GlDisclosureDropdownOffset;
   placement?: GlDisclosureDropdownPlacement;
   positioningStrategy?: GlDisclosureDropdownPositioningStrategy;
-  /** Forces an icon column when direct item children are hidden behind wrapper components. */
-  reserveIconSpace?: boolean;
   style?: CSSProperties;
 };
+
+export type GlDisclosureDropdownHeaderProps = HTMLAttributes<HTMLDivElement>;
+export type GlDisclosureDropdownFooterProps = HTMLAttributes<HTMLDivElement>;
 
 type InteractiveElementProps = Omit<
   BaseMenu.Item.Props,
@@ -220,6 +220,8 @@ const DropdownContext = createContext<DropdownContextValue | null>(null);
 
 /** @internal Shared with the colocated group implementation. */
 export const DisclosureDropdownIconSpacingContext = createContext(false);
+/** @internal Enforces the public Item-within-Group composition contract. */
+export const DisclosureDropdownGroupContext = createContext(false);
 
 const rootVariants = cva(["gl-disclosure-dropdown", "gl-new-dropdown"]);
 
@@ -630,6 +632,72 @@ export function resolveDisclosureDropdownOffset(
   };
 }
 
+export const GlDisclosureDropdownHeader = forwardRef<
+  HTMLDivElement,
+  GlDisclosureDropdownHeaderProps
+>(function GlDisclosureDropdownHeader({ children, className, ...elementProps }, forwardedRef) {
+  return (
+    <div
+      {...elementProps}
+      ref={forwardedRef}
+      className={clsx("gl-new-dropdown-header", className)}>
+      <div className="gl-new-dropdown-header-content">{children}</div>
+    </div>
+  );
+});
+
+export const GlDisclosureDropdownFooter = forwardRef<
+  HTMLDivElement,
+  GlDisclosureDropdownFooterProps
+>(function GlDisclosureDropdownFooter({ className, ...elementProps }, forwardedRef) {
+  return (
+    <div
+      {...elementProps}
+      ref={forwardedRef}
+      className={clsx("gl-new-dropdown-footer", className)} />
+  );
+});
+
+type DisclosureDropdownContentChildren = {
+  body: ReactNode[];
+  footer: ReactElement<GlDisclosureDropdownFooterProps> | null;
+  header: ReactElement<GlDisclosureDropdownHeaderProps> | null;
+};
+
+function resolveDisclosureDropdownContentChildren(
+  children: ReactNode,
+): DisclosureDropdownContentChildren {
+  const result: DisclosureDropdownContentChildren = { body: [], footer: null, header: null };
+
+  const visit = (child: ReactNode) => {
+    if(child === null || child === undefined || typeof child === "boolean") return;
+    if(isValidElement<{ children?: ReactNode }>(child) && child.type === Fragment) {
+      Children.forEach(child.props.children, visit);
+      return;
+    }
+    if(isValidElement<GlDisclosureDropdownHeaderProps>(child)
+      && child.type === GlDisclosureDropdownHeader) {
+      if(result.header) {
+        throw new Error("GlDisclosureDropdownContent accepts only one GlDisclosureDropdownHeader.");
+      }
+      result.header = child;
+      return;
+    }
+    if(isValidElement<GlDisclosureDropdownFooterProps>(child)
+      && child.type === GlDisclosureDropdownFooter) {
+      if(result.footer) {
+        throw new Error("GlDisclosureDropdownContent accepts only one GlDisclosureDropdownFooter.");
+      }
+      result.footer = child;
+      return;
+    }
+    result.body.push(child);
+  };
+
+  Children.forEach(children, visit);
+  return result;
+}
+
 export const GlDisclosureDropdownContent = forwardRef<
   HTMLDivElement,
   GlDisclosureDropdownContentProps
@@ -637,13 +705,10 @@ export const GlDisclosureDropdownContent = forwardRef<
   children,
   className,
   fluidWidth = false,
-  footer,
-  header,
   offset = 8,
   onKeyDown,
   placement = "bottom-start",
   positioningStrategy = "absolute",
-  reserveIconSpace,
   style,
   ...popupProps
 }, forwardedRef) {
@@ -658,8 +723,7 @@ export const GlDisclosureDropdownContent = forwardRef<
   const popupRef = useMergedRefs(forwardedRef, context.setPopupElement, setPopupElement);
   const resolvedPlacement = resolveDisclosureDropdownPlacement(placement);
   const resolvedOffset = resolveDisclosureDropdownOffset(offset);
-  const hasIconColumn = reserveIconSpace
-    ?? hasDirectDisclosureDropdownItemIcon(children);
+  const contentChildren = resolveDisclosureDropdownContentChildren(children);
 
   const updateScrims = useCallback(() => {
     if(!scrollElement) return;
@@ -824,11 +888,7 @@ export const GlDisclosureDropdownContent = forwardRef<
         style={style}>
         <BaseMenu.Arrow className="gl-new-dropdown-arrow" />
         <div className="gl-new-dropdown-inner">
-          {header !== undefined ? (
-            <div className="gl-new-dropdown-header">
-              <div className="gl-new-dropdown-header-content">{header}</div>
-            </div>
-          ) : null}
+          {contentChildren.header}
           <div
             ref={setScrollElement}
             className={clsx(
@@ -844,19 +904,15 @@ export const GlDisclosureDropdownContent = forwardRef<
             <span aria-hidden className="top-scrim-wrapper">
               <span className={clsx(
                 "top-scrim",
-                header === undefined ? "top-scrim-light" : "top-scrim-dark",
+                contentChildren.header === null ? "top-scrim-light" : "top-scrim-dark",
               )} />
             </span>
-            <DisclosureDropdownIconSpacingContext.Provider value={hasIconColumn}>
-              {children}
-            </DisclosureDropdownIconSpacingContext.Provider>
+            {contentChildren.body}
             <span aria-hidden className="bottom-scrim-wrapper">
               <span className="bottom-scrim" />
             </span>
           </div>
-          {footer !== undefined ? (
-            <div className="gl-new-dropdown-footer">{footer}</div>
-          ) : null}
+          {contentChildren.footer}
         </div>
       </BaseMenu.Popup>
     </BaseMenu.Positioner>
@@ -890,7 +946,11 @@ export const GlDisclosureDropdownItem = forwardRef<
   ...elementProps
 }, forwardedRef) {
   const context = useDropdownContext("GlDisclosureDropdownItem");
+  const insideGroup = useContext(DisclosureDropdownGroupContext);
   const reserveIconSpace = useContext(DisclosureDropdownIconSpacingContext);
+  if(!insideGroup) {
+    throw new Error("GlDisclosureDropdownItem must be used inside GlDisclosureDropdownGroup.");
+  }
   const handleClick: MouseEventHandler<HTMLElement> = (event) => {
     onClick?.(event);
     if(event.defaultPrevented) return;

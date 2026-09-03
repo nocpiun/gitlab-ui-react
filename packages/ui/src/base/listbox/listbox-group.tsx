@@ -10,6 +10,7 @@ import {
 } from "react";
 import { Menu as BaseMenu } from "@base-ui/react/menu";
 import { cva } from "class-variance-authority";
+import { ListboxGroupContext } from "./listbox-contexts";
 
 export type GlListboxGroupProps = Omit<
   BaseMenu.Group.Props,
@@ -60,14 +61,16 @@ const labelVariants = cva([
 export const GlListboxGroup = forwardRef<HTMLDivElement, GlListboxGroupProps>(
   function GlListboxGroup({ children, className, style, ...groupProps }, forwardedRef) {
     return (
-      <BaseMenu.Group
-        {...groupProps}
-        ref={forwardedRef}
-        className={groupVariants({ className })}
-        role="group"
-        style={style}>
-        {children}
-      </BaseMenu.Group>
+      <ListboxGroupContext.Provider value>
+        <BaseMenu.Group
+          {...groupProps}
+          ref={forwardedRef}
+          className={groupVariants({ className })}
+          role="group"
+          style={style}>
+          {children}
+        </BaseMenu.Group>
+      </ListboxGroupContext.Provider>
     );
   },
 );

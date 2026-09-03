@@ -18,6 +18,8 @@ import GlButton from "../button/button";
 import GlButtonGroup from "../button-group/button-group";
 import GlDisclosureDropdown, {
   GlDisclosureDropdownContent,
+  GlDisclosureDropdownFooter,
+  GlDisclosureDropdownHeader,
   GlDisclosureDropdownItem,
   GlDisclosureDropdownTrigger,
   type GlDisclosureDropdownActionDetails,
@@ -67,8 +69,10 @@ export const Default: Story = {
     <GlDisclosureDropdown {...args}>
       <GlDisclosureDropdownTrigger>Actions</GlDisclosureDropdownTrigger>
       <GlDisclosureDropdownContent>
-        <GlDisclosureDropdownItem icon="pencil" value="edit">Edit project</GlDisclosureDropdownItem>
-        <GlDisclosureDropdownItem disabled value="archive">Archive project</GlDisclosureDropdownItem>
+        <GlDisclosureDropdownGroup>
+          <GlDisclosureDropdownItem icon="pencil" value="edit">Edit project</GlDisclosureDropdownItem>
+          <GlDisclosureDropdownItem disabled value="archive">Archive project</GlDisclosureDropdownItem>
+        </GlDisclosureDropdownGroup>
         <GlDisclosureDropdownGroup bordered>
           <GlDisclosureDropdownGroupLabel>Danger zone</GlDisclosureDropdownGroupLabel>
           <GlDisclosureDropdownItem value="delete" variant="danger">
@@ -100,10 +104,12 @@ export const KeyboardNavigation: Story = {
     <GlDisclosureDropdown {...args}>
       <GlDisclosureDropdownTrigger>Navigate actions</GlDisclosureDropdownTrigger>
       <GlDisclosureDropdownContent>
-        <GlDisclosureDropdownItem value="add">Add member</GlDisclosureDropdownItem>
-        <GlDisclosureDropdownItem disabled value="archive">Archive</GlDisclosureDropdownItem>
-        <GlDisclosureDropdownItem value="clone">Clone project</GlDisclosureDropdownItem>
-        <GlDisclosureDropdownItem value="rename">Rename project</GlDisclosureDropdownItem>
+        <GlDisclosureDropdownGroup>
+          <GlDisclosureDropdownItem value="add">Add member</GlDisclosureDropdownItem>
+          <GlDisclosureDropdownItem disabled value="archive">Archive</GlDisclosureDropdownItem>
+          <GlDisclosureDropdownItem value="clone">Clone project</GlDisclosureDropdownItem>
+          <GlDisclosureDropdownItem value="rename">Rename project</GlDisclosureDropdownItem>
+        </GlDisclosureDropdownGroup>
       </GlDisclosureDropdownContent>
     </GlDisclosureDropdown>
   ),
@@ -153,15 +159,17 @@ export const ActionsAndAutoClose: Story = {
     <GlDisclosureDropdown {...args}>
       <GlDisclosureDropdownTrigger>Action order</GlDisclosureDropdownTrigger>
       <GlDisclosureDropdownContent>
-        <GlDisclosureDropdownItem
-          closeOnClick={false}
-          onAction={itemAction}
-          value="keep-open">
-          Keep open
-        </GlDisclosureDropdownItem>
-        <GlDisclosureDropdownItem onAction={itemAction} value="close">
-          Close normally
-        </GlDisclosureDropdownItem>
+        <GlDisclosureDropdownGroup>
+          <GlDisclosureDropdownItem
+            closeOnClick={false}
+            onAction={itemAction}
+            value="keep-open">
+            Keep open
+          </GlDisclosureDropdownItem>
+          <GlDisclosureDropdownItem onAction={itemAction} value="close">
+            Close normally
+          </GlDisclosureDropdownItem>
+        </GlDisclosureDropdownGroup>
       </GlDisclosureDropdownContent>
     </GlDisclosureDropdown>
   ),
@@ -205,7 +213,9 @@ export const CancellableCloseLifecycle: Story = {
     <GlDisclosureDropdown {...args}>
       <GlDisclosureDropdownTrigger>Lifecycle actions</GlDisclosureDropdownTrigger>
       <GlDisclosureDropdownContent>
-        <GlDisclosureDropdownItem value="save">Save changes</GlDisclosureDropdownItem>
+        <GlDisclosureDropdownGroup>
+          <GlDisclosureDropdownItem value="save">Save changes</GlDisclosureDropdownItem>
+        </GlDisclosureDropdownGroup>
       </GlDisclosureDropdownContent>
     </GlDisclosureDropdown>
   ),
@@ -234,8 +244,10 @@ export const OutsideAndFocusOut: Story = {
       <GlDisclosureDropdown onBeforeClose={outsideClose}>
         <GlDisclosureDropdownTrigger>Dismissal actions</GlDisclosureDropdownTrigger>
         <GlDisclosureDropdownContent>
-          <GlDisclosureDropdownItem value="first">First action</GlDisclosureDropdownItem>
-          <GlDisclosureDropdownItem value="last">Last action</GlDisclosureDropdownItem>
+          <GlDisclosureDropdownGroup>
+            <GlDisclosureDropdownItem value="first">First action</GlDisclosureDropdownItem>
+            <GlDisclosureDropdownItem value="last">Last action</GlDisclosureDropdownItem>
+          </GlDisclosureDropdownGroup>
         </GlDisclosureDropdownContent>
       </GlDisclosureDropdown>
       <GlButton>Outside target</GlButton>
@@ -273,26 +285,28 @@ function ImperativeExample() {
       <GlDisclosureDropdown ref={dropdownRef}>
         <GlDisclosureDropdownTrigger>Imperative actions</GlDisclosureDropdownTrigger>
         <GlDisclosureDropdownContent>
-          <GlDisclosureDropdownItem
-            closeOnClick={false}
-            onAction={({ event }) => setContainsResult(String(
-              dropdownRef.current?.containsElement(event.currentTarget),
-            ))}
-            value="contains">
-            Check containsElement
-          </GlDisclosureDropdownItem>
-          <GlDisclosureDropdownItem
-            closeOnClick={false}
-            onAction={() => dropdownRef.current?.close()}
-            value="close">
-            Imperative close
-          </GlDisclosureDropdownItem>
-          <GlDisclosureDropdownItem
-            closeOnClick={false}
-            onAction={() => dropdownRef.current?.closeAndFocus()}
-            value="close-and-focus">
-            Imperative close and focus
-          </GlDisclosureDropdownItem>
+          <GlDisclosureDropdownGroup>
+            <GlDisclosureDropdownItem
+              closeOnClick={false}
+              onAction={({ event }) => setContainsResult(String(
+                dropdownRef.current?.containsElement(event.currentTarget),
+              ))}
+              value="contains">
+              Check containsElement
+            </GlDisclosureDropdownItem>
+            <GlDisclosureDropdownItem
+              closeOnClick={false}
+              onAction={() => dropdownRef.current?.close()}
+              value="close">
+              Imperative close
+            </GlDisclosureDropdownItem>
+            <GlDisclosureDropdownItem
+              closeOnClick={false}
+              onAction={() => dropdownRef.current?.closeAndFocus()}
+              value="close-and-focus">
+              Imperative close and focus
+            </GlDisclosureDropdownItem>
+          </GlDisclosureDropdownGroup>
         </GlDisclosureDropdownContent>
       </GlDisclosureDropdown>
     </div>
@@ -352,14 +366,16 @@ function ControlledCompositionExample() {
         Custom controlled trigger
       </GlDisclosureDropdownTrigger>
       <GlDisclosureDropdownContent aria-label="Controlled actions">
-        <GlDisclosureDropdownItem
-          render={<StoryRouterLink to="#router-settings" />}
-          value="settings">
-          Router settings
-        </GlDisclosureDropdownItem>
-        <GlDisclosureDropdownItem href="javascript:alert(1)" value="unsafe">
-          Sanitized link
-        </GlDisclosureDropdownItem>
+        <GlDisclosureDropdownGroup>
+          <GlDisclosureDropdownItem
+            render={<StoryRouterLink to="#router-settings" />}
+            value="settings">
+            Router settings
+          </GlDisclosureDropdownItem>
+          <GlDisclosureDropdownItem href="javascript:alert(1)" value="unsafe">
+            Sanitized link
+          </GlDisclosureDropdownItem>
+        </GlDisclosureDropdownGroup>
       </GlDisclosureDropdownContent>
     </GlDisclosureDropdown>
   );
@@ -386,12 +402,16 @@ export const NestedDropdowns: Story = {
     <GlDisclosureDropdown>
       <GlDisclosureDropdownTrigger>Outer actions</GlDisclosureDropdownTrigger>
       <GlDisclosureDropdownContent>
-        <GlDisclosureDropdownItem value="outer">Outer item</GlDisclosureDropdownItem>
+        <GlDisclosureDropdownGroup>
+          <GlDisclosureDropdownItem value="outer">Outer item</GlDisclosureDropdownItem>
+        </GlDisclosureDropdownGroup>
         <div className="gl-p-2">
           <GlDisclosureDropdown>
             <GlDisclosureDropdownTrigger size="small">Nested actions</GlDisclosureDropdownTrigger>
             <GlDisclosureDropdownContent placement="right-start">
-              <GlDisclosureDropdownItem value="nested">Nested item</GlDisclosureDropdownItem>
+              <GlDisclosureDropdownGroup>
+                <GlDisclosureDropdownItem value="nested">Nested item</GlDisclosureDropdownItem>
+              </GlDisclosureDropdownGroup>
             </GlDisclosureDropdownContent>
           </GlDisclosureDropdown>
         </div>
@@ -419,9 +439,8 @@ export const GroupsAndButtonGroup: Story = {
       <GlButton>Save</GlButton>
       <GlDisclosureDropdown>
         <GlDisclosureDropdownTrigger textSrOnly>More save actions</GlDisclosureDropdownTrigger>
-        <GlDisclosureDropdownContent
-          footer={<span>Custom footer</span>}
-          header={<span>Custom header</span>}>
+        <GlDisclosureDropdownContent>
+          <GlDisclosureDropdownHeader>Custom header</GlDisclosureDropdownHeader>
           <GlDisclosureDropdownGroup>
             <GlDisclosureDropdownGroupLabel>General</GlDisclosureDropdownGroupLabel>
             <GlDisclosureDropdownItem icon="download" value="download">
@@ -433,6 +452,7 @@ export const GroupsAndButtonGroup: Story = {
             <GlDisclosureDropdownGroupLabel>Danger zone</GlDisclosureDropdownGroupLabel>
             <GlDisclosureDropdownItem value="delete" variant="danger">Delete</GlDisclosureDropdownItem>
           </GlDisclosureDropdownGroup>
+          <GlDisclosureDropdownFooter>Custom footer</GlDisclosureDropdownFooter>
         </GlDisclosureDropdownContent>
       </GlDisclosureDropdown>
     </GlButtonGroup>
@@ -451,10 +471,10 @@ export const GroupsAndButtonGroup: Story = {
     const header = canvas.getByText("Custom header");
     const footer = canvas.getByText("Custom footer");
     await expect(header).toBeVisible();
-    await expect(header.parentElement).toHaveClass("gl-new-dropdown-header-content");
-    await expect(header.parentElement?.parentElement).toHaveClass("gl-new-dropdown-header");
+    await expect(header).toHaveClass("gl-new-dropdown-header-content");
+    await expect(header.parentElement).toHaveClass("gl-new-dropdown-header");
     await expect(footer).toBeVisible();
-    await expect(footer.parentElement).toHaveClass("gl-new-dropdown-footer");
+    await expect(footer).toHaveClass("gl-new-dropdown-footer");
   },
 };
 
@@ -466,11 +486,13 @@ export const FixedFluidAndScrolling: Story = {
         fluidWidth
         placement="bottom-end"
         positioningStrategy="fixed">
-        {Array.from({ length: 20 }, (_, index) => (
-          <GlDisclosureDropdownItem key={index} value={index}>
-            Action {String(index + 1).padStart(2, "0")} with a fluid-width label
-          </GlDisclosureDropdownItem>
-        ))}
+        <GlDisclosureDropdownGroup>
+          {Array.from({ length: 20 }, (_, index) => (
+            <GlDisclosureDropdownItem key={index} value={index}>
+              Action {String(index + 1).padStart(2, "0")} with a fluid-width label
+            </GlDisclosureDropdownItem>
+          ))}
+        </GlDisclosureDropdownGroup>
       </GlDisclosureDropdownContent>
     </GlDisclosureDropdown>
   ),
@@ -502,9 +524,11 @@ export const PlacementsAndWidths: Story = {
             fluidWidth={placement === "right-start"}
             offset={{ crossAxis: placement === "right-start" ? 4 : 0, mainAxis: 8 }}
             placement={placement}>
-            <GlDisclosureDropdownItem value={placement}>
-              Placement: {placement}
-            </GlDisclosureDropdownItem>
+            <GlDisclosureDropdownGroup>
+              <GlDisclosureDropdownItem value={placement}>
+                Placement: {placement}
+              </GlDisclosureDropdownItem>
+            </GlDisclosureDropdownGroup>
           </GlDisclosureDropdownContent>
         </GlDisclosureDropdown>
       ))}

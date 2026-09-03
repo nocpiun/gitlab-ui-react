@@ -3,6 +3,8 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, expectTypeOf, it, vi } from "vitest";
 import GlListbox, {
   GlListboxContent,
+  GlListboxFooter,
+  GlListboxHeader,
   GlListboxItem,
   GlListboxTrigger,
   resolveListboxOffset,
@@ -118,7 +120,9 @@ describe("GlListbox", () => {
       <GlListbox defaultOpen>
         <GlListboxTrigger>Width</GlListboxTrigger>
         <GlListboxContent fluidWidth panelMatchTriggerWidth>
-          <GlListboxItem value="one">One</GlListboxItem>
+          <GlListboxGroup>
+            <GlListboxItem value="one">One</GlListboxItem>
+          </GlListboxGroup>
         </GlListboxContent>
       </GlListbox>,
     );
@@ -149,6 +153,55 @@ describe("GlListbox", () => {
 
     expect(markup).toMatch(/<input[^>]*disabled=""/);
     expect(markup).toMatch(/<button[^>]*aria-disabled="true"/);
+  });
+
+  it("applies native region props to composed headers and footers", () => {
+    const headerRef = createRef<HTMLDivElement>();
+    const footerRef = createRef<HTMLDivElement>();
+    const markup = renderToStaticMarkup(
+      <>
+        <GlListboxHeader
+          ref={headerRef}
+          className="custom-header"
+          data-testid="header"
+          style={{ color: "red" }}>
+          Header
+        </GlListboxHeader>
+        <GlListboxFooter
+          ref={footerRef}
+          className="custom-footer"
+          data-testid="footer"
+          style={{ color: "blue" }}>
+          Footer
+        </GlListboxFooter>
+      </>,
+    );
+
+    expect(markup).toContain("gl-new-dropdown-header custom-header");
+    expect(markup).toContain("gl-new-dropdown-footer custom-footer");
+    expect(markup).toContain("data-testid=\"header\"");
+    expect(markup).toContain("data-testid=\"footer\"");
+    expect(markup).toContain("color:red");
+    expect(markup).toContain("color:blue");
+  });
+
+  it("requires items to be nested in a group", () => {
+    expect(() => renderToStaticMarkup(
+      <GlListbox>
+        <GlListboxItem value="one">One</GlListboxItem>
+      </GlListbox>,
+    )).toThrowError("GlListboxItem must be used inside GlListboxGroup.");
+  });
+
+  it("supports groups without labels", () => {
+    const markup = renderToStaticMarkup(
+      <GlListbox>
+        <GlListboxGroup>Instructions</GlListboxGroup>
+      </GlListbox>,
+    );
+
+    expect(markup).toContain("role=\"group\"");
+    expect(markup).not.toContain("aria-labelledby");
   });
 
   it("accepts groups, null values, and the complete imperative contract", () => {

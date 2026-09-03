@@ -7,6 +7,7 @@
 
 import {
   Children,
+  Fragment,
   cloneElement,
   createContext,
   forwardRef,
@@ -39,6 +40,16 @@ import GlButton, {
 } from "../button/button";
 import GlIcon from "../icon/icon";
 import GlLoadingIcon from "../loading-icon/loading-icon";
+import { useMergedRefs } from "../../internal/utils/merge-refs";
+import GlListboxSearchInput, {
+  type GlListboxSearchInputProps,
+} from "./listbox-search-input";
+import {
+  ListboxContentContext,
+  ListboxGroupContext,
+  type ListboxContentContextValue,
+  type RegisteredListboxItem,
+} from "./listbox-contexts";
 
 export type GlListboxValue = string | number | null;
 
@@ -168,8 +179,6 @@ export type GlListboxContentProps = ListboxPopupProps & {
   children?: ReactNode;
   className?: string;
   fluidWidth?: boolean;
-  footer?: ReactNode;
-  header?: ReactNode;
   infiniteScrollLoading?: boolean;
   loadingAnnouncement?: string;
   loadingMoreAnnouncement?: string;
@@ -180,12 +189,14 @@ export type GlListboxContentProps = ListboxPopupProps & {
   placement?: GlListboxPlacement;
   positioningStrategy?: GlListboxPositioningStrategy;
   resultsAnnouncement?: (count: number) => ReactNode;
-  search?: ReactNode;
   searching?: boolean;
   searchingAnnouncement?: string;
   style?: CSSProperties;
   totalItems?: number;
 };
+
+export type GlListboxHeaderProps = HTMLAttributes<HTMLDivElement>;
+export type GlListboxFooterProps = HTMLAttributes<HTMLDivElement>;
 
 export type GlListboxItemRenderState = {
   disabled: boolean;
@@ -220,15 +231,6 @@ export type GlListboxItemProps = ListboxItemNativeProps & {
   value: GlListboxValue;
 };
 
-type RegisteredItem = {
-  disabled: boolean;
-  element: HTMLElement | null;
-  id: string;
-  key: string;
-  label: string;
-  value: GlListboxValue;
-};
-
 type ListboxContextValue = {
   changeSelection(value: GlListboxValue, selected: boolean, event: Event): void;
   disabled: boolean;
@@ -249,27 +251,7 @@ type ListboxContextValue = {
   updateTriggerId(id: string): void;
 };
 
-type ListboxContentContextValue = {
-  activeItemId: string | null;
-  getItemPosition(key: string): number | undefined;
-  hasHeader: boolean;
-  handleSearchKeyDown(event: ReactKeyboardEvent<HTMLInputElement>): void;
-  listboxId: string;
-  open: boolean;
-  registryVersion: number;
-  registerItem(item: RegisteredItem): void;
-  searchInputId: string;
-  searchable: boolean;
-  setActiveItemId(id: string | null): void;
-  setSearchInputId(id: string | null): void;
-  setSearchInputElement(element: HTMLInputElement | null): void;
-  setSearchValue(value: string): void;
-  totalItems?: number;
-  unregisterItem(key: string): void;
-};
-
 const ListboxContext = createContext<ListboxContextValue | null>(null);
-export const ListboxContentContext = createContext<ListboxContentContextValue | null>(null);
 
 const rootVariants = cva(["gl-listbox", "gl-new-dropdown"]);
 
@@ -309,25 +291,6 @@ function useListboxContext(componentName: string) {
   const context = useContext(ListboxContext);
   if(!context) throw new Error(`${componentName} must be used inside GlListbox.`);
   return context;
-}
-
-export function useListboxContentContext(componentName: string) {
-  const context = useContext(ListboxContentContext);
-  if(!context) throw new Error(`${componentName} must be used inside GlListboxContent.`);
-  return context;
-}
-
-function assignRef<T>(ref: Ref<T> | undefined, value: T | null) {
-  if(typeof ref === "function") ref(value);
-  else if(ref) ref.current = value;
-}
-
-export function useListboxMergedRefs<T>(...refs: Array<Ref<T> | undefined>) {
-  return useCallback((value: T | null) => {
-    refs.forEach((ref) => assignRef(ref, value));
-  // A changed ref must produce a callback that clears the old target.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, refs);
 }
 
 function valuesEqual(left: GlListboxValue, right: GlListboxValue) {
@@ -585,7 +548,7 @@ export const GlListboxTrigger = forwardRef<HTMLElement, GlListboxTriggerProps>(
     const hasText = Children.toArray(children).length > 0;
     const iconOnly = Boolean(icon) && (!hasText || textSrOnly);
     const caretOnly = !noCaret && !icon && (!hasText || textSrOnly);
-    const mergedRef = useListboxMergedRefs(forwardedRef, context.setTriggerElement);
+    const mergedRef = useMergedRefs(forwardedRef, context.setTriggerElement);
     const environment = typeof process === "undefined" ? undefined : process.env.NODE_ENV;
 
     useEffect(() => { context.updateTriggerId(actualId); }, [actualId, context]);
@@ -697,7 +660,74 @@ export function resolveListboxOffset(offset: GlListboxOffset): ResolvedOffset {
   };
 }
 
-function compareDomOrder(left: RegisteredItem, right: RegisteredItem) {
+export const GlListboxHeader = forwardRef<HTMLDivElement, GlListboxHeaderProps>(
+  function GlListboxHeader({ children, className, ...elementProps }, forwardedRef) {
+    return (
+      <div
+        {...elementProps}
+        ref={forwardedRef}
+        className={clsx("gl-new-dropdown-header", className)}>
+        <div className="gl-new-dropdown-header-content">{children}</div>
+      </div>
+    );
+  },
+);
+
+export const GlListboxFooter = forwardRef<HTMLDivElement, GlListboxFooterProps>(
+  function GlListboxFooter({ className, ...elementProps }, forwardedRef) {
+    return (
+      <div
+        {...elementProps}
+        ref={forwardedRef}
+        className={clsx("gl-new-dropdown-footer", className)} />
+    );
+  },
+);
+
+type ListboxContentChildren = {
+  body: ReactNode[];
+  footer: ReactElement<GlListboxFooterProps> | null;
+  header: ReactElement<GlListboxHeaderProps> | null;
+  search: ReactElement<GlListboxSearchInputProps> | null;
+};
+
+function resolveListboxContentChildren(children: ReactNode): ListboxContentChildren {
+  const result: ListboxContentChildren = {
+    body: [],
+    footer: null,
+    header: null,
+    search: null,
+  };
+
+  const visit = (child: ReactNode) => {
+    if(child === null || child === undefined || typeof child === "boolean") return;
+    if(isValidElement<{ children?: ReactNode }>(child) && child.type === Fragment) {
+      Children.forEach(child.props.children, visit);
+      return;
+    }
+    if(isValidElement<GlListboxHeaderProps>(child) && child.type === GlListboxHeader) {
+      if(result.header) throw new Error("GlListboxContent accepts only one GlListboxHeader.");
+      result.header = child;
+      return;
+    }
+    if(isValidElement<GlListboxSearchInputProps>(child) && child.type === GlListboxSearchInput) {
+      if(result.search) throw new Error("GlListboxContent accepts only one GlListboxSearchInput.");
+      result.search = child;
+      return;
+    }
+    if(isValidElement<GlListboxFooterProps>(child) && child.type === GlListboxFooter) {
+      if(result.footer) throw new Error("GlListboxContent accepts only one GlListboxFooter.");
+      result.footer = child;
+      return;
+    }
+    result.body.push(child);
+  };
+
+  Children.forEach(children, visit);
+  return result;
+}
+
+function compareDomOrder(left: RegisteredListboxItem, right: RegisteredListboxItem) {
   if(!left.element || !right.element || left.element === right.element) return 0;
   return left.element.compareDocumentPosition(right.element) & Node.DOCUMENT_POSITION_FOLLOWING
     ? -1
@@ -717,8 +747,6 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
     children,
     className,
     fluidWidth = false,
-    footer,
-    header,
     infiniteScrollLoading = false,
     loadingAnnouncement = "Loading items",
     loadingMoreAnnouncement = "Loading more items",
@@ -730,7 +758,6 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
     placement = "bottom-start",
     positioningStrategy = "absolute",
     resultsAnnouncement = (count) => `${count} ${count === 1 ? "result" : "results"}`,
-    search,
     searching = false,
     searchingAnnouncement = "Searching",
     style,
@@ -738,7 +765,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
     ...popupProps
   }, forwardedRef) {
     const context = useListboxContext("GlListboxContent");
-    const registryRef = useRef(new Map<string, RegisteredItem>());
+    const registryRef = useRef(new Map<string, RegisteredListboxItem>());
     const [registryVersion, setRegistryVersion] = useState(0);
     const [settledRegistryVersion, setSettledRegistryVersion] = useState<number | null>(null);
     const [activeItemId, setActiveItemId] = useState<string | null>(null);
@@ -757,14 +784,16 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
     const bottomReachedRef = useRef(false);
     const focusedForCurrentOpenRef = useRef(false);
     const typeaheadRef = useRef({ timeout: 0, value: "" });
-    const popupRef = useListboxMergedRefs(
+    const popupRef = useMergedRefs(
       forwardedRef,
       context.setPopupElement,
       setPopupElement,
     );
     const resolvedPlacement = resolveListboxPlacement(placement);
     const resolvedOffset = resolveListboxOffset(offset);
-    const searchable = search !== undefined;
+    const contentChildren = resolveListboxContentChildren(children);
+    const hasHeader = contentChildren.header !== null;
+    const searchable = contentChildren.search !== null;
     const busy = context.loading || searching || infiniteScrollLoading;
     const environment = typeof process === "undefined" ? undefined : process.env.NODE_ENV;
 
@@ -778,7 +807,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
     const getOrderedItems = useCallback(() => (
       [...registryRef.current.values()].sort(compareDomOrder)
     ), []);
-    const registerItem = useCallback((item: RegisteredItem) => {
+    const registerItem = useCallback((item: RegisteredListboxItem) => {
       registryRef.current.set(item.key, item);
       setRegistryVersion((version) => version + 1);
     }, []);
@@ -797,7 +826,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
         : null;
       item?.scrollIntoView({ block: "nearest" });
     }, [scrollElement]);
-    const setActiveItem = useCallback((item: RegisteredItem | undefined) => {
+    const setActiveItem = useCallback((item: RegisteredListboxItem | undefined) => {
       const nextId = item?.id ?? null;
       setActiveItemId(nextId);
       scrollActiveItemIntoView(nextId);
@@ -965,7 +994,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
       const items = getOrderedItems().filter((item) => !item.disabled);
       if(items.length === 0) return;
       const currentIndex = items.findIndex((item) => item.id === activeItemId);
-      let next: RegisteredItem | undefined;
+      let next: RegisteredListboxItem | undefined;
       if(event.key === "ArrowDown") {
         next = items[(currentIndex + 1 + items.length) % items.length];
       } else if(event.key === "ArrowUp") {
@@ -995,7 +1024,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
       const items = getOrderedItems().filter((item) => !item.disabled && item.element);
       if(items.length === 0) return;
       const currentIndex = items.findIndex((item) => item.element === document.activeElement);
-      let next: RegisteredItem | undefined;
+      let next: RegisteredListboxItem | undefined;
       if(event.key === "ArrowDown") {
         next = items[(currentIndex + 1 + items.length) % items.length];
       } else if(event.key === "ArrowUp") {
@@ -1039,7 +1068,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
     const contentContext = useMemo<ListboxContentContextValue>(() => ({
       activeItemId,
       getItemPosition,
-      hasHeader: header !== undefined,
+      hasHeader,
       handleSearchKeyDown,
       listboxId: context.listboxId,
       open: context.open,
@@ -1059,7 +1088,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
       context.listboxId,
       getItemPosition,
       handleSearchKeyDown,
-      header,
+      hasHeader,
       registerItem,
       registryVersion,
       searchable,
@@ -1071,7 +1100,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
 
     const itemCount = registryRef.current.size;
     const itemRegistrationSettled = context.open && settledRegistryVersion === registryVersion;
-    const listItems = context.multiple ? children : (
+    const listItems = context.multiple ? contentChildren.body : (
       <BaseMenu.RadioGroup
         className="gl-listbox-radio-group"
         disabled={context.disabled || context.loading}
@@ -1080,7 +1109,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
         }}
         render={renderSemanticRadioGroup}
         value={context.selection as GlListboxValue}>
-        {children}
+        {contentChildren.body}
       </BaseMenu.RadioGroup>
     );
     const showStandaloneLoadingAnnouncement = context.loading
@@ -1118,12 +1147,8 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
           <BaseMenu.Arrow className="gl-new-dropdown-arrow" />
           <ListboxContentContext.Provider value={contentContext}>
             <div className="gl-new-dropdown-inner gl-listbox-inner">
-              {header !== undefined ? (
-                <div className="gl-new-dropdown-header">
-                  <div className="gl-new-dropdown-header-content">{header}</div>
-                </div>
-              ) : null}
-              {searchable ? <div className="gl-listbox-search-container">{search}</div> : null}
+              {contentChildren.header}
+              {contentChildren.search}
               {searching ? (
                 <GlLoadingIcon
                   className="gl-listbox-search-loader"
@@ -1161,7 +1186,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
                   <span aria-hidden className="top-scrim-wrapper" role="presentation">
                     <span className={clsx(
                       "top-scrim",
-                      header === undefined && !searchable ? "top-scrim-light" : "top-scrim-dark",
+                      !hasHeader && !searchable ? "top-scrim-light" : "top-scrim-dark",
                     )} />
                   </span>
                   {listItems}
@@ -1181,7 +1206,10 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
                       role="presentation" />
                   ) : null}
                   <span aria-hidden className="bottom-scrim-wrapper" role="presentation">
-                    <span className={clsx("bottom-scrim", footer !== undefined && "gl-rounded-none")} />
+                    <span className={clsx(
+                      "bottom-scrim",
+                      contentChildren.footer !== null && "gl-rounded-none",
+                    )} />
                   </span>
                 </div>
               )}
@@ -1217,9 +1245,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
                   {loadingAnnouncement}
                 </span>
               ) : null}
-              {footer !== undefined ? (
-                <div className="gl-new-dropdown-footer">{footer}</div>
-              ) : null}
+              {contentChildren.footer}
             </div>
           </ListboxContentContext.Provider>
         </BaseMenu.Popup>
@@ -1268,13 +1294,16 @@ export const GlListboxItem = forwardRef<HTMLElement, GlListboxItemProps>(
     ...itemProps
   }, forwardedRef) {
     const context = useListboxContext("GlListboxItem");
-    const contentContext = useListboxContentContext("GlListboxItem");
+    const contentContext = useContext(ListboxContentContext);
+    const insideGroup = useContext(ListboxGroupContext);
+    if(!insideGroup) throw new Error("GlListboxItem must be used inside GlListboxGroup.");
+    if(!contentContext) throw new Error("GlListboxItem must be used inside GlListboxContent.");
     const { registerItem, unregisterItem } = contentContext;
     const generatedId = useId();
     const key = useId();
     const actualId = id ?? `gl-listbox-item-${generatedId}`;
     const [element, setElement] = useState<HTMLElement | null>(null);
-    const mergedRef = useListboxMergedRefs(forwardedRef, setElement);
+    const mergedRef = useMergedRefs(forwardedRef, setElement);
     const selected = context.isSelected(value);
     const highlighted = contentContext.searchable
       && contentContext.activeItemId === actualId;

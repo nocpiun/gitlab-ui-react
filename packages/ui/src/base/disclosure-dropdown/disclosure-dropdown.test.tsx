@@ -1,8 +1,10 @@
-import { Fragment, type ReactNode } from "react";
+import { Fragment, createRef, type ReactNode } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, expectTypeOf, it, vi } from "vitest";
 import GlDisclosureDropdown, {
   GlDisclosureDropdownContent,
+  GlDisclosureDropdownFooter,
+  GlDisclosureDropdownHeader,
   GlDisclosureDropdownItem,
   GlDisclosureDropdownTrigger,
   hasDirectDisclosureDropdownItemIcon,
@@ -136,6 +138,55 @@ describe("GlDisclosureDropdown", () => {
         <GlDisclosureDropdownItem icon="pencil" value="edit">Edit</GlDisclosureDropdownItem>
       </div>,
     )).toBe(false);
+  });
+
+  it("applies native region props to composed headers and footers", () => {
+    const headerRef = createRef<HTMLDivElement>();
+    const footerRef = createRef<HTMLDivElement>();
+    const markup = renderToStaticMarkup(
+      <>
+        <GlDisclosureDropdownHeader
+          ref={headerRef}
+          className="custom-header"
+          data-testid="header"
+          style={{ color: "red" }}>
+          Header
+        </GlDisclosureDropdownHeader>
+        <GlDisclosureDropdownFooter
+          ref={footerRef}
+          className="custom-footer"
+          data-testid="footer"
+          style={{ color: "blue" }}>
+          Footer
+        </GlDisclosureDropdownFooter>
+      </>,
+    );
+
+    expect(markup).toContain("gl-new-dropdown-header custom-header");
+    expect(markup).toContain("gl-new-dropdown-footer custom-footer");
+    expect(markup).toContain("data-testid=\"header\"");
+    expect(markup).toContain("data-testid=\"footer\"");
+    expect(markup).toContain("color:red");
+    expect(markup).toContain("color:blue");
+  });
+
+  it("requires items to be nested in a group", () => {
+    expect(() => renderToStaticMarkup(
+      <GlDisclosureDropdown>
+        <GlDisclosureDropdownItem value="edit">Edit</GlDisclosureDropdownItem>
+      </GlDisclosureDropdown>,
+    )).toThrowError("GlDisclosureDropdownItem must be used inside GlDisclosureDropdownGroup.");
+  });
+
+  it("supports groups without labels", () => {
+    const markup = renderToStaticMarkup(
+      <GlDisclosureDropdown>
+        <GlDisclosureDropdownGroup>Instructions</GlDisclosureDropdownGroup>
+      </GlDisclosureDropdown>,
+    );
+
+    expect(markup).toContain("role=\"group\"");
+    expect(markup).not.toContain("aria-labelledby");
   });
 
   it("exposes the complete imperative handle contract", () => {

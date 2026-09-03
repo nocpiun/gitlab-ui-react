@@ -17,10 +17,8 @@ import {
 import clsx from "clsx";
 import GlButton from "../button/button";
 import GlIcon from "../icon/icon";
-import {
-  ListboxContentContext,
-  useListboxMergedRefs,
-} from "./listbox";
+import { useMergedRefs } from "../../internal/utils/merge-refs";
+import { ListboxContentContext } from "./listbox-contexts";
 
 export type GlListboxSearchInputProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -58,7 +56,7 @@ export const GlListboxSearchInput = forwardRef<
   const [inputElement, setInputElement] = useState<HTMLInputElement | null>(null);
   const actualValue = value ?? uncontrolledValue;
   const actualId = id ?? contentContext?.searchInputId;
-  const mergedRef = useListboxMergedRefs(forwardedRef, setInputElement);
+  const mergedRef = useMergedRefs(forwardedRef, setInputElement);
 
   useEffect(() => {
     setSearchInputElement?.(inputElement);
@@ -106,43 +104,45 @@ export const GlListboxSearchInput = forwardRef<
   };
 
   return (
-    <div className={clsx(
-      "gl-listbox-search",
-      !contentContext?.hasHeader && "gl-listbox-topmost",
-    )}>
-      <GlIcon
-        aria-hidden
-        className="gl-listbox-search-icon"
-        name="search-sm"
-        size={12} />
-      <input
-        {...inputProps}
-        ref={mergedRef}
-        aria-activedescendant={contentContext?.activeItemId ?? undefined}
-        aria-controls={contentContext?.listboxId}
-        aria-expanded={contentContext?.open}
-        aria-haspopup="listbox"
-        aria-label={ariaLabel ?? placeholder}
-        className={clsx("gl-listbox-search-input", className)}
-        disabled={disabled}
-        id={actualId}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        placeholder={placeholder}
-        role="combobox"
-        type="search"
-        value={actualValue} />
-      {actualValue ? (
-        <GlButton
-          aria-label={clearLabel}
-          category="tertiary"
-          className="gl-listbox-search-clear-button"
+    <div className="gl-listbox-search-container">
+      <div className={clsx(
+        "gl-listbox-search",
+        !contentContext?.hasHeader && "gl-listbox-topmost",
+      )}>
+        <GlIcon
+          aria-hidden
+          className="gl-listbox-search-icon"
+          name="search-sm"
+          size={12} />
+        <input
+          {...inputProps}
+          ref={mergedRef}
+          aria-activedescendant={contentContext?.activeItemId ?? undefined}
+          aria-controls={contentContext?.listboxId}
+          aria-expanded={contentContext?.open}
+          aria-haspopup="listbox"
+          aria-label={ariaLabel ?? placeholder}
+          className={clsx("gl-listbox-search-input", className)}
           disabled={disabled}
-          icon="close"
-          onClick={handleClear}
-          onMouseDown={handleClearMouseDown}
-          size="small" />
-      ) : null}
+          id={actualId}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          placeholder={placeholder}
+          role="combobox"
+          type="search"
+          value={actualValue} />
+        {actualValue ? (
+          <GlButton
+            aria-label={clearLabel}
+            category="tertiary"
+            className="gl-listbox-search-clear-button"
+            disabled={disabled}
+            icon="close"
+            onClick={handleClear}
+            onMouseDown={handleClearMouseDown}
+            size="small" />
+        ) : null}
+      </div>
     </div>
   );
 });

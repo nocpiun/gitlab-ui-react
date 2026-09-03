@@ -17,6 +17,8 @@ import {
 import GlButton from "../button/button";
 import GlListbox, {
   GlListboxContent,
+  GlListboxFooter,
+  GlListboxHeader,
   GlListboxItem,
   GlListboxTrigger,
   type GlListboxHandle,
@@ -51,14 +53,19 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const showDefaultSearch = false;
+
 export const Default: Story = {
   render: () => (
     <GlListbox defaultValue="backend">
       <GlListboxTrigger>Select department</GlListboxTrigger>
       <GlListboxContent>
-        <GlListboxItem value="frontend">Frontend</GlListboxItem>
-        <GlListboxItem value="backend">Backend</GlListboxItem>
-        <GlListboxItem disabled value="security">Security</GlListboxItem>
+        <>{showDefaultSearch && <GlListboxSearchInput />}</>
+        <GlListboxGroup>
+          <GlListboxItem value="frontend">Frontend</GlListboxItem>
+          <GlListboxItem value="backend">Backend</GlListboxItem>
+          <GlListboxItem disabled value="security">Security</GlListboxItem>
+        </GlListboxGroup>
       </GlListboxContent>
     </GlListbox>
   ),
@@ -83,6 +90,8 @@ export const Default: Story = {
     await expect(options).toHaveLength(3);
     await expect(canvas.queryByRole("menu")).not.toBeInTheDocument();
     await expect(canvas.queryByRole("menuitemradio")).not.toBeInTheDocument();
+    await expect(listbox).toHaveAttribute("aria-labelledby", trigger.id);
+    await expect(within(listbox).getByRole("group")).not.toHaveAttribute("aria-labelledby");
     const selectedOption = within(listbox).getByRole("option", { name: "Backend" });
     await expect(selectedOption).toHaveAttribute("aria-selected", "true");
     await waitFor(() => expect(selectedOption).toHaveFocus());
@@ -103,9 +112,11 @@ function MultipleExample() {
     <GlListbox multiple value={value} onValueChange={setValue}>
       <GlListboxTrigger>Choose departments</GlListboxTrigger>
       <GlListboxContent>
-        <GlListboxItem value="frontend">Frontend</GlListboxItem>
-        <GlListboxItem value="backend">Backend</GlListboxItem>
-        <GlListboxItem value="security">Security</GlListboxItem>
+        <GlListboxGroup>
+          <GlListboxItem value="frontend">Frontend</GlListboxItem>
+          <GlListboxItem value="backend">Backend</GlListboxItem>
+          <GlListboxItem value="security">Security</GlListboxItem>
+        </GlListboxGroup>
       </GlListboxContent>
     </GlListbox>
   );
@@ -133,9 +144,11 @@ export const KeyboardNavigation: Story = {
     <GlListbox>
       <GlListboxTrigger>Keyboard selection</GlListboxTrigger>
       <GlListboxContent>
-        <GlListboxItem value="alpha">Alpha</GlListboxItem>
-        <GlListboxItem disabled value="beta">Beta</GlListboxItem>
-        <GlListboxItem value="gamma">Gamma</GlListboxItem>
+        <GlListboxGroup>
+          <GlListboxItem value="alpha">Alpha</GlListboxItem>
+          <GlListboxItem disabled value="beta">Beta</GlListboxItem>
+          <GlListboxItem value="gamma">Gamma</GlListboxItem>
+        </GlListboxGroup>
       </GlListboxContent>
     </GlListbox>
   ),
@@ -183,16 +196,16 @@ function SearchableExample() {
       <GlListboxTrigger>Search departments</GlListboxTrigger>
       <GlListboxContent
         noResultsText="No matching departments"
-        resultsAnnouncement={(count) => `${count} matching departments`}
-        search={(
-          <GlListboxSearchInput
-            onValueChange={setQuery}
-            placeholder="Find department"
-            value={query} />
-        )}>
-        {filtered.map((item) => (
-          <GlListboxItem key={item.value} value={item.value}>{item.label}</GlListboxItem>
-        ))}
+        resultsAnnouncement={(count) => `${count} matching departments`}>
+        <GlListboxSearchInput
+          onValueChange={setQuery}
+          placeholder="Find department"
+          value={query} />
+        <GlListboxGroup>
+          {filtered.map((item) => (
+            <GlListboxItem key={item.value} value={item.value}>{item.label}</GlListboxItem>
+          ))}
+        </GlListboxGroup>
       </GlListboxContent>
     </GlListbox>
   );
@@ -242,19 +255,19 @@ function SearchableWithHeaderExample() {
     <GlListbox>
       <GlListboxTrigger>Search departments with header</GlListboxTrigger>
       <GlListboxContent
-        header={<span>Assign to department</span>}
         noResultsText="No matching departments"
-        resultsAnnouncement={(count) => `${count} matching departments`}
-        search={(
-          <GlListboxSearchInput
-            id="department-search-input"
-            onValueChange={setQuery}
-            placeholder="Find department"
-            value={query} />
-        )}>
-        {filtered.map((item) => (
-          <GlListboxItem key={item.value} value={item.value}>{item.label}</GlListboxItem>
-        ))}
+        resultsAnnouncement={(count) => `${count} matching departments`}>
+        <GlListboxHeader>Assign to department</GlListboxHeader>
+        <GlListboxSearchInput
+          id="department-search-input"
+          onValueChange={setQuery}
+          placeholder="Find department"
+          value={query} />
+        <GlListboxGroup>
+          {filtered.map((item) => (
+            <GlListboxItem key={item.value} value={item.value}>{item.label}</GlListboxItem>
+          ))}
+        </GlListboxGroup>
       </GlListboxContent>
     </GlListbox>
   );
@@ -267,8 +280,8 @@ export const SearchableWithHeader: Story = {
     await userEvent.click(trigger);
 
     const header = await canvas.findByText("Assign to department");
-    const headerContent = header.parentElement;
-    const headerRegion = headerContent?.parentElement;
+    const headerContent = header;
+    const headerRegion = header.parentElement;
     const search = await canvas.findByRole("combobox", { name: "Find department" });
     const listbox = canvas.getByRole("listbox");
     await expect(headerContent).toHaveClass("gl-new-dropdown-header-content");
@@ -291,14 +304,14 @@ function GroupsExample() {
   return (
     <GlListbox multiple value={value} onValueChange={setValue}>
       <GlListboxTrigger>Grouped projects</GlListboxTrigger>
-      <GlListboxContent
-        footer={<span>Custom footer</span>}
-        header={<span>Custom header</span>}>
+      <GlListboxContent>
+        <GlListboxHeader>Custom header</GlListboxHeader>
         <GlListboxGroup>
           <GlListboxGroupLabel>GitLab</GlListboxGroupLabel>
           <GlListboxItem value="gitlab-org">GitLab.org</GlListboxItem>
           <GlListboxItem value="gitlab-com">GitLab.com</GlListboxItem>
         </GlListboxGroup>
+        <GlListboxFooter>Custom footer</GlListboxFooter>
         <GlListboxGroup>
           <GlListboxGroupLabel textSrOnly>Personal projects</GlListboxGroupLabel>
           <GlListboxItem value="personal">Personal project</GlListboxItem>
@@ -321,10 +334,10 @@ export const GroupsAndCustomRegions: Story = {
     const header = canvas.getByText("Custom header");
     const footer = canvas.getByText("Custom footer");
     await expect(header).toBeVisible();
-    await expect(header.parentElement).toHaveClass("gl-new-dropdown-header-content");
-    await expect(header.parentElement?.parentElement).toHaveClass("gl-new-dropdown-header");
+    await expect(header).toHaveClass("gl-new-dropdown-header-content");
+    await expect(header.parentElement).toHaveClass("gl-new-dropdown-header");
     await expect(footer).toBeVisible();
-    await expect(footer.parentElement).toHaveClass("gl-new-dropdown-footer");
+    await expect(footer).toHaveClass("gl-new-dropdown-footer");
   },
 };
 
@@ -347,12 +360,14 @@ export const CustomRenderAndValidation: Story = {
         Custom trigger
       </GlListboxTrigger>
       <GlListboxContent panelMatchTriggerWidth>
-        <GlListboxItem
-          nativeButton
-          render={(props) => <button {...props} data-custom-item type="button" />}
-          value={null}>
-          No selection
-        </GlListboxItem>
+        <GlListboxGroup>
+          <GlListboxItem
+            nativeButton
+            render={(props) => <button {...props} data-custom-item type="button" />}
+            value={null}>
+            No selection
+          </GlListboxItem>
+        </GlListboxGroup>
       </GlListboxContent>
     </GlListbox>
   ),
@@ -378,7 +393,9 @@ function ImperativeExample() {
       <GlListbox ref={ref}>
         <GlListboxTrigger>Imperative selection</GlListboxTrigger>
         <GlListboxContent>
-          <GlListboxItem value="one">One</GlListboxItem>
+          <GlListboxGroup>
+            <GlListboxItem value="one">One</GlListboxItem>
+          </GlListboxGroup>
         </GlListboxContent>
       </GlListbox>
     </div>
@@ -413,22 +430,28 @@ export const PlacementsWidthsAndLoading: Story = {
       <GlListbox defaultOpen>
         <GlListboxTrigger>Fluid</GlListboxTrigger>
         <GlListboxContent fluidWidth placement="bottom-end">
-          <GlListboxItem value="fluid">A fluid-width option with a longer label</GlListboxItem>
+          <GlListboxGroup>
+            <GlListboxItem value="fluid">A fluid-width option with a longer label</GlListboxItem>
+          </GlListboxGroup>
         </GlListboxContent>
       </GlListbox>
       <GlListbox defaultOpen>
         <GlListboxTrigger>Match trigger width</GlListboxTrigger>
         <GlListboxContent panelMatchTriggerWidth positioningStrategy="fixed">
-          <GlListboxItem value="matched">Matched</GlListboxItem>
+          <GlListboxGroup>
+            <GlListboxItem value="matched">Matched</GlListboxItem>
+          </GlListboxGroup>
         </GlListboxContent>
       </GlListbox>
       <GlListbox defaultOpen>
         <GlListboxTrigger>Searching</GlListboxTrigger>
         <GlListboxContent
-          search={<GlListboxSearchInput />}
           searching
           searchingAnnouncement="Searching departments">
-          <GlListboxItem value="hidden">Hidden during search</GlListboxItem>
+          <GlListboxSearchInput />
+          <GlListboxGroup>
+            <GlListboxItem value="hidden">Hidden during search</GlListboxItem>
+          </GlListboxGroup>
         </GlListboxContent>
       </GlListbox>
     </div>
@@ -446,11 +469,13 @@ export const InfiniteScroll: Story = {
         loadingMoreAnnouncement="Loading the next departments"
         onBottomReached={bottomReached}
         totalItems={100}>
-        {Array.from({ length: 20 }, (_, index) => (
-          <GlListboxItem key={index} value={index}>
-            Department {String(index + 1).padStart(2, "0")}
-          </GlListboxItem>
-        ))}
+        <GlListboxGroup>
+          {Array.from({ length: 20 }, (_, index) => (
+            <GlListboxItem key={index} value={index}>
+              Department {String(index + 1).padStart(2, "0")}
+            </GlListboxItem>
+          ))}
+        </GlListboxGroup>
       </GlListboxContent>
     </GlListbox>
   ),
