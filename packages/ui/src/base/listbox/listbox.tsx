@@ -948,9 +948,11 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
     }, [activeItemId, getOrderedItems, setActiveItem]);
 
     const handleListboxKeyDown = useCallback((event: ReactKeyboardEvent<HTMLDivElement>) => {
-      onKeyDown?.(event as Parameters<NonNullable<BaseMenu.Popup.Props["onKeyDown"]>>[0]);
+      const baseEvent = event as Parameters<NonNullable<BaseMenu.Popup.Props["onKeyDown"]>>[0];
+      onKeyDown?.(baseEvent);
       if(event.defaultPrevented) {
         event.stopPropagation();
+        baseEvent.preventBaseUIHandler();
         return;
       }
       if(searchable) return;
@@ -995,8 +997,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
       if(!next?.element) return;
       event.preventDefault();
       event.stopPropagation();
-      (event as Parameters<NonNullable<BaseMenu.Popup.Props["onKeyDown"]>>[0])
-        .preventBaseUIHandler();
+      baseEvent.preventBaseUIHandler();
       next.element.focus();
     }, [getOrderedItems, onKeyDown, searchable]);
 
