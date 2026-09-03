@@ -261,7 +261,7 @@ type ListboxContentContextValue = {
   searchInputId: string;
   searchable: boolean;
   setActiveItemId(id: string | null): void;
-  setSearchInputId(id: string): void;
+  setSearchInputId(id: string | null): void;
   setSearchInputElement(element: HTMLInputElement | null): void;
   setSearchValue(value: string): void;
   totalItems?: number;
@@ -740,12 +740,14 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
     const context = useListboxContext("GlListboxContent");
     const registryRef = useRef(new Map<string, RegisteredItem>());
     const [registryVersion, setRegistryVersion] = useState(0);
+    const [settledRegistryVersion, setSettledRegistryVersion] = useState<number | null>(null);
     const [activeItemId, setActiveItemId] = useState<string | null>(null);
     const [arrowPadding, setArrowPadding] = useState(5);
     const [nonScrollableHeight, setNonScrollableHeight] = useState(0);
     const [popupElement, setPopupElement] = useState<HTMLDivElement | null>(null);
     const generatedSearchInputId = useId();
-    const [searchInputId, setSearchInputId] = useState<string>(`gl-listbox-search-${generatedSearchInputId}`);
+    const defaultSearchInputId = `gl-listbox-search-${generatedSearchInputId}`;
+    const [registeredSearchInputId, setRegisteredSearchInputId] = useState<string | null>(null);
     const [scrollElement, setScrollElement] = useState<HTMLDivElement | null>(null);
     const [searchInputElement, setSearchInputElement] = useState<HTMLInputElement | null>(null);
     const [searchValue, setSearchValue] = useState("");
@@ -846,6 +848,15 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
       if(!searchable || !searchValue || !context.open) return;
       setActiveItem(getOrderedItems().find((item) => !item.disabled));
     }, [context.open, getOrderedItems, registryVersion, searchable, searchValue, setActiveItem]);
+
+    useEffect(() => {
+      if(!context.open) {
+        setSettledRegistryVersion(null);
+        return;
+      }
+      const frame = requestAnimationFrame(() => setSettledRegistryVersion(registryVersion));
+      return () => cancelAnimationFrame(frame);
+    }, [context.open, registryVersion]);
 
     useEffect(() => () => {
       window.clearTimeout(typeaheadRef.current.timeout);
@@ -1033,9 +1044,9 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
       registryVersion,
       registerItem,
       searchable,
-      searchInputId,
+      searchInputId: defaultSearchInputId,
       setActiveItemId,
-      setSearchInputId,
+      setSearchInputId: setRegisteredSearchInputId,
       setSearchInputElement,
       setSearchValue: updateSearchValue,
       totalItems,
@@ -1050,13 +1061,14 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
       registerItem,
       registryVersion,
       searchable,
-      searchInputId,
+      defaultSearchInputId,
       totalItems,
       unregisterItem,
       updateSearchValue,
     ]);
 
     const itemCount = registryRef.current.size;
+    const itemRegistrationSettled = context.open && settledRegistryVersion === registryVersion;
     const listItems = context.multiple ? children : (
       <BaseMenu.RadioGroup
         className="gl-listbox-radio-group"
@@ -1123,7 +1135,9 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
                   aria-label={ariaLabel}
                   aria-labelledby={ariaLabel ? undefined : (
                     ariaLabelledBy ?? (
-                      searchable ? searchInputId : context.triggerId
+                      searchable
+                        ? registeredSearchInputId ?? defaultSearchInputId
+                        : context.triggerId
                     )
                   )}
                   aria-multiselectable={context.multiple || undefined}
@@ -1169,7 +1183,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
                   </span>
                 </div>
               )}
-              {!searching && itemCount === 0 ? (
+              {!searching && itemRegistrationSettled && itemCount === 0 ? (
                 context.loading ? (
                   <GlLoadingIcon
                     className="gl-listbox-loading"

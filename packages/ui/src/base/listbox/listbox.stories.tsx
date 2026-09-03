@@ -62,8 +62,19 @@ export const Default: Story = {
       </GlListboxContent>
     </GlListbox>
   ),
-  play: async ({ canvas }) => {
+  play: async ({ canvas, canvasElement }) => {
     const trigger = canvas.getByRole("button", { name: "Select department" });
+    let insertedNoResults = false;
+    const observer = new MutationObserver((records) => {
+      insertedNoResults ||= records.some((record) => [...record.addedNodes].some((node) => (
+        node instanceof HTMLElement
+        && (
+          node.matches("[data-testid=\"listbox-no-results-text\"]")
+          || node.querySelector("[data-testid=\"listbox-no-results-text\"]") !== null
+        )
+      )));
+    });
+    observer.observe(canvasElement, { childList: true, subtree: true });
     await expect(trigger).toHaveAttribute("aria-haspopup", "listbox");
     await userEvent.click(trigger);
 
@@ -75,6 +86,8 @@ export const Default: Story = {
     const selectedOption = within(listbox).getByRole("option", { name: "Backend" });
     await expect(selectedOption).toHaveAttribute("aria-selected", "true");
     await waitFor(() => expect(selectedOption).toHaveFocus());
+    observer.disconnect();
+    await expect(insertedNoResults).toBe(false);
     await expect(within(listbox).getByRole("option", { name: "Security" }))
       .toHaveAttribute("aria-disabled", "true");
 
