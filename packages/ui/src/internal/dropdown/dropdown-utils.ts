@@ -92,9 +92,11 @@ export function resolveDropdownOffset(offset: GlDropdownOffset): ResolvedDropdow
 
   const { alignmentAxis, crossAxis = 0, mainAxis = 0 } = offset;
   return {
-    alignOffset: alignmentAxis === undefined
-      ? ({ align }) => align === "end" ? -crossAxis : crossAxis
-      : alignmentAxis,
+    alignOffset: ({ align }) => {
+      if(align === "center") return crossAxis;
+      if(alignmentAxis !== undefined) return alignmentAxis;
+      return align === "end" ? -crossAxis : crossAxis;
+    },
     sideOffset: mainAxis,
   };
 }

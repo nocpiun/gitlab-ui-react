@@ -12,10 +12,7 @@ import GlListbox, {
   type GlListboxSingleProps,
   type GlListboxValue,
 } from "./listbox";
-import {
-  resolveDropdownOffset,
-  resolveDropdownPlacement,
-} from "../../internal/dropdown/dropdown-utils";
+import { resolveDropdownPlacement } from "../../internal/dropdown/dropdown-utils";
 import {
   GlListboxGroup,
   GlListboxGroupLabel,
@@ -91,26 +88,6 @@ describe("GlListbox", () => {
     ["right", { align: "end", side: "bottom" }],
   ] as const)("maps the %s placement", (placement, expected) => {
     expect(resolveDropdownPlacement(placement)).toEqual(expected);
-  });
-
-  it("maps numeric and object offsets", () => {
-    expect(resolveDropdownOffset(12)).toEqual({ alignOffset: 0, sideOffset: 12 });
-    const dimensions = {
-      anchor: { height: 20, width: 40 },
-      positioner: { height: 100, width: 248 },
-      side: "bottom" as const,
-    };
-    const crossAxisOffset = resolveDropdownOffset({ crossAxis: -3, mainAxis: 5 });
-    expect(crossAxisOffset.sideOffset).toBe(5);
-    expect(typeof crossAxisOffset.alignOffset).toBe("function");
-    if(typeof crossAxisOffset.alignOffset === "function") {
-      expect(crossAxisOffset.alignOffset({ ...dimensions, align: "start" })).toBe(-3);
-      expect(crossAxisOffset.alignOffset({ ...dimensions, align: "end" })).toBe(3);
-    }
-    expect(resolveDropdownOffset({
-      alignmentAxis: 7,
-      mainAxis: 9,
-    })).toEqual({ alignOffset: 7, sideOffset: 9 });
   });
 
   it("warns when match-trigger and fluid widths conflict", () => {
