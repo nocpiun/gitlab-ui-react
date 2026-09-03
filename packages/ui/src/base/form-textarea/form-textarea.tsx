@@ -35,7 +35,7 @@ import {
   type TextareaHTMLAttributes,
 } from "react";
 import { cva } from "class-variance-authority";
-import clsx, { type ClassValue } from "clsx";
+import { clsx, type ClassValue } from "cn";
 import GlFormCharacterCount from "../form-character-count/form-character-count";
 import { normalizeAriaInvalid } from "../../internal/form/aria-invalid-utils";
 import { mergeRefs } from "../../internal/utils/merge-refs";

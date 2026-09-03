@@ -13,7 +13,7 @@
 
 import { useId, useState, type ReactElement, type ReactNode } from "react";
 import { Tooltip as BaseTooltip } from "@base-ui/react/tooltip";
-import clsx from "clsx";
+import { clsx } from "cn";
 import { getGlTooltipDefaultContainer } from "./container";
 
 export type GlTooltipPlacement = "top" | "right" | "bottom" | "left";

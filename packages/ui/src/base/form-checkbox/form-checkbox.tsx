@@ -44,7 +44,7 @@ import {
   type ReactNode,
 } from "react";
 import { cva } from "class-variance-authority";
-import clsx from "clsx";
+import { clsx } from "cn";
 import { looseEqual, looseIndexOf } from "../../internal/form/equality-utils";
 import { mergeRefs } from "../../internal/utils/merge-refs";
 import { GlFormCheckboxGroupContext } from "./form-checkbox-group-context";

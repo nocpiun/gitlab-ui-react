@@ -37,7 +37,7 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from "react";
-import clsx from "clsx";
+import { clsx } from "cn";
 import GlFormCheckbox from "./form-checkbox";
 import SafeHtml from "../../internal/safe-html/safe-html";
 import { normalizeAriaInvalid } from "../../internal/form/aria-invalid-utils";

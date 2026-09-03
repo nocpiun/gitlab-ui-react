@@ -38,7 +38,7 @@ import {
   type ReactNode,
 } from "react";
 import { cva } from "class-variance-authority";
-import clsx from "clsx";
+import { clsx } from "cn";
 import { looseEqual } from "../../internal/form/equality-utils";
 import { GlFormRadioGroupContext } from "../form-radio-group/form-radio-group-context";
 
