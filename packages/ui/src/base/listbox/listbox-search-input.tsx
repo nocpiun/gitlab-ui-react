@@ -130,6 +130,7 @@ export const GlListboxSearchInput = forwardRef<
           aria-label={clearLabel}
           category="tertiary"
           className="gl-listbox-search-clear-button"
+          disabled={disabled}
           icon="close"
           onClick={handleClear}
           onMouseDown={handleClearMouseDown}

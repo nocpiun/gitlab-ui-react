@@ -5442,6 +5442,7 @@ input[type="color"].gl-form-input.form-control:disabled {
   --tw-border-style: none;
   border-style: none;
   padding-block: var(--gl-spacing-scale-4);
+  font-family: var(--gl-font-family-regular);
   font-size: var(--gl-font-size-base);
   --tw-leading: 1rem;
   line-height: 1rem;

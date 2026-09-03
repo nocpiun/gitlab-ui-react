@@ -142,6 +142,15 @@ describe("GlListbox", () => {
     expect(markup).toContain("aria-label=\"Clear departments\"");
   });
 
+  it("disables the clear action with the search input", () => {
+    const markup = renderToStaticMarkup(
+      <GlListboxSearchInput disabled value="eng" />,
+    );
+
+    expect(markup).toMatch(/<input[^>]*disabled=""/);
+    expect(markup).toMatch(/<button[^>]*aria-disabled="true"/);
+  });
+
   it("accepts groups, null values, and the complete imperative contract", () => {
     const handle = createRef<GlListboxHandle>();
     renderToStaticMarkup(

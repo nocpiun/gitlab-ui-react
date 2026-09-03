@@ -16,7 +16,7 @@
 }
 
 .gl-listbox-search-input {
-  @apply gl-h-auto gl-w-full gl-rounded-none gl-border-none gl-py-4 gl-text-base gl-leading-normal gl-text-default;
+  @apply gl-h-auto gl-w-full gl-rounded-none gl-border-none gl-py-4 gl-font-regular gl-text-base gl-leading-normal gl-text-default;
   padding-right: 2rem;
   padding-left: 2.25rem;
   background-color: var(--gl-dropdown-search-background-color);
