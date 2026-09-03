@@ -902,7 +902,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
       }, { root: scrollElement, rootMargin: "8px", threshold: 1 });
       observer.observe(sentinel);
       return () => observer.disconnect();
-    }, [busy, onBottomReached, scrollElement]);
+    }, [busy, onBottomReached, registryVersion, scrollElement]);
 
     const handleScroll = useCallback(() => {
       updateScrims();

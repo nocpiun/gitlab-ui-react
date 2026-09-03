@@ -2,6 +2,7 @@ import type { GlDropdownHandle } from "../../internal/dropdown/dropdown-types";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   forwardRef,
+  useCallback,
   useRef,
   useState,
   type ComponentPropsWithoutRef,
@@ -603,4 +604,40 @@ export const InfiniteScroll: Story = {
       </GlListboxContent>
     </GlListbox>
   ),
+};
+
+function ContinuouslyVisibleInfiniteScrollExample() {
+  const [itemCount, setItemCount] = useState(1);
+  const itemCountRef = useRef(itemCount);
+  const handleBottomReached = useCallback(() => {
+    if(itemCountRef.current >= 3) return;
+    itemCountRef.current += 1;
+    setItemCount(itemCountRef.current);
+  }, []);
+
+  return (
+    <GlListbox defaultOpen>
+      <GlListboxTrigger>Continuously visible sentinel</GlListboxTrigger>
+      <GlListboxContent onBottomReached={handleBottomReached}>
+        <GlListboxGroup>
+          {Array.from({ length: itemCount }, (_, index) => (
+            <GlListboxItem key={index} value={index}>
+              Department {index + 1}
+            </GlListboxItem>
+          ))}
+        </GlListboxGroup>
+      </GlListboxContent>
+    </GlListbox>
+  );
+}
+
+export const InfiniteScrollReobservesAfterItemsChange: Story = {
+  render: () => <ContinuouslyVisibleInfiniteScrollExample />,
+  play: async ({ canvas }) => {
+    const listbox = await canvas.findByRole("listbox");
+    await waitFor(
+      () => expect(within(listbox).getAllByRole("option")).toHaveLength(3),
+      { timeout: 5000 },
+    );
+  },
 };
