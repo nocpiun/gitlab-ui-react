@@ -51,6 +51,7 @@ import GlButton, {
 import GlIcon from "../icon/icon";
 import GlLoadingIcon from "../loading-icon/loading-icon";
 import {
+  isDropdownItemVisible,
   mapDropdownChangeReason,
   resolveDropdownOffset,
   resolveDropdownPlacement,
@@ -736,6 +737,11 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
     const getOrderedItems = useCallback(() => (
       [...registryRef.current.values()].sort(compareDomOrder)
     ), []);
+    const getNavigableItems = useCallback(() => (
+      getOrderedItems().filter((item) => (
+        !item.disabled && isDropdownItemVisible(item.element)
+      ))
+    ), [getOrderedItems]);
     const registerItem = useCallback((item: RegisteredListboxItem) => {
       registryRef.current.set(item.key, item);
       setRegistryVersion((version) => version + 1);
@@ -763,9 +769,9 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
 
     const updateSearchValue = useCallback((nextValue: string) => {
       setSearchValue(nextValue);
-      if(nextValue) setActiveItem(getOrderedItems().find((item) => !item.disabled));
+      if(nextValue) setActiveItem(getNavigableItems()[0]);
       else setActiveItemId(null);
-    }, [getOrderedItems, setActiveItem]);
+    }, [getNavigableItems, setActiveItem]);
 
     useEffect(() => {
       if(!context.open) {
@@ -778,23 +784,23 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
       if(!searchable && registryRef.current.size === 0) return;
       const frame = requestAnimationFrame(() => {
         focusedForCurrentOpenRef.current = true;
-        const items = getOrderedItems();
+        const items = getNavigableItems();
         if(searchable) {
           searchInputElement?.focus();
-          if(searchValue) setActiveItem(items.find((item) => !item.disabled));
+          if(searchValue) setActiveItem(items[0]);
           return;
         }
         const selectedItem = items.find((item) => (
-          !item.disabled && context.isSelected(item.value)
+          context.isSelected(item.value)
         ));
-        (selectedItem ?? items.find((item) => !item.disabled))?.element?.focus();
+        (selectedItem ?? items[0])?.element?.focus();
       });
       return () => cancelAnimationFrame(frame);
     }, [
       context,
       context.isSelected,
       context.open,
-      getOrderedItems,
+      getNavigableItems,
       registryVersion,
       searchable,
       searchInputElement,
@@ -804,8 +810,8 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
 
     useEffect(() => {
       if(!searchable || !searchValue || !context.open) return;
-      setActiveItem(getOrderedItems().find((item) => !item.disabled));
-    }, [context.open, getOrderedItems, registryVersion, searchable, searchValue, setActiveItem]);
+      setActiveItem(getNavigableItems()[0]);
+    }, [context.open, getNavigableItems, registryVersion, searchable, searchValue, setActiveItem]);
 
     useEffect(() => {
       if(!context.open) {
@@ -920,7 +926,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
     }, [busy, onBottomReached, scrollElement, updateScrims]);
 
     const handleSearchKeyDown = useCallback((event: ReactKeyboardEvent<HTMLInputElement>) => {
-      const items = getOrderedItems().filter((item) => !item.disabled);
+      const items = getNavigableItems();
       if(items.length === 0) return;
       const currentIndex = items.findIndex((item) => item.id === activeItemId);
       let next: RegisteredListboxItem | undefined;
@@ -945,7 +951,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
       event.preventDefault();
       event.stopPropagation();
       setActiveItem(next);
-    }, [activeItemId, getOrderedItems, setActiveItem]);
+    }, [activeItemId, getNavigableItems, setActiveItem]);
 
     const handleListboxKeyDown = useCallback((event: ReactKeyboardEvent<HTMLDivElement>) => {
       const baseEvent = event as Parameters<NonNullable<BaseMenu.Popup.Props["onKeyDown"]>>[0];
@@ -956,7 +962,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
         return;
       }
       if(searchable) return;
-      const items = getOrderedItems().filter((item) => !item.disabled && item.element);
+      const items = getNavigableItems();
       if(items.length === 0) return;
       const currentIndex = items.findIndex((item) => item.element === document.activeElement);
       let next: RegisteredListboxItem | undefined;
@@ -999,7 +1005,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
       event.stopPropagation();
       baseEvent.preventBaseUIHandler();
       next.element.focus();
-    }, [getOrderedItems, onKeyDown, searchable]);
+    }, [getNavigableItems, onKeyDown, searchable]);
 
     const contentContext = useMemo<ListboxContentContextValue>(() => ({
       activeItemId,

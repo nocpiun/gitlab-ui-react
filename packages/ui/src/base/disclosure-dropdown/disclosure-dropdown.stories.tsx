@@ -111,6 +111,12 @@ export const KeyboardNavigation: Story = {
         <GlDisclosureDropdownGroup>
           <GlDisclosureDropdownItem value="add">Add member</GlDisclosureDropdownItem>
           <GlDisclosureDropdownItem disabled value="archive">Archive</GlDisclosureDropdownItem>
+          <GlDisclosureDropdownItem hidden value="hidden-native">
+            Hidden native action
+          </GlDisclosureDropdownItem>
+          <GlDisclosureDropdownItem style={{ display: "none" }} value="hidden-css">
+            CSS-hidden action
+          </GlDisclosureDropdownItem>
           <GlDisclosureDropdownItem value="clone">Clone project</GlDisclosureDropdownItem>
           <GlDisclosureDropdownItem value="rename">Rename project</GlDisclosureDropdownItem>
         </GlDisclosureDropdownGroup>
@@ -156,7 +162,7 @@ export const KeyboardNavigation: Story = {
 const canceledItemAction = fn();
 const canceledRootAction = fn();
 
-export const BaseUiStateSynchronization: Story = {
+export const BaseUIStateSynchronization: Story = {
   render: () => (
     <div style={{ display: "grid", gap: "1rem", justifyItems: "start" }}>
       <GlDisclosureDropdown onAction={canceledRootAction}>

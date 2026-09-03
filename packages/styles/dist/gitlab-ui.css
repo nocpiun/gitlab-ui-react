@@ -3323,6 +3323,9 @@ textarea.gl-form-textarea {
   text-decoration: none;
   outline: none;
 }
+.gl-new-dropdown-item[hidden] {
+  display: none;
+}
 .gl-new-dropdown-item:first-child, .gl-new-dropdown-contents-with-scrim-overlay > .top-scrim-wrapper + .gl-new-dropdown-item, .gl-new-dropdown-item-group > .gl-new-dropdown-item:first-child {
   margin-top: var(--gl-spacing-scale-0);
 }

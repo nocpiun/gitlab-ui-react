@@ -247,6 +247,10 @@
   outline: none;
 }
 
+.gl-new-dropdown-item[hidden] {
+  @apply gl-hidden;
+}
+
 .gl-new-dropdown-item:first-child,
 .gl-new-dropdown-contents-with-scrim-overlay > .top-scrim-wrapper + .gl-new-dropdown-item,
 .gl-new-dropdown-item-group > .gl-new-dropdown-item:first-child {

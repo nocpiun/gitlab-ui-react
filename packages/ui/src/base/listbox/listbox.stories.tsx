@@ -160,6 +160,10 @@ export const KeyboardNavigation: Story = {
         <GlListboxGroup>
           <GlListboxItem value="alpha">Alpha</GlListboxItem>
           <GlListboxItem disabled value="beta">Beta</GlListboxItem>
+          <GlListboxItem hidden value="hidden-native">Hidden native option</GlListboxItem>
+          <GlListboxItem style={{ display: "none" }} value="hidden-css">
+            CSS-hidden option
+          </GlListboxItem>
           <GlListboxItem value="gamma">Gamma</GlListboxItem>
         </GlListboxGroup>
       </GlListboxContent>
@@ -181,6 +185,10 @@ export const KeyboardNavigation: Story = {
     await expect(alpha).toHaveFocus();
     await expect(gamma).not.toHaveAttribute("data-highlighted");
 
+    await userEvent.keyboard("{ArrowDown}");
+    await expect(gamma).toHaveFocus();
+    await userEvent.keyboard("{ArrowDown}");
+    await expect(alpha).toHaveFocus();
     await userEvent.keyboard("{ArrowUp}");
     await expect(gamma).toHaveFocus();
     await userEvent.keyboard("{ArrowDown}");
@@ -196,7 +204,7 @@ export const KeyboardNavigation: Story = {
   },
 };
 
-export const BaseUiStateSynchronization: Story = {
+export const BaseUIStateSynchronization: Story = {
   render: () => (
     <div style={{ display: "grid", gap: "1rem", justifyItems: "start" }}>
       <GlListbox>
@@ -225,7 +233,13 @@ export const BaseUiStateSynchronization: Story = {
               if(event.key === "Escape") event.preventDefault();
             }} />
           <GlListboxGroup>
-            <GlListboxItem value="result">Result</GlListboxItem>
+            <GlListboxItem hidden value="hidden-search-native">
+              Hidden native search result
+            </GlListboxItem>
+            <GlListboxItem style={{ display: "none" }} value="hidden-search-css">
+              CSS-hidden search result
+            </GlListboxItem>
+            <GlListboxItem id="visible-search-result" value="result">Result</GlListboxItem>
           </GlListboxGroup>
         </GlListboxContent>
       </GlListbox>
@@ -265,6 +279,8 @@ export const BaseUiStateSynchronization: Story = {
     await userEvent.click(searchTrigger);
     const searchInput = await canvas.findByRole("combobox", { name: "Search" });
     await waitFor(() => expect(searchInput).toHaveFocus());
+    await userEvent.keyboard("{ArrowDown}");
+    await expect(searchInput).toHaveAttribute("aria-activedescendant", "visible-search-result");
     await userEvent.keyboard("{Escape}");
     await expect(searchTrigger).toHaveAttribute("aria-expanded", "true");
   },

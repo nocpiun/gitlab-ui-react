@@ -47,6 +47,27 @@ export function shouldRestoreDropdownFocus(reason: GlDropdownCloseReason): boole
   return reason === "escape" || reason === "item" || reason === "trigger";
 }
 
+export function isDropdownItemVisible(element: HTMLElement | null): element is HTMLElement {
+  if(!element?.isConnected || element.closest("[hidden]")) return false;
+
+  const view = element.ownerDocument.defaultView;
+  if(!view) return false;
+  for(let current: HTMLElement | null = element; current; current = current.parentElement) {
+    const styles = view.getComputedStyle(current);
+    if(
+      styles.display === "none"
+      || (current === element && styles.display === "contents")
+      || styles.visibility === "hidden"
+      || styles.visibility === "collapse"
+      || styles.contentVisibility === "hidden"
+    ) return false;
+  }
+
+  return typeof element.checkVisibility === "function"
+    ? element.checkVisibility()
+    : true;
+}
+
 export function resolveDropdownPlacement(
   placement: GlDropdownPlacement,
 ): ResolvedDropdownPlacement {

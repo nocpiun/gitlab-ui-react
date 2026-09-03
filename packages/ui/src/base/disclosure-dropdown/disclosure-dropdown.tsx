@@ -50,6 +50,7 @@ import GlButton, {
 import GlIcon from "../icon/icon";
 import GlLink from "../link/link";
 import {
+  isDropdownItemVisible,
   mapDropdownChangeReason,
   resolveDropdownOffset,
   resolveDropdownPlacement,
@@ -689,7 +690,7 @@ export const GlDisclosureDropdownContent = forwardRef<
 
     const items = Array.from(event.currentTarget.querySelectorAll<HTMLElement>(
       "[role='menuitem']:not([data-disabled])",
-    ));
+    )).filter(isDropdownItemVisible);
     if(items.length === 0) return;
 
     const currentIndex = items.indexOf(document.activeElement as HTMLElement);
