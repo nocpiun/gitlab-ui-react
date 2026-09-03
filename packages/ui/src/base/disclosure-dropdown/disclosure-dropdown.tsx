@@ -207,7 +207,7 @@ const triggerVariants = cva("gl-new-dropdown-toggle", {
   },
 });
 
-const popupVariants = cva("gl-new-dropdown-panel", {
+const popupVariants = cva(["gl-new-dropdown-panel", "gl-disclosure-dropdown-panel"], {
   variants: {
     fluidWidth: {
       false: "gl-new-dropdown-panel-fixed-width",

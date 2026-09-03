@@ -4805,10 +4805,10 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
   border-bottom-right-radius: calc(var(--gl-card-border-radius) - 1px);
   color: var(--gl-text-color-subtle);
 }
-.gl-disclosure-dropdown.gl-new-dropdown .gl-new-dropdown-inner {
+.gl-disclosure-dropdown-panel .gl-new-dropdown-inner {
   max-height: none;
 }
-.gl-disclosure-dropdown.gl-new-dropdown .gl-new-dropdown-item[data-disabled] > .gl-new-dropdown-item-content {
+.gl-disclosure-dropdown-panel .gl-new-dropdown-item[data-disabled] > .gl-new-dropdown-item-content {
   color: var(--gl-dropdown-option-text-color-disabled);
   cursor: not-allowed;
   text-decoration: none;

@@ -562,7 +562,8 @@ export const FixedFluidAndScrolling: Story = {
       <GlDisclosureDropdownContent
         fluidWidth
         placement="bottom-end"
-        positioningStrategy="fixed">
+        positioningStrategy="fixed"
+        style={{ "--available-height": "12rem" } as CSSProperties}>
         <GlDisclosureDropdownGroup>
           {Array.from({ length: 20 }, (_, index) => (
             <GlDisclosureDropdownItem key={index} value={index}>
@@ -577,10 +578,13 @@ export const FixedFluidAndScrolling: Story = {
     await userEvent.click(canvas.getByRole("button", { name: "Many actions" }));
     const body = within(canvasElement.ownerDocument.body);
     const menu = await body.findByRole("menu");
+    const inner = menu.querySelector<HTMLElement>(".gl-new-dropdown-inner")!;
     const contents = menu.querySelector<HTMLElement>(".gl-new-dropdown-contents")!;
 
+    await expect(menu).toHaveClass("gl-disclosure-dropdown-panel");
     await expect(menu).toHaveClass("gl-new-dropdown-panel-fluid-width");
     await expect(menu.closest(".gl-new-dropdown-container")).toHaveStyle({ position: "fixed" });
+    await expect(inner).toHaveStyle({ maxHeight: "none" });
     await waitFor(() => expect(contents).toHaveClass("bottom-scrim-visible"));
     contents.scrollTop = contents.scrollHeight - contents.clientHeight;
     await fireEvent.scroll(contents);
