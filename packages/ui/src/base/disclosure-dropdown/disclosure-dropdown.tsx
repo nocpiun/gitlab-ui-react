@@ -357,12 +357,8 @@ export const GlDisclosureDropdown = forwardRef<
   const dispatchAction = useCallback((details: GlDisclosureDropdownActionDetails) => {
     if(!onAction) return;
 
-    // Keep parity with upstream, which defers the root action until the item click finishes.
-    if(typeof requestAnimationFrame === "function") {
-      requestAnimationFrame(() => onAction(details));
-    } else {
-      setTimeout(() => onAction(details), 0);
-    }
+    // Let Base UI finish its composed click handler without delaying past native link navigation.
+    queueMicrotask(() => onAction(details));
   }, [onAction]);
 
   const handleOpenChange = useCallback((
