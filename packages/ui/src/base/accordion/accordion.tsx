@@ -145,7 +145,7 @@ export const GlAccordionItem = forwardRef<HTMLDivElement, GlAccordionItemProps>(
 
       if(
         !context?.autoCollapse
-        || !context.activeItemValue
+        || context.activeItemValue === null
         || context.activeItemValue === itemValue
         || !isVisible
       ) return;
