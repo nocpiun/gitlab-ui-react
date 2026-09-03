@@ -30,7 +30,8 @@
   font-display: swap;
 }
 
-body {
+body,
+body input {
   font-family: var(--gl-font-family-regular);
 }
 

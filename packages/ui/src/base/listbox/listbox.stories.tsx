@@ -216,6 +216,62 @@ export const Searchable: Story = {
   },
 };
 
+function SearchableWithHeaderExample() {
+  const [query, setQuery] = useState("");
+  const filtered = departments.filter((item) => (
+    item.label.toLocaleLowerCase().includes(query.toLocaleLowerCase())
+  ));
+  return (
+    <GlListbox>
+      <GlListboxTrigger>Search departments with header</GlListboxTrigger>
+      <GlListboxContent
+        header={<span>Assign to department</span>}
+        noResultsText="No matching departments"
+        resultsAnnouncement={(count) => `${count} matching departments`}
+        search={(
+          <GlListboxSearchInput
+            onValueChange={setQuery}
+            placeholder="Find department"
+            value={query} />
+        )}>
+        {filtered.map((item) => (
+          <GlListboxItem key={item.value} value={item.value}>{item.label}</GlListboxItem>
+        ))}
+      </GlListboxContent>
+    </GlListbox>
+  );
+}
+
+export const SearchableWithHeader: Story = {
+  render: () => <SearchableWithHeaderExample />,
+  play: async ({ canvas }) => {
+    const trigger = canvas.getByRole("button", { name: "Search departments with header" });
+    await userEvent.click(trigger);
+
+    const header = await canvas.findByText("Assign to department");
+    const headerContent = header.parentElement;
+    const headerRegion = headerContent?.parentElement;
+    const search = await canvas.findByRole("combobox", { name: "Find department" });
+    await expect(headerContent).toHaveClass("gl-new-dropdown-header-content");
+    await expect(headerRegion).toHaveClass("gl-new-dropdown-header");
+    await expect(headerRegion?.nextElementSibling).toHaveClass("gl-listbox-search-container");
+    await waitFor(() => expect(search).toHaveFocus());
+    await userEvent.click(search);
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+
+    await userEvent.type(search, "back");
+    await waitFor(() => expect(canvas.getAllByRole("option")).toHaveLength(1));
+    await expect(canvas.getByRole("option", { name: "Backend" })).toBeVisible();
+
+    await userEvent.click(header);
+    await waitFor(() => expect(trigger).not.toHaveAttribute("aria-expanded", "true"));
+
+    await userEvent.click(trigger);
+    await expect(await canvas.findByRole("combobox", { name: "Find department" }))
+      .toHaveValue("back");
+  },
+};
+
 function GroupsExample() {
   const [value, setValue] = useState<GlListboxValue[]>([]);
   return (
