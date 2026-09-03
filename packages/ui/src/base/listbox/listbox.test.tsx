@@ -93,25 +93,22 @@ describe("GlListbox", () => {
 
   it("maps numeric and object offsets", () => {
     expect(resolveListboxOffset(12)).toEqual({ alignOffset: 0, sideOffset: 12 });
-    expect(resolveListboxOffset({ crossAxis: -3, mainAxis: 5 })).toEqual({
-      alignOffset: -3,
-      sideOffset: 5,
-    });
-    const { alignOffset, sideOffset } = resolveListboxOffset({
+    const dimensions = {
+      anchor: { height: 20, width: 40 },
+      positioner: { height: 100, width: 248 },
+      side: "bottom" as const,
+    };
+    const crossAxisOffset = resolveListboxOffset({ crossAxis: -3, mainAxis: 5 });
+    expect(crossAxisOffset.sideOffset).toBe(5);
+    expect(typeof crossAxisOffset.alignOffset).toBe("function");
+    if(typeof crossAxisOffset.alignOffset === "function") {
+      expect(crossAxisOffset.alignOffset({ ...dimensions, align: "start" })).toBe(-3);
+      expect(crossAxisOffset.alignOffset({ ...dimensions, align: "end" })).toBe(3);
+    }
+    expect(resolveListboxOffset({
       alignmentAxis: 7,
       mainAxis: 9,
-    });
-    expect(sideOffset).toBe(9);
-    expect(typeof alignOffset).toBe("function");
-    if(typeof alignOffset === "function") {
-      const dimensions = {
-        anchor: { height: 20, width: 40 },
-        positioner: { height: 100, width: 248 },
-        side: "bottom" as const,
-      };
-      expect(alignOffset({ ...dimensions, align: "start" })).toBe(7);
-      expect(alignOffset({ ...dimensions, align: "end" })).toBe(-7);
-    }
+    })).toEqual({ alignOffset: 7, sideOffset: 9 });
   });
 
   it("warns when match-trigger and fluid widths conflict", () => {

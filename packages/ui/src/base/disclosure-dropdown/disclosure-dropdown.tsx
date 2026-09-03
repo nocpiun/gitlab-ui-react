@@ -622,8 +622,8 @@ export function resolveDisclosureDropdownOffset(
   const { alignmentAxis, crossAxis = 0, mainAxis = 0 } = offset;
   return {
     alignOffset: alignmentAxis === undefined
-      ? crossAxis
-      : ({ align }) => align === "end" ? -alignmentAxis : alignmentAxis,
+      ? ({ align }) => align === "end" ? -crossAxis : crossAxis
+      : alignmentAxis,
     sideOffset: mainAxis,
   };
 }
