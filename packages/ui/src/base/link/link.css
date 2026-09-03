@@ -36,7 +36,7 @@
 }
 
 .gl-link-external::after {
-  content: " ↗";
+  content: " ↗" / attr(data-alt);
   font-size: 1em;
 }
 
