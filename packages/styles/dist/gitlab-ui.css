@@ -3693,6 +3693,40 @@ textarea.gl-form-textarea {
     box-shadow: none;
   }
 }
+.gl-accordion-item {
+  margin-bottom: var(--gl-spacing-scale-5);
+}
+.gl-accordion-item:last-child {
+  margin-bottom: var(--gl-spacing-scale-0);
+}
+.gl-accordion-item-header {
+  margin: var(--gl-spacing-scale-0);
+  --tw-leading: 1rem;
+  line-height: 1rem;
+}
+.gl-accordion-item-panel {
+  height: var(--accordion-panel-height);
+  margin-left: calc(var(--gl-spacing-scale-5) + var(--gl-spacing-scale-2));
+  overflow: hidden;
+  transition: height 0.35s ease;
+}
+.gl-accordion-item-panel[data-starting-style], .gl-accordion-item-panel[data-ending-style] {
+  height: 0;
+}
+.gl-accordion-item-chevron {
+  transform: rotate(0deg);
+  transform-origin: center;
+  transition: transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.gl-accordion-item-trigger[data-panel-open] .gl-accordion-item-chevron {
+  transform: rotate(90deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .gl-accordion-item-panel, .gl-accordion-item-chevron {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}
 .gl-alert {
   padding-block: var(--gl-spacing-scale-5);
   font-size: var(--gl-font-size-base);
@@ -6275,12 +6309,18 @@ input[type="color"].gl-form-input.form-control:disabled {
 .gl-flex {
   display: flex;
 }
+.gl-max-w-full {
+  max-width: 100%;
+}
 .gl-truncate {
   overflow-x: clip;
   overflow-y: visible;
   text-overflow: ellipsis;
   white-space: nowrap;
   min-width: 0;
+}
+.gl-min-w-0 {
+  min-width: var(--gl-spacing-scale-0);
 }
 .gl-shrink-0 {
   flex-shrink: 0;
@@ -6293,6 +6333,12 @@ input[type="color"].gl-form-input.form-control:disabled {
 }
 .gl-flex-col {
   flex-direction: column;
+}
+.gl-items-start {
+  align-items: flex-start;
+}
+.gl-gap-2 {
+  gap: var(--gl-spacing-scale-2);
 }
 .gl-gap-5 {
   gap: var(--gl-spacing-scale-5);
@@ -6420,8 +6466,14 @@ input[type="color"].gl-form-input.form-control:disabled {
 .\!gl-text-left {
   text-align: left !important;
 }
+.gl-text-left {
+  text-align: left;
+}
 .\!gl-align-text-bottom {
   vertical-align: text-bottom !important;
+}
+.gl-text-base {
+  font-size: var(--gl-font-size-base);
 }
 .gl-text-sm {
   font-size: var(--gl-font-size-sm);
@@ -6429,6 +6481,12 @@ input[type="color"].gl-form-input.form-control:disabled {
 .gl-font-bold {
   --tw-font-weight: var(--gl-font-weight-bold);
   font-weight: var(--gl-font-weight-bold);
+}
+.gl-text-wrap {
+  text-wrap: wrap;
+}
+.gl-break-words {
+  overflow-wrap: break-word;
 }
 .gl-text-danger {
   color: var(--gl-text-color-danger);
