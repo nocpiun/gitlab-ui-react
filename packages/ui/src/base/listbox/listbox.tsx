@@ -724,7 +724,6 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
     noResultsText = "No results found",
     offset = 8,
     onBottomReached,
-    onMouseDown,
     onKeyDown,
     panelMatchTriggerWidth = false,
     placement = "bottom-start",
@@ -976,15 +975,6 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
       setActiveItem(next);
     }, [activeItemId, getOrderedItems, setActiveItem]);
 
-    const handlePopupMouseDown = useCallback((
-      event: Parameters<NonNullable<BaseMenu.Popup.Props["onMouseDown"]>>[0],
-    ) => {
-      onMouseDown?.(event);
-      if(event.defaultPrevented || event.detail === 0 || !searchable) return;
-      if(searchInputElement?.contains(event.target as Node)) return;
-      context.handle.close();
-    }, [context.handle, onMouseDown, searchable, searchInputElement]);
-
     const handleListboxKeyDown = useCallback((event: ReactKeyboardEvent<HTMLDivElement>) => {
       onKeyDown?.(event as Parameters<NonNullable<BaseMenu.Popup.Props["onKeyDown"]>>[0]);
       if(event.defaultPrevented || searchable) return;
@@ -1110,7 +1100,6 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
           finalFocus={() => context.returnFocusRef.current
             ? context.triggerElementRef.current
             : false}
-          onMouseDown={handlePopupMouseDown}
           render={popupRender}
           style={style}>
           <BaseMenu.Arrow className="gl-new-dropdown-arrow" />

@@ -262,13 +262,6 @@ export const SearchableWithHeader: Story = {
     await userEvent.type(search, "back");
     await waitFor(() => expect(canvas.getAllByRole("option")).toHaveLength(1));
     await expect(canvas.getByRole("option", { name: "Backend" })).toBeVisible();
-
-    await userEvent.click(header);
-    await waitFor(() => expect(trigger).not.toHaveAttribute("aria-expanded", "true"));
-
-    await userEvent.click(trigger);
-    await expect(await canvas.findByRole("combobox", { name: "Find department" }))
-      .toHaveValue("back");
   },
 };
 
