@@ -5,6 +5,16 @@
  * packages/gitlab-ui/src/components/base/new_dropdowns/disclosure/disclosure_dropdown_item.vue
  */
 
+import type {
+  GlDropdownBeforeCloseDetails,
+  GlDropdownFooterProps,
+  GlDropdownHandle,
+  GlDropdownHeaderProps,
+  GlDropdownOffset,
+  GlDropdownOpenChangeDetails,
+  GlDropdownPlacement,
+  GlDropdownPositioningStrategy,
+} from "../../internal/dropdown/dropdown-types";
 import {
   Children,
   Fragment,
@@ -28,7 +38,6 @@ import {
   type MouseEventHandler,
   type ReactElement,
   type ReactNode,
-  type Ref,
 } from "react";
 import { Menu as BaseMenu } from "@base-ui/react/menu";
 import { cva } from "class-variance-authority";
@@ -40,44 +49,18 @@ import GlButton, {
 } from "../button/button";
 import GlIcon from "../icon/icon";
 import GlLink from "../link/link";
-
-export type GlDisclosureDropdownCloseReason =
-  | "trigger"
-  | "outside"
-  | "escape"
-  | "item"
-  | "focus-out"
-  | "imperative";
-
-export type GlDisclosureDropdownOpenChangeDetails = {
-  /** The native event that caused the state change. */
-  event: Event;
-  /** A stable reason that does not expose Base UI's internal reason strings. */
-  reason: GlDisclosureDropdownCloseReason;
-};
-
-export type GlDisclosureDropdownBeforeCloseDetails =
-  GlDisclosureDropdownOpenChangeDetails & {
-    readonly defaultPrevented: boolean;
-    /** Prevents this close operation. */
-    preventDefault(): void;
-  };
+import {
+  mapDropdownChangeReason,
+  resolveDropdownOffset,
+  resolveDropdownPlacement,
+  shouldRestoreDropdownFocus,
+} from "../../internal/dropdown/dropdown-utils";
+import { useMergedRefs } from "../../internal/utils/merge-refs";
 
 export type GlDisclosureDropdownActionDetails = {
   /** The original React click event, including keyboard-generated clicks. */
   event: MouseEvent<HTMLElement>;
   value: unknown;
-};
-
-export type GlDisclosureDropdownHandle = {
-  /** Opens the menu and associates it with this dropdown's trigger. */
-  open(): void;
-  /** Closes the menu without moving focus. */
-  close(): void;
-  /** Closes the menu and restores focus to the trigger. */
-  closeAndFocus(): void;
-  /** Checks both the inline root and a possibly portalled popup. */
-  containsElement(element: Element | null): boolean;
 };
 
 export type GlDisclosureDropdownProps = Omit<
@@ -89,11 +72,11 @@ export type GlDisclosureDropdownProps = Omit<
   children?: ReactNode;
   defaultOpen?: boolean;
   onAction?: (details: GlDisclosureDropdownActionDetails) => void;
-  onBeforeClose?: (details: GlDisclosureDropdownBeforeCloseDetails) => void;
+  onBeforeClose?: (details: GlDropdownBeforeCloseDetails) => void;
   onHidden?: () => void;
   onOpenChange?: (
     open: boolean,
-    details: GlDisclosureDropdownOpenChangeDetails,
+    details: GlDropdownOpenChangeDetails,
   ) => void;
   onShown?: () => void;
   open?: boolean;
@@ -118,26 +101,6 @@ export type GlDisclosureDropdownTriggerProps = Omit<
   variant?: GlButtonVariant;
 };
 
-export type GlDisclosureDropdownPlacement =
-  | "right-start"
-  | "bottom-start"
-  | "bottom-end"
-  | "bottom"
-  /** @deprecated Use `bottom-start`. */
-  | "left"
-  /** @deprecated Use `bottom`. */
-  | "center"
-  /** @deprecated Use `bottom-end`. */
-  | "right";
-
-export type GlDisclosureDropdownOffset = number | {
-  alignmentAxis?: number;
-  crossAxis?: number;
-  mainAxis?: number;
-};
-
-export type GlDisclosureDropdownPositioningStrategy = "absolute" | "fixed";
-
 type PopupProps = Omit<
   BaseMenu.Popup.Props,
   "children" | "className" | "finalFocus" | "render" | "role" | "style"
@@ -147,14 +110,11 @@ export type GlDisclosureDropdownContentProps = PopupProps & {
   children?: ReactNode;
   className?: string;
   fluidWidth?: boolean;
-  offset?: GlDisclosureDropdownOffset;
-  placement?: GlDisclosureDropdownPlacement;
-  positioningStrategy?: GlDisclosureDropdownPositioningStrategy;
+  offset?: GlDropdownOffset;
+  placement?: GlDropdownPlacement;
+  positioningStrategy?: GlDropdownPositioningStrategy;
   style?: CSSProperties;
 };
-
-export type GlDisclosureDropdownHeaderProps = HTMLAttributes<HTMLDivElement>;
-export type GlDisclosureDropdownFooterProps = HTMLAttributes<HTMLDivElement>;
 
 type InteractiveElementProps = Omit<
   BaseMenu.Item.Props,
@@ -286,52 +246,8 @@ function useDropdownContext(componentName: string) {
   return context;
 }
 
-function assignRef<T>(ref: Ref<T> | undefined, value: T | null) {
-  if(typeof ref === "function") {
-    ref(value);
-  } else if(ref) {
-    ref.current = value;
-  }
-}
-
-function useMergedRefs<T>(...refs: Array<Ref<T> | undefined>) {
-  return useCallback((value: T | null) => {
-    refs.forEach((ref) => assignRef(ref, value));
-  // Ref identity changes must produce a fresh callback so React clears obsolete refs.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, refs);
-}
-
-function mapChangeReason(
-  reason: BaseMenu.Root.ChangeEventReason,
-): GlDisclosureDropdownCloseReason {
-  switch(reason) {
-    case "trigger-focus":
-    case "trigger-hover":
-    case "trigger-press":
-    case "list-navigation":
-      return "trigger";
-    case "outside-press":
-    case "sibling-open":
-      return "outside";
-    case "escape-key":
-      return "escape";
-    case "item-press":
-    case "close-press":
-      return "item";
-    case "focus-out":
-      return "focus-out";
-    default:
-      return "imperative";
-  }
-}
-
-function shouldRestoreFocus(reason: GlDisclosureDropdownCloseReason) {
-  return reason === "escape" || reason === "item" || reason === "trigger";
-}
-
 export const GlDisclosureDropdown = forwardRef<
-  GlDisclosureDropdownHandle,
+  GlDropdownHandle,
   GlDisclosureDropdownProps
 >(function GlDisclosureDropdown({
   autoClose = true,
@@ -366,12 +282,12 @@ export const GlDisclosureDropdown = forwardRef<
     nextOpen: boolean,
     details: BaseMenu.Root.ChangeEventDetails,
   ) => {
-    const reason = mapChangeReason(details.reason);
+    const reason = mapDropdownChangeReason(details.reason);
     const publicDetails = { event: details.event, reason };
 
     if(!nextOpen) {
       let defaultPrevented = false;
-      const beforeCloseDetails: GlDisclosureDropdownBeforeCloseDetails = {
+      const beforeCloseDetails: GlDropdownBeforeCloseDetails = {
         ...publicDetails,
         get defaultPrevented() {
           return defaultPrevented;
@@ -390,7 +306,7 @@ export const GlDisclosureDropdown = forwardRef<
         return;
       }
 
-      returnFocusRef.current = forceReturnFocusRef.current || shouldRestoreFocus(reason);
+      returnFocusRef.current = forceReturnFocusRef.current || shouldRestoreDropdownFocus(reason);
       forceReturnFocusRef.current = false;
     }
 
@@ -583,54 +499,9 @@ export const GlDisclosureDropdownTrigger = forwardRef<
   );
 });
 
-type ResolvedPlacement = {
-  align: BaseMenu.Positioner.Props["align"];
-  side: BaseMenu.Positioner.Props["side"];
-};
-
-/** @internal Exported for focused adapter tests, not from the package entry point. */
-export function resolveDisclosureDropdownPlacement(
-  placement: GlDisclosureDropdownPlacement,
-): ResolvedPlacement {
-  switch(placement) {
-    case "right-start":
-      return { align: "start", side: "right" };
-    case "bottom-end":
-    case "right":
-      return { align: "end", side: "bottom" };
-    case "bottom":
-    case "center":
-      return { align: "center", side: "bottom" };
-    default:
-      return { align: "start", side: "bottom" };
-  }
-}
-
-type ResolvedOffset = {
-  alignOffset: BaseMenu.Positioner.Props["alignOffset"];
-  sideOffset: BaseMenu.Positioner.Props["sideOffset"];
-};
-
-/** @internal Exported for focused adapter tests, not from the package entry point. */
-export function resolveDisclosureDropdownOffset(
-  offset: GlDisclosureDropdownOffset,
-): ResolvedOffset {
-  if(typeof offset === "number") {
-    return { alignOffset: 0, sideOffset: offset };
-  }
-
-  const { alignmentAxis, crossAxis = 0, mainAxis = 0 } = offset;
-  return {
-    alignOffset: alignmentAxis === undefined
-      ? ({ align }) => align === "end" ? -crossAxis : crossAxis
-      : alignmentAxis,
-    sideOffset: mainAxis,
-  };
-}
-
 export const GlDisclosureDropdownHeader = forwardRef<
   HTMLDivElement,
-  GlDisclosureDropdownHeaderProps
+  GlDropdownHeaderProps
 >(function GlDisclosureDropdownHeader({ children, className, ...elementProps }, forwardedRef) {
   return (
     <div
@@ -644,7 +515,7 @@ export const GlDisclosureDropdownHeader = forwardRef<
 
 export const GlDisclosureDropdownFooter = forwardRef<
   HTMLDivElement,
-  GlDisclosureDropdownFooterProps
+  GlDropdownFooterProps
 >(function GlDisclosureDropdownFooter({ className, ...elementProps }, forwardedRef) {
   return (
     <div
@@ -656,8 +527,8 @@ export const GlDisclosureDropdownFooter = forwardRef<
 
 type DisclosureDropdownContentChildren = {
   body: ReactNode[];
-  footer: ReactElement<GlDisclosureDropdownFooterProps> | null;
-  header: ReactElement<GlDisclosureDropdownHeaderProps> | null;
+  footer: ReactElement<GlDropdownFooterProps> | null;
+  header: ReactElement<GlDropdownHeaderProps> | null;
 };
 
 function resolveDisclosureDropdownContentChildren(
@@ -671,7 +542,7 @@ function resolveDisclosureDropdownContentChildren(
       Children.forEach(child.props.children, visit);
       return;
     }
-    if(isValidElement<GlDisclosureDropdownHeaderProps>(child)
+    if(isValidElement<GlDropdownHeaderProps>(child)
       && child.type === GlDisclosureDropdownHeader) {
       if(result.header) {
         throw new Error("GlDisclosureDropdownContent accepts only one GlDisclosureDropdownHeader.");
@@ -679,7 +550,7 @@ function resolveDisclosureDropdownContentChildren(
       result.header = child;
       return;
     }
-    if(isValidElement<GlDisclosureDropdownFooterProps>(child)
+    if(isValidElement<GlDropdownFooterProps>(child)
       && child.type === GlDisclosureDropdownFooter) {
       if(result.footer) {
         throw new Error("GlDisclosureDropdownContent accepts only one GlDisclosureDropdownFooter.");
@@ -717,8 +588,8 @@ export const GlDisclosureDropdownContent = forwardRef<
   const [showTopScrim, setShowTopScrim] = useState(false);
   const typeaheadRef = useRef({ timeout: 0, value: "" });
   const popupRef = useMergedRefs(forwardedRef, context.setPopupElement, setPopupElement);
-  const resolvedPlacement = resolveDisclosureDropdownPlacement(placement);
-  const resolvedOffset = resolveDisclosureDropdownOffset(offset);
+  const resolvedPlacement = resolveDropdownPlacement(placement);
+  const resolvedOffset = resolveDropdownOffset(offset);
   const contentChildren = resolveDisclosureDropdownContentChildren(children);
 
   const updateScrims = useCallback(() => {

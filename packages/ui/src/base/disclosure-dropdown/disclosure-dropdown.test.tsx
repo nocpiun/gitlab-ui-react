@@ -1,3 +1,4 @@
+import type { GlDropdownHandle } from "../../internal/dropdown/dropdown-types";
 import { Fragment, createRef, type ReactNode } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, expectTypeOf, it, vi } from "vitest";
@@ -8,10 +9,11 @@ import GlDisclosureDropdown, {
   GlDisclosureDropdownItem,
   GlDisclosureDropdownTrigger,
   hasDirectDisclosureDropdownItemIcon,
-  resolveDisclosureDropdownOffset,
-  resolveDisclosureDropdownPlacement,
-  type GlDisclosureDropdownHandle,
 } from "./disclosure-dropdown";
+import {
+  resolveDropdownOffset,
+  resolveDropdownPlacement,
+} from "../../internal/dropdown/dropdown-utils";
 import {
   GlDisclosureDropdownGroup,
   GlDisclosureDropdownGroupLabel,
@@ -95,17 +97,17 @@ describe("GlDisclosureDropdown", () => {
     ["center", { align: "center", side: "bottom" }],
     ["right", { align: "end", side: "bottom" }],
   ] as const)("maps the %s placement", (placement, expected) => {
-    expect(resolveDisclosureDropdownPlacement(placement)).toEqual(expected);
+    expect(resolveDropdownPlacement(placement)).toEqual(expected);
   });
 
   it("maps numeric and object offsets to Base UI axes", () => {
-    expect(resolveDisclosureDropdownOffset(12)).toEqual({ alignOffset: 0, sideOffset: 12 });
+    expect(resolveDropdownOffset(12)).toEqual({ alignOffset: 0, sideOffset: 12 });
     const dimensions = {
       anchor: { height: 20, width: 40 },
       positioner: { height: 100, width: 248 },
       side: "bottom" as const,
     };
-    const crossAxisOffset = resolveDisclosureDropdownOffset({ crossAxis: -3, mainAxis: 5 });
+    const crossAxisOffset = resolveDropdownOffset({ crossAxis: -3, mainAxis: 5 });
     expect(crossAxisOffset.sideOffset).toBe(5);
     expect(typeof crossAxisOffset.alignOffset).toBe("function");
     if(typeof crossAxisOffset.alignOffset === "function") {
@@ -113,7 +115,7 @@ describe("GlDisclosureDropdown", () => {
       expect(crossAxisOffset.alignOffset({ ...dimensions, align: "end" })).toBe(3);
     }
 
-    expect(resolveDisclosureDropdownOffset({
+    expect(resolveDropdownOffset({
       alignmentAxis: 7,
       crossAxis: 100,
       mainAxis: 9,
@@ -187,7 +189,7 @@ describe("GlDisclosureDropdown", () => {
   });
 
   it("exposes the complete imperative handle contract", () => {
-    expectTypeOf<GlDisclosureDropdownHandle>().toMatchTypeOf<{
+    expectTypeOf<GlDropdownHandle>().toMatchTypeOf<{
       close(): void;
       closeAndFocus(): void;
       containsElement(element: Element | null): boolean;

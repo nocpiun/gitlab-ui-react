@@ -1,3 +1,4 @@
+import type { GlDropdownHandle } from "../../internal/dropdown/dropdown-types";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   forwardRef,
@@ -21,7 +22,6 @@ import GlListbox, {
   GlListboxHeader,
   GlListboxItem,
   GlListboxTrigger,
-  type GlListboxHandle,
   type GlListboxValue,
 } from "./listbox";
 import {
@@ -508,7 +508,7 @@ export const CustomRenderAndValidation: Story = {
 };
 
 function ImperativeExample() {
-  const ref = useRef<GlListboxHandle>(null);
+  const ref = useRef<GlDropdownHandle>(null);
   return (
     <div>
       <GlButton onClick={() => ref.current?.open()}>Open listbox</GlButton>

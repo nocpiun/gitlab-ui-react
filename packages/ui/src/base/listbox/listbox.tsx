@@ -5,6 +5,16 @@
  * packages/gitlab-ui/src/components/base/new_dropdowns/listbox/listbox_item.vue
  */
 
+import type {
+  GlDropdownBeforeCloseDetails,
+  GlDropdownFooterProps,
+  GlDropdownHandle,
+  GlDropdownHeaderProps,
+  GlDropdownOffset,
+  GlDropdownOpenChangeDetails,
+  GlDropdownPlacement,
+  GlDropdownPositioningStrategy,
+} from "../../internal/dropdown/dropdown-types";
 import {
   Children,
   Fragment,
@@ -40,6 +50,12 @@ import GlButton, {
 } from "../button/button";
 import GlIcon from "../icon/icon";
 import GlLoadingIcon from "../loading-icon/loading-icon";
+import {
+  mapDropdownChangeReason,
+  resolveDropdownOffset,
+  resolveDropdownPlacement,
+  shouldRestoreDropdownFocus,
+} from "../../internal/dropdown/dropdown-utils";
 import { useMergedRefs } from "../../internal/utils/merge-refs";
 import GlListboxSearchInput, {
   type GlListboxSearchInputProps,
@@ -53,35 +69,10 @@ import {
 
 export type GlListboxValue = string | number | null;
 
-export type GlListboxCloseReason =
-  | "trigger"
-  | "outside"
-  | "escape"
-  | "item"
-  | "focus-out"
-  | "imperative";
-
-export type GlListboxOpenChangeDetails = {
-  event: Event;
-  reason: GlListboxCloseReason;
-};
-
-export type GlListboxBeforeCloseDetails = GlListboxOpenChangeDetails & {
-  readonly defaultPrevented: boolean;
-  preventDefault(): void;
-};
-
 export type GlListboxSelectionDetails = {
   event: Event;
   itemValue: GlListboxValue;
   selected: boolean;
-};
-
-export type GlListboxHandle = {
-  open(): void;
-  close(): void;
-  closeAndFocus(): void;
-  containsElement(element: Element | null): boolean;
 };
 
 type GlListboxCommonProps = Omit<
@@ -92,9 +83,9 @@ type GlListboxCommonProps = Omit<
   defaultOpen?: boolean;
   disabled?: boolean;
   loading?: boolean;
-  onBeforeClose?: (details: GlListboxBeforeCloseDetails) => void;
+  onBeforeClose?: (details: GlDropdownBeforeCloseDetails) => void;
   onHidden?: () => void;
-  onOpenChange?: (open: boolean, details: GlListboxOpenChangeDetails) => void;
+  onOpenChange?: (open: boolean, details: GlDropdownOpenChangeDetails) => void;
   onShown?: () => void;
   open?: boolean;
   /** Validation state applied to the trigger. */
@@ -141,26 +132,6 @@ export type GlListboxTriggerProps = Omit<
   variant?: GlButtonVariant;
 };
 
-export type GlListboxPlacement =
-  | "right-start"
-  | "bottom-start"
-  | "bottom-end"
-  | "bottom"
-  /** @deprecated Use `bottom-start`. */
-  | "left"
-  /** @deprecated Use `bottom`. */
-  | "center"
-  /** @deprecated Use `bottom-end`. */
-  | "right";
-
-export type GlListboxOffset = number | {
-  alignmentAxis?: number;
-  crossAxis?: number;
-  mainAxis?: number;
-};
-
-export type GlListboxPositioningStrategy = "absolute" | "fixed";
-
 type ListboxPopupProps = Omit<
   BaseMenu.Popup.Props,
   | "aria-label"
@@ -183,20 +154,17 @@ export type GlListboxContentProps = ListboxPopupProps & {
   loadingAnnouncement?: string;
   loadingMoreAnnouncement?: string;
   noResultsText?: ReactNode;
-  offset?: GlListboxOffset;
+  offset?: GlDropdownOffset;
   onBottomReached?: () => void;
   panelMatchTriggerWidth?: boolean;
-  placement?: GlListboxPlacement;
-  positioningStrategy?: GlListboxPositioningStrategy;
+  placement?: GlDropdownPlacement;
+  positioningStrategy?: GlDropdownPositioningStrategy;
   resultsAnnouncement?: (count: number) => ReactNode;
   searching?: boolean;
   searchingAnnouncement?: string;
   style?: CSSProperties;
   totalItems?: number;
 };
-
-export type GlListboxHeaderProps = HTMLAttributes<HTMLDivElement>;
-export type GlListboxFooterProps = HTMLAttributes<HTMLDivElement>;
 
 export type GlListboxItemRenderState = {
   disabled: boolean;
@@ -309,33 +277,7 @@ function normalizeUncontrolledSelection(
   return Array.isArray(selection) ? selection[0] ?? null : selection;
 }
 
-function mapChangeReason(reason: BaseMenu.Root.ChangeEventReason): GlListboxCloseReason {
-  switch(reason) {
-    case "trigger-focus":
-    case "trigger-hover":
-    case "trigger-press":
-    case "list-navigation":
-      return "trigger";
-    case "outside-press":
-    case "sibling-open":
-      return "outside";
-    case "escape-key":
-      return "escape";
-    case "item-press":
-    case "close-press":
-      return "item";
-    case "focus-out":
-      return "focus-out";
-    default:
-      return "imperative";
-  }
-}
-
-function shouldRestoreFocus(reason: GlListboxCloseReason) {
-  return reason === "escape" || reason === "item" || reason === "trigger";
-}
-
-export const GlListbox = forwardRef<GlListboxHandle, GlListboxProps>(
+export const GlListbox = forwardRef<GlDropdownHandle, GlListboxProps>(
   function GlListbox(props, forwardedRef) {
     const {
       children,
@@ -419,11 +361,11 @@ export const GlListbox = forwardRef<GlListboxHandle, GlListboxProps>(
       nextOpen: boolean,
       details: BaseMenu.Root.ChangeEventDetails,
     ) => {
-      const reason = mapChangeReason(details.reason);
+      const reason = mapDropdownChangeReason(details.reason);
       const publicDetails = { event: details.event, reason };
       if(!nextOpen) {
         let defaultPrevented = false;
-        const beforeCloseDetails: GlListboxBeforeCloseDetails = {
+        const beforeCloseDetails: GlDropdownBeforeCloseDetails = {
           ...publicDetails,
           get defaultPrevented() { return defaultPrevented; },
           preventDefault() {
@@ -437,7 +379,7 @@ export const GlListbox = forwardRef<GlListboxHandle, GlListboxProps>(
           forceReturnFocusRef.current = false;
           return;
         }
-        returnFocusRef.current = forceReturnFocusRef.current || shouldRestoreFocus(reason);
+        returnFocusRef.current = forceReturnFocusRef.current || shouldRestoreDropdownFocus(reason);
         forceReturnFocusRef.current = false;
       }
       if(controlledOpen === undefined) setUncontrolledOpen(nextOpen);
@@ -647,41 +589,7 @@ export const GlListboxTrigger = forwardRef<HTMLElement, GlListboxTriggerProps>(
   },
 );
 
-type ResolvedPlacement = {
-  align: BaseMenu.Positioner.Props["align"];
-  side: BaseMenu.Positioner.Props["side"];
-};
-
-/** @internal Exported for focused adapter tests, not from the package entry point. */
-export function resolveListboxPlacement(placement: GlListboxPlacement): ResolvedPlacement {
-  switch(placement) {
-    case "right-start": return { align: "start", side: "right" };
-    case "bottom-end":
-    case "right": return { align: "end", side: "bottom" };
-    case "bottom":
-    case "center": return { align: "center", side: "bottom" };
-    default: return { align: "start", side: "bottom" };
-  }
-}
-
-type ResolvedOffset = {
-  alignOffset: BaseMenu.Positioner.Props["alignOffset"];
-  sideOffset: BaseMenu.Positioner.Props["sideOffset"];
-};
-
-/** @internal Exported for focused adapter tests, not from the package entry point. */
-export function resolveListboxOffset(offset: GlListboxOffset): ResolvedOffset {
-  if(typeof offset === "number") return { alignOffset: 0, sideOffset: offset };
-  const { alignmentAxis, crossAxis = 0, mainAxis = 0 } = offset;
-  return {
-    alignOffset: alignmentAxis === undefined
-      ? ({ align }) => align === "end" ? -crossAxis : crossAxis
-      : alignmentAxis,
-    sideOffset: mainAxis,
-  };
-}
-
-export const GlListboxHeader = forwardRef<HTMLDivElement, GlListboxHeaderProps>(
+export const GlListboxHeader = forwardRef<HTMLDivElement, GlDropdownHeaderProps>(
   function GlListboxHeader({ children, className, ...elementProps }, forwardedRef) {
     return (
       <div
@@ -694,7 +602,7 @@ export const GlListboxHeader = forwardRef<HTMLDivElement, GlListboxHeaderProps>(
   },
 );
 
-export const GlListboxFooter = forwardRef<HTMLDivElement, GlListboxFooterProps>(
+export const GlListboxFooter = forwardRef<HTMLDivElement, GlDropdownFooterProps>(
   function GlListboxFooter({ className, ...elementProps }, forwardedRef) {
     return (
       <div
@@ -707,8 +615,8 @@ export const GlListboxFooter = forwardRef<HTMLDivElement, GlListboxFooterProps>(
 
 type ListboxContentChildren = {
   body: ReactNode[];
-  footer: ReactElement<GlListboxFooterProps> | null;
-  header: ReactElement<GlListboxHeaderProps> | null;
+  footer: ReactElement<GlDropdownFooterProps> | null;
+  header: ReactElement<GlDropdownHeaderProps> | null;
   search: ReactElement<GlListboxSearchInputProps> | null;
 };
 
@@ -726,7 +634,7 @@ function resolveListboxContentChildren(children: ReactNode): ListboxContentChild
       Children.forEach(child.props.children, visit);
       return;
     }
-    if(isValidElement<GlListboxHeaderProps>(child) && child.type === GlListboxHeader) {
+    if(isValidElement<GlDropdownHeaderProps>(child) && child.type === GlListboxHeader) {
       if(result.header) throw new Error("GlListboxContent accepts only one GlListboxHeader.");
       result.header = child;
       return;
@@ -736,7 +644,7 @@ function resolveListboxContentChildren(children: ReactNode): ListboxContentChild
       result.search = child;
       return;
     }
-    if(isValidElement<GlListboxFooterProps>(child) && child.type === GlListboxFooter) {
+    if(isValidElement<GlDropdownFooterProps>(child) && child.type === GlListboxFooter) {
       if(result.footer) throw new Error("GlListboxContent accepts only one GlListboxFooter.");
       result.footer = child;
       return;
@@ -810,8 +718,8 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
       context.setPopupElement,
       setPopupElement,
     );
-    const resolvedPlacement = resolveListboxPlacement(placement);
-    const resolvedOffset = resolveListboxOffset(offset);
+    const resolvedPlacement = resolveDropdownPlacement(placement);
+    const resolvedOffset = resolveDropdownOffset(offset);
     const contentChildren = resolveListboxContentChildren(children);
     const hasHeader = contentChildren.header !== null;
     const searchable = contentChildren.search !== null;

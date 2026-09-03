@@ -1,3 +1,4 @@
+import type { GlDropdownHandle } from "../../internal/dropdown/dropdown-types";
 import { createRef } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, expectTypeOf, it, vi } from "vitest";
@@ -7,13 +8,14 @@ import GlListbox, {
   GlListboxHeader,
   GlListboxItem,
   GlListboxTrigger,
-  resolveListboxOffset,
-  resolveListboxPlacement,
-  type GlListboxHandle,
   type GlListboxMultipleProps,
   type GlListboxSingleProps,
   type GlListboxValue,
 } from "./listbox";
+import {
+  resolveDropdownOffset,
+  resolveDropdownPlacement,
+} from "../../internal/dropdown/dropdown-utils";
 import {
   GlListboxGroup,
   GlListboxGroupLabel,
@@ -88,24 +90,24 @@ describe("GlListbox", () => {
     ["center", { align: "center", side: "bottom" }],
     ["right", { align: "end", side: "bottom" }],
   ] as const)("maps the %s placement", (placement, expected) => {
-    expect(resolveListboxPlacement(placement)).toEqual(expected);
+    expect(resolveDropdownPlacement(placement)).toEqual(expected);
   });
 
   it("maps numeric and object offsets", () => {
-    expect(resolveListboxOffset(12)).toEqual({ alignOffset: 0, sideOffset: 12 });
+    expect(resolveDropdownOffset(12)).toEqual({ alignOffset: 0, sideOffset: 12 });
     const dimensions = {
       anchor: { height: 20, width: 40 },
       positioner: { height: 100, width: 248 },
       side: "bottom" as const,
     };
-    const crossAxisOffset = resolveListboxOffset({ crossAxis: -3, mainAxis: 5 });
+    const crossAxisOffset = resolveDropdownOffset({ crossAxis: -3, mainAxis: 5 });
     expect(crossAxisOffset.sideOffset).toBe(5);
     expect(typeof crossAxisOffset.alignOffset).toBe("function");
     if(typeof crossAxisOffset.alignOffset === "function") {
       expect(crossAxisOffset.alignOffset({ ...dimensions, align: "start" })).toBe(-3);
       expect(crossAxisOffset.alignOffset({ ...dimensions, align: "end" })).toBe(3);
     }
-    expect(resolveListboxOffset({
+    expect(resolveDropdownOffset({
       alignmentAxis: 7,
       mainAxis: 9,
     })).toEqual({ alignOffset: 7, sideOffset: 9 });
@@ -202,7 +204,7 @@ describe("GlListbox", () => {
   });
 
   it("accepts groups, null values, and the complete imperative contract", () => {
-    const handle = createRef<GlListboxHandle>();
+    const handle = createRef<GlDropdownHandle>();
     renderToStaticMarkup(
       <GlListbox ref={handle} defaultValue={null}>
         <GlListboxTrigger>Selection</GlListboxTrigger>
@@ -216,7 +218,7 @@ describe("GlListbox", () => {
     );
 
     expectTypeOf<GlListboxValue>().toEqualTypeOf<string | number | null>();
-    expectTypeOf<GlListboxHandle>().toMatchTypeOf<{
+    expectTypeOf<GlDropdownHandle>().toMatchTypeOf<{
       close(): void;
       closeAndFocus(): void;
       containsElement(element: Element | null): boolean;

@@ -50,6 +50,17 @@ export type {
   GlCardHeaderProps,
   GlCardProps,
 } from "./base/card/card";
+export type {
+  GlDropdownBeforeCloseDetails,
+  GlDropdownCloseReason,
+  GlDropdownFooterProps,
+  GlDropdownHandle,
+  GlDropdownHeaderProps,
+  GlDropdownOffset,
+  GlDropdownOpenChangeDetails,
+  GlDropdownPlacement,
+  GlDropdownPositioningStrategy,
+} from "./internal/dropdown/dropdown-types";
 export {
   default as GlDisclosureDropdown,
   GlDisclosureDropdownContent,
@@ -60,18 +71,9 @@ export {
 } from "./base/disclosure-dropdown/disclosure-dropdown";
 export type {
   GlDisclosureDropdownActionDetails,
-  GlDisclosureDropdownBeforeCloseDetails,
-  GlDisclosureDropdownCloseReason,
   GlDisclosureDropdownContentProps,
-  GlDisclosureDropdownFooterProps,
-  GlDisclosureDropdownHandle,
-  GlDisclosureDropdownHeaderProps,
   GlDisclosureDropdownItemProps,
   GlDisclosureDropdownItemVariant,
-  GlDisclosureDropdownOffset,
-  GlDisclosureDropdownOpenChangeDetails,
-  GlDisclosureDropdownPlacement,
-  GlDisclosureDropdownPositioningStrategy,
   GlDisclosureDropdownProps,
   GlDisclosureDropdownTriggerProps,
 } from "./base/disclosure-dropdown/disclosure-dropdown";
@@ -164,19 +166,10 @@ export {
   GlListboxTrigger,
 } from "./base/listbox/listbox";
 export type {
-  GlListboxBeforeCloseDetails,
-  GlListboxCloseReason,
   GlListboxContentProps,
-  GlListboxFooterProps,
-  GlListboxHandle,
-  GlListboxHeaderProps,
   GlListboxItemProps,
   GlListboxItemRenderState,
   GlListboxMultipleProps,
-  GlListboxOffset,
-  GlListboxOpenChangeDetails,
-  GlListboxPlacement,
-  GlListboxPositioningStrategy,
   GlListboxProps,
   GlListboxSelectionDetails,
   GlListboxSingleProps,

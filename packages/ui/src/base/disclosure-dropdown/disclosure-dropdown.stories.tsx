@@ -1,3 +1,7 @@
+import type {
+  GlDropdownBeforeCloseDetails,
+  GlDropdownHandle,
+} from "../../internal/dropdown/dropdown-types";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   forwardRef,
@@ -23,8 +27,6 @@ import GlDisclosureDropdown, {
   GlDisclosureDropdownItem,
   GlDisclosureDropdownTrigger,
   type GlDisclosureDropdownActionDetails,
-  type GlDisclosureDropdownBeforeCloseDetails,
-  type GlDisclosureDropdownHandle,
 } from "./disclosure-dropdown";
 import {
   GlDisclosureDropdownGroup,
@@ -274,7 +276,7 @@ export const ActionsAndAutoClose: Story = {
   },
 };
 
-const beforeClose = fn((details: GlDisclosureDropdownBeforeCloseDetails) => {
+const beforeClose = fn((details: GlDropdownBeforeCloseDetails) => {
   if(beforeClose.mock.calls.length === 1) details.preventDefault();
 });
 
@@ -348,7 +350,7 @@ export const OutsideAndFocusOut: Story = {
 };
 
 function ImperativeExample() {
-  const dropdownRef = useRef<GlDisclosureDropdownHandle>(null);
+  const dropdownRef = useRef<GlDropdownHandle>(null);
   const [containsResult, setContainsResult] = useState("unchecked");
 
   return (
