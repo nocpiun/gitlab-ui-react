@@ -1062,6 +1062,8 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
       if(!next?.element) return;
       event.preventDefault();
       event.stopPropagation();
+      (event as Parameters<NonNullable<BaseMenu.Popup.Props["onKeyDown"]>>[0])
+        .preventBaseUIHandler();
       next.element.focus();
     }, [getOrderedItems, onKeyDown, searchable]);
 
@@ -1335,7 +1337,12 @@ export const GlListboxItem = forwardRef<HTMLElement, GlListboxItemProps>(
 
     const handleClick = useCallback((event: ReactMouseEvent<HTMLElement>) => {
       onClick?.(event as ReactMouseEvent<HTMLButtonElement>);
-      if(event.defaultPrevented || disabled || context.disabled || context.loading) return;
+      if(event.defaultPrevented) {
+        (event as Parameters<NonNullable<BaseMenu.CheckboxItem.Props["onClick"]>>[0])
+          .preventBaseUIHandler();
+        return;
+      }
+      if(disabled || context.disabled || context.loading) return;
       const nextSelected = context.multiple ? !selected : true;
       if(context.multiple || !selected) {
         onSelect?.({ event: event.nativeEvent, itemValue: value, selected: nextSelected });

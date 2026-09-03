@@ -116,6 +116,11 @@ function MultipleExample() {
           <GlListboxItem value="frontend">Frontend</GlListboxItem>
           <GlListboxItem value="backend">Backend</GlListboxItem>
           <GlListboxItem value="security">Security</GlListboxItem>
+          <GlListboxItem
+            onClick={(event) => event.preventDefault()}
+            value="canceled">
+            Canceled selection
+          </GlListboxItem>
         </GlListboxGroup>
       </GlListboxContent>
     </GlListbox>
@@ -136,6 +141,11 @@ export const MultipleSelection: Story = {
 
     await userEvent.click(backend);
     await expect(backend).toHaveAttribute("aria-selected", "false");
+
+    const canceled = canvas.getByRole("option", { name: "Canceled selection" });
+    await userEvent.click(canceled);
+    await expect(canceled).toHaveAttribute("aria-selected", "false");
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
   },
 };
 
