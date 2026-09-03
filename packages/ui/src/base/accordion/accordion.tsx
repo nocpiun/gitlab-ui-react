@@ -132,11 +132,17 @@ export const GlAccordionItem = forwardRef<HTMLDivElement, GlAccordionItemProps>(
     const previousVisibleRef = useRef(isVisible);
 
     useEffect(() => {
-      if(isVisible && !previousVisibleRef.current) context?.onItemOpen(itemValue);
+      const wasVisible = previousVisibleRef.current;
+      const becameVisible = isVisible && !wasVisible;
       previousVisibleRef.current = isVisible;
-    }, [context, isVisible, itemValue]);
 
-    useEffect(() => {
+      // A controlled item can become visible through props. Mark it active
+      // before applying the previous active value to sibling-collapse logic.
+      if(becameVisible) {
+        context?.onItemOpen(itemValue);
+        return;
+      }
+
       if(
         !context?.autoCollapse
         || !context.activeItemValue
