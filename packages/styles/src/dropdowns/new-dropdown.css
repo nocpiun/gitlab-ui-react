@@ -1,0 +1,446 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/new_dropdowns/dropdown.scss
+ * packages/gitlab-ui/src/components/base/new_dropdowns/dropdown_item.scss
+ *
+ * Shared privately by the new dropdown family. Component-specific rules live
+ * beside their respective components.
+ */
+
+.gl-new-dropdown {
+  @apply gl-relative gl-inline-flex gl-align-middle;
+}
+
+.gl-new-dropdown:has(> .btn-block) {
+  @apply gl-block gl-w-full;
+}
+
+.gl-new-dropdown .gl-new-dropdown-toggle.gl-button:not(.gl-new-dropdown-toggle-no-caret, .btn-icon) {
+  @apply gl-pr-3;
+}
+
+.gl-new-dropdown .gl-new-dropdown-toggle.gl-button.btn-sm:not(.gl-new-dropdown-toggle-no-caret, .btn-icon) {
+  @apply gl-pr-2;
+}
+
+.gl-new-dropdown .gl-new-dropdown-toggle .gl-button-text {
+  @apply gl-inline-flex gl-items-center;
+}
+
+.gl-new-dropdown .gl-new-dropdown-toggle .gl-button-text:has(.gl-sr-only) {
+  width: auto;
+}
+
+.gl-new-dropdown .gl-new-dropdown-button-text {
+  @apply gl-mr-auto gl-overflow-hidden gl-text-ellipsis;
+}
+
+.gl-new-dropdown .gl-button:not(.gl-new-dropdown-caret-only) .gl-button-icon.gl-new-dropdown-chevron {
+  @apply gl-ml-2 gl-mr-0;
+}
+
+.gl-new-dropdown .gl-new-dropdown-icon-only.gl-button:not(.gl-new-dropdown-toggle-no-caret) {
+  @apply gl-pl-3 gl-pr-2;
+}
+
+.gl-new-dropdown .gl-new-dropdown-icon-only.gl-button.btn-sm:not(.gl-new-dropdown-toggle-no-caret) {
+  @apply gl-pr-0;
+}
+
+.gl-new-dropdown .gl-new-dropdown-icon-only .gl-button-icon.gl-button-icon {
+  @apply gl-mr-0;
+}
+
+.gl-new-dropdown .gl-new-dropdown-icon-only .gl-button-icon.gl-button-loading-indicator {
+  @apply gl-mr-2;
+}
+
+.gl-new-dropdown .gl-new-dropdown-caret-only {
+  @apply gl-pl-2;
+}
+
+.gl-new-dropdown .gl-new-dropdown-caret-only.btn-sm {
+  @apply gl-pl-0;
+}
+
+.gl-new-dropdown-container {
+  z-index: 1000;
+}
+
+.gl-new-dropdown-panel {
+  @apply gl-bg-dropdown gl-drop-shadow-md;
+  z-index: 1000;
+  max-width: var(--available-width);
+  color: var(--gl-dropdown-option-text-color-default);
+  border-radius: var(--gl-dropdown-border-radius);
+  outline: none;
+}
+
+.gl-new-dropdown-panel-fixed-width {
+  width: min(15.5rem, var(--available-width));
+}
+
+.gl-new-dropdown-panel-fluid-width {
+  width: max-content;
+  min-width: min(15.5rem, var(--available-width));
+  max-width: min(28.5rem, var(--available-width));
+}
+
+.gl-new-dropdown-panel-match-trigger-width {
+  width: min(var(--anchor-width), var(--available-width));
+}
+
+.gl-new-dropdown-inner {
+  @apply gl-flex gl-flex-col;
+  max-height: 19.5rem;
+}
+
+/* React adaptation: arbitrary header/footer content receives consistent dropdown chrome. */
+.gl-new-dropdown-header {
+  @apply gl-flex gl-min-h-8 gl-shrink-0 gl-items-center gl-border-b gl-border-b-dropdown-divider gl-px-4 gl-py-3;
+  box-sizing: border-box;
+}
+
+.gl-new-dropdown-header-content {
+  @apply gl-grow gl-pr-2 gl-text-sm gl-font-bold gl-text-strong;
+  line-height: 1.125rem;
+}
+
+.gl-new-dropdown-footer {
+  @apply gl-shrink-0 gl-border-t gl-border-t-dropdown-divider gl-px-4 gl-py-3;
+}
+
+.gl-new-dropdown-contents {
+  @apply gl-mb-0 gl-grow gl-list-none gl-overflow-y-auto gl-pl-0;
+  position: relative;
+  min-height: 0;
+  max-height: max(
+    0px,
+    calc(
+      var(--available-height)
+      - var(--gl-new-dropdown-non-scroll-height, 0px)
+      - 0.5rem
+    )
+  );
+}
+
+.gl-new-dropdown-contents:focus-visible {
+  box-shadow:
+    0 0 0 1px var(--gl-focus-ring-inner-color),
+    0 0 0 3px var(--gl-focus-ring-outer-color);
+  outline: none;
+}
+
+.gl-new-dropdown-contents ul {
+  @apply gl-list-none;
+}
+
+.gl-new-dropdown-contents-with-scrim-overlay {
+  padding: 0;
+}
+
+.gl-new-dropdown-contents .top-scrim-wrapper,
+.gl-new-dropdown-contents .bottom-scrim-wrapper {
+  position: sticky;
+  right: 1px;
+  left: 1px;
+  z-index: 1;
+  display: block;
+  height: 0.25rem;
+  overflow: visible;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+.gl-new-dropdown-contents .top-scrim-wrapper {
+  top: 0;
+}
+
+.gl-new-dropdown-contents .top-scrim {
+  position: absolute;
+  right: 0;
+  left: 0;
+}
+
+.gl-new-dropdown-contents .top-scrim-light {
+  height: 2.25rem;
+  background: linear-gradient(
+    180deg,
+    var(--gl-dropdown-background-color) 0%,
+    var(--gl-color-alpha-0)
+  );
+  border-radius: 0.375rem 0.375rem 0 0;
+}
+
+.gl-new-dropdown-contents .top-scrim-dark {
+  height: 0.25rem;
+  background: linear-gradient(
+    180deg,
+    var(--gl-shadow-color-default) 0%,
+    var(--gl-color-alpha-0) 100%
+  );
+}
+
+.gl-new-dropdown-contents .bottom-scrim-wrapper {
+  bottom: 0;
+}
+
+.gl-new-dropdown-contents .bottom-scrim {
+  position: relative;
+  top: -2rem;
+  height: 0;
+  background: linear-gradient(
+    180deg,
+    var(--gl-color-alpha-0) 0%,
+    var(--gl-dropdown-background-color)
+  );
+  border-radius: 0 0 0.375rem 0.375rem;
+}
+
+.gl-new-dropdown-contents.top-scrim-visible .top-scrim-wrapper,
+.gl-new-dropdown-contents.bottom-scrim-visible .bottom-scrim-wrapper {
+  opacity: 1;
+}
+
+.gl-new-dropdown-contents.bottom-scrim-visible .bottom-scrim {
+  height: 2.25rem;
+}
+
+.gl-new-dropdown-arrow {
+  position: absolute;
+  box-sizing: border-box;
+  width: 8px;
+  height: 8px;
+  background: var(--gl-dropdown-background-color);
+  border-right: 1px solid var(--gl-dropdown-background-color);
+  border-bottom: 1px solid var(--gl-dropdown-background-color);
+}
+
+.gl-new-dropdown-arrow[data-side="top"] {
+  bottom: -4px;
+  transform: rotate(225deg);
+}
+
+.gl-new-dropdown-arrow[data-side="bottom"] {
+  top: -4px;
+  transform: rotate(45deg);
+}
+
+.gl-new-dropdown-arrow[data-side="left"] {
+  right: -4px;
+  transform: rotate(135deg);
+}
+
+.gl-new-dropdown-arrow[data-side="right"] {
+  left: -4px;
+  transform: rotate(315deg);
+}
+
+.gl-new-dropdown-item {
+  @apply gl-my-1 gl-block gl-w-full gl-cursor-pointer gl-border-0 gl-bg-transparent gl-px-2 gl-py-0;
+  box-sizing: border-box;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  outline: none;
+}
+
+.gl-new-dropdown-item[hidden] {
+  @apply gl-hidden;
+}
+
+.gl-new-dropdown-item:first-child,
+.gl-new-dropdown-contents-with-scrim-overlay > .top-scrim-wrapper + .gl-new-dropdown-item,
+.gl-new-dropdown-item-group > .gl-new-dropdown-item:first-child {
+  @apply gl-mt-0;
+}
+
+.gl-new-dropdown-item:last-child,
+.gl-new-dropdown-contents-with-scrim-overlay > .gl-new-dropdown-item:has(+ .bottom-scrim-wrapper),
+.gl-new-dropdown-item-group > .gl-new-dropdown-item:last-child {
+  @apply gl-mb-0;
+}
+
+.gl-new-dropdown-item-content {
+  @apply gl-relative gl-flex gl-w-full gl-items-center gl-whitespace-normal gl-rounded-default gl-border-0 gl-px-3 gl-py-0 gl-text-left gl-text-base gl-font-normal gl-leading-normal gl-no-underline;
+  box-sizing: border-box;
+  color: var(--gl-dropdown-option-text-color-default);
+  background-color: var(--gl-dropdown-option-background-color-unselected-default);
+  transition:
+    background-color 0.1s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.gl-new-dropdown-item:not([data-disabled]):hover > .gl-new-dropdown-item-content {
+  color: var(--gl-dropdown-option-text-color-hover);
+  background-color: var(--gl-dropdown-option-background-color-unselected-hover);
+}
+
+.gl-new-dropdown-item:not([data-disabled])[data-highlighted] > .gl-new-dropdown-item-content,
+.gl-new-dropdown-item:not([data-disabled]):focus-visible > .gl-new-dropdown-item-content {
+  color: var(--gl-dropdown-option-text-color-focus);
+  background-color: var(--gl-dropdown-option-background-color-unselected-focus);
+}
+
+.gl-new-dropdown-item:not([data-disabled]):active > .gl-new-dropdown-item-content,
+.gl-new-dropdown-item:not([data-disabled]):focus-visible > .gl-new-dropdown-item-content,
+.gl-new-dropdown-item:not([data-disabled]):focus-visible:active > .gl-new-dropdown-item-content {
+  box-shadow:
+    inset 0 0 0 2px var(--gl-focus-ring-outer-color),
+    inset 0 0 0 3px var(--gl-focus-ring-inner-color),
+    inset 0 0 0 1px var(--gl-focus-ring-inner-color);
+}
+
+.gl-new-dropdown-item:not([data-disabled]):focus-visible > .gl-new-dropdown-item-content {
+  z-index: 1;
+}
+
+.gl-new-dropdown-item:not([data-disabled]):active > .gl-new-dropdown-item-content,
+.gl-new-dropdown-item:not([data-disabled]):focus-visible:active > .gl-new-dropdown-item-content {
+  color: var(--gl-dropdown-option-text-color-active);
+  background-color: var(--gl-dropdown-option-background-color-unselected-active);
+}
+
+.gl-new-dropdown-item[data-disabled] {
+  @apply gl-cursor-not-allowed gl-select-none;
+}
+
+.gl-new-dropdown-item[data-disabled] > .gl-new-dropdown-item-content {
+  color: var(--gl-text-color-disabled);
+  pointer-events: none;
+}
+
+.gl-new-dropdown-item[aria-selected="true"] > .gl-new-dropdown-item-content {
+  background-color: var(--gl-dropdown-option-background-color-selected-default);
+}
+
+.gl-new-dropdown-item[aria-selected="true"][data-disabled]
+  > .gl-new-dropdown-item-content,
+.gl-new-dropdown-item[aria-selected="true"].disabled
+  > .gl-new-dropdown-item-content {
+  background-color: var(--gl-background-color-disabled);
+}
+
+.gl-new-dropdown-item[aria-selected="true"]:not([data-disabled], .disabled):hover
+  > .gl-new-dropdown-item-content {
+  background-color: var(--gl-dropdown-option-background-color-selected-hover);
+}
+
+.gl-new-dropdown-item[aria-selected="true"]:not([data-disabled], .disabled):hover
+  .gl-new-dropdown-item-check-icon {
+  color: var(--gl-dropdown-option-indicator-color-selected-hover);
+}
+
+.gl-new-dropdown-item[aria-selected="true"]:not([data-disabled], .disabled)[data-highlighted]
+  > .gl-new-dropdown-item-content,
+.gl-new-dropdown-item[aria-selected="true"]:not([data-disabled], .disabled):focus-visible
+  > .gl-new-dropdown-item-content {
+  background-color: var(--gl-dropdown-option-background-color-selected-focus);
+}
+
+.gl-new-dropdown-item[aria-selected="true"]:not([data-disabled], .disabled)[data-highlighted]
+  .gl-new-dropdown-item-check-icon,
+.gl-new-dropdown-item[aria-selected="true"]:not([data-disabled], .disabled):focus-visible
+  .gl-new-dropdown-item-check-icon {
+  color: var(--gl-dropdown-option-indicator-color-selected-focus);
+}
+
+.gl-new-dropdown-item[aria-selected="true"]:not([data-disabled], .disabled):active
+  > .gl-new-dropdown-item-content,
+.gl-new-dropdown-item[aria-selected="true"]:not([data-disabled], .disabled):focus-visible:active
+  > .gl-new-dropdown-item-content {
+  background-color: var(--gl-dropdown-option-background-color-selected-active);
+}
+
+.gl-new-dropdown-item[aria-selected="true"]:not([data-disabled], .disabled):active
+  .gl-new-dropdown-item-check-icon,
+.gl-new-dropdown-item[aria-selected="true"]:not([data-disabled], .disabled):focus-visible:active
+  .gl-new-dropdown-item-check-icon {
+  color: var(--gl-dropdown-option-indicator-color-selected-active);
+}
+
+.gl-new-dropdown-item.gl-new-dropdown-item-highlighted:not([data-disabled], .disabled)
+  > .gl-new-dropdown-item-content {
+  color: var(--gl-dropdown-option-text-color-focus);
+  background-color: var(--gl-dropdown-option-background-color-unselected-focus);
+  box-shadow:
+    inset 0 0 0 2px var(--gl-focus-ring-outer-color),
+    inset 0 0 0 3px var(--gl-focus-ring-inner-color),
+    inset 0 0 0 1px var(--gl-focus-ring-inner-color);
+}
+
+.gl-new-dropdown-item-check-icon {
+  @apply gl-mr-3 gl-shrink-0;
+  color: var(--gl-dropdown-option-indicator-color-selected-default);
+}
+
+.gl-new-dropdown-item[data-disabled] .gl-new-dropdown-item-check-icon,
+.gl-new-dropdown-item.disabled .gl-new-dropdown-item-check-icon {
+  color: var(--gl-icon-color-disabled);
+}
+
+.gl-new-dropdown-item-text-wrapper {
+  @apply gl-min-w-0 gl-grow gl-py-3;
+}
+
+.gl-new-dropdown-item-icon {
+  @apply gl-mr-2 gl-inline-block gl-h-5 gl-w-5 gl-shrink-0;
+}
+
+.gl-new-dropdown-item-icon .gl-icon {
+  vertical-align: -3px;
+}
+
+.gl-new-dropdown-item-danger > .gl-new-dropdown-item-content {
+  color: var(--gl-action-danger-foreground-color-default);
+  background-color: var(--gl-action-danger-background-color-default);
+}
+
+.gl-new-dropdown-item-danger:not([data-disabled]):hover > .gl-new-dropdown-item-content {
+  color: var(--gl-action-danger-foreground-color-hover);
+  background-color: var(--gl-action-danger-background-color-hover);
+}
+
+.gl-new-dropdown-item-danger:not([data-disabled])[data-highlighted] > .gl-new-dropdown-item-content,
+.gl-new-dropdown-item-danger:not([data-disabled]):focus-visible > .gl-new-dropdown-item-content {
+  color: var(--gl-action-danger-foreground-color-focus);
+  background-color: var(--gl-action-danger-background-color-focus);
+}
+
+.gl-new-dropdown-item-danger:not([data-disabled]):active > .gl-new-dropdown-item-content,
+.gl-new-dropdown-item-danger:not([data-disabled]):focus-visible:active > .gl-new-dropdown-item-content {
+  color: var(--gl-action-danger-foreground-color-active);
+  background-color: var(--gl-action-danger-background-color-active);
+}
+
+.btn-group .gl-new-dropdown:not(:last-child) .gl-new-dropdown-toggle {
+  @apply gl-rounded-br-none gl-rounded-tr-none;
+}
+
+.btn-group .gl-new-dropdown:not(:first-child) .gl-new-dropdown-toggle {
+  @apply gl-rounded-bl-none gl-rounded-tl-none;
+}
+
+.btn-group .gl-new-dropdown:hover .gl-new-dropdown-toggle,
+.btn-group .gl-new-dropdown .gl-new-dropdown-toggle:focus-visible,
+.btn-group .gl-new-dropdown .gl-new-dropdown-toggle:active {
+  @apply gl-z-1;
+}
+
+@media (prefers-reduced-motion) {
+  .gl-new-dropdown-item-content {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .gl-new-dropdown-item:not([data-disabled]):active > .gl-new-dropdown-item-content,
+  .gl-new-dropdown-item:not([data-disabled]):focus-visible > .gl-new-dropdown-item-content,
+  .gl-new-dropdown-item:not([data-disabled]):focus-visible:active > .gl-new-dropdown-item-content {
+    outline: 2px solid LinkText;
+    box-shadow: none;
+  }
+}

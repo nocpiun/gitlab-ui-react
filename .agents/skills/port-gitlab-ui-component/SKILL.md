@@ -43,6 +43,8 @@ Before coding, write a short compatibility checklist covering only the component
 
 Prefer upstream tests and stories as the checklist. Do not investigate framework internals until a concrete compatibility question requires it.
 
+If the target component is deprecated upstream, or if a component being ported depends on deprecated upstream components, read [references/deprecated-components.md](references/deprecated-components.md) before scaffolding. Confirm whether the deprecated component has actual runtime consumers, an existing local public API, or an explicit compatibility requirement. A dependency from an upstream component that has not yet been ported does not by itself justify adding a deprecated React API. When the consumers can be migrated to supported semantic primitives and no compatibility obligation exists, stop the deprecated component port, record the replacement mapping, and do not run the scaffold helper.
+
 ### 2. Scaffold mechanical files once
 
 After deciding the React symbol and exported type names, run:

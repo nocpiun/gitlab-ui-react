@@ -85,7 +85,7 @@ export default function GlTooltip({
 }: GlTooltipProps) {
   const generatedId = useId();
   const tooltipId = id ?? `gl-tooltip-${generatedId}`;
-  const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen ?? false);
   const isOpen = open ?? uncontrolledOpen;
 
   const handleOpenChange = (nextOpen: boolean) => {

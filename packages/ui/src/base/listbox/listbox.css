@@ -1,0 +1,100 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/new_dropdowns/listbox/listbox.scss
+ */
+
+.gl-listbox-inner {
+  max-height: 19.5rem;
+}
+
+.gl-listbox-search-container {
+  @apply gl-shrink-0 gl-border-b gl-border-b-dropdown-divider;
+}
+
+.gl-listbox-search {
+  position: relative;
+}
+
+.gl-listbox-search-input {
+  @apply gl-h-auto gl-w-full gl-rounded-none gl-border-none gl-py-4 gl-font-regular gl-text-base gl-leading-normal gl-text-default;
+  padding-right: 2rem;
+  padding-left: 2.25rem;
+  background-color: var(--gl-dropdown-search-background-color);
+}
+
+.gl-listbox-search-input:focus-visible {
+  box-shadow:
+    inset 0 0 0 2px var(--gl-focus-ring-outer-color),
+    inset 0 0 0 3px var(--gl-focus-ring-inner-color),
+    inset 0 0 0 1px var(--gl-focus-ring-inner-color);
+  outline: none;
+}
+
+.gl-listbox-topmost .gl-listbox-search-input {
+  border-top-left-radius: calc(var(--gl-dropdown-border-radius) - 1px);
+  border-top-right-radius: calc(var(--gl-dropdown-border-radius) - 1px);
+}
+
+.gl-listbox-search-input::placeholder {
+  color: var(--gl-control-placeholder-color);
+}
+
+.gl-listbox-search-input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.gl-listbox-search-icon {
+  position: absolute;
+  top: calc(50% - 6px);
+  left: 1rem;
+  z-index: 1;
+  color: var(--gl-icon-color-subtle);
+  pointer-events: none;
+}
+
+.gl-listbox-search-clear-button {
+  position: absolute;
+  top: calc(50% - 12px);
+  right: 0.75rem;
+}
+
+.gl-listbox-options {
+  outline: none;
+}
+
+.gl-listbox-radio-group,
+.gl-listbox-group {
+  @apply gl-mb-0 gl-list-none gl-pl-0;
+}
+
+.gl-listbox-group + .gl-listbox-group {
+  @apply gl-mt-2 gl-border-t gl-border-t-dropdown-divider gl-pt-1;
+}
+
+.gl-listbox-search-loader,
+.gl-listbox-loading,
+.gl-listbox-infinite-loader {
+  @apply gl-my-3;
+}
+
+.gl-listbox-infinite-loader {
+  display: flex;
+  justify-content: center;
+}
+
+.gl-listbox-infinite-sentinel {
+  width: 100%;
+  height: 1px;
+}
+
+.gl-listbox-no-results {
+  @apply gl-py-3 gl-pl-7 gl-pr-5 gl-text-base gl-text-subtle;
+}
+
+@media (forced-colors: active) {
+  .gl-new-dropdown-item.gl-new-dropdown-item-highlighted:not([data-disabled], .disabled)
+    > .gl-new-dropdown-item-content {
+    outline: 2px solid LinkText;
+    box-shadow: none;
+  }
+}

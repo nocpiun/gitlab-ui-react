@@ -35,6 +35,12 @@ describe("GlTooltip", () => {
 
     expect(markup).not.toContain("my-tooltip");
   });
+
+  it("describes the trigger when initially open", () => {
+    const markup = renderTooltip({ defaultOpen: true, id: "my-tooltip" });
+
+    expect(markup).toContain("aria-describedby=\"my-tooltip\"");
+  });
 });
 
 describe("tooltip default container", () => {

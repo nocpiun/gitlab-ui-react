@@ -1,0 +1,17 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/new_dropdowns/disclosure/disclosure_dropdown.scss
+ */
+
+.gl-disclosure-dropdown-panel .gl-new-dropdown-inner {
+  max-height: none;
+}
+
+.gl-disclosure-dropdown-panel
+  .gl-new-dropdown-item[data-disabled]
+  > .gl-new-dropdown-item-content {
+  color: var(--gl-dropdown-option-text-color-disabled);
+  cursor: not-allowed;
+  text-decoration: none;
+  background: none;
+}

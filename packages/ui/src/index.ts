@@ -50,6 +50,42 @@ export type {
   GlCardHeaderProps,
   GlCardProps,
 } from "./base/card/card";
+export type {
+  GlDropdownBeforeCloseDetails,
+  GlDropdownCloseReason,
+  GlDropdownFooterProps,
+  GlDropdownHandle,
+  GlDropdownHeaderProps,
+  GlDropdownOffset,
+  GlDropdownOpenChangeDetails,
+  GlDropdownPlacement,
+  GlDropdownPositioningStrategy,
+} from "./internal/dropdown/dropdown-types";
+export {
+  default as GlDisclosureDropdown,
+  GlDisclosureDropdownContent,
+  GlDisclosureDropdownFooter,
+  GlDisclosureDropdownHeader,
+  GlDisclosureDropdownItem,
+  GlDisclosureDropdownTrigger,
+} from "./base/disclosure-dropdown/disclosure-dropdown";
+export type {
+  GlDisclosureDropdownActionDetails,
+  GlDisclosureDropdownContentProps,
+  GlDisclosureDropdownItemProps,
+  GlDisclosureDropdownItemVariant,
+  GlDisclosureDropdownProps,
+  GlDisclosureDropdownTriggerProps,
+} from "./base/disclosure-dropdown/disclosure-dropdown";
+export {
+  GlDisclosureDropdownGroup,
+  GlDisclosureDropdownGroupLabel,
+} from "./base/disclosure-dropdown/disclosure-dropdown-group";
+export type {
+  GlDisclosureDropdownGroupBorderPosition,
+  GlDisclosureDropdownGroupLabelProps,
+  GlDisclosureDropdownGroupProps,
+} from "./base/disclosure-dropdown/disclosure-dropdown-group";
 export { default as GlFormCharacterCount } from "./base/form-character-count/form-character-count";
 export type {
   GlFormCharacterCountProps,
@@ -121,6 +157,37 @@ export type {
   GlLinkProps,
   GlLinkVariant,
 } from "./base/link/link";
+export {
+  default as GlListbox,
+  GlListboxContent,
+  GlListboxFooter,
+  GlListboxHeader,
+  GlListboxItem,
+  GlListboxTrigger,
+} from "./base/listbox/listbox";
+export type {
+  GlListboxContentProps,
+  GlListboxItemProps,
+  GlListboxItemRenderState,
+  GlListboxMultipleProps,
+  GlListboxProps,
+  GlListboxSelectionDetails,
+  GlListboxSingleProps,
+  GlListboxTriggerProps,
+  GlListboxValue,
+} from "./base/listbox/listbox";
+export {
+  GlListboxGroup,
+  GlListboxGroupLabel,
+} from "./base/listbox/listbox-group";
+export type {
+  GlListboxGroupLabelProps,
+  GlListboxGroupProps,
+} from "./base/listbox/listbox-group";
+export { default as GlListboxSearchInput } from "./base/listbox/listbox-search-input";
+export type {
+  GlListboxSearchInputProps,
+} from "./base/listbox/listbox-search-input";
 export { default as GlLoadingIcon } from "./base/loading-icon/loading-icon";
 export type {
   GlLoadingIconColor,

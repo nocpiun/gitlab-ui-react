@@ -1,0 +1,212 @@
+import type { GlDropdownHandle } from "../../internal/dropdown/dropdown-types";
+import { createRef } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { describe, expect, expectTypeOf, it, vi } from "vitest";
+import GlListbox, {
+  GlListboxContent,
+  GlListboxFooter,
+  GlListboxHeader,
+  GlListboxItem,
+  GlListboxTrigger,
+  type GlListboxMultipleProps,
+  type GlListboxSingleProps,
+  type GlListboxValue,
+} from "./listbox";
+import { resolveDropdownPlacement } from "../../internal/dropdown/dropdown-utils";
+import {
+  GlListboxGroup,
+  GlListboxGroupLabel,
+} from "./listbox-group";
+import GlListboxSearchInput from "./listbox-search-input";
+
+vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
+
+describe("GlListbox", () => {
+  it("renders listbox trigger semantics and default appearance", () => {
+    const markup = renderToStaticMarkup(
+      <GlListbox>
+        <GlListboxTrigger>Select department</GlListboxTrigger>
+      </GlListbox>,
+    );
+
+    expect(markup).toContain("gl-listbox gl-new-dropdown");
+    expect(markup).toContain("gl-new-dropdown-toggle");
+    expect(markup).toContain("aria-haspopup=\"listbox\"");
+    expect(markup).toContain("aria-controls=\"gl-listbox-");
+    expect(markup).toContain("btn-md btn-default");
+    expect(markup).toContain("chevron-down-icon");
+    expect(markup).not.toContain("aria-expanded=\"true\"");
+  });
+
+  it("applies trigger appearance, validation, and accessible icon-only props", () => {
+    const markup = renderToStaticMarkup(
+      <GlListbox state={false}>
+        <GlListboxTrigger
+          aria-label="Select project"
+          block
+          category="tertiary"
+          icon="project"
+          noCaret
+          size="small" />
+      </GlListbox>,
+    );
+
+    expect(markup).toContain("btn-default-tertiary");
+    expect(markup).toContain("btn-sm");
+    expect(markup).toContain("btn-block");
+    expect(markup).toContain("gl-new-dropdown-icon-only");
+    expect(markup).toContain("gl-new-dropdown-toggle-no-caret");
+    expect(markup).toContain("is-invalid");
+    expect(markup).toContain("aria-invalid=\"true\"");
+  });
+
+  it("warns when trigger naming attributes conflict", () => {
+    const warning = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const markup = renderToStaticMarkup(
+      <GlListbox>
+        <GlListboxTrigger
+          aria-label="Ignored"
+          aria-labelledby="external-label"
+          icon="project"
+          noCaret />
+      </GlListbox>,
+    );
+
+    expect(warning).toHaveBeenCalledOnce();
+    expect(markup).toContain("aria-labelledby=\"external-label\"");
+    expect(markup).not.toContain("aria-label=\"Ignored\"");
+    warning.mockRestore();
+  });
+
+  it.each([
+    ["right-start", { align: "start", side: "right" }],
+    ["bottom-start", { align: "start", side: "bottom" }],
+    ["bottom-end", { align: "end", side: "bottom" }],
+    ["bottom", { align: "center", side: "bottom" }],
+    ["left", { align: "start", side: "bottom" }],
+    ["center", { align: "center", side: "bottom" }],
+    ["right", { align: "end", side: "bottom" }],
+  ] as const)("maps the %s placement", (placement, expected) => {
+    expect(resolveDropdownPlacement(placement)).toEqual(expected);
+  });
+
+  it("warns when match-trigger and fluid widths conflict", () => {
+    const warning = vi.spyOn(console, "warn").mockImplementation(() => {});
+    renderToStaticMarkup(
+      <GlListbox defaultOpen>
+        <GlListboxTrigger>Width</GlListboxTrigger>
+        <GlListboxContent fluidWidth panelMatchTriggerWidth>
+          <GlListboxGroup>
+            <GlListboxItem value="one">One</GlListboxItem>
+          </GlListboxGroup>
+        </GlListboxContent>
+      </GlListbox>,
+    );
+
+    expect(warning).toHaveBeenCalledWith(expect.stringContaining("takes precedence"));
+    warning.mockRestore();
+  });
+
+  it("renders the search input as a controlled combobox", () => {
+    const markup = renderToStaticMarkup(
+      <GlListboxSearchInput
+        aria-label="Find a department"
+        clearLabel="Clear departments"
+        value="eng" />,
+    );
+
+    expect(markup).toContain("role=\"combobox\"");
+    expect(markup).toContain("type=\"search\"");
+    expect(markup).toContain("value=\"eng\"");
+    expect(markup).toContain("aria-label=\"Find a department\"");
+    expect(markup).toContain("aria-label=\"Clear departments\"");
+  });
+
+  it("disables the clear action with the search input", () => {
+    const markup = renderToStaticMarkup(
+      <GlListboxSearchInput disabled value="eng" />,
+    );
+
+    expect(markup).toMatch(/<input[^>]*disabled=""/);
+    expect(markup).toMatch(/<button[^>]*aria-disabled="true"/);
+  });
+
+  it("applies native region props to composed headers and footers", () => {
+    const headerRef = createRef<HTMLDivElement>();
+    const footerRef = createRef<HTMLDivElement>();
+    const markup = renderToStaticMarkup(
+      <>
+        <GlListboxHeader
+          ref={headerRef}
+          className="custom-header"
+          data-testid="header"
+          style={{ color: "red" }}>
+          Header
+        </GlListboxHeader>
+        <GlListboxFooter
+          ref={footerRef}
+          className="custom-footer"
+          data-testid="footer"
+          style={{ color: "blue" }}>
+          Footer
+        </GlListboxFooter>
+      </>,
+    );
+
+    expect(markup).toContain("gl-new-dropdown-header custom-header");
+    expect(markup).toContain("gl-new-dropdown-footer custom-footer");
+    expect(markup).toContain("data-testid=\"header\"");
+    expect(markup).toContain("data-testid=\"footer\"");
+    expect(markup).toContain("color:red");
+    expect(markup).toContain("color:blue");
+  });
+
+  it("requires items to be nested in a group", () => {
+    expect(() => renderToStaticMarkup(
+      <GlListbox>
+        <GlListboxItem value="one">One</GlListboxItem>
+      </GlListbox>,
+    )).toThrowError("GlListboxItem must be used inside GlListboxGroup.");
+  });
+
+  it("supports groups without labels", () => {
+    const markup = renderToStaticMarkup(
+      <GlListbox>
+        <GlListboxGroup>Instructions</GlListboxGroup>
+      </GlListbox>,
+    );
+
+    expect(markup).toContain("role=\"group\"");
+    expect(markup).not.toContain("aria-labelledby");
+  });
+
+  it("accepts groups, null values, and the complete imperative contract", () => {
+    const handle = createRef<GlDropdownHandle>();
+    renderToStaticMarkup(
+      <GlListbox ref={handle} defaultValue={null}>
+        <GlListboxTrigger>Selection</GlListboxTrigger>
+        <GlListboxContent>
+          <GlListboxGroup>
+            <GlListboxGroupLabel textSrOnly>Fallbacks</GlListboxGroupLabel>
+            <GlListboxItem value={null}>None</GlListboxItem>
+          </GlListboxGroup>
+        </GlListboxContent>
+      </GlListbox>,
+    );
+
+    expectTypeOf<GlListboxValue>().toEqualTypeOf<string | number | null>();
+    expectTypeOf<GlDropdownHandle>().toMatchTypeOf<{
+      close(): void;
+      closeAndFocus(): void;
+      containsElement(element: Element | null): boolean;
+      open(): void;
+    }>();
+  });
+
+  it("exposes a discriminated single and multiple selection API", () => {
+    expectTypeOf<GlListboxSingleProps["multiple"]>().toEqualTypeOf<false | undefined>();
+    expectTypeOf<GlListboxMultipleProps["multiple"]>().toEqualTypeOf<true>();
+    expectTypeOf<GlListboxMultipleProps["value"]>()
+      .toEqualTypeOf<GlListboxValue[] | undefined>();
+  });
+});
