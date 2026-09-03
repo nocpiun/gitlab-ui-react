@@ -1,0 +1,28 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/banner/banner.scss
+ *
+ * Illustration-only rules are intentionally omitted.
+ */
+
+.gl-banner {
+  @apply gl-rounded-feedback;
+  background-color: var(--gl-banner-promo-background-color);
+  border-color: var(--gl-banner-promo-border-color);
+}
+
+.gl-banner-title {
+  @apply gl-heading-scale-500;
+  @apply gl-mb-3;
+}
+
+.gl-banner-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+}
+
+.gl-banner-introduction {
+  background-color: var(--gl-feedback-info-background-color);
+  border-color: var(--gl-banner-intro-border-color);
+}
