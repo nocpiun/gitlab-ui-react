@@ -114,6 +114,7 @@ export const External: Story = {
     const link = canvas.getByRole("link", { name: /GitLab Design System/ });
 
     await expect(link).toHaveClass("gl-link-external");
+    await expect(link).toHaveAttribute("data-alt", "(external link)");
     await expect(link).toHaveAttribute("rel", "noopener noreferrer");
   },
 };

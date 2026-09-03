@@ -30,6 +30,7 @@ describe("GlLink", () => {
 
     expect(markup).toContain("<a");
     expect(markup).toContain("class=\"gl-link\"");
+    expect(markup).toContain("data-alt=\"(external link)\"");
     expect(markup).toContain("href=\"#\"");
     expect(markup).toContain("id=\"help-link\"");
     expect(markup).not.toContain("target=");
@@ -118,6 +119,7 @@ describe("GlLink", () => {
       });
 
       expect(markup).toContain("gl-link-external");
+      expect(markup).toContain("data-alt=\"(external link)\"");
     },
   );
 

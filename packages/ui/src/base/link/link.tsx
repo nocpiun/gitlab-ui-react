@@ -89,6 +89,8 @@ const linkVariants = cva(null, {
 });
 
 const allowedProtocols = new Set(["ftp:", "http:", "https:", "mailto:"]);
+// Upstream resolves this default through its i18n runtime; this package has no i18n runtime.
+const externalLinkLabel = "(external link)";
 
 function sanitizeHref(href: string, isUnsafeLink: boolean) {
   if(isUnsafeLink) return href;
@@ -187,6 +189,7 @@ const GlLink = forwardRef<HTMLAnchorElement, GlLinkProps>(function GlLink({
       "aria-disabled": disabled ? true : elementProps["aria-disabled"],
       children,
       className: classes,
+      "data-alt": externalLinkLabel,
       href: safeHref,
       onClick: handleClick,
       rel: secureRel(rel, target),

@@ -13,7 +13,7 @@
 
 import { useEffect, useState, type HTMLAttributes, type ReactNode } from "react";
 import { cva } from "class-variance-authority";
-import clsx from "clsx";
+import { clsx } from "cn";
 
 const countTextVariants = cva("form-text", {
   variants: {

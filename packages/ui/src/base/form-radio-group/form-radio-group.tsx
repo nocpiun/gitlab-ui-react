@@ -33,7 +33,7 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from "react";
-import clsx from "clsx";
+import { clsx } from "cn";
 import GlFormRadio from "../form-radio/form-radio";
 import SafeHtml from "../../internal/safe-html/safe-html";
 import { normalizeAriaInvalid } from "../../internal/form/aria-invalid-utils";
