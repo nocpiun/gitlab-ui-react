@@ -212,6 +212,9 @@ export const Searchable: Story = {
     await expect(security).not.toHaveAttribute("data-highlighted");
     await expect(security).not.toHaveClass("gl-new-dropdown-item-highlighted");
 
+    await userEvent.keyboard("{ArrowUp}");
+    await waitFor(() => expect(search).toHaveAttribute("aria-activedescendant", security.id));
+
     await userEvent.type(search, "e");
     await waitFor(() => expect(canvas.getAllByRole("option")).toHaveLength(4));
     await waitFor(() => expect(search).toHaveAttribute("aria-activedescendant"));

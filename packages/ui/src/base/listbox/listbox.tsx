@@ -969,7 +969,9 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
       if(event.key === "ArrowDown") {
         next = items[(currentIndex + 1 + items.length) % items.length];
       } else if(event.key === "ArrowUp") {
-        next = items[(currentIndex - 1 + items.length) % items.length];
+        next = currentIndex < 0
+          ? items.at(-1)
+          : items[(currentIndex - 1 + items.length) % items.length];
       } else if(event.key === "Home") {
         next = items[0];
       } else if(event.key === "End") {
