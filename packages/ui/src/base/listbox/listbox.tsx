@@ -297,6 +297,18 @@ function valuesEqual(left: GlListboxValue, right: GlListboxValue) {
   return Object.is(left, right);
 }
 
+function normalizeUncontrolledSelection(
+  selection: GlListboxValue | GlListboxValue[],
+  multiple: boolean,
+): GlListboxValue | GlListboxValue[] {
+  if(multiple) {
+    if(Array.isArray(selection)) return selection;
+    return selection === null ? [] : [selection];
+  }
+
+  return Array.isArray(selection) ? selection[0] ?? null : selection;
+}
+
 function mapChangeReason(reason: BaseMenu.Root.ChangeEventReason): GlListboxCloseReason {
   switch(reason) {
     case "trigger-focus":
@@ -359,9 +371,19 @@ export const GlListbox = forwardRef<GlListboxHandle, GlListboxProps>(
     const forceReturnFocusRef = useRef(false);
     const handle = useMemo(() => BaseMenu.createHandle<unknown>(), []);
     const effectiveOpen = controlledOpen ?? uncontrolledOpen;
+    const normalizedUncontrolledSelection = useMemo(
+      () => normalizeUncontrolledSelection(uncontrolledSelection, multiple),
+      [multiple, uncontrolledSelection],
+    );
     const selection = controlledValue === undefined
-      ? uncontrolledSelection
+      ? normalizedUncontrolledSelection
       : controlledValue;
+
+    useEffect(() => {
+      if(normalizedUncontrolledSelection !== uncontrolledSelection) {
+        setUncontrolledSelection(normalizedUncontrolledSelection);
+      }
+    }, [normalizedUncontrolledSelection, uncontrolledSelection]);
 
     const isSelected = useCallback((itemValue: GlListboxValue) => (
       multiple

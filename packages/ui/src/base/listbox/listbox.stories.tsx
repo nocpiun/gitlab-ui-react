@@ -269,6 +269,40 @@ export const BaseUiStateSynchronization: Story = {
   },
 };
 
+function ChangingSelectionModeExample() {
+  const [multiple, setMultiple] = useState(false);
+
+  return (
+    <div style={{ display: "grid", gap: "1rem", justifyItems: "start" }}>
+      <GlButton onClick={() => setMultiple((current) => !current)}>
+        Use {multiple ? "single" : "multiple"} selection
+      </GlButton>
+      <GlListbox {...(multiple ? { multiple: true as const } : {})}>
+        <GlListboxTrigger>Changing selection mode</GlListboxTrigger>
+        <GlListboxContent>
+          <GlListboxGroup>
+            <GlListboxItem value="alpha">Alpha</GlListboxItem>
+            <GlListboxItem value="beta">Beta</GlListboxItem>
+          </GlListboxGroup>
+        </GlListboxContent>
+      </GlListbox>
+    </div>
+  );
+}
+
+export const ChangingSelectionMode: Story = {
+  render: () => <ChangingSelectionModeExample />,
+  play: async ({ canvas }) => {
+    await userEvent.click(canvas.getByRole("button", { name: "Use multiple selection" }));
+    await userEvent.click(canvas.getByRole("button", { name: "Changing selection mode" }));
+
+    const listbox = await canvas.findByRole("listbox");
+    await expect(listbox).toHaveAttribute("aria-multiselectable", "true");
+    await expect(within(listbox).getByRole("option", { name: "Alpha" }))
+      .toHaveAttribute("aria-selected", "false");
+  },
+};
+
 const departments = [
   { label: "Frontend", value: "frontend" },
   { label: "Backend", value: "backend" },
