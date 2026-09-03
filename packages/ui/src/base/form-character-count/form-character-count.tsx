@@ -13,7 +13,7 @@
 
 import { useEffect, useState, type HTMLAttributes, type ReactNode } from "react";
 import { cva } from "class-variance-authority";
-import clsx from "clsx";
+import { cn } from "../../internal/utils/cn";
 
 const countTextVariants = cva("form-text", {
   variants: {
@@ -66,7 +66,7 @@ export default function GlFormCharacterCount({
   }, [currentText]);
 
   return (
-    <div {...elementProps} className={clsx("gl-form-character-count", className)}>
+    <div {...elementProps} className={cn("gl-form-character-count", className)}>
       <small className={countTextVariants({ overLimit: isOverLimit })} aria-hidden="true">
         {currentText}
       </small>

@@ -44,7 +44,7 @@ import {
   type ReactNode,
 } from "react";
 import { cva } from "class-variance-authority";
-import clsx from "clsx";
+import { cn } from "../../internal/utils/cn";
 import { looseEqual, looseIndexOf } from "../../internal/form/equality-utils";
 import { mergeRefs } from "../../internal/utils/merge-refs";
 import { GlFormCheckboxGroupContext } from "./form-checkbox-group-context";
@@ -217,7 +217,7 @@ const GlFormCheckbox = forwardRef<HTMLInputElement, GlFormCheckboxProps>(functio
 
   return (
     <div
-      className={clsx("gl-form-checkbox custom-checkbox custom-control", className)}>
+      className={cn("gl-form-checkbox custom-checkbox custom-control", className)}>
       <input
         {...elementProps}
         ref={mergeRefs(inputRef, forwardedRef)}

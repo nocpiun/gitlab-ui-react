@@ -1,4 +1,4 @@
-/** Matches `<array>.filter(Boolean).join(...)` used as a className, and suggests clsx() instead. */
+/** Matches `<array>.filter(Boolean).join(...)` used as a className, and suggests cn() instead. */
 
 const CLASS_NAME_SINK = /className$/i;
 
@@ -78,15 +78,15 @@ function flowsIntoClassName(sourceCode, node, seen = new Set()) {
   return false;
 }
 
-const preferClsx = {
+const preferCn = {
   meta: {
     type: "suggestion",
     docs: {
-      description: "Prefer clsx() over [...].filter(Boolean).join(...) to merge class names",
+      description: "Prefer cn() over [...].filter(Boolean).join(...) to merge class names",
     },
     messages: {
-      preferClsx:
-        "Use `clsx()` to merge class names instead of `[...].filter(Boolean).join(...)`.",
+      preferCn:
+        "Use `cn()` to merge class names instead of `[...].filter(Boolean).join(...)`.",
     },
     schema: [],
   },
@@ -119,7 +119,7 @@ const preferClsx = {
 
         if(!flowsIntoClassName(context.sourceCode, node)) return;
 
-        context.report({ node, messageId: "preferClsx" });
+        context.report({ node, messageId: "preferCn" });
       },
     };
   },
@@ -127,5 +127,5 @@ const preferClsx = {
 
 export default {
   meta: { name: "gitlab-ui-react" },
-  rules: { "prefer-clsx": preferClsx },
+  rules: { "prefer-cn": preferCn },
 };

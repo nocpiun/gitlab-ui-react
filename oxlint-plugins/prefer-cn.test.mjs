@@ -9,7 +9,7 @@ const pluginDir = path.dirname(fileURLToPath(import.meta.url));
 const fixturesDir = path.join(pluginDir, "fixtures");
 const oxlintBin = path.join(path.dirname(pluginDir), "node_modules", "oxlint", "bin", "oxlint");
 const configPath = path.join(path.dirname(pluginDir), ".oxlintrc.json");
-const ruleCode = "gitlab-ui-react(prefer-clsx)";
+const ruleCode = "gitlab-ui-react(prefer-cn)";
 
 // Expected flagged lines per fixture file; keep in sync with the fixture
 // sources under oxlint-plugins/fixtures.
@@ -25,7 +25,7 @@ let workDir;
 let flaggedByFile;
 
 beforeAll(() => {
-  workDir = mkdtempSync(path.join(tmpdir(), "prefer-clsx-"));
+  workDir = mkdtempSync(path.join(tmpdir(), "prefer-cn-"));
   for(const name of readdirSync(fixturesDir)) {
     copyFileSync(path.join(fixturesDir, name), path.join(workDir, name));
   }
@@ -64,7 +64,7 @@ function flaggedLines(file) {
   return (flaggedByFile.get(file) ?? []).sort((a, b) => a - b);
 }
 
-describe("oxlint rule gitlab-ui-react/prefer-clsx", () => {
+describe("oxlint rule gitlab-ui-react/prefer-cn", () => {
   it("flags className JSX attributes, with any join separator", () => {
     expect(flaggedLines("jsx-attribute.tsx")).toEqual(expectations["jsx-attribute.tsx"]);
   });

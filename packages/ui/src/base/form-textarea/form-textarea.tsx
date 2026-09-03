@@ -35,9 +35,9 @@ import {
   type TextareaHTMLAttributes,
 } from "react";
 import { cva } from "class-variance-authority";
-import clsx, { type ClassValue } from "clsx";
 import GlFormCharacterCount from "../form-character-count/form-character-count";
 import { normalizeAriaInvalid } from "../../internal/form/aria-invalid-utils";
+import { cn, type ClassValue } from "../../internal/utils/cn";
 import { mergeRefs } from "../../internal/utils/merge-refs";
 import { observeVisibility } from "./visible";
 
@@ -136,7 +136,7 @@ export type GlFormTextareaProps = NativeTextareaProps & {
   style?: CSSProperties;
   /** Enables Ctrl/Cmd+Enter submission. */
   submitOnEnter?: boolean;
-  /** Additional clsx-compatible classes applied to the native textarea. */
+  /** Additional class name values applied to the native textarea. */
   textareaClasses?: ClassValue;
   /** Current textarea value. */
   value?: string | null;
@@ -402,7 +402,7 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
     }
 
     const textareaClassName = textareaVariants({
-      className: clsx(textareaClasses, className) || undefined,
+      className: cn(textareaClasses, className) || undefined,
       size,
       state: computedState === true ? "valid" : computedState === false ? "invalid" : "neutral",
     });

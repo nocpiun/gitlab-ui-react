@@ -33,7 +33,7 @@
  */
 
 import { forwardRef, useState, type CSSProperties } from "react";
-import clsx from "clsx";
+import { cn } from "../../internal/utils/cn";
 import GlButton from "../button/button";
 import GlFormInput, { type GlFormInputProps, widthClasses } from "../form-input/form-input";
 import GlTooltip from "../tooltip/tooltip";
@@ -103,12 +103,12 @@ const GlFormPasswordInput = forwardRef<HTMLInputElement, GlFormPasswordInputProp
 
     return (
       <div
-        className={clsx("gl-form-password-input", widthClasses(width), className)}
+        className={cn("gl-form-password-input", widthClasses(width), className)}
         style={style}>
         <GlFormInput
           {...inputProps}
           ref={forwardedRef}
-          className={clsx("gl-form-password-input-field", inputClassName)}
+          className={cn("gl-form-password-input-field", inputClassName)}
           disabled={disabled}
           onInput={onInput}
           type={isMasked ? "password" : "text"}

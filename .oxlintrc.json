@@ -33,7 +33,7 @@
     },
     {
       "name": "gitlab-ui-react",
-      "specifier": "./oxlint-plugins/prefer-clsx.mjs"
+      "specifier": "./oxlint-plugins/prefer-cn.mjs"
     }
   ],
   "overrides": [
@@ -117,7 +117,7 @@
           ],
           "newlines-between": "ignore"
         }],
-        "gitlab-ui-react/prefer-clsx": "warn",
+        "gitlab-ui-react/prefer-cn": "warn",
       }
     }
   ]
