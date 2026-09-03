@@ -20,6 +20,7 @@ import GlDisclosureDropdown, {
   GlDisclosureDropdownContent,
   GlDisclosureDropdownItem,
   GlDisclosureDropdownTrigger,
+  type GlDisclosureDropdownActionDetails,
   type GlDisclosureDropdownBeforeCloseDetails,
   type GlDisclosureDropdownHandle,
 } from "./disclosure-dropdown";
@@ -139,10 +140,14 @@ export const KeyboardNavigation: Story = {
 };
 
 const itemAction = fn();
+let rootActionCurrentTarget: EventTarget | null = null;
+const rootAction = fn((details: GlDisclosureDropdownActionDetails) => {
+  rootActionCurrentTarget = details.event.currentTarget;
+});
 
 export const ActionsAndAutoClose: Story = {
   args: {
-    onAction: fn(),
+    onAction: rootAction,
   },
   render: (args) => (
     <GlDisclosureDropdown {...args}>
@@ -162,12 +167,16 @@ export const ActionsAndAutoClose: Story = {
   ),
   play: async ({ args, canvas }) => {
     itemAction.mockClear();
+    rootAction.mockClear();
+    rootActionCurrentTarget = null;
     const trigger = canvas.getByRole("button", { name: "Action order" });
     await userEvent.click(trigger);
-    await userEvent.click(await canvas.findByRole("menuitem", { name: "Keep open" }));
+    const keepOpenItem = await canvas.findByRole("menuitem", { name: "Keep open" });
+    await userEvent.click(keepOpenItem);
 
     await expect(itemAction).toHaveBeenCalledOnce();
     await waitFor(() => expect(args.onAction).toHaveBeenCalledOnce());
+    await expect(rootActionCurrentTarget).toBe(keepOpenItem);
     await expect(itemAction.mock.invocationCallOrder[0])
       .toBeLessThan((args.onAction as any).mock.invocationCallOrder[0]!);
     await expect(args.onAction).toHaveBeenLastCalledWith(expect.objectContaining({

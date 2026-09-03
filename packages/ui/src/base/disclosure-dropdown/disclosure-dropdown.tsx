@@ -357,8 +357,7 @@ export const GlDisclosureDropdown = forwardRef<
   const dispatchAction = useCallback((details: GlDisclosureDropdownActionDetails) => {
     if(!onAction) return;
 
-    // Let Base UI finish its composed click handler without delaying past native link navigation.
-    queueMicrotask(() => onAction(details));
+    onAction(details);
   }, [onAction]);
 
   const handleOpenChange = useCallback((
