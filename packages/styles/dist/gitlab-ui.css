@@ -5005,7 +5005,7 @@ input[type="color"].gl-form-input.form-control:disabled {
   text-decoration-line: underline;
 }
 .gl-link-external::after {
-  content: " ↗";
+  content: " ↗" / attr(data-alt);
   font-size: 1em;
 }
 .gl-link-meta {
