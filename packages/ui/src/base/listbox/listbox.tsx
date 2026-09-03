@@ -815,8 +815,8 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
       if(focusedForCurrentOpenRef.current) return;
       if(searchable && !searchInputElement) return;
       if(!searchable && registryRef.current.size === 0) return;
-      focusedForCurrentOpenRef.current = true;
       const frame = requestAnimationFrame(() => {
+        focusedForCurrentOpenRef.current = true;
         const items = getOrderedItems();
         if(searchable) {
           searchInputElement?.focus();

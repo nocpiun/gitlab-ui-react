@@ -72,8 +72,9 @@ export const Default: Story = {
     await expect(options).toHaveLength(3);
     await expect(canvas.queryByRole("menu")).not.toBeInTheDocument();
     await expect(canvas.queryByRole("menuitemradio")).not.toBeInTheDocument();
-    await expect(within(listbox).getByRole("option", { name: "Backend" }))
-      .toHaveAttribute("aria-selected", "true");
+    const selectedOption = within(listbox).getByRole("option", { name: "Backend" });
+    await expect(selectedOption).toHaveAttribute("aria-selected", "true");
+    await waitFor(() => expect(selectedOption).toHaveFocus());
     await expect(within(listbox).getByRole("option", { name: "Security" }))
       .toHaveAttribute("aria-disabled", "true");
 
