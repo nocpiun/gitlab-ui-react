@@ -244,6 +244,21 @@ export const BaseUIStateSynchronization: Story = {
         </GlListboxContent>
       </GlListbox>
 
+      <GlListbox>
+        <GlListboxTrigger>All hidden search results</GlListboxTrigger>
+        <GlListboxContent noResultsText="No visible results">
+          <GlListboxSearchInput placeholder="Search hidden results" />
+          <GlListboxGroup>
+            <GlListboxItem hidden value="all-hidden-search-native">
+              All-hidden native search result
+            </GlListboxItem>
+            <GlListboxItem style={{ display: "none" }} value="all-hidden-search-css">
+              All-hidden CSS search result
+            </GlListboxItem>
+          </GlListboxGroup>
+        </GlListboxContent>
+      </GlListbox>
+
       <GlListbox defaultOpen>
         <GlListboxTrigger id="default-open-listbox-trigger">
           Default-open custom listbox trigger
@@ -279,10 +294,15 @@ export const BaseUIStateSynchronization: Story = {
     await userEvent.click(searchTrigger);
     const searchInput = await canvas.findByRole("combobox", { name: "Search" });
     await waitFor(() => expect(searchInput).toHaveFocus());
+    await expect(canvas.getByTestId("listbox-number-of-results")).toHaveTextContent("1 result");
     await userEvent.keyboard("{ArrowDown}");
     await expect(searchInput).toHaveAttribute("aria-activedescendant", "visible-search-result");
     await userEvent.keyboard("{Escape}");
     await expect(searchTrigger).toHaveAttribute("aria-expanded", "true");
+
+    await userEvent.click(canvas.getByRole("button", { name: "All hidden search results" }));
+    await expect(await canvas.findByText("No visible results")).toBeVisible();
+    await expect(canvas.queryByTestId("listbox-number-of-results")).not.toBeInTheDocument();
   },
 };
 

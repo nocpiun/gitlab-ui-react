@@ -737,11 +737,12 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
     const getOrderedItems = useCallback(() => (
       [...registryRef.current.values()].sort(compareDomOrder)
     ), []);
-    const getNavigableItems = useCallback(() => (
-      getOrderedItems().filter((item) => (
-        !item.disabled && isDropdownItemVisible(item.element)
-      ))
+    const getVisibleItems = useCallback(() => (
+      getOrderedItems().filter((item) => isDropdownItemVisible(item.element))
     ), [getOrderedItems]);
+    const getNavigableItems = useCallback(() => (
+      getVisibleItems().filter((item) => !item.disabled)
+    ), [getVisibleItems]);
     const registerItem = useCallback((item: RegisteredListboxItem) => {
       registryRef.current.set(item.key, item);
       setRegistryVersion((version) => version + 1);
@@ -1040,7 +1041,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
       updateSearchValue,
     ]);
 
-    const itemCount = registryRef.current.size;
+    const itemCount = getVisibleItems().length;
     const itemRegistrationSettled = context.open && settledRegistryVersion === registryVersion;
     const listItems = context.multiple ? contentChildren.body : (
       <BaseMenu.RadioGroup
