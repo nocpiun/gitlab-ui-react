@@ -231,6 +231,7 @@ function SearchableWithHeaderExample() {
         resultsAnnouncement={(count) => `${count} matching departments`}
         search={(
           <GlListboxSearchInput
+            id="department-search-input"
             onValueChange={setQuery}
             placeholder="Find department"
             value={query} />
@@ -253,9 +254,12 @@ export const SearchableWithHeader: Story = {
     const headerContent = header.parentElement;
     const headerRegion = headerContent?.parentElement;
     const search = await canvas.findByRole("combobox", { name: "Find department" });
+    const listbox = canvas.getByRole("listbox");
     await expect(headerContent).toHaveClass("gl-new-dropdown-header-content");
     await expect(headerRegion).toHaveClass("gl-new-dropdown-header");
     await expect(headerRegion?.nextElementSibling).toHaveClass("gl-listbox-search-container");
+    await expect(search).toHaveAttribute("id", "department-search-input");
+    await waitFor(() => expect(listbox).toHaveAttribute("aria-labelledby", search.id));
     await waitFor(() => expect(search).toHaveFocus());
     await userEvent.click(search);
     await expect(trigger).toHaveAttribute("aria-expanded", "true");

@@ -171,8 +171,8 @@ export type GlListboxContentProps = ListboxPopupProps & {
   footer?: ReactNode;
   header?: ReactNode;
   infiniteScrollLoading?: boolean;
-  loadingAnnouncement?: ReactNode;
-  loadingMoreAnnouncement?: ReactNode;
+  loadingAnnouncement?: string;
+  loadingMoreAnnouncement?: string;
   noResultsText?: ReactNode;
   offset?: GlListboxOffset;
   onBottomReached?: () => void;
@@ -182,7 +182,7 @@ export type GlListboxContentProps = ListboxPopupProps & {
   resultsAnnouncement?: (count: number) => ReactNode;
   search?: ReactNode;
   searching?: boolean;
-  searchingAnnouncement?: ReactNode;
+  searchingAnnouncement?: string;
   style?: CSSProperties;
   totalItems?: number;
 };
@@ -261,6 +261,7 @@ type ListboxContentContextValue = {
   searchInputId: string;
   searchable: boolean;
   setActiveItemId(id: string | null): void;
+  setSearchInputId(id: string): void;
   setSearchInputElement(element: HTMLInputElement | null): void;
   setSearchValue(value: string): void;
   totalItems?: number;
@@ -737,14 +738,14 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
     ...popupProps
   }, forwardedRef) {
     const context = useListboxContext("GlListboxContent");
-    const generatedSearchInputId = useId();
-    const searchInputId = `gl-listbox-search-${generatedSearchInputId}`;
     const registryRef = useRef(new Map<string, RegisteredItem>());
     const [registryVersion, setRegistryVersion] = useState(0);
     const [activeItemId, setActiveItemId] = useState<string | null>(null);
     const [arrowPadding, setArrowPadding] = useState(5);
     const [nonScrollableHeight, setNonScrollableHeight] = useState(0);
     const [popupElement, setPopupElement] = useState<HTMLDivElement | null>(null);
+    const generatedSearchInputId = useId();
+    const [searchInputId, setSearchInputId] = useState<string>(`gl-listbox-search-${generatedSearchInputId}`);
     const [scrollElement, setScrollElement] = useState<HTMLDivElement | null>(null);
     const [searchInputElement, setSearchInputElement] = useState<HTMLInputElement | null>(null);
     const [searchValue, setSearchValue] = useState("");
@@ -1034,6 +1035,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
       searchable,
       searchInputId,
       setActiveItemId,
+      setSearchInputId,
       setSearchInputElement,
       setSearchValue: updateSearchValue,
       totalItems,
@@ -1067,13 +1069,10 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
         {children}
       </BaseMenu.RadioGroup>
     );
-    const busyAnnouncement = infiniteScrollLoading
-      ? loadingMoreAnnouncement
-      : searching
-        ? searchingAnnouncement
-        : context.loading
-          ? loadingAnnouncement
-          : null;
+    const showStandaloneLoadingAnnouncement = context.loading
+      && !searching
+      && !infiniteScrollLoading
+      && itemCount > 0;
     const popupRender: NonNullable<BaseMenu.Popup.Props["render"]> = (renderProps) => {
       const semanticProps = { ...renderProps };
       delete semanticProps.role;
@@ -1115,7 +1114,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
                 <GlLoadingIcon
                   className="gl-listbox-search-loader"
                   data-testid="listbox-search-loader"
-                  label={String(searchingAnnouncement)}
+                  label={searchingAnnouncement}
                   size="md" />
               ) : (
                 <div
@@ -1123,7 +1122,9 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
                   aria-busy={busy || undefined}
                   aria-label={ariaLabel}
                   aria-labelledby={ariaLabel ? undefined : (
-                    ariaLabelledBy ?? (searchable ? searchInputId : context.triggerId)
+                    ariaLabelledBy ?? (
+                      searchable ? searchInputId : context.triggerId
+                    )
                   )}
                   aria-multiselectable={context.multiple || undefined}
                   className={clsx(
@@ -1152,7 +1153,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
                     <div className="gl-listbox-infinite-loader" role="presentation">
                       <GlLoadingIcon
                         data-testid="listbox-infinite-scroll-loader"
-                        label={String(loadingMoreAnnouncement)}
+                        label={loadingMoreAnnouncement}
                         size="md" />
                     </div>
                   ) : null}
@@ -1173,7 +1174,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
                   <GlLoadingIcon
                     className="gl-listbox-loading"
                     data-testid="listbox-loading"
-                    label={String(loadingAnnouncement)}
+                    label={loadingAnnouncement}
                     size="md" />
                 ) : (
                   <div
@@ -1192,12 +1193,12 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
                   {resultsAnnouncement(itemCount)}
                 </span>
               ) : null}
-              {busyAnnouncement ? (
+              {showStandaloneLoadingAnnouncement ? (
                 <span
                   aria-live="polite"
                   className="gl-sr-only"
                   data-testid="listbox-loading-announcement">
-                  {busyAnnouncement}
+                  {loadingAnnouncement}
                 </span>
               ) : null}
               {footer !== undefined ? (

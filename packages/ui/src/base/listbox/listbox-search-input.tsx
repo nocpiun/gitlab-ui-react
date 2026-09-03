@@ -51,6 +51,7 @@ export const GlListboxSearchInput = forwardRef<
   ...inputProps
 }, forwardedRef) {
   const contentContext = useContext(ListboxContentContext);
+  const setSearchInputId = contentContext?.setSearchInputId;
   const setSearchInputElement = contentContext?.setSearchInputElement;
   const setSearchValue = contentContext?.setSearchValue;
   const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
@@ -63,6 +64,12 @@ export const GlListboxSearchInput = forwardRef<
     setSearchInputElement?.(inputElement);
     return () => setSearchInputElement?.(null);
   }, [inputElement, setSearchInputElement]);
+
+  useEffect(() => {
+    if(!actualId) return;
+    setSearchInputId?.(actualId);
+    return () => setSearchInputId?.(null);
+  }, [actualId, setSearchInputId]);
 
   useEffect(() => {
     setSearchValue?.(actualValue);
