@@ -14,7 +14,7 @@ import {
   type KeyboardEventHandler,
   type MouseEventHandler,
 } from "react";
-import clsx from "clsx";
+import { clsx } from "cn";
 import GlButton from "../button/button";
 import GlIcon from "../icon/icon";
 import { useMergedRefs } from "../../internal/utils/merge-refs";

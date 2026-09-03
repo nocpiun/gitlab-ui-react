@@ -6,7 +6,7 @@ import {
   type ComponentPropsWithoutRef,
   type CSSProperties,
 } from "react";
-import clsx from "clsx";
+import { clsx } from "cn";
 import {
   expect,
   fn,

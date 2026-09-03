@@ -32,7 +32,7 @@ import {
 import { Menu as BaseMenu } from "@base-ui/react/menu";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { cva } from "class-variance-authority";
-import clsx from "clsx";
+import { clsx } from "cn";
 import GlButton, {
   type GlButtonCategory,
   type GlButtonSize,
