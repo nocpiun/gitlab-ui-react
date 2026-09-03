@@ -33,7 +33,7 @@
  */
 
 import { forwardRef, useState, type CSSProperties } from "react";
-import clsx from "clsx";
+import { clsx } from "cn";
 import GlButton from "../button/button";
 import GlFormInput, { type GlFormInputProps, widthClasses } from "../form-input/form-input";
 import GlTooltip from "../tooltip/tooltip";
