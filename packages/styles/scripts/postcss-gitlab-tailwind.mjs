@@ -49,33 +49,6 @@ async function prepareStylesheet(postcss, content, from) {
   return result.css;
 }
 
-function removeOneIndentLevel(node) {
-  for(const property of ["before", "after"]) {
-    const rawValue = node.raws[property];
-    if(typeof rawValue === "string") {
-      node.raws[property] = rawValue.replace(/(\r?\n) {2}/gu, "$1");
-    }
-  }
-
-  for(const child of node.nodes ?? []) removeOneIndentLevel(child);
-}
-
-function hoistKeyframesFromStyleRules(root) {
-  const keyframesToHoist = [];
-
-  root.walkAtRules((atRule) => {
-    if(!atRule.name.endsWith("keyframes") || atRule.parent?.type !== "rule") return;
-
-    atRule.remove();
-    atRule.raws.before = "\n";
-    atRule.raws.after = "\n";
-    for(const child of atRule.nodes ?? []) removeOneIndentLevel(child);
-    keyframesToHoist.push(atRule);
-  });
-
-  root.append(keyframesToHoist);
-}
-
 export default function gitlabTailwind({ candidates = [], sources: additionalSources = [] } = {}) {
   return {
     postcssPlugin: "gitlab-tailwind-v3-prefix-compatibility",
@@ -117,9 +90,6 @@ export default function gitlabTailwind({ candidates = [], sources: additionalSou
       const compiledRoot = postcss.parse(css, { from });
 
       restoreLegacySelectors(compiledRoot, candidateMap);
-      // Tailwind 4 preserves plugin-authored nested keyframes, but production
-      // CSS minifiers expect keyframes at the stylesheet root.
-      hoistKeyframesFromStyleRules(compiledRoot);
 
       root.removeAll();
       root.append(compiledRoot.nodes);

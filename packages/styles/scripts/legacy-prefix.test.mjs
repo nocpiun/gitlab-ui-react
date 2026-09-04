@@ -41,7 +41,7 @@ test("compiles @apply and restores upstream gl-* selectors", async () => {
   expect(result.css).not.toMatch(/:where\(\.gl-dark \*\)/u);
 }, 30000);
 
-test("hoists plugin keyframes and expands nested media rules", async () => {
+test("expands nested media rules", async () => {
   const input = await readFile(inputPath, "utf8");
   const result = await postcss(
     createPostcssPlugins({ candidates: ["animate-skeleton-loader"] }),
@@ -50,18 +50,10 @@ test("hoists plugin keyframes and expands nested media rules", async () => {
   const skeletonRule = root.nodes.find(
     (node) => node.type === "rule" && node.selector === ".gl-animate-skeleton-loader",
   );
-  const keyframes = root.nodes.find(
-    (node) => node.type === "atrule"
-      && node.name === "keyframes"
-      && node.params === "gl-keyframes-skeleton-loader",
-  );
-
   expect(skeletonRule).toBeDefined();
-  expect(skeletonRule.nodes.some((node) => node.type === "atrule")).toBe(false);
   expect(skeletonRule.nodes.some(
-    (node) => node.type === "atrule" && node.name === "keyframes",
+    (node) => node.type === "atrule" && node.name === "media",
   )).toBe(false);
-  expect(keyframes).toBeDefined();
   const reducedMotionRules = root.nodes
     .filter(
       (node) => node.type === "atrule"
@@ -72,9 +64,6 @@ test("hoists plugin keyframes and expands nested media rules", async () => {
   expect(reducedMotionRules.some(
     (node) => node.type === "rule" && node.selector === ".gl-animate-skeleton-loader",
   )).toBe(true);
-  expect(result.css).toContain(
-    "\n@keyframes gl-keyframes-skeleton-loader {\n  0% {",
-  );
 }, 30000);
 
 test("expands the Sass-like nesting forms used by upstream styles", async () => {

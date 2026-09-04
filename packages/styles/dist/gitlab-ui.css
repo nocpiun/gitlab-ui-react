@@ -6928,6 +6928,14 @@ table.gl-table.table-borderless tr > :is(th, td) {
     animation-iteration-count: 3
 }
   }
+@keyframes gl-keyframes-skeleton-loader {
+    0% {
+      background-position-x: -32rem;
+    }
+    100% {
+      background-position-x: 32rem;
+    }
+  }
 .\!gl-max-w-20 {
   max-width: var(--gl-spacing-scale-20) !important;
 }
@@ -7322,13 +7330,5 @@ table.gl-table.table-borderless tr > :is(th, td) {
       --tw-duration: initial;
       --tw-ease: initial;
     }
-  }
-}
-@keyframes gl-keyframes-skeleton-loader {
-  0% {
-    background-position-x: -32rem;
-  }
-  100% {
-    background-position-x: 32rem;
   }
 }
