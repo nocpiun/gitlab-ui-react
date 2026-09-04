@@ -1,0 +1,26 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/skeleton_loader/skeleton_loader.scss
+ */
+
+.gl-skeleton-loader-default-container {
+  width: 235px;
+}
+
+.gl-skeleton-loader-fill-background-color {
+  fill: var(--gl-skeleton-loader-background-color);
+}
+
+.gl-skeleton-loader {
+  stop {
+    @apply gl-opacity-10;
+  }
+
+  .background-stop {
+    stop-color: var(--gl-skeleton-loader-background-color);
+  }
+
+  .shimmer-stop {
+    stop-color: var(--gl-skeleton-loader-shimmer-color);
+  }
+}

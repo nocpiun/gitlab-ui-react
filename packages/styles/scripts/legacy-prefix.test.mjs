@@ -39,3 +39,31 @@ test("compiles @apply and restores upstream gl-* selectors", async () => {
   );
   expect(result.css).not.toMatch(/:where\(\.gl-dark \*\)/u);
 }, 30000);
+
+test("hoists plugin keyframes while preserving nested media rules", async () => {
+  const input = await readFile(inputPath, "utf8");
+  const result = await postcss([
+    gitlabTailwind({ candidates: ["animate-skeleton-loader"] }),
+  ]).process(input, { from: inputPath });
+  const root = postcss.parse(result.css);
+  const skeletonRule = root.nodes.find(
+    (node) => node.type === "rule" && node.selector === ".gl-animate-skeleton-loader",
+  );
+  const keyframes = root.nodes.find(
+    (node) => node.type === "atrule"
+      && node.name === "keyframes"
+      && node.params === "gl-keyframes-skeleton-loader",
+  );
+
+  expect(skeletonRule).toBeDefined();
+  expect(skeletonRule.nodes.some(
+    (node) => node.type === "atrule" && node.name === "media",
+  )).toBe(true);
+  expect(skeletonRule.nodes.some(
+    (node) => node.type === "atrule" && node.name === "keyframes",
+  )).toBe(false);
+  expect(keyframes).toBeDefined();
+  expect(result.css).toContain(
+    "\n@keyframes gl-keyframes-skeleton-loader {\n  0% {",
+  );
+}, 30000);
