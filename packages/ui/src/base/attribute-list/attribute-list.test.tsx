@@ -7,13 +7,15 @@ import {
   createRef,
   Fragment,
   type CSSProperties,
-  type ReactNode,
 } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
-import GlAttributeList, { GlAttributeListItem } from "./attribute-list";
+import GlAttributeList, {
+  GlAttributeListItem,
+  type GlAttributeListProps,
+} from "./attribute-list";
 
-const renderList = (children: ReactNode = null) => renderToStaticMarkup(
+const renderList = (children: GlAttributeListProps["children"] = null) => renderToStaticMarkup(
   <GlAttributeList>{children}</GlAttributeList>,
 );
 
@@ -47,7 +49,7 @@ describe("GlAttributeList", () => {
     );
   });
 
-  it("derives the two-column row count from renderable children", () => {
+  it("derives the two-column row count from directly inspectable items", () => {
     const visible = true;
     const markup = renderList(
       <>
@@ -63,6 +65,26 @@ describe("GlAttributeList", () => {
     );
 
     expect(markup).toContain("--attribute-list-row-count:3");
+  });
+
+  it("rejects opaque child components whose rendered item count cannot be inspected", () => {
+    function AttributeGroup() {
+      return (
+        <>
+          <GlAttributeListItem label="One">1</GlAttributeListItem>
+          <GlAttributeListItem label="Two">2</GlAttributeListItem>
+        </>
+      );
+    }
+
+    expect(() => renderToStaticMarkup(
+      <GlAttributeList>
+        <AttributeGroup />
+      </GlAttributeList>,
+    )).toThrowError(
+      "GlAttributeList only accepts GlAttributeListItem as direct children. "
+      + "Arrays, Fragments, and conditional children are supported.",
+    );
   });
 
   it("uses zero rows for an empty list and keeps its internal row count authoritative", () => {

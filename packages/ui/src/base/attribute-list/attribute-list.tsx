@@ -4,6 +4,8 @@
  *
  * Adaptations:
  * - The upstream items and scoped-slot API is expressed as React composition.
+ * - Children must be directly inspectable GlAttributeListItem elements so the
+ *   upstream column-first layout can derive an exact row count during render.
  * - A private container establishes the inline-size query used by the upstream
  *   responsive layout, so consumers do not need to configure one themselves.
  */
@@ -17,6 +19,7 @@ import {
   useContext,
   type CSSProperties,
   type HTMLAttributes,
+  type ReactElement,
   type ReactNode,
 } from "react";
 import { cva } from "class-variance-authority";
@@ -24,11 +27,22 @@ import GlIcon from "../icon/icon";
 
 export type GlAttributeListLayout = "horizontal" | "vertical";
 
+type GlAttributeListChild =
+  | ReactElement<GlAttributeListItemProps>
+  | readonly GlAttributeListChild[]
+  | boolean
+  | null
+  | undefined;
+
 export type GlAttributeListProps = Omit<
   HTMLAttributes<HTMLDListElement>,
   "children"
 > & {
-  children?: ReactNode;
+  /**
+   * Direct GlAttributeListItem children. Arrays, Fragments, and conditional
+   * children are supported; opaque wrapper components are not.
+   */
+  children?: GlAttributeListChild;
   /** Classes applied to every item label. */
   labelClassName?: string;
   /** Classes applied to every item description. */
@@ -77,7 +91,7 @@ const attributeListItemDescriptionVariants = cva(
   "gl-attribute-list-item-description",
 );
 
-function countRenderableChildren(children: ReactNode): number {
+function countAttributeListItems(children: GlAttributeListChild): number {
   let count = 0;
 
   Children.forEach(children, (child) => {
@@ -85,12 +99,20 @@ function countRenderableChildren(children: ReactNode): number {
       return;
     }
 
-    if(isValidElement<{ children?: ReactNode }>(child) && child.type === Fragment) {
-      count += countRenderableChildren(child.props.children);
+    if(isValidElement<{ children?: GlAttributeListChild }>(child) && child.type === Fragment) {
+      count += countAttributeListItems(child.props.children);
       return;
     }
 
-    count += 1;
+    if(isValidElement(child) && child.type === GlAttributeListItem) {
+      count += 1;
+      return;
+    }
+
+    throw new Error(
+      "GlAttributeList only accepts GlAttributeListItem as direct children. "
+      + "Arrays, Fragments, and conditional children are supported.",
+    );
   });
 
   return count;
@@ -106,7 +128,7 @@ const GlAttributeList = forwardRef<HTMLDListElement, GlAttributeListProps>(
     style,
     ...elementProps
   }, forwardedRef) {
-    const rowCount = Math.ceil(countRenderableChildren(children) / 2);
+    const rowCount = Math.ceil(countAttributeListItems(children) / 2);
     const listStyle = {
       ...style,
       "--attribute-list-row-count": rowCount,
