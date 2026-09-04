@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import postcss from "postcss";
 import selectorParser from "postcss-selector-parser";
 import { expect, test } from "vitest";
-import gitlabTailwind from "./postcss-gitlab-tailwind.mjs";
+import { createPostcssPlugins } from "../postcss.config.mjs";
 
 const packageDirectory = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const inputPath = path.join(packageDirectory, "src/index.css");
@@ -12,11 +12,11 @@ const fixtureDirectory = path.join(packageDirectory, "scripts/fixtures");
 
 async function compile() {
   const input = await readFile(inputPath, "utf8");
-  const result = await postcss([
-    gitlabTailwind({
+  const result = await postcss(
+    createPostcssPlugins({
       sources: [{ base: fixtureDirectory, pattern: "*.html", negated: false }],
     }),
-  ]).process(input, { from: inputPath });
+  ).process(input, { from: inputPath });
   return postcss.parse(result.css);
 }
 

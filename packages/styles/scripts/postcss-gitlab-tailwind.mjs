@@ -4,6 +4,7 @@ import path from "node:path";
 
 import { loadModule } from "@tailwindcss/node";
 import { Scanner } from "@tailwindcss/oxide";
+import postcssNested from "postcss-nested";
 import { compile } from "tailwindcss";
 
 import {
@@ -31,6 +32,20 @@ function compilerSources(compiler, base) {
   }
 
   return sources;
+}
+
+async function prepareStylesheet(postcss, content, from) {
+  // Tailwind parses imported stylesheets before downstream PostCSS plugins run.
+  // Expand source nesting here so Sass-style selectors such as `&-suffix`
+  // survive that import step; the configured postcss-nested pass still handles
+  // any nesting left in Tailwind's completed AST.
+  const rewritten = rewriteLegacyApplyDirectives(content, from);
+  const result = await postcss([postcssNested()]).process(rewritten, {
+    from,
+    map: false,
+  });
+
+  return result.css;
 }
 
 function removeOneIndentLevel(node) {
@@ -89,7 +104,7 @@ export default function gitlabTailwind({ candidates = [], sources: additionalSou
           return {
             path: stylesheetPath,
             base: path.dirname(stylesheetPath),
-            content: rewriteLegacyApplyDirectives(content, stylesheetPath),
+            content: await prepareStylesheet(postcss, content, stylesheetPath),
           };
         },
       });

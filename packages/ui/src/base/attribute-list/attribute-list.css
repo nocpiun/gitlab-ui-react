@@ -14,26 +14,24 @@
   @apply gl-gap-x-7;
 }
 
-@container (min-width: 25rem) {
-  .gl-attribute-list-horizontal-items {
+.gl-attribute-list-horizontal-items {
+  @container (min-width: 25rem) {
     grid-template-columns: fit-content(15rem) 1fr;
+
+    .gl-attribute-list-item {
+      @apply gl-col-span-2;
+    }
   }
 
-  .gl-attribute-list-horizontal-items .gl-attribute-list-item {
-    @apply gl-col-span-2;
-  }
-}
-
-@container (min-width: 54rem) {
-  .gl-attribute-list-horizontal-items {
+  @container (min-width: 54rem) {
     grid-template-columns: repeat(2, fit-content(15rem) 1fr);
     @apply gl-grid-flow-col;
     grid-template-rows: repeat(var(--attribute-list-row-count), auto);
   }
 }
 
-@container (min-width: 40rem) {
-  .gl-attribute-list-vertical-items {
+.gl-attribute-list-vertical-items {
+  @container (min-width: 40rem) {
     @apply gl-grid-cols-2;
     @apply gl-grid-flow-col;
     grid-template-rows: repeat(var(--attribute-list-row-count), auto);

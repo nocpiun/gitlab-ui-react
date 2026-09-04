@@ -30,61 +30,59 @@
   @apply gl-text-default;
   padding-right: calc(var(--gl-spacing-scale-2) + var(--gl-spacing-scale-6));
   position: relative;
-}
 
-@media (forced-colors: active) {
-  .gl-form-select {
+  @media (forced-colors: active) {
     box-shadow: none;
     border: 1px solid;
   }
-}
 
-.gl-form-select:hover {
-  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-hover);
-}
-
-.gl-form-select:focus-visible,
-.gl-form-select:focus-visible:active {
-  box-shadow:
-    inset 0 0 0 1px var(--gl-control-border-color-focus),
-    0 0 0 1px var(--gl-focus-ring-inner-color),
-    0 0 0 3px var(--gl-focus-ring-outer-color) !important;
-  outline: none !important;
-}
-
-@media (forced-colors: active) {
-  .gl-form-select:focus-visible,
-  .gl-form-select:focus-visible:active {
-    outline: 2px solid LinkText !important;
+  &:hover {
+    box-shadow: inset 0 0 0 1px var(--gl-control-border-color-hover);
   }
-}
 
-.gl-form-select:disabled {
-  @apply gl-cursor-not-allowed;
-  @apply gl-text-disabled;
-  background-color: var(--gl-control-background-color-disabled);
-  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-disabled);
-}
+  &:focus-visible,
+  &:focus-visible:active {
+    box-shadow:
+      inset 0 0 0 1px var(--gl-control-border-color-focus),
+      0 0 0 1px var(--gl-focus-ring-inner-color),
+      0 0 0 3px var(--gl-focus-ring-outer-color) !important;
+    outline: none !important;
+  }
 
-.gl-form-select.is-invalid:not(:disabled) {
-  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-error);
-}
+  @media (forced-colors: active) {
+    &:focus-visible,
+    &:focus-visible:active {
+      outline: 2px solid LinkText !important;
+    }
+  }
 
-.gl-form-select.is-invalid:not(:disabled):hover {
-  box-shadow: inset 0 0 0 1px var(--gl-control-border-color-error);
-}
+  &:disabled {
+    @apply gl-cursor-not-allowed;
+    @apply gl-text-disabled;
+    background-color: var(--gl-control-background-color-disabled);
+    box-shadow: inset 0 0 0 1px var(--gl-control-border-color-disabled);
+  }
 
-.gl-form-select.is-invalid:not(:disabled):focus-visible {
-  box-shadow:
-    inset 0 0 0 1px var(--gl-control-border-color-error),
-    0 0 0 1px var(--gl-focus-ring-inner-color),
-    0 0 0 3px var(--gl-focus-ring-outer-color) !important;
-  outline: none !important;
-}
+  &.is-invalid:not(:disabled) {
+    box-shadow: inset 0 0 0 1px var(--gl-control-border-color-error);
 
-@media (forced-colors: active) {
-  .gl-form-select.is-invalid:not(:disabled):focus-visible {
-    outline: 2px solid LinkText !important;
+    &:hover {
+      box-shadow: inset 0 0 0 1px var(--gl-control-border-color-error);
+    }
+
+    &:focus-visible {
+      box-shadow:
+        inset 0 0 0 1px var(--gl-control-border-color-error),
+        0 0 0 1px var(--gl-focus-ring-inner-color),
+        0 0 0 3px var(--gl-focus-ring-outer-color) !important;
+      outline: none !important;
+    }
+
+    @media (forced-colors: active) {
+      &:focus-visible {
+        outline: 2px solid LinkText !important;
+      }
+    }
   }
 }
 
@@ -94,39 +92,39 @@
   position: relative;
   display: inline-block;
   width: 100%;
-}
 
-.gl-form-select-wrapper::after {
-  content: "";
-  background-color: var(--gl-icon-color-default);
-  -webkit-mask-image: var(--gl-icon-select-chevron-down);
-  mask-image: var(--gl-icon-select-chevron-down);
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center center;
-  mask-position: center center;
-  pointer-events: none;
-  position: absolute;
-  top: 50%;
-  right: var(--gl-spacing-scale-4);
-  transform: translateY(-50%);
-  height: 5px;
-  width: 8px;
-}
-
-@media (forced-colors: active) {
-  .gl-form-select-wrapper::after {
-    background-color: CanvasText;
+  &::after {
+    content: "";
+    background-color: var(--gl-icon-color-default);
+    -webkit-mask-image: var(--gl-icon-select-chevron-down);
+    mask-image: var(--gl-icon-select-chevron-down);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center center;
+    mask-position: center center;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    right: var(--gl-spacing-scale-4);
+    transform: translateY(-50%);
+    height: 5px;
+    width: 8px;
   }
-}
 
-.gl-form-select-wrapper:has(> .gl-form-select:disabled)::after {
-  background-color: var(--gl-icon-color-disabled);
-}
+  @media (forced-colors: active) {
+    &::after {
+      background-color: CanvasText;
+    }
+  }
 
-@media (forced-colors: active) {
-  .gl-form-select-wrapper:has(> .gl-form-select:disabled)::after {
-    background-color: GrayText;
+  &:has(> .gl-form-select:disabled)::after {
+    background-color: var(--gl-icon-color-disabled);
+  }
+
+  @media (forced-colors: active) {
+    &:has(> .gl-form-select:disabled)::after {
+      background-color: GrayText;
+    }
   }
 }
 

@@ -41,60 +41,57 @@ input[type="color"].gl-form-input.form-control:disabled {
 }
 
 /* `<gl-form-input>` custom-range validation styling (standalone control only) */
-.gl-form-input.custom-range.is-valid:focus::-webkit-slider-thumb,
-.gl-form-input.custom-range.is-invalid:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem var(--_range-focus-color);
-}
+.gl-form-input.custom-range {
+  &.is-valid,
+  &.is-invalid {
+    &:focus::-webkit-slider-thumb {
+      box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem var(--_range-focus-color);
+    }
 
-.gl-form-input.custom-range.is-valid:focus::-moz-range-thumb,
-.gl-form-input.custom-range.is-invalid:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem var(--_range-focus-color);
-}
+    &:focus::-moz-range-thumb {
+      box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem var(--_range-focus-color);
+    }
 
-.gl-form-input.custom-range.is-valid::-webkit-slider-thumb,
-.gl-form-input.custom-range.is-invalid::-webkit-slider-thumb {
-  background-color: var(--_range-color);
-  background-image: none;
-}
+    &::-webkit-slider-thumb {
+      background-color: var(--_range-color);
+      background-image: none;
 
-.gl-form-input.custom-range.is-valid::-webkit-slider-thumb:active,
-.gl-form-input.custom-range.is-invalid::-webkit-slider-thumb:active {
-  background-color: var(--_range-focus-color);
-  background-image: none;
-}
+      &:active {
+        background-color: var(--_range-focus-color);
+        background-image: none;
+      }
+    }
 
-.gl-form-input.custom-range.is-valid::-webkit-slider-runnable-track,
-.gl-form-input.custom-range.is-invalid::-webkit-slider-runnable-track {
-  background-color: var(--_range-track-color);
-}
+    &::-webkit-slider-runnable-track {
+      background-color: var(--_range-track-color);
+    }
 
-.gl-form-input.custom-range.is-valid::-moz-range-thumb,
-.gl-form-input.custom-range.is-invalid::-moz-range-thumb {
-  background-color: var(--_range-color);
-  background-image: none;
-}
+    &::-moz-range-thumb {
+      background-color: var(--_range-color);
+      background-image: none;
 
-.gl-form-input.custom-range.is-valid::-moz-range-thumb:active,
-.gl-form-input.custom-range.is-invalid::-moz-range-thumb:active {
-  background-color: var(--_range-focus-color);
-  background-image: none;
-}
+      &:active {
+        background-color: var(--_range-focus-color);
+        background-image: none;
+      }
+    }
 
-.gl-form-input.custom-range.is-valid::-moz-range-track,
-.gl-form-input.custom-range.is-invalid::-moz-range-track {
-  background: var(--_range-track-color);
-}
+    &::-moz-range-track {
+      background: var(--_range-track-color);
+    }
+  }
 
-.gl-form-input.custom-range.is-valid {
-  --_range-color: #2f7549;
-  --_range-focus-color: #88cfa2;
-  --_range-track-color: rgba(47, 117, 73, 0.35);
-}
+  &.is-valid {
+    --_range-color: #2f7549;
+    --_range-focus-color: #88cfa2;
+    --_range-track-color: rgba(47, 117, 73, 0.35);
+  }
 
-.gl-form-input.custom-range.is-invalid {
-  --_range-color: #c02f12;
-  --_range-focus-color: #f5a190;
-  --_range-track-color: rgba(192, 47, 18, 0.35);
+  &.is-invalid {
+    --_range-color: #c02f12;
+    --_range-focus-color: #f5a190;
+    --_range-track-color: rgba(192, 47, 18, 0.35);
+  }
 }
 
 /* `$gl-form-input-sizes` at `$grid-size: 8px` */

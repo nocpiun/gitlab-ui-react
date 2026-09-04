@@ -23,6 +23,7 @@
     "@tailwindcss/node": "4.3.3",
     "@tailwindcss/oxide": "4.3.3",
     "postcss": "^8.5.26",
+    "postcss-nested": "^8.0.1",
     "postcss-selector-parser": "7.1.0",
     "tailwindcss": "^4.3.3"
   },

@@ -16,32 +16,28 @@
     background-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
     border-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
     box-shadow 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
 
-@media (prefers-reduced-motion) {
-  .gl-badge {
+  @media (prefers-reduced-motion) {
     transition-duration: 0.01ms !important;
     transition-delay: 0ms !important;
   }
-}
 
-.gl-badge:has(.gl-truncate, .gl-text-truncate) {
-  @apply gl-max-w-full;
-}
+  &:has(.gl-truncate, .gl-text-truncate) {
+    @apply gl-max-w-full;
+  }
 
-@media (forced-colors: active) {
-  .gl-badge {
+  @media (forced-colors: active) {
     border: 1px solid;
   }
-}
 
-.gl-badge .gl-badge-icon {
-  @apply gl-h-5 gl-w-5 gl-shrink-0;
-  top: auto;
-}
+  .gl-badge-icon {
+    @apply gl-h-5 gl-w-5 gl-shrink-0;
+    top: auto;
+  }
 
-.gl-badge .gl-badge-content {
-  @apply gl-flex gl-justify-center gl-min-w-3;
+  .gl-badge-content {
+    @apply gl-flex gl-justify-center gl-min-w-3;
+  }
 }
 
 a.gl-badge.disabled {
@@ -53,48 +49,49 @@ a.gl-badge.disabled {
 .gl-badge.badge-neutral {
   color: var(--gl-badge-neutral-text-color-default);
   background-color: var(--gl-badge-neutral-background-color-default);
+
+  .gl-badge-icon {
+    color: var(--gl-badge-neutral-icon-color-default);
+    transition: inherit;
+  }
 }
 
-.gl-badge.badge-neutral .gl-badge-icon {
-  color: var(--gl-badge-neutral-icon-color-default);
-  transition: inherit;
-}
+a.gl-badge.badge-neutral:not(.disabled) {
+  &:hover {
+    @apply gl-no-underline;
+    color: var(--gl-badge-neutral-text-color-hover);
+    background-color: var(--gl-badge-neutral-background-color-hover);
+    box-shadow: inset 0 0 0 1px var(--gl-badge-neutral-border-color-hover);
 
-a.gl-badge.badge-neutral:not(.disabled):hover {
-  @apply gl-no-underline;
-  color: var(--gl-badge-neutral-text-color-hover);
-  background-color: var(--gl-badge-neutral-background-color-hover);
-  box-shadow: inset 0 0 0 1px var(--gl-badge-neutral-border-color-hover);
-}
+    .gl-badge-icon {
+      color: var(--gl-badge-neutral-icon-color-hover);
+    }
+  }
 
-a.gl-badge.badge-neutral:not(.disabled):hover .gl-badge-icon {
-  color: var(--gl-badge-neutral-icon-color-hover);
-}
+  &:focus-visible {
+    color: var(--gl-badge-neutral-text-color-focus);
+    background-color: var(--gl-badge-neutral-background-color-focus);
 
-a.gl-badge.badge-neutral:not(.disabled):focus-visible {
-  color: var(--gl-badge-neutral-text-color-focus);
-  background-color: var(--gl-badge-neutral-background-color-focus);
-}
+    .gl-badge-icon {
+      color: var(--gl-badge-neutral-icon-color-focus);
+    }
+  }
 
-a.gl-badge.badge-neutral:not(.disabled):focus-visible .gl-badge-icon {
-  color: var(--gl-badge-neutral-icon-color-focus);
-}
+  &.active,
+  &:active {
+    color: var(--gl-badge-neutral-text-color-active);
+    background-color: var(--gl-badge-neutral-background-color-active);
 
-a.gl-badge.badge-neutral:not(.disabled).active,
-a.gl-badge.badge-neutral:not(.disabled):active {
-  color: var(--gl-badge-neutral-text-color-active);
-  background-color: var(--gl-badge-neutral-background-color-active);
-}
+    .gl-badge-icon {
+      color: var(--gl-badge-neutral-icon-color-active);
+    }
+  }
 
-a.gl-badge.badge-neutral:not(.disabled).active .gl-badge-icon,
-a.gl-badge.badge-neutral:not(.disabled):active .gl-badge-icon {
-  color: var(--gl-badge-neutral-icon-color-active);
-}
-
-a.gl-badge.badge-neutral:not(.disabled):active,
-a.gl-badge.badge-neutral:not(.disabled):focus-visible,
-a.gl-badge.badge-neutral:not(.disabled):focus-visible:active {
-  @apply gl-focus;
+  &:active,
+  &:focus-visible,
+  &:focus-visible:active {
+    @apply gl-focus;
+  }
 }
 
 /* Info */
@@ -102,48 +99,49 @@ a.gl-badge.badge-neutral:not(.disabled):focus-visible:active {
 .gl-badge.badge-info {
   color: var(--gl-badge-info-text-color-default);
   background-color: var(--gl-badge-info-background-color-default);
+
+  .gl-badge-icon {
+    color: var(--gl-badge-info-icon-color-default);
+    transition: inherit;
+  }
 }
 
-.gl-badge.badge-info .gl-badge-icon {
-  color: var(--gl-badge-info-icon-color-default);
-  transition: inherit;
-}
+a.gl-badge.badge-info:not(.disabled) {
+  &:hover {
+    @apply gl-no-underline;
+    color: var(--gl-badge-info-text-color-hover);
+    background-color: var(--gl-badge-info-background-color-hover);
+    box-shadow: inset 0 0 0 1px var(--gl-badge-info-border-color-hover);
 
-a.gl-badge.badge-info:not(.disabled):hover {
-  @apply gl-no-underline;
-  color: var(--gl-badge-info-text-color-hover);
-  background-color: var(--gl-badge-info-background-color-hover);
-  box-shadow: inset 0 0 0 1px var(--gl-badge-info-border-color-hover);
-}
+    .gl-badge-icon {
+      color: var(--gl-badge-info-icon-color-hover);
+    }
+  }
 
-a.gl-badge.badge-info:not(.disabled):hover .gl-badge-icon {
-  color: var(--gl-badge-info-icon-color-hover);
-}
+  &:focus-visible {
+    color: var(--gl-badge-info-text-color-focus);
+    background-color: var(--gl-badge-info-background-color-focus);
 
-a.gl-badge.badge-info:not(.disabled):focus-visible {
-  color: var(--gl-badge-info-text-color-focus);
-  background-color: var(--gl-badge-info-background-color-focus);
-}
+    .gl-badge-icon {
+      color: var(--gl-badge-info-icon-color-focus);
+    }
+  }
 
-a.gl-badge.badge-info:not(.disabled):focus-visible .gl-badge-icon {
-  color: var(--gl-badge-info-icon-color-focus);
-}
+  &.active,
+  &:active {
+    color: var(--gl-badge-info-text-color-active);
+    background-color: var(--gl-badge-info-background-color-active);
 
-a.gl-badge.badge-info:not(.disabled).active,
-a.gl-badge.badge-info:not(.disabled):active {
-  color: var(--gl-badge-info-text-color-active);
-  background-color: var(--gl-badge-info-background-color-active);
-}
+    .gl-badge-icon {
+      color: var(--gl-badge-info-icon-color-active);
+    }
+  }
 
-a.gl-badge.badge-info:not(.disabled).active .gl-badge-icon,
-a.gl-badge.badge-info:not(.disabled):active .gl-badge-icon {
-  color: var(--gl-badge-info-icon-color-active);
-}
-
-a.gl-badge.badge-info:not(.disabled):active,
-a.gl-badge.badge-info:not(.disabled):focus-visible,
-a.gl-badge.badge-info:not(.disabled):focus-visible:active {
-  @apply gl-focus;
+  &:active,
+  &:focus-visible,
+  &:focus-visible:active {
+    @apply gl-focus;
+  }
 }
 
 /* Success */
@@ -151,48 +149,49 @@ a.gl-badge.badge-info:not(.disabled):focus-visible:active {
 .gl-badge.badge-success {
   color: var(--gl-badge-success-text-color-default);
   background-color: var(--gl-badge-success-background-color-default);
+
+  .gl-badge-icon {
+    color: var(--gl-badge-success-icon-color-default);
+    transition: inherit;
+  }
 }
 
-.gl-badge.badge-success .gl-badge-icon {
-  color: var(--gl-badge-success-icon-color-default);
-  transition: inherit;
-}
+a.gl-badge.badge-success:not(.disabled) {
+  &:hover {
+    @apply gl-no-underline;
+    color: var(--gl-badge-success-text-color-hover);
+    background-color: var(--gl-badge-success-background-color-hover);
+    box-shadow: inset 0 0 0 1px var(--gl-badge-success-border-color-hover);
 
-a.gl-badge.badge-success:not(.disabled):hover {
-  @apply gl-no-underline;
-  color: var(--gl-badge-success-text-color-hover);
-  background-color: var(--gl-badge-success-background-color-hover);
-  box-shadow: inset 0 0 0 1px var(--gl-badge-success-border-color-hover);
-}
+    .gl-badge-icon {
+      color: var(--gl-badge-success-icon-color-hover);
+    }
+  }
 
-a.gl-badge.badge-success:not(.disabled):hover .gl-badge-icon {
-  color: var(--gl-badge-success-icon-color-hover);
-}
+  &:focus-visible {
+    color: var(--gl-badge-success-text-color-focus);
+    background-color: var(--gl-badge-success-background-color-focus);
 
-a.gl-badge.badge-success:not(.disabled):focus-visible {
-  color: var(--gl-badge-success-text-color-focus);
-  background-color: var(--gl-badge-success-background-color-focus);
-}
+    .gl-badge-icon {
+      color: var(--gl-badge-success-icon-color-focus);
+    }
+  }
 
-a.gl-badge.badge-success:not(.disabled):focus-visible .gl-badge-icon {
-  color: var(--gl-badge-success-icon-color-focus);
-}
+  &.active,
+  &:active {
+    color: var(--gl-badge-success-text-color-active);
+    background-color: var(--gl-badge-success-background-color-active);
 
-a.gl-badge.badge-success:not(.disabled).active,
-a.gl-badge.badge-success:not(.disabled):active {
-  color: var(--gl-badge-success-text-color-active);
-  background-color: var(--gl-badge-success-background-color-active);
-}
+    .gl-badge-icon {
+      color: var(--gl-badge-success-icon-color-active);
+    }
+  }
 
-a.gl-badge.badge-success:not(.disabled).active .gl-badge-icon,
-a.gl-badge.badge-success:not(.disabled):active .gl-badge-icon {
-  color: var(--gl-badge-success-icon-color-active);
-}
-
-a.gl-badge.badge-success:not(.disabled):active,
-a.gl-badge.badge-success:not(.disabled):focus-visible,
-a.gl-badge.badge-success:not(.disabled):focus-visible:active {
-  @apply gl-focus;
+  &:active,
+  &:focus-visible,
+  &:focus-visible:active {
+    @apply gl-focus;
+  }
 }
 
 /* Warning */
@@ -200,48 +199,49 @@ a.gl-badge.badge-success:not(.disabled):focus-visible:active {
 .gl-badge.badge-warning {
   color: var(--gl-badge-warning-text-color-default);
   background-color: var(--gl-badge-warning-background-color-default);
+
+  .gl-badge-icon {
+    color: var(--gl-badge-warning-icon-color-default);
+    transition: inherit;
+  }
 }
 
-.gl-badge.badge-warning .gl-badge-icon {
-  color: var(--gl-badge-warning-icon-color-default);
-  transition: inherit;
-}
+a.gl-badge.badge-warning:not(.disabled) {
+  &:hover {
+    @apply gl-no-underline;
+    color: var(--gl-badge-warning-text-color-hover);
+    background-color: var(--gl-badge-warning-background-color-hover);
+    box-shadow: inset 0 0 0 1px var(--gl-badge-warning-border-color-hover);
 
-a.gl-badge.badge-warning:not(.disabled):hover {
-  @apply gl-no-underline;
-  color: var(--gl-badge-warning-text-color-hover);
-  background-color: var(--gl-badge-warning-background-color-hover);
-  box-shadow: inset 0 0 0 1px var(--gl-badge-warning-border-color-hover);
-}
+    .gl-badge-icon {
+      color: var(--gl-badge-warning-icon-color-hover);
+    }
+  }
 
-a.gl-badge.badge-warning:not(.disabled):hover .gl-badge-icon {
-  color: var(--gl-badge-warning-icon-color-hover);
-}
+  &:focus-visible {
+    color: var(--gl-badge-warning-text-color-focus);
+    background-color: var(--gl-badge-warning-background-color-focus);
 
-a.gl-badge.badge-warning:not(.disabled):focus-visible {
-  color: var(--gl-badge-warning-text-color-focus);
-  background-color: var(--gl-badge-warning-background-color-focus);
-}
+    .gl-badge-icon {
+      color: var(--gl-badge-warning-icon-color-focus);
+    }
+  }
 
-a.gl-badge.badge-warning:not(.disabled):focus-visible .gl-badge-icon {
-  color: var(--gl-badge-warning-icon-color-focus);
-}
+  &.active,
+  &:active {
+    color: var(--gl-badge-warning-text-color-active);
+    background-color: var(--gl-badge-warning-background-color-active);
 
-a.gl-badge.badge-warning:not(.disabled).active,
-a.gl-badge.badge-warning:not(.disabled):active {
-  color: var(--gl-badge-warning-text-color-active);
-  background-color: var(--gl-badge-warning-background-color-active);
-}
+    .gl-badge-icon {
+      color: var(--gl-badge-warning-icon-color-active);
+    }
+  }
 
-a.gl-badge.badge-warning:not(.disabled).active .gl-badge-icon,
-a.gl-badge.badge-warning:not(.disabled):active .gl-badge-icon {
-  color: var(--gl-badge-warning-icon-color-active);
-}
-
-a.gl-badge.badge-warning:not(.disabled):active,
-a.gl-badge.badge-warning:not(.disabled):focus-visible,
-a.gl-badge.badge-warning:not(.disabled):focus-visible:active {
-  @apply gl-focus;
+  &:active,
+  &:focus-visible,
+  &:focus-visible:active {
+    @apply gl-focus;
+  }
 }
 
 /* Danger */
@@ -249,48 +249,49 @@ a.gl-badge.badge-warning:not(.disabled):focus-visible:active {
 .gl-badge.badge-danger {
   color: var(--gl-badge-danger-text-color-default);
   background-color: var(--gl-badge-danger-background-color-default);
+
+  .gl-badge-icon {
+    color: var(--gl-badge-danger-icon-color-default);
+    transition: inherit;
+  }
 }
 
-.gl-badge.badge-danger .gl-badge-icon {
-  color: var(--gl-badge-danger-icon-color-default);
-  transition: inherit;
-}
+a.gl-badge.badge-danger:not(.disabled) {
+  &:hover {
+    @apply gl-no-underline;
+    color: var(--gl-badge-danger-text-color-hover);
+    background-color: var(--gl-badge-danger-background-color-hover);
+    box-shadow: inset 0 0 0 1px var(--gl-badge-danger-border-color-hover);
 
-a.gl-badge.badge-danger:not(.disabled):hover {
-  @apply gl-no-underline;
-  color: var(--gl-badge-danger-text-color-hover);
-  background-color: var(--gl-badge-danger-background-color-hover);
-  box-shadow: inset 0 0 0 1px var(--gl-badge-danger-border-color-hover);
-}
+    .gl-badge-icon {
+      color: var(--gl-badge-danger-icon-color-hover);
+    }
+  }
 
-a.gl-badge.badge-danger:not(.disabled):hover .gl-badge-icon {
-  color: var(--gl-badge-danger-icon-color-hover);
-}
+  &:focus-visible {
+    color: var(--gl-badge-danger-text-color-focus);
+    background-color: var(--gl-badge-danger-background-color-focus);
 
-a.gl-badge.badge-danger:not(.disabled):focus-visible {
-  color: var(--gl-badge-danger-text-color-focus);
-  background-color: var(--gl-badge-danger-background-color-focus);
-}
+    .gl-badge-icon {
+      color: var(--gl-badge-danger-icon-color-focus);
+    }
+  }
 
-a.gl-badge.badge-danger:not(.disabled):focus-visible .gl-badge-icon {
-  color: var(--gl-badge-danger-icon-color-focus);
-}
+  &.active,
+  &:active {
+    color: var(--gl-badge-danger-text-color-active);
+    background-color: var(--gl-badge-danger-background-color-active);
 
-a.gl-badge.badge-danger:not(.disabled).active,
-a.gl-badge.badge-danger:not(.disabled):active {
-  color: var(--gl-badge-danger-text-color-active);
-  background-color: var(--gl-badge-danger-background-color-active);
-}
+    .gl-badge-icon {
+      color: var(--gl-badge-danger-icon-color-active);
+    }
+  }
 
-a.gl-badge.badge-danger:not(.disabled).active .gl-badge-icon,
-a.gl-badge.badge-danger:not(.disabled):active .gl-badge-icon {
-  color: var(--gl-badge-danger-icon-color-active);
-}
-
-a.gl-badge.badge-danger:not(.disabled):active,
-a.gl-badge.badge-danger:not(.disabled):focus-visible,
-a.gl-badge.badge-danger:not(.disabled):focus-visible:active {
-  @apply gl-focus;
+  &:active,
+  &:focus-visible,
+  &:focus-visible:active {
+    @apply gl-focus;
+  }
 }
 
 /* Tier */
@@ -298,48 +299,49 @@ a.gl-badge.badge-danger:not(.disabled):focus-visible:active {
 .gl-badge.badge-tier {
   color: var(--gl-badge-tier-text-color-default);
   background-color: var(--gl-badge-tier-background-color-default);
+
+  .gl-badge-icon {
+    color: var(--gl-badge-tier-icon-color-default);
+    transition: inherit;
+  }
 }
 
-.gl-badge.badge-tier .gl-badge-icon {
-  color: var(--gl-badge-tier-icon-color-default);
-  transition: inherit;
-}
+a.gl-badge.badge-tier:not(.disabled) {
+  &:hover {
+    @apply gl-no-underline;
+    color: var(--gl-badge-tier-text-color-hover);
+    background-color: var(--gl-badge-tier-background-color-hover);
+    box-shadow: inset 0 0 0 1px var(--gl-badge-tier-border-color-hover);
 
-a.gl-badge.badge-tier:not(.disabled):hover {
-  @apply gl-no-underline;
-  color: var(--gl-badge-tier-text-color-hover);
-  background-color: var(--gl-badge-tier-background-color-hover);
-  box-shadow: inset 0 0 0 1px var(--gl-badge-tier-border-color-hover);
-}
+    .gl-badge-icon {
+      color: var(--gl-badge-tier-icon-color-hover);
+    }
+  }
 
-a.gl-badge.badge-tier:not(.disabled):hover .gl-badge-icon {
-  color: var(--gl-badge-tier-icon-color-hover);
-}
+  &:focus-visible {
+    color: var(--gl-badge-tier-text-color-focus);
+    background-color: var(--gl-badge-tier-background-color-focus);
 
-a.gl-badge.badge-tier:not(.disabled):focus-visible {
-  color: var(--gl-badge-tier-text-color-focus);
-  background-color: var(--gl-badge-tier-background-color-focus);
-}
+    .gl-badge-icon {
+      color: var(--gl-badge-tier-icon-color-focus);
+    }
+  }
 
-a.gl-badge.badge-tier:not(.disabled):focus-visible .gl-badge-icon {
-  color: var(--gl-badge-tier-icon-color-focus);
-}
+  &.active,
+  &:active {
+    color: var(--gl-badge-tier-text-color-active);
+    background-color: var(--gl-badge-tier-background-color-active);
 
-a.gl-badge.badge-tier:not(.disabled).active,
-a.gl-badge.badge-tier:not(.disabled):active {
-  color: var(--gl-badge-tier-text-color-active);
-  background-color: var(--gl-badge-tier-background-color-active);
-}
+    .gl-badge-icon {
+      color: var(--gl-badge-tier-icon-color-active);
+    }
+  }
 
-a.gl-badge.badge-tier:not(.disabled).active .gl-badge-icon,
-a.gl-badge.badge-tier:not(.disabled):active .gl-badge-icon {
-  color: var(--gl-badge-tier-icon-color-active);
-}
-
-a.gl-badge.badge-tier:not(.disabled):active,
-a.gl-badge.badge-tier:not(.disabled):focus-visible,
-a.gl-badge.badge-tier:not(.disabled):focus-visible:active {
-  @apply gl-focus;
+  &:active,
+  &:focus-visible,
+  &:focus-visible:active {
+    @apply gl-focus;
+  }
 }
 
 /*

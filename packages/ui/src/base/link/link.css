@@ -5,34 +5,36 @@
 
 .gl-link {
   text-underline-offset: var(--gl-spacing-scale-1);
+
+  &:hover {
+    @apply gl-cursor-pointer;
+  }
+
+  &,
+  &:hover,
+  &:active,
+  &:focus-visible {
+    @apply gl-text-link;
+  }
+
+  &:active,
+  &:focus-visible,
+  &:focus-visible:active {
+    @apply gl-underline;
+  }
+
+  &:focus-visible,
+  &:focus-visible:active {
+    outline: 2px solid var(--gl-focus-ring-outer-color);
+    outline-offset: 2px;
+  }
 }
 
-.gl-link:hover {
-  @apply gl-cursor-pointer;
-}
-
-.gl-link,
-.gl-link:hover,
-.gl-link:active,
-.gl-link:focus-visible {
-  @apply gl-text-link;
-}
-
-.gl-link:active,
-.gl-link:focus-visible,
-.gl-link:focus-visible:active {
-  @apply gl-underline;
-}
-
-.gl-link:focus-visible,
-.gl-link:focus-visible:active {
-  outline: 2px solid var(--gl-focus-ring-outer-color);
-  outline-offset: 2px;
-}
-
-.gl-link-inline,
-.gl-link-inline:hover {
-  @apply gl-underline;
+.gl-link-inline {
+  &,
+  &:hover {
+    @apply gl-underline;
+  }
 }
 
 .gl-link-external::after {
@@ -42,60 +44,56 @@
 
 .gl-link-meta {
   @apply gl-no-underline;
-}
 
-.gl-link-meta:hover {
-  @apply gl-underline;
-}
+  &:hover {
+    @apply gl-underline;
+  }
 
-.gl-link-meta,
-.gl-link-meta:hover,
-.gl-link-meta:focus-visible,
-.gl-link-meta:focus-visible:hover {
-  @apply gl-text-inherit;
+  &,
+  &:hover,
+  &:focus-visible,
+  &:focus-visible:hover {
+    @apply gl-text-inherit;
+  }
 }
 
 .gl-link-mention,
 .gl-link-mention-current {
   @apply gl-px-1 gl-rounded-default gl-no-underline;
-}
 
-.gl-link-mention:hover,
-.gl-link-mention-current:hover {
-  @apply gl-underline;
-}
+  &:hover {
+    @apply gl-underline;
+  }
 
-.gl-link-mention:active,
-.gl-link-mention:focus-visible,
-.gl-link-mention:focus-visible:active,
-.gl-link-mention-current:active,
-.gl-link-mention-current:focus-visible,
-.gl-link-mention-current:focus-visible:active {
-  @apply gl-no-underline;
+  &:active,
+  &:focus-visible,
+  &:focus-visible:active {
+    @apply gl-no-underline;
+  }
 }
 
 .gl-link-mention {
   background-color: var(--gl-link-mention-background-color-default);
-}
 
-.gl-link-mention,
-.gl-link-mention:hover,
-.gl-link-mention:active,
-.gl-link-mention:focus-visible,
-.gl-link-mention:focus-visible:active {
-  color: var(--gl-link-mention-text-color-default);
+  &,
+  &:hover,
+  &:active,
+  &:focus-visible,
+  &:focus-visible:active {
+    color: var(--gl-link-mention-text-color-default);
+  }
 }
 
 .gl-link-mention-current {
   background-color: var(--gl-link-mention-background-color-current);
-}
 
-.gl-link-mention-current,
-.gl-link-mention-current:hover,
-.gl-link-mention-current:active,
-.gl-link-mention-current:focus-visible,
-.gl-link-mention-current:focus-visible:active {
-  color: var(--gl-link-mention-text-color-current);
+  &,
+  &:hover,
+  &:active,
+  &:focus-visible,
+  &:focus-visible:active {
+    color: var(--gl-link-mention-text-color-current);
+  }
 }
 
 @media (forced-colors: active) {

@@ -9,109 +9,83 @@
 table.gl-table {
   @apply gl-text-default;
   background-color: var(--gl-color-alpha-0);
-}
 
-table.gl-table tr th,
-table.gl-table tr td {
-  @apply gl-border-b-1 gl-border-b-solid gl-border-default;
-  @apply gl-bg-transparent gl-p-5;
-  @apply gl-leading-normal gl-text-base;
-  @apply gl-align-top;
-  @apply gl-text-default gl-font-normal;
-}
+  tr {
+    th,
+    td {
+      @apply gl-border-b-1 gl-border-b-solid gl-border-default;
+      @apply gl-bg-transparent gl-p-5;
+      @apply gl-leading-normal gl-text-base;
+      @apply gl-align-top;
+      @apply gl-text-default gl-font-normal;
+    }
 
-table.gl-table tr:focus-visible {
-  @apply gl-focus;
-  position: relative;
-  z-index: 1;
-}
+    &:focus-visible {
+      @apply gl-focus;
+      position: relative;
+      z-index: 1;
+    }
+  }
 
-table.gl-table thead tr th {
-  @apply gl-font-bold gl-text-heading;
-}
+  thead tr th {
+    @apply gl-font-bold gl-text-heading;
+  }
 
-table.gl-table.gl-table--sticky-header thead tr {
-  @apply gl-bg-default;
-  position: sticky;
-  top: -1px;
-  z-index: 2;
-  box-shadow: inset 0 -1px 0 var(--gl-border-color-default);
-}
+  &.gl-table--sticky-header thead tr {
+    @apply gl-bg-default;
+    position: sticky;
+    top: -1px;
+    z-index: 2;
+    box-shadow: inset 0 -1px 0 var(--gl-border-color-default);
+  }
 
-table.gl-table caption {
-  @apply gl-pt-2;
-}
+  caption {
+    @apply gl-pt-2;
+  }
 
-table.gl-table.table-hover tbody tr:hover,
-table.gl-table.table-hover td.table-secondary:hover {
-  background-color: var(--gl-table-row-background-color-hover);
-}
+  &.table-hover tbody tr:hover,
+  &.table-hover td.table-secondary:hover {
+    background-color: var(--gl-table-row-background-color-hover);
+  }
 
-table.gl-table:is(
-  .b-table-stacked,
-  .b-table-stacked-sm,
-  .b-table-stacked-md,
-  .b-table-stacked-lg,
-  .b-table-stacked-xl
-) tbody > tr::after {
-  display: var(--gl-table-stacked-row-gap-display, none);
-  width: 100%;
-  height: 1.5rem;
-  content: "";
-}
+  &:is(
+    .b-table-stacked,
+    .b-table-stacked-sm,
+    .b-table-stacked-md,
+    .b-table-stacked-lg,
+    .b-table-stacked-xl
+  ) tbody > tr {
+    &::after {
+      display: var(--gl-table-stacked-row-gap-display, none);
+      width: 100%;
+      height: 1.5rem;
+      content: "";
+    }
 
-table.gl-table:is(
-  .b-table-stacked,
-  .b-table-stacked-sm,
-  .b-table-stacked-md,
-  .b-table-stacked-lg,
-  .b-table-stacked-xl
-) tbody > tr > :is(td, th)[data-label] {
-  border-right: var(--gl-table-stacked-cell-side-border, 0 solid transparent);
-  border-left: var(--gl-table-stacked-cell-side-border, 0 solid transparent);
-}
+    > :is(td, th)[data-label] {
+      border-right: var(--gl-table-stacked-cell-side-border, 0 solid transparent);
+      border-left: var(--gl-table-stacked-cell-side-border, 0 solid transparent);
 
-table.gl-table:is(
-  .b-table-stacked,
-  .b-table-stacked-sm,
-  .b-table-stacked-md,
-  .b-table-stacked-lg,
-  .b-table-stacked-xl
-) tbody > tr > :is(td, th)[data-label]::before {
-  text-align: var(--gl-table-stacked-label-align, right);
-}
+      &::before {
+        text-align: var(--gl-table-stacked-label-align, right);
+      }
 
-table.gl-table:is(
-  .b-table-stacked,
-  .b-table-stacked-sm,
-  .b-table-stacked-md,
-  .b-table-stacked-lg,
-  .b-table-stacked-xl
-) tbody > tr > :is(td, th)[data-label]:first-child {
-  border-top-width: var(--gl-table-stacked-labelled-first-border-width, 1px);
-}
+      &:first-child {
+        border-top-width: var(--gl-table-stacked-labelled-first-border-width, 1px);
+      }
 
-table.gl-table:is(
-  .b-table-stacked,
-  .b-table-stacked-sm,
-  .b-table-stacked-md,
-  .b-table-stacked-lg,
-  .b-table-stacked-xl
-) tbody > tr > :is(td, th)[data-label]:not(:first-child) {
-  border-top-width: var(--gl-table-stacked-labelled-border-width, 1px);
-}
+      &:not(:first-child) {
+        border-top-width: var(--gl-table-stacked-labelled-border-width, 1px);
+      }
+    }
 
-table.gl-table:is(
-  .b-table-stacked,
-  .b-table-stacked-sm,
-  .b-table-stacked-md,
-  .b-table-stacked-lg,
-  .b-table-stacked-xl
-) tbody > tr .gl-table-cell-content {
-  overflow-wrap: var(--gl-table-stacked-content-wrap, normal);
-  text-align: var(--gl-table-stacked-content-align, inherit);
-}
+    .gl-table-cell-content {
+      overflow-wrap: var(--gl-table-stacked-content-wrap, normal);
+      text-align: var(--gl-table-stacked-content-align, inherit);
+    }
+  }
 
-table.gl-table.table-borderless tr > :is(th, td) {
-  border: 0;
+  &.table-borderless tr > :is(th, td) {
+    border: 0;
+  }
 }

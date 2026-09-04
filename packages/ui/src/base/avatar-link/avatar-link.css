@@ -5,34 +5,34 @@
 
 .gl-avatar-link {
   @apply gl-inline-flex;
-}
 
-.gl-avatar-link .gl-avatar {
-  @apply gl-transition-border-color gl-duration-slow gl-ease-ease;
-}
+  .gl-avatar {
+    @apply gl-transition-border-color gl-duration-slow gl-ease-ease;
+  }
 
-.gl-avatar-link:hover {
-  @apply gl-no-underline;
-}
+  &:hover {
+    @apply gl-no-underline;
 
-.gl-avatar-link:hover .gl-avatar {
-  outline: 1px solid var(--gl-avatar-border-color-hover);
-}
+    .gl-avatar {
+      outline: 1px solid var(--gl-avatar-border-color-hover);
+    }
 
-.gl-avatar-link:hover .gl-avatar-labeled-label,
-.gl-avatar-link:hover .gl-avatar-labeled-sublabel {
-  @apply gl-underline;
-}
+    .gl-avatar-labeled {
+      &-label,
+      &-sublabel {
+        @apply gl-underline;
+      }
+    }
+  }
 
-.gl-avatar-link:active,
-.gl-avatar-link:focus-visible,
-.gl-avatar-link:focus-visible:active {
-  box-shadow: none !important;
-  outline: none !important;
-}
+  &:active,
+  &:focus-visible,
+  &:focus-visible:active {
+    box-shadow: none !important;
+    outline: none !important;
 
-.gl-avatar-link:active .gl-avatar,
-.gl-avatar-link:focus-visible .gl-avatar,
-.gl-avatar-link:focus-visible:active .gl-avatar {
-  @apply gl-focus;
+    .gl-avatar {
+      @apply gl-focus;
+    }
+  }
 }
