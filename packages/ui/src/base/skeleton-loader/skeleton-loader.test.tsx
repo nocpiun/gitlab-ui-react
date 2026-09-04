@@ -16,7 +16,7 @@ const renderLoader = (
 );
 
 const getClipPathMarkup = (markup: string) => (
-  markup.match(/<clipPath[^>]*>(.*?)<\/clipPath>/su)?.[1] ?? ""
+  markup.match(/<clipPath[^>]*>([\s\S]*?)<\/clipPath>/u)?.[1] ?? ""
 );
 
 describe("GlSkeletonLoader", () => {
