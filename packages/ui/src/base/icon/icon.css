@@ -3,34 +3,36 @@
  * packages/gitlab-ui/src/components/base/icon/icon.scss
  */
 
-.gl-icon.s8 {
-  @apply gl-w-[8px] gl-h-[8px];
-}
+.gl-icon {
+  &.s8 {
+    @apply gl-w-[8px] gl-h-[8px];
+  }
 
-.gl-icon.s12 {
-  @apply gl-w-[12px] gl-h-[12px];
-}
+  &.s12 {
+    @apply gl-w-[12px] gl-h-[12px];
+  }
 
-.gl-icon.s14 {
-  @apply gl-w-[14px] gl-h-[14px];
-}
+  &.s14 {
+    @apply gl-w-[14px] gl-h-[14px];
+  }
 
-.gl-icon.s16 {
-  @apply gl-w-[16px] gl-h-[16px];
-}
+  &.s16 {
+    @apply gl-w-[16px] gl-h-[16px];
+  }
 
-.gl-icon.s24 {
-  @apply gl-w-[24px] gl-h-[24px];
-}
+  &.s24 {
+    @apply gl-w-[24px] gl-h-[24px];
+  }
 
-.gl-icon.s32 {
-  @apply gl-w-[32px] gl-h-[32px];
-}
+  &.s32 {
+    @apply gl-w-[32px] gl-h-[32px];
+  }
 
-.gl-icon.s48 {
-  @apply gl-w-[48px] gl-h-[48px];
-}
+  &.s48 {
+    @apply gl-w-[48px] gl-h-[48px];
+  }
 
-.gl-icon.s72 {
-  @apply gl-w-[72px] gl-h-[72px];
+  &.s72 {
+    @apply gl-w-[72px] gl-h-[72px];
+  }
 }

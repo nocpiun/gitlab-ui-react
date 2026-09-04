@@ -54,8 +54,8 @@ textarea.gl-form-textarea {
   margin-top: 0.25rem;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .gl-form-input.form-control {
+.gl-form-input.form-control {
+  @media (prefers-reduced-motion: reduce) {
     transition: none;
   }
 }

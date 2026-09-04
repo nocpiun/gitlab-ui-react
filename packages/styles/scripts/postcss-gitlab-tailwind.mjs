@@ -4,6 +4,7 @@ import path from "node:path";
 
 import { loadModule } from "@tailwindcss/node";
 import { Scanner } from "@tailwindcss/oxide";
+import postcssNested from "postcss-nested";
 import { compile } from "tailwindcss";
 
 import {
@@ -33,31 +34,19 @@ function compilerSources(compiler, base) {
   return sources;
 }
 
-function removeOneIndentLevel(node) {
-  for(const property of ["before", "after"]) {
-    const rawValue = node.raws[property];
-    if(typeof rawValue === "string") {
-      node.raws[property] = rawValue.replace(/(\r?\n) {2}/gu, "$1");
-    }
-  }
-
-  for(const child of node.nodes ?? []) removeOneIndentLevel(child);
-}
-
-function hoistKeyframesFromStyleRules(root) {
-  const keyframesToHoist = [];
-
-  root.walkAtRules((atRule) => {
-    if(!atRule.name.endsWith("keyframes") || atRule.parent?.type !== "rule") return;
-
-    atRule.remove();
-    atRule.raws.before = "\n";
-    atRule.raws.after = "\n";
-    for(const child of atRule.nodes ?? []) removeOneIndentLevel(child);
-    keyframesToHoist.push(atRule);
+async function prepareStylesheet(postcss, content, from) {
+  // Tailwind parses stylesheets before downstream PostCSS plugins run, and
+  // bundlers such as Vite may inline imports into the entry AST first. Expand
+  // source nesting here so Sass-style selectors such as `&-suffix` survive
+  // Tailwind's `@apply` pass; the configured postcss-nested pass still handles
+  // any nesting left in Tailwind's completed AST.
+  const rewritten = rewriteLegacyApplyDirectives(content, from);
+  const result = await postcss([postcssNested()]).process(rewritten, {
+    from,
+    map: false,
   });
 
-  root.append(keyframesToHoist);
+  return result.css;
 }
 
 export default function gitlabTailwind({ candidates = [], sources: additionalSources = [] } = {}) {
@@ -67,7 +56,7 @@ export default function gitlabTailwind({ candidates = [], sources: additionalSou
       const from = result.opts.from ? path.resolve(result.opts.from) : undefined;
       const base = from ? path.dirname(from) : process.cwd();
       const dependencies = new Set();
-      const input = rewriteLegacyApplyDirectives(root.toString(), from);
+      const input = await prepareStylesheet(postcss, root.toString(), from);
 
       const compiler = await compile(input, {
         base,
@@ -89,7 +78,7 @@ export default function gitlabTailwind({ candidates = [], sources: additionalSou
           return {
             path: stylesheetPath,
             base: path.dirname(stylesheetPath),
-            content: rewriteLegacyApplyDirectives(content, stylesheetPath),
+            content: await prepareStylesheet(postcss, content, stylesheetPath),
           };
         },
       });
@@ -101,9 +90,6 @@ export default function gitlabTailwind({ candidates = [], sources: additionalSou
       const compiledRoot = postcss.parse(css, { from });
 
       restoreLegacySelectors(compiledRoot, candidateMap);
-      // Tailwind 4 preserves plugin-authored nested keyframes, but production
-      // CSS minifiers expect keyframes at the stylesheet root.
-      hoistKeyframesFromStyleRules(compiledRoot);
 
       root.removeAll();
       root.append(compiledRoot.nodes);

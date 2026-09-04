@@ -1,0 +1,40 @@
+.nesting-fixture,
+.nesting-alternate {
+  color: black;
+
+  &:hover,
+  &.selected {
+    color: blue;
+  }
+
+  &-suffix {
+    @apply gl-relative;
+    color: green;
+  }
+
+  .descendant {
+    display: inline;
+  }
+
+  > .child,
+  + .adjacent,
+  ~ .sibling {
+    display: block;
+  }
+
+  .ancestor & {
+    color: red;
+  }
+
+  @media (width >= 40rem) {
+    color: purple;
+  }
+
+  @supports (display: grid) {
+    display: grid;
+  }
+
+  @container (width >= 20rem) {
+    inline-size: 100%;
+  }
+}

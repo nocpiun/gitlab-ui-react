@@ -31,170 +31,88 @@
   .gl-button-group:not(.gl-keyset-pagination),
   .btn-group:not(.gl-keyset-pagination),
   .gl-dropdown.btn-group
-) > .gl-button:not(:first-child),
-:is(
-  .gl-button-group:not(.gl-keyset-pagination),
-  .btn-group:not(.gl-keyset-pagination),
-  .gl-dropdown.btn-group
-) > .btn-group:not(:first-child) > .gl-button,
-:is(
-  .gl-button-group:not(.gl-keyset-pagination),
-  .btn-group:not(.gl-keyset-pagination),
-  .gl-dropdown.btn-group
-) > .gl-new-dropdown:not(:first-child) > .gl-button {
-  @apply gl-rounded-l-none gl-border-l-0;
-}
+) {
+  > .gl-button:not(:first-child),
+  > .btn-group:not(:first-child) > .gl-button,
+  > .gl-new-dropdown:not(:first-child) > .gl-button {
+    @apply gl-rounded-l-none gl-border-l-0;
+  }
 
-:is(
-  .gl-button-group:not(.gl-keyset-pagination),
-  .btn-group:not(.gl-keyset-pagination),
-  .gl-dropdown.btn-group
-) > .gl-button:not(:last-child):not(.dropdown-toggle),
-:is(
-  .gl-button-group:not(.gl-keyset-pagination),
-  .btn-group:not(.gl-keyset-pagination),
-  .gl-dropdown.btn-group
-) > .btn-group:not(:last-child) > .gl-button,
-:is(
-  .gl-button-group:not(.gl-keyset-pagination),
-  .btn-group:not(.gl-keyset-pagination),
-  .gl-dropdown.btn-group
-) > .gl-new-dropdown:not(:last-child) > .gl-button {
-  @apply gl-rounded-r-none gl-border-r-0;
-}
+  > .gl-button:not(:last-child):not(.dropdown-toggle),
+  > .btn-group:not(:last-child) > .gl-button,
+  > .gl-new-dropdown:not(:last-child) > .gl-button {
+    @apply gl-rounded-r-none gl-border-r-0;
+  }
 
-:is(
-  .gl-button-group:not(.gl-keyset-pagination),
-  .btn-group:not(.gl-keyset-pagination),
-  .gl-dropdown.btn-group
-) > .gl-button:not(:first-child),
-:is(
-  .gl-button-group:not(.gl-keyset-pagination),
-  .btn-group:not(.gl-keyset-pagination),
-  .gl-dropdown.btn-group
-) > .btn-group:not(:first-child) > .gl-button,
-:is(
-  .gl-button-group:not(.gl-keyset-pagination),
-  .btn-group:not(.gl-keyset-pagination),
-  .gl-dropdown.btn-group
-) > .gl-new-dropdown:not(:first-child) > .gl-button {
-  @apply gl-relative gl-isolate gl-ml-[1px];
-}
+  > .gl-button:not(:first-child),
+  > .btn-group:not(:first-child) > .gl-button,
+  > .gl-new-dropdown:not(:first-child) > .gl-button {
+    @apply gl-relative gl-isolate gl-ml-[1px];
 
-:is(
-  .gl-button-group:not(.gl-keyset-pagination),
-  .btn-group:not(.gl-keyset-pagination),
-  .gl-dropdown.btn-group
-) > .gl-button:not(:first-child)::before,
-:is(
-  .gl-button-group:not(.gl-keyset-pagination),
-  .btn-group:not(.gl-keyset-pagination),
-  .gl-dropdown.btn-group
-) > .btn-group:not(:first-child) > .gl-button::before,
-:is(
-  .gl-button-group:not(.gl-keyset-pagination),
-  .btn-group:not(.gl-keyset-pagination),
-  .gl-dropdown.btn-group
-) > .gl-new-dropdown:not(:first-child) > .gl-button::before {
-  content: "";
-  @apply gl-absolute gl-bottom-[-1px] gl-left-[-1px] gl-top-[-1px] gl-block gl-w-[1px];
-  z-index: 4;
-}
+    &::before {
+      content: "";
+      @apply gl-absolute gl-bottom-[-1px] gl-left-[-1px] gl-top-[-1px] gl-block gl-w-[1px];
+      z-index: 4;
+    }
+  }
 
-:is(
-  .gl-button-group:not(.gl-keyset-pagination),
-  .btn-group:not(.gl-keyset-pagination),
-  .gl-dropdown.btn-group
-) > .gl-button:is(:focus-visible, :active, .active) {
-  z-index: 3;
-}
+  > .gl-button:is(:focus-visible, :active, .active) {
+    z-index: 3;
+  }
 
-:is(
-  .gl-button-group:not(.gl-keyset-pagination),
-  .btn-group:not(.gl-keyset-pagination),
-  .gl-dropdown.btn-group
-) :is(.btn-confirm, .btn-danger):not(.disabled):not([disabled])::before {
-  @apply gl-bg-transparent;
-}
+  :is(.btn-confirm, .btn-danger):not(.disabled):not([disabled])::before {
+    @apply gl-bg-transparent;
+  }
 
-:is(
-  .gl-button-group:not(.gl-keyset-pagination),
-  .btn-group:not(.gl-keyset-pagination),
-  .gl-dropdown.btn-group
-) .gl-button.btn-icon .gl-button-text .gl-button-icon {
-  @apply gl-mr-[-1px];
-}
+  .gl-button.btn-icon .gl-button-text .gl-button-icon {
+    @apply gl-mr-[-1px];
+  }
 
-:is(
-  .gl-button-group:not(.gl-keyset-pagination),
-  .btn-group:not(.gl-keyset-pagination),
-  .gl-dropdown.btn-group
-):is(.disabled, [disabled])::before {
-  background-color: var(--gl-button-disabled-border-color);
-}
+  &:is(.disabled, [disabled])::before {
+    background-color: var(--gl-button-disabled-border-color);
+  }
 
-:is(
-  .gl-button-group:not(.gl-keyset-pagination),
-  .btn-group:not(.gl-keyset-pagination),
-  .gl-dropdown.btn-group
-) .btn-confirm-secondary:not(.disabled):not([disabled])::before {
-  background-color: var(--gl-button-confirm-secondary-border-color-default);
-}
+  .btn-confirm-secondary:not(.disabled):not([disabled])::before {
+    background-color: var(--gl-button-confirm-secondary-border-color-default);
+  }
 
-:is(
-  .gl-button-group:not(.gl-keyset-pagination),
-  .btn-group:not(.gl-keyset-pagination),
-  .gl-dropdown.btn-group
-) .btn-danger-secondary:not(.disabled):not([disabled])::before {
-  background-color: var(--gl-button-danger-secondary-border-color-default);
+  .btn-danger-secondary:not(.disabled):not([disabled])::before {
+    background-color: var(--gl-button-danger-secondary-border-color-default);
+  }
 }
 
 :is(.gl-button-group-vertical, .btn-group-vertical) {
   @apply gl-flex-col gl-items-start gl-justify-center;
-}
 
-:is(.gl-button-group-vertical, .btn-group-vertical) > :is(.gl-button, .btn-group) {
-  @apply gl-relative gl-w-full;
-}
+  > :is(.gl-button, .btn-group) {
+    @apply gl-relative gl-w-full;
+  }
 
-:is(.gl-button-group-vertical, .btn-group-vertical) > .gl-button:not(:first-child),
-:is(.gl-button-group-vertical, .btn-group-vertical) > .btn-group:not(:first-child) > .gl-button,
-:is(.gl-button-group-vertical, .btn-group-vertical)
-  > .gl-new-dropdown:not(:first-child)
-  > .gl-button {
-  @apply gl-rounded-t-none gl-border-t-0;
-}
+  > .gl-button:not(:first-child),
+  > .btn-group:not(:first-child) > .gl-button,
+  > .gl-new-dropdown:not(:first-child) > .gl-button {
+    @apply gl-rounded-t-none gl-border-t-0;
+  }
 
-:is(.gl-button-group-vertical, .btn-group-vertical)
   > .gl-button:not(:last-child):not(.dropdown-toggle),
-:is(.gl-button-group-vertical, .btn-group-vertical) > .btn-group:not(:last-child) > .gl-button,
-:is(.gl-button-group-vertical, .btn-group-vertical)
-  > .gl-new-dropdown:not(:last-child)
-  > .gl-button {
-  @apply gl-rounded-b-none gl-border-b-0;
-}
+  > .btn-group:not(:last-child) > .gl-button,
+  > .gl-new-dropdown:not(:last-child) > .gl-button {
+    @apply gl-rounded-b-none gl-border-b-0;
+  }
 
-:is(.gl-button-group-vertical, .btn-group-vertical) > .gl-button:not(:first-child),
-:is(.gl-button-group-vertical, .btn-group-vertical) > .btn-group:not(:first-child) > .gl-button,
-:is(.gl-button-group-vertical, .btn-group-vertical)
-  > .gl-new-dropdown:not(:first-child)
-  > .gl-button {
-  @apply gl-relative gl-mt-[1px];
-}
+  > .gl-button:not(:first-child),
+  > .btn-group:not(:first-child) > .gl-button,
+  > .gl-new-dropdown:not(:first-child) > .gl-button {
+    @apply gl-relative gl-mt-[1px];
 
-:is(.gl-button-group-vertical, .btn-group-vertical) > .gl-button:not(:first-child)::before,
-:is(.gl-button-group-vertical, .btn-group-vertical)
-  > .btn-group:not(:first-child)
-  > .gl-button::before,
-:is(.gl-button-group-vertical, .btn-group-vertical)
-  > .gl-new-dropdown:not(:first-child)
-  > .gl-button::before {
-  content: "";
-  @apply gl-absolute gl-left-[-1px] gl-right-[-1px] gl-top-[-1px] gl-block gl-h-[1px];
-  z-index: 4;
-}
+    &::before {
+      content: "";
+      @apply gl-absolute gl-left-[-1px] gl-right-[-1px] gl-top-[-1px] gl-block gl-h-[1px];
+      z-index: 4;
+    }
+  }
 
-:is(.gl-button-group-vertical, .btn-group-vertical)
   :is(.btn-confirm, .btn-danger):not(.disabled):not([disabled])::before {
-  @apply gl-bg-transparent;
+    @apply gl-bg-transparent;
+  }
 }

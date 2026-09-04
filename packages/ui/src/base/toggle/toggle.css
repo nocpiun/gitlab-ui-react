@@ -21,14 +21,14 @@
 
 .gl-toggle-label-inline {
   @apply gl-flex-row gl-items-center;
-}
 
-.gl-toggle-label-inline .gl-toggle-label {
-  @apply gl-mr-3 gl-mb-0 gl-whitespace-nowrap;
-}
+  .gl-toggle-label {
+    @apply gl-mr-3 gl-mb-0 gl-whitespace-nowrap;
+  }
 
-.gl-toggle-label-inline .gl-help-label {
-  @apply gl-mt-0 gl-ml-3;
+  .gl-help-label {
+    @apply gl-mt-0 gl-ml-3;
+  }
 }
 
 .gl-toggle-label {
@@ -46,276 +46,253 @@
     color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
     background-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
     box-shadow 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
 
-@media (prefers-reduced-motion) {
-  .gl-toggle {
+  @media (prefers-reduced-motion) {
     transition-duration: 0.01ms !important;
     transition-delay: 0ms !important;
   }
-}
 
-@media (forced-colors: active) {
-  .gl-toggle {
+  @media (forced-colors: active) {
     outline: 1px solid CanvasText !important;
     outline-offset: -1px;
     transition: none;
   }
-}
 
-/* Upstream also lists `::before::selection` / `::after::selection`, which are
- * invalid selectors that browsers ignore and lightningcss rejects. */
-.gl-toggle::selection {
-  @apply gl-bg-transparent;
-}
-
-.gl-toggle:hover {
-  color: var(--gl-toggle-switch-icon-color-unchecked-hover);
-  background-color: var(--gl-toggle-switch-track-color-unchecked-hover);
-  box-shadow: inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-unchecked-hover);
-}
-
-.gl-toggle:focus-visible {
-  color: var(--gl-toggle-switch-icon-color-unchecked-focus);
-  background-color: var(--gl-toggle-switch-track-color-unchecked-focus);
-  box-shadow:
-    inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-unchecked-focus),
-    0 0 0 1px var(--gl-focus-ring-inner-color),
-    0 0 0 3px var(--gl-focus-ring-outer-color) !important;
-  outline: none !important;
-}
-
-.gl-toggle:active {
-  color: var(--gl-toggle-switch-icon-color-unchecked-active);
-  background-color: var(--gl-toggle-switch-track-color-unchecked-active);
-  box-shadow:
-    inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-unchecked-active),
-    0 0 0 1px var(--gl-focus-ring-inner-color),
-    0 0 0 3px var(--gl-focus-ring-outer-color) !important;
-  outline: none !important;
-}
-
-@media (forced-colors: active) {
-  .gl-toggle:focus-visible,
-  .gl-toggle:active {
-    outline: 2px solid LinkText !important;
-  }
-}
-
-/* The thumb grows on hover and focus so the interaction reads on the thumb as
- * well as on the track. */
-.gl-toggle:hover .toggle-icon::before,
-.gl-toggle:focus-visible .toggle-icon::before {
-  transform: scale(0.875);
-}
-
-.gl-toggle .toggle-loading {
-  @apply gl-h-5;
-}
-
-.gl-toggle .toggle-icon {
-  @apply gl-absolute gl-top-1 gl-left-1 gl-w-5 gl-h-5;
-  transition: transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-
-@media (prefers-reduced-motion) {
-  .gl-toggle .toggle-icon {
-    transition-duration: 0.01ms !important;
-    transition-delay: 0ms !important;
-  }
-}
-
-@media (forced-colors: active) {
-  .gl-toggle .toggle-icon {
-    transition: none;
-  }
-}
-
-.gl-toggle .toggle-icon::before {
-  @apply gl-absolute gl-inset-0 gl-rounded-full;
-  background-color: var(--gl-toggle-switch-background-color-unchecked-default);
-  content: "";
-  transform: scale(0.75);
-  transition:
-    transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
-    background-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-
-@media (prefers-reduced-motion) {
-  .gl-toggle .toggle-icon::before {
-    transition-duration: 0.01ms !important;
-    transition-delay: 0ms !important;
-  }
-}
-
-@media (forced-colors: active) {
-  .gl-toggle .toggle-icon::before {
-    background-color: CanvasText;
-    transition: none;
-  }
-}
-
-.gl-toggle .toggle-icon > svg {
-  @apply gl-absolute gl-w-4 gl-h-4;
-  top: 50%;
-  left: 50%;
-  /* Check/close icons are only rendered in Windows high contrast
-   * (forced-colors) mode so the toggle state remains distinguishable
-   * when background colors are overridden by the user agent. */
-  display: none;
-  transform: translate(-50%, -50%);
-}
-
-@media (forced-colors: active) {
-  .gl-toggle .toggle-icon > svg {
-    display: block;
-    color: Canvas;
-  }
-}
-
-.gl-toggle.is-checked {
-  color: var(--gl-toggle-switch-icon-color-checked-default);
-  background-color: var(--gl-toggle-switch-track-color-checked-default);
-  box-shadow: inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-checked-default);
-}
-
-.gl-toggle.is-checked:hover {
-  color: var(--gl-toggle-switch-icon-color-checked-hover);
-  background-color: var(--gl-toggle-switch-track-color-checked-hover);
-  box-shadow: inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-checked-hover);
-}
-
-.gl-toggle.is-checked:focus-visible {
-  color: var(--gl-toggle-switch-icon-color-checked-focus);
-  background-color: var(--gl-toggle-switch-track-color-checked-focus);
-  box-shadow:
-    inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-checked-focus),
-    0 0 0 1px var(--gl-focus-ring-inner-color),
-    0 0 0 3px var(--gl-focus-ring-outer-color) !important;
-  outline: none !important;
-}
-
-.gl-toggle.is-checked:active {
-  color: var(--gl-toggle-switch-icon-color-checked-active);
-  background-color: var(--gl-toggle-switch-track-color-checked-active);
-  box-shadow:
-    inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-checked-active),
-    0 0 0 1px var(--gl-focus-ring-inner-color),
-    0 0 0 3px var(--gl-focus-ring-outer-color) !important;
-  outline: none !important;
-}
-
-@media (forced-colors: active) {
-  .gl-toggle.is-checked {
-    background-color: CanvasText !important;
+  /* Upstream also lists `::before::selection` / `::after::selection`, which are
+   * invalid selectors that browsers ignore and lightningcss rejects. */
+  &::selection {
+    @apply gl-bg-transparent;
   }
 
-  .gl-toggle.is-checked svg {
-    color: CanvasText;
+  &:hover {
+    color: var(--gl-toggle-switch-icon-color-unchecked-hover);
+    background-color: var(--gl-toggle-switch-track-color-unchecked-hover);
+    box-shadow: inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-unchecked-hover);
   }
-}
 
-.gl-toggle.is-checked .toggle-icon {
-  transform: translateX(1rem);
-}
-
-.gl-toggle.is-checked .toggle-icon::before {
-  background-color: var(--gl-toggle-switch-background-color-checked-default);
-  transform: scale(1);
-}
-
-/* Both disabled blocks must stay last. `.gl-toggle.is-checked` and
- * `.gl-toggle.is-disabled` carry equal specificity, so source order is what
- * lets the disabled styles win over the checked ones. */
-.gl-toggle.is-disabled {
-  @apply gl-cursor-not-allowed;
-  background-color: var(--gl-toggle-switch-track-color-unchecked-disabled);
-  box-shadow: inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-unchecked-disabled);
-}
-
-.gl-toggle.is-disabled .toggle-icon {
-  color: var(--gl-toggle-switch-icon-color-disabled);
-}
-
-.gl-toggle.is-disabled .toggle-icon::before {
-  background-color: var(--gl-toggle-switch-background-color-unchecked-disabled);
-}
-
-@media (forced-colors: active) {
-  .gl-toggle.is-disabled .toggle-icon::before {
-    background-color: GrayText;
+  &:focus-visible {
+    color: var(--gl-toggle-switch-icon-color-unchecked-focus);
+    background-color: var(--gl-toggle-switch-track-color-unchecked-focus);
+    box-shadow:
+      inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-unchecked-focus),
+      0 0 0 1px var(--gl-focus-ring-inner-color),
+      0 0 0 3px var(--gl-focus-ring-outer-color) !important;
+    outline: none !important;
   }
-}
 
-.gl-toggle.is-disabled:hover .toggle-icon::before,
-.gl-toggle.is-disabled:focus-visible .toggle-icon::before {
-  transform: scale(0.75);
-}
-
-.gl-toggle.is-disabled:active,
-.gl-toggle.is-disabled:focus-visible,
-.gl-toggle.is-disabled:focus-visible:active {
-  box-shadow:
-    inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-unchecked-disabled),
-    0 0 0 1px var(--gl-focus-ring-inner-color),
-    0 0 0 3px var(--gl-focus-ring-outer-color) !important;
-  outline: none !important;
-}
-
-.gl-toggle.is-checked.is-disabled {
-  background-color: var(--gl-toggle-switch-track-color-checked-disabled);
-  box-shadow: inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-checked-disabled);
-}
-
-.gl-toggle.is-checked.is-disabled .toggle-icon::before {
-  background-color: var(--gl-toggle-switch-background-color-checked-disabled);
-  transform: scale(1);
-}
-
-.gl-toggle.is-checked.is-disabled:hover .toggle-icon::before,
-.gl-toggle.is-checked.is-disabled:focus-visible .toggle-icon::before {
-  transform: scale(1);
-}
-
-.gl-toggle.is-checked.is-disabled:active,
-.gl-toggle.is-checked.is-disabled:focus-visible,
-.gl-toggle.is-checked.is-disabled:focus-visible:active {
-  box-shadow:
-    inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-checked-disabled),
-    0 0 0 1px var(--gl-focus-ring-inner-color),
-    0 0 0 3px var(--gl-focus-ring-outer-color) !important;
-  outline: none !important;
-}
-
-@media (forced-colors: active) {
-  .gl-toggle.is-checked.is-disabled {
-    background-color: GrayText !important;
+  &:active {
+    color: var(--gl-toggle-switch-icon-color-unchecked-active);
+    background-color: var(--gl-toggle-switch-track-color-unchecked-active);
+    box-shadow:
+      inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-unchecked-active),
+      0 0 0 1px var(--gl-focus-ring-inner-color),
+      0 0 0 3px var(--gl-focus-ring-outer-color) !important;
+    outline: none !important;
   }
-}
 
-/* A loading toggle renders a spinner in place of the thumb, so the track is
- * the only thing left to look at and its value is still in flight. It gets a
- * flat fill that ignores the checked state, which also keeps the spinner
- * legible in both color modes.
- *
- * `.is-loading` is always accompanied by `.is-disabled`, so this block has to
- * stay after both disabled blocks: the checked pairs tie on specificity and
- * source order is what settles them. */
-.gl-toggle.is-loading,
-.gl-toggle.is-checked.is-loading {
-  background-color: var(--gl-toggle-switch-track-color-loading);
-  box-shadow: inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-loading);
-}
+  @media (forced-colors: active) {
+    &:focus-visible,
+    &:active {
+      outline: 2px solid LinkText !important;
+    }
+  }
 
-.gl-toggle.is-loading:active,
-.gl-toggle.is-loading:focus-visible,
-.gl-toggle.is-loading:focus-visible:active,
-.gl-toggle.is-checked.is-loading:active,
-.gl-toggle.is-checked.is-loading:focus-visible,
-.gl-toggle.is-checked.is-loading:focus-visible:active {
-  box-shadow:
-    inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-loading),
-    0 0 0 1px var(--gl-focus-ring-inner-color),
-    0 0 0 3px var(--gl-focus-ring-outer-color) !important;
-  outline: none !important;
+  /* The thumb grows on hover and focus so the interaction reads on the thumb as
+   * well as on the track. */
+  &:hover .toggle-icon::before,
+  &:focus-visible .toggle-icon::before {
+    transform: scale(0.875);
+  }
+
+  .toggle-loading {
+    @apply gl-h-5;
+  }
+
+  .toggle-icon {
+    @apply gl-absolute gl-top-1 gl-left-1 gl-w-5 gl-h-5;
+    transition: transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+
+    @media (prefers-reduced-motion) {
+      transition-duration: 0.01ms !important;
+      transition-delay: 0ms !important;
+    }
+
+    @media (forced-colors: active) {
+      transition: none;
+    }
+
+    &::before {
+      @apply gl-absolute gl-inset-0 gl-rounded-full;
+      background-color: var(--gl-toggle-switch-background-color-unchecked-default);
+      content: "";
+      transform: scale(0.75);
+      transition:
+        transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+        background-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+
+      @media (prefers-reduced-motion) {
+        transition-duration: 0.01ms !important;
+        transition-delay: 0ms !important;
+      }
+
+      @media (forced-colors: active) {
+        background-color: CanvasText;
+        transition: none;
+      }
+    }
+
+    > svg {
+      @apply gl-absolute gl-w-4 gl-h-4;
+      top: 50%;
+      left: 50%;
+      /* Check/close icons are only rendered in Windows high contrast
+       * (forced-colors) mode so the toggle state remains distinguishable
+       * when background colors are overridden by the user agent. */
+      display: none;
+      transform: translate(-50%, -50%);
+
+      @media (forced-colors: active) {
+        display: block;
+        color: Canvas;
+      }
+    }
+  }
+
+  &.is-checked {
+    color: var(--gl-toggle-switch-icon-color-checked-default);
+    background-color: var(--gl-toggle-switch-track-color-checked-default);
+    box-shadow: inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-checked-default);
+
+    &:hover {
+      color: var(--gl-toggle-switch-icon-color-checked-hover);
+      background-color: var(--gl-toggle-switch-track-color-checked-hover);
+      box-shadow: inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-checked-hover);
+    }
+
+    &:focus-visible {
+      color: var(--gl-toggle-switch-icon-color-checked-focus);
+      background-color: var(--gl-toggle-switch-track-color-checked-focus);
+      box-shadow:
+        inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-checked-focus),
+        0 0 0 1px var(--gl-focus-ring-inner-color),
+        0 0 0 3px var(--gl-focus-ring-outer-color) !important;
+      outline: none !important;
+    }
+
+    &:active {
+      color: var(--gl-toggle-switch-icon-color-checked-active);
+      background-color: var(--gl-toggle-switch-track-color-checked-active);
+      box-shadow:
+        inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-checked-active),
+        0 0 0 1px var(--gl-focus-ring-inner-color),
+        0 0 0 3px var(--gl-focus-ring-outer-color) !important;
+      outline: none !important;
+    }
+
+    @media (forced-colors: active) {
+      background-color: CanvasText !important;
+
+      svg {
+        color: CanvasText;
+      }
+    }
+
+    .toggle-icon {
+      transform: translateX(1rem);
+
+      &::before {
+        background-color: var(--gl-toggle-switch-background-color-checked-default);
+        transform: scale(1);
+      }
+    }
+  }
+
+  /* Both disabled blocks must stay last. `.gl-toggle.is-checked` and
+   * `.gl-toggle.is-disabled` carry equal specificity, so source order is what
+   * lets the disabled styles win over the checked ones. */
+  &.is-disabled {
+    @apply gl-cursor-not-allowed;
+    background-color: var(--gl-toggle-switch-track-color-unchecked-disabled);
+    box-shadow: inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-unchecked-disabled);
+
+    .toggle-icon {
+      color: var(--gl-toggle-switch-icon-color-disabled);
+
+      &::before {
+        background-color: var(--gl-toggle-switch-background-color-unchecked-disabled);
+
+        @media (forced-colors: active) {
+          background-color: GrayText;
+        }
+      }
+    }
+
+    &:hover .toggle-icon::before,
+    &:focus-visible .toggle-icon::before {
+      transform: scale(0.75);
+    }
+
+    &:active,
+    &:focus-visible,
+    &:focus-visible:active {
+      box-shadow:
+        inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-unchecked-disabled),
+        0 0 0 1px var(--gl-focus-ring-inner-color),
+        0 0 0 3px var(--gl-focus-ring-outer-color) !important;
+      outline: none !important;
+    }
+  }
+
+  &.is-checked.is-disabled {
+    background-color: var(--gl-toggle-switch-track-color-checked-disabled);
+    box-shadow: inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-checked-disabled);
+
+    .toggle-icon::before {
+      background-color: var(--gl-toggle-switch-background-color-checked-disabled);
+      transform: scale(1);
+    }
+
+    &:hover .toggle-icon::before,
+    &:focus-visible .toggle-icon::before {
+      transform: scale(1);
+    }
+
+    &:active,
+    &:focus-visible,
+    &:focus-visible:active {
+      box-shadow:
+        inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-checked-disabled),
+        0 0 0 1px var(--gl-focus-ring-inner-color),
+        0 0 0 3px var(--gl-focus-ring-outer-color) !important;
+      outline: none !important;
+    }
+
+    @media (forced-colors: active) {
+      background-color: GrayText !important;
+    }
+  }
+
+  /* A loading toggle renders a spinner in place of the thumb, so the track is
+   * the only thing left to look at and its value is still in flight. It gets a
+   * flat fill that ignores the checked state, which also keeps the spinner
+   * legible in both color modes.
+   *
+   * `.is-loading` is always accompanied by `.is-disabled`, so this block has to
+   * stay after both disabled blocks: the checked pairs tie on specificity and
+   * source order is what settles them. */
+  &.is-loading,
+  &.is-checked.is-loading {
+    background-color: var(--gl-toggle-switch-track-color-loading);
+    box-shadow: inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-loading);
+
+    &:active,
+    &:focus-visible,
+    &:focus-visible:active {
+      box-shadow:
+        inset 0 0 0 1px var(--gl-toggle-switch-track-border-color-loading),
+        0 0 0 1px var(--gl-focus-ring-inner-color),
+        0 0 0 3px var(--gl-focus-ring-outer-color) !important;
+      outline: none !important;
+    }
+  }
 }

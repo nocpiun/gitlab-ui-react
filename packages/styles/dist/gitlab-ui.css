@@ -2773,31 +2773,31 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 a {
   color: var(--gl-text-color-link);
   text-decoration-line: none;
-  &:hover {
-    @media (hover: hover) {
-      color: var(--gl-text-color-link);
-    }
-  }
-  &:hover {
-    @media (hover: hover) {
-      text-decoration-line: underline;
-    }
-  }
 }
+@media (hover: hover) {
+a:hover {
+      color: var(--gl-text-color-link)
+  }
+    }
+@media (hover: hover) {
+a:hover {
+      text-decoration-line: underline
+  }
+    }
 a:not([href]):not([class]) {
   color: inherit;
   text-decoration-line: none;
-  &:hover {
-    @media (hover: hover) {
-      color: inherit;
-    }
-  }
-  &:hover {
-    @media (hover: hover) {
-      text-decoration-line: none;
-    }
-  }
 }
+@media (hover: hover) {
+a:not([href]):not([class]):hover {
+      color: inherit
+  }
+    }
+@media (hover: hover) {
+a:not([href]):not([class]):hover {
+      text-decoration-line: none
+  }
+    }
 caption {
   color: var(--gl-text-color-subtle);
 }
@@ -4032,21 +4032,23 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
   border-radius: var(--gl-alert-border-radius);
   padding-inline: calc(3rem + var(--gl-alert-padding-x, 0px));
   position: relative;
-  @media (forced-colors: active) {
+}
+@media (forced-colors: active) {
+  .gl-alert {
     border: 1px solid transparent;
   }
-  &::before {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 2px;
-    position: absolute;
-    top: -1px;
-    left: 0;
-  }
-  .gl-link:not(.gl-label-link) {
-    text-decoration-line: underline;
-  }
+}
+.gl-alert::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  top: -1px;
+  left: 0;
+}
+.gl-alert .gl-link:not(.gl-label-link) {
+  text-decoration-line: underline;
 }
 .gl-alert-not-dismissible {
   padding-right: calc(1rem + var(--gl-alert-padding-x, 0px));
@@ -4072,9 +4074,9 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
   display: flex;
   align-items: center;
   height: 1.25rem;
-  .gl-alert-has-title & {
-    top: calc(0.75rem + 2px);
-  }
+}
+.gl-alert-has-title .gl-alert-icon-container {
+  top: calc(0.75rem + 2px);
 }
 .gl-alert-body {
   --tw-leading: var(--gl-line-height-20);
@@ -4117,83 +4119,83 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
   position: absolute;
   top: calc(0.75rem + 2px);
   right: calc(0.75rem + var(--gl-alert-padding-x, 0px));
-  .gl-alert-has-title & {
-    top: 0.75rem;
-  }
+}
+.gl-alert-has-title .gl-dismiss-btn {
+  top: 0.75rem;
 }
 .gl-alert-danger {
   background-color: var(--gl-alert-danger-background-color);
   border-bottom: 1px solid var(--gl-alert-danger-border-bottom-color);
-  &::before {
-    background: linear-gradient( to right, transparent 0%, var(--gl-alert-danger-border-top-color) 50%, transparent 100% );
-  }
-  .gl-alert-title {
-    color: var(--gl-alert-danger-title-color);
-  }
-  @media (forced-colors: none) {
-    .gl-alert-icon {
-      color: var(--gl-feedback-danger-icon-color);
-    }
+}
+.gl-alert-danger::before {
+  background: linear-gradient( to right, transparent 0%, var(--gl-alert-danger-border-top-color) 50%, transparent 100% );
+}
+.gl-alert-danger .gl-alert-title {
+  color: var(--gl-alert-danger-title-color);
+}
+@media (forced-colors: none) {
+  .gl-alert-danger .gl-alert-icon {
+    color: var(--gl-feedback-danger-icon-color);
   }
 }
 .gl-alert-warning {
   background-color: var(--gl-alert-warning-background-color);
   border-bottom: 1px solid var(--gl-alert-warning-border-bottom-color);
-  &::before {
-    background: linear-gradient( to right, transparent 0%, var(--gl-alert-warning-border-top-color) 50%, transparent 100% );
-  }
-  .gl-alert-title {
-    color: var(--gl-alert-warning-title-color);
-  }
-  @media (forced-colors: none) {
-    .gl-alert-icon {
-      color: var(--gl-feedback-warning-icon-color);
-    }
+}
+.gl-alert-warning::before {
+  background: linear-gradient( to right, transparent 0%, var(--gl-alert-warning-border-top-color) 50%, transparent 100% );
+}
+.gl-alert-warning .gl-alert-title {
+  color: var(--gl-alert-warning-title-color);
+}
+@media (forced-colors: none) {
+  .gl-alert-warning .gl-alert-icon {
+    color: var(--gl-feedback-warning-icon-color);
   }
 }
 .gl-alert-tip {
   background-color: var(--gl-alert-neutral-background-color);
   border-bottom: 1px solid var(--gl-alert-neutral-border-bottom-color);
-  &::before {
-    background: linear-gradient( to right, transparent 0%, var(--gl-alert-neutral-border-top-color) 50%, transparent 100% );
-  }
-  .gl-alert-title {
-    color: var(--gl-alert-neutral-title-color);
-  }
-  @media (forced-colors: none) {
-    .gl-alert-icon {
-      color: var(--gl-feedback-neutral-icon-color);
-    }
+}
+.gl-alert-tip::before {
+  background: linear-gradient( to right, transparent 0%, var(--gl-alert-neutral-border-top-color) 50%, transparent 100% );
+}
+.gl-alert-tip .gl-alert-title {
+  color: var(--gl-alert-neutral-title-color);
+}
+@media (forced-colors: none) {
+  .gl-alert-tip .gl-alert-icon {
+    color: var(--gl-feedback-neutral-icon-color);
   }
 }
 .gl-alert-info {
   background-color: var(--gl-alert-info-background-color);
   border-bottom: 1px solid var(--gl-alert-info-border-bottom-color);
-  &::before {
-    background: linear-gradient( to right, transparent 0%, var(--gl-alert-info-border-top-color) 50%, transparent 100% );
-  }
-  .gl-alert-title {
-    color: var(--gl-alert-info-title-color);
-  }
-  @media (forced-colors: none) {
-    .gl-alert-icon {
-      color: var(--gl-feedback-info-icon-color);
-    }
+}
+.gl-alert-info::before {
+  background: linear-gradient( to right, transparent 0%, var(--gl-alert-info-border-top-color) 50%, transparent 100% );
+}
+.gl-alert-info .gl-alert-title {
+  color: var(--gl-alert-info-title-color);
+}
+@media (forced-colors: none) {
+  .gl-alert-info .gl-alert-icon {
+    color: var(--gl-feedback-info-icon-color);
   }
 }
 .gl-alert-success {
   background-color: var(--gl-alert-success-background-color);
   border-bottom: 1px solid var(--gl-alert-success-border-bottom-color);
-  &::before {
-    background: linear-gradient( to right, transparent 0%, var(--gl-alert-success-border-top-color) 50%, transparent 100% );
-  }
-  .gl-alert-title {
-    color: var(--gl-alert-success-title-color);
-  }
-  @media (forced-colors: none) {
-    .gl-alert-icon {
-      color: var(--gl-feedback-success-icon-color);
-    }
+}
+.gl-alert-success::before {
+  background: linear-gradient( to right, transparent 0%, var(--gl-alert-success-border-top-color) 50%, transparent 100% );
+}
+.gl-alert-success .gl-alert-title {
+  color: var(--gl-alert-success-title-color);
+}
+@media (forced-colors: none) {
+  .gl-alert-success .gl-alert-icon {
+    color: var(--gl-feedback-success-icon-color);
   }
 }
 .gl-attribute-list-container {
@@ -4902,104 +4904,104 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
   padding-left: calc(1rem + var(--gl-broadcast-message-padding-x, 0px));
   padding-right: calc(0.75rem + var(--gl-broadcast-message-padding-x, 0px));
   padding-block: var(--gl-spacing-scale-5);
-  &.indigo {
-    --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-indigo);
-    --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-indigo);
-    --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-indigo);
-    --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-indigo);
-  }
-  &.light-indigo {
-    --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-lightindigo);
-    --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-lightindigo);
-    --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-lightindigo);
-    --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-lightindigo);
-  }
-  &.blue {
-    --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-blue);
-    --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-blue);
-    --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-blue);
-    --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-blue);
-  }
-  &.light-blue {
-    --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-lightblue);
-    --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-lightblue);
-    --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-lightblue);
-    --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-lightblue);
-  }
-  &.green {
-    --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-green);
-    --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-green);
-    --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-green);
-    --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-green);
-  }
-  &.light-green {
-    --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-lightgreen);
-    --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-lightgreen);
-    --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-lightgreen);
-    --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-lightgreen);
-  }
-  &.red {
-    --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-red);
-    --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-red);
-    --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-red);
-    --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-red);
-  }
-  &.light-red {
-    --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-lightred);
-    --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-lightred);
-    --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-lightred);
-    --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-lightred);
-  }
-  &.dark {
-    --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-dark);
-    --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-dark);
-    --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-dark);
-    --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-dark);
-  }
-  &.light {
-    --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-light);
-    --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-light);
-    --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-light);
-    --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-light);
-  }
-  &[class~="banner"] {
-    background-color: var(--gl-broadcast-message-bg-color);
-    box-shadow: inset 0 -1px 0 0 var(--gl-broadcast-message-border-color);
-    color: var(--gl-broadcast-message-text-color);
-    .gl-broadcast-message-icon {
-      color: var(--gl-broadcast-message-icon-color);
-    }
-  }
-  &.notification {
-    border-style: var(--tw-border-style);
-    border-width: 1px;
-    border-style: solid;
-    border-color: var(--gl-border-color-default);
-    --tw-shadow: var(--gl-shadow-md);
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-    background-color: var(--gl-background-color-overlap);
-    color: var(--gl-text-color-default);
-    border-radius: var(--gl-broadcast-banner-border-radius);
-    max-width: 18.75rem;
-  }
+}
+.gl-broadcast-message.indigo {
+  --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-indigo);
+  --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-indigo);
+  --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-indigo);
+  --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-indigo);
+}
+.gl-broadcast-message.light-indigo {
+  --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-lightindigo);
+  --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-lightindigo);
+  --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-lightindigo);
+  --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-lightindigo);
+}
+.gl-broadcast-message.blue {
+  --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-blue);
+  --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-blue);
+  --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-blue);
+  --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-blue);
+}
+.gl-broadcast-message.light-blue {
+  --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-lightblue);
+  --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-lightblue);
+  --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-lightblue);
+  --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-lightblue);
+}
+.gl-broadcast-message.green {
+  --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-green);
+  --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-green);
+  --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-green);
+  --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-green);
+}
+.gl-broadcast-message.light-green {
+  --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-lightgreen);
+  --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-lightgreen);
+  --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-lightgreen);
+  --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-lightgreen);
+}
+.gl-broadcast-message.red {
+  --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-red);
+  --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-red);
+  --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-red);
+  --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-red);
+}
+.gl-broadcast-message.light-red {
+  --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-lightred);
+  --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-lightred);
+  --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-lightred);
+  --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-lightred);
+}
+.gl-broadcast-message.dark {
+  --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-dark);
+  --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-dark);
+  --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-dark);
+  --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-dark);
+}
+.gl-broadcast-message.light {
+  --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-light);
+  --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-light);
+  --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-light);
+  --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-light);
+}
+.gl-broadcast-message[class~="banner"] {
+  background-color: var(--gl-broadcast-message-bg-color);
+  box-shadow: inset 0 -1px 0 0 var(--gl-broadcast-message-border-color);
+  color: var(--gl-broadcast-message-text-color);
+}
+.gl-broadcast-message[class~="banner"] .gl-broadcast-message-icon {
+  color: var(--gl-broadcast-message-icon-color);
+}
+.gl-broadcast-message.notification {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--gl-border-color-default);
+  --tw-shadow: var(--gl-shadow-md);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  background-color: var(--gl-background-color-overlap);
+  color: var(--gl-text-color-default);
+  border-radius: var(--gl-broadcast-banner-border-radius);
+  max-width: 18.75rem;
 }
 .gl-broadcast-message-content {
   display: flex;
   justify-content: center;
-  a {
-    color: inherit;
-    text-decoration-line: underline;
-  }
-  p:last-of-type {
-    margin-bottom: var(--gl-spacing-scale-0);
-  }
+}
+.gl-broadcast-message-content a {
+  color: inherit;
+  text-decoration-line: underline;
+}
+.gl-broadcast-message-content p:last-of-type {
+  margin-bottom: var(--gl-spacing-scale-0);
 }
 .gl-broadcast-message-icon {
   margin-right: var(--gl-spacing-scale-5);
   line-height: 1rem;
-  > svg {
-    vertical-align: bottom;
-  }
+}
+.gl-broadcast-message-icon > svg {
+  vertical-align: bottom;
 }
 .gl-broadcast-message-text {
   margin-top: -0.125rem;
@@ -5481,9 +5483,13 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
   --tw-border-style: solid;
   border-style: solid;
   border-color: transparent;
-  @media (prefers-contrast: more) {
+}
+@media (prefers-contrast: more) {
+.gl-card {
     border-color: var(--gl-border-color-strong);
+}
   }
+.gl-card{
   display: flex;
   flex-direction: column;
   overflow-wrap: break-word;
@@ -5502,32 +5508,42 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
   margin-block: var(--gl-spacing-scale-1);
   border-top-left-radius: calc(var(--gl-card-border-radius) - 1px);
   border-top-right-radius: calc(var(--gl-card-border-radius) - 1px);
-  h2, h3, h4, h5, h6 {
-    font-size: var(--gl-font-size-base);
-    color: var(--gl-text-color-heading);
-    margin: var(--gl-spacing-scale-0);
-  }
+}
+.gl-card-header h2, .gl-card-header h3, .gl-card-header h4, .gl-card-header h5, .gl-card-header h6 {
+  font-size: var(--gl-font-size-base);
+  color: var(--gl-text-color-heading);
+  margin: var(--gl-spacing-scale-0);
 }
 .gl-card-body {
   flex-grow: 1;
   padding: var(--gl-spacing-scale-3);
   background-color: var(--gl-background-color-default);
-  @media (prefers-contrast: more) {
+}
+@media (prefers-contrast: more) {
+.gl-card-body {
     border-style: var(--tw-border-style);
     border-width: 1px;
+}
   }
-  @media (prefers-contrast: more) {
+@media (prefers-contrast: more) {
+.gl-card-body {
     border-style: solid;
     border-color: var(--gl-border-color-default);
+}
   }
-  @media (forced-colors: active) {
+@media (forced-colors: active) {
+.gl-card-body {
     border-style: var(--tw-border-style);
     border-width: 1px;
+}
   }
-  @media (forced-colors: active) {
+@media (forced-colors: active) {
+.gl-card-body {
     border-style: solid;
     border-color: var(--gl-border-color-default);
+}
   }
+.gl-card-body{
   border-radius: calc(var(--gl-card-border-radius) - 0.25rem);
 }
 .gl-card-footer {
@@ -6904,12 +6920,22 @@ table.gl-table.table-borderless tr > :is(th, td) {
   background-color: var(--gl-skeleton-loader-background-color);
   background-image: linear-gradient(to right, var(--gl-skeleton-loader-background-color) 0, var(--gl-skeleton-loader-shimmer-color) 23%, var(--gl-skeleton-loader-shimmer-color) 27%, var(--gl-skeleton-loader-background-color) 50%);
   background-repeat: no-repeat;
-  @media (prefers-reduced-motion: no-preference) {
+}
+@media (prefers-reduced-motion: no-preference) {
+.gl-animate-skeleton-loader {
     animation: gl-keyframes-skeleton-loader 2.5s linear;
     animation-delay: inherit;
-    animation-iteration-count: 3;
-  }
+    animation-iteration-count: 3
 }
+  }
+@keyframes gl-keyframes-skeleton-loader {
+    0% {
+      background-position-x: -32rem;
+    }
+    100% {
+      background-position-x: 32rem;
+    }
+  }
 .\!gl-max-w-20 {
   max-width: var(--gl-spacing-scale-20) !important;
 }
@@ -7304,13 +7330,5 @@ table.gl-table.table-borderless tr > :is(th, td) {
       --tw-duration: initial;
       --tw-ease: initial;
     }
-  }
-}
-@keyframes gl-keyframes-skeleton-loader {
-  0% {
-    background-position-x: -32rem;
-  }
-  100% {
-    background-position-x: 32rem;
   }
 }

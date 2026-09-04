@@ -31,26 +31,30 @@
   @apply gl-opacity-0;
 }
 
-.gl-tooltip .tooltip-inner {
-  @apply gl-drop-shadow-md gl-leading-normal gl-font-normal gl-py-3 gl-px-4 gl-rounded-feedback gl-text-center;
-  max-width: 200px;
-  background: var(--gl-feedback-strong-background-color);
-  color: var(--gl-feedback-strong-text-color);
-  --gl-text-color-subtle: var(--gl-tooltip-text-color-subtle);
+.gl-tooltip {
+  .tooltip-inner {
+    @apply gl-drop-shadow-md gl-leading-normal gl-font-normal gl-py-3 gl-px-4 gl-rounded-feedback gl-text-center;
+    max-width: 200px;
+    background: var(--gl-feedback-strong-background-color);
+    color: var(--gl-feedback-strong-text-color);
+    --gl-text-color-subtle: var(--gl-tooltip-text-color-subtle);
+  }
+
+  .arrow {
+    @apply gl-block gl-w-2 gl-h-3;
+
+    &::before {
+      @apply gl-absolute gl-border-4 gl-border-solid gl-border-transparent;
+      content: "";
+    }
+  }
 }
 
-.gl-tooltip .arrow {
-  @apply gl-block gl-w-2 gl-h-3;
-}
-
-.gl-tooltip .arrow::before {
-  @apply gl-absolute gl-border-4 gl-border-solid gl-border-transparent;
-  content: "";
-}
-
-.gl-tooltip.bs-tooltip-top .arrow,
-.gl-tooltip.bs-tooltip-bottom .arrow {
-  @apply gl-w-3 gl-h-2;
+.gl-tooltip.bs-tooltip-top,
+.gl-tooltip.bs-tooltip-bottom {
+  .arrow {
+    @apply gl-w-3 gl-h-2;
+  }
 }
 
 /* The arrow lives inside the popup's 4px padding (like upstream, where the

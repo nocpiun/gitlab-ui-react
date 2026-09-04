@@ -8,10 +8,12 @@
   font-family: inherit;
 }
 
-.gl-button:not(.btn-link):focus-visible,
-.gl-button:not(.btn-link):active,
-.gl-button:not(.btn-link):focus-visible:active {
-  @apply gl-no-underline;
+.gl-button:not(.btn-link) {
+  &:focus-visible,
+  &:active,
+  &:focus-visible:active {
+    @apply gl-no-underline;
+  }
 }
 
 .gl-button.gl-button {
@@ -41,34 +43,34 @@
     border-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
     box-shadow 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
     text-decoration-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
 
-.gl-button.gl-button::before {
-  background-color: var(--gl-button-variant-border);
-  transition:
-    background-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
-    border-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
+  &::before {
+    background-color: var(--gl-button-variant-border);
+    transition:
+      background-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+      border-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
 
-.gl-button.gl-button:hover {
-  color: var(--gl-button-variant-hover-foreground);
-  background-color: var(--gl-button-variant-hover-background);
-  border-color: var(--gl-button-variant-hover-border);
-}
+  &:hover {
+    color: var(--gl-button-variant-hover-foreground);
+    background-color: var(--gl-button-variant-hover-background);
+    border-color: var(--gl-button-variant-hover-border);
+  }
 
-.gl-button.gl-button:focus-visible,
-.gl-button.gl-button:focus-visible:active {
-  @apply gl-focus;
-  color: var(--gl-button-variant-focus-foreground);
-  background-color: var(--gl-button-variant-focus-background);
-  border-color: var(--gl-button-variant-focus-border);
-}
+  &:focus-visible,
+  &:focus-visible:active {
+    @apply gl-focus;
+    color: var(--gl-button-variant-focus-foreground);
+    background-color: var(--gl-button-variant-focus-background);
+    border-color: var(--gl-button-variant-focus-border);
+  }
 
-.gl-button.gl-button:active,
-.gl-button.gl-button.active {
-  color: var(--gl-button-variant-active-foreground);
-  background-color: var(--gl-button-variant-active-background);
-  border-color: var(--gl-button-variant-active-border);
+  &:active,
+  &.active {
+    color: var(--gl-button-variant-active-foreground);
+    background-color: var(--gl-button-variant-active-background);
+    border-color: var(--gl-button-variant-active-border);
+  }
 }
 
 .gl-button.btn-default,
@@ -291,23 +293,23 @@
   text-decoration-color: transparent;
   text-decoration-style: solid;
   text-decoration-thickness: auto;
-}
 
-.gl-button.gl-button.btn-link:hover {
-  @apply gl-bg-transparent;
-  color: var(--gl-button-link-text-color-hover);
-  text-decoration-color: var(--gl-button-link-text-color-hover);
-}
+  &:hover {
+    @apply gl-bg-transparent;
+    color: var(--gl-button-link-text-color-hover);
+    text-decoration-color: var(--gl-button-link-text-color-hover);
+  }
 
-.gl-button.gl-button.btn-link:active {
-  @apply gl-bg-transparent;
-  color: var(--gl-button-link-text-color-active);
-  text-decoration-color: var(--gl-button-link-text-color-active);
-}
+  &:active {
+    @apply gl-bg-transparent;
+    color: var(--gl-button-link-text-color-active);
+    text-decoration-color: var(--gl-button-link-text-color-active);
+  }
 
-.gl-button.gl-button.btn-link:focus-visible,
-.gl-button.gl-button.btn-link:focus-visible:active {
-  @apply gl-bg-transparent;
+  &:focus-visible,
+  &:focus-visible:active {
+    @apply gl-bg-transparent;
+  }
 }
 
 .gl-button.gl-button.btn-block {

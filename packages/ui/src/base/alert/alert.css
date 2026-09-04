@@ -40,10 +40,10 @@
   .gl-link:not(.gl-label-link) {
     @apply gl-underline;
   }
-}
 
-.gl-alert-not-dismissible {
-  padding-right: calc(1rem + var(--gl-alert-padding-x, 0px));
+  &-not-dismissible {
+    padding-right: calc(1rem + var(--gl-alert-padding-x, 0px));
+  }
 }
 
 .gl-alert-sticky {

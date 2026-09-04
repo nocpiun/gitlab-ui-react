@@ -46,17 +46,17 @@ kbd {
 
 .table {
   @apply gl-mb-3 gl-w-full gl-bg-transparent gl-text-default;
-}
 
-.table th,
-.table td {
-  @apply gl-border-t gl-p-4 gl-align-top;
-}
+  th,
+  td {
+    @apply gl-border-t gl-p-4 gl-align-top;
+  }
 
-.table thead th {
-  @apply gl-border-b gl-border-b-2 gl-align-bottom;
-}
+  thead th {
+    @apply gl-border-b gl-border-b-2 gl-align-bottom;
+  }
 
-.table tbody + tbody {
-  @apply gl-border-t gl-border-t-2;
+  tbody + tbody {
+    @apply gl-border-t gl-border-t-2;
+  }
 }

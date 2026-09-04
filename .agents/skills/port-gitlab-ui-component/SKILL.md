@@ -69,6 +69,8 @@ Keep stylesheet provenance boundaries strict. A component's colocated CSS may co
 
 When authoring component CSS, prefer `@apply` with supported upstream `gl-*` utilities wherever it preserves the intended declaration and cascade. When upstream already uses `@apply`, keep its utility choices, variant prefixes, grouping, and source order as closely as the local Tailwind build and React structure allow. Keep native CSS for component-specific tokens, Sass-only constructs, compatibility adaptations, missing utilities, or cases where `@apply` would change specificity or source-order behavior. See [references/react-porting.md](references/react-porting.md) for the detailed boundary.
 
+Match the upstream stylesheet's selector organization as closely as the local React and Base UI structure allows. When upstream uses Sass-style nesting, preserve the equivalent nesting for states, modifiers, descendants, combinators, and conditional at-rules; when upstream leaves a rule flat, keep its local counterpart flat instead of introducing nesting merely because the build supports it. Nest only when the existing `postcss-nested` pipeline expands to the same selector set, specificity, at-rule context, and source order. Do not introduce Sass variables, mixins, loops, or interpolation.
+
 If upstream behavior cannot be supported without a missing local primitive, either add the smallest reusable prerequisite within scope or preserve a clear typed API boundary and document the deliberate deferral. Never silently drop a supported state.
 
 ### 4. Verify in increasing cost order

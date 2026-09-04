@@ -10,10 +10,10 @@
  * radios. Only genuinely component-private rules stay in the component CSS:
  * the indicator shapes, mask images and the checkbox indeterminate states.
  *
- * React adaptation: selectors that upstream nests under the combined
- * `.gl-form-checkbox, .gl-form-radio` block are written out per marker class.
- * Cross-type combinations that cannot occur in this React markup (e.g. a
- * `[type="checkbox"]` input inside `.gl-form-radio`) are omitted.
+ * React adaptation: the shared rules preserve upstream's combined
+ * `.gl-form-checkbox, .gl-form-radio` parent. Cross-type combinations that
+ * cannot occur in this React markup (e.g. a `[type="checkbox"]` input inside
+ * `.gl-form-radio`) are omitted.
  */
 
 .gl-form-checkbox,
@@ -30,61 +30,45 @@
   @apply gl-cursor-not-allowed gl-text-disabled;
 }
 
-.gl-form-checkbox.custom-control,
-.gl-form-radio.custom-control {
-  @apply gl-pl-5;
-}
+.gl-form-checkbox,
+.gl-form-radio {
+  &.custom-control {
+    @apply gl-pl-5;
 
-.gl-form-checkbox.custom-control .custom-control-input ~ .custom-control-label,
-.gl-form-radio.custom-control .custom-control-input ~ .custom-control-label {
-  @apply gl-cursor-pointer gl-pl-3 gl-mb-3;
-}
+    .custom-control-input ~ .custom-control-label {
+      @apply gl-cursor-pointer gl-pl-3 gl-mb-3;
+    }
 
-.gl-form-checkbox.custom-control .custom-control-input ~ .custom-control-label::before,
-.gl-form-checkbox.custom-control .custom-control-input ~ .custom-control-label::after,
-.gl-form-radio.custom-control .custom-control-input ~ .custom-control-label::before,
-.gl-form-radio.custom-control .custom-control-input ~ .custom-control-label::after {
-  top: 0;
-  /* -$gl-spacing-scale-5 */
-  left: -1rem;
-}
+    .custom-control-input ~ .custom-control-label::before,
+    .custom-control-input ~ .custom-control-label::after {
+      top: 0;
+      /* -$gl-spacing-scale-5 */
+      left: -1rem;
+    }
 
-.gl-form-checkbox.custom-control .custom-control-input ~ .custom-control-label::before,
-.gl-form-radio.custom-control .custom-control-input ~ .custom-control-label::before {
-  background-color: var(--gl-control-background-color-default);
-  border-color: var(--gl-control-border-color-default);
-}
+    .custom-control-input ~ .custom-control-label::before {
+      background-color: var(--gl-control-background-color-default);
+      border-color: var(--gl-control-border-color-default);
+    }
 
-.gl-form-checkbox.custom-control
-  .custom-control-input:not(:disabled):hover
-  ~ .custom-control-label::before,
-.gl-form-radio.custom-control
-  .custom-control-input:not(:disabled):hover
-  ~ .custom-control-label::before {
-  border-color: var(--gl-control-border-color-hover);
-}
+    .custom-control-input:not(:disabled):hover ~ .custom-control-label::before {
+      border-color: var(--gl-control-border-color-hover);
+    }
 
-.gl-form-checkbox.custom-control
-  .custom-control-input:not(:disabled):focus-visible
-  ~ .custom-control-label::before,
-.gl-form-radio.custom-control
-  .custom-control-input:not(:disabled):focus-visible
-  ~ .custom-control-label::before {
-  @apply gl-focus;
-  border-color: var(--gl-control-border-color-focus);
-}
+    .custom-control-input:not(:disabled):focus-visible ~ .custom-control-label::before {
+      @apply gl-focus;
+      border-color: var(--gl-control-border-color-focus);
+    }
 
-.gl-form-checkbox.custom-control .custom-control-input:checked ~ .custom-control-label::before,
-.gl-form-radio.custom-control .custom-control-input:checked ~ .custom-control-label::before {
-  background-color: var(--gl-control-background-color-selected-default);
-  border-color: var(--gl-control-border-color-selected-default);
-}
+    .custom-control-input:checked ~ .custom-control-label::before {
+      background-color: var(--gl-control-background-color-selected-default);
+      border-color: var(--gl-control-border-color-selected-default);
 
-@media (forced-colors: active) {
-  .gl-form-checkbox.custom-control .custom-control-input:checked ~ .custom-control-label::before,
-  .gl-form-radio.custom-control .custom-control-input:checked ~ .custom-control-label::before {
-    background-color: LinkText;
-    border-color: LinkText;
+      @media (forced-colors: active) {
+        background-color: LinkText;
+        border-color: LinkText;
+      }
+    }
   }
 }
 
@@ -121,14 +105,14 @@
   border-color: var(--gl-control-border-color-selected-hover);
 }
 
-.gl-form-checkbox.custom-control
-  .custom-control-input:not(:disabled):focus-visible:checked
-  ~ .custom-control-label::before,
-.gl-form-radio.custom-control
-  .custom-control-input:not(:disabled):focus-visible:checked
-  ~ .custom-control-label::before {
-  background-color: var(--gl-control-background-color-selected-focus);
-  border-color: var(--gl-control-border-color-selected-focus);
+.gl-form-checkbox,
+.gl-form-radio {
+  &.custom-control {
+    .custom-control-input:not(:disabled):focus-visible:checked ~ .custom-control-label::before {
+      background-color: var(--gl-control-background-color-selected-focus);
+      border-color: var(--gl-control-border-color-selected-focus);
+    }
+  }
 }
 
 @media (forced-colors: active) {
@@ -155,31 +139,26 @@
   }
 }
 
-.gl-form-checkbox.custom-control .custom-control-input:not(:disabled) ~ .custom-control-label,
-.gl-form-radio.custom-control .custom-control-input:not(:disabled) ~ .custom-control-label {
-  @apply gl-text-default;
-}
+.gl-form-checkbox,
+.gl-form-radio {
+  &.custom-control {
+    .custom-control-input:not(:disabled) ~ .custom-control-label {
+      @apply gl-text-default;
+    }
 
-.gl-form-checkbox.custom-control .custom-control-input:disabled ~ .custom-control-label,
-.gl-form-radio.custom-control .custom-control-input:disabled ~ .custom-control-label {
-  @apply gl-cursor-not-allowed;
-}
+    .custom-control-input:disabled ~ .custom-control-label {
+      @apply gl-cursor-not-allowed;
+    }
 
-.gl-form-checkbox.custom-control .custom-control-input:disabled ~ .custom-control-label::before,
-.gl-form-radio.custom-control .custom-control-input:disabled ~ .custom-control-label::before {
-  @apply gl-pointer-events-auto;
-  background-color: var(--gl-control-background-color-disabled);
-  border-color: var(--gl-control-border-color-disabled);
-}
+    .custom-control-input:disabled ~ .custom-control-label::before {
+      @apply gl-pointer-events-auto;
+      background-color: var(--gl-control-background-color-disabled);
+      border-color: var(--gl-control-border-color-disabled);
 
-@media (forced-colors: active) {
-  .gl-form-checkbox.custom-control
-    .custom-control-input:disabled
-    ~ .custom-control-label::before,
-  .gl-form-radio.custom-control
-    .custom-control-input:disabled
-    ~ .custom-control-label::before {
-    opacity: 0.5;
+      @media (forced-colors: active) {
+        opacity: 0.5;
+      }
+    }
   }
 }
 
@@ -228,7 +207,9 @@
   }
 }
 
-.gl-form-checkbox .help-text,
-.gl-form-radio .help-text {
-  @apply gl-mt-2 gl-mb-0 gl-text-base gl-leading-normal gl-text-subtle;
+.gl-form-checkbox,
+.gl-form-radio {
+  .help-text {
+    @apply gl-mt-2 gl-mb-0 gl-text-base gl-leading-normal gl-text-subtle;
+  }
 }

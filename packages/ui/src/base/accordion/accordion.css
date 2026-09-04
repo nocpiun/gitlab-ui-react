@@ -9,10 +9,10 @@
 
 .gl-accordion-item {
   @apply gl-mb-5;
-}
 
-.gl-accordion-item:last-child {
-  @apply gl-mb-0;
+  &:last-child {
+    @apply gl-mb-0;
+  }
 }
 
 .gl-accordion-item-header {
