@@ -14,6 +14,15 @@ export type {
   GlAlertProps,
   GlAlertVariant,
 } from "./base/alert/alert";
+export {
+  default as GlAttributeList,
+  GlAttributeListItem,
+} from "./base/attribute-list/attribute-list";
+export type {
+  GlAttributeListItemProps,
+  GlAttributeListLayout,
+  GlAttributeListProps,
+} from "./base/attribute-list/attribute-list";
 export { default as GlAvatar } from "./base/avatar/avatar";
 export type {
   GlAvatarProps,
