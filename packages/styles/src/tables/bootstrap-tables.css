@@ -1,0 +1,430 @@
+/**
+ * Bootstrap table compatibility required by GlTable.
+ *
+ * Ported from GitLab UI's BootstrapVue table styles and Bootstrap v4.6 table
+ * foundations. Rules are scoped to the React component marker so unrelated
+ * consumer tables using Bootstrap class names are not affected.
+ */
+
+.gl-table-responsive {
+  container-type: inline-size;
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.gl-table-responsive > .gl-table {
+  margin-bottom: 0;
+}
+
+.gl-table-responsive.b-table-sticky-header {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+table.gl-table.b-table-fixed {
+  table-layout: fixed;
+}
+
+table.gl-table.b-table-no-border-collapse {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+table.gl-table > caption {
+  caption-side: bottom;
+}
+
+table.gl-table.b-table-caption-top > caption {
+  caption-side: top !important;
+}
+
+table.gl-table.table-sm tr > :is(th, td) {
+  padding: 0.3rem;
+}
+
+table.gl-table.table-striped tbody tr:nth-of-type(odd) {
+  background-color: var(--gl-background-color-subtle);
+}
+
+@media print {
+  .gl-table-responsive.b-table-sticky-header {
+    max-height: none !important;
+    overflow-y: visible !important;
+  }
+}
+
+table.gl-table.table-bordered {
+  @apply gl-border gl-border-solid gl-border-default;
+}
+
+table.gl-table.table-bordered th,
+table.gl-table.table-bordered td {
+  @apply gl-border gl-border-solid gl-border-default;
+}
+
+table.gl-table.table-borderless,
+table.gl-table.table-borderless th,
+table.gl-table.table-borderless td,
+table.gl-table.table-borderless thead th,
+table.gl-table.table-borderless tbody + tbody {
+  border: 0;
+}
+
+table.gl-table.b-table-stacked {
+  --gl-table-stacked-table-display: block;
+  --gl-table-stacked-section-display: block;
+  --gl-table-stacked-row-display: block;
+  --gl-table-stacked-cell-display: block;
+  --gl-table-stacked-head-foot-display: none;
+  --gl-table-stacked-caption-side: top;
+  --gl-table-stacked-label-display: block;
+  --gl-table-stacked-content-display: inline-block;
+  --gl-table-stacked-content-width: 60%;
+  --gl-table-stacked-content-padding-left: 0.5rem;
+  --gl-table-stacked-heavy-border-width: 3px;
+  --gl-table-stacked-row-gap-display: block;
+  --gl-table-stacked-cell-side-border: 1px solid var(--gl-border-color-default);
+  --gl-table-stacked-label-align: left;
+  --gl-table-stacked-labelled-first-border-width: 1px;
+  --gl-table-stacked-labelled-border-width: 0;
+  --gl-table-stacked-content-wrap: break-word;
+  --gl-table-stacked-content-align: right;
+}
+
+@container (width < 576px) {
+  :where(html.with-gl-container-queries) table.gl-table.b-table-stacked-sm {
+    --gl-table-stacked-table-display: block;
+    --gl-table-stacked-section-display: block;
+    --gl-table-stacked-row-display: block;
+    --gl-table-stacked-cell-display: block;
+    --gl-table-stacked-head-foot-display: none;
+    --gl-table-stacked-caption-side: top;
+    --gl-table-stacked-label-display: block;
+    --gl-table-stacked-content-display: inline-block;
+    --gl-table-stacked-content-width: 60%;
+    --gl-table-stacked-content-padding-left: 0.5rem;
+    --gl-table-stacked-heavy-border-width: 3px;
+    --gl-table-stacked-row-gap-display: block;
+    --gl-table-stacked-cell-side-border: 1px solid var(--gl-border-color-default);
+    --gl-table-stacked-label-align: left;
+    --gl-table-stacked-labelled-first-border-width: 1px;
+    --gl-table-stacked-labelled-border-width: 0;
+    --gl-table-stacked-content-wrap: break-word;
+    --gl-table-stacked-content-align: right;
+  }
+}
+
+@media (width < 576px) {
+  :where(html:not(.with-gl-container-queries)) table.gl-table.b-table-stacked-sm {
+    --gl-table-stacked-table-display: block;
+    --gl-table-stacked-section-display: block;
+    --gl-table-stacked-row-display: block;
+    --gl-table-stacked-cell-display: block;
+    --gl-table-stacked-head-foot-display: none;
+    --gl-table-stacked-caption-side: top;
+    --gl-table-stacked-label-display: block;
+    --gl-table-stacked-content-display: inline-block;
+    --gl-table-stacked-content-width: 60%;
+    --gl-table-stacked-content-padding-left: 0.5rem;
+    --gl-table-stacked-heavy-border-width: 3px;
+    --gl-table-stacked-row-gap-display: block;
+    --gl-table-stacked-cell-side-border: 1px solid var(--gl-border-color-default);
+    --gl-table-stacked-label-align: left;
+    --gl-table-stacked-labelled-first-border-width: 1px;
+    --gl-table-stacked-labelled-border-width: 0;
+    --gl-table-stacked-content-wrap: break-word;
+    --gl-table-stacked-content-align: right;
+  }
+}
+
+@container (width < 768px) {
+  :where(html.with-gl-container-queries) table.gl-table.b-table-stacked-md {
+    --gl-table-stacked-table-display: block;
+    --gl-table-stacked-section-display: block;
+    --gl-table-stacked-row-display: block;
+    --gl-table-stacked-cell-display: block;
+    --gl-table-stacked-head-foot-display: none;
+    --gl-table-stacked-caption-side: top;
+    --gl-table-stacked-label-display: block;
+    --gl-table-stacked-content-display: inline-block;
+    --gl-table-stacked-content-width: 60%;
+    --gl-table-stacked-content-padding-left: 0.5rem;
+    --gl-table-stacked-heavy-border-width: 3px;
+    --gl-table-stacked-row-gap-display: block;
+    --gl-table-stacked-cell-side-border: 1px solid var(--gl-border-color-default);
+    --gl-table-stacked-label-align: left;
+    --gl-table-stacked-labelled-first-border-width: 1px;
+    --gl-table-stacked-labelled-border-width: 0;
+    --gl-table-stacked-content-wrap: break-word;
+    --gl-table-stacked-content-align: right;
+  }
+}
+
+@media (width < 768px) {
+  :where(html:not(.with-gl-container-queries)) table.gl-table.b-table-stacked-md {
+    --gl-table-stacked-table-display: block;
+    --gl-table-stacked-section-display: block;
+    --gl-table-stacked-row-display: block;
+    --gl-table-stacked-cell-display: block;
+    --gl-table-stacked-head-foot-display: none;
+    --gl-table-stacked-caption-side: top;
+    --gl-table-stacked-label-display: block;
+    --gl-table-stacked-content-display: inline-block;
+    --gl-table-stacked-content-width: 60%;
+    --gl-table-stacked-content-padding-left: 0.5rem;
+    --gl-table-stacked-heavy-border-width: 3px;
+    --gl-table-stacked-row-gap-display: block;
+    --gl-table-stacked-cell-side-border: 1px solid var(--gl-border-color-default);
+    --gl-table-stacked-label-align: left;
+    --gl-table-stacked-labelled-first-border-width: 1px;
+    --gl-table-stacked-labelled-border-width: 0;
+    --gl-table-stacked-content-wrap: break-word;
+    --gl-table-stacked-content-align: right;
+  }
+}
+
+@container (width < 992px) {
+  :where(html.with-gl-container-queries) table.gl-table.b-table-stacked-lg {
+    --gl-table-stacked-table-display: block;
+    --gl-table-stacked-section-display: block;
+    --gl-table-stacked-row-display: block;
+    --gl-table-stacked-cell-display: block;
+    --gl-table-stacked-head-foot-display: none;
+    --gl-table-stacked-caption-side: top;
+    --gl-table-stacked-label-display: block;
+    --gl-table-stacked-content-display: inline-block;
+    --gl-table-stacked-content-width: 60%;
+    --gl-table-stacked-content-padding-left: 0.5rem;
+    --gl-table-stacked-heavy-border-width: 3px;
+    --gl-table-stacked-row-gap-display: block;
+    --gl-table-stacked-cell-side-border: 1px solid var(--gl-border-color-default);
+    --gl-table-stacked-label-align: left;
+    --gl-table-stacked-labelled-first-border-width: 1px;
+    --gl-table-stacked-labelled-border-width: 0;
+    --gl-table-stacked-content-wrap: break-word;
+    --gl-table-stacked-content-align: right;
+  }
+}
+
+@media (width < 992px) {
+  :where(html:not(.with-gl-container-queries)) table.gl-table.b-table-stacked-lg {
+    --gl-table-stacked-table-display: block;
+    --gl-table-stacked-section-display: block;
+    --gl-table-stacked-row-display: block;
+    --gl-table-stacked-cell-display: block;
+    --gl-table-stacked-head-foot-display: none;
+    --gl-table-stacked-caption-side: top;
+    --gl-table-stacked-label-display: block;
+    --gl-table-stacked-content-display: inline-block;
+    --gl-table-stacked-content-width: 60%;
+    --gl-table-stacked-content-padding-left: 0.5rem;
+    --gl-table-stacked-heavy-border-width: 3px;
+    --gl-table-stacked-row-gap-display: block;
+    --gl-table-stacked-cell-side-border: 1px solid var(--gl-border-color-default);
+    --gl-table-stacked-label-align: left;
+    --gl-table-stacked-labelled-first-border-width: 1px;
+    --gl-table-stacked-labelled-border-width: 0;
+    --gl-table-stacked-content-wrap: break-word;
+    --gl-table-stacked-content-align: right;
+  }
+}
+
+@container (width < 1200px) {
+  :where(html.with-gl-container-queries) table.gl-table.b-table-stacked-xl {
+    --gl-table-stacked-table-display: block;
+    --gl-table-stacked-section-display: block;
+    --gl-table-stacked-row-display: block;
+    --gl-table-stacked-cell-display: block;
+    --gl-table-stacked-head-foot-display: none;
+    --gl-table-stacked-caption-side: top;
+    --gl-table-stacked-label-display: block;
+    --gl-table-stacked-content-display: inline-block;
+    --gl-table-stacked-content-width: 60%;
+    --gl-table-stacked-content-padding-left: 0.5rem;
+    --gl-table-stacked-heavy-border-width: 3px;
+    --gl-table-stacked-row-gap-display: block;
+    --gl-table-stacked-cell-side-border: 1px solid var(--gl-border-color-default);
+    --gl-table-stacked-label-align: left;
+    --gl-table-stacked-labelled-first-border-width: 1px;
+    --gl-table-stacked-labelled-border-width: 0;
+    --gl-table-stacked-content-wrap: break-word;
+    --gl-table-stacked-content-align: right;
+  }
+}
+
+@media (width < 1200px) {
+  :where(html:not(.with-gl-container-queries)) table.gl-table.b-table-stacked-xl {
+    --gl-table-stacked-table-display: block;
+    --gl-table-stacked-section-display: block;
+    --gl-table-stacked-row-display: block;
+    --gl-table-stacked-cell-display: block;
+    --gl-table-stacked-head-foot-display: none;
+    --gl-table-stacked-caption-side: top;
+    --gl-table-stacked-label-display: block;
+    --gl-table-stacked-content-display: inline-block;
+    --gl-table-stacked-content-width: 60%;
+    --gl-table-stacked-content-padding-left: 0.5rem;
+    --gl-table-stacked-heavy-border-width: 3px;
+    --gl-table-stacked-row-gap-display: block;
+    --gl-table-stacked-cell-side-border: 1px solid var(--gl-border-color-default);
+    --gl-table-stacked-label-align: left;
+    --gl-table-stacked-labelled-first-border-width: 1px;
+    --gl-table-stacked-labelled-border-width: 0;
+    --gl-table-stacked-content-wrap: break-word;
+    --gl-table-stacked-content-align: right;
+  }
+}
+
+table.gl-table:is(
+  .b-table-stacked,
+  .b-table-stacked-sm,
+  .b-table-stacked-md,
+  .b-table-stacked-lg,
+  .b-table-stacked-xl
+) {
+  display: var(--gl-table-stacked-table-display, table);
+  width: 100%;
+}
+
+table.gl-table:is(
+  .b-table-stacked,
+  .b-table-stacked-sm,
+  .b-table-stacked-md,
+  .b-table-stacked-lg,
+  .b-table-stacked-xl
+) > caption,
+table.gl-table:is(
+  .b-table-stacked,
+  .b-table-stacked-sm,
+  .b-table-stacked-md,
+  .b-table-stacked-lg,
+  .b-table-stacked-xl
+) > tbody {
+  display: var(--gl-table-stacked-section-display, revert);
+}
+
+table.gl-table:is(
+  .b-table-stacked,
+  .b-table-stacked-sm,
+  .b-table-stacked-md,
+  .b-table-stacked-lg,
+  .b-table-stacked-xl
+) > tbody > tr {
+  display: var(--gl-table-stacked-row-display, revert);
+}
+
+table.gl-table:is(
+  .b-table-stacked,
+  .b-table-stacked-sm,
+  .b-table-stacked-md,
+  .b-table-stacked-lg,
+  .b-table-stacked-xl
+) > tbody > tr > td,
+table.gl-table:is(
+  .b-table-stacked,
+  .b-table-stacked-sm,
+  .b-table-stacked-md,
+  .b-table-stacked-lg,
+  .b-table-stacked-xl
+) > tbody > tr > th {
+  display: var(--gl-table-stacked-cell-display, revert);
+}
+
+table.gl-table:is(
+  .b-table-stacked,
+  .b-table-stacked-sm,
+  .b-table-stacked-md,
+  .b-table-stacked-lg,
+  .b-table-stacked-xl
+) > thead,
+table.gl-table:is(
+  .b-table-stacked,
+  .b-table-stacked-sm,
+  .b-table-stacked-md,
+  .b-table-stacked-lg,
+  .b-table-stacked-xl
+) > tfoot {
+  display: var(--gl-table-stacked-head-foot-display, revert);
+}
+
+table.gl-table:is(
+  .b-table-stacked,
+  .b-table-stacked-sm,
+  .b-table-stacked-md,
+  .b-table-stacked-lg,
+  .b-table-stacked-xl
+) > caption {
+  caption-side: var(--gl-table-stacked-caption-side, bottom);
+}
+
+table.gl-table:is(
+  .b-table-stacked,
+  .b-table-stacked-sm,
+  .b-table-stacked-md,
+  .b-table-stacked-lg,
+  .b-table-stacked-xl
+) > tbody > tr > [data-label]::before {
+  display: var(--gl-table-stacked-label-display, none);
+  float: left;
+  width: 40%;
+  padding: 0 0.5rem 0 0;
+  margin: 0;
+  overflow-wrap: break-word;
+  font-style: normal;
+  font-weight: bold;
+  text-align: right;
+  content: attr(data-label);
+}
+
+table.gl-table:is(
+  .b-table-stacked,
+  .b-table-stacked-sm,
+  .b-table-stacked-md,
+  .b-table-stacked-lg,
+  .b-table-stacked-xl
+) > tbody > tr > [data-label]::after {
+  display: var(--gl-table-stacked-label-display, none);
+  clear: both;
+  content: "";
+}
+
+table.gl-table:is(
+  .b-table-stacked,
+  .b-table-stacked-sm,
+  .b-table-stacked-md,
+  .b-table-stacked-lg,
+  .b-table-stacked-xl
+) > tbody > tr > [data-label] > .gl-table-cell-content {
+  display: var(--gl-table-stacked-content-display, block);
+  width: var(--gl-table-stacked-content-width, auto);
+  padding-left: var(--gl-table-stacked-content-padding-left, 0);
+  margin: 0;
+}
+
+table.gl-table:is(
+  .b-table-stacked,
+  .b-table-stacked-sm,
+  .b-table-stacked-md,
+  .b-table-stacked-lg,
+  .b-table-stacked-xl
+) > tbody > tr > :first-child,
+table.gl-table:is(
+  .b-table-stacked,
+  .b-table-stacked-sm,
+  .b-table-stacked-md,
+  .b-table-stacked-lg,
+  .b-table-stacked-xl
+) > tbody > tr > [rowspan] + td,
+table.gl-table:is(
+  .b-table-stacked,
+  .b-table-stacked-sm,
+  .b-table-stacked-md,
+  .b-table-stacked-lg,
+  .b-table-stacked-xl
+) > tbody > tr > [rowspan] + th {
+  border-top-width: var(--gl-table-stacked-heavy-border-width, 1px);
+}

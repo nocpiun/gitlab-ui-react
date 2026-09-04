@@ -214,6 +214,27 @@ export type {
   GlProgressBarProps,
   GlProgressBarVariant,
 } from "./base/progress-bar/progress-bar";
+export {
+  default as GlTable,
+  GlTableBody,
+  GlTableCaption,
+  GlTableCell,
+  GlTableFooter,
+  GlTableHead,
+  GlTableHeader,
+  GlTableRow,
+} from "./base/table/table";
+export type {
+  GlTableBodyProps,
+  GlTableCaptionProps,
+  GlTableCellProps,
+  GlTableFooterProps,
+  GlTableHeadProps,
+  GlTableHeaderProps,
+  GlTableProps,
+  GlTableRowProps,
+  GlTableStackedBreakpoint,
+} from "./base/table/table";
 export { default as GlToggle } from "./base/toggle/toggle";
 export type {
   GlToggleLabelPosition,
