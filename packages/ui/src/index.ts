@@ -1,3 +1,12 @@
+export {
+  default as GlAccordion,
+  GlAccordionItem,
+} from "./base/accordion/accordion";
+export type {
+  GlAccordionHeaderLevel,
+  GlAccordionItemProps,
+  GlAccordionProps,
+} from "./base/accordion/accordion";
 export { default as GlAlert } from "./base/alert/alert";
 export type {
   GlAlertHeaderLevel,

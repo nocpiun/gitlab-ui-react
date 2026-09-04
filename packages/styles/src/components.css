@@ -1,5 +1,6 @@
 @import "./forms/index.css";
 @import "./dropdowns/new-dropdown.css";
+@import "../../ui/src/base/accordion/accordion.css";
 @import "../../ui/src/base/alert/alert.css";
 @import "../../ui/src/base/avatar/avatar.css";
 @import "../../ui/src/base/avatar-labeled/avatar-labeled.css";
