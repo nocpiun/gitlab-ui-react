@@ -8,6 +8,7 @@
   }
 
   &-suffix {
+    @apply gl-relative;
     color: green;
   }
 

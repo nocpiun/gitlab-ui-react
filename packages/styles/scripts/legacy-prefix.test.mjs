@@ -82,6 +82,7 @@ test("expands the Sass-like nesting forms used by upstream styles", async () => 
   const input = await readFile(inputPath, "utf8");
   const result = await postcss(createPostcssPlugins()).process(input, { from: inputPath });
   const root = postcss.parse(result.css);
+  expect(result.css).not.toMatch(/@apply/u);
   const selectorsForDeclaration = (property, value, container = root) => {
     const selectors = [];
     container.walkRules((rule) => {

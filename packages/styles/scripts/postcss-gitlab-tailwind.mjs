@@ -35,9 +35,10 @@ function compilerSources(compiler, base) {
 }
 
 async function prepareStylesheet(postcss, content, from) {
-  // Tailwind parses imported stylesheets before downstream PostCSS plugins run.
-  // Expand source nesting here so Sass-style selectors such as `&-suffix`
-  // survive that import step; the configured postcss-nested pass still handles
+  // Tailwind parses stylesheets before downstream PostCSS plugins run, and
+  // bundlers such as Vite may inline imports into the entry AST first. Expand
+  // source nesting here so Sass-style selectors such as `&-suffix` survive
+  // Tailwind's `@apply` pass; the configured postcss-nested pass still handles
   // any nesting left in Tailwind's completed AST.
   const rewritten = rewriteLegacyApplyDirectives(content, from);
   const result = await postcss([postcssNested()]).process(rewritten, {
@@ -82,7 +83,7 @@ export default function gitlabTailwind({ candidates = [], sources: additionalSou
       const from = result.opts.from ? path.resolve(result.opts.from) : undefined;
       const base = from ? path.dirname(from) : process.cwd();
       const dependencies = new Set();
-      const input = rewriteLegacyApplyDirectives(root.toString(), from);
+      const input = await prepareStylesheet(postcss, root.toString(), from);
 
       const compiler = await compile(input, {
         base,
