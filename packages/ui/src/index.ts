@@ -49,6 +49,12 @@ export type {
   GlBannerProps,
   GlBannerVariant,
 } from "./base/banner/banner";
+export { default as GlBroadcastMessage } from "./base/broadcast-message/broadcast-message";
+export type {
+  GlBroadcastMessageProps,
+  GlBroadcastMessageTheme,
+  GlBroadcastMessageType,
+} from "./base/broadcast-message/broadcast-message";
 export { default as GlButton } from "./base/button/button";
 export type {
   GlButtonCategory,
