@@ -1,0 +1,152 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/broadcast_message/broadcast_message.scss
+ *
+ * Sass constants are expanded to their upstream values. The notification
+ * maximum width is 18.75rem (300px at the root font size).
+ */
+
+/*
+ * --gl-broadcast-message-padding-x
+ *
+ * Hook for page-wide containers to increase the message's inline spacing.
+ */
+.gl-broadcast-message {
+  @apply gl-flex;
+  @apply gl-justify-between;
+  @apply gl-items-start;
+  @apply gl-text-base;
+  @apply gl-leading-20;
+  padding-left: calc(1rem + var(--gl-broadcast-message-padding-x, 0px));
+  padding-right: calc(0.75rem + var(--gl-broadcast-message-padding-x, 0px));
+  @apply gl-py-5;
+
+  &.indigo {
+    --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-indigo);
+    --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-indigo);
+    --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-indigo);
+    --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-indigo);
+  }
+
+  &.light-indigo {
+    --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-lightindigo);
+    --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-lightindigo);
+    --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-lightindigo);
+    --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-lightindigo);
+  }
+
+  &.blue {
+    --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-blue);
+    --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-blue);
+    --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-blue);
+    --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-blue);
+  }
+
+  &.light-blue {
+    --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-lightblue);
+    --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-lightblue);
+    --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-lightblue);
+    --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-lightblue);
+  }
+
+  &.green {
+    --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-green);
+    --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-green);
+    --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-green);
+    --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-green);
+  }
+
+  &.light-green {
+    --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-lightgreen);
+    --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-lightgreen);
+    --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-lightgreen);
+    --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-lightgreen);
+  }
+
+  &.red {
+    --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-red);
+    --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-red);
+    --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-red);
+    --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-red);
+  }
+
+  &.light-red {
+    --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-lightred);
+    --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-lightred);
+    --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-lightred);
+    --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-lightred);
+  }
+
+  &.dark {
+    --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-dark);
+    --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-dark);
+    --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-dark);
+    --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-dark);
+  }
+
+  &.light {
+    --gl-broadcast-message-bg-color: var(--gl-broadcast-banner-background-color-light);
+    --gl-broadcast-message-border-color: var(--gl-broadcast-banner-border-color-light);
+    --gl-broadcast-message-text-color: var(--gl-broadcast-banner-text-color-light);
+    --gl-broadcast-message-icon-color: var(--gl-broadcast-banner-icon-color-light);
+  }
+
+  /*
+   * Attribute syntax prevents the Tailwind 3 prefix compatibility pass from
+   * mistaking upstream's plain `.banner` state class for the `gl-banner`
+   * utility candidate.
+   */
+  &[class~="banner"] {
+    background-color: var(--gl-broadcast-message-bg-color);
+    box-shadow: inset 0 -1px 0 0 var(--gl-broadcast-message-border-color);
+    color: var(--gl-broadcast-message-text-color);
+
+    .gl-broadcast-message-icon {
+      color: var(--gl-broadcast-message-icon-color);
+    }
+  }
+
+  &.notification {
+    @apply gl-border;
+    @apply gl-shadow-md;
+    @apply gl-bg-overlap;
+    @apply gl-text-default;
+    border-radius: var(--gl-broadcast-banner-border-radius);
+    max-width: 18.75rem;
+  }
+}
+
+.gl-broadcast-message-content {
+  @apply gl-flex;
+  @apply gl-justify-center;
+
+  a {
+    @apply gl-text-inherit;
+    @apply gl-underline;
+  }
+
+  p:last-of-type {
+    @apply gl-mb-0;
+  }
+}
+
+.gl-broadcast-message-icon {
+  @apply gl-mr-5;
+  line-height: 1rem;
+
+  > svg {
+    @apply gl-align-bottom;
+  }
+}
+
+.gl-broadcast-message-text {
+  margin-top: -0.125rem;
+  margin-bottom: -0.125rem;
+  @apply gl-hyphens-auto gl-break-anywhere;
+}
+
+.gl-broadcast-message-dismiss {
+  @apply -gl-my-2;
+  @apply gl-ml-5;
+  color: inherit !important;
+}
