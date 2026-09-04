@@ -67,10 +67,16 @@ export type GlAccordionItemProps = Omit<
 };
 
 type AccordionContextValue = {
+  activeItemOpeningId: number;
   activeItemValue: string | null;
   autoCollapse: boolean;
   headerLevel: GlAccordionHeaderLevel;
   onItemOpen(value: string): void;
+};
+
+type ActiveAccordionItem = {
+  openingId: number;
+  value: string | null;
 };
 
 const AccordionContext = createContext<AccordionContextValue | null>(null);
@@ -86,13 +92,22 @@ const GlAccordion = forwardRef<HTMLDivElement, GlAccordionProps>(function GlAcco
   headerLevel,
   ...elementProps
 }, forwardedRef) {
-  const [activeItemValue, setActiveItemValue] = useState<string | null>(null);
+  const [activeItem, setActiveItem] = useState<ActiveAccordionItem>({
+    openingId: 0,
+    value: null,
+  });
   const contextValue = useMemo<AccordionContextValue>(() => ({
-    activeItemValue,
+    activeItemOpeningId: activeItem.openingId,
+    activeItemValue: activeItem.value,
     autoCollapse,
     headerLevel,
-    onItemOpen: setActiveItemValue,
-  }), [activeItemValue, autoCollapse, headerLevel]);
+    onItemOpen(value) {
+      setActiveItem((currentItem) => ({
+        openingId: currentItem.openingId + 1,
+        value,
+      }));
+    },
+  }), [activeItem, autoCollapse, headerLevel]);
 
   return (
     <AccordionContext.Provider value={contextValue}>
@@ -129,7 +144,8 @@ export const GlAccordionItem = forwardRef<HTMLDivElement, GlAccordionItemProps>(
     const isControlled = visible !== undefined;
     const [uncontrolledVisible, setUncontrolledVisible] = useState(defaultVisible);
     const isVisible = visible ?? uncontrolledVisible;
-    const previousVisibleRef = useRef(isVisible);
+    const previousVisibleRef = useRef(false);
+    const lastCollapseRequestOpeningIdRef = useRef<number | null>(null);
 
     useEffect(() => {
       const wasVisible = previousVisibleRef.current;
@@ -143,13 +159,23 @@ export const GlAccordionItem = forwardRef<HTMLDivElement, GlAccordionItemProps>(
         return;
       }
 
+      if(!context?.autoCollapse) {
+        lastCollapseRequestOpeningIdRef.current = null;
+        return;
+      }
+
       if(
-        !context?.autoCollapse
-        || context.activeItemValue === null
+        context.activeItemValue === null
         || context.activeItemValue === itemValue
         || !isVisible
       ) return;
 
+      if(
+        lastCollapseRequestOpeningIdRef.current
+        === context.activeItemOpeningId
+      ) return;
+
+      lastCollapseRequestOpeningIdRef.current = context.activeItemOpeningId;
       if(!isControlled) setUncontrolledVisible(false);
       onVisibleChange?.(false);
     }, [context, isControlled, isVisible, itemValue, onVisibleChange]);
@@ -158,7 +184,6 @@ export const GlAccordionItem = forwardRef<HTMLDivElement, GlAccordionItemProps>(
       const nextVisible = nextValue.includes(itemValue);
       if(!isControlled) setUncontrolledVisible(nextVisible);
       onVisibleChange?.(nextVisible);
-      if(nextVisible) context?.onItemOpen(itemValue);
     };
 
     return (
