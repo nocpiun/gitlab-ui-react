@@ -1,0 +1,65 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/attribute_list/attribute_list.scss
+ */
+
+.gl-attribute-list-container {
+  container-type: inline-size;
+}
+
+.gl-attribute-list {
+  @apply gl-text-base;
+  @apply gl-leading-16;
+  @apply gl-grid;
+  @apply gl-gap-x-7;
+}
+
+@container (min-width: 25rem) {
+  .gl-attribute-list-horizontal-items {
+    grid-template-columns: fit-content(15rem) 1fr;
+  }
+
+  .gl-attribute-list-horizontal-items .gl-attribute-list-item {
+    @apply gl-col-span-2;
+  }
+}
+
+@container (min-width: 54rem) {
+  .gl-attribute-list-horizontal-items {
+    grid-template-columns: repeat(2, fit-content(15rem) 1fr);
+    @apply gl-grid-flow-col;
+    grid-template-rows: repeat(var(--attribute-list-row-count), auto);
+  }
+}
+
+@container (min-width: 40rem) {
+  .gl-attribute-list-vertical-items {
+    @apply gl-grid-cols-2;
+    @apply gl-grid-flow-col;
+    grid-template-rows: repeat(var(--attribute-list-row-count), auto);
+  }
+}
+
+.gl-attribute-list-item {
+  @apply gl-border-b;
+  @apply gl-py-5;
+  @apply gl-gap-4;
+  @apply gl-grid;
+  @apply gl-grid-cols-subgrid;
+}
+
+.gl-attribute-list-item-label {
+  @apply gl-text-strong;
+  @apply gl-flex;
+  @apply gl-gap-3;
+}
+
+.gl-attribute-list-item-label-icon {
+  @apply gl-flex-none;
+}
+
+.gl-attribute-list-item-description {
+  @apply gl-mb-0;
+  @apply gl-min-w-0;
+  @apply gl-text-default;
+}

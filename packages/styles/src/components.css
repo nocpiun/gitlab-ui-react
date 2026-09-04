@@ -3,6 +3,7 @@
 @import "./tables/bootstrap-tables.css";
 @import "../../ui/src/base/accordion/accordion.css";
 @import "../../ui/src/base/alert/alert.css";
+@import "../../ui/src/base/attribute-list/attribute-list.css";
 @import "../../ui/src/base/avatar/avatar.css";
 @import "../../ui/src/base/avatar-labeled/avatar-labeled.css";
 @import "../../ui/src/base/avatar-link/avatar-link.css";
