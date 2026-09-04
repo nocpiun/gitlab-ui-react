@@ -250,6 +250,10 @@ export type {
   GlTableRowProps,
   GlTableStackedBreakpoint,
 } from "./base/table/table";
+export { default as GlSkeletonLoader } from "./base/skeleton-loader/skeleton-loader";
+export type {
+  GlSkeletonLoaderProps,
+} from "./base/skeleton-loader/skeleton-loader";
 export { default as GlToggle } from "./base/toggle/toggle";
 export type {
   GlToggleLabelPosition,

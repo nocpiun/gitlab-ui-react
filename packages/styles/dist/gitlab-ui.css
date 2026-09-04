@@ -6405,6 +6405,21 @@ input[type="color"].gl-form-input.form-control:disabled {
 .gl-progress-bar-danger {
   background-color: var(--gl-progress-bar-indicator-color-danger);
 }
+.gl-skeleton-loader-default-container {
+  width: 235px;
+}
+.gl-skeleton-loader-fill-background-color {
+  fill: var(--gl-skeleton-loader-background-color);
+}
+.gl-skeleton-loader stop {
+  opacity: var(--gl-opacity-10);
+}
+.gl-skeleton-loader .background-stop {
+  stop-color: var(--gl-skeleton-loader-background-color);
+}
+.gl-skeleton-loader .shimmer-stop {
+  stop-color: var(--gl-skeleton-loader-shimmer-color);
+}
 table.gl-table {
   color: var(--gl-text-color-default);
   background-color: var(--gl-color-alpha-0);
@@ -6813,6 +6828,9 @@ table.gl-table.table-borderless tr > :is(th, td) {
   white-space: nowrap;
   border-width: 0;
 }
+.gl-my-3 {
+  margin-block: var(--gl-spacing-scale-3);
+}
 .gl-heading-scale-300 {
   font-weight: var(--gl-heading-scale-300-font-weight);
   margin-top: var(--gl-heading-scale-300-margin-top);
@@ -6869,6 +6887,38 @@ table.gl-table.table-borderless tr > :is(th, td) {
 .gl-table-row {
   display: table-row;
 }
+.gl-h-4 {
+  height: var(--gl-spacing-scale-4);
+}
+.gl-h-full {
+  height: 100%;
+}
+.gl-w-full {
+  width: 100%;
+}
+.gl-animate-skeleton-loader {
+  overflow: hidden;
+  max-width: 32rem;
+  background-size: 32rem 100%;
+  background-position: -32rem 0;
+  background-color: var(--gl-skeleton-loader-background-color);
+  background-image: linear-gradient(to right, var(--gl-skeleton-loader-background-color) 0, var(--gl-skeleton-loader-shimmer-color) 23%, var(--gl-skeleton-loader-shimmer-color) 27%, var(--gl-skeleton-loader-background-color) 50%);
+  background-repeat: no-repeat;
+  @media (prefers-reduced-motion: no-preference) {
+    animation: gl-keyframes-skeleton-loader 2.5s linear;
+    animation-delay: inherit;
+    animation-iteration-count: 3;
+  }
+}
+.\!gl-max-w-20 {
+  max-width: var(--gl-spacing-scale-20) !important;
+}
+.\!gl-max-w-26 {
+  max-width: var(--gl-spacing-scale-26) !important;
+}
+.\!gl-max-w-30 {
+  max-width: var(--gl-spacing-scale-30) !important;
+}
 .gl-max-w-full {
   max-width: 100%;
 }
@@ -6913,6 +6963,9 @@ table.gl-table.table-borderless tr > :is(th, td) {
 }
 .\!gl-rounded-lg {
   border-radius: var(--gl-border-radius-lg) !important;
+}
+.gl-rounded-default {
+  border-radius: var(--gl-border-radius-default);
 }
 .gl-rounded-none {
   border-radius: var(--gl-border-radius-none);
@@ -7251,5 +7304,13 @@ table.gl-table.table-borderless tr > :is(th, td) {
       --tw-duration: initial;
       --tw-ease: initial;
     }
+  }
+}
+@keyframes gl-keyframes-skeleton-loader {
+  0% {
+    background-position-x: -32rem;
+  }
+  100% {
+    background-position-x: 32rem;
   }
 }
