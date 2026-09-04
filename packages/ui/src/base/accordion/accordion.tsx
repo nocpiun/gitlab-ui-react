@@ -138,7 +138,7 @@ export const GlAccordionItem = forwardRef<HTMLDivElement, GlAccordionItemProps>(
     const context = useContext(AccordionContext);
     const generatedId = useId().replace(/[^a-zA-Z0-9_-]/gu, "");
     const itemValue = value ?? `accordion-item-${generatedId}`;
-    const panelId = `${itemValue}-panel`;
+    const panelId = `accordion-item-${generatedId}-panel`;
     const resolvedHeaderLevel = headerLevel ?? context?.headerLevel ?? 3;
     const Heading = `h${resolvedHeaderLevel}` as const;
     const isControlled = visible !== undefined;

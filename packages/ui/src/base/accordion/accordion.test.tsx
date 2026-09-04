@@ -44,13 +44,24 @@ describe("GlAccordion", () => {
 describe("GlAccordionItem", () => {
   it("renders an accessible collapsed trigger and its content", () => {
     const markup = renderAccordion();
+    const panelId = markup.match(/aria-controls="([^"]+)"/u)?.[1];
 
     expect(markup).toContain("aria-expanded=\"false\"");
-    expect(markup).toContain("aria-controls=\"item-1-panel\"");
-    expect(markup).toContain("id=\"item-1-panel\"");
+    expect(panelId).toBeDefined();
+    expect(markup).toContain(`id="${panelId}"`);
     expect(markup).toContain("data-testid=\"accordion-item-collapse-item-1\"");
     expect(markup).toContain("Accordion content");
     expect(markup).toContain("data-testid=\"chevron-right-icon\"");
+  });
+
+  it("generates the panel ID independently from the item value", () => {
+    const markup = renderAccordion({ value: "release notes" });
+    const panelId = markup.match(/aria-controls="([^"]+)"/u)?.[1];
+
+    expect(panelId).toBeDefined();
+    expect(panelId).not.toContain("release notes");
+    expect(panelId).not.toMatch(/\s/u);
+    expect(markup).toContain(`id="${panelId}"`);
   });
 
   it("renders the visible title and expanded state when controlled open", () => {
