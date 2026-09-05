@@ -523,7 +523,9 @@ function TabsImplementation({
 
     if(syncActiveTabWithQueryParams && typeof window !== "undefined") {
       const locationValue = queryTabIndex(tabs, queryParamName, window.location);
-      if(locationValue !== null && locationValue !== requestedValue) return;
+      // A URL target that normalizes to this fallback is not a competing
+      // selection. Commit it so re-enabling the invalid tab cannot restore it.
+      if(locationValue !== null && locationValue !== firstEnabledIndex) return;
     }
 
     const requestKey = `${requestedValue}:${firstEnabledIndex}:${tabsStateSignature}`;

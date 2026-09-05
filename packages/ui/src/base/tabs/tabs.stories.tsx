@@ -393,6 +393,58 @@ export const RejectedControlledQuerySelection: Story = {
   },
 };
 
+function DisabledActiveQueryTab(props: GlTabsProps) {
+  const [openDisabled, setOpenDisabled] = useState(false);
+  useState(() => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("gl-tabs-disabled-story-view", "open");
+    window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+  });
+
+  return (
+    <>
+      <GlButton onClick={() => setOpenDisabled(true)}>Disable open tab</GlButton>
+      <GlButton onClick={() => setOpenDisabled(false)}>Enable open tab</GlButton>
+      <GlTabs
+        {...props}
+        defaultValue={1}
+        queryParamName="gl-tabs-disabled-story-view"
+        syncActiveTabWithQueryParams>
+        <GlTab queryParamValue="all" title="All">All issues</GlTab>
+        <GlTab disabled={openDisabled} queryParamValue="open" title="Open">
+          Open issues
+        </GlTab>
+      </GlTabs>
+    </>
+  );
+}
+
+export const DisabledActiveTabFallback: Story = {
+  render: (args) => <DisabledActiveQueryTab {...args} />,
+  play: async ({ args, canvas }) => {
+    const all = canvas.getByRole("tab", { name: "All" });
+    const open = canvas.getByRole("tab", { name: "Open" });
+    const queryValue = () => new URL(window.location.href)
+      .searchParams.get("gl-tabs-disabled-story-view");
+
+    await waitFor(() => expect(open).toHaveAttribute("aria-selected", "true"));
+    await expect(queryValue()).toBe("open");
+
+    await userEvent.click(canvas.getByRole("button", { name: "Disable open tab" }));
+
+    await waitFor(() => expect(all).toHaveAttribute("aria-selected", "true"));
+    await expect(args.onValueChange).toHaveBeenCalledTimes(1);
+    await expect(args.onValueChange).toHaveBeenLastCalledWith(0);
+    await waitFor(() => expect(queryValue()).toBe("all"));
+
+    await userEvent.click(canvas.getByRole("button", { name: "Enable open tab" }));
+
+    await expect(all).toHaveAttribute("aria-selected", "true");
+    await expect(open).toHaveAttribute("aria-selected", "false");
+    await expect(queryValue()).toBe("all");
+  },
+};
+
 export const LazyPanels: Story = {
   args: { lazy: true },
 };
