@@ -224,6 +224,20 @@ export type {
   GlLoadingIconSize,
   GlLoadingIconVariant,
 } from "./base/loading-icon/loading-icon";
+export {
+  default as GlPopover,
+  GlPopoverContent,
+  GlPopoverTitle,
+  GlPopoverTrigger,
+} from "./base/popover/popover";
+export type {
+  GlPopoverContentProps,
+  GlPopoverPlacement,
+  GlPopoverProps,
+  GlPopoverTitleProps,
+  GlPopoverTriggerMode,
+  GlPopoverTriggerProps,
+} from "./base/popover/popover";
 export { default as GlProgressBar } from "./base/progress-bar/progress-bar";
 export type {
   GlProgressBarProps,
