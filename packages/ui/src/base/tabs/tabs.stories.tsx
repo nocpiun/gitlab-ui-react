@@ -246,3 +246,37 @@ export const Scrollable: Story = {
     await expect(canvas.getByRole("button", { name: "Scroll left" })).toBeInTheDocument();
   },
 };
+
+function ScrollableLayoutChangeExample() {
+  const [wideTabs, setWideTabs] = useState(false);
+  return (
+    <div style={{ maxWidth: "100%", width: "30rem" }}>
+      <GlButton onClick={() => setWideTabs(true)}>Widen tabs</GlButton>
+      <GlScrollableTabs>
+        {["Overview", "Activity", "Members"].map((title) => (
+          <GlTab
+            key={title}
+            tabProps={{ style: { minWidth: wideTabs ? "20rem" : undefined } }}
+            title={title}>
+            {title} panel
+          </GlTab>
+        ))}
+      </GlScrollableTabs>
+    </div>
+  );
+}
+
+export const ScrollableLayoutChanges: Story = {
+  render: () => <ScrollableLayoutChangeExample />,
+  play: async ({ canvas }) => {
+    const tablist = canvas.getByRole("tablist");
+
+    await waitFor(() => expect(tablist.scrollWidth).toBeLessThanOrEqual(tablist.clientWidth));
+    await expect(canvas.queryByRole("button", { name: "Scroll right" })).not.toBeInTheDocument();
+
+    await userEvent.click(canvas.getByRole("button", { name: "Widen tabs" }));
+
+    await waitFor(() => expect(tablist.scrollWidth).toBeGreaterThan(tablist.clientWidth));
+    await expect(canvas.getByRole("button", { name: "Scroll right" })).toBeInTheDocument();
+  },
+};

@@ -401,6 +401,8 @@ function TabsImplementation({
       ? null
       : new MutationObserver(updateScrollMetrics);
     mutationObserver?.observe(navElement, {
+      attributes: true,
+      attributeFilter: ["class", "style"],
       characterData: true,
       childList: true,
       subtree: true,
