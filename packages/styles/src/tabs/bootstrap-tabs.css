@@ -1,0 +1,33 @@
+/*!
+ * Bootstrap navigation compatibility required by GlTabs.
+ *
+ * Ported from Bootstrap v4.6's _nav.scss as vendored by GitLab UI. Rules are
+ * scoped to the React component marker so unrelated consumer navigation is not
+ * affected.
+ */
+
+.gl-tabs {
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+  }
+
+  .nav-link {
+    display: block;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      text-decoration: none;
+    }
+  }
+
+  .nav-justified > .nav-item {
+    flex-basis: 0;
+    flex-grow: 1;
+    text-align: center;
+  }
+}
