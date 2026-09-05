@@ -75,6 +75,14 @@ export const Default: Story = {
 
     await user.keyboard("{ArrowRight}");
     await expect(members).toHaveFocus();
+
+    await user.keyboard("{ArrowUp}");
+    await expect(activity).toHaveFocus();
+    await expect(activity).toHaveAttribute("aria-selected", "true");
+
+    await user.keyboard("{ArrowDown}");
+    await expect(members).toHaveFocus();
+    await expect(members).toHaveAttribute("aria-selected", "true");
   },
 };
 

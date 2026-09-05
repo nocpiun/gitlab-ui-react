@@ -602,10 +602,18 @@ function TabsImplementation({
           break;
         }
       }
-    } else if(event.key === "ArrowLeft" || event.key === "ArrowRight") {
-      const isRtl = getComputedStyle(navElement).direction === "rtl";
-      const forwardKey = isRtl ? "ArrowLeft" : "ArrowRight";
-      const step = event.key === forwardKey ? 1 : -1;
+    } else if(
+      event.key === "ArrowLeft"
+      || event.key === "ArrowRight"
+      || event.key === "ArrowUp"
+      || event.key === "ArrowDown"
+    ) {
+      let step = event.key === "ArrowDown" ? 1 : -1;
+      if(event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        const isRtl = getComputedStyle(navElement).direction === "rtl";
+        const forwardKey = isRtl ? "ArrowLeft" : "ArrowRight";
+        step = event.key === forwardKey ? 1 : -1;
+      }
       let candidateIndex = currentIndex + step;
 
       while(candidateIndex >= 0 && candidateIndex < tabs.length) {
@@ -619,8 +627,8 @@ function TabsImplementation({
       return;
     }
 
-    // Base UI keeps disabled tabs focusable. Pajamas tabs skip them, so handle
-    // the horizontal composite keys here and stop Base UI's list handler.
+    // Base UI keeps disabled tabs focusable and ignores vertical arrows for a
+    // horizontal list. Handle Pajamas' composite keys and stop its list handler.
     event.preventDefault();
     event.stopPropagation();
     if(nextIndex === currentIndex) return;
