@@ -218,6 +218,76 @@ export const ActiveLastTabRemoval: Story = {
   },
 };
 
+function RemovableAllTabsExample(props: GlTabsProps) {
+  const [showTabs, setShowTabs] = useState(true);
+
+  return (
+    <>
+      <GlButton onClick={() => setShowTabs(false)}>Remove all tabs</GlButton>
+      <GlButton onClick={() => setShowTabs(true)}>Restore tabs</GlButton>
+      <GlTabs {...props} defaultValue={1} empty="No tabs available">
+        {showTabs ? (
+          <>
+            <GlTab key="overview" title="Overview">Overview panel</GlTab>
+            <GlTab key="activity" title="Activity">Activity panel</GlTab>
+          </>
+        ) : null}
+      </GlTabs>
+    </>
+  );
+}
+
+export const AllTabsRemoval: Story = {
+  render: (args) => <RemovableAllTabsExample {...args} />,
+  play: async ({ args, canvas }) => {
+    const activity = canvas.getByRole("tab", { name: "Activity" });
+
+    await expect(activity).toHaveAttribute("aria-selected", "true");
+    await userEvent.click(canvas.getByRole("button", { name: "Remove all tabs" }));
+    await expect(canvas.queryByRole("tab")).not.toBeInTheDocument();
+
+    await userEvent.click(canvas.getByRole("button", { name: "Restore tabs" }));
+
+    const overview = await canvas.findByRole("tab", { name: "Overview" });
+    const restoredActivity = canvas.getByRole("tab", { name: "Activity" });
+    await waitFor(() => expect(overview).toHaveAttribute("aria-selected", "true"));
+    await expect(restoredActivity).toHaveAttribute("aria-selected", "false");
+    await expect(args.onValueChange).toHaveBeenCalledTimes(1);
+    await expect(args.onValueChange).toHaveBeenLastCalledWith(0);
+  },
+};
+
+function InitiallyEmptyTabsExample(props: GlTabsProps) {
+  const [showTabs, setShowTabs] = useState(false);
+
+  return (
+    <>
+      <GlButton onClick={() => setShowTabs(true)}>Load tabs</GlButton>
+      <GlTabs {...props} defaultValue={1} empty="No tabs available">
+        {showTabs ? (
+          <>
+            <GlTab key="overview" title="Overview">Overview panel</GlTab>
+            <GlTab key="activity" title="Activity">Activity panel</GlTab>
+          </>
+        ) : null}
+      </GlTabs>
+    </>
+  );
+}
+
+export const InitiallyEmptyTabs: Story = {
+  render: (args) => <InitiallyEmptyTabsExample {...args} />,
+  play: async ({ args, canvas }) => {
+    await expect(canvas.queryByRole("tab")).not.toBeInTheDocument();
+
+    await userEvent.click(canvas.getByRole("button", { name: "Load tabs" }));
+
+    const activity = await canvas.findByRole("tab", { name: "Activity" });
+    await expect(activity).toHaveAttribute("aria-selected", "true");
+    await expect(args.onValueChange).not.toHaveBeenCalled();
+  },
+};
+
 export const Justified: Story = {
   args: { justified: true },
 };

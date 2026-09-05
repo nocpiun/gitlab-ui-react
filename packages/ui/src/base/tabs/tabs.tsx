@@ -377,6 +377,11 @@ function TabsImplementation({
     && requestedValue >= 0
     && requestedValue < tabs.length
     && !tabs[requestedValue].props.disabled;
+  // Preserve `defaultValue` while initially empty, but clear a committed
+  // selection when a previously populated list loses every tab.
+  const allTabsWereRemoved = !isControlled
+    && tabs.length === 0
+    && previousTabsLengthRef.current > 0;
   // Upstream keeps selection adjacent when removing the active tail tab.
   // Other invalid values continue to fall back to the first enabled tab.
   const activeLastTabWasRemoved = !isControlled
@@ -536,6 +541,12 @@ function TabsImplementation({
   }, [queryParamName, syncActiveTabWithQueryParams, tabsStateSignature]);
 
   useEffect(() => {
+    if(allTabsWereRemoved) {
+      fallbackRequestRef.current = null;
+      setUncontrolledSelection({ key: null, value: -1 });
+      return;
+    }
+
     if(requestedValueIsSelectable || fallbackIndex === null) {
       fallbackRequestRef.current = null;
       return;
@@ -560,6 +571,7 @@ function TabsImplementation({
     }
     onValueChangeRef.current?.(fallbackIndex);
   }, [
+    allTabsWereRemoved,
     fallbackIndex,
     isControlled,
     queryParamName,
