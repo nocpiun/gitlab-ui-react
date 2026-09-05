@@ -733,7 +733,12 @@ function TabsImplementation({
                     tabProps?.onKeyDown?.(
                       event as ReactKeyboardEvent<HTMLButtonElement>,
                     );
-                    if(!event.defaultPrevented) moveFocusToEnabledTab(event, index);
+                    if(event.defaultPrevented) {
+                      event.stopPropagation();
+                      return;
+                    }
+
+                    moveFocusToEnabledTab(event, index);
                   }}
                   value={index}>
                   {title}
