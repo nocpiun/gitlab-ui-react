@@ -77,7 +77,7 @@ export type GlPopoverContentProps = PopupProps & {
   className?: string;
   /** Accessible label for the optional close button. */
   closeButtonLabel?: string;
-  /** Portal container element, shadow root, or selector. Defaults to document.body. */
+  /** Portal container. Defaults to the nearest `.modal-content`, then document.body. */
   container?: HTMLElement | ShadowRoot | string | null;
   /** Disables the fade transition. */
   noFade?: boolean;
@@ -104,7 +104,9 @@ type PopoverContextValue = {
   disabled: boolean;
   open: boolean;
   resetActiveTriggers(): void;
+  setTriggerElement(triggerElement: HTMLElement | null): void;
   toggleClickTrigger(): void;
+  triggerElement: HTMLElement | null;
   triggerId: string;
   triggerModes: ReadonlySet<GlPopoverTriggerMode>;
   updateTriggerId(triggerId: string): void;
@@ -193,7 +195,11 @@ export function shouldCancelPopoverTriggerClose(
 
 function resolveContainer(
   container: GlPopoverContentProps["container"],
+  triggerElement: HTMLElement | null,
 ): HTMLElement | ShadowRoot | null | undefined {
+  if(container === undefined) {
+    return triggerElement?.closest<HTMLElement>(".modal-content") ?? undefined;
+  }
   if(typeof container !== "string") return container;
   if(typeof document === "undefined") return null;
 
@@ -288,6 +294,7 @@ export default function GlPopover({
   const generatedTriggerId = useId();
   const defaultTriggerId = `gl-popover-trigger-${generatedTriggerId}`;
   const [triggerId, setTriggerId] = useState(defaultTriggerId);
+  const [triggerElement, setTriggerElement] = useState<HTMLElement | null>(null);
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
   const isControlled = open !== undefined;
   const isOpen = open ?? uncontrolledOpen;
@@ -428,7 +435,9 @@ export default function GlPopover({
     disabled,
     open: isOpen,
     resetActiveTriggers,
+    setTriggerElement,
     toggleClickTrigger,
+    triggerElement,
     triggerId,
     triggerModes,
     updateTriggerId: setTriggerId,
@@ -443,6 +452,7 @@ export default function GlPopover({
     isOpen,
     resetActiveTriggers,
     toggleClickTrigger,
+    triggerElement,
     triggerId,
     triggerModes,
   ]);
@@ -503,6 +513,7 @@ export function GlPopoverTrigger({
 
   return (
     <BasePopover.Trigger
+      ref={context.setTriggerElement}
       closeDelay={context.closeDelay}
       delay={context.delay}
       disabled={context.disabled}
@@ -539,7 +550,7 @@ export const GlPopoverContent = forwardRef<HTMLDivElement, GlPopoverContentProps
     const content = resolvePopoverContent(children);
     const hasTitle = content.title !== null;
     const hasBody = content.body.length > 0;
-    const portalContainer = resolveContainer(container);
+    const portalContainer = resolveContainer(container, context.triggerElement);
     const collisionBoundary = resolvePopoverBoundary(boundary);
     const fallbackLabelledBy = resolvePopoverFallbackLabelledBy(
       hasTitle,

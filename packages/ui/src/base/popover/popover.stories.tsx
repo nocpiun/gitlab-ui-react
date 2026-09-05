@@ -266,6 +266,32 @@ export const ControlledManual: Story = {
   },
 };
 
+export const InsideModal: Story = {
+  render: (args) => (
+    <div className="modal-content" data-testid="modal-content" style={storyLayout}>
+      <GlPopover {...args} triggers={["click"]}>
+        <GlPopoverTrigger>
+          <GlButton>Modal popover</GlButton>
+        </GlPopoverTrigger>
+        <GlPopoverContent>
+          <GlPopoverTitle>Popover in a modal</GlPopoverTitle>
+          <span>The portal remains inside the nearest modal content container.</span>
+        </GlPopoverContent>
+      </GlPopover>
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const modalContent = canvas.getByTestId("modal-content");
+
+    await userEvent.click(canvas.getByRole("button", { name: "Modal popover" }));
+    const dialog = await within(document.body).findByRole("dialog");
+
+    await expect(modalContent).toContainElement(dialog);
+    await userEvent.keyboard("{Escape}");
+    await waitFor(() => expect(within(document.body).queryByRole("dialog")).not.toBeInTheDocument());
+  },
+};
+
 export const Placements: Story = {
   render: () => (
     <div className="gl-grid gl-grid-cols-2 gl-gap-12 gl-p-12">
