@@ -68,7 +68,10 @@ export type GlPopoverContentProps = PopupProps & {
   boundary?: "viewport" | "clipping-ancestors" | Element;
   /** Space between the popover and its collision boundary, in pixels. */
   boundaryPadding?: number;
-  /** A title part followed by arbitrary body content. */
+  /**
+   * A title part followed by arbitrary body content. Without a title or an
+   * explicit accessible name, the dialog is labelled by its trigger.
+   */
   children?: ReactNode;
   /** Extra class applied to the popup. */
   className?: string;
@@ -191,6 +194,16 @@ export function resolvePopoverBoundary(
   // Floating UI always intersects the supplied boundary with its viewport root
   // boundary. An empty list therefore opts out of clipping ancestors.
   return boundary === "viewport" ? [] : boundary;
+}
+
+export function resolvePopoverFallbackLabelledBy(
+  hasTitle: boolean,
+  triggerId: string,
+  ariaLabel: BasePopover.Popup.Props["aria-label"],
+  ariaLabelledBy: BasePopover.Popup.Props["aria-labelledby"],
+): string | undefined {
+  if(hasTitle || ariaLabel || ariaLabelledBy) return undefined;
+  return triggerId;
 }
 
 function physicalPlacement(side: BasePopover.Popup.State["side"]): GlPopoverPlacement {
@@ -380,12 +393,21 @@ export const GlPopoverContent = forwardRef<HTMLDivElement, GlPopoverContentProps
     style,
     ...popupProps
   }, forwardedRef) {
-    usePopoverContext("GlPopoverContent");
+    const context = usePopoverContext("GlPopoverContent");
     const content = resolvePopoverContent(children);
     const hasTitle = content.title !== null;
     const hasBody = content.body.length > 0;
     const portalContainer = resolveContainer(container);
     const collisionBoundary = resolvePopoverBoundary(boundary);
+    const fallbackLabelledBy = resolvePopoverFallbackLabelledBy(
+      hasTitle,
+      context.triggerId,
+      popupProps["aria-label"],
+      popupProps["aria-labelledby"],
+    );
+    const fallbackAccessibleNameProps = fallbackLabelledBy
+      ? { "aria-labelledby": fallbackLabelledBy }
+      : {};
     const popupClassName = (state: BasePopover.Popup.State) => popoverVariants({
       className,
       fade: !noFade,
@@ -405,6 +427,7 @@ export const GlPopoverContent = forwardRef<HTMLDivElement, GlPopoverContentProps
           sideOffset={8}>
           <BasePopover.Popup
             {...popupProps}
+            {...fallbackAccessibleNameProps}
             ref={forwardedRef}
             className={popupClassName}
             initialFocus={false}

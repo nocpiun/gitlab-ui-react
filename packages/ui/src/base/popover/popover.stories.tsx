@@ -140,6 +140,8 @@ export const TextLinks: Story = {
 
     await expect(dialog).toHaveClass("has-close-button");
     await expect(dialog).not.toHaveClass("has-title");
+    await expect(dialog).toHaveAccessibleName("Learn about popovers");
+    await expect(dialog).toHaveAttribute("aria-labelledby", trigger.id);
     await userEvent.tab();
     await expect(closeButton).toHaveFocus();
     await userEvent.tab();

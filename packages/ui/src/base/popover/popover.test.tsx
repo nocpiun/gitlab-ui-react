@@ -5,6 +5,7 @@ import GlPopover, {
   GlPopoverContent,
   GlPopoverTitle,
   GlPopoverTrigger,
+  resolvePopoverFallbackLabelledBy,
   type GlPopoverProps,
   type GlPopoverTriggerMode,
 } from "./popover";
@@ -50,6 +51,27 @@ describe("GlPopover", () => {
     expectTypeOf<GlPopoverProps["triggers"]>()
       .toEqualTypeOf<readonly GlPopoverTriggerMode[] | undefined>();
   });
+
+  it("uses the trigger to name a titleless popover", () => {
+    expect(resolvePopoverFallbackLabelledBy(false, "trigger-id", undefined, undefined))
+      .toBe("trigger-id");
+  });
+
+  it.each([
+    [true, undefined, undefined],
+    [false, "Explicit label", undefined],
+    [false, undefined, "external-label"],
+  ] as const)(
+    "does not add a trigger fallback when another accessible name is available",
+    (hasTitle, ariaLabel, ariaLabelledBy) => {
+      expect(resolvePopoverFallbackLabelledBy(
+        hasTitle,
+        "trigger-id",
+        ariaLabel,
+        ariaLabelledBy,
+      )).toBeUndefined();
+    },
+  );
 
   it("requires the trigger to be inside GlPopover", () => {
     expect(() => renderToStaticMarkup(
