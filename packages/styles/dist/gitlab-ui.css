@@ -3693,6 +3693,32 @@ textarea.gl-form-textarea {
     box-shadow: none;
   }
 }
+/*!
+ * Bootstrap navigation compatibility required by GlTabs.
+ *
+ * Ported from Bootstrap v4.6's _nav.scss as vendored by GitLab UI. Rules are
+ * scoped to the React component marker so unrelated consumer navigation is not
+ * affected.
+ */
+.gl-tabs .nav {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+.gl-tabs .nav-link {
+  display: block;
+  text-decoration: none;
+}
+.gl-tabs .nav-link:hover, .gl-tabs .nav-link:focus-visible {
+  text-decoration: none;
+}
+.gl-tabs .nav-justified > .nav-item {
+  flex-basis: 0;
+  flex-grow: 1;
+  text-align: center;
+}
 .gl-table-responsive {
   container-type: inline-size;
   display: block;
@@ -6504,6 +6530,211 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
 }
 table.gl-table.table-borderless tr > :is(th, td) {
   border: 0;
+}
+.gl-tabs-wrapper {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: var(--gl-border-color-default);
+}
+.gl-tabs-nav {
+  flex-grow: 1;
+  min-width: 0;
+}
+.gl-tab-nav-item {
+  position: relative;
+  padding-inline: var(--gl-spacing-scale-4);
+  padding-block: var(--gl-spacing-scale-5);
+  --tw-leading: 1rem;
+  line-height: 1rem;
+  font-size: var(--gl-font-size-base);
+  display: flex;
+  justify-content: center;
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--gl-border-color-default);
+  height: 100%;
+  color: var(--gl-action-neutral-foreground-color-default);
+  background-color: var(--gl-action-neutral-background-color-default);
+  border-color: var(--gl-action-neutral-border-color-default);
+}
+.gl-tab-nav-item:hover {
+    color: var(--gl-action-neutral-foreground-color-hover);
+    background-color: var(--gl-action-neutral-background-color-hover);
+    border-color: var(--gl-action-neutral-border-color-hover);
+  }
+.gl-tab-nav-item:focus-visible {
+    color: var(--gl-action-neutral-foreground-color-focus);
+    background-color: var(--gl-action-neutral-background-color-focus);
+    border-color: var(--gl-action-neutral-border-color-focus);
+  }
+.gl-tab-nav-item:active {
+    color: var(--gl-action-neutral-foreground-color-active);
+    background-color: var(--gl-action-neutral-background-color-active);
+    border-color: var(--gl-action-neutral-border-color-active);
+  }
+.gl-tab-nav-item{
+  font-family: inherit;
+  text-align: inherit;
+  transition: box-shadow 0.2s cubic-bezier(0.22, 0.61, 0.36, 1), background-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1), border-radius 0.1s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.gl-tab-nav-item::before {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  border-bottom: 2px solid transparent;
+  content: "";
+  translate: 0 2px;
+  transition: border-bottom 0.2s cubic-bezier(0.22, 0.61, 0.36, 1), translate 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .gl-tab-nav-item, .gl-tab-nav-item::before {
+    transition-duration: 0.01ms;
+  }
+}
+.gl-tab-nav-item:hover:not(.gl-tab-nav-item-active)::before {
+  border-bottom-color: var(--gl-border-color-strong);
+  translate: 0;
+}
+.gl-tab-nav-item:focus-visible {
+  border-radius: var(--gl-border-radius-default);
+}
+.gl-tab-nav-item.disabled {
+  pointer-events: auto;
+  cursor: not-allowed;
+  color: var(--gl-action-disabled-foreground-color);
+}
+.gl-tab-nav-item.disabled:hover {
+  --tw-shadow: 0 0 #0000;
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+.gl-tab-nav-item > .gl-tab-counter-badge {
+  font-weight: inherit;
+  margin-left: var(--gl-spacing-scale-2);
+}
+.gl-tab-content {
+  padding-block: var(--gl-spacing-scale-3);
+  font-size: var(--gl-font-size-base);
+  --tw-leading: 1rem;
+  line-height: 1rem;
+  color: var(--gl-text-color-default);
+}
+.gl-tab-nav-item-active {
+  --tw-font-weight: var(--gl-font-weight-bold);
+  font-weight: var(--gl-font-weight-bold);
+  z-index: 1;
+}
+.gl-tab-nav-item-active:active, .gl-tab-nav-item-active:focus-visible, .gl-tab-nav-item-active:focus-visible:active {
+  box-shadow: inset 0 0 0 1px var(--gl-action-neutral-border-color-active), 0 0 0 1px var(--gl-focus-ring-inner-color), 0 0 0 3px var(--gl-focus-ring-outer-color);
+  outline: none;
+}
+.gl-scrollable-tabs-nav .gl-tab-nav-item-active:active, .gl-scrollable-tabs-nav .gl-tab-nav-item-active:focus-visible, .gl-scrollable-tabs-nav .gl-tab-nav-item-active:focus-visible:active {
+  box-shadow: inset 0 0 0 2px var(--gl-focus-ring-outer-color), inset 0 0 0 3px var(--gl-focus-ring-inner-color), inset 0 0 0 1px var(--gl-focus-ring-inner-color);
+}
+.gl-scrollable-tabs-nav .gl-tab-nav-item-active:active::before, .gl-scrollable-tabs-nav .gl-tab-nav-item-active:focus-visible::before, .gl-scrollable-tabs-nav .gl-tab-nav-item-active:focus-visible:active::before {
+  right: 3px;
+  bottom: 3px;
+  left: 3px;
+  border-radius: 0 0 1px 1px;
+}
+.gl-tab-nav-item-active:active::before, .gl-tab-nav-item-active:focus-visible::before, .gl-tab-nav-item-active:focus-visible:active::before {
+  right: 0;
+  left: 0;
+  border-radius: 0 0 2px 2px;
+}
+.gl-tab-nav-item-active::before {
+  border-bottom-color: var(--gl-tab-selected-indicator-color-default);
+  translate: 0;
+}
+.gl-tabs-before, .gl-tabs-after {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--gl-spacing-scale-3);
+}
+.gl-tabs-after {
+  justify-content: flex-end;
+}
+.gl-tab-actions {
+  order: -1;
+  margin-top: var(--gl-spacing-scale-3);
+  margin-bottom: var(--gl-spacing-scale-3);
+  display: flex;
+  width: 100%;
+  flex-grow: 0;
+  flex-direction: column;
+  gap: var(--gl-spacing-scale-3);
+}
+@media (min-width: 768px) {
+  .gl-tab-actions {
+    order: 0;
+    margin: var(--gl-spacing-scale-0);
+    width: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+.gl-tabs-fade {
+  position: absolute;
+  top: var(--gl-spacing-scale-0);
+  bottom: var(--gl-spacing-scale-0);
+  z-index: var(--gl-zindex-2);
+  width: var(--gl-spacing-scale-8);
+  padding: var(--gl-spacing-scale-2);
+  display: flex;
+}
+.gl-tabs-fade-left {
+  left: var(--gl-spacing-scale-0);
+  background-image: linear-gradient( to left, rgba(255, 255, 255, 0), var(--gl-background-color-default) 33% );
+}
+.gl-tabs-fade-right {
+  right: var(--gl-spacing-scale-0);
+  justify-content: flex-end;
+  background-image: linear-gradient( to right, rgba(255, 255, 255, 0), var(--gl-background-color-default) 33% );
+}
+.gl-tabs-fade-icon-button {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--gl-border-color-default);
+  color: var(--gl-action-neutral-foreground-color-default);
+  background-color: var(--gl-action-neutral-background-color-default);
+  border-color: var(--gl-action-neutral-border-color-default);
+}
+.gl-tabs-fade-icon-button:hover {
+    color: var(--gl-action-neutral-foreground-color-hover);
+    background-color: var(--gl-action-neutral-background-color-hover);
+    border-color: var(--gl-action-neutral-border-color-hover);
+  }
+.gl-tabs-fade-icon-button:focus-visible {
+    color: var(--gl-action-neutral-foreground-color-focus);
+    background-color: var(--gl-action-neutral-background-color-focus);
+    border-color: var(--gl-action-neutral-border-color-focus);
+  }
+.gl-tabs-fade-icon-button:active {
+    color: var(--gl-action-neutral-foreground-color-active);
+    background-color: var(--gl-action-neutral-background-color-active);
+    border-color: var(--gl-action-neutral-border-color-active);
+  }
+.gl-tabs-fade-icon-button{
+  padding: var(--gl-spacing-scale-0);
+  height: 100%;
+}
+.gl-tabs .gl-scrollable-tabs-nav {
+  overflow: hidden;
+  position: relative;
+  flex-wrap: nowrap;
+}
+@media (forced-colors: active) {
+  .gl-tab-nav-item-active:active, .gl-tab-nav-item-active:focus-visible, .gl-tab-nav-item-active:focus-visible:active {
+    outline: 2px solid LinkText;
+  }
 }
 .gl-toggle-wrapper {
   --tw-leading: 1rem;

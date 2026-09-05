@@ -254,6 +254,26 @@ export { default as GlSkeletonLoader } from "./base/skeleton-loader/skeleton-loa
 export type {
   GlSkeletonLoaderProps,
 } from "./base/skeleton-loader/skeleton-loader";
+export {
+  default as GlTabs,
+  GlScrollableTabs,
+  GlTabActions,
+  GlTabsAfter,
+  GlTabsBefore,
+} from "./base/tabs/tabs";
+export type {
+  GlScrollableTabsProps,
+  GlTabActionsProps,
+  GlTabsAfterProps,
+  GlTabsBeforeProps,
+  GlTabsProps,
+} from "./base/tabs/tabs";
+export { default as GlTab } from "./base/tabs/tab";
+export type {
+  GlTabButtonProps,
+  GlTabPanelProps,
+  GlTabProps,
+} from "./base/tabs/tab";
 export { default as GlToggle } from "./base/toggle/toggle";
 export type {
   GlToggleLabelPosition,

@@ -1,0 +1,193 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/tabs/tabs/tabs.scss
+ *
+ * GlTabsBefore, GlTabsAfter, and the single-DOM GlTabActions layout are React
+ * adaptations of the upstream toolbar slots and action regions.
+ */
+
+.gl-tabs-wrapper {
+  @apply gl-border-b gl-relative gl-flex gl-flex-wrap;
+}
+
+.gl-tabs-nav {
+  @apply gl-grow;
+  min-width: 0;
+}
+
+.gl-tab-nav-item {
+  position: relative;
+  @apply gl-px-4;
+  @apply gl-py-5;
+  @apply gl-leading-normal;
+  @apply gl-text-base;
+  @apply gl-flex;
+  @apply gl-justify-center;
+  @apply gl-border;
+  @apply gl-h-full;
+  @apply gl-action-neutral-colors;
+  font-family: inherit;
+  text-align: inherit;
+  transition:
+    box-shadow 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+    background-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+    border-radius 0.1s cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  &::before {
+    position: absolute;
+    right: -1px;
+    bottom: -1px;
+    left: -1px;
+    border-bottom: 2px solid transparent;
+    content: "";
+    translate: 0 2px;
+    transition:
+      border-bottom 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+      translate 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &,
+    &::before {
+      transition-duration: 0.01ms;
+    }
+  }
+
+  &:hover:not(.gl-tab-nav-item-active)::before {
+    border-bottom-color: var(--gl-border-color-strong);
+    translate: 0;
+  }
+
+  &:focus-visible {
+    @apply gl-rounded-default;
+  }
+
+  &.disabled {
+    @apply gl-pointer-events-auto;
+    @apply gl-cursor-not-allowed;
+    color: var(--gl-action-disabled-foreground-color);
+
+    &:hover {
+      @apply gl-shadow-none;
+    }
+  }
+
+  > .gl-tab-counter-badge {
+    font-weight: inherit;
+    @apply gl-ml-2;
+  }
+}
+
+.gl-tab-content {
+  @apply gl-py-3;
+  @apply gl-text-base;
+  @apply gl-leading-normal;
+  @apply gl-text-default;
+}
+
+.gl-tab-nav-item-active {
+  @apply gl-font-bold;
+  z-index: 1;
+
+  &:active,
+  &:focus-visible,
+  &:focus-visible:active {
+    box-shadow:
+      inset 0 0 0 1px var(--gl-action-neutral-border-color-active),
+      0 0 0 1px var(--gl-focus-ring-inner-color),
+      0 0 0 3px var(--gl-focus-ring-outer-color);
+    outline: none;
+
+    .gl-scrollable-tabs-nav & {
+      box-shadow:
+        inset 0 0 0 2px var(--gl-focus-ring-outer-color),
+        inset 0 0 0 3px var(--gl-focus-ring-inner-color),
+        inset 0 0 0 1px var(--gl-focus-ring-inner-color);
+
+      &::before {
+        right: 3px;
+        bottom: 3px;
+        left: 3px;
+        border-radius: 0 0 1px 1px;
+      }
+    }
+
+    &::before {
+      right: 0;
+      left: 0;
+      border-radius: 0 0 2px 2px;
+    }
+  }
+
+  &::before {
+    border-bottom-color: var(--gl-tab-selected-indicator-color-default);
+    translate: 0;
+  }
+}
+
+.gl-tabs-before,
+.gl-tabs-after {
+  @apply gl-flex gl-shrink-0 gl-items-center gl-gap-3;
+}
+
+.gl-tabs-after {
+  @apply gl-justify-end;
+}
+
+.gl-tab-actions {
+  order: -1;
+  @apply gl-mt-3 gl-mb-3 gl-flex gl-w-full gl-grow-0 gl-flex-col gl-gap-3;
+}
+
+@media (min-width: 768px) {
+  .gl-tab-actions {
+    order: 0;
+    @apply gl-m-0 gl-w-auto gl-flex-row gl-items-center gl-justify-end;
+  }
+}
+
+.gl-tabs-fade {
+  @apply gl-absolute gl-bottom-0 gl-top-0 gl-z-2;
+  @apply gl-w-8;
+  @apply gl-p-2;
+  @apply gl-flex;
+}
+
+.gl-tabs-fade-left {
+  @apply gl-left-0;
+  background-image: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 0),
+    var(--gl-background-color-default) 33%
+  );
+}
+
+.gl-tabs-fade-right {
+  @apply gl-right-0 gl-justify-end;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    var(--gl-background-color-default) 33%
+  );
+}
+
+.gl-tabs-fade-icon-button {
+  @apply gl-border;
+  @apply gl-action-neutral-colors;
+  @apply gl-p-0;
+  @apply gl-h-full;
+}
+
+.gl-tabs .gl-scrollable-tabs-nav {
+  @apply gl-overflow-hidden;
+  position: relative;
+  @apply gl-flex-nowrap;
+}
+
+@media (forced-colors: active) {
+  .gl-tab-nav-item-active:active,
+  .gl-tab-nav-item-active:focus-visible,
+  .gl-tab-nav-item-active:focus-visible:active {
+    outline: 2px solid LinkText;
+  }
+}

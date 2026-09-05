@@ -1,5 +1,6 @@
 @import "./forms/index.css";
 @import "./dropdowns/new-dropdown.css";
+@import "./tabs/bootstrap-tabs.css";
 @import "./tables/bootstrap-tables.css";
 @import "../../ui/src/base/accordion/accordion.css";
 @import "../../ui/src/base/alert/alert.css";
@@ -29,5 +30,6 @@
 @import "../../ui/src/base/progress-bar/progress-bar.css";
 @import "../../ui/src/base/skeleton-loader/skeleton-loader.css";
 @import "../../ui/src/base/table/table.css";
+@import "../../ui/src/base/tabs/tabs.css";
 @import "../../ui/src/base/toggle/toggle.css";
 @import "../../ui/src/base/tooltip/tooltip.css";
