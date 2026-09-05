@@ -220,6 +220,55 @@ export const QuerySynchronization: Story = {
   },
 };
 
+function ControlledQuerySyncTabs(props: GlTabsProps) {
+  const [acceptChanges, setAcceptChanges] = useState(false);
+  const [value, setValue] = useState(0);
+  useState(() => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("gl-tabs-controlled-story-view", "all");
+    window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+  });
+
+  return (
+    <>
+      <GlButton onClick={() => setAcceptChanges(true)}>Allow tab changes</GlButton>
+      <GlTabs
+        {...props}
+        onValueChange={(nextValue) => {
+          if(acceptChanges) setValue(nextValue);
+          props.onValueChange?.(nextValue);
+        }}
+        queryParamName="gl-tabs-controlled-story-view"
+        syncActiveTabWithQueryParams
+        value={value}>
+        <GlTab queryParamValue="all" title="All">All issues</GlTab>
+        <GlTab queryParamValue="open" title="Open">Open issues</GlTab>
+      </GlTabs>
+    </>
+  );
+}
+
+export const ControlledQuerySynchronization: Story = {
+  render: (args) => <ControlledQuerySyncTabs {...args} />,
+  play: async ({ args, canvas }) => {
+    const all = canvas.getByRole("tab", { name: "All" });
+    const open = canvas.getByRole("tab", { name: "Open" });
+    const queryValue = () => new URL(window.location.href)
+      .searchParams.get("gl-tabs-controlled-story-view");
+
+    await waitFor(() => expect(queryValue()).toBe("all"));
+    await userEvent.click(open);
+    await expect(args.onValueChange).toHaveBeenLastCalledWith(1);
+    await expect(all).toHaveAttribute("aria-selected", "true");
+    await expect(queryValue()).toBe("all");
+
+    await userEvent.click(canvas.getByRole("button", { name: "Allow tab changes" }));
+    await userEvent.click(open);
+    await waitFor(() => expect(open).toHaveAttribute("aria-selected", "true"));
+    await waitFor(() => expect(queryValue()).toBe("open"));
+  },
+};
+
 export const LazyPanels: Story = {
   args: { lazy: true },
 };

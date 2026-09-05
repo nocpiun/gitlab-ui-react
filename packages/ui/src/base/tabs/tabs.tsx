@@ -489,8 +489,10 @@ function TabsImplementation({
   const handleValueChange = (nextValue: unknown) => {
     if(typeof nextValue !== "number") return;
 
-    if(!isControlled) setUncontrolledValue(nextValue);
-    if(syncActiveTabWithQueryParams) setQueryTabIndex(tabs, queryParamName, nextValue);
+    if(!isControlled) {
+      setUncontrolledValue(nextValue);
+      if(syncActiveTabWithQueryParams) setQueryTabIndex(tabs, queryParamName, nextValue);
+    }
     onValueChange?.(nextValue);
   };
 
