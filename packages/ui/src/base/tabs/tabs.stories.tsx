@@ -218,6 +218,60 @@ export const ActiveLastTabRemoval: Story = {
   },
 };
 
+function QuerySyncedRemovableLastTabExample(props: GlTabsProps) {
+  const [showMembers, setShowMembers] = useState(true);
+  useState(() => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("gl-tabs-removal-story-view", "members");
+    window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+  });
+
+  return (
+    <>
+      <GlButton onClick={() => setShowMembers(false)}>Remove members</GlButton>
+      <GlTabs
+        {...props}
+        defaultValue={2}
+        queryParamName="gl-tabs-removal-story-view"
+        syncActiveTabWithQueryParams>
+        <GlTab key="overview" queryParamValue="overview" title="Overview">
+          Overview panel
+        </GlTab>
+        <GlTab key="activity" queryParamValue="activity" title="Activity">
+          Activity panel
+        </GlTab>
+        {showMembers ? (
+          <GlTab key="members" queryParamValue="members" title="Members">
+            Members panel
+          </GlTab>
+        ) : null}
+      </GlTabs>
+    </>
+  );
+}
+
+export const QuerySyncedActiveLastTabRemoval: Story = {
+  render: (args) => <QuerySyncedRemovableLastTabExample {...args} />,
+  play: async ({ args, canvas }) => {
+    const overview = canvas.getByRole("tab", { name: "Overview" });
+    const activity = canvas.getByRole("tab", { name: "Activity" });
+    const members = canvas.getByRole("tab", { name: "Members" });
+    const queryValue = () => new URL(window.location.href)
+      .searchParams.get("gl-tabs-removal-story-view");
+
+    await expect(members).toHaveAttribute("aria-selected", "true");
+    await expect(queryValue()).toBe("members");
+
+    await userEvent.click(canvas.getByRole("button", { name: "Remove members" }));
+
+    await waitFor(() => expect(activity).toHaveAttribute("aria-selected", "true"));
+    await expect(overview).toHaveAttribute("aria-selected", "false");
+    await waitFor(() => expect(queryValue()).toBe("activity"));
+    await expect(args.onValueChange).toHaveBeenCalledTimes(1);
+    await expect(args.onValueChange).toHaveBeenLastCalledWith(1);
+  },
+};
+
 function RemovableAllTabsExample(props: GlTabsProps) {
   const [showTabs, setShowTabs] = useState(true);
 

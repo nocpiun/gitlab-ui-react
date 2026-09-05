@@ -533,12 +533,19 @@ function TabsImplementation({
       onValueChangeRef.current?.(nextValue);
     };
 
-    updateFromLocation();
+    // A removed active tail can leave the URL pointing at the removed tab.
+    // Commit the adjacent fallback before reading that stale value again.
+    if(!activeLastTabWasRemoved) updateFromLocation();
     queryHistoryReadyRef.current = true;
     window.addEventListener("popstate", updateFromLocation);
 
     return () => window.removeEventListener("popstate", updateFromLocation);
-  }, [queryParamName, syncActiveTabWithQueryParams, tabsStateSignature]);
+  }, [
+    activeLastTabWasRemoved,
+    queryParamName,
+    syncActiveTabWithQueryParams,
+    tabsStateSignature,
+  ]);
 
   useEffect(() => {
     if(allTabsWereRemoved) {
@@ -552,7 +559,11 @@ function TabsImplementation({
       return;
     }
 
-    if(syncActiveTabWithQueryParams && typeof window !== "undefined") {
+    if(
+      syncActiveTabWithQueryParams
+      && typeof window !== "undefined"
+      && !activeLastTabWasRemoved
+    ) {
       const locationValue = queryTabIndex(tabs, queryParamName, window.location);
       // A URL target that normalizes to this fallback is not a competing
       // selection. Commit it so re-enabling the invalid tab cannot restore it.
@@ -571,6 +582,7 @@ function TabsImplementation({
     }
     onValueChangeRef.current?.(fallbackIndex);
   }, [
+    activeLastTabWasRemoved,
     allTabsWereRemoved,
     fallbackIndex,
     isControlled,
