@@ -382,11 +382,15 @@ function TabsImplementation({
     key: tab.key ?? index,
     queryParamValue: queryValueForTab(tab, index),
   })));
+  // parseTabsChildren returns a new array on every render. Query synchronization
+  // reads the latest tabs through this ref and reacts only to semantic changes.
+  const tabsRef = useRef(tabs);
   const onValueChangeRef = useRef(onValueChange);
   const isControlledRef = useRef(isControlled);
   const selectedValueRef = useRef<number | null>(selectedValue);
   const queryHistoryReadyRef = useRef(false);
   const fallbackRequestRef = useRef<string | null>(null);
+  tabsRef.current = tabs;
   onValueChangeRef.current = onValueChange;
   isControlledRef.current = isControlled;
   selectedValueRef.current = selectedValue;
@@ -475,13 +479,12 @@ function TabsImplementation({
       || !requestedValueIsSelectable
     ) return;
 
-    setQueryTabIndex(tabs, queryParamName, selectedValue);
+    setQueryTabIndex(tabsRef.current, queryParamName, selectedValue);
   }, [
     queryParamName,
     requestedValueIsSelectable,
     selectedValue,
     syncActiveTabWithQueryParams,
-    tabs,
     tabsStateSignature,
   ]);
 
@@ -492,12 +495,13 @@ function TabsImplementation({
     }
 
     const updateFromLocation = () => {
-      const nextValue = queryTabIndex(tabs, queryParamName, window.location);
+      const currentTabs = tabsRef.current;
+      const nextValue = queryTabIndex(currentTabs, queryParamName, window.location);
       if(nextValue === null || nextValue === selectedValueRef.current) return;
 
       if(!isControlledRef.current) {
         setUncontrolledSelection({
-          key: tabKeyAtIndex(tabs, nextValue),
+          key: tabKeyAtIndex(currentTabs, nextValue),
           value: nextValue,
         });
       }
@@ -509,7 +513,7 @@ function TabsImplementation({
     window.addEventListener("popstate", updateFromLocation);
 
     return () => window.removeEventListener("popstate", updateFromLocation);
-  }, [queryParamName, syncActiveTabWithQueryParams, tabs, tabsStateSignature]);
+  }, [queryParamName, syncActiveTabWithQueryParams, tabsStateSignature]);
 
   useEffect(() => {
     if(requestedValueIsSelectable || firstEnabledIndex === null) {

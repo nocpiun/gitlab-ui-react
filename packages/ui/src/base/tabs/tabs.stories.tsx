@@ -334,6 +334,65 @@ export const ControlledQuerySynchronization: Story = {
   },
 };
 
+function RejectedQuerySelectionTabs(props: GlTabsProps) {
+  const [parentRenderCount, setParentRenderCount] = useState(0);
+  const [selectionRequestCount, setSelectionRequestCount] = useState(0);
+  useState(() => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("gl-tabs-rejected-story-view", "all");
+    window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+  });
+
+  return (
+    <>
+      <GlButton onClick={() => setParentRenderCount((count) => count + 1)}>
+        Rerender parent ({parentRenderCount})
+      </GlButton>
+      <div>Selection requests: {selectionRequestCount}</div>
+      <GlTabs
+        {...props}
+        onValueChange={(nextValue) => {
+          setSelectionRequestCount((count) => count + 1);
+          props.onValueChange?.(nextValue);
+        }}
+        queryParamName="gl-tabs-rejected-story-view"
+        syncActiveTabWithQueryParams
+        value={0}>
+        <GlTab queryParamValue="all" title="All">All issues</GlTab>
+        <GlTab queryParamValue="open" title="Open">Open issues</GlTab>
+      </GlTabs>
+    </>
+  );
+}
+
+export const RejectedControlledQuerySelection: Story = {
+  render: (args) => <RejectedQuerySelectionTabs {...args} />,
+  play: async ({ args, canvas }) => {
+    const all = canvas.getByRole("tab", { name: "All" });
+    const open = canvas.getByRole("tab", { name: "Open" });
+    const queryValue = () => new URL(window.location.href)
+      .searchParams.get("gl-tabs-rejected-story-view");
+
+    await waitFor(() => expect(queryValue()).toBe("all"));
+    const url = new URL(window.location.href);
+    url.searchParams.set("gl-tabs-rejected-story-view", "open");
+    window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+    window.dispatchEvent(new PopStateEvent("popstate"));
+
+    await waitFor(() => {
+      expect(canvas.getByText("Selection requests: 1")).toBeInTheDocument();
+    });
+    await userEvent.click(canvas.getByRole("button", { name: "Rerender parent (0)" }));
+
+    await expect(args.onValueChange).toHaveBeenCalledTimes(1);
+    await expect(args.onValueChange).toHaveBeenLastCalledWith(1);
+    await expect(canvas.getByText("Selection requests: 1")).toBeInTheDocument();
+    await expect(all).toHaveAttribute("aria-selected", "true");
+    await expect(open).toHaveAttribute("aria-selected", "false");
+    await expect(queryValue()).toBe("open");
+  },
+};
+
 export const LazyPanels: Story = {
   args: { lazy: true },
 };
