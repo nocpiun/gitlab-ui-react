@@ -42,10 +42,11 @@ describe("GlPopover", () => {
     expect(markup).not.toContain("role=\"dialog\"");
   });
 
-  it("disables the composed trigger", () => {
+  it("leaves the composed trigger enabled when the popover is disabled", () => {
     const markup = renderPopover(undefined, { disabled: true });
 
-    expect(markup).toContain("disabled=\"\"");
+    expect(markup).not.toContain("disabled=\"\"");
+    expect(markup).not.toContain("aria-disabled=\"true\"");
   });
 
   it("accepts the typed trigger modes", () => {

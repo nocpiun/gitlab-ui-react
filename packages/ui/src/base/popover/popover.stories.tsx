@@ -225,6 +225,34 @@ export const OnClick: Story = {
   },
 };
 
+const disabledPopoverTriggerClick = fn();
+
+export const Disabled: Story = {
+  render: (args) => (
+    <div style={storyLayout}>
+      <GlPopover {...args} disabled triggers={["click"]}>
+        <GlPopoverTrigger>
+          <GlButton onClick={disabledPopoverTriggerClick}>Disabled popover</GlButton>
+        </GlPopoverTrigger>
+        <GlPopoverContent>
+          <GlPopoverTitle>Disabled popover</GlPopoverTitle>
+          <span>This content must remain closed.</span>
+        </GlPopoverContent>
+      </GlPopover>
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    disabledPopoverTriggerClick.mockClear();
+    const trigger = canvas.getByRole("button", { name: "Disabled popover" });
+
+    await expect(trigger).not.toBeDisabled();
+    await userEvent.click(trigger);
+    await expect(disabledPopoverTriggerClick).toHaveBeenCalledTimes(1);
+    await expect(trigger).toHaveFocus();
+    await expect(within(document.body).queryByRole("dialog")).not.toBeInTheDocument();
+  },
+};
+
 function ControlledManualPopover() {
   const [open, setOpen] = useState(false);
 

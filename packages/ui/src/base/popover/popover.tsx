@@ -41,7 +41,7 @@ export type GlPopoverProps = {
   defaultOpen?: boolean;
   /** How long to wait before opening on hover or focus, in milliseconds. */
   delay?: number;
-  /** Prevents the trigger from opening the popover. */
+  /** Prevents the popover from opening without disabling the trigger element. */
   disabled?: boolean;
   /** Called when user interaction requests an open-state change. */
   onOpenChange?: (open: boolean) => void;
@@ -516,7 +516,6 @@ export function GlPopoverTrigger({
       ref={context.setTriggerElement}
       closeDelay={context.closeDelay}
       delay={context.delay}
-      disabled={context.disabled}
       id={actualId}
       nativeButton={nativeButton}
       onBlur={handleBlur}
