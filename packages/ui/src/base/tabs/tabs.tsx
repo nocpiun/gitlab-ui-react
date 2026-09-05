@@ -100,6 +100,11 @@ type ScrollMetrics = {
   scrollWidth: number;
 };
 
+type UncontrolledSelection = {
+  key: string | null;
+  value: number;
+};
+
 type TabsImplementationProps = GlScrollableTabsProps & {
   scrollable: boolean;
 };
@@ -277,6 +282,12 @@ function selectableTabIndex(index: number, tabs: GlTabElement[]): number | null 
   return firstEnabledTabIndex(tabs);
 }
 
+function tabKeyAtIndex(tabs: GlTabElement[], index: number): string | null {
+  return Number.isInteger(index) && index >= 0 && index < tabs.length
+    ? tabs[index].key
+    : null;
+}
+
 function queryTabIndex(
   tabs: GlTabElement[],
   queryParamName: string,
@@ -338,7 +349,20 @@ function TabsImplementation({
   const after = scrollable ? null : parsedChildren.after;
   const actions = scrollable ? null : parsedChildren.actions;
   const isControlled = value !== undefined;
-  const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
+  // Explicit keys preserve the active tab instance across child insertion and
+  // reordering. Unkeyed tabs intentionally retain numeric index semantics.
+  const [uncontrolledSelection, setUncontrolledSelection] = useState<UncontrolledSelection>(
+    () => ({
+      key: tabKeyAtIndex(tabs, defaultValue),
+      value: defaultValue,
+    }),
+  );
+  const trackedUncontrolledIndex = uncontrolledSelection.key === null
+    ? -1
+    : tabs.findIndex((tab) => tab.key === uncontrolledSelection.key);
+  const uncontrolledValue = trackedUncontrolledIndex >= 0
+    ? trackedUncontrolledIndex
+    : uncontrolledSelection.value;
   const requestedValue = isControlled ? value : uncontrolledValue;
   const firstEnabledIndex = firstEnabledTabIndex(tabs);
   const requestedValueIsSelectable = Number.isInteger(requestedValue)
@@ -348,6 +372,11 @@ function TabsImplementation({
   const selectedValue = requestedValueIsSelectable
     ? requestedValue
     : firstEnabledIndex;
+  const selectedTabKey = selectedValue === null ? null : tabs[selectedValue].key;
+  const trackedUncontrolledTabMoved = !isControlled
+    && uncontrolledSelection.key !== null
+    && trackedUncontrolledIndex >= 0
+    && trackedUncontrolledIndex !== uncontrolledSelection.value;
   const tabsStateSignature = JSON.stringify(tabs.map((tab, index) => ({
     disabled: Boolean(tab.props.disabled),
     key: tab.key ?? index,
@@ -361,6 +390,25 @@ function TabsImplementation({
   onValueChangeRef.current = onValueChange;
   isControlledRef.current = isControlled;
   selectedValueRef.current = selectedValue;
+
+  useEffect(() => {
+    if(isControlled || selectedValue === null || !requestedValueIsSelectable) return;
+    if(
+      uncontrolledSelection.value === selectedValue
+      && uncontrolledSelection.key === selectedTabKey
+    ) return;
+
+    setUncontrolledSelection({ key: selectedTabKey, value: selectedValue });
+    if(trackedUncontrolledTabMoved) onValueChangeRef.current?.(selectedValue);
+  }, [
+    isControlled,
+    requestedValueIsSelectable,
+    selectedTabKey,
+    selectedValue,
+    trackedUncontrolledTabMoved,
+    uncontrolledSelection.key,
+    uncontrolledSelection.value,
+  ]);
 
   const navRef = useRef<HTMLDivElement>(null);
   const [scrollMetrics, setScrollMetrics] = useState<ScrollMetrics>(EMPTY_SCROLL_METRICS);
@@ -447,7 +495,12 @@ function TabsImplementation({
       const nextValue = queryTabIndex(tabs, queryParamName, window.location);
       if(nextValue === null || nextValue === selectedValueRef.current) return;
 
-      if(!isControlledRef.current) setUncontrolledValue(nextValue);
+      if(!isControlledRef.current) {
+        setUncontrolledSelection({
+          key: tabKeyAtIndex(tabs, nextValue),
+          value: nextValue,
+        });
+      }
       onValueChangeRef.current?.(nextValue);
     };
 
@@ -473,7 +526,12 @@ function TabsImplementation({
     if(fallbackRequestRef.current === requestKey) return;
     fallbackRequestRef.current = requestKey;
 
-    if(!isControlled) setUncontrolledValue(firstEnabledIndex);
+    if(!isControlled) {
+      setUncontrolledSelection({
+        key: tabKeyAtIndex(tabs, firstEnabledIndex),
+        value: firstEnabledIndex,
+      });
+    }
     onValueChangeRef.current?.(firstEnabledIndex);
   }, [
     firstEnabledIndex,
@@ -490,7 +548,10 @@ function TabsImplementation({
     if(typeof nextValue !== "number") return;
 
     if(!isControlled) {
-      setUncontrolledValue(nextValue);
+      setUncontrolledSelection({
+        key: tabKeyAtIndex(tabs, nextValue),
+        value: nextValue,
+      });
       if(syncActiveTabWithQueryParams) setQueryTabIndex(tabs, queryParamName, nextValue);
     }
     onValueChange?.(nextValue);

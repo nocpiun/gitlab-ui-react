@@ -109,6 +109,57 @@ export const Controlled: Story = {
   },
 };
 
+function KeyedTabsExample(props: GlTabsProps) {
+  const [tabs, setTabs] = useState([
+    { id: "overview", title: "Overview" },
+    { id: "activity", title: "Activity" },
+    { id: "members", title: "Members" },
+  ]);
+
+  return (
+    <>
+      <GlButton
+        onClick={() => setTabs((currentTabs) => [
+          { id: "new", title: "New" },
+          ...currentTabs,
+        ])}>
+        Insert first tab
+      </GlButton>
+      <GlButton
+        onClick={() => setTabs((currentTabs) => {
+          const activity = currentTabs.find((tab) => tab.id === "activity");
+          if(!activity) return currentTabs;
+          return [activity, ...currentTabs.filter((tab) => tab !== activity)];
+        })}>
+        Move activity first
+      </GlButton>
+      <GlTabs {...props} defaultValue={1}>
+        {tabs.map((tab) => (
+          <GlTab key={tab.id} title={tab.title}>{tab.title} panel</GlTab>
+        ))}
+      </GlTabs>
+    </>
+  );
+}
+
+export const KeyedChildrenReordering: Story = {
+  render: (args) => <KeyedTabsExample {...args} />,
+  play: async ({ args, canvas }) => {
+    const activity = canvas.getByRole("tab", { name: "Activity" });
+
+    await expect(activity).toHaveAttribute("aria-selected", "true");
+    await userEvent.click(canvas.getByRole("button", { name: "Insert first tab" }));
+    await waitFor(() => expect(activity).toHaveAttribute("aria-selected", "true"));
+    await expect(canvas.getByRole("tabpanel", { name: "Activity" }))
+      .toHaveTextContent("Activity panel");
+    await expect(args.onValueChange).toHaveBeenLastCalledWith(2);
+
+    await userEvent.click(canvas.getByRole("button", { name: "Move activity first" }));
+    await waitFor(() => expect(activity).toHaveAttribute("aria-selected", "true"));
+    await expect(args.onValueChange).toHaveBeenLastCalledWith(0);
+  },
+};
+
 export const Justified: Story = {
   args: { justified: true },
 };
