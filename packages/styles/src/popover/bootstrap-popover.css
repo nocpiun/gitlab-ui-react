@@ -1,0 +1,131 @@
+/*!
+ * Bootstrap v4.6 popover compatibility for GlPopover.
+ * Ported from packages/gitlab-ui/src/vendor/bootstrap/scss/_popover.scss,
+ * mixins/_reset-text.scss and _transitions.scss in
+ * gitlab-org/gitlab-services/design.gitlab.com.
+ * Bootstrap is licensed under MIT (https://github.com/twbs/bootstrap/blob/v4.6.2/LICENSE).
+ *
+ * Base UI owns positioning and arrow alignment. The 4px directional margins
+ * become Positioner sideOffset; transient opacity uses Base UI state attributes.
+ * GitLab's arrow dimensions are 8px by 4px. Scope all vendor rules to GlPopover.
+ */
+
+.gl-popover-positioner {
+  z-index: 1060;
+}
+
+.gl-popover {
+  @apply gl-block gl-font-regular gl-font-normal gl-leading-normal;
+  font-style: normal;
+  text-align: left;
+  text-align: start;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  letter-spacing: normal;
+  word-break: normal;
+  white-space: normal;
+  word-spacing: normal;
+  line-break: auto;
+  overflow-wrap: break-word;
+  background-clip: padding-box;
+
+  .arrow {
+    @apply gl-absolute gl-block;
+    width: 0.5rem;
+    height: 0.25rem;
+
+    &::before,
+    &::after {
+      @apply gl-absolute gl-block gl-border-transparent gl-border-solid;
+      content: "";
+    }
+  }
+
+  &.bs-popover-top > .arrow {
+    bottom: -3px;
+
+    &::before {
+      bottom: 0;
+      border-width: 4px 4px 0;
+    }
+
+    &::after {
+      bottom: 1px;
+      border-width: 4px 4px 0;
+    }
+  }
+
+  &.bs-popover-right > .arrow {
+    left: -3px;
+    width: 0.25rem;
+    height: 0.5rem;
+
+    &::before {
+      left: 0;
+      border-width: 4px 4px 4px 0;
+    }
+
+    &::after {
+      left: 1px;
+      border-width: 4px 4px 4px 0;
+    }
+  }
+
+  &.bs-popover-bottom > .arrow {
+    top: -3px;
+
+    &::before {
+      top: 0;
+      border-width: 0 4px 4px;
+    }
+
+    &::after {
+      top: 1px;
+      border-width: 0 4px 4px;
+    }
+  }
+
+  &.bs-popover-left > .arrow {
+    right: -3px;
+    width: 0.25rem;
+    height: 0.5rem;
+
+    &::before {
+      right: 0;
+      border-width: 4px 0 4px 4px;
+    }
+
+    &::after {
+      right: 1px;
+      border-width: 4px 0 4px 4px;
+    }
+  }
+
+  &.bs-popover-bottom .popover-header::before {
+    @apply gl-absolute gl-top-0 gl-block;
+    left: 50%;
+    width: 0.5rem;
+    margin-left: -0.25rem;
+    content: "";
+    border-bottom: 1px solid transparent;
+  }
+
+  .popover-header {
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0;
+  }
+
+  &.fade {
+    transition: opacity 0.15s linear;
+
+    &[data-starting-style],
+    &[data-ending-style] {
+      @apply gl-opacity-0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+}

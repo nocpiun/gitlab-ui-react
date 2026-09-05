@@ -1,0 +1,104 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/popover/popover.scss
+ */
+
+.gl-popover {
+  max-width: 280px;
+  @apply gl-bg-overlap;
+  @apply gl-border-none;
+  @apply gl-drop-shadow-md;
+  @apply gl-text-sm;
+  @apply gl-rounded-feedback;
+
+  .popover-body {
+    @apply gl-text-default;
+  }
+
+  &.bs-popover-top {
+    /* Upstream offsets the arrow by one pixel to accommodate the shadow. */
+    > .arrow::before {
+      bottom: 1px;
+      border-top-color: var(--gl-background-color-overlap);
+    }
+
+    > .arrow::after {
+      bottom: 2px;
+      border-top-color: var(--gl-background-color-overlap);
+    }
+  }
+
+  &.bs-popover-bottom {
+    > .arrow::before {
+      top: 1px;
+      border-bottom-color: var(--gl-background-color-overlap);
+    }
+
+    > .arrow::after {
+      top: 2px;
+      border-bottom-color: var(--gl-background-color-overlap);
+    }
+
+    > .popover-header::before {
+      border-color: var(--gl-background-color-overlap);
+    }
+  }
+
+  &.bs-popover-right {
+    > .arrow::before {
+      left: 1px;
+      border-right-color: var(--gl-background-color-overlap);
+    }
+
+    > .arrow::after {
+      left: 2px;
+      border-right-color: var(--gl-background-color-overlap);
+    }
+  }
+
+  &.bs-popover-left {
+    > .arrow::before {
+      right: 1px;
+      border-left-color: var(--gl-background-color-overlap);
+    }
+
+    > .arrow::after {
+      right: 2px;
+      border-left-color: var(--gl-background-color-overlap);
+    }
+  }
+
+  .popover-header {
+    @apply gl-heading-scale-200;
+    @apply gl-border-b-0;
+    @apply gl-pb-0;
+  }
+
+  &.has-title .popover-header {
+    @apply gl-hyphens-auto gl-break-anywhere;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  /* The heading is separate so the close button does not label the dialog. */
+  .gl-popover-title {
+    @apply gl-m-0 gl-min-w-0;
+    font: inherit;
+    color: inherit;
+  }
+
+  &.has-close-button:not(.has-title) .popover-header {
+    padding-top: 0.25rem;
+  }
+
+  .popover-body {
+    @apply gl-py-3;
+    @apply gl-px-4;
+
+    > .popover-hr {
+      @apply gl-my-5;
+      @apply gl-mx-0;
+    }
+  }
+}
