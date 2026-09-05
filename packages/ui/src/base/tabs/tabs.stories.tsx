@@ -65,7 +65,8 @@ export const Default: Story = {
     await user.pointer({ keys: "[/MouseLeft]", target: activity });
     await expect(args.onValueChange).toHaveBeenLastCalledWith(1);
     await expect(activity).toHaveAttribute("aria-selected", "true");
-    await expect(canvas.getByRole("tabpanel")).toHaveTextContent("Activity panel");
+    await expect(canvas.getByRole("tabpanel", { name: "Activity" }))
+      .toHaveTextContent("Activity panel");
 
     activity.focus();
     await user.keyboard("{ArrowRight}");
@@ -130,7 +131,7 @@ export const CountsAndDisabled: Story = {
     const closed = canvas.getByRole("tab", { name: "Closed" });
 
     await expect(all).toBeInTheDocument();
-    await expect(closed).toBeDisabled();
+    await expect(closed).toHaveAttribute("aria-disabled", "true");
 
     all.focus();
     await userEvent.keyboard("{End}");
