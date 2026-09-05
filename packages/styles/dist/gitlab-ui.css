@@ -3694,6 +3694,123 @@ textarea.gl-form-textarea {
   }
 }
 /*!
+ * Bootstrap popover compatibility required by GlPopover.
+ *
+ * Ported from Bootstrap v4.6's _popover.scss as vendored by GitLab UI. Rules
+ * are scoped to the React component marker. Base UI positions the outer
+ * positioner, so the popup itself is relative only to its arrow and content.
+ */
+.gl-popover-positioner {
+  z-index: 1060;
+}
+.gl-popover.gl-popover {
+  position: relative;
+  top: 0;
+  left: 0;
+  display: block;
+  font-family: var(--gl-font-family-regular);
+  font-style: normal;
+  font-weight: var(--gl-font-weight-normal);
+  line-height: 1.5;
+  text-align: left;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  letter-spacing: normal;
+  word-break: normal;
+  white-space: normal;
+  word-spacing: normal;
+  line-break: auto;
+  word-wrap: break-word;
+  background-clip: padding-box;
+  outline: 0;
+}
+.gl-popover.gl-popover > .arrow {
+  position: absolute;
+  display: block;
+  width: 16px;
+  height: 8px;
+}
+.gl-popover.gl-popover > .arrow::before, .gl-popover.gl-popover > .arrow::after {
+  position: absolute;
+  display: block;
+  content: "";
+  border-color: transparent;
+  border-style: solid;
+}
+.gl-popover.bs-popover-top > .arrow {
+  bottom: -7px;
+}
+.gl-popover.bs-popover-top > .arrow::before {
+  bottom: 0;
+  border-width: 8px 8px 0;
+}
+.gl-popover.bs-popover-top > .arrow::after {
+  bottom: 1px;
+  border-width: 8px 8px 0;
+}
+.gl-popover.bs-popover-right > .arrow {
+  left: -7px;
+  width: 8px;
+  height: 16px;
+}
+.gl-popover.bs-popover-right > .arrow::before {
+  left: 0;
+  border-width: 8px 8px 8px 0;
+}
+.gl-popover.bs-popover-right > .arrow::after {
+  left: 1px;
+  border-width: 8px 8px 8px 0;
+}
+.gl-popover.bs-popover-bottom > .arrow {
+  top: -7px;
+}
+.gl-popover.bs-popover-bottom > .arrow::before {
+  top: 0;
+  border-width: 0 8px 8px;
+}
+.gl-popover.bs-popover-bottom > .arrow::after {
+  top: 1px;
+  border-width: 0 8px 8px;
+}
+.gl-popover.bs-popover-bottom > .popover-header::before {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  display: block;
+  width: 16px;
+  margin-left: -8px;
+  content: "";
+  border-bottom: 1px solid transparent;
+}
+.gl-popover.bs-popover-left > .arrow {
+  right: -7px;
+  width: 8px;
+  height: 16px;
+}
+.gl-popover.bs-popover-left > .arrow::before {
+  right: 0;
+  border-width: 8px 0 8px 8px;
+}
+.gl-popover.bs-popover-left > .arrow::after {
+  right: 1px;
+  border-width: 8px 0 8px 8px;
+}
+.gl-popover .popover-header {
+  position: relative;
+  padding: 8px 12px;
+  margin-bottom: 0;
+}
+.gl-popover .popover-body {
+  padding: 8px 12px;
+}
+.gl-popover.fade {
+  transition: opacity 0.15s linear;
+}
+.gl-popover.fade[data-starting-style], .gl-popover.fade[data-ending-style] {
+  opacity: 0;
+}
+/*!
  * Bootstrap navigation compatibility required by GlTabs.
  *
  * Ported from Bootstrap v4.6's _nav.scss as vendored by GitLab UI. Rules are
@@ -6415,6 +6532,91 @@ input[type="color"].gl-form-input.form-control:disabled {
     background-color: CanvasText;
   }
 }
+.gl-popover {
+  max-width: 280px;
+  background-color: var(--gl-background-color-overlap);
+  --tw-border-style: none;
+  border-style: none;
+  --tw-drop-shadow-size: drop-shadow(0 0 0.5px var(--tw-drop-shadow-color, var(--gl-shadow-color-default, #05050629))) drop-shadow(0 0.5px 1px var(--tw-drop-shadow-color, var(--gl-shadow-color-default, #05050629))) drop-shadow(0 1px 3px var(--tw-drop-shadow-color, var(--gl-shadow-color-default, #05050629)));
+  --tw-drop-shadow: drop-shadow(0 0 0.5px var(--gl-shadow-color-default, #05050629)) drop-shadow( 0 0.5px 1px var(--gl-shadow-color-default, #05050629)) drop-shadow( 0 1px 3px var(--gl-shadow-color-default, #05050629));
+  filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
+  font-size: var(--gl-font-size-sm);
+  border-radius: var(--gl-feedback-border-radius);
+}
+.gl-popover .popover-body {
+  color: var(--gl-text-color-default);
+}
+.gl-popover.bs-popover-top > .arrow::before {
+  bottom: 1px;
+  border-top-color: var(--gl-background-color-overlap);
+}
+.gl-popover.bs-popover-top > .arrow::after {
+  bottom: 2px;
+  border-top-color: var(--gl-background-color-overlap);
+}
+.gl-popover.bs-popover-bottom > .arrow::before {
+  top: 1px;
+  border-bottom-color: var(--gl-background-color-overlap);
+}
+.gl-popover.bs-popover-bottom > .arrow::after {
+  top: 2px;
+  border-bottom-color: var(--gl-background-color-overlap);
+}
+.gl-popover.bs-popover-bottom > .popover-header::before {
+  border-color: var(--gl-background-color-overlap);
+}
+.gl-popover.bs-popover-right > .arrow::before {
+  left: 1px;
+  border-right-color: var(--gl-background-color-overlap);
+}
+.gl-popover.bs-popover-right > .arrow::after {
+  left: 2px;
+  border-right-color: var(--gl-background-color-overlap);
+}
+.gl-popover.bs-popover-left > .arrow::before {
+  right: 1px;
+  border-left-color: var(--gl-background-color-overlap);
+}
+.gl-popover.bs-popover-left > .arrow::after {
+  right: 2px;
+  border-left-color: var(--gl-background-color-overlap);
+}
+.gl-popover .popover-header {
+  font-weight: var(--gl-heading-scale-200-font-weight);
+  margin-top: var(--gl-heading-scale-200-margin-top);
+  font-size: var(--gl-heading-scale-200-font-size);
+  letter-spacing: var(--gl-heading-scale-200-letter-spacing);
+  line-height: var(--gl-heading-scale-200-line-height);
+  color: var(--gl-heading-scale-200-color);
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 0px;
+  padding-bottom: var(--gl-spacing-scale-0);
+}
+.gl-popover .gl-popover-title {
+  margin: 0;
+  color: inherit;
+  font: inherit;
+}
+.gl-popover.has-title .popover-header {
+  overflow-wrap: anywhere;
+  word-break: normal;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.gl-popover.has-close-button:not(.has-title) .popover-header {
+  padding-top: var(--gl-spacing-scale-2);
+}
+.gl-popover .popover-body {
+  padding-block: var(--gl-spacing-scale-3);
+  padding-inline: var(--gl-spacing-scale-4);
+}
+.gl-popover .popover-body > .popover-hr {
+  margin-block: var(--gl-spacing-scale-5);
+  margin-inline: var(--gl-spacing-scale-0);
+}
 .gl-progress-bar {
   display: flex;
   height: var(--gl-spacing-scale-5);
@@ -7075,6 +7277,9 @@ table.gl-table.table-borderless tr > :is(th, td) {
   white-space: nowrap;
   border-width: 0;
 }
+.gl-float-right {
+  float: right;
+}
 .gl-my-3 {
   margin-block: var(--gl-spacing-scale-3);
 }
@@ -7086,11 +7291,17 @@ table.gl-table.table-borderless tr > :is(th, td) {
   line-height: var(--gl-heading-scale-300-line-height);
   color: var(--gl-heading-scale-300-color);
 }
+.-gl-mt-2 {
+  margin-top: calc(var(--gl-spacing-scale-2) * -1);
+}
 .gl-mt-2 {
   margin-top: var(--gl-spacing-scale-2);
 }
 .gl-mt-3 {
   margin-top: var(--gl-spacing-scale-3);
+}
+.-gl-mr-3 {
+  margin-right: calc(var(--gl-spacing-scale-3) * -1);
 }
 .gl-mb-0 {
   margin-bottom: var(--gl-spacing-scale-0);
@@ -7109,6 +7320,9 @@ table.gl-table.table-borderless tr > :is(th, td) {
 }
 .-gl-ml-2 {
   margin-left: calc(var(--gl-spacing-scale-2) * -1);
+}
+.gl-ml-3 {
+  margin-left: var(--gl-spacing-scale-3);
 }
 .gl-ml-4 {
   margin-left: var(--gl-spacing-scale-4);
@@ -7133,6 +7347,9 @@ table.gl-table.table-borderless tr > :is(th, td) {
 }
 .gl-table-row {
   display: table-row;
+}
+.gl-h-0 {
+  height: var(--gl-spacing-scale-0);
 }
 .gl-h-4 {
   height: var(--gl-spacing-scale-4);
@@ -7198,8 +7415,14 @@ table.gl-table.table-borderless tr > :is(th, td) {
 .gl-list-none {
   list-style-type: none;
 }
+.gl-grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
 .gl-flex-col {
   flex-direction: column;
+}
+.gl-items-center {
+  align-items: center;
 }
 .gl-items-start {
   align-items: flex-start;
@@ -7207,8 +7430,14 @@ table.gl-table.table-borderless tr > :is(th, td) {
 .gl-gap-2 {
   gap: var(--gl-spacing-scale-2);
 }
+.gl-gap-3 {
+  gap: var(--gl-spacing-scale-3);
+}
 .gl-gap-5 {
   gap: var(--gl-spacing-scale-5);
+}
+.gl-gap-12 {
+  gap: var(--gl-spacing-scale-12);
 }
 .gl-self-start {
   align-self: flex-start;
@@ -7299,6 +7528,9 @@ table.gl-table.table-borderless tr > :is(th, td) {
 }
 .gl-p-2 {
   padding: var(--gl-spacing-scale-2);
+}
+.gl-p-12 {
+  padding: var(--gl-spacing-scale-12);
 }
 .\!gl-px-2 {
   padding-inline: var(--gl-spacing-scale-2) !important;
