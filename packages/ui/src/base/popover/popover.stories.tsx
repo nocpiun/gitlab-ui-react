@@ -166,6 +166,35 @@ export const TextLinks: Story = {
   },
 };
 
+export const OnFocus: Story = {
+  render: (args) => (
+    <div style={storyLayout}>
+      <GlPopover {...args} triggers={["focus"]}>
+        <GlPopoverTrigger>
+          <GlButton>Focus trigger</GlButton>
+        </GlPopoverTrigger>
+        <GlPopoverContent>
+          <GlPopoverTitle>Focus-triggered popover</GlPopoverTitle>
+          <span>This popover opens only for keyboard-style focus.</span>
+        </GlPopoverContent>
+      </GlPopover>
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const trigger = canvas.getByRole("button", { name: "Focus trigger" });
+    const body = within(document.body);
+
+    await expect(body.queryByRole("dialog")).not.toBeInTheDocument();
+
+    await userEvent.tab();
+    await expect(trigger).toHaveFocus();
+    await body.findByRole("dialog");
+
+    await userEvent.keyboard("{Escape}");
+    await waitFor(() => expect(body.queryByRole("dialog")).not.toBeInTheDocument());
+  },
+};
+
 export const OnClick: Story = {
   render: (args) => (
     <div style={storyLayout}>
