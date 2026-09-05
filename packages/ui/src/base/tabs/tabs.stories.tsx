@@ -174,6 +174,42 @@ export const KeyedChildrenReordering: Story = {
   },
 };
 
+function RemovableLastTabExample(props: GlTabsProps) {
+  const [showMembers, setShowMembers] = useState(true);
+
+  return (
+    <>
+      <GlButton onClick={() => setShowMembers(false)}>Remove members</GlButton>
+      <GlTabs {...props} defaultValue={2}>
+        <GlTab key="overview" title="Overview">Overview panel</GlTab>
+        <GlTab key="activity" title="Activity">Activity panel</GlTab>
+        {showMembers ? (
+          <GlTab key="members" title="Members">Members panel</GlTab>
+        ) : null}
+      </GlTabs>
+    </>
+  );
+}
+
+export const ActiveLastTabRemoval: Story = {
+  render: (args) => <RemovableLastTabExample {...args} />,
+  play: async ({ args, canvas }) => {
+    const overview = canvas.getByRole("tab", { name: "Overview" });
+    const activity = canvas.getByRole("tab", { name: "Activity" });
+    const members = canvas.getByRole("tab", { name: "Members" });
+
+    await expect(members).toHaveAttribute("aria-selected", "true");
+    await userEvent.click(canvas.getByRole("button", { name: "Remove members" }));
+
+    await waitFor(() => expect(activity).toHaveAttribute("aria-selected", "true"));
+    await expect(overview).toHaveAttribute("aria-selected", "false");
+    await expect(canvas.getByRole("tabpanel", { name: "Activity" }))
+      .toHaveTextContent("Activity panel");
+    await expect(args.onValueChange).toHaveBeenCalledTimes(1);
+    await expect(args.onValueChange).toHaveBeenLastCalledWith(1);
+  },
+};
+
 export const Justified: Story = {
   args: { justified: true },
 };

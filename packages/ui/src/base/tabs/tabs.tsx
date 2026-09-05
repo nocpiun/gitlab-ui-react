@@ -275,6 +275,13 @@ function firstEnabledTabIndex(tabs: GlTabElement[]): number | null {
   return index === -1 ? null : index;
 }
 
+function lastEnabledTabIndex(tabs: GlTabElement[]): number | null {
+  for(let index = tabs.length - 1; index >= 0; index -= 1) {
+    if(!tabs[index].props.disabled) return index;
+  }
+  return null;
+}
+
 function selectableTabIndex(index: number, tabs: GlTabElement[]): number | null {
   if(Number.isInteger(index) && index >= 0 && index < tabs.length && !tabs[index].props.disabled) {
     return index;
@@ -364,14 +371,23 @@ function TabsImplementation({
     ? trackedUncontrolledIndex
     : uncontrolledSelection.value;
   const requestedValue = isControlled ? value : uncontrolledValue;
+  const previousTabsLengthRef = useRef(tabs.length);
   const firstEnabledIndex = firstEnabledTabIndex(tabs);
   const requestedValueIsSelectable = Number.isInteger(requestedValue)
     && requestedValue >= 0
     && requestedValue < tabs.length
     && !tabs[requestedValue].props.disabled;
+  // Upstream keeps selection adjacent when removing the active tail tab.
+  // Other invalid values continue to fall back to the first enabled tab.
+  const activeLastTabWasRemoved = !isControlled
+    && tabs.length < previousTabsLengthRef.current
+    && requestedValue >= tabs.length;
+  const fallbackIndex = activeLastTabWasRemoved
+    ? lastEnabledTabIndex(tabs)
+    : firstEnabledIndex;
   const selectedValue = requestedValueIsSelectable
     ? requestedValue
-    : firstEnabledIndex;
+    : fallbackIndex;
   const selectedTabKey = selectedValue === null ? null : tabs[selectedValue].key;
   const trackedUncontrolledTabMoved = !isControlled
     && uncontrolledSelection.key !== null
@@ -394,6 +410,10 @@ function TabsImplementation({
   onValueChangeRef.current = onValueChange;
   isControlledRef.current = isControlled;
   selectedValueRef.current = selectedValue;
+
+  useEffect(() => {
+    previousTabsLengthRef.current = tabs.length;
+  }, [tabs.length]);
 
   useEffect(() => {
     if(isControlled || selectedValue === null || !requestedValueIsSelectable) return;
@@ -516,7 +536,7 @@ function TabsImplementation({
   }, [queryParamName, syncActiveTabWithQueryParams, tabsStateSignature]);
 
   useEffect(() => {
-    if(requestedValueIsSelectable || firstEnabledIndex === null) {
+    if(requestedValueIsSelectable || fallbackIndex === null) {
       fallbackRequestRef.current = null;
       return;
     }
@@ -525,22 +545,22 @@ function TabsImplementation({
       const locationValue = queryTabIndex(tabs, queryParamName, window.location);
       // A URL target that normalizes to this fallback is not a competing
       // selection. Commit it so re-enabling the invalid tab cannot restore it.
-      if(locationValue !== null && locationValue !== firstEnabledIndex) return;
+      if(locationValue !== null && locationValue !== fallbackIndex) return;
     }
 
-    const requestKey = `${requestedValue}:${firstEnabledIndex}:${tabsStateSignature}`;
+    const requestKey = `${requestedValue}:${fallbackIndex}:${tabsStateSignature}`;
     if(fallbackRequestRef.current === requestKey) return;
     fallbackRequestRef.current = requestKey;
 
     if(!isControlled) {
       setUncontrolledSelection({
-        key: tabKeyAtIndex(tabs, firstEnabledIndex),
-        value: firstEnabledIndex,
+        key: tabKeyAtIndex(tabs, fallbackIndex),
+        value: fallbackIndex,
       });
     }
-    onValueChangeRef.current?.(firstEnabledIndex);
+    onValueChangeRef.current?.(fallbackIndex);
   }, [
-    firstEnabledIndex,
+    fallbackIndex,
     isControlled,
     queryParamName,
     requestedValue,
