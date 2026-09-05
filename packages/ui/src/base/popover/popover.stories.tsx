@@ -91,7 +91,7 @@ export const WithCloseButton: Story = {
           onCloseButtonClick={closeButtonClick}
           showCloseButton>
           <GlPopoverTitle>Compliance framework used with Ruby project</GlPopoverTitle>
-          <p>A popover provides supplemental, useful information about an element.</p>
+          <span>A popover provides supplemental, useful information about an element.</span>
         </GlPopoverContent>
       </GlPopover>
     </div>
@@ -160,7 +160,7 @@ export const OnClick: Story = {
         </GlPopoverTrigger>
         <GlPopoverContent noFade>
           <GlPopoverTitle>Click-triggered popover</GlPopoverTitle>
-          <p>This popover toggles only when its trigger is clicked.</p>
+          <span>This popover toggles only when its trigger is clicked.</span>
         </GlPopoverContent>
       </GlPopover>
     </div>
@@ -198,7 +198,7 @@ function ControlledManualPopover() {
         </GlPopoverTrigger>
         <GlPopoverContent noFade>
           <GlPopoverTitle>Controlled popover</GlPopoverTitle>
-          <p>The trigger does not mutate the popover state.</p>
+          <span>The trigger does not mutate the popover state.</span>
         </GlPopoverContent>
       </GlPopover>
     </div>
