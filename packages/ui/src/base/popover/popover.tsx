@@ -95,11 +95,16 @@ export type GlPopoverTitleProps = Omit<BasePopover.Title.Props, "className"> & {
 };
 
 type PopoverContextValue = {
+  activateFocusTrigger(): void;
+  activateHoverTrigger(): void;
   closeDelay: number;
   delay: number;
+  deactivateFocusTrigger(): void;
+  deactivateHoverTrigger(): void;
   disabled: boolean;
   open: boolean;
-  requestOpenChange(open: boolean): void;
+  resetActiveTriggers(): void;
+  toggleClickTrigger(): void;
   triggerId: string;
   triggerModes: ReadonlySet<GlPopoverTriggerMode>;
 };
@@ -173,6 +178,16 @@ function modeForChangeReason(
     default:
       return null;
   }
+}
+
+export function shouldCancelPopoverTriggerClose(
+  nextOpen: boolean,
+  reason: BasePopover.Root.ChangeEventReason,
+  hasActiveTrigger: boolean,
+): boolean {
+  return !nextOpen
+    && hasActiveTrigger
+    && (modeForChangeReason(reason) !== null || reason === "focus-out");
 }
 
 function resolveContainer(
@@ -275,6 +290,11 @@ export default function GlPopover({
   const isControlled = open !== undefined;
   const isOpen = open ?? uncontrolledOpen;
   const triggerModes = useMemo(() => new Set(triggers), [triggers]);
+  // Base UI owns hover and click, while focus is adapted here. Track them
+  // together so leaving one mode cannot close while another remains active.
+  const activeTriggerModesRef = useRef(new Set<GlPopoverTriggerMode>());
+  const focusTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const previousOpenRef = useRef(isOpen);
 
   const requestOpenChange = useCallback((nextOpen: boolean) => {
     if(nextOpen === isOpen || (nextOpen && disabled)) return;
@@ -282,6 +302,62 @@ export default function GlPopover({
     if(!isControlled) setUncontrolledOpen(nextOpen);
     onOpenChange?.(nextOpen);
   }, [disabled, isControlled, isOpen, onOpenChange]);
+  const requestOpenChangeRef = useRef(requestOpenChange);
+  requestOpenChangeRef.current = requestOpenChange;
+
+  const cancelPendingFocusOpen = useCallback(() => {
+    if(focusTimerRef.current === null) return;
+
+    clearTimeout(focusTimerRef.current);
+    focusTimerRef.current = null;
+  }, []);
+
+  const deactivateFocusTrigger = useCallback(() => {
+    activeTriggerModesRef.current.delete("focus");
+    cancelPendingFocusOpen();
+  }, [cancelPendingFocusOpen]);
+
+  const activateFocusTrigger = useCallback(() => {
+    if(disabled || !triggerModes.has("focus")) return;
+
+    activeTriggerModesRef.current.add("focus");
+    cancelPendingFocusOpen();
+    if(isOpen) return;
+
+    if(delay <= 0) {
+      requestOpenChangeRef.current(true);
+      return;
+    }
+
+    focusTimerRef.current = setTimeout(() => {
+      focusTimerRef.current = null;
+      if(activeTriggerModesRef.current.has("focus")) requestOpenChangeRef.current(true);
+    }, delay);
+  }, [cancelPendingFocusOpen, delay, disabled, isOpen, triggerModes]);
+
+  const activateHoverTrigger = useCallback(() => {
+    if(disabled || !triggerModes.has("hover")) return;
+
+    activeTriggerModesRef.current.add("hover");
+  }, [disabled, triggerModes]);
+
+  const deactivateHoverTrigger = useCallback(() => {
+    activeTriggerModesRef.current.delete("hover");
+  }, []);
+
+  const toggleClickTrigger = useCallback(() => {
+    if(disabled || !triggerModes.has("click")) return;
+
+    cancelPendingFocusOpen();
+    const activeTriggerModes = activeTriggerModesRef.current;
+    if(activeTriggerModes.has("click")) activeTriggerModes.delete("click");
+    else activeTriggerModes.add("click");
+  }, [cancelPendingFocusOpen, disabled, triggerModes]);
+
+  const resetActiveTriggers = useCallback(() => {
+    activeTriggerModesRef.current.clear();
+    cancelPendingFocusOpen();
+  }, [cancelPendingFocusOpen]);
 
   const handleOpenChange = useCallback((
     nextOpen: boolean,
@@ -293,18 +369,80 @@ export default function GlPopover({
       return;
     }
 
+    const activeTriggerModes = activeTriggerModesRef.current;
+    if(nextOpen && triggerMode) activeTriggerModes.add(triggerMode);
+    if(!nextOpen) {
+      if(triggerMode) activeTriggerModes.delete(triggerMode);
+      else if(details.reason === "focus-out") activeTriggerModes.delete("focus");
+    }
+
+    if(shouldCancelPopoverTriggerClose(
+      nextOpen,
+      details.reason,
+      activeTriggerModes.size > 0,
+    )) {
+      details.cancel();
+      return;
+    }
+
+    if(nextOpen) cancelPendingFocusOpen();
     requestOpenChange(nextOpen);
-  }, [disabled, requestOpenChange, triggerModes]);
+  }, [
+    cancelPendingFocusOpen,
+    disabled,
+    requestOpenChange,
+    triggerModes,
+  ]);
+
+  useEffect(() => {
+    const wasOpen = previousOpenRef.current;
+    previousOpenRef.current = isOpen;
+
+    if(isOpen) cancelPendingFocusOpen();
+    else if(wasOpen) resetActiveTriggers();
+  }, [cancelPendingFocusOpen, isOpen, resetActiveTriggers]);
+
+  useEffect(() => {
+    if(disabled) {
+      resetActiveTriggers();
+      return;
+    }
+
+    activeTriggerModesRef.current.forEach((triggerMode) => {
+      if(!triggerModes.has(triggerMode)) activeTriggerModesRef.current.delete(triggerMode);
+    });
+    if(!triggerModes.has("focus")) cancelPendingFocusOpen();
+  }, [cancelPendingFocusOpen, disabled, resetActiveTriggers, triggerModes]);
+
+  useEffect(() => cancelPendingFocusOpen, [cancelPendingFocusOpen]);
 
   const context = useMemo<PopoverContextValue>(() => ({
+    activateFocusTrigger,
+    activateHoverTrigger,
     closeDelay,
     delay,
+    deactivateFocusTrigger,
+    deactivateHoverTrigger,
     disabled,
     open: isOpen,
-    requestOpenChange,
+    resetActiveTriggers,
+    toggleClickTrigger,
     triggerId,
     triggerModes,
-  }), [closeDelay, delay, disabled, isOpen, requestOpenChange, triggerId, triggerModes]);
+  }), [
+    activateFocusTrigger,
+    activateHoverTrigger,
+    closeDelay,
+    delay,
+    deactivateFocusTrigger,
+    deactivateHoverTrigger,
+    disabled,
+    isOpen,
+    resetActiveTriggers,
+    toggleClickTrigger,
+    triggerId,
+    triggerModes,
+  ]);
 
   return (
     <PopoverContext.Provider value={context}>
@@ -324,43 +462,33 @@ export function GlPopoverTrigger({
   nativeButton = true,
 }: GlPopoverTriggerProps) {
   const context = usePopoverContext("GlPopoverTrigger");
-  const focusTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const trigger = Children.only(children);
 
-  const clearFocusTimer = useCallback(() => {
-    if(focusTimerRef.current === null) return;
+  useEffect(
+    () => context.resetActiveTriggers,
+    [context.resetActiveTriggers],
+  );
 
-    clearTimeout(focusTimerRef.current);
-    focusTimerRef.current = null;
-  }, []);
+  const handleFocus: NonNullable<BasePopover.Trigger.Props["onFocus"]> = (event) => {
+    if(!event.currentTarget.matches(":focus-visible")) return;
 
-  useEffect(() => clearFocusTimer, [clearFocusTimer]);
-
-  const handleFocus = () => {
-    if(
-      context.disabled
-      || context.open
-      || !context.triggerModes.has("focus")
-    ) return;
-
-    clearFocusTimer();
-    if(context.delay <= 0) {
-      context.requestOpenChange(true);
-      return;
-    }
-
-    focusTimerRef.current = setTimeout(() => {
-      focusTimerRef.current = null;
-      context.requestOpenChange(true);
-    }, context.delay);
+    context.activateFocusTrigger();
   };
 
   const handleBlur = () => {
-    if(!context.open) clearFocusTimer();
+    if(!context.open) context.deactivateFocusTrigger();
   };
 
   const handleClick = () => {
-    if(context.triggerModes.has("click")) clearFocusTimer();
+    context.toggleClickTrigger();
+  };
+
+  const handleMouseEnter = () => {
+    context.activateHoverTrigger();
+  };
+
+  const handleMouseLeave = () => {
+    context.deactivateHoverTrigger();
   };
 
   return (
@@ -373,6 +501,8 @@ export function GlPopoverTrigger({
       onBlur={handleBlur}
       onClick={handleClick}
       onFocus={handleFocus}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       openOnHover={context.triggerModes.has("hover")}
       render={trigger} />
   );
@@ -388,6 +518,8 @@ export const GlPopoverContent = forwardRef<HTMLDivElement, GlPopoverContentProps
     container,
     noFade = false,
     onCloseButtonClick,
+    onMouseEnter,
+    onMouseLeave,
     placement = "top",
     showCloseButton = false,
     style,
@@ -415,6 +547,18 @@ export const GlPopoverContent = forwardRef<HTMLDivElement, GlPopoverContentProps
       hasTitle,
       placement: physicalPlacement(state.side),
     });
+    const handleMouseEnter: NonNullable<BasePopover.Popup.Props["onMouseEnter"]> = (event) => {
+      onMouseEnter?.(event);
+      if(event.baseUIHandlerPrevented) return;
+
+      context.activateHoverTrigger();
+    };
+    const handleMouseLeave: NonNullable<BasePopover.Popup.Props["onMouseLeave"]> = (event) => {
+      onMouseLeave?.(event);
+      if(event.baseUIHandlerPrevented) return;
+
+      context.deactivateHoverTrigger();
+    };
 
     return (
       <BasePopover.Portal container={portalContainer}>
@@ -431,6 +575,8 @@ export const GlPopoverContent = forwardRef<HTMLDivElement, GlPopoverContentProps
             ref={forwardedRef}
             className={popupClassName}
             initialFocus={false}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
             role="dialog"
             style={style}>
             <BasePopover.Arrow className="arrow" />

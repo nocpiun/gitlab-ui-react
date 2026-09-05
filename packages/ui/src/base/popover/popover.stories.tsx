@@ -55,7 +55,7 @@ export const Default: Story = {
         </GlPopoverTrigger>
         <GlPopoverContent>
           <GlPopoverTitle>Popover title</GlPopoverTitle>
-          <p>A popover provides supplemental, useful information about an element.</p>
+          <span>A popover provides supplemental, useful information about an element.</span>
         </GlPopoverContent>
       </GlPopover>
     </div>
@@ -63,8 +63,8 @@ export const Default: Story = {
   play: async ({ canvas }) => {
     const trigger = canvas.getByRole("button", { name: "Popover" });
 
-    await userEvent.hover(trigger);
-    fireEvent.mouseEnter(trigger);
+    await userEvent.tab();
+    await expect(trigger).toHaveFocus();
 
     const dialog = await within(document.body).findByRole("dialog");
     const title = within(dialog).getByRole("heading", { name: "Popover title" });
@@ -75,6 +75,20 @@ export const Default: Story = {
       "A popover provides supplemental, useful information about an element.",
     );
     await expect(dialog).toHaveAttribute("aria-labelledby", title.id);
+
+    await userEvent.hover(trigger);
+    fireEvent.mouseEnter(trigger);
+    await userEvent.unhover(trigger);
+    fireEvent.mouseLeave(trigger, { relatedTarget: document.body });
+    fireEvent.mouseMove(document.body);
+    await expect(dialog).toBeInTheDocument();
+
+    await userEvent.keyboard("{Escape}");
+    await waitFor(() => expect(within(document.body).queryByRole("dialog")).not.toBeInTheDocument());
+
+    await userEvent.hover(trigger);
+    fireEvent.mouseEnter(trigger);
+    await within(document.body).findByRole("dialog");
   },
 };
 

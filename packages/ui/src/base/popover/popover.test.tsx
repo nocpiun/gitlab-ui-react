@@ -6,6 +6,7 @@ import GlPopover, {
   GlPopoverTitle,
   GlPopoverTrigger,
   resolvePopoverFallbackLabelledBy,
+  shouldCancelPopoverTriggerClose,
   type GlPopoverProps,
   type GlPopoverTriggerMode,
 } from "./popover";
@@ -51,6 +52,24 @@ describe("GlPopover", () => {
     expectTypeOf<GlPopoverProps["triggers"]>()
       .toEqualTypeOf<readonly GlPopoverTriggerMode[] | undefined>();
   });
+
+  it.each([
+    [false, "trigger-hover", true, true],
+    [false, "trigger-press", true, true],
+    [false, "focus-out", true, true],
+    [false, "outside-press", true, false],
+    [false, "trigger-hover", false, false],
+    [true, "trigger-hover", true, false],
+  ] as const)(
+    "coordinates close requests across active trigger modes",
+    (nextOpen, reason, hasActiveTrigger, expected) => {
+      expect(shouldCancelPopoverTriggerClose(
+        nextOpen,
+        reason,
+        hasActiveTrigger,
+      )).toBe(expected);
+    },
+  );
 
   it("uses the trigger to name a titleless popover", () => {
     expect(resolvePopoverFallbackLabelledBy(false, "trigger-id", undefined, undefined))
