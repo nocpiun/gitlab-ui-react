@@ -140,6 +140,36 @@ describe("GlTabs", () => {
     expect(markup).toContain("Second panel");
   });
 
+  it.each([
+    ["a disabled tab", 0],
+    ["a negative out-of-range tab", -1],
+    ["a positive out-of-range tab", 2],
+  ])("falls back to the first enabled tab when controlled value points to %s", (_, value) => {
+    const markup = renderTabs({ value }, (
+      <>
+        <GlTab disabled tabProps={{ id: "disabled-tab" }} title="Disabled">
+          Disabled panel
+        </GlTab>
+        <GlTab
+          panelProps={{ id: "enabled-panel" }}
+          tabProps={{ id: "enabled-tab" }}
+          title="Enabled">
+          Enabled panel
+        </GlTab>
+      </>
+    ));
+
+    expect(markup).toMatch(
+      /<button(?=[^>]*id="disabled-tab")(?=[^>]*aria-selected="false")[^>]*>/,
+    );
+    expect(markup).toMatch(
+      /<button(?=[^>]*id="enabled-tab")(?=[^>]*aria-selected="true")[^>]*>/,
+    );
+    expect(markup).toMatch(
+      /<div(?=[^>]*id="enabled-panel")(?=[^>]*class="[^"]*\bactive\b)[^>]*>/,
+    );
+  });
+
   it("renders empty content when there are no tabs", () => {
     const markup = renderTabs({ empty: "No tabs available" }, null);
 

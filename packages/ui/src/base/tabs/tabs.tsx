@@ -347,9 +347,7 @@ function TabsImplementation({
     && !tabs[requestedValue].props.disabled;
   const selectedValue = requestedValueIsSelectable
     ? requestedValue
-    : isControlled
-      ? requestedValue
-      : firstEnabledIndex;
+    : firstEnabledIndex;
   const tabsStateSignature = JSON.stringify(tabs.map((tab, index) => ({
     disabled: Boolean(tab.props.disabled),
     key: tab.key ?? index,
