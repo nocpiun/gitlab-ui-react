@@ -64,7 +64,7 @@ type PopupProps = Omit<
 >;
 
 export type GlPopoverContentProps = PopupProps & {
-  /** Collision boundary. `"viewport"` ignores clipping ancestors. */
+  /** Collision boundary. Defaults to clipping ancestors; `"viewport"` ignores them. */
   boundary?: "viewport" | "clipping-ancestors" | Element;
   /** Space between the popover and its collision boundary, in pixels. */
   boundaryPadding?: number;
@@ -185,8 +185,8 @@ function resolveContainer(
   }
 }
 
-function resolveBoundary(
-  boundary: GlPopoverContentProps["boundary"],
+export function resolvePopoverBoundary(
+  boundary: GlPopoverContentProps["boundary"] = "clipping-ancestors",
 ): BasePopover.Positioner.Props["collisionBoundary"] {
   // Floating UI always intersects the supplied boundary with its viewport root
   // boundary. An empty list therefore opts out of clipping ancestors.
@@ -367,7 +367,7 @@ export function GlPopoverTrigger({
 
 export const GlPopoverContent = forwardRef<HTMLDivElement, GlPopoverContentProps>(
   function GlPopoverContent({
-    boundary = "viewport",
+    boundary,
     boundaryPadding = 5,
     children,
     className,
@@ -385,7 +385,7 @@ export const GlPopoverContent = forwardRef<HTMLDivElement, GlPopoverContentProps
     const hasTitle = content.title !== null;
     const hasBody = content.body.length > 0;
     const portalContainer = resolveContainer(container);
-    const collisionBoundary = resolveBoundary(boundary);
+    const collisionBoundary = resolvePopoverBoundary(boundary);
     const popupClassName = (state: BasePopover.Popup.State) => popoverVariants({
       className,
       fade: !noFade,
