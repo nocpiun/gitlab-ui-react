@@ -3730,7 +3730,6 @@ textarea.gl-form-textarea {
   display: block;
   width: 16px;
   height: 8px;
-  margin: 0 6px;
 }
 .gl-popover.gl-popover > .arrow::before, .gl-popover.gl-popover > .arrow::after {
   position: absolute;
@@ -3754,7 +3753,6 @@ textarea.gl-form-textarea {
   left: -7px;
   width: 8px;
   height: 16px;
-  margin: 6px 0;
 }
 .gl-popover.bs-popover-right > .arrow::before {
   left: 0;
@@ -3789,7 +3787,6 @@ textarea.gl-form-textarea {
   right: -7px;
   width: 8px;
   height: 16px;
-  margin: 6px 0;
 }
 .gl-popover.bs-popover-left > .arrow::before {
   right: 0;

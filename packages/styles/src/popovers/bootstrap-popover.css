@@ -37,7 +37,6 @@
     display: block;
     width: 16px;
     height: 8px;
-    margin: 0 6px;
 
     &::before,
     &::after {
@@ -68,7 +67,6 @@
   left: -7px;
   width: 8px;
   height: 16px;
-  margin: 6px 0;
 
   &::before {
     left: 0;
@@ -110,7 +108,6 @@
   right: -7px;
   width: 8px;
   height: 16px;
-  margin: 6px 0;
 
   &::before {
     right: 0;
