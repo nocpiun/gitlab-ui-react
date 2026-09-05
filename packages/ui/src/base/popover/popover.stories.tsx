@@ -130,7 +130,7 @@ export const TextLinks: Story = {
     <div style={storyLayout}>
       <GlPopover {...args} triggers={["click"]}>
         <GlPopoverTrigger>
-          <GlButton>Learn about popovers</GlButton>
+          <GlButton id="text-links-popover-trigger">Learn about popovers</GlButton>
         </GlPopoverTrigger>
         <GlPopoverContent showCloseButton>
           <span>A popover can contain rich content and actionable elements. </span>
@@ -143,6 +143,7 @@ export const TextLinks: Story = {
   ),
   play: async ({ canvas }) => {
     const trigger = canvas.getByRole("button", { name: "Learn about popovers" });
+    await expect(trigger).toHaveAttribute("id", "text-links-popover-trigger");
 
     await userEvent.click(trigger);
     await waitFor(() => expect(trigger).toHaveFocus());

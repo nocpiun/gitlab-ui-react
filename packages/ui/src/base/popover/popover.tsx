@@ -107,6 +107,7 @@ type PopoverContextValue = {
   toggleClickTrigger(): void;
   triggerId: string;
   triggerModes: ReadonlySet<GlPopoverTriggerMode>;
+  updateTriggerId(triggerId: string): void;
 };
 
 type ResolvedPopoverContent = {
@@ -284,8 +285,9 @@ export default function GlPopover({
   open,
   triggers = DEFAULT_TRIGGERS,
 }: GlPopoverProps) {
-  const generatedId = useId();
-  const triggerId = `gl-popover-trigger-${generatedId}`;
+  const generatedTriggerId = useId();
+  const defaultTriggerId = `gl-popover-trigger-${generatedTriggerId}`;
+  const [triggerId, setTriggerId] = useState(defaultTriggerId);
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
   const isControlled = open !== undefined;
   const isOpen = open ?? uncontrolledOpen;
@@ -429,6 +431,7 @@ export default function GlPopover({
     toggleClickTrigger,
     triggerId,
     triggerModes,
+    updateTriggerId: setTriggerId,
   }), [
     activateFocusTrigger,
     activateHoverTrigger,
@@ -463,6 +466,13 @@ export function GlPopoverTrigger({
 }: GlPopoverTriggerProps) {
   const context = usePopoverContext("GlPopoverTrigger");
   const trigger = Children.only(children);
+  const childId = (trigger.props as { id?: string }).id;
+  const actualId = childId ?? context.triggerId;
+  const updateTriggerId = context.updateTriggerId;
+
+  useEffect(() => {
+    updateTriggerId(actualId);
+  }, [actualId, updateTriggerId]);
 
   useEffect(
     () => context.resetActiveTriggers,
@@ -496,7 +506,7 @@ export function GlPopoverTrigger({
       closeDelay={context.closeDelay}
       delay={context.delay}
       disabled={context.disabled}
-      id={context.triggerId}
+      id={actualId}
       nativeButton={nativeButton}
       onBlur={handleBlur}
       onClick={handleClick}
