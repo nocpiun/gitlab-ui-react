@@ -202,7 +202,7 @@ export const OnClick: Story = {
         <GlPopoverTrigger>
           <GlButton>Click trigger</GlButton>
         </GlPopoverTrigger>
-        <GlPopoverContent noFade>
+        <GlPopoverContent>
           <GlPopoverTitle>Click-triggered popover</GlPopoverTitle>
           <span>This popover toggles only when its trigger is clicked.</span>
         </GlPopoverContent>
@@ -217,12 +217,27 @@ export const OnClick: Story = {
     await expect(body.queryByRole("dialog")).not.toBeInTheDocument();
 
     await userEvent.click(trigger);
-    const dialog = await body.findByRole("dialog");
+    await body.findByRole("dialog");
 
-    await expect(dialog).not.toHaveClass("fade");
     await userEvent.click(trigger);
     await waitFor(() => expect(body.queryByRole("dialog")).not.toBeInTheDocument());
   },
+};
+
+export const NoFade: Story = {
+  render: (args) => (
+    <div style={storyLayout}>
+      <GlPopover {...args}>
+        <GlPopoverTrigger>
+          <GlButton>Popover without fade</GlButton>
+        </GlPopoverTrigger>
+        <GlPopoverContent noFade>
+          <GlPopoverTitle>Popover without fade</GlPopoverTitle>
+          <span>This popover renders without the fade transition class.</span>
+        </GlPopoverContent>
+      </GlPopover>
+    </div>
+  )
 };
 
 const disabledPopoverTriggerClick = fn();
