@@ -1,0 +1,174 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/drawer/drawer.scss
+ *
+ * The `gl-container-width-up(md)` mixin is expanded to the established local
+ * container-query/media-query pair. Base UI transition attributes replace
+ * Vue transition classes, and the documented title/action utilities are
+ * applied by their compound React parts.
+ */
+
+.gl-drawer {
+  @apply gl-bg-overlap;
+  right: 0;
+  @apply gl-transition-all gl-duration-medium gl-ease-ease;
+  position: fixed;
+  @apply gl-h-full;
+  @apply gl-w-full;
+  @apply gl-overflow-y-auto;
+  @apply gl-shadow-lg;
+  @apply gl-text-base;
+  @apply gl-leading-normal;
+  @apply gl-flex;
+  @apply gl-flex-col;
+  border-top-left-radius: var(--gl-drawer-border-radius);
+  border-bottom-left-radius: var(--gl-drawer-border-radius);
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    transform: translateX(100%);
+  }
+
+  .gl-drawer-header-sticky {
+    @apply gl-bg-overlap;
+    top: 0;
+    position: sticky;
+  }
+}
+
+@container (width >= 768px) {
+  :where(html.with-gl-container-queries) .gl-drawer-default {
+    width: 400px;
+  }
+
+  :where(html.with-gl-container-queries) .gl-drawer-sidebar {
+    width: 290px;
+  }
+}
+
+@media (width >= 768px) {
+  :where(html:not(.with-gl-container-queries)) .gl-drawer-default {
+    width: 400px;
+  }
+
+  :where(html:not(.with-gl-container-queries)) .gl-drawer-sidebar {
+    width: 290px;
+  }
+}
+
+.gl-drawer-default {
+  .gl-drawer-header,
+  .gl-drawer-body > * {
+    @apply gl-p-5;
+  }
+}
+
+.gl-drawer-sidebar {
+  .gl-drawer-header,
+  .gl-drawer-body > * {
+    @apply gl-py-5;
+  }
+
+  .gl-drawer-body > * {
+    @apply gl-border-b;
+    @apply gl-mx-5;
+
+    &:last-child {
+      @apply gl-border-none;
+    }
+  }
+
+  .gl-drawer-header {
+    @apply gl-px-5;
+  }
+}
+
+.gl-drawer-footer {
+  @apply gl-bg-overlap;
+  @apply gl-border-t;
+  @apply gl-p-5;
+}
+
+.gl-drawer-body-scrim-on-footer {
+  &::before {
+    background: linear-gradient(
+      to bottom,
+      var(--gl-color-alpha-0),
+      var(--gl-background-color-overlap)
+    );
+    top: -1px;
+    @apply -gl-translate-y-full;
+    content: "";
+    left: 0;
+    position: absolute;
+    @apply gl-pointer-events-none;
+    @apply gl-w-full;
+    @apply gl-h-7;
+  }
+}
+
+.gl-drawer-footer-sticky {
+  bottom: 0;
+  position: sticky;
+}
+
+.gl-drawer-header {
+  @apply gl-border-b;
+}
+
+.gl-drawer-title {
+  @apply gl-text-heading;
+  @apply gl-flex;
+  @apply gl-items-center;
+  @apply gl-justify-between;
+
+  svg {
+    @apply gl-w-5;
+    @apply gl-h-5;
+    @apply gl-align-middle;
+  }
+}
+
+.gl-drawer-heading {
+  @apply gl-heading-scale-500;
+  margin-bottom: 0;
+}
+
+.gl-drawer-actions {
+  @apply gl-mt-5;
+  @apply gl-flex;
+  @apply gl-gap-3;
+}
+
+.gl-drawer-close-button {
+  @apply gl-self-start;
+  @apply gl-bg-transparent;
+  @apply gl-border-none;
+}
+
+.gl-drawer-body {
+  @apply gl-grow;
+  /* Prevent the Safari box-shadow bug documented by upstream issue 366558. */
+  background-color: inherit;
+}
+
+.gl-drawer-body-shrink {
+  overflow-y: auto;
+}
+
+.gl-drawer-body-scrim {
+  &::after {
+    background: linear-gradient(
+      to bottom,
+      var(--gl-color-alpha-0),
+      var(--gl-background-color-overlap)
+    );
+    content: "";
+    bottom: 0;
+    @apply gl-pointer-events-none;
+    @apply gl-w-full;
+    position: fixed;
+    @apply gl-h-7;
+    border-bottom-left-radius: var(--gl-drawer-border-radius);
+  }
+}

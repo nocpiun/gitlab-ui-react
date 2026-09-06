@@ -129,6 +129,25 @@ export type {
   GlDisclosureDropdownGroupLabelProps,
   GlDisclosureDropdownGroupProps,
 } from "./base/disclosure-dropdown/disclosure-dropdown-group";
+export {
+  default as GlDrawer,
+  GlDrawerActions,
+  GlDrawerContent,
+  GlDrawerFooter,
+  GlDrawerHeader,
+  GlDrawerTitle,
+  GlDrawerTrigger,
+} from "./base/drawer/drawer";
+export type {
+  GlDrawerActionsProps,
+  GlDrawerContentProps,
+  GlDrawerFooterProps,
+  GlDrawerHeaderProps,
+  GlDrawerProps,
+  GlDrawerTitleProps,
+  GlDrawerTriggerProps,
+  GlDrawerVariant,
+} from "./base/drawer/drawer";
 export { default as GlFormCharacterCount } from "./base/form-character-count/form-character-count";
 export type {
   GlFormCharacterCountProps,
