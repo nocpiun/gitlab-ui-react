@@ -182,3 +182,37 @@ export const Controlled: Story = {
     await waitFor(() => expect(body.queryByRole("tooltip")).not.toBeInTheDocument());
   },
 };
+
+function DisabledControlledTooltipExample(props: GlTooltipProps) {
+  const [closeNotifications, setCloseNotifications] = useState(0);
+
+  return (
+    <div style={wrapperStyle}>
+      <output aria-label="Close notifications">{closeNotifications}</output>
+      <GlTooltip
+        {...props}
+        disabled
+        open
+        onOpenChange={(nextOpen) => {
+          if(!nextOpen) setCloseNotifications((count) => count + 1);
+          props.onOpenChange?.(nextOpen);
+        }}>
+        <GlTooltipTrigger>
+          <GlButton>Disabled controlled tooltip</GlButton>
+        </GlTooltipTrigger>
+        <GlTooltipContent>Disabled controlled content</GlTooltipContent>
+      </GlTooltip>
+    </div>
+  );
+}
+
+export const DisabledControlled: Story = {
+  render: (args) => <DisabledControlledTooltipExample {...args} />,
+  play: async ({ canvas }) => {
+    await waitFor(() => expect(canvas.getByRole("status", { name: "Close notifications" }))
+      .toHaveTextContent("1"));
+    await expect(canvas.getByRole("button", { name: "Disabled controlled tooltip" }))
+      .not.toHaveAttribute("aria-describedby");
+    await expect(within(document.body).queryByRole("tooltip")).not.toBeInTheDocument();
+  },
+};

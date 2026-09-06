@@ -15,6 +15,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useEffectEvent,
   useId,
   useMemo,
   useState,
@@ -181,12 +182,16 @@ export default function GlTooltip({
     onOpenChange?.(nextOpen);
   }, [isControlled, onOpenChange, requestedOpen]);
 
+  const notifyOpenChange = useEffectEvent((nextOpen: boolean) => {
+    onOpenChange?.(nextOpen);
+  });
+
   useEffect(() => {
     if(!disabled || !requestedOpen) return;
 
     if(!isControlled) setUncontrolledOpen(false);
-    onOpenChange?.(false);
-  }, [disabled, isControlled, onOpenChange, requestedOpen]);
+    notifyOpenChange(false);
+  }, [disabled, isControlled, requestedOpen]);
 
   const context = useMemo<TooltipContextValue>(() => ({
     closeDelay,
