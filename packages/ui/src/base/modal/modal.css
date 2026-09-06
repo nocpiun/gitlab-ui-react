@@ -6,6 +6,10 @@
  * layer. Base UI transition attributes replace Vue transition classes.
  */
 
+.gl-modal {
+  @apply gl-@container/gl-modal;
+}
+
 .gl-modal-dialog-scrollable {
   @media (width >= 576px) {
     max-height: calc(100% - 8rem);

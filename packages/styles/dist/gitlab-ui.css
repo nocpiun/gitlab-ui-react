@@ -6772,6 +6772,10 @@ input[type="color"].gl-form-input.form-control:disabled {
     background-color: CanvasText;
   }
 }
+.gl-modal {
+  container-type: inline-size;
+  container-name: gl-modal;
+}
 @media (width >= 576px) {
   .gl-modal-dialog-scrollable {
     max-height: calc(100% - 8rem);
