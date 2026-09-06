@@ -13,7 +13,11 @@ import { cva } from "class-variance-authority";
 import GlButton from "../button/button";
 import GlIcon from "../icon/icon";
 import GlLink from "../link/link";
-import GlTooltip, { type GlTooltipPlacement } from "../tooltip/tooltip";
+import GlTooltip, {
+  GlTooltipContent,
+  GlTooltipTrigger,
+  type GlTooltipPlacement,
+} from "../tooltip/tooltip";
 
 type LabelElementProps = Omit<
   HTMLAttributes<HTMLSpanElement>,
@@ -181,8 +185,11 @@ const GlLabel = forwardRef<HTMLSpanElement, GlLabelProps>(function GlLabel({
       onClick={onClick}
       style={labelStyle}>
       {hasTooltip ? (
-        <GlTooltip boundary="viewport" placement={tooltipPlacement} title={tooltipTitle}>
-          {labelContent}
+        <GlTooltip>
+          <GlTooltipTrigger>{labelContent}</GlTooltipTrigger>
+          <GlTooltipContent boundary="viewport" placement={tooltipPlacement}>
+            {tooltipTitle}
+          </GlTooltipContent>
         </GlTooltip>
       ) : labelContent}
       {showCloseButton ? (

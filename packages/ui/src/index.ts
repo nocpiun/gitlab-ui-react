@@ -293,10 +293,16 @@ export type {
   GlToggleLabelPosition,
   GlToggleProps,
 } from "./base/toggle/toggle";
-export { default as GlTooltip } from "./base/tooltip/tooltip";
+export {
+  default as GlTooltip,
+  GlTooltipContent,
+  GlTooltipTrigger,
+} from "./base/tooltip/tooltip";
 export type {
+  GlTooltipContentProps,
   GlTooltipPlacement,
   GlTooltipProps,
+  GlTooltipTriggerProps,
 } from "./base/tooltip/tooltip";
 export {
   getGlTooltipDefaultContainer,
