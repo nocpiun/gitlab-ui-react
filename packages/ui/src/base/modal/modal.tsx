@@ -121,6 +121,14 @@ type ModalAccessibleNameProps = Pick<
   "aria-label" | "aria-labelledby"
 >;
 
+type AccessibleNameElementProps = {
+  "aria-hidden"?: boolean | "false" | "true";
+  "aria-label"?: string;
+  "aria-labelledby"?: string;
+  children?: ReactNode;
+  hidden?: boolean;
+};
+
 const ModalRootContext = createContext(false);
 const ModalContentContext = createContext(false);
 const ModalHeaderContext = createContext(false);
@@ -305,17 +313,35 @@ export function getModalDialogClassName(size: GlModalSize, scrollable: boolean) 
   return modalDialogVariants({ scrollable, size });
 }
 
+function hasAccessibleNameContent(node: ReactNode): boolean {
+  return Children.toArray(node).some((child) => {
+    if(typeof child === "string") return Boolean(child.trim());
+    if(typeof child === "number" || typeof child === "bigint") return true;
+    if(!isValidElement<AccessibleNameElementProps>(child)) return false;
+
+    const props = child.props;
+    if(
+      props.hidden
+      || props["aria-hidden"] === true
+      || props["aria-hidden"] === "true"
+    ) return false;
+    if(props["aria-label"]?.trim() || props["aria-labelledby"]?.trim()) return true;
+
+    return hasAccessibleNameContent(props.children);
+  });
+}
+
 export function getModalAccessibleNameProps(
-  hasTitle: boolean,
+  hasTitleName: boolean,
   ariaLabel: string | undefined,
   ariaLabelledBy: string | undefined,
 ): ModalAccessibleNameProps {
   const hasAriaLabel = Boolean(ariaLabel?.trim());
   const hasAriaLabelledBy = Boolean(ariaLabelledBy?.trim());
 
-  if(!hasTitle && !hasAriaLabel && !hasAriaLabelledBy) {
+  if(!hasTitleName && !hasAriaLabel && !hasAriaLabelledBy) {
     throw new Error(
-      "GlModalContent requires a GlModalTitle, a non-empty aria-label, "
+      "GlModalContent requires a non-empty GlModalTitle, a non-empty aria-label, "
       + "or a non-empty aria-labelledby.",
     );
   }
@@ -469,7 +495,7 @@ export const GlModalContent = forwardRef<HTMLDivElement, GlModalContentProps>(
     const resolved = resolveModalContent(children);
     const resolvedHeader = resolveModalHeader(resolved.header.props.children);
     const accessibleNameProps = getModalAccessibleNameProps(
-      Boolean(resolvedHeader.title),
+      hasAccessibleNameContent(resolvedHeader.title),
       ariaLabel,
       ariaLabelledBy,
     );

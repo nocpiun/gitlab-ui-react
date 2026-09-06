@@ -256,7 +256,7 @@ describe("modal content composition", () => {
         <div>Body</div>
       </>,
     )).toThrowError(
-      "GlModalContent requires a GlModalTitle, a non-empty aria-label, "
+      "GlModalContent requires a non-empty GlModalTitle, a non-empty aria-label, "
       + "or a non-empty aria-labelledby.",
     );
     expect(() => renderModal(
@@ -282,6 +282,38 @@ describe("modal content composition", () => {
       </>,
       {},
       { "aria-labelledby": "external-heading" },
+    )).not.toThrow();
+  });
+
+  it.each([
+    ["empty", null],
+    ["whitespace-only", "   "],
+    ["conditionally absent", false],
+  ] as const)("rejects a %s title without an explicit label", (_description, title) => {
+    expect(() => renderModal(
+      <>
+        <GlModalHeader><GlModalTitle>{title}</GlModalTitle></GlModalHeader>
+        <div>Body</div>
+      </>,
+    )).toThrowError("requires a non-empty GlModalTitle");
+  });
+
+  it("accepts nested title text and explicit labels for otherwise empty titles", () => {
+    expect(() => renderModal(
+      <>
+        <GlModalHeader>
+          <GlModalTitle><span>Nested modal title</span></GlModalTitle>
+        </GlModalHeader>
+        <div>Body</div>
+      </>,
+    )).not.toThrow();
+    expect(() => renderModal(
+      <>
+        <GlModalHeader><GlModalTitle /></GlModalHeader>
+        <div>Body</div>
+      </>,
+      {},
+      { "aria-label": "Explicit modal label" },
     )).not.toThrow();
   });
 
