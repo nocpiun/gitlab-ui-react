@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useState } from "react";
 import { expect, fn, userEvent, waitFor, within } from "storybook/test";
 import GlButton from "../button/button";
 import GlModal, {
@@ -54,6 +55,51 @@ function ModalExample({
               <GlButton category="primary" variant="confirm">Okay</GlButton>
             </GlModalFooter>
           ) : null}
+        </GlModalContent>
+      </GlModal>
+    </div>
+  );
+}
+
+function StatefulModalAction({ label }: { label: string }) {
+  const [clicks, setClicks] = useState(0);
+
+  return (
+    <GlButton onClick={() => setClicks((value) => value + 1)}>
+      {label}: {clicks}
+    </GlButton>
+  );
+}
+
+function KeyedChildrenExample({ rootProps }: { rootProps: GlModalProps }) {
+  const [reversed, setReversed] = useState(false);
+  const headerActions = [
+    <StatefulModalAction key="header-one" label="Header one" />,
+    <StatefulModalAction key="header-two" label="Header two" />,
+  ];
+  const footerActions = [
+    <StatefulModalAction key="footer-one" label="Footer one" />,
+    <StatefulModalAction key="footer-two" label="Footer two" />,
+  ];
+
+  if(reversed) {
+    headerActions.reverse();
+    footerActions.reverse();
+  }
+
+  return (
+    <div className="gl-p-5">
+      <GlModal {...rootProps}>
+        <GlModalTrigger><GlButton>Open modal</GlButton></GlModalTrigger>
+        <GlModalContent>
+          <GlModalHeader>
+            <GlModalTitle>Keyed child actions</GlModalTitle>
+            {headerActions}
+          </GlModalHeader>
+          <GlButton onClick={() => setReversed((value) => !value)}>
+            Reverse actions
+          </GlButton>
+          <GlModalFooter>{footerActions}</GlModalFooter>
         </GlModalContent>
       </GlModal>
     </div>
@@ -122,7 +168,7 @@ export const Default: Story = {
     await userEvent.tab();
     await expect(okay).toHaveFocus();
     await userEvent.tab();
-    await expect(headerClose).toHaveFocus();
+    await waitFor(() => expect(headerClose).toHaveFocus());
 
     await userEvent.click(cancel);
     await waitFor(() => expect(body.queryByRole("dialog")).not.toBeInTheDocument());
@@ -195,6 +241,24 @@ export const CustomHeader: Story = {
 
     await expect(within(dialog).getByText("Review:")).toBeVisible();
     await expect(within(dialog).getByRole("button", { name: "Close" })).toBeVisible();
+  },
+};
+
+export const KeyedChildren: Story = {
+  args: {
+    defaultOpen: true,
+  },
+  render: (args) => <KeyedChildrenExample rootProps={args} />,
+  play: async () => {
+    const dialog = await within(document.body).findByRole("dialog");
+    const modal = within(dialog);
+
+    await userEvent.click(modal.getByRole("button", { name: "Header one: 0" }));
+    await userEvent.click(modal.getByRole("button", { name: "Footer one: 0" }));
+    await userEvent.click(modal.getByRole("button", { name: "Reverse actions" }));
+
+    await expect(modal.getByRole("button", { name: "Header one: 1" })).toBeVisible();
+    await expect(modal.getByRole("button", { name: "Footer one: 1" })).toBeVisible();
   },
 };
 

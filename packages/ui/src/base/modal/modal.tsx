@@ -394,6 +394,14 @@ export const GlModalTitle = forwardRef<HTMLHeadingElement, GlModalTitleProps>(
   },
 );
 
+export function getModalProviderKey(child: ReactNode, index: number) {
+  if(isValidElement(child) && child.key !== null) {
+    return `child:${String(child.key)}`;
+  }
+
+  return `index:${index}`;
+}
+
 export const GlModalHeader = forwardRef<HTMLDivElement, GlModalHeaderProps>(
   function GlModalHeader({
     children,
@@ -411,7 +419,7 @@ export const GlModalHeader = forwardRef<HTMLDivElement, GlModalHeaderProps>(
         className={modalHeaderVariants({ className })}>
         {resolved.children.map((child, index) => (
           <ModalHeaderContext.Provider
-            key={index}
+            key={getModalProviderKey(child, index)}
             value={isValidElement(child) && child.type === GlModalTitle}>
             {child}
           </ModalHeaderContext.Provider>
@@ -450,7 +458,7 @@ export const GlModalFooter = forwardRef<HTMLDivElement, GlModalFooterProps>(
         className={modalFooterVariants({ className })}>
         {resolved.children.map((child, index) => (
           <ModalFooterContext.Provider
-            key={index}
+            key={getModalProviderKey(child, index)}
             value={isValidElement(child) && child.type === GlModalClose}>
             {child}
           </ModalFooterContext.Provider>

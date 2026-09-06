@@ -24,6 +24,7 @@ import GlModal, {
   GlModalTrigger,
   getModalAccessibleNameProps,
   getModalDialogClassName,
+  getModalProviderKey,
   resolveModalContent,
   resolveModalFooter,
   resolveModalHeader,
@@ -332,6 +333,13 @@ describe("modal content composition", () => {
 });
 
 describe("modal header and footer composition", () => {
+  it("preserves explicit child identity for context provider keys", () => {
+    expect(getModalProviderKey(<GlButton key="action">Action</GlButton>, 0))
+      .toBe("child:action");
+    expect(getModalProviderKey(<GlButton>Action</GlButton>, 2)).toBe("index:2");
+    expect(getModalProviderKey("Text", 3)).toBe("index:3");
+  });
+
   it("allows custom header content and at most one title", () => {
     const header = resolveModalHeader(
       <>
