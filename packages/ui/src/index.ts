@@ -44,9 +44,17 @@ export type {
   GlBadgeProps,
   GlBadgeVariant,
 } from "./base/badge/badge";
-export { default as GlBanner } from "./base/banner/banner";
+export {
+  default as GlBanner,
+  GlBannerActions,
+  GlBannerDescription,
+  GlBannerTitle,
+} from "./base/banner/banner";
 export type {
+  GlBannerActionsProps,
+  GlBannerDescriptionProps,
   GlBannerProps,
+  GlBannerTitleProps,
   GlBannerVariant,
 } from "./base/banner/banner";
 export { default as GlBroadcastMessage } from "./base/broadcast-message/broadcast-message";

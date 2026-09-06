@@ -1,31 +1,32 @@
-import type { MouseEvent } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn, userEvent } from "storybook/test";
 import GlButton from "../button/button";
-import GlBanner, { type GlBannerVariant } from "./banner";
+import GlBanner, {
+  GlBannerActions,
+  GlBannerDescription,
+  GlBannerTitle,
+  type GlBannerVariant,
+} from "./banner";
 
 const variants = ["promotion", "introduction"] satisfies GlBannerVariant[];
+const onPrimaryAction = fn();
+
+const description = (
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </p>
+);
 
 const meta = {
   title: "UI/Base/Banner",
   component: GlBanner,
   args: {
-    buttonLink: "#",
-    buttonText: "Banner link",
-    children: (
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
-    ),
     dismissLabel: "Dismiss",
     onClose: fn(),
-    onPrimary: fn((event: MouseEvent<HTMLElement>) => event.preventDefault()),
-    title: "Lorem ipsum dolor sit amet",
     variant: "promotion",
   },
   argTypes: {
-    actions: { control: false },
-    buttonAttributes: { control: false },
+    children: { control: false },
     variant: {
       control: "select",
       options: variants,
@@ -39,6 +40,17 @@ const meta = {
       },
     },
   },
+  render: (args) => (
+    <GlBanner {...args}>
+      <GlBannerTitle>Lorem ipsum dolor sit amet</GlBannerTitle>
+      <GlBannerDescription>{description}</GlBannerDescription>
+      <GlBannerActions>
+        <GlButton category="primary" onClick={onPrimaryAction} variant="confirm">
+          Banner action
+        </GlButton>
+      </GlBannerActions>
+    </GlBanner>
+  ),
 } satisfies Meta<typeof GlBanner>;
 
 export default meta;
@@ -46,10 +58,15 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   play: async ({ args, canvas }) => {
-    await expect(canvas.getByRole("heading", { level: 2 })).toHaveTextContent(args.title);
+    onPrimaryAction.mockClear();
 
-    await userEvent.click(canvas.getByRole("button", { name: args.buttonText }));
-    await expect(args.onPrimary).toHaveBeenCalledTimes(1);
+    await expect(canvas.getByRole("heading", { level: 2 })).toHaveTextContent(
+      "Lorem ipsum dolor sit amet",
+    );
+    await expect(canvas.getByText(/consectetur adipiscing elit/u)).toBeVisible();
+
+    await userEvent.click(canvas.getByRole("button", { name: "Banner action" }));
+    await expect(onPrimaryAction).toHaveBeenCalledTimes(1);
 
     await userEvent.click(canvas.getByRole("button", { name: args.dismissLabel }));
     await expect(args.onClose).toHaveBeenCalledTimes(1);
@@ -66,8 +83,15 @@ export const Variants: Story = {
         <GlBanner
           {...args}
           key={variant}
-          title={`${variant === "promotion" ? "Promotion" : "Introduction"} banner`}
-          variant={variant} />
+          variant={variant}>
+          <GlBannerTitle>
+            {variant === "promotion" ? "Promotion" : "Introduction"} banner
+          </GlBannerTitle>
+          <GlBannerDescription>{description}</GlBannerDescription>
+          <GlBannerActions>
+            <GlButton category="primary" variant="confirm">Banner action</GlButton>
+          </GlBannerActions>
+        </GlBanner>
       ))}
     </div>
   ),
@@ -83,15 +107,16 @@ export const Variants: Story = {
 };
 
 export const WithActions: Story = {
-  args: {
-    actions: (
-      <GlButton className="gl-ml-4" variant="link">
-        Ask again later
-      </GlButton>
-    ),
-    buttonText: "Primary action",
-    title: "Banner with actions",
-  },
+  render: (args) => (
+    <GlBanner {...args}>
+      <GlBannerTitle>Banner with actions</GlBannerTitle>
+      <GlBannerDescription>{description}</GlBannerDescription>
+      <GlBannerActions>
+        <GlButton category="primary" variant="confirm">Primary action</GlButton>
+        <GlButton className="gl-ml-4" variant="link">Ask again later</GlButton>
+      </GlBannerActions>
+    </GlBanner>
+  ),
   play: async ({ canvas }) => {
     await expect(canvas.getByRole("button", { name: "Primary action" })).toBeInTheDocument();
     await expect(canvas.getByRole("button", { name: "Ask again later" })).toBeInTheDocument();
