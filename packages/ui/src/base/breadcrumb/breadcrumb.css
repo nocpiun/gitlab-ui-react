@@ -1,0 +1,89 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/breadcrumb/breadcrumb.scss
+ */
+
+.gl-breadcrumbs {
+  @apply gl-flex;
+}
+
+.gl-breadcrumb-list {
+  @apply gl-bg-transparent;
+  @apply gl-p-0;
+  @apply gl-items-start;
+  @apply gl-leading-normal;
+  @apply gl-m-0;
+  @apply gl-flex-nowrap;
+  @apply gl-max-w-full;
+}
+
+/* Bootstrap overrides. */
+.gl-breadcrumb-item {
+  @apply gl-inline-flex;
+  @apply gl-items-center;
+  @apply gl-leading-normal;
+  @apply gl-shrink-0;
+
+  &:not(:last-child, :has(+ .gl-breadcrumb-clipboard-button))::after {
+    color: var(--gl-breadcrumb-separator-color);
+    @apply gl-px-3;
+    content: "/";
+  }
+
+  > a {
+    @apply gl-inline-block;
+    @apply gl-rounded-default;
+    @apply gl-text-subtle;
+    text-underline-offset: var(--gl-spacing-scale-1);
+
+    &:hover {
+      @apply gl-underline;
+    }
+
+    &:active,
+    &:focus-visible,
+    &:focus-visible:active {
+      @apply gl-focus;
+    }
+  }
+
+  .gl-new-dropdown-icon-only.gl-button.btn-icon {
+    min-height: auto;
+  }
+}
+
+.gl-breadcrumb-item:last-child > a,
+.gl-breadcrumb-item:has(+ .gl-breadcrumb-clipboard-button) > a {
+  @apply gl-text-default;
+  @apply gl-font-bold;
+}
+
+.gl-breadcrumb-item-sm {
+  @apply gl-text-sm;
+  @apply gl-h-6;
+}
+
+.gl-breadcrumb-item-md {
+  @apply gl-text-base;
+  @apply gl-h-7;
+}
+
+.gl-breadcrumb-item {
+  /**
+   * The last visible item must truncate only after its unshrunk width has been
+   * measured for the overflow calculation.
+   */
+  &.gl-breadcrumb-only-item {
+    @apply gl-shrink;
+    max-width: var(--gl-breadcrumb-truncated-item-max-width, 100%);
+
+    a {
+      @apply gl-max-w-full gl-overflow-hidden gl-text-ellipsis gl-text-nowrap;
+    }
+  }
+}
+
+.gl-breadcrumb-clipboard-button {
+  @apply gl-leading-normal;
+  @apply gl-shrink-0;
+}

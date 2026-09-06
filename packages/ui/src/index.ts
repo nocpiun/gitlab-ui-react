@@ -63,6 +63,15 @@ export type {
   GlBannerTitleProps,
   GlBannerVariant,
 } from "./base/banner/banner";
+export {
+  default as GlBreadcrumb,
+  GlBreadcrumbItem,
+} from "./base/breadcrumb/breadcrumb";
+export type {
+  GlBreadcrumbItemProps,
+  GlBreadcrumbProps,
+  GlBreadcrumbSize,
+} from "./base/breadcrumb/breadcrumb";
 export { default as GlBroadcastMessage } from "./base/broadcast-message/broadcast-message";
 export type {
   GlBroadcastMessageProps,
