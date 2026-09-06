@@ -283,6 +283,25 @@ export type {
   GlPathItemTitleProps,
   GlPathProps,
 } from "./base/path/path";
+export {
+  default as GlModal,
+  GlModalClose,
+  GlModalContent,
+  GlModalFooter,
+  GlModalHeader,
+  GlModalTitle,
+  GlModalTrigger,
+} from "./base/modal/modal";
+export type {
+  GlModalCloseProps,
+  GlModalContentProps,
+  GlModalFooterProps,
+  GlModalHeaderProps,
+  GlModalProps,
+  GlModalSize,
+  GlModalTitleProps,
+  GlModalTriggerProps,
+} from "./base/modal/modal";
 export { default as GlProgressBar } from "./base/progress-bar/progress-bar";
 export type {
   GlProgressBarProps,

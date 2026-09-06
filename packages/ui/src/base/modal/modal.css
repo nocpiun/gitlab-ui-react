@@ -1,0 +1,124 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/modal/modal.scss
+ *
+ * Bootstrap's structural modal rules live in the shared styles compatibility
+ * layer. Base UI transition attributes replace Vue transition classes.
+ */
+
+.gl-modal-dialog-scrollable {
+  @media (width >= 576px) {
+    max-height: calc(100% - 8rem);
+  }
+}
+
+.gl-modal-sm {
+  max-width: 32rem;
+}
+
+.gl-modal-md {
+  max-width: 48rem;
+}
+
+.gl-modal-lg {
+  max-width: 61.875rem;
+}
+
+.gl-modal-content {
+  @apply gl-border-0;
+  @apply gl-shadow-lg;
+  @apply gl-text-default;
+  @apply gl-bg-overlap;
+  border-radius: var(--gl-modal-border-radius);
+
+  > :first-child {
+    border-top-left-radius: var(--gl-modal-border-radius);
+    border-top-right-radius: var(--gl-modal-border-radius);
+  }
+
+  > :last-child {
+    border-bottom-left-radius: var(--gl-modal-border-radius);
+    border-bottom-right-radius: var(--gl-modal-border-radius);
+  }
+}
+
+.gl-modal-header {
+  @apply gl-pb-3;
+  @apply gl-border-none;
+}
+
+.gl-modal-title {
+  @apply gl-heading-scale-500;
+}
+
+.gl-modal-header-close {
+  @apply gl-ml-auto;
+  @apply gl-self-start;
+}
+
+.gl-modal-body {
+  min-height: 80px;
+  line-height: 1.5;
+  position: relative;
+  @apply gl-p-5;
+  @apply gl-py-3;
+  @apply gl-text-left;
+  @apply gl-whitespace-normal;
+  @apply gl-text-base;
+  @apply gl-leading-20;
+}
+
+.gl-modal-footer {
+  @apply gl-flex;
+  @apply gl-flex-row;
+  @apply gl-p-5;
+  @apply gl-pt-3;
+  @apply gl-border-none;
+
+  .btn {
+    @apply gl-m-0;
+  }
+
+  .btn + .btn:not(.dropdown-toggle-split),
+  .btn + .btn-group,
+  .btn-group + .btn {
+    @apply gl-ml-3;
+  }
+
+  .btn-group .btn + .btn {
+    margin-left: -1px;
+  }
+}
+
+.gl-modal-backdrop {
+  @apply gl-bg-overlay;
+  opacity: 1;
+}
+
+@media (width < 576px) {
+  .gl-modal-footer {
+    @apply gl-flex-col;
+
+    .btn + .btn:not(.dropdown-toggle-split),
+    .btn + .btn-group,
+    .btn-group + .btn {
+      @apply gl-ml-0;
+      @apply gl-mt-3;
+    }
+
+    .btn-group .btn + .btn {
+      margin-left: -1px;
+      @apply gl-mt-0;
+    }
+  }
+}
+
+@media (width >= 576px) {
+  .gl-modal-dialog {
+    @apply gl-mx-auto;
+    @apply gl-my-0;
+    @apply gl-flex;
+    @apply gl-items-center;
+    min-height: calc(100% - 1rem);
+  }
+}
