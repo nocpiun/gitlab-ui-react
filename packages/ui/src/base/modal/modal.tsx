@@ -116,6 +116,11 @@ type ResolvedModalFooter = {
   children: ReactNode[];
 };
 
+type ModalAccessibleNameProps = Pick<
+  BaseDialog.Popup.Props,
+  "aria-label" | "aria-labelledby"
+>;
+
 const ModalRootContext = createContext(false);
 const ModalContentContext = createContext(false);
 const ModalHeaderContext = createContext(false);
@@ -300,6 +305,33 @@ export function getModalDialogClassName(size: GlModalSize, scrollable: boolean) 
   return modalDialogVariants({ scrollable, size });
 }
 
+export function getModalAccessibleNameProps(
+  hasTitle: boolean,
+  ariaLabel: string | undefined,
+  ariaLabelledBy: string | undefined,
+): ModalAccessibleNameProps {
+  const hasAriaLabel = Boolean(ariaLabel?.trim());
+  const hasAriaLabelledBy = Boolean(ariaLabelledBy?.trim());
+
+  if(!hasTitle && !hasAriaLabel && !hasAriaLabelledBy) {
+    throw new Error(
+      "GlModalContent requires a GlModalTitle, a non-empty aria-label, "
+      + "or a non-empty aria-labelledby.",
+    );
+  }
+
+  if(hasAriaLabel) {
+    return {
+      "aria-label": ariaLabel,
+      "aria-labelledby": undefined,
+    };
+  }
+
+  if(hasAriaLabelledBy) return { "aria-labelledby": ariaLabelledBy };
+
+  return {};
+}
+
 function isFocusableElement(element: HTMLElement) {
   if(element.getAttribute("type") === "hidden") return false;
   if("disabled" in element && Boolean(element.disabled)) return false;
@@ -436,18 +468,11 @@ export const GlModalContent = forwardRef<HTMLDivElement, GlModalContentProps>(
     const mergedPopupRef = useMergedRefs(popupRef, forwardedRef);
     const resolved = resolveModalContent(children);
     const resolvedHeader = resolveModalHeader(resolved.header.props.children);
-
-    if(!resolvedHeader.title && !ariaLabel?.trim()) {
-      throw new Error(
-        "GlModalContent requires a GlModalTitle or a non-empty aria-label.",
-      );
-    }
-
-    const labelledByProps = ariaLabel
-      ? { "aria-labelledby": undefined }
-      : ariaLabelledBy === undefined
-        ? {}
-        : { "aria-labelledby": ariaLabelledBy };
+    const accessibleNameProps = getModalAccessibleNameProps(
+      Boolean(resolvedHeader.title),
+      ariaLabel,
+      ariaLabelledBy,
+    );
     const resolvedInitialFocus = initialFocus === undefined
       ? () => findDefaultInitialFocus(popupRef.current)
       : initialFocus;
@@ -459,10 +484,9 @@ export const GlModalContent = forwardRef<HTMLDivElement, GlModalContentProps>(
           <div className={getModalDialogClassName(size, scrollable)}>
             <BaseDialog.Popup
               {...popupProps}
-              {...labelledByProps}
+              {...accessibleNameProps}
               ref={mergedPopupRef}
               aria-describedby={ariaDescribedBy ?? bodyId}
-              aria-label={ariaLabel}
               aria-modal="true"
               className={modalContentVariants({ className })}
               initialFocus={resolvedInitialFocus}

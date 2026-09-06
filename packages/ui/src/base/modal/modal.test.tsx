@@ -22,6 +22,7 @@ import GlModal, {
   GlModalHeader,
   GlModalTitle,
   GlModalTrigger,
+  getModalAccessibleNameProps,
   getModalDialogClassName,
   resolveModalContent,
   resolveModalFooter,
@@ -248,13 +249,24 @@ describe("modal content composition", () => {
     )).toThrowError("GlModalClose belongs directly inside GlModalFooter");
   });
 
-  it("requires an accessible name from a title or aria-label", () => {
+  it("requires an accessible name from a title, aria-label, or aria-labelledby", () => {
     expect(() => renderModal(
       <>
         <GlModalHeader />
         <div>Body</div>
       </>,
-    )).toThrowError("GlModalContent requires a GlModalTitle or a non-empty aria-label.");
+    )).toThrowError(
+      "GlModalContent requires a GlModalTitle, a non-empty aria-label, "
+      + "or a non-empty aria-labelledby.",
+    );
+    expect(() => renderModal(
+      <>
+        <GlModalHeader />
+        <div>Body</div>
+      </>,
+      {},
+      { "aria-label": "   ", "aria-labelledby": "   " },
+    )).toThrowError("non-empty aria-labelledby");
     expect(() => renderModal(
       <>
         <GlModalHeader />
@@ -263,6 +275,27 @@ describe("modal content composition", () => {
       {},
       { "aria-label": "Named modal" },
     )).not.toThrow();
+    expect(() => renderModal(
+      <>
+        <GlModalHeader />
+        <div>Body</div>
+      </>,
+      {},
+      { "aria-labelledby": "external-heading" },
+    )).not.toThrow();
+  });
+
+  it("normalizes accessible-name overrides while preserving Base UI title labelling", () => {
+    expect(getModalAccessibleNameProps(true, "   ", undefined)).toEqual({});
+    expect(getModalAccessibleNameProps(true, undefined, "   ")).toEqual({});
+    expect(getModalAccessibleNameProps(false, undefined, "external-heading")).toEqual({
+      "aria-labelledby": "external-heading",
+    });
+    expect(getModalAccessibleNameProps(true, "Named modal", "external-heading"))
+      .toEqual({
+        "aria-label": "Named modal",
+        "aria-labelledby": undefined,
+      });
   });
 });
 
