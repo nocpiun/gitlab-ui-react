@@ -7,8 +7,14 @@ export type {
   GlAccordionItemProps,
   GlAccordionProps,
 } from "./base/accordion/accordion";
-export { default as GlAlert } from "./base/alert/alert";
+export {
+  default as GlAlert,
+  GlAlertActions,
+  GlAlertDescription,
+} from "./base/alert/alert";
 export type {
+  GlAlertActionsProps,
+  GlAlertDescriptionProps,
   GlAlertHeaderLevel,
   GlAlertPoliteness,
   GlAlertProps,

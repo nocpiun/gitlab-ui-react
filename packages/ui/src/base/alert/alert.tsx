@@ -3,9 +3,10 @@
  * packages/gitlab-ui/src/components/base/alert/alert.vue
  *
  * Adaptations:
- * - Vue slots map to `children` (body) and the `actions` render prop.
- * - The `primary-action`/`secondary-action`/`dismiss` events map to the
- *   `onPrimaryAction`/`onSecondaryAction`/`onDismiss` callbacks.
+ * - Vue's title prop and body/action slots map to the title prop and strict
+ *   compound description/action parts.
+ * - The `dismiss` event maps to `onDismiss`; action behavior belongs to the
+ *   controls composed inside `GlAlertActions`.
  * - The exposed `focus()` method maps to the forwarded div ref; the
  *   `gl-focus` class is applied only when the alert itself is focused
  *   programmatically (e.g. `ref.current.focus()`), mirroring the upstream
@@ -16,7 +17,10 @@
  */
 
 import {
+  Children,
+  Fragment,
   forwardRef,
+  isValidElement,
   useRef,
   useState,
   type FocusEventHandler,
@@ -34,9 +38,7 @@ export type GlAlertPoliteness = "assertive" | "off" | "polite";
 export type GlAlertHeaderLevel = 1 | 2 | 3 | 4 | 5 | 6;
 
 export type GlAlertProps = Omit<HTMLAttributes<HTMLDivElement>, "children" | "title"> & {
-  /** Content rendered inside the actions area, replacing the action buttons. */
-  actions?: ReactNode;
-  /** The alert message to display. */
+  /** Unique GlAlertDescription and GlAlertActions parts. */
   children?: ReactNode;
   /** Controls the dismiss button's visibility. */
   dismissible?: boolean;
@@ -46,20 +48,8 @@ export type GlAlertProps = Omit<HTMLAttributes<HTMLDivElement>, "children" | "ti
   headerLevel?: GlAlertHeaderLevel;
   /** Emitted when the dismiss button is clicked. */
   onDismiss?: MouseEventHandler<HTMLElement>;
-  /** Emitted when the primary action button is clicked. */
-  onPrimaryAction?: MouseEventHandler<HTMLElement>;
-  /** Emitted when the secondary action button is clicked. */
-  onSecondaryAction?: MouseEventHandler<HTMLElement>;
   /** The `aria-live` attribute on the alert. Only use `"assertive"` if the alert requires immediate user action. */
   politeness?: GlAlertPoliteness;
-  /** If provided, renders the primary button as a link. */
-  primaryButtonLink?: string;
-  /** If provided, renders a primary action button. */
-  primaryButtonText?: string;
-  /** If provided, renders the secondary button as a link. */
-  secondaryButtonLink?: string;
-  /** If provided, renders a secondary action button. */
-  secondaryButtonText?: string;
   /** When true, the alert stays fixed at the top of its container. */
   sticky?: boolean;
   /** The title text to display in the alert header. */
@@ -67,6 +57,9 @@ export type GlAlertProps = Omit<HTMLAttributes<HTMLDivElement>, "children" | "ti
   /** The variant of the alert. */
   variant?: GlAlertVariant;
 };
+
+export type GlAlertDescriptionProps = HTMLAttributes<HTMLDivElement>;
+export type GlAlertActionsProps = HTMLAttributes<HTMLDivElement>;
 
 const alertVariantIconMap = {
   danger: "error",
@@ -103,6 +96,8 @@ const alertVariants = cva("gl-alert", {
     },
   },
 });
+const alertDescriptionVariants = cva("gl-alert-body");
+const alertActionsVariants = cva("gl-alert-actions");
 
 const headingTags = {
   1: "h1",
@@ -117,8 +112,65 @@ const isAlertRole = (variant: GlAlertVariant) => variant === "danger"
   || variant === "success"
   || variant === "warning";
 
+export const GlAlertDescription = forwardRef<HTMLDivElement, GlAlertDescriptionProps>(
+  function GlAlertDescription({ className, ...elementProps }, forwardedRef) {
+    return (
+      <div
+        {...elementProps}
+        ref={forwardedRef}
+        className={alertDescriptionVariants({ className })} />
+    );
+  },
+);
+
+export const GlAlertActions = forwardRef<HTMLDivElement, GlAlertActionsProps>(
+  function GlAlertActions({ className, ...elementProps }, forwardedRef) {
+    return (
+      <div
+        {...elementProps}
+        ref={forwardedRef}
+        className={alertActionsVariants({ className })} />
+    );
+  },
+);
+
+function getAlertPartName(type: unknown): string | null {
+  if(type === GlAlertDescription) return "GlAlertDescription";
+  if(type === GlAlertActions) return "GlAlertActions";
+  return null;
+}
+
+function validateAlertChildren(children: ReactNode) {
+  const seenParts = new Set<string>();
+
+  const visit = (nodes: ReactNode) => {
+    Children.forEach(nodes, (child) => {
+      if(child === null || child === undefined || typeof child === "boolean") return;
+
+      if(isValidElement<{ children?: ReactNode }>(child) && child.type === Fragment) {
+        visit(child.props.children);
+        return;
+      }
+
+      const partName = isValidElement(child) ? getAlertPartName(child.type) : null;
+      if(!partName) {
+        throw new Error(
+          "GlAlert only accepts GlAlertDescription and GlAlertActions as direct children. "
+          + "Arrays, Fragments, and conditional children are supported.",
+        );
+      }
+      if(seenParts.has(partName)) {
+        throw new Error(`GlAlert accepts at most one ${partName} child.`);
+      }
+
+      seenParts.add(partName);
+    });
+  };
+
+  visit(children);
+}
+
 const GlAlert = forwardRef<HTMLDivElement, GlAlertProps>(function GlAlert({
-  actions,
   children,
   className,
   dismissible = true,
@@ -128,23 +180,18 @@ const GlAlert = forwardRef<HTMLDivElement, GlAlertProps>(function GlAlert({
   onDismiss,
   onFocus,
   onPointerDown,
-  onPrimaryAction,
-  onSecondaryAction,
   politeness = "polite",
-  primaryButtonLink,
-  primaryButtonText,
-  secondaryButtonLink,
-  secondaryButtonText,
   sticky = false,
   title,
   variant = "info",
   ...elementProps
 }, forwardedRef) {
+  validateAlertChildren(children);
+
   const [hasProgrammaticFocus, setHasProgrammaticFocus] = useState(false);
   const pointerInteractionRef = useRef(false);
 
   const hasTitle = Boolean(title);
-  const shouldRenderActions = Boolean(actions || primaryButtonText || secondaryButtonText);
   const TitleTag = headingTags[headerLevel];
 
   const handlePointerDown: PointerEventHandler<HTMLDivElement> = (event) => {
@@ -197,37 +244,7 @@ const GlAlert = forwardRef<HTMLDivElement, GlAlertProps>(function GlAlert({
       </div>
       <div className="gl-alert-content">
         {hasTitle ? <TitleTag className="gl-alert-title">{title}</TitleTag> : null}
-
-        <div className="gl-alert-body">{children}</div>
-
-        {shouldRenderActions ? (
-          <div className="gl-alert-actions">
-            {actions ?? (
-              <>
-                {primaryButtonText ? (
-                  <GlButton
-                    category="primary"
-                    className="gl-alert-action"
-                    href={primaryButtonLink || undefined}
-                    onClick={onPrimaryAction}
-                    variant="confirm">
-                    {primaryButtonText}
-                  </GlButton>
-                ) : null}
-                {secondaryButtonText ? (
-                  <GlButton
-                    category="secondary"
-                    className="gl-alert-action"
-                    href={secondaryButtonLink || undefined}
-                    onClick={onSecondaryAction}
-                    variant="default">
-                    {secondaryButtonText}
-                  </GlButton>
-                ) : null}
-              </>
-            )}
-          </div>
-        ) : null}
+        {children}
       </div>
 
       {dismissible ? (
