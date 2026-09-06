@@ -84,8 +84,8 @@ export const Default: Story = {
 
     await expect(first).toHaveAttribute("aria-current", "true");
     await expect(fourth).toHaveAttribute("aria-current", "false");
-    await expect(first).not.toHaveAttribute("tabindex");
-    await expect(fourth).not.toHaveAttribute("tabindex");
+    await expect(first).toHaveAttribute("tabindex", "0");
+    await expect(fourth).toHaveAttribute("tabindex", "0");
 
     await userEvent.click(fourth);
     await expect(args.onValueChange).toHaveBeenLastCalledWith("fourth");
