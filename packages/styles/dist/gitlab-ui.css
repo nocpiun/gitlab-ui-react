@@ -5771,19 +5771,11 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
   top: 0;
   position: sticky;
 }
-@container (width >= 768px) {
-  :where(html.with-gl-container-queries) .gl-drawer-default {
-    width: 400px;
-  }
-  :where(html.with-gl-container-queries) .gl-drawer-sidebar {
-    width: 290px;
-  }
-}
 @media (width >= 768px) {
-  :where(html:not(.with-gl-container-queries)) .gl-drawer-default {
+  .gl-drawer-default {
     width: 400px;
   }
-  :where(html:not(.with-gl-container-queries)) .gl-drawer-sidebar {
+  .gl-drawer-sidebar {
     width: 290px;
   }
 }

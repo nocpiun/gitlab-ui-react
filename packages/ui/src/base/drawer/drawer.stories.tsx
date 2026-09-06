@@ -92,6 +92,21 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+async function expectDesktopWidthWithContainerQueries(
+  dialog: HTMLElement,
+  expectedWidth: string,
+) {
+  const root = document.documentElement;
+  const wasEnabled = root.classList.contains("with-gl-container-queries");
+  root.classList.add("with-gl-container-queries");
+
+  try {
+    await waitFor(() => expect(getComputedStyle(dialog).width).toBe(expectedWidth));
+  } finally {
+    if(!wasEnabled) root.classList.remove("with-gl-container-queries");
+  }
+}
+
 export const Default: Story = {
   render: (args) => <DrawerExample rootProps={args} />,
   play: async ({ args, canvas }) => {
@@ -109,6 +124,7 @@ export const Default: Story = {
 
     await expect(dialog.tagName).toBe("ASIDE");
     await expect(dialog).toHaveClass("gl-drawer", "gl-drawer-default");
+    await expectDesktopWidthWithContainerQueries(dialog, "400px");
     await expect(dialog).toHaveAttribute("aria-modal", "true");
     await expect(dialog).toHaveAttribute("aria-labelledby", title.id);
     await expect(args.onOpenChange).toHaveBeenCalledWith(true);
@@ -220,9 +236,10 @@ export const Sidebar: Story = {
       title="Sidebar" />
   ),
   play: async () => {
-    await expect(await within(document.body).findByRole("dialog")).toHaveClass(
-      "gl-drawer-sidebar",
-    );
+    const dialog = await within(document.body).findByRole("dialog");
+
+    await expect(dialog).toHaveClass("gl-drawer-sidebar");
+    await expectDesktopWidthWithContainerQueries(dialog, "290px");
   },
 };
 

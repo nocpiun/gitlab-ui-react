@@ -2,10 +2,10 @@
  * Ported from GitLab UI:
  * packages/gitlab-ui/src/components/base/drawer/drawer.scss
  *
- * The `gl-container-width-up(md)` mixin is expanded to the established local
- * container-query/media-query pair. Base UI transition attributes replace
- * Vue transition classes, and the documented title/action utilities are
- * applied by their compound React parts.
+ * The `gl-container-width-up(md)` mixin uses a viewport media query because
+ * Base UI portals this fixed surface under document.body by default. Base UI
+ * transition attributes replace Vue transition classes, and the documented
+ * title/action utilities are applied by their compound React parts.
  */
 
 .gl-drawer {
@@ -36,22 +36,12 @@
   }
 }
 
-@container (width >= 768px) {
-  :where(html.with-gl-container-queries) .gl-drawer-default {
-    width: 400px;
-  }
-
-  :where(html.with-gl-container-queries) .gl-drawer-sidebar {
-    width: 290px;
-  }
-}
-
 @media (width >= 768px) {
-  :where(html:not(.with-gl-container-queries)) .gl-drawer-default {
+  .gl-drawer-default {
     width: 400px;
   }
 
-  :where(html:not(.with-gl-container-queries)) .gl-drawer-sidebar {
+  .gl-drawer-sidebar {
     width: 290px;
   }
 }
