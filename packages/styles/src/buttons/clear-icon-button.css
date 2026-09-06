@@ -1,0 +1,15 @@
+/*
+ * Shared clear icon button foundation used transitively by GitLab UI.
+ * Ported from packages/gitlab-ui/src/components/shared_components/
+ * clear_icon_button/clear_icon_button.scss.
+ */
+
+.gl-clear-icon-button {
+  @apply gl-bg-transparent;
+  @apply gl-border-none;
+  @apply gl-cursor-pointer;
+
+  &:focus-visible {
+    @apply gl-focus;
+  }
+}
