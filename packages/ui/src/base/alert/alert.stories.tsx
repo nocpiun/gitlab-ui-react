@@ -1,7 +1,12 @@
 import type { MouseEvent } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn, userEvent, within } from "storybook/test";
-import GlAlert, { type GlAlertVariant } from "./alert";
+import GlButton from "../button/button";
+import GlAlert, {
+  GlAlertActions,
+  GlAlertDescription,
+  type GlAlertVariant,
+} from "./alert";
 
 const variants = [
   "success",
@@ -10,22 +15,22 @@ const variants = [
   "info",
   "tip",
 ] satisfies GlAlertVariant[];
+const onPrimaryAction = fn();
+const onSecondaryAction = fn((event: MouseEvent<HTMLElement>) => event.preventDefault());
 
 const meta = {
   title: "UI/Base/Alert",
   component: GlAlert,
   args: {
-    children: "Lorem ipsum dolor sit amet",
     dismissLabel: "Dismiss",
     dismissible: true,
     headerLevel: 2,
     onDismiss: fn(),
-    onPrimaryAction: fn(),
-    onSecondaryAction: fn(),
     sticky: false,
     variant: "info",
   },
   argTypes: {
+    children: { control: false },
     variant: {
       control: "select",
       options: variants,
@@ -39,6 +44,11 @@ const meta = {
       },
     },
   },
+  render: (args) => (
+    <GlAlert {...args}>
+      <GlAlertDescription>Lorem ipsum dolor sit amet</GlAlertDescription>
+    </GlAlert>
+  ),
 } satisfies Meta<typeof GlAlert>;
 
 export default meta;
@@ -75,38 +85,56 @@ export const TitledWarning: Story = {
 export const UndismissibleDangerWithActions: Story = {
   args: {
     dismissible: false,
-    // preventDefault keeps the href="#" anchor from navigating the story iframe
-    onSecondaryAction: fn((event: MouseEvent<HTMLElement>) => event.preventDefault()),
-    primaryButtonText: "Primary action",
-    secondaryButtonLink: "#",
-    secondaryButtonText: "Secondary action",
     variant: "danger",
   },
-  play: async ({ args, canvas }) => {
+  render: (args) => (
+    <GlAlert {...args}>
+      <GlAlertDescription>Lorem ipsum dolor sit amet</GlAlertDescription>
+      <GlAlertActions>
+        <GlButton
+          category="primary"
+          onClick={onPrimaryAction}
+          variant="confirm">
+          Primary action
+        </GlButton>
+        <GlButton
+          category="secondary"
+          href="#"
+          onClick={onSecondaryAction}
+          variant="default">
+          Secondary action
+        </GlButton>
+      </GlAlertActions>
+    </GlAlert>
+  ),
+  play: async ({ canvas }) => {
+    onPrimaryAction.mockClear();
+    onSecondaryAction.mockClear();
+
     const alert = canvas.getByRole("alert");
 
     await expect(alert).toHaveClass("gl-alert-danger", "gl-alert-not-dismissible");
     await expect(within(alert).queryByRole("button", { name: "Dismiss" })).toBeNull();
 
     await userEvent.click(canvas.getByRole("button", { name: "Primary action" }));
-    await expect(args.onPrimaryAction).toHaveBeenCalledTimes(1);
+    await expect(onPrimaryAction).toHaveBeenCalledTimes(1);
 
     const secondary = canvas.getByRole("button", { name: "Secondary action" });
     await expect(secondary).toHaveAttribute("href", "#");
     await userEvent.click(secondary);
-    await expect(args.onSecondaryAction).toHaveBeenCalledTimes(1);
+    await expect(onSecondaryAction).toHaveBeenCalledTimes(1);
   },
 };
 
 export const CustomActions: Story = {
-  args: {
-    actions: <button type="button">Custom action</button>,
-  },
-  argTypes: {
-    actions: {
-      control: false,
-    },
-  },
+  render: (args) => (
+    <GlAlert {...args}>
+      <GlAlertDescription>Lorem ipsum dolor sit amet</GlAlertDescription>
+      <GlAlertActions>
+        <button type="button">Custom action</button>
+      </GlAlertActions>
+    </GlAlert>
+  ),
   play: async ({ canvas }) => {
     await expect(canvas.getByRole("button", { name: "Custom action" })).toBeInTheDocument();
   },
@@ -125,11 +153,15 @@ export const Variants: Story = {
           {...args}
           className="gl-mb-5"
           key={variant}
-          primaryButtonText="Primary"
-          secondaryButtonText="Secondary"
           title="Alert title"
           variant={variant}>
-          <span className="gl-capitalize">{variant}</span> lorem ipsum dolor sit amet
+          <GlAlertDescription>
+            <span className="gl-capitalize">{variant}</span> lorem ipsum dolor sit amet
+          </GlAlertDescription>
+          <GlAlertActions>
+            <GlButton category="primary" variant="confirm">Primary</GlButton>
+            <GlButton category="secondary" variant="default">Secondary</GlButton>
+          </GlAlertActions>
         </GlAlert>
       ))}
     </div>
@@ -138,7 +170,9 @@ export const Variants: Story = {
     for(const variant of variants) {
       const role = ["danger", "success", "warning"].includes(variant) ? "alert" : "status";
 
-      await expect(canvas.getAllByRole(role).some((el) => el.classList.contains(`gl-alert-${variant}`))).toBe(true);
+      await expect(
+        canvas.getAllByRole(role).some((el) => el.classList.contains(`gl-alert-${variant}`)),
+      ).toBe(true);
     }
   },
 };

@@ -7,6 +7,8 @@
  * `$gl-spacing-scale-4` is `.75rem`, `$gl-line-height-20` is `1.25rem`,
  * and `$gl-alert-top-border-size` is `2px`. The `gl-container-width-up(sm)`
  * mixin is written out as the established local `@container`/`@media` pair.
+ * Compound action controls receive the upstream `gl-alert-action` styles
+ * through direct-child selectors instead of an internally applied class.
  */
 
 /*
@@ -78,7 +80,7 @@
   @apply gl-mt-3;
 }
 
-.gl-alert-action {
+.gl-alert-actions > * {
   @apply gl-mr-0 gl-w-full;
   @apply gl-text-base;
   @apply gl-leading-normal;
@@ -89,7 +91,7 @@
     @apply gl-flex-row;
   }
 
-  :where(html.with-gl-container-queries) .gl-alert-action {
+  :where(html.with-gl-container-queries) .gl-alert-actions > * {
     @apply gl-mr-3 gl-w-auto;
   }
 }
@@ -99,7 +101,7 @@
     @apply gl-flex-row;
   }
 
-  :where(html:not(.with-gl-container-queries)) .gl-alert-action {
+  :where(html:not(.with-gl-container-queries)) .gl-alert-actions > * {
     @apply gl-mr-3 gl-w-auto;
   }
 }

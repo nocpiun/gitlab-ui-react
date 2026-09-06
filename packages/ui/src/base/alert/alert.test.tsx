@@ -6,16 +6,28 @@
  * functions, since unit tests run in a node environment.
  */
 
-import type { ComponentProps, ReactNode } from "react";
+import {
+  Fragment,
+  createRef,
+  type ComponentProps,
+  type ReactNode,
+} from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
-import GlAlert, { type GlAlertVariant } from "./alert";
+import GlButton from "../button/button";
+import GlAlert, {
+  GlAlertActions,
+  GlAlertDescription,
+  type GlAlertVariant,
+} from "./alert";
 
 vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
 
+const defaultContent = <GlAlertDescription>Alert message</GlAlertDescription>;
+
 const renderAlert = (
-  props: ComponentProps<typeof GlAlert> = {},
-  children: ReactNode = "Alert message",
+  props: Partial<ComponentProps<typeof GlAlert>> = {},
+  children: ReactNode = defaultContent,
 ) => renderToStaticMarkup(<GlAlert {...props}>{children}</GlAlert>);
 
 describe("GlAlert", () => {
@@ -42,8 +54,10 @@ describe("GlAlert", () => {
       expect(renderAlert()).not.toContain("gl-alert-actions");
     });
 
-    it("renders the body content", () => {
-      expect(renderAlert()).toContain("<div class=\"gl-alert-body\">Alert message</div>");
+    it("renders the description content", () => {
+      expect(renderAlert()).toContain(
+        "<div class=\"gl-alert-body\">Alert message</div>",
+      );
     });
 
     it("renders the status role with polite aria-live and tabindex -1", () => {
@@ -100,12 +114,14 @@ describe("GlAlert", () => {
     });
 
     it("uses a custom dismiss label", () => {
-      expect(renderAlert({ dismissLabel: "Close alert" })).toContain("aria-label=\"Close alert\"");
+      expect(renderAlert({ dismissLabel: "Close alert" })).toContain(
+        "aria-label=\"Close alert\"",
+      );
     });
   });
 
   describe("title", () => {
-    it("renders the title in an h2 by default", () => {
+    it("renders the string title in an h2 by default", () => {
       const markup = renderAlert({ title: "foo" });
 
       expect(markup).toContain("<h2 class=\"gl-alert-title\">foo</h2>");
@@ -117,56 +133,164 @@ describe("GlAlert", () => {
       );
     });
 
-    it("adds the gl-alert-has-title class only when a title is present", () => {
+    it("adds the gl-alert-has-title class only for a non-empty title", () => {
       expect(renderAlert({ title: "foo" })).toContain("gl-alert-has-title");
       expect(renderAlert()).not.toContain("gl-alert-has-title");
+      expect(renderAlert({ title: "" })).not.toContain("gl-alert-has-title");
     });
   });
 
-  describe("actions", () => {
-    it("renders a primary confirm button from primaryButtonText", () => {
-      const markup = renderAlert({ primaryButtonText: "foo" });
+  describe("compound parts", () => {
+    it("renders description and actions with their structural classes", () => {
+      const markup = renderAlert({}, (
+        <>
+          <GlAlertDescription><p>Alert message</p></GlAlertDescription>
+          <GlAlertActions>
+            <GlButton category="primary" variant="confirm">Primary action</GlButton>
+          </GlAlertActions>
+        </>
+      ));
 
-      expect(markup).toContain("gl-alert-actions");
-      expect(markup).toContain("<button type=\"button\" tabindex=\"0\" aria-disabled=\"false\" class=\"btn gl-button btn-md btn-confirm gl-alert-action\">");
-      expect(markup).toContain("<span class=\"gl-button-text\">foo</span>");
+      expect(markup).toContain(
+        "<div class=\"gl-alert-body\"><p>Alert message</p></div>",
+      );
+      expect(markup).toContain("<div class=\"gl-alert-actions\">");
+      expect(markup).toContain("btn-confirm");
+      expect(markup).toContain("Primary action");
     });
 
-    it("renders the primary button as a link given primaryButtonLink", () => {
-      const markup = renderAlert({ primaryButtonLink: "#foo", primaryButtonText: "foo" });
+    it("renders composed button and link actions", () => {
+      const markup = renderAlert({}, (
+        <GlAlertActions>
+          <GlButton category="primary" variant="confirm">Retry</GlButton>
+          <GlButton href="#cancel" variant="default">Cancel</GlButton>
+        </GlAlertActions>
+      ));
 
-      expect(markup).toContain("<a");
-      expect(markup).toContain("href=\"#foo\"");
+      expect(markup).toContain("btn-confirm");
+      expect(markup).toContain("Retry");
+      expect(markup).toContain("href=\"#cancel\"");
+      expect(markup).toContain("Cancel");
     });
 
-    it("renders a secondary default button from secondaryButtonText", () => {
-      const markup = renderAlert({ secondaryButtonText: "bar" });
-
-      expect(markup).toContain("btn gl-button btn-md btn-default btn-default-secondary gl-alert-action");
-      expect(markup).toContain("<span class=\"gl-button-text\">bar</span>");
+    it("allows every compound part to be omitted", () => {
+      expect(renderAlert({}, null)).toContain("<div class=\"gl-alert-content\"></div>");
+      expect(renderAlert({}, (
+        <GlAlertDescription>Description</GlAlertDescription>
+      ))).toContain("Description");
+      expect(renderAlert({}, <GlAlertActions>Actions</GlAlertActions>)).toContain("Actions");
     });
 
-    it("renders the secondary button as a link given secondaryButtonLink", () => {
-      const markup = renderAlert({ secondaryButtonLink: "#bar", secondaryButtonText: "bar" });
+    it("supports arrays, Fragments, and conditional children", () => {
+      const showDescription = true;
+      const showActions = true;
+      const hideExtraActions = false;
+      const markup = renderAlert({}, [
+        <Fragment key="content">
+          {showDescription && (
+            <GlAlertDescription>Description</GlAlertDescription>
+          )}
+          {hideExtraActions && <GlAlertActions>Hidden actions</GlAlertActions>}
+        </Fragment>,
+        showActions ? <GlAlertActions key="actions">Actions</GlAlertActions> : null,
+      ]);
 
-      expect(markup).toContain("href=\"#bar\"");
+      expect(markup).toContain("Description");
+      expect(markup).toContain("Actions");
+      expect(markup).not.toContain("Hidden actions");
     });
 
-    it("renders both buttons when both texts are given", () => {
-      const markup = renderAlert({ primaryButtonText: "foo", secondaryButtonText: "bar" });
+    it("rejects duplicate compound parts", () => {
+      const duplicateParts = [
+        {
+          children: (
+            <>
+              <GlAlertDescription>One</GlAlertDescription>
+              <GlAlertDescription>Two</GlAlertDescription>
+            </>
+          ),
+          name: "GlAlertDescription",
+        },
+        {
+          children: (
+            <>
+              <GlAlertActions>One</GlAlertActions>
+              <GlAlertActions>Two</GlAlertActions>
+            </>
+          ),
+          name: "GlAlertActions",
+        },
+      ];
 
-      expect(markup).toContain("<span class=\"gl-button-text\">foo</span>");
-      expect(markup).toContain("<span class=\"gl-button-text\">bar</span>");
+      for(const part of duplicateParts) {
+        expect(() => renderAlert({}, part.children)).toThrowError(
+          `GlAlert accepts at most one ${part.name} child.`,
+        );
+      }
     });
 
-    it("renders actions content instead of the action buttons", () => {
-      const markup = renderAlert({
-        actions: <p>dummy</p>,
-        primaryButtonText: "foo",
-      });
+    it("rejects unsupported direct children", () => {
+      function WrappedDescription() {
+        return <GlAlertDescription>Wrapped description</GlAlertDescription>;
+      }
 
-      expect(markup).toContain("<div class=\"gl-alert-actions\"><p>dummy</p></div>");
-      expect(markup).not.toContain("gl-alert-action\"");
+      const invalidChildren = [
+        "Direct text",
+        <div key="native">Native element</div>,
+        <WrappedDescription key="wrapped" />,
+      ];
+
+      for(const child of invalidChildren) {
+        expect(() => renderAlert({}, child)).toThrowError(
+          "GlAlert only accepts GlAlertDescription and GlAlertActions as direct children. "
+          + "Arrays, Fragments, and conditional children are supported.",
+        );
+      }
+    });
+
+    it("renders the title first and preserves the compound part order", () => {
+      const markup = renderAlert({ title: "Title" }, (
+        <>
+          <GlAlertActions>Actions</GlAlertActions>
+          <GlAlertDescription>Description</GlAlertDescription>
+        </>
+      ));
+
+      expect(markup.indexOf("Title")).toBeLessThan(markup.indexOf("Actions"));
+      expect(markup.indexOf("Actions")).toBeLessThan(markup.indexOf("Description"));
+    });
+
+    it("passes native attributes and merges consumer classes on every part", () => {
+      const markup = renderToStaticMarkup(
+        <GlAlert className="custom-alert" id="system-alert">
+          <GlAlertDescription className="custom-description" lang="en">
+            Description
+          </GlAlertDescription>
+          <GlAlertActions className="custom-actions" aria-label="Alert actions">
+            Actions
+          </GlAlertActions>
+        </GlAlert>,
+      );
+
+      expect(markup).toContain("gl-alert gl-alert-info custom-alert");
+      expect(markup).toContain("id=\"system-alert\"");
+      expect(markup).toContain("lang=\"en\"");
+      expect(markup).toContain("gl-alert-body custom-description");
+      expect(markup).toContain("aria-label=\"Alert actions\"");
+      expect(markup).toContain("gl-alert-actions custom-actions");
+    });
+
+    it("accepts refs for the root and every compound part", () => {
+      const alertRef = createRef<HTMLDivElement>();
+      const descriptionRef = createRef<HTMLDivElement>();
+      const actionsRef = createRef<HTMLDivElement>();
+
+      expect(() => renderToStaticMarkup(
+        <GlAlert ref={alertRef}>
+          <GlAlertDescription ref={descriptionRef}>Description</GlAlertDescription>
+          <GlAlertActions ref={actionsRef}>Actions</GlAlertActions>
+        </GlAlert>,
+      )).not.toThrow();
     });
   });
 
@@ -188,7 +312,9 @@ describe("GlAlert", () => {
 
   describe("element props", () => {
     it("merges a consumer className", () => {
-      expect(renderAlert({ className: "gl-mb-5" })).toContain("gl-alert gl-alert-info gl-mb-5");
+      expect(renderAlert({ className: "gl-mb-5" })).toContain(
+        "gl-alert gl-alert-info gl-mb-5",
+      );
     });
   });
 });

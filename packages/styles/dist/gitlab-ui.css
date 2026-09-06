@@ -4233,7 +4233,7 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
   row-gap: var(--gl-spacing-scale-3);
   margin-top: var(--gl-spacing-scale-3);
 }
-.gl-alert-action {
+.gl-alert-actions > * {
   margin-right: var(--gl-spacing-scale-0);
   width: 100%;
   font-size: var(--gl-font-size-base);
@@ -4244,7 +4244,7 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
   :where(html.with-gl-container-queries) .gl-alert-actions {
     flex-direction: row;
   }
-  :where(html.with-gl-container-queries) .gl-alert-action {
+  :where(html.with-gl-container-queries) .gl-alert-actions > * {
     margin-right: var(--gl-spacing-scale-3);
     width: auto;
   }
@@ -4253,7 +4253,7 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
   :where(html:not(.with-gl-container-queries)) .gl-alert-actions {
     flex-direction: row;
   }
-  :where(html:not(.with-gl-container-queries)) .gl-alert-action {
+  :where(html:not(.with-gl-container-queries)) .gl-alert-actions > * {
     margin-right: var(--gl-spacing-scale-3);
     width: auto;
   }
