@@ -97,7 +97,11 @@ export const UndismissibleDangerWithActions: Story = {
           variant="confirm">
           Primary action
         </GlButton>
-        <GlButton href="#" onClick={onSecondaryAction} variant="default">
+        <GlButton
+          category="secondary"
+          href="#"
+          onClick={onSecondaryAction}
+          variant="default">
           Secondary action
         </GlButton>
       </GlAlertActions>
@@ -156,7 +160,7 @@ export const Variants: Story = {
           </GlAlertDescription>
           <GlAlertActions>
             <GlButton category="primary" variant="confirm">Primary</GlButton>
-            <GlButton variant="default">Secondary</GlButton>
+            <GlButton category="secondary" variant="default">Secondary</GlButton>
           </GlAlertActions>
         </GlAlert>
       ))}
