@@ -3716,6 +3716,11 @@ textarea.gl-form-textarea {
   opacity: 1;
   transition: opacity 0.15s linear;
 }
+@media (prefers-reduced-motion: reduce) {
+  .gl-modal-viewport {
+    transition: none;
+  }
+}
 .gl-modal-viewport[data-starting-style], .gl-modal-viewport[data-ending-style] {
   opacity: 0;
 }
@@ -3749,6 +3754,11 @@ textarea.gl-form-textarea {
   transform: none;
   transition: transform 0.3s ease-out;
 }
+@media (prefers-reduced-motion: reduce) {
+  .gl-modal-content {
+    transition: none;
+  }
+}
 .gl-modal-content[data-starting-style], .gl-modal-content[data-ending-style] {
   transform: translateY(-50px);
 }
@@ -3761,6 +3771,11 @@ textarea.gl-form-textarea {
   height: 100vh;
   opacity: 1;
   transition: opacity 0.15s linear;
+}
+@media (prefers-reduced-motion: reduce) {
+  .gl-modal-backdrop {
+    transition: none;
+  }
 }
 .gl-modal-backdrop[data-starting-style], .gl-modal-backdrop[data-ending-style] {
   opacity: 0;

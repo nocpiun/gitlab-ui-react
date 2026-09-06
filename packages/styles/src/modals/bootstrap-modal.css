@@ -20,6 +20,10 @@
   opacity: 1;
   transition: opacity 0.15s linear;
 
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
@@ -62,6 +66,10 @@
   transform: none;
   transition: transform 0.3s ease-out;
 
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
   &[data-starting-style],
   &[data-ending-style] {
     transform: translateY(-50px);
@@ -77,6 +85,10 @@
   height: 100vh;
   opacity: 1;
   transition: opacity 0.15s linear;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 
   &[data-starting-style],
   &[data-ending-style] {
