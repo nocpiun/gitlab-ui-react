@@ -1,0 +1,19 @@
+/**
+ * Bootstrap breadcrumb compatibility required by GlBreadcrumb.
+ *
+ * Ported from Bootstrap v4.6's _breadcrumb.scss as vendored by GitLab UI.
+ * The selector is scoped to the React component marker so unrelated ordered
+ * lists do not receive Bootstrap's global `.breadcrumb` API. `:where()` keeps
+ * the marker from raising Bootstrap's original class specificity, allowing
+ * the component-private styles loaded later to override this foundation.
+ */
+
+:where(.gl-breadcrumbs) .breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  list-style: none;
+  background-color: var(--gray-200);
+  border-radius: 0.25rem;
+}
