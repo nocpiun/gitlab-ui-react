@@ -5739,6 +5739,144 @@ a.gl-badge.badge-tier:not(.disabled):active, a.gl-badge.badge-tier:not(.disabled
   text-decoration: none;
   background: none;
 }
+.gl-drawer {
+  background-color: var(--gl-background-color-overlap);
+  right: 0;
+  transition-property: all;
+  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration, var(--default-transition-duration));
+  --tw-duration: 200ms;
+  transition-duration: 200ms;
+  --tw-ease: ease;
+  transition-timing-function: ease;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  --tw-shadow: var(--gl-shadow-lg);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  font-size: var(--gl-font-size-base);
+  --tw-leading: 1rem;
+  line-height: 1rem;
+  display: flex;
+  flex-direction: column;
+  border-top-left-radius: var(--gl-drawer-border-radius);
+  border-bottom-left-radius: var(--gl-drawer-border-radius);
+}
+.gl-drawer[data-starting-style], .gl-drawer[data-ending-style] {
+  transform: translateX(100%);
+}
+.gl-drawer .gl-drawer-header-sticky {
+  background-color: var(--gl-background-color-overlap);
+  top: 0;
+  position: sticky;
+}
+@media (width >= 768px) {
+  .gl-drawer-default {
+    width: 400px;
+  }
+  .gl-drawer-sidebar {
+    width: 290px;
+  }
+}
+.gl-drawer-default .gl-drawer-header, .gl-drawer-default .gl-drawer-body > * {
+  padding: var(--gl-spacing-scale-5);
+}
+.gl-drawer-sidebar .gl-drawer-header, .gl-drawer-sidebar .gl-drawer-body > * {
+  padding-block: var(--gl-spacing-scale-5);
+}
+.gl-drawer-sidebar .gl-drawer-body > * {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: var(--gl-border-color-default);
+  margin-inline: var(--gl-spacing-scale-5);
+}
+.gl-drawer-sidebar .gl-drawer-body > *:last-child {
+  --tw-border-style: none;
+  border-style: none;
+}
+.gl-drawer-sidebar .gl-drawer-header {
+  padding-inline: var(--gl-spacing-scale-5);
+}
+.gl-drawer-footer {
+  background-color: var(--gl-background-color-overlap);
+  border-top-style: var(--tw-border-style);
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: var(--gl-border-color-default);
+  padding: var(--gl-spacing-scale-5);
+}
+.gl-drawer-body-scrim-on-footer::before {
+  background: linear-gradient( to bottom, var(--gl-color-alpha-0), var(--gl-background-color-overlap) );
+  top: -1px;
+  --tw-translate-y: -100%;
+  translate: var(--tw-translate-x) var(--tw-translate-y);
+  content: "";
+  left: 0;
+  position: absolute;
+  pointer-events: none;
+  width: 100%;
+  height: var(--gl-spacing-scale-7);
+}
+.gl-drawer-footer-sticky {
+  bottom: 0;
+  position: sticky;
+}
+.gl-drawer-header {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: var(--gl-border-color-default);
+}
+.gl-drawer-title {
+  color: var(--gl-text-color-heading);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.gl-drawer-title svg {
+  width: var(--gl-spacing-scale-5);
+  height: var(--gl-spacing-scale-5);
+  vertical-align: middle;
+}
+.gl-drawer-heading {
+  font-weight: var(--gl-heading-scale-500-font-weight);
+  margin-top: var(--gl-heading-scale-500-margin-top);
+  font-size: var(--gl-heading-scale-500-font-size);
+  letter-spacing: var(--gl-heading-scale-500-letter-spacing);
+  line-height: var(--gl-heading-scale-500-line-height);
+  color: var(--gl-heading-scale-500-color);
+  margin-bottom: 0;
+}
+.gl-drawer-actions {
+  margin-top: var(--gl-spacing-scale-5);
+  display: flex;
+  gap: var(--gl-spacing-scale-3);
+}
+.gl-drawer-close-button {
+  align-self: flex-start;
+  background-color: transparent;
+  --tw-border-style: none;
+  border-style: none;
+}
+.gl-drawer-body {
+  flex-grow: 1;
+  background-color: inherit;
+}
+.gl-drawer-body-shrink {
+  overflow-y: auto;
+}
+.gl-drawer-body-scrim::after {
+  background: linear-gradient( to bottom, var(--gl-color-alpha-0), var(--gl-background-color-overlap) );
+  content: "";
+  bottom: 0;
+  pointer-events: none;
+  width: 100%;
+  position: fixed;
+  height: var(--gl-spacing-scale-7);
+  border-bottom-left-radius: var(--gl-drawer-border-radius);
+}
 .gl-form-checkbox-group {
   --tw-leading: 1rem;
   line-height: 1rem;
@@ -7899,6 +8037,21 @@ table.gl-table.table-borderless tr > :is(th, td) {
   syntax: "*";
   inherits: false;
 }
+@property --tw-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -7939,6 +8092,9 @@ table.gl-table.table-borderless tr > :is(th, td) {
       --tw-font-weight: initial;
       --tw-duration: initial;
       --tw-ease: initial;
+      --tw-translate-x: 0;
+      --tw-translate-y: 0;
+      --tw-translate-z: 0;
     }
   }
 }
