@@ -6,121 +6,236 @@
  * run in a node environment.
  */
 
-import type { ComponentProps, ReactNode } from "react";
+import {
+  Fragment,
+  createRef,
+  type ComponentProps,
+  type ReactNode,
+} from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
-import GlBanner from "./banner";
+import GlButton from "../button/button";
+import GlBanner, {
+  GlBannerActions,
+  GlBannerDescription,
+  GlBannerTitle,
+} from "./banner";
 
 vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
 
-const defaultProps = {
-  buttonLink: "https://gitlab.com",
-  buttonText: "Upgrade your plan",
-  title: "Upgrade to activate Service Desk",
-} satisfies ComponentProps<typeof GlBanner>;
+const defaultContent = (
+  <>
+    <GlBannerTitle>Upgrade to activate Service Desk</GlBannerTitle>
+    <GlBannerDescription>
+      <p>Banner message</p>
+    </GlBannerDescription>
+    <GlBannerActions>
+      <GlButton category="primary" variant="confirm">Upgrade your plan</GlButton>
+    </GlBannerActions>
+  </>
+);
 
 const renderBanner = (
   props: Partial<ComponentProps<typeof GlBanner>> = {},
-  children: ReactNode = "Banner message",
-) => renderToStaticMarkup(
-  <GlBanner {...defaultProps} {...props}>{children}</GlBanner>,
-);
+  children: ReactNode = defaultContent,
+) => renderToStaticMarkup(<GlBanner {...props}>{children}</GlBanner>);
 
 describe("GlBanner", () => {
-  describe("promotion", () => {
-    it("renders the title and message", () => {
-      const markup = renderBanner();
+  it("renders the compound parts with their semantic elements and structural classes", () => {
+    const markup = renderBanner();
 
-      expect(markup).toContain(`<h2 class="gl-banner-title">${defaultProps.title}</h2>`);
-      expect(markup).toContain("Banner message");
-    });
-
-    it("renders the card structure and promotion classes", () => {
-      const markup = renderBanner();
-
-      expect(markup).toContain("gl-card gl-banner gl-py-6 gl-pl-6 gl-pr-8");
-      expect(markup).toContain("gl-card-body gl-flex gl-bg-transparent !gl-p-0");
-      expect(markup).not.toContain("gl-banner-introduction");
-    });
-
-    it("renders the primary action as a confirm link", () => {
-      const markup = renderBanner();
-
-      expect(markup).toContain("data-testid=\"gl-banner-primary-button\"");
-      expect(markup).toContain("class=\"btn gl-button btn-md btn-confirm\"");
-      expect(markup).toContain(`href="${defaultProps.buttonLink}"`);
-      expect(markup).toContain(`<span class="gl-button-text">${defaultProps.buttonText}</span>`);
-    });
-
-    it("renders the primary action as a button without a link", () => {
-      const markup = renderBanner({ buttonLink: null });
-
-      expect(markup).toContain("<button");
-      expect(markup).not.toContain("<a ");
-    });
-
-    it("passes buttonAttributes to the primary action", () => {
-      const markup = renderBanner({
-        buttonAttributes: {
-          className: "custom-action",
-          target: "_blank",
-        },
-      });
-
-      expect(markup).toContain("btn-confirm custom-action");
-      expect(markup).toContain("target=\"_blank\"");
-      expect(markup).toContain("rel=\"noopener noreferrer\"");
-    });
-
-    it("renders the dismiss action with the default accessible label", () => {
-      const markup = renderBanner();
-
-      expect(markup).toContain("gl-banner-close");
-      expect(markup).toContain("aria-label=\"Dismiss\"");
-      expect(markup).toContain("data-testid=\"close-icon\"");
-    });
-
-    it("uses a custom dismiss label", () => {
-      expect(renderBanner({ dismissLabel: "Close banner" })).toContain(
-        "aria-label=\"Close banner\"",
-      );
-    });
-
-    it("does not render an illustration region", () => {
-      const markup = renderBanner();
-
-      expect(markup).not.toContain("gl-banner-illustration");
-      expect(markup).not.toContain("<img");
-    });
+    expect(markup).toContain(
+      "<h2 class=\"gl-banner-title\">Upgrade to activate Service Desk</h2>",
+    );
+    expect(markup).toContain(
+      "<div class=\"gl-banner-description\"><p>Banner message</p></div>",
+    );
+    expect(markup).toContain("<div class=\"gl-banner-actions\">");
+    expect(markup).toContain("<span class=\"gl-button-text\">Upgrade your plan</span>");
   });
 
-  describe("introduction", () => {
-    it("adds the introduction class", () => {
-      expect(renderBanner({ variant: "introduction" })).toContain(
-        "gl-banner-introduction",
-      );
-    });
+  it("renders the card structure and promotion classes by default", () => {
+    const markup = renderBanner();
+
+    expect(markup).toContain("gl-card gl-banner gl-py-6 gl-pl-6 gl-pr-8");
+    expect(markup).toContain("gl-card-body gl-flex gl-bg-transparent !gl-p-0");
+    expect(markup).not.toContain("gl-banner-introduction");
   });
 
-  describe("actions", () => {
-    it("renders custom actions after the primary action", () => {
-      const markup = renderBanner({
-        actions: <span>Ask again later</span>,
-        buttonLink: null,
-      });
+  it("renders composed primary and secondary actions", () => {
+    const markup = renderBanner({}, (
+      <GlBannerActions>
+        <GlButton category="primary" variant="confirm">Primary action</GlButton>
+        <GlButton className="gl-ml-4" variant="link">Ask again later</GlButton>
+      </GlBannerActions>
+    ));
 
-      expect(markup).toContain(
-        "</button><span>Ask again later</span>",
-      );
-    });
+    expect(markup).toContain("btn-confirm");
+    expect(markup).toContain("Primary action");
+    expect(markup).toContain("btn-link gl-ml-4");
+    expect(markup).toContain("Ask again later");
   });
 
-  describe("element props", () => {
-    it("passes native attributes and merges a consumer className", () => {
-      const markup = renderBanner({ className: "gl-mb-5", id: "upgrade-banner" });
+  it("renders the dismiss action with the default accessible label", () => {
+    const markup = renderBanner();
 
-      expect(markup).toContain("gl-pr-8 gl-mb-5");
-      expect(markup).toContain("id=\"upgrade-banner\"");
-    });
+    expect(markup).toContain("gl-banner-close");
+    expect(markup).toContain("aria-label=\"Dismiss\"");
+    expect(markup).toContain("data-testid=\"close-icon\"");
+  });
+
+  it("uses a custom dismiss label", () => {
+    expect(renderBanner({ dismissLabel: "Close banner" })).toContain(
+      "aria-label=\"Close banner\"",
+    );
+  });
+
+  it("does not render an illustration region", () => {
+    const markup = renderBanner();
+
+    expect(markup).not.toContain("gl-banner-illustration");
+    expect(markup).not.toContain("<img");
+  });
+
+  it("adds the introduction class", () => {
+    expect(renderBanner({ variant: "introduction" })).toContain(
+      "gl-banner-introduction",
+    );
+  });
+
+  it("allows every compound part to be omitted", () => {
+    expect(renderBanner({}, null)).toContain("<div class=\"gl-banner-content\"></div>");
+    expect(renderBanner({}, <GlBannerTitle>Title</GlBannerTitle>)).toContain("Title");
+    expect(
+      renderBanner({}, <GlBannerDescription>Description</GlBannerDescription>),
+    ).toContain("Description");
+    expect(renderBanner({}, <GlBannerActions>Actions</GlBannerActions>)).toContain("Actions");
+  });
+
+  it("supports arrays, Fragments, and conditional children", () => {
+    const showDescription = true;
+    const showActions = true;
+    const hideExtraActions = false;
+    const markup = renderBanner({}, [
+      <GlBannerTitle key="title">Title</GlBannerTitle>,
+      <Fragment key="content">
+        {showDescription && <GlBannerDescription>Description</GlBannerDescription>}
+        {hideExtraActions && <GlBannerActions>Hidden actions</GlBannerActions>}
+      </Fragment>,
+      showActions ? <GlBannerActions key="actions">Actions</GlBannerActions> : null,
+    ]);
+
+    expect(markup).toContain("Title");
+    expect(markup).toContain("Description");
+    expect(markup).toContain("Actions");
+    expect(markup).not.toContain("Hidden actions");
+  });
+
+  it("rejects duplicate compound parts", () => {
+    const duplicateParts = [
+      {
+        children: (
+          <>
+            <GlBannerTitle>One</GlBannerTitle>
+            <GlBannerTitle>Two</GlBannerTitle>
+          </>
+        ),
+        name: "GlBannerTitle",
+      },
+      {
+        children: (
+          <>
+            <GlBannerDescription>One</GlBannerDescription>
+            <GlBannerDescription>Two</GlBannerDescription>
+          </>
+        ),
+        name: "GlBannerDescription",
+      },
+      {
+        children: (
+          <>
+            <GlBannerActions>One</GlBannerActions>
+            <GlBannerActions>Two</GlBannerActions>
+          </>
+        ),
+        name: "GlBannerActions",
+      },
+    ];
+
+    for(const part of duplicateParts) {
+      expect(() => renderBanner({}, part.children)).toThrowError(
+        `GlBanner accepts at most one ${part.name} child.`,
+      );
+    }
+  });
+
+  it("rejects unsupported direct children", () => {
+    function WrappedTitle() {
+      return <GlBannerTitle>Wrapped title</GlBannerTitle>;
+    }
+
+    const invalidChildren = [
+      "Direct text",
+      <div key="native">Native element</div>,
+      <WrappedTitle key="wrapped" />,
+    ];
+
+    for(const child of invalidChildren) {
+      expect(() => renderBanner({}, child)).toThrowError(
+        "GlBanner only accepts GlBannerTitle, GlBannerDescription, and GlBannerActions "
+        + "as direct children. Arrays, Fragments, and conditional children are supported.",
+      );
+    }
+  });
+
+  it("preserves the consumer-provided part order", () => {
+    const markup = renderBanner({}, (
+      <>
+        <GlBannerActions>Actions</GlBannerActions>
+        <GlBannerDescription>Description</GlBannerDescription>
+        <GlBannerTitle>Title</GlBannerTitle>
+      </>
+    ));
+
+    expect(markup.indexOf("Actions")).toBeLessThan(markup.indexOf("Description"));
+    expect(markup.indexOf("Description")).toBeLessThan(markup.indexOf("Title"));
+  });
+
+  it("passes native attributes and merges consumer classes on every part", () => {
+    const markup = renderToStaticMarkup(
+      <GlBanner className="custom-banner" id="upgrade-banner">
+        <GlBannerTitle className="custom-title" id="banner-title">Title</GlBannerTitle>
+        <GlBannerDescription className="custom-description" lang="en">
+          Description
+        </GlBannerDescription>
+        <GlBannerActions className="custom-actions" aria-label="Banner actions">
+          Actions
+        </GlBannerActions>
+      </GlBanner>,
+    );
+
+    expect(markup).toContain("gl-pr-8 custom-banner");
+    expect(markup).toContain("id=\"upgrade-banner\"");
+    expect(markup).toContain("id=\"banner-title\"");
+    expect(markup).toContain("gl-banner-title custom-title");
+    expect(markup).toContain("lang=\"en\"");
+    expect(markup).toContain("gl-banner-description custom-description");
+    expect(markup).toContain("aria-label=\"Banner actions\"");
+    expect(markup).toContain("gl-banner-actions custom-actions");
+  });
+
+  it("accepts refs for the root and every compound part", () => {
+    const bannerRef = createRef<HTMLDivElement>();
+    const titleRef = createRef<HTMLHeadingElement>();
+    const descriptionRef = createRef<HTMLDivElement>();
+    const actionsRef = createRef<HTMLDivElement>();
+
+    expect(() => renderToStaticMarkup(
+      <GlBanner ref={bannerRef}>
+        <GlBannerTitle ref={titleRef}>Title</GlBannerTitle>
+        <GlBannerDescription ref={descriptionRef}>Description</GlBannerDescription>
+        <GlBannerActions ref={actionsRef}>Actions</GlBannerActions>
+      </GlBanner>,
+    )).not.toThrow();
   });
 });
