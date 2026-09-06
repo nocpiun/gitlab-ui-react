@@ -8,8 +8,8 @@
  *   listeners with `v-on="$listeners"`); `onChange`/`onUpdate`/`onBlur` and
  *   the other GlFormInput props pass through as well.
  * - The `visibility-change` event maps to the `onVisibilityChange` callback.
- * - The `v-gl-tooltip` directive on the toggle maps to wrapping the button in
- *   GlTooltip (Base UI trigger composition).
+ * - The `v-gl-tooltip` directive on the toggle maps to the compound GlTooltip
+ *   parts backed by Base UI trigger composition.
  * - The i18n defaults for the toggle labels resolve to the upstream English
  *   defaults; this package has no i18n runtime.
  * - Additional attributes are forwarded to the inner input, like upstream's
@@ -36,7 +36,7 @@ import { forwardRef, useState, type CSSProperties } from "react";
 import { clsx } from "cn";
 import GlButton from "../button/button";
 import GlFormInput, { type GlFormInputProps, widthClasses } from "../form-input/form-input";
-import GlTooltip from "../tooltip/tooltip";
+import GlTooltip, { GlTooltipContent, GlTooltipTrigger } from "../tooltip/tooltip";
 
 export type GlFormPasswordInputProps = Omit<
   GlFormInputProps,
@@ -113,15 +113,18 @@ const GlFormPasswordInput = forwardRef<HTMLInputElement, GlFormPasswordInputProp
           onInput={onInput}
           type={isMasked ? "password" : "text"}
           value={value} />
-        <GlTooltip title={toggleLabel}>
-          <GlButton
-            aria-label={toggleLabel}
-            category="tertiary"
-            className="gl-form-password-input-toggle"
-            disabled={disabled}
-            icon={isMasked ? "eye" : "eye-slash"}
-            onClick={toggleVisibility}
-            size="small" />
+        <GlTooltip>
+          <GlTooltipTrigger>
+            <GlButton
+              aria-label={toggleLabel}
+              category="tertiary"
+              className="gl-form-password-input-toggle"
+              disabled={disabled}
+              icon={isMasked ? "eye" : "eye-slash"}
+              onClick={toggleVisibility}
+              size="small" />
+          </GlTooltipTrigger>
+          <GlTooltipContent>{toggleLabel}</GlTooltipContent>
         </GlTooltip>
       </div>
     );
