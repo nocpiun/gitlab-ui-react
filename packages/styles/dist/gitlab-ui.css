@@ -3323,6 +3323,16 @@ textarea.gl-form-textarea {
   line-height: 1rem;
   color: var(--gl-control-text-color-error);
 }
+.gl-clear-icon-button {
+  background-color: transparent;
+  --tw-border-style: none;
+  border-style: none;
+  cursor: pointer;
+}
+.gl-clear-icon-button:focus-visible {
+  box-shadow: 0 0 0 1px var(--gl-focus-ring-inner-color), 0 0 0 3px var(--gl-focus-ring-outer-color);
+  outline: none;
+}
 .gl-new-dropdown {
   position: relative;
   display: inline-flex;
@@ -6532,6 +6542,130 @@ input[type="color"].gl-form-input.form-control:disabled {
     background-color: CanvasText;
   }
 }
+.gl-path-nav {
+  position: relative;
+  display: flex;
+}
+.gl-path-nav .gl-path-nav-list {
+  padding: var(--gl-spacing-scale-1);
+  margin: var(--gl-spacing-scale-0);
+  list-style-type: none;
+  display: inline-flex;
+  overflow: hidden;
+  margin-left: -1px;
+  position: relative;
+}
+.gl-path-nav .gl-path-nav-list-item {
+  min-width: fit-content;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+.gl-path-nav .gl-path-nav-list-item:first-of-type {
+  padding-left: 1px;
+}
+.gl-path-nav .gl-path-button {
+  padding-left: var(--gl-spacing-scale-5);
+  padding-block: var(--gl-spacing-scale-3);
+  display: flex;
+  font-size: var(--gl-font-size-base);
+  z-index: var(--gl-zindex-0);
+  --tw-font-weight: var(--gl-font-weight-bold);
+  font-weight: var(--gl-font-weight-bold);
+  --tw-leading: 1rem;
+  line-height: 1rem;
+  border-top-left-radius: var(--gl-border-radius-default);
+  border-bottom-left-radius: var(--gl-border-radius-default);
+  --tw-border-style: none;
+  border-style: none;
+  background-color: var(--gl-action-neutral-background-color-default);
+  color: var(--gl-action-neutral-foreground-color-default);
+  margin-right: 0.875rem;
+  padding-right: 0.625rem;
+  position: relative;
+}
+.gl-path-nav .gl-path-button::before, .gl-path-nav .gl-path-button::after {
+  background-color: inherit;
+  content: "";
+  position: absolute;
+  top: 0.25rem;
+  right: -0.75rem;
+  width: 1.5rem;
+  z-index: -1;
+  height: 1.5rem;
+  transform: rotate(45deg) skew(14deg, 14deg);
+  border-top-left-radius: 0.625rem;
+  border-bottom-right-radius: 0.625rem;
+  border-top-right-radius: 0.125rem;
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+.gl-path-nav .gl-path-button::before {
+  background-color: var(--gl-color-alpha-0);
+  display: none;
+  z-index: 2;
+  right: calc(-0.75rem + 1px);
+  box-shadow: 0 0 0 1px var(--gl-focus-ring-inner-color), 0.5px -0.5px 0 2.5px var(--gl-focus-ring-outer-color);
+  clip-path: polygon(0% 0%, 0% -30%, 160% 0%, 75% 130%, 100% 100%);
+  transform: rotate(45deg) skew(14deg, 14deg) scale(0.99);
+}
+.gl-path-nav .gl-path-button:hover {
+  background-color: var(--gl-action-neutral-background-color-hover);
+  color: var(--gl-action-neutral-foreground-color-hover);
+}
+.gl-path-nav .gl-path-button:focus-visible {
+  background-color: var(--gl-action-neutral-background-color-focus);
+  color: var(--gl-action-neutral-foreground-color-focus);
+}
+.gl-path-nav .gl-path-button:active {
+  background-color: var(--gl-action-neutral-background-color-active);
+  color: var(--gl-action-neutral-foreground-color-active);
+}
+.gl-path-nav .gl-path-button:active, .gl-path-nav .gl-path-button:focus-visible, .gl-path-nav .gl-path-button:focus-visible:active {
+  box-shadow: 5px -3px 0 -2px var(--gl-focus-ring-inner-color), 5px 3px 0 -2px var(--gl-focus-ring-inner-color), 0 0 0 1px var(--gl-focus-ring-inner-color), 0 0 0 3px var(--gl-focus-ring-outer-color);
+  outline: none;
+  border-top-right-radius: 1px;
+  border-bottom-right-radius: 1px;
+}
+.gl-path-nav .gl-path-button:active::before, .gl-path-nav .gl-path-button:focus-visible::before, .gl-path-nav .gl-path-button:focus-visible:active::before {
+  display: block;
+}
+.gl-path-nav .gl-path-button.gl-path-active-item {
+  background-color: var(--gl-action-selected-background-color-default);
+  color: var(--gl-action-selected-foreground-color-default);
+}
+.gl-path-nav .gl-path-button:disabled {
+  cursor: not-allowed;
+  background-color: var(--gl-color-alpha-0);
+  box-shadow: none;
+  color: var(--gl-action-disabled-foreground-color);
+}
+.gl-path-nav .gl-path-button:disabled::before {
+  box-shadow: none;
+}
+.gl-path-nav .gl-path-fade {
+  width: var(--gl-spacing-scale-8);
+  height: 100%;
+  z-index: var(--gl-zindex-2);
+  bottom: 0;
+  color: var(--gl-text-color-subtle);
+  position: absolute;
+}
+.gl-path-nav .gl-path-fade-left {
+  left: 0;
+  background-image: linear-gradient( to left, var(--gl-color-alpha-0), var(--path-bg-color) 33% );
+}
+.gl-path-nav .gl-path-fade-right {
+  right: 0;
+  text-align: right;
+  background-image: linear-gradient( to right, var(--gl-color-alpha-0), var(--path-bg-color) 33% );
+}
+.gl-path-nav .gl-clear-icon-button {
+  padding: var(--gl-spacing-scale-0);
+  height: 100%;
+  color: var(--gl-icon-color-subtle);
+}
+.gl-path-nav .gl-clear-icon-button .gl-icon {
+  vertical-align: middle;
+}
 .gl-popover {
   max-width: 280px;
   background-color: var(--gl-background-color-overlap);
@@ -7303,6 +7437,9 @@ table.gl-table.table-borderless tr > :is(th, td) {
 .-gl-mr-3 {
   margin-right: calc(var(--gl-spacing-scale-3) * -1);
 }
+.gl-mr-2 {
+  margin-right: var(--gl-spacing-scale-2);
+}
 .gl-mb-0 {
   margin-bottom: var(--gl-spacing-scale-0);
 }
@@ -7529,6 +7666,9 @@ table.gl-table.table-borderless tr > :is(th, td) {
 .gl-p-2 {
   padding: var(--gl-spacing-scale-2);
 }
+.gl-p-5 {
+  padding: var(--gl-spacing-scale-5);
+}
 .gl-p-12 {
   padding: var(--gl-spacing-scale-12);
 }
@@ -7559,6 +7699,9 @@ table.gl-table.table-borderless tr > :is(th, td) {
 .gl-pl-0 {
   padding-left: var(--gl-spacing-scale-0);
 }
+.gl-pl-2 {
+  padding-left: var(--gl-spacing-scale-2);
+}
 .gl-pl-4 {
   padding-left: var(--gl-spacing-scale-4);
 }
@@ -7586,6 +7729,10 @@ table.gl-table.table-borderless tr > :is(th, td) {
 .gl-font-bold {
   --tw-font-weight: var(--gl-font-weight-bold);
   font-weight: var(--gl-font-weight-bold);
+}
+.gl-font-normal {
+  --tw-font-weight: var(--gl-font-weight-normal);
+  font-weight: var(--gl-font-weight-normal);
 }
 .gl-text-wrap {
   text-wrap: wrap;

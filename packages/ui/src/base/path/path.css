@@ -1,0 +1,162 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/path/path.scss
+ */
+
+.gl-path-nav {
+  position: relative;
+  @apply gl-flex;
+
+  .gl-path-nav-list {
+    @apply gl-p-1;
+    @apply gl-m-0;
+    @apply gl-list-none;
+    @apply gl-inline-flex;
+    @apply gl-overflow-hidden;
+    margin-left: -1px;
+    position: relative;
+  }
+
+  .gl-path-nav-list-item {
+    @apply gl-min-w-fit;
+    padding-top: 1px;
+    padding-bottom: 1px;
+
+    &:first-of-type {
+      padding-left: 1px;
+    }
+  }
+
+  .gl-path-button {
+    @apply gl-pl-5;
+    @apply gl-py-3;
+    @apply gl-flex;
+    @apply gl-text-base;
+    @apply gl-z-0;
+    @apply gl-font-bold;
+    @apply gl-leading-normal;
+    @apply gl-rounded-tl-default;
+    @apply gl-rounded-bl-default;
+    @apply gl-border-none;
+    background-color: var(--gl-action-neutral-background-color-default);
+    color: var(--gl-action-neutral-foreground-color-default);
+    margin-right: 0.875rem;
+    padding-right: 0.625rem;
+    position: relative;
+
+    &::before,
+    &::after {
+      @apply gl-bg-inherit;
+      content: "";
+      position: absolute;
+      top: 0.25rem;
+      right: -0.75rem;
+      width: 1.5rem;
+      z-index: -1;
+      height: 1.5rem;
+      transform: rotate(45deg) skew(14deg, 14deg);
+      border-top-left-radius: 0.625rem;
+      border-bottom-right-radius: 0.625rem;
+      border-top-right-radius: 0.125rem;
+      clip-path: polygon(100% 0, 0 0, 100% 100%);
+    }
+
+    &::before {
+      background-color: var(--gl-color-alpha-0);
+      display: none;
+      z-index: 2;
+      right: calc(-0.75rem + 1px);
+      box-shadow:
+        0 0 0 1px var(--gl-focus-ring-inner-color),
+        0.5px -0.5px 0 2.5px var(--gl-focus-ring-outer-color);
+      clip-path: polygon(0% 0%, 0% -30%, 160% 0%, 75% 130%, 100% 100%);
+      transform: rotate(45deg) skew(14deg, 14deg) scale(0.99);
+    }
+
+    &:hover {
+      background-color: var(--gl-action-neutral-background-color-hover);
+      color: var(--gl-action-neutral-foreground-color-hover);
+    }
+
+    &:focus-visible {
+      background-color: var(--gl-action-neutral-background-color-focus);
+      color: var(--gl-action-neutral-foreground-color-focus);
+    }
+
+    &:active {
+      background-color: var(--gl-action-neutral-background-color-active);
+      color: var(--gl-action-neutral-foreground-color-active);
+    }
+
+    &:active,
+    &:focus-visible,
+    &:focus-visible:active {
+      box-shadow:
+        5px -3px 0 -2px var(--gl-focus-ring-inner-color),
+        5px 3px 0 -2px var(--gl-focus-ring-inner-color),
+        0 0 0 1px var(--gl-focus-ring-inner-color),
+        0 0 0 3px var(--gl-focus-ring-outer-color);
+      outline: none;
+      border-top-right-radius: 1px;
+      border-bottom-right-radius: 1px;
+
+      &::before {
+        display: block;
+      }
+    }
+
+    &.gl-path-active-item {
+      background-color: var(--gl-action-selected-background-color-default);
+      color: var(--gl-action-selected-foreground-color-default);
+    }
+
+    &:disabled {
+      @apply gl-cursor-not-allowed;
+      background-color: var(--gl-color-alpha-0);
+      box-shadow: none;
+      color: var(--gl-action-disabled-foreground-color);
+
+      &::before {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .gl-path-fade {
+    @apply gl-w-8;
+    @apply gl-h-full;
+    @apply gl-z-2;
+    bottom: 0;
+    @apply gl-text-subtle;
+    position: absolute;
+
+    &-left {
+      left: 0;
+      background-image: linear-gradient(
+        to left,
+        var(--gl-color-alpha-0),
+        var(--path-bg-color) 33%
+      );
+    }
+
+    &-right {
+      right: 0;
+      @apply gl-text-right;
+      background-image: linear-gradient(
+        to right,
+        var(--gl-color-alpha-0),
+        var(--path-bg-color) 33%
+      );
+    }
+  }
+
+  .gl-clear-icon-button {
+    @apply gl-p-0;
+    @apply gl-h-full;
+    color: var(--gl-icon-color-subtle);
+
+    .gl-icon {
+      @apply gl-align-middle;
+    }
+  }
+}

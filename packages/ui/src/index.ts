@@ -252,6 +252,18 @@ export type {
   GlPopoverTriggerMode,
   GlPopoverTriggerProps,
 } from "./base/popover/popover";
+export {
+  default as GlPath,
+  GlPathItem,
+  GlPathItemMetric,
+  GlPathItemTitle,
+} from "./base/path/path";
+export type {
+  GlPathItemMetricProps,
+  GlPathItemProps,
+  GlPathItemTitleProps,
+  GlPathProps,
+} from "./base/path/path";
 export { default as GlProgressBar } from "./base/progress-bar/progress-bar";
 export type {
   GlProgressBarProps,
