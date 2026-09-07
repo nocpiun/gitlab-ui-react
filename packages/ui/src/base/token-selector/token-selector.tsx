@@ -266,12 +266,12 @@ const GlTokenSelector = forwardRef<HTMLInputElement, GlTokenSelectorProps>(funct
   useEffect(() => {
     // This intentionally runs after rendering so consumers can update `items` in
     // response to onInputValueChange before the visibility decision is made.
-    if(hideDropdown || viewOnly) {
+    if(hideDropdown || viewOnly || !inputFocused) {
       closeDropdown();
     } else if(inputValue !== "") {
       setOpen(true);
     }
-  }, [closeDropdown, hideDropdown, inputValue, items, viewOnly]);
+  }, [closeDropdown, hideDropdown, inputFocused, inputValue, items, viewOnly]);
 
   useEffect(() => {
     setActiveIndex((index) => getBoundedIndex(index, dropdownItems.length));

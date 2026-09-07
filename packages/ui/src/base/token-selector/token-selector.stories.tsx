@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { expect, fn, userEvent, waitFor, within } from "storybook/test";
 import GlAvatar from "../avatar/avatar";
+import GlButton from "../button/button";
 import GlTokenSelector, {
   type GlTokenSelectorItem,
   type GlTokenSelectorProps,
@@ -306,6 +307,43 @@ export const LoadingWithResults: Story = {
     canvas.getByRole("combobox", { name: "Projects" }).focus();
     await expect(await canvas.findByText("Searching projects...")).toBeVisible();
     await expect(canvas.getByRole("option", { name: "GitLab" })).toBeVisible();
+  },
+};
+
+function AsyncResultsAfterBlurExample() {
+  const [items, setItems] = useState<GlTokenSelectorItem[]>([]);
+
+  return (
+    <div style={{ maxWidth: 520 }}>
+      <label htmlFor="async-token-selector">Async projects</label>
+      <GlTokenSelector id="async-token-selector" items={items} />
+      <GlButton onClick={() => setItems([{ id: "runner", name: "Runner" }])}>
+        {items.length > 0 ? "Results loaded" : "Resolve search"}
+      </GlButton>
+    </div>
+  );
+}
+
+export const AsyncResultsAfterBlur: Story = {
+  args: {
+    defaultValue: [],
+  },
+  render: () => <AsyncResultsAfterBlurExample />,
+  play: async ({ canvas }) => {
+    const input = canvas.getByRole("combobox", { name: "Async projects" });
+    await userEvent.type(input, "run");
+    await expect(input).toHaveAttribute("aria-expanded", "true");
+
+    input.blur();
+    await waitFor(() => expect(input).toHaveAttribute("aria-expanded", "false"));
+    await userEvent.click(canvas.getByRole("button", { name: "Resolve search" }));
+    await expect(canvas.getByRole("button", { name: "Results loaded" })).toHaveFocus();
+    await expect(input).toHaveAttribute("aria-expanded", "false");
+    await expect(canvas.queryByRole("listbox")).not.toBeInTheDocument();
+
+    input.focus();
+    await waitFor(() => expect(input).toHaveAttribute("aria-expanded", "true"));
+    await expect(await canvas.findByRole("option", { name: "Runner" })).toBeVisible();
   },
 };
 
