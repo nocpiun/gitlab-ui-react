@@ -43,4 +43,6 @@
 @import "../../ui/src/base/table/table.css";
 @import "../../ui/src/base/tabs/tabs.css";
 @import "../../ui/src/base/toggle/toggle.css";
+@import "../../ui/src/base/token/token.css";
+@import "../../ui/src/base/token-selector/token-selector.css";
 @import "../../ui/src/base/tooltip/tooltip.css";
