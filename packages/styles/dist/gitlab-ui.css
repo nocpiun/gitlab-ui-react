@@ -6475,6 +6475,10 @@ input[type="color"].gl-form-input.form-control:disabled {
   height: 72px;
   width: 72px;
 }
+.gl-keyset-pagination.btn-group .gl-button.gl-button {
+  padding-inline: var(--gl-spacing-scale-3);
+  border-radius: var(--gl-action-border-radius);
+}
 .gl-label {
   position: relative;
   display: inline-flex;
@@ -6971,6 +6975,96 @@ input[type="color"].gl-form-input.form-control:disabled {
     align-items: center;
     min-height: calc(100% - 1rem);
   }
+}
+.gl-pagination {
+  font-size: var(--gl-font-size-base);
+  text-wrap: nowrap;
+}
+.gl-pagination ul {
+  border-radius: var(--gl-action-border-radius);
+  display: flex;
+  margin: var(--gl-spacing-scale-0);
+  padding-left: var(--gl-spacing-scale-0);
+  list-style-type: none;
+}
+.gl-pagination a {
+  color: var(--gl-action-neutral-foreground-color-default);
+}
+.gl-pagination-item {
+  border-radius: var(--gl-action-border-radius);
+  transition: color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1), background-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1), border-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+  display: flex;
+  justify-content: center;
+  padding: var(--gl-spacing-scale-3);
+  --tw-leading: 1rem;
+  line-height: 1rem;
+  text-decoration-line: none;
+  min-width: var(--gl-spacing-scale-7);
+  text-align: center;
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+  --tw-border-style: solid;
+  border-style: solid;
+  color: var(--gl-action-neutral-foreground-color-default);
+  background-color: var(--gl-action-neutral-background-color-default);
+  border-color: var(--gl-action-neutral-border-color-default);
+}
+.gl-pagination-item:hover {
+    color: var(--gl-action-neutral-foreground-color-hover);
+    background-color: var(--gl-action-neutral-background-color-hover);
+    border-color: var(--gl-action-neutral-border-color-hover);
+  }
+.gl-pagination-item:focus-visible {
+    color: var(--gl-action-neutral-foreground-color-focus);
+    background-color: var(--gl-action-neutral-background-color-focus);
+    border-color: var(--gl-action-neutral-border-color-focus);
+  }
+.gl-pagination-item:active {
+    color: var(--gl-action-neutral-foreground-color-active);
+    background-color: var(--gl-action-neutral-background-color-active);
+    border-color: var(--gl-action-neutral-border-color-active);
+  }
+@media (prefers-reduced-motion) {
+  .gl-pagination-item {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}
+.gl-pagination-item:hover {
+  text-decoration-line: none;
+}
+.gl-pagination-item:focus-visible, .gl-pagination-item:active:focus-visible {
+  text-decoration-line: none;
+  box-shadow: 0 0 0 1px var(--gl-focus-ring-inner-color), 0 0 0 3px var(--gl-focus-ring-outer-color);
+  outline: none;
+}
+.gl-pagination-item:active {
+  text-decoration-line: none;
+}
+.gl-pagination-item:not(.disabled).active {
+  color: var(--gl-action-selected-foreground-color-default);
+  background-color: var(--gl-action-selected-background-color-default);
+  border-color: var(--gl-action-selected-border-color-default);
+}
+.gl-pagination-item:not(.disabled).active:hover {
+  color: var(--gl-action-selected-foreground-color-hover);
+  background-color: var(--gl-action-selected-background-color-hover);
+  border-color: var(--gl-action-selected-border-color-hover);
+}
+.gl-pagination-item:not(.disabled).active:focus-visible {
+  color: var(--gl-action-selected-foreground-color-focus);
+  background-color: var(--gl-action-selected-background-color-focus);
+  border-color: var(--gl-action-selected-border-color-focus);
+}
+.gl-pagination-item:not(.disabled).active:active {
+  color: var(--gl-action-selected-foreground-color-active);
+  background-color: var(--gl-action-selected-background-color-active);
+  border-color: var(--gl-action-selected-border-color-active);
+}
+.gl-pagination .disabled .gl-pagination-item {
+  border-color: transparent;
+  background-color: transparent;
+  color: var(--gl-action-disabled-foreground-color);
 }
 .gl-path-nav {
   position: relative;
@@ -7976,6 +8070,9 @@ table.gl-table.table-borderless tr > :is(th, td) {
 .gl-min-w-0 {
   min-width: var(--gl-spacing-scale-0);
 }
+.gl-flex-auto {
+  flex: auto;
+}
 .gl-shrink-0 {
   flex-shrink: 0;
 }
@@ -7996,6 +8093,12 @@ table.gl-table.table-borderless tr > :is(th, td) {
 }
 .gl-items-start {
   align-items: flex-start;
+}
+.gl-justify-center {
+  justify-content: center;
+}
+.gl-justify-end {
+  justify-content: flex-end;
 }
 .gl-gap-2 {
   gap: var(--gl-spacing-scale-2);
@@ -8143,6 +8246,9 @@ table.gl-table.table-borderless tr > :is(th, td) {
 }
 .\!gl-text-left {
   text-align: left !important;
+}
+.gl-text-center {
+  text-align: center;
 }
 .gl-text-left {
   text-align: left;

@@ -221,6 +221,10 @@ export type {
   GlIconSize,
   GlIconVariant,
 } from "./base/icon/icon";
+export { default as GlKeysetPagination } from "./base/keyset-pagination/keyset-pagination";
+export type {
+  GlKeysetPaginationProps,
+} from "./base/keyset-pagination/keyset-pagination";
 export { default as GlLabel } from "./base/label/label";
 export type { GlLabelProps } from "./base/label/label";
 export { default as GlLink } from "./base/link/link";
@@ -280,6 +284,12 @@ export type {
   GlPopoverTriggerMode,
   GlPopoverTriggerProps,
 } from "./base/popover/popover";
+export { default as GlPagination } from "./base/pagination/pagination";
+export type {
+  GlPaginationAlign,
+  GlPaginationLimits,
+  GlPaginationProps,
+} from "./base/pagination/pagination";
 export {
   default as GlPath,
   GlPathItem,
