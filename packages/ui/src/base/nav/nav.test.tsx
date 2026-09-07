@@ -315,6 +315,22 @@ describe("GlSubNav", () => {
     expect(markup).not.toContain("defaultOpen");
   });
 
+  it("treats an empty parent href as a native disclosure button", () => {
+    const markup = renderToStaticMarkup(
+      <GlNav>
+        <GlNavItem>
+          <GlNavButton href="">Parent</GlNavButton>
+          <GlSubNav>
+            <GlSubNavItem><GlSubNavButton>Child</GlSubNavButton></GlSubNavItem>
+          </GlSubNav>
+        </GlNavItem>
+      </GlNav>,
+    );
+
+    expect(markup).toMatch(/<li[^>]*><button[^>]*aria-expanded="false"/u);
+    expect(markup).not.toContain("<a");
+  });
+
   it("uses an explicit addon instead of the automatic chevron", () => {
     const markup = renderToStaticMarkup(
       parentNav(false, <GlNavItemAddon>3</GlNavItemAddon>),

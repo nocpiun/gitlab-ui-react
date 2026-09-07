@@ -583,7 +583,7 @@ export const GlNavItem = forwardRef<HTMLLIElement, GlNavItemProps>(function GlNa
   }
 
   const buttonProps = getElementProps(button);
-  if(buttonProps.href !== undefined || buttonProps.render !== undefined) {
+  if(Boolean(buttonProps.href) || buttonProps.render !== undefined) {
     invariant("GlNavItem", "a GlNavButton with GlSubNav cannot use href or render.");
   }
 
