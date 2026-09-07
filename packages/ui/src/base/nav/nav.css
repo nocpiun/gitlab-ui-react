@@ -1,0 +1,155 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/nav_item/nav_item.scss
+ */
+
+.gl-nav-list,
+.gl-sub-nav {
+  @apply gl-m-0;
+  @apply gl-flex;
+  @apply gl-list-none;
+  @apply gl-flex-col;
+  @apply gl-gap-2;
+  @apply gl-p-0;
+}
+
+.gl-nav-list-item,
+.gl-sub-nav-item {
+  @apply gl-m-0;
+  @apply gl-p-0;
+}
+
+.gl-sub-nav {
+  @apply gl-mt-2;
+}
+
+.gl-nav-item {
+  @apply gl-relative;
+  @apply gl-flex;
+  @apply gl-items-center;
+  @apply gl-gap-3;
+  @apply gl-py-1;
+  @apply gl-px-3;
+  @apply gl-w-full;
+  @apply gl-no-underline;
+  @apply gl-text-left;
+  @apply gl-border-none;
+  @apply gl-cursor-pointer;
+  @apply gl-appearance-none;
+  @apply focus-visible:gl-focus-inset;
+  min-height: 1.75rem;
+  min-width: 1.75rem;
+  border-radius: var(--gl-nav-item-border-radius);
+  font-size: var(--gl-nav-item-font-size);
+  font-weight: var(--gl-nav-item-font-weight);
+  color: var(--gl-nav-item-foreground-color-default);
+  background-color: var(--gl-nav-item-background-color-default);
+
+  &.gl-nav-item-has-start-slot {
+    @apply gl-pl-2;
+  }
+
+  &.gl-nav-item-has-end-slot {
+    @apply gl-pr-2;
+  }
+
+  &.gl-nav-item-is-icon-only {
+    @apply gl-px-1;
+  }
+
+  &:hover {
+    @apply gl-no-underline;
+    color: var(--gl-nav-item-foreground-color-hover);
+    background-color: var(--gl-nav-item-background-color-hover);
+  }
+
+  &:focus-visible {
+    color: var(--gl-nav-item-foreground-color-focus);
+    background-color: var(--gl-nav-item-background-color-focus);
+  }
+
+  &:active,
+  &:focus-visible:active {
+    color: var(--gl-nav-item-foreground-color-active);
+    background-color: var(--gl-nav-item-background-color-active);
+  }
+
+  &.selected {
+    font-weight: var(--gl-nav-item-selected-font-weight);
+    color: var(--gl-nav-item-selected-foreground-color-default);
+    background-color: var(--gl-nav-item-selected-background-color-default);
+
+    &:hover {
+      color: var(--gl-nav-item-selected-foreground-color-hover);
+      background-color: var(--gl-nav-item-selected-background-color-hover);
+    }
+
+    &:focus-visible {
+      color: var(--gl-nav-item-selected-foreground-color-focus);
+      background-color: var(--gl-nav-item-selected-background-color-focus);
+    }
+
+    &:active,
+    &:focus-visible:active {
+      color: var(--gl-nav-item-selected-foreground-color-active);
+      background-color: var(--gl-nav-item-selected-background-color-active);
+    }
+  }
+}
+
+.gl-nav-item.selected::before {
+  @apply gl-absolute;
+  content: "";
+  background-color: currentColor;
+}
+
+.gl-nav-item-indicator-left.selected::before {
+  @apply -gl-left-3;
+  @apply gl-top-2;
+  @apply gl-bottom-2;
+  @apply gl-w-1;
+  @apply gl-rounded-r-default;
+}
+
+.gl-nav-item-indicator-right.selected::before {
+  @apply -gl-right-3;
+  @apply gl-top-2;
+  @apply gl-bottom-2;
+  @apply gl-w-1;
+  @apply gl-rounded-l-default;
+}
+
+.gl-nav-item-indicator-bottom.selected::before {
+  @apply -gl-bottom-3;
+  @apply gl-left-2;
+  @apply gl-right-2;
+  @apply gl-h-1;
+  @apply gl-rounded-t-default;
+}
+
+.gl-nav-item-slot {
+  @apply gl-flex;
+  @apply gl-items-center;
+  @apply gl-justify-center;
+  @apply gl-h-6;
+  @apply gl-w-6;
+  @apply gl-shrink-0;
+}
+
+.gl-nav-item-label {
+  @apply gl-grow;
+}
+
+.gl-nav-item-chevron {
+  @apply gl-m-auto;
+  @apply gl-text-subtle;
+}
+
+/* Second-level indentation is applied to the same interactive element. */
+.gl-sub-nav-button {
+  @apply gl-pl-8;
+
+  &.gl-nav-item-has-start-slot {
+    @apply gl-pl-7;
+  }
+}
