@@ -207,6 +207,13 @@ function withoutChildren(element: ReactElement) {
   return createElement(element.type as ElementType, props);
 }
 
+function withoutChildrenAndId(element: ReactElement) {
+  const props = { ...getElementProps(element) };
+  delete props.children;
+  delete props.id;
+  return createElement(element.type as ElementType, props);
+}
+
 function isLeading(node: ReactNode) {
   return hasElementType(node, GlIcon) || hasElementType(node, GlAvatar);
 }
@@ -584,6 +591,7 @@ export const GlNavItem = forwardRef<HTMLLIElement, GlNavItemProps>(function GlNa
   validateSubNavChildren(subNavProps.children);
   const onOpenChange = subNavProps.onOpenChange as GlSubNavProps["onOpenChange"];
   const open = typeof subNavProps.open === "boolean" ? subNavProps.open : undefined;
+  const panelId = typeof subNavProps.id === "string" ? subNavProps.id : undefined;
 
   return (
     <BaseCollapsible.Root
@@ -599,7 +607,7 @@ export const GlNavItem = forwardRef<HTMLLIElement, GlNavItemProps>(function GlNa
         </BaseCollapsible.Trigger>
       </ButtonOwnerContext.Provider>
       <SubNavContext.Provider value>
-        <BaseCollapsible.Panel render={withoutChildren(subNav)}>
+        <BaseCollapsible.Panel id={panelId} render={withoutChildrenAndId(subNav)}>
           {subNavProps.children}
         </BaseCollapsible.Panel>
       </SubNavContext.Provider>

@@ -234,6 +234,7 @@ export const Controlled: Story = {
     await userEvent.click(externalToggle);
     await expect(controlledOpenChange).not.toHaveBeenCalled();
     await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    await expect(trigger).toHaveAttribute("aria-controls", "controlled-sub-nav");
     await expect(canvas.getByRole("button", { name: "Close sub-navigation" }))
       .toHaveAttribute("aria-expanded", "true");
     await expect(canvas.getByRole("link", { name: "Members" })).toBeVisible();
