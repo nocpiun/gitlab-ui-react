@@ -30,3 +30,7 @@ export function getBoundedIndex(index: number, itemCount: number) {
 export function itemLabel(item: GlTokenSelectorItem) {
   return item.name ?? "";
 }
+
+export function tokenSelectorItemKey(item: GlTokenSelectorItem) {
+  return `${typeof item.id}:${String(item.id)}`;
+}

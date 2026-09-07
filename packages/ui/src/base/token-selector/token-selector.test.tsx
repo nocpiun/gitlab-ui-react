@@ -7,7 +7,7 @@ import GlTokenSelector, {
   type GlTokenSelectorItemId,
   type GlTokenSelectorProps,
 } from "./token-selector";
-import { getAvailableItems } from "./token-selector-helpers";
+import { getAvailableItems, tokenSelectorItemKey } from "./token-selector-helpers";
 
 vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
 
@@ -135,6 +135,12 @@ describe("GlTokenSelector", () => {
     );
 
     expect(available.map(({ id }) => id)).toEqual(["1", 2]);
+  });
+
+  it("creates stable keys that preserve the ID type", () => {
+    expect(tokenSelectorItemKey({ id: 1, name: "Before" })).toBe("number:1");
+    expect(tokenSelectorItemKey({ id: 1, name: "After" })).toBe("number:1");
+    expect(tokenSelectorItemKey({ id: "1" })).toBe("string:1");
   });
 
   it("exports fixed item, input, callback, and input-ref contracts", () => {

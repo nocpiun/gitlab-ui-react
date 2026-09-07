@@ -10,7 +10,7 @@ import type {
 import type { MouseEvent, ReactNode, RefObject } from "react";
 import { Combobox as BaseCombobox } from "@base-ui/react/combobox";
 import { clsx } from "cn";
-import { itemLabel } from "./token-selector-helpers";
+import { itemLabel, tokenSelectorItemKey } from "./token-selector-helpers";
 
 type TokenSelectorDropdownProps = {
   activeIndex: number;
@@ -145,7 +145,7 @@ export default function TokenSelectorDropdown({
 
                 return (
                   <DropdownOption
-                    key={`${typeof item.id}:${String(item.id)}:${index}`}
+                    key={tokenSelectorItemKey(item)}
                     active={highlighted}
                     focusVisible={activeItemFocusVisible}
                     id={`${componentId}-dropdown-item-${index}`}

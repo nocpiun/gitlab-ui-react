@@ -13,6 +13,7 @@ import {
 import { clsx } from "cn";
 import GlButton from "../button/button";
 import GlToken from "../token/token";
+import { tokenSelectorItemKey } from "./token-selector-helpers";
 
 type TokenContainerProps = {
   emptyPlaceholder?: ReactNode;
@@ -110,7 +111,7 @@ export default function TokenContainer({
         <div className="-gl-mx-1 -gl-my-1 gl-flex gl-w-auto gl-list-none gl-flex-wrap gl-items-center gl-p-0">
           {tokens.map((token, index) => (
             <div
-              key={`${typeof token.id}:${String(token.id)}:${index}`}
+              key={tokenSelectorItemKey(token)}
               ref={(element) => { tokenRefs.current[index] = element; }}
               className="gl-token-selector-token-container gl-px-1 gl-py-2 gl-outline-none"
               data-testid="gl-token-selector-tokens"
