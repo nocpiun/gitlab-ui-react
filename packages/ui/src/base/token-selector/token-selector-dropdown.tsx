@@ -23,7 +23,6 @@ type TokenSelectorDropdownProps = {
   loadingContent: ReactNode;
   menuClassName?: string;
   noResultsContent: ReactNode;
-  onActiveIndexChange: (index: number) => void;
   onSelect: (item: GlTokenSelectorItem) => void;
   renderDropdownItem?: (
     item: GlTokenSelectorItem,
@@ -45,7 +44,6 @@ function DropdownOption({
   id,
   index,
   item,
-  onActiveIndexChange,
   onSelect,
 }: {
   active: boolean;
@@ -54,7 +52,6 @@ function DropdownOption({
   id: string;
   index: number;
   item: GlTokenSelectorItem;
-  onActiveIndexChange: (index: number) => void;
   onSelect: (item: GlTokenSelectorItem) => void;
 }) {
   const handleMouseDown = (event: MouseEvent<HTMLDivElement>) => {
@@ -76,7 +73,6 @@ function DropdownOption({
         onSelect(item);
       }}
       onMouseDown={handleMouseDown}
-      onMouseMove={() => onActiveIndexChange(index)}
       render={(props) => <div {...props} id={id} />}
       value={item}>
       <div className="gl-new-dropdown-item-content">
@@ -97,7 +93,6 @@ export default function TokenSelectorDropdown({
   loadingContent,
   menuClassName,
   noResultsContent,
-  onActiveIndexChange,
   onSelect,
   portalContainer,
   renderDropdownItem,
@@ -151,7 +146,6 @@ export default function TokenSelectorDropdown({
                     id={`${componentId}-dropdown-item-${index}`}
                     index={index}
                     item={item}
-                    onActiveIndexChange={onActiveIndexChange}
                     onSelect={onSelect}>
                     {isUserDefined
                       ? renderUserDefinedToken

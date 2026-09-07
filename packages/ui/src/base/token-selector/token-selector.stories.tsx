@@ -120,13 +120,16 @@ export const Default: Story = {
       .not.toBeInTheDocument();
 
     const runnerOption = within(listbox).getByRole("option", { name: "Runner" });
+    const pajamasOption = within(listbox).getByRole("option", { name: "Pajamas" });
     await expect(runnerOption.getBoundingClientRect().height).toBeGreaterThanOrEqual(32);
-    await userEvent.hover(runnerOption);
-    await expect(runnerOption).not.toHaveClass("gl-new-dropdown-item-highlighted");
+    await expect(input).toHaveAttribute("aria-activedescendant", runnerOption.id);
+    await userEvent.hover(pajamasOption);
+    await expect(input).toHaveAttribute("aria-activedescendant", runnerOption.id);
+    await expect(pajamasOption).not.toHaveClass("gl-new-dropdown-item-highlighted");
     await expect(
-      getComputedStyle(runnerOption.querySelector(".gl-new-dropdown-item-content")!).boxShadow,
+      getComputedStyle(pajamasOption.querySelector(".gl-new-dropdown-item-content")!).boxShadow,
     ).toBe("none");
-    await userEvent.click(runnerOption);
+    await userEvent.keyboard("{Enter}");
     await expect(args.onTokenAdd).toHaveBeenLastCalledWith(projects[1]);
     await expect(args.onValueChange!.mock.invocationCallOrder[0])
       .toBeLessThan(args.onTokenAdd!.mock.invocationCallOrder[0]);
