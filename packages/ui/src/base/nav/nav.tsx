@@ -45,6 +45,8 @@ export type GlNavProps = Omit<HTMLAttributes<HTMLElement>, "children"> & {
 
 export type GlNavItemProps = Omit<LiHTMLAttributes<HTMLLIElement>, "children"> & {
   children: ReactNode;
+  /** Prevents the item's button or link from being activated. */
+  disabled?: boolean;
   /** Position of the selected indicator. */
   indicatorPosition?: GlNavItemIndicatorPosition;
   /** Places the item's button or link in its selected visual state. */
@@ -63,6 +65,8 @@ export type GlSubNavProps = Omit<HTMLAttributes<HTMLUListElement>, "children"> &
 
 export type GlSubNavItemProps = Omit<LiHTMLAttributes<HTMLLIElement>, "children"> & {
   children: ReactNode;
+  /** Prevents the item's button or link from being activated. */
+  disabled?: boolean;
   /** Position of the selected indicator. */
   indicatorPosition?: GlNavItemIndicatorPosition;
   /** Places the item's button or link in its selected visual state. */
@@ -72,8 +76,6 @@ export type GlSubNavItemProps = Omit<LiHTMLAttributes<HTMLLIElement>, "children"
 type NavButtonSharedProps = {
   children?: ReactNode;
   className?: string;
-  /** Prevents activation. A disabled parent also cannot toggle its sub-navigation. */
-  disabled?: boolean;
   /** Shows only the leading icon or avatar. An accessible label is required. */
   isIconOnly?: boolean;
   onClick?: React.MouseEventHandler<HTMLElement>;
@@ -85,7 +87,7 @@ type NavButtonSharedProps = {
 
 type NativeNavButtonProps = Omit<
   BaseButton.Props,
-  keyof NavButtonSharedProps | "focusableWhenDisabled" | "nativeButton" | "render"
+  keyof NavButtonSharedProps | "disabled" | "focusableWhenDisabled" | "nativeButton" | "render"
 > & {
   href?: never;
   render?: never;
@@ -94,7 +96,7 @@ type NativeNavButtonProps = Omit<
 
 type NavLinkBaseProps = Omit<
   GlLinkProps,
-  keyof NavButtonSharedProps | "active" | "href" | "render" | "variant"
+  keyof NavButtonSharedProps | "active" | "disabled" | "href" | "render" | "variant"
 >;
 
 type HrefNavButtonProps = NavLinkBaseProps & {
@@ -127,6 +129,7 @@ export type GlNavItemAddonProps = Omit<
 };
 
 type ButtonOwner = {
+  disabled: boolean;
   hasSubNav: boolean;
   indicatorPosition: GlNavItemIndicatorPosition;
   level: "nav" | "subnav";
@@ -368,7 +371,6 @@ function useNavButton(
     "aria-label": ariaLabel,
     children,
     className,
-    disabled = false,
     download,
     href,
     hrefLang,
@@ -437,7 +439,7 @@ function useNavButton(
         aria-current={owner.selected ? "page" : undefined}
         aria-label={ariaLabel}
         className={classes}
-        disabled={disabled}
+        disabled={owner.disabled}
         download={download}
         href={href || undefined}
         hrefLang={hrefLang}
@@ -465,7 +467,7 @@ function useNavButton(
       ref={forwardedRef}
       aria-label={ariaLabel}
       className={classes}
-      disabled={disabled}
+      disabled={owner.disabled}
       nativeButton
       onClick={onClick}
       onKeyDown={handleKeyDown}
@@ -549,6 +551,7 @@ function validateSubNavChildren(children: ReactNode) {
 export const GlNavItem = forwardRef<HTMLLIElement, GlNavItemProps>(function GlNavItem({
   children,
   className,
+  disabled = false,
   indicatorPosition = "left",
   selected = false,
   ...elementProps
@@ -569,6 +572,7 @@ export const GlNavItem = forwardRef<HTMLLIElement, GlNavItemProps>(function GlNa
 
   const subNav = subNavs[0] as ReactElement<GlSubNavProps> | undefined;
   const owner: ButtonOwner = {
+    disabled,
     hasSubNav: Boolean(subNav),
     indicatorPosition,
     level: "nav",
@@ -597,7 +601,7 @@ export const GlNavItem = forwardRef<HTMLLIElement, GlNavItemProps>(function GlNa
     <BaseCollapsible.Root
       ref={forwardedRef as Ref<HTMLDivElement>}
       defaultOpen={Boolean(subNavProps.defaultOpen)}
-      disabled={Boolean(buttonProps.disabled)}
+      disabled={disabled}
       onOpenChange={(nextOpen) => onOpenChange?.(nextOpen)}
       open={open}
       render={item}>
@@ -638,6 +642,7 @@ export const GlSubNavItem = forwardRef<HTMLLIElement, GlSubNavItemProps>(
   function GlSubNavItem({
     children,
     className,
+    disabled = false,
     indicatorPosition = "left",
     selected = false,
     ...elementProps
@@ -655,6 +660,7 @@ export const GlSubNavItem = forwardRef<HTMLLIElement, GlSubNavItemProps>(
         ref={forwardedRef}
         className={subNavListItemVariants({ className })}>
         <ButtonOwnerContext.Provider value={{
+          disabled,
           hasSubNav: false,
           indicatorPosition,
           level: "subnav",

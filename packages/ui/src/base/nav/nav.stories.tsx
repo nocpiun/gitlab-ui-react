@@ -36,8 +36,9 @@ export const Default: Story = {
   render: () => (
     <GlNav aria-label="Project navigation" style={narrowNavStyle}>
       <GlNavItem><GlNavButton href="/project">Project overview</GlNavButton></GlNavItem>
-      <GlNavItem><GlNavButton type="button">Activity</GlNavButton></GlNavItem>
-      <GlNavItem selected><GlNavButton type="button">Selected</GlNavButton></GlNavItem>
+      <GlNavItem><GlNavButton>Activity</GlNavButton></GlNavItem>
+      <GlNavItem selected><GlNavButton>Selected</GlNavButton></GlNavItem>
+      <GlNavItem disabled><GlNavButton>Disabled</GlNavButton></GlNavItem>
       <GlNavItem><GlNavButton href="">Empty href uses a button</GlNavButton></GlNavItem>
     </GlNav>
   ),
@@ -61,6 +62,67 @@ export const Selected: Story = {
       </GlNavItem>
     </GlNav>
   ),
+};
+
+const disabledActivation = fn();
+
+export const Disabled: Story = {
+  render: () => (
+    <GlNav aria-label="Disabled navigation" style={wideNavStyle}>
+      <GlNavItem disabled>
+        <GlNavButton onClick={disabledActivation}>Disabled button</GlNavButton>
+      </GlNavItem>
+      <GlNavItem disabled>
+        <GlNavButton href="/disabled" onClick={disabledActivation}>
+          Disabled link
+        </GlNavButton>
+      </GlNavItem>
+      <GlNavItem disabled selected>
+        <GlNavButton onClick={disabledActivation}>Disabled selected item</GlNavButton>
+      </GlNavItem>
+      <GlNavItem disabled>
+        <GlNavButton>Disabled parent</GlNavButton>
+        <GlSubNav>
+          <GlSubNavItem>
+            <GlSubNavButton href="/hidden">Hidden child</GlSubNavButton>
+          </GlSubNavItem>
+        </GlSubNav>
+      </GlNavItem>
+    </GlNav>
+  ),
+  play: async ({ canvas }) => {
+    disabledActivation.mockClear();
+    const button = canvas.getByRole("button", { name: "Disabled button" });
+    const link = canvas.getByRole("link", { name: "Disabled link" });
+    const selected = canvas.getByRole("button", { name: "Disabled selected item" });
+    const parent = canvas.getByRole("button", { name: "Disabled parent" });
+    const disabledItems = [button, link, selected, parent];
+
+    await expect(button).toBeDisabled();
+    await expect(link).toHaveAttribute("aria-disabled", "true");
+    await expect(link).toHaveAttribute("tabindex", "-1");
+    await expect(parent).toHaveAttribute("aria-expanded", "false");
+
+    for(const item of disabledItems) {
+      const color = getComputedStyle(item).color;
+      const backgroundColor = getComputedStyle(item).backgroundColor;
+
+      await expect(getComputedStyle(item).cursor).toBe("not-allowed");
+      await userEvent.hover(item);
+      await expect(getComputedStyle(item).cursor).toBe("not-allowed");
+      await expect(getComputedStyle(item).color).toBe(color);
+      await expect(getComputedStyle(item).backgroundColor).toBe(backgroundColor);
+      await userEvent.unhover(item);
+    }
+
+    await userEvent.click(button);
+    await userEvent.click(link);
+    await userEvent.click(parent);
+
+    await expect(disabledActivation).not.toHaveBeenCalled();
+    await expect(parent).toHaveAttribute("aria-expanded", "false");
+    await expect(canvas.queryByRole("link", { name: "Hidden child" })).not.toBeInTheDocument();
+  },
 };
 
 export const WithIcon: Story = {
@@ -289,8 +351,8 @@ export const IndependentParents: Story = {
           <GlSubNavItem><GlSubNavButton href="/files">Files</GlSubNavButton></GlSubNavItem>
         </GlSubNav>
       </GlNavItem>
-      <GlNavItem>
-        <GlNavButton disabled>Disabled parent</GlNavButton>
+      <GlNavItem disabled>
+        <GlNavButton>Disabled parent</GlNavButton>
         <GlSubNav>
           <GlSubNavItem><GlSubNavButton href="/hidden">Hidden</GlSubNavButton></GlSubNavItem>
         </GlSubNav>

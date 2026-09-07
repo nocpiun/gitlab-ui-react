@@ -7077,6 +7077,11 @@ input[type="color"].gl-form-input.form-control:disabled {
   color: var(--gl-nav-item-selected-foreground-color-active);
   background-color: var(--gl-nav-item-selected-background-color-active);
 }
+.gl-nav-item:disabled, .gl-nav-item:disabled:hover, .gl-nav-item:disabled:focus-visible, .gl-nav-item:disabled:active, .gl-nav-item:disabled:focus-visible:active, .gl-nav-item[aria-disabled="true"], .gl-nav-item[aria-disabled="true"]:hover, .gl-nav-item[aria-disabled="true"]:focus-visible, .gl-nav-item[aria-disabled="true"]:active, .gl-nav-item[aria-disabled="true"]:focus-visible:active {
+  cursor: not-allowed;
+  color: var(--gl-action-disabled-foreground-color);
+  background-color: var(--gl-nav-item-background-color-default);
+}
 .gl-nav-item.selected::before {
   position: absolute;
   content: "";

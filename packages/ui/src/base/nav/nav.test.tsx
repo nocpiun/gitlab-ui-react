@@ -26,7 +26,7 @@ const navItemClass = ["gl", "nav", "item"].join("-");
 
 type NavItemStateProps = Pick<
   ComponentPropsWithoutRef<typeof GlNavItem>,
-  "indicatorPosition" | "selected"
+  "disabled" | "indicatorPosition" | "selected"
 >;
 
 function renderButton(button: React.ReactElement, itemProps: NavItemStateProps = {}) {
@@ -40,8 +40,8 @@ function renderButton(button: React.ReactElement, itemProps: NavItemStateProps =
 function parentNav(defaultOpen = false, addon?: React.ReactNode, disabled = false) {
   return (
     <GlNav aria-label="Project navigation">
-      <GlNavItem>
-        <GlNavButton disabled={disabled}>
+      <GlNavItem disabled={disabled}>
+        <GlNavButton>
           Parent
           {addon}
         </GlNavButton>
@@ -191,6 +191,32 @@ describe("GlNavButton", () => {
     expect(linkMarkup).toContain("aria-current=\"page\"");
     expect(buttonMarkup).toContain("selected");
     expect(buttonMarkup).not.toContain("aria-current");
+  });
+
+  it("applies item disabled state to buttons and links", () => {
+    const buttonMarkup = renderButton(<GlNavButton>Issues</GlNavButton>, { disabled: true });
+    const linkMarkup = renderButton(
+      <GlNavButton href="/issues">Issues</GlNavButton>,
+      { disabled: true },
+    );
+    const subNavMarkup = renderToStaticMarkup(
+      <GlNav>
+        <GlNavItem>
+          <GlNavButton>Parent</GlNavButton>
+          <GlSubNav defaultOpen>
+            <GlSubNavItem disabled>
+              <GlSubNavButton href="/child">Child</GlSubNavButton>
+            </GlSubNavItem>
+          </GlSubNav>
+        </GlNavItem>
+      </GlNav>,
+    );
+
+    expect(buttonMarkup).toContain("disabled=\"\"");
+    expect(buttonMarkup).toContain("data-disabled=\"\"");
+    expect(linkMarkup).toContain("aria-disabled=\"true\"");
+    expect(linkMarkup).toContain("tabindex=\"-1\"");
+    expect(subNavMarkup).toMatch(/<a[^>]*aria-disabled="true"[^>]*href="\/child"/u);
   });
 
   it.each(["left", "right", "bottom"] as const)(

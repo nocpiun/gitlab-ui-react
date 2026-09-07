@@ -95,6 +95,22 @@
       background-color: var(--gl-nav-item-selected-background-color-active);
     }
   }
+
+  /* The React API supports disabled buttons and aria-disabled links. */
+  &:disabled,
+  &:disabled:hover,
+  &:disabled:focus-visible,
+  &:disabled:active,
+  &:disabled:focus-visible:active,
+  &[aria-disabled="true"],
+  &[aria-disabled="true"]:hover,
+  &[aria-disabled="true"]:focus-visible,
+  &[aria-disabled="true"]:active,
+  &[aria-disabled="true"]:focus-visible:active {
+    @apply gl-cursor-not-allowed;
+    color: var(--gl-action-disabled-foreground-color);
+    background-color: var(--gl-nav-item-background-color-default);
+  }
 }
 
 .gl-nav-item.selected::before {
