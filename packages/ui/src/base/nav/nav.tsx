@@ -7,8 +7,9 @@
  *   navigation list and nested-list semantics are explicit.
  * - Icons, avatars, labels, and addons are children of the same interactive
  *   element instead of named Vue slots.
- * - Parent expansion is an internal, uncontrolled Base UI Collapsible whose
- *   trigger and panel are merged into the public button and list elements.
+ * - Parent expansion uses an internal Base UI Collapsible with uncontrolled
+ *   and controlled APIs whose trigger and panel merge into the public button
+ *   and list elements.
  */
 
 import {
@@ -52,8 +53,12 @@ export type GlNavItemProps = Omit<LiHTMLAttributes<HTMLLIElement>, "children"> &
 
 export type GlSubNavProps = Omit<HTMLAttributes<HTMLUListElement>, "children"> & {
   children?: ReactNode;
-  /** Initial expansion state. Changes after mount do not control the item. */
+  /** Initial expansion state when uncontrolled. Changes after mount do not control the item. */
   defaultOpen?: boolean;
+  /** Called when interaction requests an expansion-state change. */
+  onOpenChange?: (open: boolean) => void;
+  /** Controlled expansion state. */
+  open?: boolean;
 };
 
 export type GlSubNavItemProps = Omit<LiHTMLAttributes<HTMLLIElement>, "children"> & {
@@ -577,12 +582,16 @@ export const GlNavItem = forwardRef<HTMLLIElement, GlNavItemProps>(function GlNa
 
   const subNavProps = getElementProps(subNav);
   validateSubNavChildren(subNavProps.children);
+  const onOpenChange = subNavProps.onOpenChange as GlSubNavProps["onOpenChange"];
+  const open = typeof subNavProps.open === "boolean" ? subNavProps.open : undefined;
 
   return (
     <BaseCollapsible.Root
       ref={forwardedRef as Ref<HTMLDivElement>}
       defaultOpen={Boolean(subNavProps.defaultOpen)}
       disabled={Boolean(buttonProps.disabled)}
+      onOpenChange={(nextOpen) => onOpenChange?.(nextOpen)}
+      open={open}
       render={item}>
       <ButtonOwnerContext.Provider value={owner}>
         <BaseCollapsible.Trigger render={withoutChildren(button)}>
@@ -602,6 +611,8 @@ export const GlSubNav = forwardRef<HTMLUListElement, GlSubNavProps>(function GlS
   children,
   className,
   defaultOpen: _defaultOpen = false,
+  onOpenChange: _onOpenChange,
+  open: _open,
   ...elementProps
 }, forwardedRef) {
   if(!useContext(SubNavContext)) invariant("GlSubNav", "must be a direct child of GlNavItem.");

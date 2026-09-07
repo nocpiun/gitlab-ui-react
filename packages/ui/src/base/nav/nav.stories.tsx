@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { forwardRef, type ComponentPropsWithoutRef } from "react";
+import { forwardRef, useState, type ComponentPropsWithoutRef } from "react";
 import { expect, fn, userEvent } from "storybook/test";
 import GlAvatar from "../avatar/avatar";
+import GlButton from "../button/button";
 import GlIcon from "../icon/icon";
 import GlNav, {
   GlNavButton,
@@ -19,7 +20,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Compound navigation items adapted from GitLab UI. Icons, avatars, labels, and addons are children of the same button or link; nested navigation manages disclosure state internally.",
+          "Compound navigation items adapted from GitLab UI. Icons, avatars, labels, and addons are children of the same button or link; nested navigation supports uncontrolled and controlled disclosure state.",
       },
     },
   },
@@ -185,6 +186,65 @@ export const DefaultOpen: Story = {
     await expect(canvas.getByRole("button", { name: "Repository" }))
       .toHaveAttribute("aria-expanded", "true");
     await expect(canvas.getByRole("link", { name: "Files" })).toBeVisible();
+  },
+};
+
+const controlledOpenChange = fn();
+
+function ControlledSubNavExample() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="gl-flex gl-flex-col gl-items-start gl-gap-3">
+      <GlButton
+        aria-controls="controlled-sub-nav"
+        aria-expanded={open}
+        onClick={() => setOpen((currentOpen) => !currentOpen)}>
+        {open ? "Close sub-navigation" : "Open sub-navigation"}
+      </GlButton>
+      <GlNav aria-label="Controlled navigation" style={wideNavStyle}>
+        <GlNavItem>
+          <GlNavButton>Manage</GlNavButton>
+          <GlSubNav
+            id="controlled-sub-nav"
+            onOpenChange={(nextOpen) => {
+              controlledOpenChange(nextOpen);
+              setOpen(nextOpen);
+            }}
+            open={open}>
+            <GlSubNavItem>
+              <GlSubNavButton href="/members">Members</GlSubNavButton>
+            </GlSubNavItem>
+          </GlSubNav>
+        </GlNavItem>
+      </GlNav>
+    </div>
+  );
+}
+
+export const Controlled: Story = {
+  render: () => <ControlledSubNavExample />,
+  play: async ({ canvas }) => {
+    controlledOpenChange.mockClear();
+    const trigger = canvas.getByRole("button", { name: "Manage" });
+    const externalToggle = canvas.getByRole("button", { name: "Open sub-navigation" });
+
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    await expect(externalToggle).toHaveAttribute("aria-expanded", "false");
+    await userEvent.click(externalToggle);
+    await expect(controlledOpenChange).not.toHaveBeenCalled();
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    await expect(canvas.getByRole("button", { name: "Close sub-navigation" }))
+      .toHaveAttribute("aria-expanded", "true");
+    await expect(canvas.getByRole("link", { name: "Members" })).toBeVisible();
+
+    await userEvent.click(trigger);
+    await expect(controlledOpenChange).toHaveBeenLastCalledWith(false);
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+
+    await userEvent.click(trigger);
+    await expect(controlledOpenChange).toHaveBeenLastCalledWith(true);
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
   },
 };
 

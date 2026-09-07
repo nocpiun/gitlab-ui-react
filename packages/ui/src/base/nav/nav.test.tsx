@@ -91,6 +91,26 @@ describe("GlNav composition", () => {
     expect(markup).not.toContain("<div");
   });
 
+  it("uses the controlled GlSubNav open state without leaking control props to the list", () => {
+    const markup = renderToStaticMarkup(
+      <GlNav>
+        <GlNavItem>
+          <GlNavButton>Parent</GlNavButton>
+          <GlSubNav defaultOpen={false} onOpenChange={() => undefined} open data-subnav="true">
+            <GlSubNavItem>
+              <GlSubNavButton href="/child">Child</GlSubNavButton>
+            </GlSubNavItem>
+          </GlSubNav>
+        </GlNavItem>
+      </GlNav>,
+    );
+
+    expect(markup).toContain("aria-expanded=\"true\"");
+    expect(markup).toContain("data-subnav=\"true\"");
+    expect(markup).not.toContain("onOpenChange");
+    expect(markup).not.toMatch(/<ul[^>]*\sopen=/u);
+  });
+
   it("accepts refs for all public DOM-owning components", () => {
     const navRef = createRef<HTMLElement>();
     const itemRef = createRef<HTMLLIElement>();
