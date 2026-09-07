@@ -19,7 +19,7 @@ function renderPagination(
 
 function pageItemTexts(markup: string) {
   return [...markup.matchAll(
-    /<(?:a|span)[^>]*data-testid="gl-pagination-item"[^>]*>(.*?)<\/(?:a|span)>/gs,
+    /<(?:a|span)[^>]*data-testid="gl-pagination-item"[^>]*>([\s\S]*?)<\/(?:a|span)>/g,
   )].map((match) => match[1].replace(/<[^>]+>/g, ""));
 }
 
