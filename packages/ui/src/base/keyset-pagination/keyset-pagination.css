@@ -1,0 +1,11 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/keyset_pagination/keyset_pagination.scss
+ */
+
+.gl-keyset-pagination.btn-group {
+  .gl-button.gl-button {
+    @apply gl-px-3;
+    border-radius: var(--gl-action-border-radius);
+  }
+}

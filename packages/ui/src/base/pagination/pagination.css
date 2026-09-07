@@ -1,0 +1,89 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/pagination/pagination.scss
+ */
+
+.gl-pagination {
+  @apply gl-text-base;
+  @apply gl-text-nowrap;
+
+  ul {
+    border-radius: var(--gl-action-border-radius);
+    @apply gl-flex;
+    @apply gl-m-0;
+    @apply gl-pl-0;
+    @apply gl-list-none;
+  }
+
+  a {
+    color: var(--gl-action-neutral-foreground-color-default);
+  }
+}
+
+.gl-pagination-item {
+  border-radius: var(--gl-action-border-radius);
+  transition:
+    color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+    background-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+    border-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+  @apply gl-flex;
+  @apply gl-justify-center;
+  @apply gl-p-3;
+  @apply gl-leading-normal;
+  @apply gl-no-underline;
+  @apply gl-min-w-7;
+  @apply gl-text-center;
+  @apply gl-border-1;
+  @apply gl-border-solid;
+  @apply gl-action-neutral-colors;
+
+  @media (prefers-reduced-motion) {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  &:hover {
+    @apply gl-no-underline;
+  }
+
+  &:focus-visible,
+  &:active:focus-visible {
+    @apply gl-no-underline;
+    @apply gl-focus;
+  }
+
+  &:active {
+    @apply gl-no-underline;
+  }
+
+  &:not(.disabled).active {
+    color: var(--gl-action-selected-foreground-color-default);
+    background-color: var(--gl-action-selected-background-color-default);
+    border-color: var(--gl-action-selected-border-color-default);
+
+    &:hover {
+      color: var(--gl-action-selected-foreground-color-hover);
+      background-color: var(--gl-action-selected-background-color-hover);
+      border-color: var(--gl-action-selected-border-color-hover);
+    }
+
+    &:focus-visible {
+      color: var(--gl-action-selected-foreground-color-focus);
+      background-color: var(--gl-action-selected-background-color-focus);
+      border-color: var(--gl-action-selected-border-color-focus);
+    }
+
+    &:active {
+      color: var(--gl-action-selected-foreground-color-active);
+      background-color: var(--gl-action-selected-background-color-active);
+      border-color: var(--gl-action-selected-border-color-active);
+    }
+  }
+}
+
+.gl-pagination .disabled .gl-pagination-item {
+  @apply gl-border-transparent;
+  @apply gl-bg-transparent;
+  color: var(--gl-action-disabled-foreground-color);
+}
