@@ -391,3 +391,16 @@ export {
   getGlTooltipDefaultContainer,
   setGlTooltipDefaultContainer,
 } from "./base/tooltip/container";
+export { default as GlToken } from "./base/token/token";
+export type {
+  GlTokenProps,
+  GlTokenVariant,
+} from "./base/token/token";
+export { default as GlTokenSelector } from "./base/token-selector/token-selector";
+export type {
+  GlTokenSelectorInputProps,
+  GlTokenSelectorItem,
+  GlTokenSelectorItemId,
+  GlTokenSelectorProps,
+  GlTokenSelectorRenderState,
+} from "./base/token-selector/token-selector";

@@ -1,0 +1,49 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/token/token.scss
+ */
+
+.gl-token {
+  color: var(--gl-token-foreground-color);
+  background-color: var(--gl-token-background-color);
+  @apply gl-pl-3;
+  @apply gl-inline-flex;
+  @apply gl-flex-col;
+  @apply gl-justify-center;
+  border-radius: var(--gl-token-border-radius);
+
+  &.gl-token-view-only {
+    @apply gl-py-2;
+    @apply gl-pr-3;
+  }
+}
+
+.gl-token-search-type-variant {
+  background-color: var(--gl-token-background-color);
+  @apply gl-rounded-tr-none;
+  @apply gl-rounded-br-none;
+}
+
+.gl-token-search-value-variant {
+  @apply gl-rounded-tl-none;
+  @apply gl-rounded-bl-none;
+}
+
+.gl-token-content {
+  @apply gl-text-sm;
+  @apply gl-leading-normal;
+  @apply gl-flex;
+  @apply gl-items-center;
+  @apply gl-text-inherit;
+
+  > .gl-avatar:first-child,
+  > .gl-spinner-container:first-child {
+    @apply gl-mr-2;
+  }
+}
+
+.gl-token-close {
+  @apply gl-ml-2;
+  color: inherit !important;
+  background-color: transparent !important;
+}
