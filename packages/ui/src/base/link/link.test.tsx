@@ -30,7 +30,7 @@ describe("GlLink", () => {
 
     expect(markup).toContain("<a");
     expect(markup).toContain("class=\"gl-link\"");
-    expect(markup).toContain("data-alt=\"(external link)\"");
+    expect(markup).not.toContain("data-alt=");
     expect(markup).toContain("href=\"#\"");
     expect(markup).toContain("id=\"help-link\"");
     expect(markup).not.toContain("target=");
@@ -134,20 +134,23 @@ describe("GlLink", () => {
       });
 
       expect(markup).not.toContain("gl-link-external");
+      expect(markup).not.toContain("data-alt=");
     },
   );
 
-  it("does not show the external indicator for same-origin or same-window links", () => {
-    expect(renderLink({
-      href: "/projects",
-      showExternalIcon: true,
-      target: "_blank",
-    })).not.toContain("gl-link-external");
-    expect(renderLink({
-      href: "https://example.com",
-      showExternalIcon: true,
-    })).not.toContain("gl-link-external");
-  });
+  it.each([
+    ["an internal href", { href: "/projects", showExternalIcon: true }],
+    ["no external icon", { href: "https://example.com", target: "_blank" }],
+    ["the same window", { href: "https://example.com", showExternalIcon: true }],
+  ] satisfies [string, ComponentProps<typeof GlLink>][])(
+    "does not show the external indicator or set data-alt for a link with %s",
+    (_, props) => {
+      const markup = renderLink(props);
+
+      expect(markup).not.toContain("gl-link-external");
+      expect(markup).not.toContain("data-alt=");
+    },
+  );
 
   it("exposes the disabled state and removes the link from the tab sequence", () => {
     const markup = renderLink({ disabled: true, href: "/projects" });
