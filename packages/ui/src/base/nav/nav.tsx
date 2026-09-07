@@ -544,8 +544,6 @@ function validateSubNavChildren(children: ReactNode) {
       invariant("GlSubNavItem", "only accepts one GlSubNavButton.");
     }
   });
-
-  return nodes;
 }
 
 export const GlNavItem = forwardRef<HTMLLIElement, GlNavItemProps>(function GlNavItem({
@@ -629,11 +627,11 @@ export const GlSubNav = forwardRef<HTMLUListElement, GlSubNavProps>(function GlS
 }, forwardedRef) {
   if(!useContext(SubNavContext)) invariant("GlSubNav", "must be a direct child of GlNavItem.");
 
-  const nodes = validateSubNavChildren(children);
+  validateSubNavChildren(children);
 
   return (
     <ul {...elementProps} ref={forwardedRef} className={subNavVariants({ className })}>
-      {nodes}
+      {children}
     </ul>
   );
 });
@@ -686,7 +684,7 @@ const GlNav = forwardRef<HTMLElement, GlNavProps>(function GlNav({
   return (
     <NavContext.Provider value>
       <nav {...elementProps} ref={forwardedRef} className={navVariants({ className })}>
-        <ul className={navListVariants()}>{nodes}</ul>
+        <ul className={navListVariants()}>{children}</ul>
       </nav>
     </NavContext.Provider>
   );

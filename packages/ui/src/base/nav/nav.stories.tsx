@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { forwardRef, useState, type ComponentPropsWithoutRef } from "react";
+import { Fragment, forwardRef, useState, type ComponentPropsWithoutRef } from "react";
 import { expect, fn, userEvent } from "storybook/test";
 import GlAvatar from "../avatar/avatar";
 import GlButton from "../button/button";
@@ -336,37 +336,63 @@ export const ParentAddon: Story = {
   },
 };
 
+const independentParentItems = [
+  { childHref: "/issues", childLabel: "Issues", id: "plan", label: "Plan" },
+  { childHref: "/files", childLabel: "Files", id: "code", label: "Code" },
+];
+
+function IndependentParentsExample() {
+  const [reversed, setReversed] = useState(false);
+  const items = reversed ? [...independentParentItems].reverse() : independentParentItems;
+
+  return (
+    <div className="gl-flex gl-flex-col gl-items-start gl-gap-3">
+      <GlButton onClick={() => setReversed((current) => !current)}>Reverse order</GlButton>
+      <GlNav aria-label="Independent navigation" style={wideNavStyle}>
+        {items.map((item) => (
+          <Fragment key={item.id}>
+            <GlNavItem>
+              <GlNavButton>{item.label}</GlNavButton>
+              <GlSubNav>
+                <GlSubNavItem>
+                  <GlSubNavButton href={item.childHref}>{item.childLabel}</GlSubNavButton>
+                </GlSubNavItem>
+              </GlSubNav>
+            </GlNavItem>
+          </Fragment>
+        ))}
+        <GlNavItem disabled>
+          <GlNavButton>Disabled parent</GlNavButton>
+          <GlSubNav>
+            <GlSubNavItem><GlSubNavButton href="/hidden">Hidden</GlSubNavButton></GlSubNavItem>
+          </GlSubNav>
+        </GlNavItem>
+      </GlNav>
+    </div>
+  );
+}
+
 export const IndependentParents: Story = {
-  render: () => (
-    <GlNav aria-label="Independent navigation" style={wideNavStyle}>
-      <GlNavItem>
-        <GlNavButton>Plan</GlNavButton>
-        <GlSubNav>
-          <GlSubNavItem><GlSubNavButton href="/issues">Issues</GlSubNavButton></GlSubNavItem>
-        </GlSubNav>
-      </GlNavItem>
-      <GlNavItem>
-        <GlNavButton>Code</GlNavButton>
-        <GlSubNav>
-          <GlSubNavItem><GlSubNavButton href="/files">Files</GlSubNavButton></GlSubNavItem>
-        </GlSubNav>
-      </GlNavItem>
-      <GlNavItem disabled>
-        <GlNavButton>Disabled parent</GlNavButton>
-        <GlSubNav>
-          <GlSubNavItem><GlSubNavButton href="/hidden">Hidden</GlSubNavButton></GlSubNavItem>
-        </GlSubNav>
-      </GlNavItem>
-    </GlNav>
-  ),
+  render: () => <IndependentParentsExample />,
   play: async ({ canvas }) => {
-    const plan = canvas.getByRole("button", { name: "Plan" });
-    const code = canvas.getByRole("button", { name: "Code" });
+    const reverse = canvas.getByRole("button", { name: "Reverse order" });
+    let plan = canvas.getByRole("button", { name: "Plan" });
+    let code = canvas.getByRole("button", { name: "Code" });
     const disabled = canvas.getByRole("button", { name: "Disabled parent" });
 
     await userEvent.click(plan);
-    await userEvent.click(code);
     await expect(plan).toHaveAttribute("aria-expanded", "true");
+    await expect(code).toHaveAttribute("aria-expanded", "false");
+
+    await userEvent.click(reverse);
+    plan = canvas.getByRole("button", { name: "Plan" });
+    code = canvas.getByRole("button", { name: "Code" });
+    await expect(canvas.getAllByRole("button").indexOf(code))
+      .toBeLessThan(canvas.getAllByRole("button").indexOf(plan));
+    await expect(plan).toHaveAttribute("aria-expanded", "true");
+    await expect(code).toHaveAttribute("aria-expanded", "false");
+
+    await userEvent.click(code);
     await expect(code).toHaveAttribute("aria-expanded", "true");
     await userEvent.click(disabled);
     await expect(disabled).toHaveAttribute("aria-expanded", "false");
