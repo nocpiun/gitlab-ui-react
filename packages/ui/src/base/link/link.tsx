@@ -189,7 +189,7 @@ const GlLink = forwardRef<HTMLAnchorElement, GlLinkProps>(function GlLink({
       "aria-disabled": disabled ? true : elementProps["aria-disabled"],
       children,
       className: classes,
-      "data-alt": externalLinkLabel,
+      "data-alt": isExternal ? externalLinkLabel : undefined,
       href: safeHref,
       onClick: handleClick,
       rel: secureRel(rel, target),
