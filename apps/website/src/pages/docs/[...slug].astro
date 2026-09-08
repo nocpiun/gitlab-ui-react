@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/base-layout.astro";
+
+interface Props {
+  entry: CollectionEntry<"docs">;
+}
+
+export async function getStaticPaths() {
+  const entries = await getCollection("docs");
+
+  return entries.map((entry) => ({
+    params: {
+      slug: entry.id === "index" ? undefined : entry.id,
+    },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<BaseLayout
+  description={entry.data.description ?? entry.data.title}
+  title={`${entry.data.title} · GitLab UI React`}>
+  <h1>{entry.data.title}</h1>
+  <Content />
+</BaseLayout>

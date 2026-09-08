@@ -1,0 +1,46 @@
+---
+import "../styles/global.css";
+import { Navbar } from "../components/navbar";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "GitLab UI for React",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <script is:inline>
+      (() => {
+        try {
+          const storedTheme = localStorage.getItem("gitlab-ui-react-theme");
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          const isDark = storedTheme === "dark" || (storedTheme === null && prefersDark);
+
+          document.documentElement.classList.toggle("gl-dark", isDark);
+          document.documentElement.style.colorScheme = isDark ? "dark" : "light";
+        } catch {
+          // Keep the default light theme when browser storage is unavailable.
+        }
+      })();
+    </script>
+  </head>
+
+  <body>
+    <Navbar client:only="react" />
+
+    <main id="main-content">
+      <slot />
+    </main>
+  </body>
+</html>
