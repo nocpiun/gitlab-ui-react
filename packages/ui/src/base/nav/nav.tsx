@@ -96,7 +96,13 @@ type NativeNavButtonProps = Omit<
 
 type NavLinkBaseProps = Omit<
   GlLinkProps,
-  keyof NavButtonSharedProps | "active" | "disabled" | "href" | "render" | "variant"
+  | keyof NavButtonSharedProps
+  | "active"
+  | "disabled"
+  | "href"
+  | "render"
+  | "showExternalIcon"
+  | "variant"
 >;
 
 type HrefNavButtonProps = NavLinkBaseProps & {
@@ -391,7 +397,6 @@ function useNavButton(
     referrerPolicy,
     rel,
     render,
-    showExternalIcon = false,
     target,
     type = "button",
     ...elementProps
@@ -464,7 +469,6 @@ function useNavButton(
         referrerPolicy={referrerPolicy}
         rel={rel}
         render={render}
-        showExternalIcon={showExternalIcon}
         target={target}
         variant="unstyled">
         {content}
