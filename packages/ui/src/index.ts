@@ -284,6 +284,25 @@ export type {
   GlPopoverTriggerMode,
   GlPopoverTriggerProps,
 } from "./base/popover/popover";
+export {
+  default as GlNav,
+  GlNavButton,
+  GlNavItem,
+  GlNavItemAddon,
+  GlSubNav,
+  GlSubNavButton,
+  GlSubNavItem,
+} from "./base/nav/nav";
+export type {
+  GlNavButtonProps,
+  GlNavItemAddonProps,
+  GlNavItemIndicatorPosition,
+  GlNavItemProps,
+  GlNavProps,
+  GlSubNavButtonProps,
+  GlSubNavItemProps,
+  GlSubNavProps,
+} from "./base/nav/nav";
 export { default as GlPagination } from "./base/pagination/pagination";
 export type {
   GlPaginationAlign,

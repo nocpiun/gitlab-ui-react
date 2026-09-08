@@ -1,0 +1,28 @@
+/**
+ * Adapted from GitLab UI:
+ * packages/gitlab-ui/src/components/base/animated_icon/animated_icon.scss
+ * packages/gitlab-ui/src/components/base/animated_icon/animated_chevron_right_down_icon.vue
+ */
+
+.gl-nav-item-animated-chevron {
+  display: flex;
+  fill: none !important;
+  stroke: currentColor !important;
+}
+
+.gl-nav-item-animated-chevron-arrow {
+  transform-origin: center;
+  rotate: 0deg;
+  transition: rotate 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.gl-nav-item[data-panel-open] .gl-nav-item-animated-chevron-arrow {
+  rotate: 90deg;
+}
+
+@media (prefers-reduced-motion) {
+  .gl-nav-item-animated-chevron-arrow {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}
