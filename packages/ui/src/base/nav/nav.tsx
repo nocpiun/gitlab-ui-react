@@ -430,6 +430,7 @@ function useNavButton(
       {...elementProps as unknown as BaseButton.Props}
       ref={forwardedRef}
       aria-controls={resolvedAriaControls}
+      aria-current={ariaCurrent}
       aria-expanded={ariaExpanded}
       aria-label={ariaLabel}
       className={classes}
