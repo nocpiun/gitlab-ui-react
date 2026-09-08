@@ -193,6 +193,20 @@ describe("GlNavButton", () => {
     expect(buttonMarkup).not.toContain("aria-current");
   });
 
+  it("preserves an explicit aria-current value on links", () => {
+    const unselectedMarkup = renderButton(
+      <GlNavButton href="/workflow" aria-current="step">Workflow</GlNavButton>,
+    );
+    const selectedMarkup = renderButton(
+      <GlNavButton href="/map" aria-current="location">Map</GlNavButton>,
+      { selected: true },
+    );
+
+    expect(unselectedMarkup).toContain("aria-current=\"step\"");
+    expect(selectedMarkup).toContain("aria-current=\"location\"");
+    expect(selectedMarkup).not.toContain("aria-current=\"page\"");
+  });
+
   it("applies item disabled state to buttons and links", () => {
     const buttonMarkup = renderButton(<GlNavButton>Issues</GlNavButton>, { disabled: true });
     const linkMarkup = renderButton(

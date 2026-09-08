@@ -371,6 +371,7 @@ function useNavButton(
 
   const {
     "aria-controls": ariaControls,
+    "aria-current": ariaCurrent,
     "aria-expanded": ariaExpanded,
     "aria-label": ariaLabel,
     children,
@@ -445,7 +446,7 @@ function useNavButton(
         {...elementProps}
         ref={forwardedRef as Ref<HTMLAnchorElement>}
         aria-controls={resolvedAriaControls}
-        aria-current={owner.selected ? "page" : undefined}
+        aria-current={ariaCurrent ?? (owner.selected ? "page" : undefined)}
         aria-expanded={ariaExpanded}
         aria-label={ariaLabel}
         className={classes}
