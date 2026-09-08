@@ -20,7 +20,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Compound navigation items adapted from GitLab UI. Icons, avatars, labels, and addons are children of the same button or link; nested navigation supports uncontrolled and controlled disclosure state.",
+          "Compound navigation items adapted from GitLab UI. Icons, avatars, labels, and addons are children of the same button or link; addon contents must remain non-interactive. Nested navigation supports uncontrolled and controlled disclosure state.",
       },
     },
   },

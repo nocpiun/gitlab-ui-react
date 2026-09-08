@@ -131,6 +131,7 @@ export type GlNavItemAddonProps = Omit<
   HTMLAttributes<HTMLSpanElement>,
   "children" | "onClick" | "onKeyDown" | "role" | "tabIndex"
 > & {
+  /** Non-interactive, static-width content such as a count or badge. */
   children?: ReactNode;
 };
 
@@ -232,57 +233,6 @@ function isAddon(node: ReactNode): node is ReactElement<GlNavItemAddonProps> {
   return hasElementType(node, GlNavItemAddon);
 }
 
-const interactiveTags = new Set([
-  "a", "audio", "button", "details", "embed", "iframe", "input", "object", "select",
-  "summary", "textarea", "video",
-]);
-const interactiveRoles = new Set([
-  "button", "checkbox", "combobox", "link", "menuitem", "menuitemcheckbox", "menuitemradio",
-  "option", "radio", "slider", "spinbutton", "switch", "tab", "textbox",
-]);
-
-function containsInteractiveContent(node: ReactNode): boolean {
-  return flattenChildren(node).some((child) => {
-    if(!isValidElement(child)) return false;
-
-    const props = getElementProps(child);
-    const isInteractiveTag = typeof child.type === "string" && interactiveTags.has(child.type);
-    const isInteractiveRole = typeof props.role === "string" && interactiveRoles.has(props.role);
-    const hasEventHandler = Object.entries(props).some(
-      ([name, value]) => /^on[A-Z]/u.test(name) && typeof value === "function",
-    );
-    const hasInteractiveProps = props.contentEditable === true
-      || props.href !== undefined
-      || (typeof props.tabIndex === "number" && props.tabIndex >= 0)
-      || hasEventHandler;
-
-    return isInteractiveTag
-      || isInteractiveRole
-      || hasInteractiveProps
-      || containsInteractiveContent(props.children);
-  });
-}
-
-function validateAddon(addon: ReactElement<GlNavItemAddonProps>) {
-  const props = getElementProps(addon);
-  const hasEventHandler = Object.entries(props).some(
-    ([name, value]) => /^on[A-Z]/u.test(name) && typeof value === "function",
-  );
-
-  if(
-    hasEventHandler
-    || props.href !== undefined
-    || props.role !== undefined
-    || props.tabIndex !== undefined
-    || containsInteractiveContent(props.children)
-  ) {
-    invariant(
-      "GlNavItemAddon",
-      "must not be interactive or contain links, buttons, or other interactive controls.",
-    );
-  }
-}
-
 function containsAddon(node: ReactNode): boolean {
   return flattenChildren(node).some((child) => {
     if(!isValidElement(child)) return false;
@@ -321,7 +271,6 @@ function resolveButtonContent(children: ReactNode, component: string): ResolvedB
   if(addon && nodes.at(-1) !== addon) {
     invariant(component, "GlNavItemAddon must be the last effective child.");
   }
-  if(addon) validateAddon(addon);
 
   return { addon, label: addon ? nodes.slice(0, -1) : nodes, leading };
 }
