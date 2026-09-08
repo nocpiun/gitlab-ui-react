@@ -341,6 +341,25 @@ describe("GlSubNav", () => {
     expect(markup).not.toContain("defaultOpen");
   });
 
+  it.each([
+    ["uncontrolled", { defaultOpen: true }],
+    ["controlled", { open: true }],
+  ] as const)("uses an explicit panel ID during %s server rendering", (_mode, stateProps) => {
+    const markup = renderToStaticMarkup(
+      <GlNav>
+        <GlNavItem>
+          <GlNavButton>Parent</GlNavButton>
+          <GlSubNav {...stateProps} id="server-sub-nav">
+            <GlSubNavItem><GlSubNavButton>Child</GlSubNavButton></GlSubNavItem>
+          </GlSubNav>
+        </GlNavItem>
+      </GlNav>,
+    );
+
+    expect(markup).toMatch(/<button[^>]*aria-controls="server-sub-nav"/u);
+    expect(markup).toMatch(/<ul[^>]*id="server-sub-nav"/u);
+  });
+
   it("treats an empty parent href as a native disclosure button", () => {
     const markup = renderToStaticMarkup(
       <GlNav>

@@ -138,6 +138,7 @@ type ButtonOwner = {
 
 const NavContext = createContext(false);
 const SubNavContext = createContext(false);
+const SubNavPanelIdContext = createContext<string | undefined>(undefined);
 const ButtonOwnerContext = createContext<ButtonOwner | null>(null);
 const AddonContext = createContext(false);
 
@@ -356,6 +357,7 @@ function useNavButton(
   forwardedRef: Ref<HTMLElement>,
 ) {
   const owner = useContext(ButtonOwnerContext);
+  const subNavPanelId = useContext(SubNavPanelIdContext);
   const expectedLevel = component === "GlNavButton" ? "nav" : "subnav";
 
   if(owner?.level !== expectedLevel) {
@@ -368,6 +370,8 @@ function useNavButton(
   }
 
   const {
+    "aria-controls": ariaControls,
+    "aria-expanded": ariaExpanded,
     "aria-label": ariaLabel,
     children,
     className,
@@ -394,6 +398,10 @@ function useNavButton(
   const { addon, label, leading } = resolveButtonContent(children, component);
   const hasAutomaticChevron = Boolean(owner.hasSubNav && !addon && !isIconOnly);
   const hasEndSlot = Boolean(!isIconOnly && (addon || hasAutomaticChevron));
+  const resolvedAriaControls = subNavPanelId
+    && (ariaExpanded === true || ariaExpanded === "true")
+    ? subNavPanelId
+    : ariaControls;
   const classes = navButtonVariants({
     className,
     hasEndSlot,
@@ -436,7 +444,9 @@ function useNavButton(
       <GlLink
         {...elementProps}
         ref={forwardedRef as Ref<HTMLAnchorElement>}
+        aria-controls={resolvedAriaControls}
         aria-current={owner.selected ? "page" : undefined}
+        aria-expanded={ariaExpanded}
         aria-label={ariaLabel}
         className={classes}
         disabled={owner.disabled}
@@ -465,6 +475,8 @@ function useNavButton(
     <BaseButton
       {...elementProps as unknown as BaseButton.Props}
       ref={forwardedRef}
+      aria-controls={resolvedAriaControls}
+      aria-expanded={ariaExpanded}
       aria-label={ariaLabel}
       className={classes}
       disabled={owner.disabled}
@@ -604,9 +616,11 @@ export const GlNavItem = forwardRef<HTMLLIElement, GlNavItemProps>(function GlNa
       open={open}
       render={item}>
       <ButtonOwnerContext.Provider value={owner}>
-        <BaseCollapsible.Trigger render={withoutChildren(button)}>
-          {buttonProps.children}
-        </BaseCollapsible.Trigger>
+        <SubNavPanelIdContext.Provider value={panelId}>
+          <BaseCollapsible.Trigger render={withoutChildren(button)}>
+            {buttonProps.children}
+          </BaseCollapsible.Trigger>
+        </SubNavPanelIdContext.Provider>
       </ButtonOwnerContext.Provider>
       <SubNavContext.Provider value>
         <BaseCollapsible.Panel id={panelId} render={withoutChildrenAndId(subNav)}>
