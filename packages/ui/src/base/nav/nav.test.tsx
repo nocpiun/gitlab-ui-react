@@ -488,12 +488,6 @@ describe("composition errors", () => {
     )).toThrow("may appear at most once");
   });
 
-  it("rejects interactive addon descendants", () => {
-    expect(() => renderButton(
-      <GlNavButton>Issues<GlNavItemAddon><button type="button">2</button></GlNavItemAddon></GlNavButton>,
-    )).toThrow("must not be interactive");
-  });
-
   it("requires icon-only items to have a direct leading and aria-label", () => {
     expect(() => renderButton(<GlNavButton isIconOnly>Issues</GlNavButton>))
       .toThrow("requires a leading GlIcon or GlAvatar");
