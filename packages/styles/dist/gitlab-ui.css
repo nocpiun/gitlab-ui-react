@@ -7132,6 +7132,95 @@ input[type="color"].gl-form-input.form-control:disabled {
 .gl-sub-nav-button.gl-nav-item-has-start-slot {
   padding-left: var(--gl-spacing-scale-7);
 }
+.gl-collapsible-nav {
+  --gl-collapsible-nav-expanded-width: 15rem;
+  --gl-collapsible-nav-collapsed-width: 3.5rem;
+  flex-shrink: 0;
+  width: var(--gl-collapsible-nav-expanded-width);
+  transition: width 250ms ease-out, transform 250ms ease-out, visibility 0s;
+}
+.gl-collapsible-nav .gl-nav-item-label, .gl-collapsible-nav .gl-nav-item-addon, .gl-collapsible-nav .gl-nav-item-chevron {
+  transition: opacity 150ms ease-out, transform 150ms ease-out, max-width 150ms ease-out;
+}
+.gl-collapsible-nav .gl-nav-item-label {
+  min-width: 0;
+  max-width: calc(var(--gl-collapsible-nav-expanded-width) - 4rem);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.gl-collapsible-nav .gl-nav-item-addon, .gl-collapsible-nav .gl-nav-item-chevron {
+  max-width: 1.5rem;
+}
+.gl-collapsible-nav-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1029;
+  background-color: rgb(0 0 0 / 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms ease-out;
+}
+.gl-collapsible-nav-backdrop[data-open="true"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+.gl-collapsible-nav-flyout {
+  min-width: 12rem;
+}
+.gl-collapsible-nav-flyout .gl-sub-nav {
+  margin-top: var(--gl-spacing-scale-0);
+}
+@media (min-width: 1200px) {
+  .gl-collapsible-nav[data-open="false"] {
+    width: var(--gl-collapsible-nav-collapsed-width);
+  }
+  .gl-collapsible-nav[data-open="false"] .gl-nav-item-is-icon-only {
+    justify-content: center;
+    gap: var(--gl-spacing-scale-0);
+  }
+  .gl-collapsible-nav[data-open="false"] .gl-nav-item-label, .gl-collapsible-nav[data-open="false"] .gl-nav-item-addon, .gl-collapsible-nav[data-open="false"] .gl-nav-item-chevron {
+    flex-grow: 0;
+    max-width: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateX(-0.25rem);
+  }
+  .gl-collapsible-nav[data-open="false"] .gl-nav-item-addon, .gl-collapsible-nav[data-open="false"] .gl-nav-item-chevron {
+    width: 0;
+  }
+}
+@media (max-width: 1199px) {
+  .gl-collapsible-nav {
+    position: fixed;
+    inset-block: 0;
+    inset-inline-start: 0;
+    z-index: 1030;
+    width: var(--gl-collapsible-nav-expanded-width);
+    max-width: calc(100vw - 3rem);
+    overflow-y: auto;
+    background-color: var(--gl-background-color-default);
+    box-shadow: var(--gl-shadow-lg);
+  }
+  .gl-collapsible-nav[data-open="false"] {
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(-100%);
+    transition-delay: 0s, 0s, 250ms;
+  }
+  .gl-collapsible-nav[data-open="true"] {
+    visibility: visible;
+    transform: translateX(0);
+    transition-delay: 0s;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gl-collapsible-nav, .gl-collapsible-nav .gl-nav-item-label, .gl-collapsible-nav .gl-nav-item-addon, .gl-collapsible-nav .gl-nav-item-chevron, .gl-collapsible-nav-backdrop {
+    transition-duration: 0s;
+  }
+  .gl-collapsible-nav[data-open="false"], .gl-collapsible-nav[data-open="true"] {
+    transition-delay: 0s;
+  }
+}
 .gl-pagination {
   font-size: var(--gl-font-size-base);
   text-wrap: nowrap;

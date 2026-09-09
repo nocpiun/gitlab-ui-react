@@ -1,13 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Fragment, forwardRef, useState, type ComponentPropsWithoutRef } from "react";
-import { expect, fn, userEvent } from "storybook/test";
+import { expect, fn, userEvent, waitFor, within } from "storybook/test";
 import GlAvatar from "../avatar/avatar";
 import GlButton from "../button/button";
 import GlIcon from "../icon/icon";
 import GlNav, {
+  GlCollapsibleNav,
+  GlCollapsibleNavToggle,
   GlNavButton,
   GlNavItem,
   GlNavItemAddon,
+  GlNavProvider,
   GlSubNav,
   GlSubNavButton,
   GlSubNavItem,
@@ -441,5 +444,235 @@ export const IconOnly: Story = {
 
     await expect(link).toHaveClass("gl-nav-item-is-icon-only");
     await expect(canvas.queryByText("12")).not.toBeInTheDocument();
+  },
+};
+
+function CollapsibleNavItems({
+  internalToggle = false,
+  withSubNav = false,
+}: {
+  internalToggle?: boolean;
+  withSubNav?: boolean;
+}) {
+  return (
+    <>
+      <GlNavItem selected>
+        <GlNavButton href="/issues">
+          <GlIcon name="issues" />
+          Issues
+          <GlNavItemAddon>12</GlNavItemAddon>
+        </GlNavButton>
+      </GlNavItem>
+      {withSubNav ? (
+        <GlNavItem>
+          <GlNavButton>
+            <GlIcon name="settings" />
+            Manage
+          </GlNavButton>
+          <GlSubNav defaultOpen>
+            <GlSubNavItem>
+              <GlSubNavButton href="/members">Members</GlSubNavButton>
+            </GlSubNavItem>
+            <GlSubNavItem>
+              <GlSubNavButton href="/integrations">Integrations</GlSubNavButton>
+            </GlSubNavItem>
+          </GlSubNav>
+        </GlNavItem>
+      ) : null}
+      <GlNavItem>
+        <GlNavButton>
+          <GlIcon name="repository" />
+          Repository
+        </GlNavButton>
+      </GlNavItem>
+      {internalToggle ? (
+        <GlNavItem><GlCollapsibleNavToggle /></GlNavItem>
+      ) : null}
+    </>
+  );
+}
+
+export const ProviderRemoteControl: Story = {
+  render: () => (
+    <GlNavProvider navId="remote-project-navigation">
+      <div className="gl-flex gl-items-start gl-gap-3">
+        <GlCollapsibleNavToggle />
+        <GlCollapsibleNav aria-label="Remote-controlled project navigation">
+          {CollapsibleNavItems({})}
+        </GlCollapsibleNav>
+      </div>
+    </GlNavProvider>
+  ),
+  play: async ({ canvas }) => {
+    const toggle = canvas.getByRole("button", { name: "Collapse sidebar" });
+    const nav = canvas.getByRole("navigation", {
+      name: "Remote-controlled project navigation",
+    });
+
+    await expect(toggle).toHaveAttribute("aria-controls", "remote-project-navigation");
+    await expect(nav).toHaveAttribute("data-open", "true");
+    await userEvent.click(toggle);
+    await expect(nav).toHaveAttribute("data-open", "false");
+    await expect(canvas.getByRole("button", { name: "Expand sidebar" }))
+      .toHaveAttribute("aria-expanded", "false");
+    const issues = canvas.getByRole("link", { name: "Issues" });
+    await userEvent.hover(issues);
+    const tooltip = await within(document.body).findByRole("tooltip", { name: "Issues" });
+    await waitFor(() => expect(tooltip).toBeVisible());
+  },
+};
+
+export const InternalToggle: Story = {
+  render: () => (
+    <GlNavProvider defaultOpen navId="internal-toggle-navigation">
+      <GlCollapsibleNav aria-label="Navigation with internal toggle">
+        {CollapsibleNavItems({ internalToggle: true })}
+      </GlCollapsibleNav>
+    </GlNavProvider>
+  ),
+  play: async ({ canvas }) => {
+    const nav = canvas.getByRole("navigation", { name: "Navigation with internal toggle" });
+    await userEvent.click(canvas.getByRole("button", { name: "Collapse sidebar" }));
+    await expect(nav).toHaveAttribute("data-open", "false");
+    await expect(canvas.getByRole("button", { name: "Expand sidebar" }))
+      .toHaveClass("gl-nav-item-is-icon-only");
+  },
+};
+
+const preventedToggleClick = fn();
+
+export const MultipleToggles: Story = {
+  render: () => (
+    <GlNavProvider defaultOpen={false} navId="multiple-toggle-navigation">
+      <div className="gl-flex gl-items-start gl-gap-3">
+        <GlCollapsibleNavToggle title="Header toggle" />
+        <GlCollapsibleNav aria-label="Navigation with multiple toggles">
+          {CollapsibleNavItems({ internalToggle: true })}
+        </GlCollapsibleNav>
+        <GlCollapsibleNavToggle title="Footer toggle" />
+        <GlCollapsibleNavToggle
+          collapseLabel="Blocked collapse"
+          expandLabel="Blocked expand"
+          onClick={(event) => {
+            preventedToggleClick();
+            event.preventDefault();
+          }} />
+      </div>
+    </GlNavProvider>
+  ),
+  play: async ({ canvas }) => {
+    preventedToggleClick.mockClear();
+    const nav = canvas.getByRole("navigation", { name: "Navigation with multiple toggles" });
+    await userEvent.click(canvas.getByRole("button", { name: "Blocked expand" }));
+    await expect(preventedToggleClick).toHaveBeenCalledOnce();
+    await expect(nav).toHaveAttribute("data-open", "false");
+    const toggles = canvas.getAllByRole("button", { name: "Expand sidebar" });
+    await expect(toggles).toHaveLength(3);
+    await userEvent.click(toggles[0]);
+    await expect(canvas.getAllByRole("button", { name: "Collapse sidebar" })).toHaveLength(3);
+  },
+};
+
+function ControlledCollapsibleNavExample() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <GlNavProvider open={open} onOpenChange={setOpen} navId="controlled-collapsible-navigation">
+      <div className="gl-flex gl-items-start gl-gap-3">
+        <GlCollapsibleNavToggle />
+        <span aria-live="polite">Sidebar is {open ? "expanded" : "collapsed"}</span>
+        <GlCollapsibleNav aria-label="Controlled collapsible navigation">
+          {CollapsibleNavItems({ internalToggle: true })}
+        </GlCollapsibleNav>
+      </div>
+    </GlNavProvider>
+  );
+}
+
+export const CollapsibleControlled: Story = {
+  name: "Collapsible / Controlled",
+  render: () => <ControlledCollapsibleNavExample />,
+  play: async ({ canvas }) => {
+    await expect(canvas.getByText("Sidebar is collapsed")).toBeInTheDocument();
+    await userEvent.click(canvas.getAllByRole("button", { name: "Expand sidebar" })[0]);
+    await expect(canvas.getByText("Sidebar is expanded")).toBeInTheDocument();
+  },
+};
+
+export const SubNavFlyout: Story = {
+  render: () => (
+    <GlNavProvider defaultOpen={false} navId="flyout-navigation">
+      <GlCollapsibleNavToggle />
+      <GlCollapsibleNav aria-label="Navigation with sub-navigation flyout">
+        {CollapsibleNavItems({ withSubNav: true })}
+      </GlCollapsibleNav>
+    </GlNavProvider>
+  ),
+  play: async ({ canvas }) => {
+    const parent = canvas.getByRole("button", { name: "Manage" });
+    parent.focus();
+    await expect(within(document.body).queryByRole("link", { name: "Members" }))
+      .not.toBeInTheDocument();
+    await userEvent.click(parent);
+    await expect(within(document.body).queryByRole("link", { name: "Members" }))
+      .not.toBeInTheDocument();
+    await userEvent.hover(parent);
+    const members = await within(document.body).findByRole("link", { name: "Members" });
+    await waitFor(() => expect(members).toBeVisible());
+    await userEvent.unhover(parent);
+    parent.focus();
+    await userEvent.keyboard("{Enter}");
+    const integrations = await within(document.body).findByRole("link", { name: "Integrations" });
+    await waitFor(() => expect(integrations).toBeVisible());
+    integrations.focus();
+    await userEvent.keyboard("{Escape}");
+    await expect(parent).toHaveFocus();
+    parent.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, pointerType: "touch" }));
+    parent.click();
+    const touchFlyout = await within(document.body).findByRole("link", { name: "Members" });
+    await waitFor(() => expect(touchFlyout).toBeVisible());
+    await userEvent.keyboard("{Escape}");
+    await userEvent.click(canvas.getByRole("button", { name: "Expand sidebar" }));
+    await expect(canvas.getByRole("button", { name: "Manage" }))
+      .toHaveAttribute("aria-expanded", "true");
+    await expect(canvas.getByRole("link", { name: "Members" })).toBeVisible();
+  },
+};
+
+export const MobileOverlay: Story = {
+  parameters: { viewport: { defaultViewport: "mobile1" } },
+  render: () => (
+    <GlNavProvider navId="mobile-navigation">
+      <GlCollapsibleNavToggle />
+      <GlCollapsibleNav aria-label="Mobile project navigation">
+        {CollapsibleNavItems({ internalToggle: true })}
+      </GlCollapsibleNav>
+    </GlNavProvider>
+  ),
+  play: async ({ canvas }) => {
+    const externalToggle = canvas.getByRole("button", { name: "Expand sidebar" });
+    await userEvent.click(externalToggle);
+    const nav = canvas.getByRole("navigation", { name: "Mobile project navigation" });
+    const firstLink = canvas.getByRole("link", { name: "Issues 12" });
+    const internalToggle = within(nav).getByRole("button", { name: "Collapse sidebar" });
+    const backdrop = within(document.body).getByTestId("collapsible-nav-backdrop");
+    await expect(nav).toHaveAttribute("data-open", "true");
+    await expect(backdrop).toHaveAttribute("data-open", "true");
+    await expect(document.body.style.overflow).toBe("hidden");
+    await waitFor(() => expect(firstLink).toHaveFocus());
+    await userEvent.click(canvas.getByRole("button", { name: "Repository" }));
+    await expect(nav).toHaveAttribute("data-open", "true");
+    firstLink.focus();
+    await userEvent.keyboard("{Shift>}{Tab}{/Shift}");
+    await expect(internalToggle).toHaveFocus();
+    await userEvent.tab();
+    await expect(firstLink).toHaveFocus();
+    await userEvent.click(backdrop);
+    await expect(nav).toHaveAttribute("data-open", "false");
+    await expect(externalToggle).toHaveFocus();
+    await expect(document.body.style.overflow).not.toBe("hidden");
+    await userEvent.click(externalToggle);
+    await userEvent.keyboard("{Escape}");
+    await expect(externalToggle).toHaveFocus();
   },
 };
