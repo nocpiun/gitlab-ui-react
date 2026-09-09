@@ -821,7 +821,7 @@
       },
       "100": {
         "key": "{gray.100}",
-        "$value": "#3a383f",
+        "$value": "#3a383d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -852,7 +852,7 @@
       },
       "200": {
         "key": "{gray.200}",
-        "$value": "#4c4b51",
+        "$value": "#4d4b4e",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -883,7 +883,7 @@
       },
       "300": {
         "key": "{gray.300}",
-        "$value": "#626168",
+        "$value": "#646163",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -914,7 +914,7 @@
       },
       "400": {
         "key": "{gray.400}",
-        "$value": "#737278",
+        "$value": "#747273",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -945,7 +945,7 @@
       },
       "500": {
         "key": "{gray.500}",
-        "$value": "#89888d",
+        "$value": "#8a8888",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -976,7 +976,7 @@
       },
       "600": {
         "key": "{gray.600}",
-        "$value": "#a4a3a8",
+        "$value": "#a5a3a3",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1007,7 +1007,7 @@
       },
       "700": {
         "key": "{gray.700}",
-        "$value": "#bfbfc3",
+        "$value": "#c1bfbe",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1038,7 +1038,7 @@
       },
       "800": {
         "key": "{gray.800}",
-        "$value": "#dcdcde",
+        "$value": "#dcdbd9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1069,7 +1069,7 @@
       },
       "900": {
         "key": "{gray.900}",
-        "$value": "#ececef",
+        "$value": "#ecebea",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1100,7 +1100,7 @@
       },
       "950": {
         "key": "{gray.950}",
-        "$value": "#fbfafd",
+        "$value": "#f7f7f5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4699,7 +4699,7 @@
       },
       "10": {
         "key": "{color.neutral.10}",
-        "$value": "#fbfafd",
+        "$value": "#f7f7f5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4707,7 +4707,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#fbfafd",
+          "$value": "#f7f7f5",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4725,7 +4725,7 @@
       },
       "50": {
         "key": "{color.neutral.50}",
-        "$value": "#ececef",
+        "$value": "#ecebea",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4733,7 +4733,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#ececef",
+          "$value": "#ecebea",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4751,7 +4751,7 @@
       },
       "100": {
         "key": "{color.neutral.100}",
-        "$value": "#dcdcde",
+        "$value": "#dcdbd9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4759,7 +4759,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#dcdcde",
+          "$value": "#dcdbd9",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4777,7 +4777,7 @@
       },
       "200": {
         "key": "{color.neutral.200}",
-        "$value": "#bfbfc3",
+        "$value": "#c1bfbe",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4785,7 +4785,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#bfbfc3",
+          "$value": "#c1bfbe",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4803,7 +4803,7 @@
       },
       "300": {
         "key": "{color.neutral.300}",
-        "$value": "#a4a3a8",
+        "$value": "#a5a3a3",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4811,7 +4811,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#a4a3a8",
+          "$value": "#a5a3a3",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4829,7 +4829,7 @@
       },
       "400": {
         "key": "{color.neutral.400}",
-        "$value": "#89888d",
+        "$value": "#8a8888",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4837,7 +4837,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#89888d",
+          "$value": "#8a8888",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4855,7 +4855,7 @@
       },
       "500": {
         "key": "{color.neutral.500}",
-        "$value": "#737278",
+        "$value": "#747273",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4863,7 +4863,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#737278",
+          "$value": "#747273",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4881,7 +4881,7 @@
       },
       "600": {
         "key": "{color.neutral.600}",
-        "$value": "#626168",
+        "$value": "#646163",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4889,7 +4889,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#626168",
+          "$value": "#646163",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4907,7 +4907,7 @@
       },
       "700": {
         "key": "{color.neutral.700}",
-        "$value": "#4c4b51",
+        "$value": "#4d4b4e",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4915,7 +4915,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#4c4b51",
+          "$value": "#4d4b4e",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4933,7 +4933,7 @@
       },
       "800": {
         "key": "{color.neutral.800}",
-        "$value": "#3a383f",
+        "$value": "#3a383d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4941,7 +4941,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#3a383f",
+          "$value": "#3a383d",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -5011,7 +5011,7 @@
       },
       "1000": {
         "key": "{color.neutral.1000}",
-        "$value": "#050506",
+        "$value": "#050408",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -5019,7 +5019,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#050506",
+          "$value": "#050408",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -5167,7 +5167,7 @@
       },
       "strong": {
         "key": "{background.color.strong}",
-        "$value": "#3a383f",
+        "$value": "#3a383d",
         "$type": "color",
         "$description": "Used to make the background easily stand out from the default.",
         "$extensions": {
@@ -5269,7 +5269,7 @@
       },
       "section": {
         "key": "{background.color.section}",
-        "$value": "#3a383f",
+        "$value": "#3a383d",
         "$type": "color",
         "$description": "Used for containers, like a card header, that are visually distinct from the default page background only when necessary to maintain affordance and hierarchy in different modes.",
         "$extensions": {
@@ -5339,7 +5339,7 @@
     "status": {
       "neutral": {
         "key": "{status.neutral.background.color}",
-        "$value": "#3a383f",
+        "$value": "#3a383d",
         "$type": "color",
         "$description": "Used for the background of a neutral status item when the status is neither positive nor negative, or when indicating a special but stable state.",
         "$extensions": {
@@ -5551,7 +5551,7 @@
     "feedback": {
       "strong": {
         "key": "{feedback.strong.background.color}",
-        "$value": "#3a383f",
+        "$value": "#3a383d",
         "$type": "color",
         "$description": "Used for a background associated with strong feedback like a tooltip or toast message.",
         "$extensions": {
@@ -5797,7 +5797,7 @@
     },
     "application-chrome": {
       "key": "{application-chrome.background.color}",
-      "$value": "#050506",
+      "$value": "#050408",
       "$type": "color",
       "$description": "Used for the application chrome background, the lowest layer of the interface that sits beneath panels and contains global navigation, user actions, application navigation, and AI navigation.",
       "$extensions": {
@@ -6828,7 +6828,7 @@
       },
       "100": {
         "key": "{gray.100}",
-        "$value": "#3a383f",
+        "$value": "#3a383d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -6859,7 +6859,7 @@
       },
       "200": {
         "key": "{gray.200}",
-        "$value": "#4c4b51",
+        "$value": "#4d4b4e",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -6890,7 +6890,7 @@
       },
       "300": {
         "key": "{gray.300}",
-        "$value": "#626168",
+        "$value": "#646163",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -6921,7 +6921,7 @@
       },
       "400": {
         "key": "{gray.400}",
-        "$value": "#737278",
+        "$value": "#747273",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -6952,7 +6952,7 @@
       },
       "500": {
         "key": "{gray.500}",
-        "$value": "#89888d",
+        "$value": "#8a8888",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -6983,7 +6983,7 @@
       },
       "600": {
         "key": "{gray.600}",
-        "$value": "#a4a3a8",
+        "$value": "#a5a3a3",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7014,7 +7014,7 @@
       },
       "700": {
         "key": "{gray.700}",
-        "$value": "#bfbfc3",
+        "$value": "#c1bfbe",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7045,7 +7045,7 @@
       },
       "800": {
         "key": "{gray.800}",
-        "$value": "#dcdcde",
+        "$value": "#dcdbd9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7076,7 +7076,7 @@
       },
       "900": {
         "key": "{gray.900}",
-        "$value": "#ececef",
+        "$value": "#ecebea",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7107,7 +7107,7 @@
       },
       "950": {
         "key": "{gray.950}",
-        "$value": "#fbfafd",
+        "$value": "#f7f7f5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -10706,7 +10706,7 @@
       },
       "10": {
         "key": "{color.neutral.10}",
-        "$value": "#fbfafd",
+        "$value": "#f7f7f5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -10714,7 +10714,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#fbfafd",
+          "$value": "#f7f7f5",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -10732,7 +10732,7 @@
       },
       "50": {
         "key": "{color.neutral.50}",
-        "$value": "#ececef",
+        "$value": "#ecebea",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -10740,7 +10740,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#ececef",
+          "$value": "#ecebea",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -10758,7 +10758,7 @@
       },
       "100": {
         "key": "{color.neutral.100}",
-        "$value": "#dcdcde",
+        "$value": "#dcdbd9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -10766,7 +10766,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#dcdcde",
+          "$value": "#dcdbd9",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -10784,7 +10784,7 @@
       },
       "200": {
         "key": "{color.neutral.200}",
-        "$value": "#bfbfc3",
+        "$value": "#c1bfbe",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -10792,7 +10792,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#bfbfc3",
+          "$value": "#c1bfbe",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -10810,7 +10810,7 @@
       },
       "300": {
         "key": "{color.neutral.300}",
-        "$value": "#a4a3a8",
+        "$value": "#a5a3a3",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -10818,7 +10818,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#a4a3a8",
+          "$value": "#a5a3a3",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -10836,7 +10836,7 @@
       },
       "400": {
         "key": "{color.neutral.400}",
-        "$value": "#89888d",
+        "$value": "#8a8888",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -10844,7 +10844,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#89888d",
+          "$value": "#8a8888",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -10862,7 +10862,7 @@
       },
       "500": {
         "key": "{color.neutral.500}",
-        "$value": "#737278",
+        "$value": "#747273",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -10870,7 +10870,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#737278",
+          "$value": "#747273",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -10888,7 +10888,7 @@
       },
       "600": {
         "key": "{color.neutral.600}",
-        "$value": "#626168",
+        "$value": "#646163",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -10896,7 +10896,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#626168",
+          "$value": "#646163",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -10914,7 +10914,7 @@
       },
       "700": {
         "key": "{color.neutral.700}",
-        "$value": "#4c4b51",
+        "$value": "#4d4b4e",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -10922,7 +10922,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#4c4b51",
+          "$value": "#4d4b4e",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -10940,7 +10940,7 @@
       },
       "800": {
         "key": "{color.neutral.800}",
-        "$value": "#3a383f",
+        "$value": "#3a383d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -10948,7 +10948,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#3a383f",
+          "$value": "#3a383d",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -11018,7 +11018,7 @@
       },
       "1000": {
         "key": "{color.neutral.1000}",
-        "$value": "#050506",
+        "$value": "#050408",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -11026,7 +11026,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#050506",
+          "$value": "#050408",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -11138,7 +11138,7 @@
       },
       "default": {
         "key": "{border.color.default}",
-        "$value": "#4c4b51",
+        "$value": "#4d4b4e",
         "$type": "color",
         "$description": "Used for the default border color.",
         "$extensions": {
@@ -11170,7 +11170,7 @@
       },
       "subtle": {
         "key": "{border.color.subtle}",
-        "$value": "#3a383f",
+        "$value": "#3a383d",
         "$type": "color",
         "$description": "Used for a subtle border in combination with the default background.",
         "$extensions": {
@@ -11202,7 +11202,7 @@
       },
       "strong": {
         "key": "{border.color.strong}",
-        "$value": "#626168",
+        "$value": "#646163",
         "$type": "color",
         "$description": "Used for a distinct border that emphasizes an edge or boundaries.",
         "$extensions": {
@@ -11268,7 +11268,7 @@
     "feedback": {
       "strong": {
         "key": "{feedback.strong.border.color}",
-        "$value": "#a4a3a8",
+        "$value": "#a5a3a3",
         "$type": "color",
         "$description": "Used for the border associated with strong feedback.",
         "$extensions": {
@@ -11301,7 +11301,7 @@
       },
       "neutral": {
         "key": "{feedback.neutral.border.color}",
-        "$value": "#626168",
+        "$value": "#646163",
         "$type": "color",
         "$description": "Used for the border of a neutral feedback item when there isn't a specific meaning or urgency.",
         "$extensions": {
@@ -11500,7 +11500,7 @@
     },
     "dropdown": {
       "key": "{dropdown.border.color}",
-      "$value": "#4c4b51",
+      "$value": "#4d4b4e",
       "$type": "color",
       "$description": "Used for the border of a dropdown.",
       "$extensions": {
@@ -11536,7 +11536,7 @@
     },
     "dropdown-divider": {
       "key": "{dropdown.divider.color}",
-      "$value": "#3a383f",
+      "$value": "#3a383d",
       "$type": "color",
       "$description": "Used for the divider of a dropdown.",
       "$extensions": {
@@ -11571,7 +11571,7 @@
     "control": {
       "default": {
         "key": "{control.border.color.default}",
-        "$value": "#737278",
+        "$value": "#747273",
         "$type": "color",
         "$description": "Used for form control (input, radio button, checkbox, textarea) default border.",
         "$extensions": {
@@ -11604,7 +11604,7 @@
       },
       "disabled": {
         "key": "{control.border.color.disabled}",
-        "$value": "#3a383f",
+        "$value": "#3a383d",
         "$type": "color",
         "$description": "Used for disabled form control (input, radio button, checkbox, textarea) border.",
         "$extensions": {
@@ -12492,7 +12492,7 @@
       },
       "100": {
         "key": "{gray.100}",
-        "$value": "#3a383f",
+        "$value": "#3a383d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12523,7 +12523,7 @@
       },
       "200": {
         "key": "{gray.200}",
-        "$value": "#4c4b51",
+        "$value": "#4d4b4e",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12554,7 +12554,7 @@
       },
       "300": {
         "key": "{gray.300}",
-        "$value": "#626168",
+        "$value": "#646163",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12585,7 +12585,7 @@
       },
       "400": {
         "key": "{gray.400}",
-        "$value": "#737278",
+        "$value": "#747273",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12616,7 +12616,7 @@
       },
       "500": {
         "key": "{gray.500}",
-        "$value": "#89888d",
+        "$value": "#8a8888",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12647,7 +12647,7 @@
       },
       "600": {
         "key": "{gray.600}",
-        "$value": "#a4a3a8",
+        "$value": "#a5a3a3",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12678,7 +12678,7 @@
       },
       "700": {
         "key": "{gray.700}",
-        "$value": "#bfbfc3",
+        "$value": "#c1bfbe",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12709,7 +12709,7 @@
       },
       "800": {
         "key": "{gray.800}",
-        "$value": "#dcdcde",
+        "$value": "#dcdbd9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12740,7 +12740,7 @@
       },
       "900": {
         "key": "{gray.900}",
-        "$value": "#ececef",
+        "$value": "#ecebea",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12771,7 +12771,7 @@
       },
       "950": {
         "key": "{gray.950}",
-        "$value": "#fbfafd",
+        "$value": "#f7f7f5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -16370,7 +16370,7 @@
       },
       "10": {
         "key": "{color.neutral.10}",
-        "$value": "#fbfafd",
+        "$value": "#f7f7f5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -16378,7 +16378,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#fbfafd",
+          "$value": "#f7f7f5",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -16396,7 +16396,7 @@
       },
       "50": {
         "key": "{color.neutral.50}",
-        "$value": "#ececef",
+        "$value": "#ecebea",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -16404,7 +16404,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#ececef",
+          "$value": "#ecebea",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -16422,7 +16422,7 @@
       },
       "100": {
         "key": "{color.neutral.100}",
-        "$value": "#dcdcde",
+        "$value": "#dcdbd9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -16430,7 +16430,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#dcdcde",
+          "$value": "#dcdbd9",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -16448,7 +16448,7 @@
       },
       "200": {
         "key": "{color.neutral.200}",
-        "$value": "#bfbfc3",
+        "$value": "#c1bfbe",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -16456,7 +16456,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#bfbfc3",
+          "$value": "#c1bfbe",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -16474,7 +16474,7 @@
       },
       "300": {
         "key": "{color.neutral.300}",
-        "$value": "#a4a3a8",
+        "$value": "#a5a3a3",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -16482,7 +16482,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#a4a3a8",
+          "$value": "#a5a3a3",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -16500,7 +16500,7 @@
       },
       "400": {
         "key": "{color.neutral.400}",
-        "$value": "#89888d",
+        "$value": "#8a8888",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -16508,7 +16508,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#89888d",
+          "$value": "#8a8888",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -16526,7 +16526,7 @@
       },
       "500": {
         "key": "{color.neutral.500}",
-        "$value": "#737278",
+        "$value": "#747273",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -16534,7 +16534,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#737278",
+          "$value": "#747273",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -16552,7 +16552,7 @@
       },
       "600": {
         "key": "{color.neutral.600}",
-        "$value": "#626168",
+        "$value": "#646163",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -16560,7 +16560,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#626168",
+          "$value": "#646163",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -16578,7 +16578,7 @@
       },
       "700": {
         "key": "{color.neutral.700}",
-        "$value": "#4c4b51",
+        "$value": "#4d4b4e",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -16586,7 +16586,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#4c4b51",
+          "$value": "#4d4b4e",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -16604,7 +16604,7 @@
       },
       "800": {
         "key": "{color.neutral.800}",
-        "$value": "#3a383f",
+        "$value": "#3a383d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -16612,7 +16612,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#3a383f",
+          "$value": "#3a383d",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -16682,7 +16682,7 @@
       },
       "1000": {
         "key": "{color.neutral.1000}",
-        "$value": "#050506",
+        "$value": "#050408",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -16690,7 +16690,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#050506",
+          "$value": "#050408",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -16770,7 +16770,7 @@
     "icon": {
       "default": {
         "key": "{icon.color.default}",
-        "$value": "#ececef",
+        "$value": "#ecebea",
         "$type": "color",
         "$description": "Used for the default icon color. Can be paired with default text.",
         "$extensions": {
@@ -16804,7 +16804,7 @@
       },
       "subtle": {
         "key": "{icon.color.subtle}",
-        "$value": "#bfbfc3",
+        "$value": "#c1bfbe",
         "$type": "color",
         "$description": "Used for a static or decorational icon. Can be paired with subtle text.",
         "$extensions": {
@@ -16872,7 +16872,7 @@
       },
       "disabled": {
         "key": "{icon.color.disabled}",
-        "$value": "#89888d",
+        "$value": "#8a8888",
         "$type": "color",
         "$description": "Used for an icon within a disabled section.",
         "$extensions": {
@@ -17078,7 +17078,7 @@
     "status": {
       "neutral": {
         "key": "{status.neutral.icon.color}",
-        "$value": "#a4a3a8",
+        "$value": "#a5a3a3",
         "$type": "color",
         "$description": "Used for the icon of a neutral status item when the status is neither positive nor negative, or when indicating a special but stable state.",
         "$extensions": {
@@ -17325,7 +17325,7 @@
       },
       "neutral": {
         "key": "{feedback.neutral.icon.color}",
-        "$value": "#a4a3a8",
+        "$value": "#c1bfbe",
         "$type": "color",
         "$description": "Used for the icon of a neutral feedback item when there isn't a specific meaning or urgency.",
         "$extensions": {
@@ -17337,7 +17337,7 @@
         "filePath": "src/semantic/feedback.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "{color.neutral.300}",
+          "$value": "{color.neutral.200}",
           "$type": "color",
           "$description": "Used for the icon of a neutral feedback item when there isn't a specific meaning or urgency.",
           "$extensions": {
@@ -17360,7 +17360,7 @@
       },
       "info": {
         "key": "{feedback.info.icon.color}",
-        "$value": "#63a6e9",
+        "$value": "#9dc7f1",
         "$type": "color",
         "$description": "Used for the icon of an informational feedback item when highlighting new information or a change that doesn't require immediate action.",
         "$extensions": {
@@ -17372,7 +17372,7 @@
         "filePath": "src/semantic/feedback.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "{color.blue.300}",
+          "$value": "{color.blue.200}",
           "$type": "color",
           "$description": "Used for the icon of an informational feedback item when highlighting new information or a change that doesn't require immediate action.",
           "$extensions": {
@@ -17395,7 +17395,7 @@
       },
       "success": {
         "key": "{feedback.success.icon.color}",
-        "$value": "#52b87a",
+        "$value": "#91d4a8",
         "$type": "color",
         "$description": "Used for the icon of a success feedback item when confirming the successful completion of a user-initiated action.",
         "$extensions": {
@@ -17407,7 +17407,7 @@
         "filePath": "src/semantic/feedback.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "{color.green.300}",
+          "$value": "{color.green.200}",
           "$type": "color",
           "$description": "Used for the icon of a success feedback item when confirming the successful completion of a user-initiated action.",
           "$extensions": {
@@ -17430,7 +17430,7 @@
       },
       "warning": {
         "key": "{feedback.warning.icon.color}",
-        "$value": "#d99530",
+        "$value": "#e9be74",
         "$type": "color",
         "$description": "Used for the icon of a warning feedback item when notifying about a potential issue or sensitive information.",
         "$extensions": {
@@ -17442,7 +17442,7 @@
         "filePath": "src/semantic/feedback.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "{color.orange.300}",
+          "$value": "{color.orange.200}",
           "$type": "color",
           "$description": "Used for the icon of a warning feedback item when notifying about a potential issue or sensitive information.",
           "$extensions": {
@@ -17465,7 +17465,7 @@
       },
       "danger": {
         "key": "{feedback.danger.icon.color}",
-        "$value": "#f6806d",
+        "$value": "#fcb5aa",
         "$type": "color",
         "$description": "Used for the icon of a danger feedback item when notifying about a critical issue that has just occurred and requires immediate attention.",
         "$extensions": {
@@ -17477,7 +17477,7 @@
         "filePath": "src/semantic/feedback.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "{color.red.300}",
+          "$value": "{color.red.200}",
           "$type": "color",
           "$description": "Used for the icon of a danger feedback item when notifying about a critical issue that has just occurred and requires immediate attention.",
           "$extensions": {
@@ -17500,7 +17500,7 @@
       },
       "brand": {
         "key": "{feedback.brand.icon.color}",
-        "$value": "#ac93e6",
+        "$value": "#cbbbf2",
         "$type": "color",
         "$description": "Used for the icon of a brand-related feedback item when highlighting information that pertains to GitLab.",
         "$extensions": {
@@ -17512,7 +17512,7 @@
         "filePath": "src/semantic/feedback.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "{color.purple.300}",
+          "$value": "{color.purple.200}",
           "$type": "color",
           "$description": "Used for the icon of a brand-related feedback item when highlighting information that pertains to GitLab.",
           "$extensions": {
@@ -18357,7 +18357,7 @@
       },
       "100": {
         "key": "{gray.100}",
-        "$value": "#3a383f",
+        "$value": "#3a383d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18388,7 +18388,7 @@
       },
       "200": {
         "key": "{gray.200}",
-        "$value": "#4c4b51",
+        "$value": "#4d4b4e",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18419,7 +18419,7 @@
       },
       "300": {
         "key": "{gray.300}",
-        "$value": "#626168",
+        "$value": "#646163",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18450,7 +18450,7 @@
       },
       "400": {
         "key": "{gray.400}",
-        "$value": "#737278",
+        "$value": "#747273",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18481,7 +18481,7 @@
       },
       "500": {
         "key": "{gray.500}",
-        "$value": "#89888d",
+        "$value": "#8a8888",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18512,7 +18512,7 @@
       },
       "600": {
         "key": "{gray.600}",
-        "$value": "#a4a3a8",
+        "$value": "#a5a3a3",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18543,7 +18543,7 @@
       },
       "700": {
         "key": "{gray.700}",
-        "$value": "#bfbfc3",
+        "$value": "#c1bfbe",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18574,7 +18574,7 @@
       },
       "800": {
         "key": "{gray.800}",
-        "$value": "#dcdcde",
+        "$value": "#dcdbd9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18605,7 +18605,7 @@
       },
       "900": {
         "key": "{gray.900}",
-        "$value": "#ececef",
+        "$value": "#ecebea",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18636,7 +18636,7 @@
       },
       "950": {
         "key": "{gray.950}",
-        "$value": "#fbfafd",
+        "$value": "#f7f7f5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -22235,7 +22235,7 @@
       },
       "10": {
         "key": "{color.neutral.10}",
-        "$value": "#fbfafd",
+        "$value": "#f7f7f5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -22243,7 +22243,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#fbfafd",
+          "$value": "#f7f7f5",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -22261,7 +22261,7 @@
       },
       "50": {
         "key": "{color.neutral.50}",
-        "$value": "#ececef",
+        "$value": "#ecebea",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -22269,7 +22269,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#ececef",
+          "$value": "#ecebea",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -22287,7 +22287,7 @@
       },
       "100": {
         "key": "{color.neutral.100}",
-        "$value": "#dcdcde",
+        "$value": "#dcdbd9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -22295,7 +22295,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#dcdcde",
+          "$value": "#dcdbd9",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -22313,7 +22313,7 @@
       },
       "200": {
         "key": "{color.neutral.200}",
-        "$value": "#bfbfc3",
+        "$value": "#c1bfbe",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -22321,7 +22321,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#bfbfc3",
+          "$value": "#c1bfbe",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -22339,7 +22339,7 @@
       },
       "300": {
         "key": "{color.neutral.300}",
-        "$value": "#a4a3a8",
+        "$value": "#a5a3a3",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -22347,7 +22347,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#a4a3a8",
+          "$value": "#a5a3a3",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -22365,7 +22365,7 @@
       },
       "400": {
         "key": "{color.neutral.400}",
-        "$value": "#89888d",
+        "$value": "#8a8888",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -22373,7 +22373,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#89888d",
+          "$value": "#8a8888",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -22391,7 +22391,7 @@
       },
       "500": {
         "key": "{color.neutral.500}",
-        "$value": "#737278",
+        "$value": "#747273",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -22399,7 +22399,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#737278",
+          "$value": "#747273",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -22417,7 +22417,7 @@
       },
       "600": {
         "key": "{color.neutral.600}",
-        "$value": "#626168",
+        "$value": "#646163",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -22425,7 +22425,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#626168",
+          "$value": "#646163",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -22443,7 +22443,7 @@
       },
       "700": {
         "key": "{color.neutral.700}",
-        "$value": "#4c4b51",
+        "$value": "#4d4b4e",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -22451,7 +22451,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#4c4b51",
+          "$value": "#4d4b4e",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -22469,7 +22469,7 @@
       },
       "800": {
         "key": "{color.neutral.800}",
-        "$value": "#3a383f",
+        "$value": "#3a383d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -22477,7 +22477,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#3a383f",
+          "$value": "#3a383d",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -22547,7 +22547,7 @@
       },
       "1000": {
         "key": "{color.neutral.1000}",
-        "$value": "#050506",
+        "$value": "#050408",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -22555,7 +22555,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#050506",
+          "$value": "#050408",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -22635,7 +22635,7 @@
     "color": {
       "default": {
         "key": "{text.color.default}",
-        "$value": "#ececef",
+        "$value": "#ecebea",
         "$type": "color",
         "$description": "Used for the default text color.",
         "$extensions": {
@@ -22667,7 +22667,7 @@
       },
       "subtle": {
         "key": "{text.color.subtle}",
-        "$value": "#bfbfc3",
+        "$value": "#c1bfbe",
         "$type": "color",
         "$description": "Used for supplemental text that doesn't need to be as prominent as other text.",
         "$extensions": {
@@ -22891,7 +22891,7 @@
       },
       "disabled": {
         "key": "{text.color.disabled}",
-        "$value": "#89888d",
+        "$value": "#8a8888",
         "$type": "color",
         "$description": "Used for disabled text.",
         "$extensions": {
@@ -22925,7 +22925,7 @@
     "status": {
       "neutral": {
         "key": "{status.neutral.text.color}",
-        "$value": "#bfbfc3",
+        "$value": "#c1bfbe",
         "$type": "color",
         "$description": "Used for the text of a neutral status item when the status is neither positive nor negative, or when indicating a special but stable state.",
         "$extensions": {
@@ -23158,7 +23158,7 @@
       },
       "neutral": {
         "key": "{feedback.neutral.text.color}",
-        "$value": "#bfbfc3",
+        "$value": "#c1bfbe",
         "$type": "color",
         "$description": "Used for the text of a neutral feedback item when there isn't a specific meaning or urgency.",
         "$extensions": {
@@ -23357,7 +23357,7 @@
     },
     "primary": {
       "key": "{text.primary}",
-      "$value": "#ececef",
+      "$value": "#ecebea",
       "$type": "color",
       "$description": "Use text.color.default instead.",
       "$extensions": {
@@ -23390,7 +23390,7 @@
     },
     "secondary": {
       "key": "{text.secondary}",
-      "$value": "#bfbfc3",
+      "$value": "#c1bfbe",
       "$type": "color",
       "$description": "Use text.color.subtle instead.",
       "$extensions": {
@@ -23423,7 +23423,7 @@
     },
     "tertiary": {
       "key": "{text.tertiary}",
-      "$value": "#89888d",
+      "$value": "#8a8888",
       "$type": "color",
       "$description": "Use text.color.disabled instead.",
       "$extensions": {
@@ -23457,7 +23457,7 @@
     "control": {
       "placeholder": {
         "key": "{control.placeholder.color}",
-        "$value": "#89888d",
+        "$value": "#8a8888",
         "$type": "color",
         "$description": "Used for placeholder text within inputs.",
         "$extensions": {
@@ -24411,7 +24411,7 @@
       },
       "100": {
         "key": "{gray.100}",
-        "$value": "#3a383f",
+        "$value": "#3a383d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24442,7 +24442,7 @@
       },
       "200": {
         "key": "{gray.200}",
-        "$value": "#4c4b51",
+        "$value": "#4d4b4e",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24473,7 +24473,7 @@
       },
       "300": {
         "key": "{gray.300}",
-        "$value": "#626168",
+        "$value": "#646163",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24504,7 +24504,7 @@
       },
       "400": {
         "key": "{gray.400}",
-        "$value": "#737278",
+        "$value": "#747273",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24535,7 +24535,7 @@
       },
       "500": {
         "key": "{gray.500}",
-        "$value": "#89888d",
+        "$value": "#8a8888",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24566,7 +24566,7 @@
       },
       "600": {
         "key": "{gray.600}",
-        "$value": "#a4a3a8",
+        "$value": "#a5a3a3",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24597,7 +24597,7 @@
       },
       "700": {
         "key": "{gray.700}",
-        "$value": "#bfbfc3",
+        "$value": "#c1bfbe",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24628,7 +24628,7 @@
       },
       "800": {
         "key": "{gray.800}",
-        "$value": "#dcdcde",
+        "$value": "#dcdbd9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24659,7 +24659,7 @@
       },
       "900": {
         "key": "{gray.900}",
-        "$value": "#ececef",
+        "$value": "#ecebea",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24690,7 +24690,7 @@
       },
       "950": {
         "key": "{gray.950}",
-        "$value": "#fbfafd",
+        "$value": "#f7f7f5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -28289,7 +28289,7 @@
       },
       "10": {
         "key": "{color.neutral.10}",
-        "$value": "#fbfafd",
+        "$value": "#f7f7f5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -28297,7 +28297,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#fbfafd",
+          "$value": "#f7f7f5",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -28315,7 +28315,7 @@
       },
       "50": {
         "key": "{color.neutral.50}",
-        "$value": "#ececef",
+        "$value": "#ecebea",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -28323,7 +28323,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#ececef",
+          "$value": "#ecebea",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -28341,7 +28341,7 @@
       },
       "100": {
         "key": "{color.neutral.100}",
-        "$value": "#dcdcde",
+        "$value": "#dcdbd9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -28349,7 +28349,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#dcdcde",
+          "$value": "#dcdbd9",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -28367,7 +28367,7 @@
       },
       "200": {
         "key": "{color.neutral.200}",
-        "$value": "#bfbfc3",
+        "$value": "#c1bfbe",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -28375,7 +28375,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#bfbfc3",
+          "$value": "#c1bfbe",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -28393,7 +28393,7 @@
       },
       "300": {
         "key": "{color.neutral.300}",
-        "$value": "#a4a3a8",
+        "$value": "#a5a3a3",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -28401,7 +28401,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#a4a3a8",
+          "$value": "#a5a3a3",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -28419,7 +28419,7 @@
       },
       "400": {
         "key": "{color.neutral.400}",
-        "$value": "#89888d",
+        "$value": "#8a8888",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -28427,7 +28427,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#89888d",
+          "$value": "#8a8888",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -28445,7 +28445,7 @@
       },
       "500": {
         "key": "{color.neutral.500}",
-        "$value": "#737278",
+        "$value": "#747273",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -28453,7 +28453,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#737278",
+          "$value": "#747273",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -28471,7 +28471,7 @@
       },
       "600": {
         "key": "{color.neutral.600}",
-        "$value": "#626168",
+        "$value": "#646163",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -28479,7 +28479,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#626168",
+          "$value": "#646163",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -28497,7 +28497,7 @@
       },
       "700": {
         "key": "{color.neutral.700}",
-        "$value": "#4c4b51",
+        "$value": "#4d4b4e",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -28505,7 +28505,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#4c4b51",
+          "$value": "#4d4b4e",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -28523,7 +28523,7 @@
       },
       "800": {
         "key": "{color.neutral.800}",
-        "$value": "#3a383f",
+        "$value": "#3a383d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -28531,7 +28531,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#3a383f",
+          "$value": "#3a383d",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -28601,7 +28601,7 @@
       },
       "1000": {
         "key": "{color.neutral.1000}",
-        "$value": "#050506",
+        "$value": "#050408",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -28609,7 +28609,7 @@
         "filePath": "src/constant/color.neutral.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#050506",
+          "$value": "#050408",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []

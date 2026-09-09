@@ -309,6 +309,10 @@ export type {
   GlSubNavItemProps,
   GlSubNavProps,
 } from "./base/nav/nav";
+export { default as GlMarkdown } from "./base/markdown/markdown";
+export type {
+  GlMarkdownProps,
+} from "./base/markdown/markdown";
 export { default as GlPagination } from "./base/pagination/pagination";
 export type {
   GlPaginationAlign,
