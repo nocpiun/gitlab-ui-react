@@ -1,6 +1,8 @@
 ---
 import "../styles/global.css";
+import { GlLink } from "gitlab-ui-react";
 import { Navbar } from "../components/navbar";
+import { githubRepoUrl, storybookUrl } from "../global";
 
 interface Props {
   title: string;
@@ -11,6 +13,7 @@ const {
   title,
   description = "GitLab UI for React",
 } = Astro.props;
+const currentYear = new Date().getFullYear();
 ---
 
 <!doctype html>
@@ -36,11 +39,46 @@ const {
     </script>
   </head>
 
-  <body>
+  <body class="flex min-h-[100dvh] flex-col">
     <Navbar client:only="react" />
 
-    <main id="main-content">
+    <main class="min-w-0 flex-1" id="main-content">
       <slot />
     </main>
+
+    <footer class="border-t border-section bg-subtle">
+      <div class="mx-auto flex max-w-[96rem] flex-col gap-6 px-4 py-8 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-10">
+        <div class="min-w-0">
+          <GlLink className="inline-flex items-center gap-2 font-semibold text-heading" href="/" variant="unstyled">
+            GitLab UI React
+          </GlLink>
+          <p class="mb-0 mt-2 text-sm text-subtle">
+            GitLab Pajamas components built for React.
+          </p>
+        </div>
+
+        <nav aria-label="Footer navigation" class="flex! flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+          <GlLink
+            href={githubRepoUrl}
+            rel="noopener noreferrer"
+            showExternalIcon
+            target="_blank">
+            Github
+          </GlLink>
+          <GlLink
+            href={storybookUrl}
+            rel="noopener noreferrer"
+            showExternalIcon
+            target="_blank">
+            Storybook
+          </GlLink>
+        </nav>
+
+        <div class="text-sm text-subtle *:m-0! lg:text-right">
+          <p>© {currentYear} NriotHrreion. <GlLink href="https://github.com/nocpiun/gitlab-ui-react/blob/main/LICENSE" target="_blank">MIT licensed</GlLink>.</p>
+          <p>Portions © GitLab Inc. Unofficial and not affiliated with GitLab Inc.</p>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

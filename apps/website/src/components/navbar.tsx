@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { GlButton, GlFormInput, GlListbox, GlListboxContent, GlListboxGroup, GlListboxItem, GlListboxTrigger } from "gitlab-ui-react";
+import { githubRepoUrl, storybookUrl } from "../global";
 
 const THEME_STORAGE_KEY = "gitlab-ui-react-theme";
 
@@ -9,7 +10,10 @@ function applyTheme(isDark: boolean) {
 }
 
 const links = [
-  { href: "/", label: "Home" },
+  {
+    href: "/",
+    label: "Home",
+  },
   {
     href: "/docs",
     label: "Docs",
@@ -17,6 +21,16 @@ const links = [
   {
     href: "/docs/components/button",
     label: "Components",
+  },
+  {
+    href: githubRepoUrl,
+    label: "GitHub",
+    external: true,
+  },
+  {
+    href: storybookUrl,
+    label: "Storybook",
+    external: true,
   },
 ];
 
@@ -54,9 +68,14 @@ export function Navbar() {
   return (
     <header className="flex! flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-12 xl:px-28">
       <nav aria-label="Primary navigation" className="flex flex-wrap *:hover:no-underline!">
-        {links.map(({ href, label }, i) => (
-          <GlButton category="tertiary" href={href} key={i}>
+        {links.map(({ href, label, external }, i) => (
+          <GlButton
+            category="tertiary"
+            href={href}
+            target={external ? "_blank" : undefined}
+            key={i}>
             {label}
+            {external && " ↗"}
           </GlButton>
         ))}
       </nav>
