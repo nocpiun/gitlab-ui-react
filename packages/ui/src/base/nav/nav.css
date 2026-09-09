@@ -298,6 +298,10 @@
       transition-delay: 0s, 0s, 250ms;
     }
 
+    &:dir(rtl)[data-open="false"] {
+      transform: translateX(100%);
+    }
+
     &[data-open="true"] {
       visibility: visible;
       transform: translateX(0);

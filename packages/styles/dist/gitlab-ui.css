@@ -7462,6 +7462,9 @@ input[type="color"].gl-form-input.form-control:disabled {
     transform: translateX(-100%);
     transition-delay: 0s, 0s, 250ms;
   }
+  .gl-collapsible-nav:dir(rtl)[data-open="false"] {
+    transform: translateX(100%);
+  }
   .gl-collapsible-nav[data-open="true"] {
     visibility: visible;
     transform: translateX(0);
@@ -8528,6 +8531,9 @@ table.gl-table.table-borderless tr > :is(th, td) {
 }
 .gl-mt-3 {
   margin-top: var(--gl-spacing-scale-3);
+}
+.gl-mt-4 {
+  margin-top: var(--gl-spacing-scale-4);
 }
 .-gl-mr-3 {
   margin-right: calc(var(--gl-spacing-scale-3) * -1);

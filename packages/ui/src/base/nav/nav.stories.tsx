@@ -780,3 +780,40 @@ export const MobileOverlayDefaultOpen: Story = {
     await expect(externalToggle).toHaveFocus();
   },
 };
+
+export const MobileOverlayRtl: Story = {
+  name: "Collapsible / Mobile Overlay / RTL",
+  parameters: {
+    docs: {
+      description: {
+        story: "Use either toggle to inspect the mobile drawer animation from the RTL logical start edge.",
+      },
+    },
+    viewport: { defaultViewport: "mobile1" },
+  },
+  render: () => (
+    <div dir="rtl">
+      <GlNavProvider defaultOpen navId="rtl-mobile-navigation">
+        <GlCollapsibleNavToggle />
+        <GlCollapsibleNav aria-label="RTL mobile project navigation">
+          {CollapsibleNavItems({ internalToggle: true })}
+        </GlCollapsibleNav>
+      </GlNavProvider>
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const nav = canvas.getByRole("navigation", { name: "RTL mobile project navigation" });
+    const internalToggle = within(nav).getByRole("button", { name: "Collapse sidebar" });
+
+    await expect(getComputedStyle(nav).direction).toBe("rtl");
+    await userEvent.click(internalToggle);
+    await expect(nav).toHaveAttribute("data-open", "false");
+    await waitFor(() => {
+      const closedTransform = new DOMMatrixReadOnly(getComputedStyle(nav).transform);
+      expect(closedTransform.m41).toBeGreaterThan(0);
+    });
+
+    await userEvent.click(canvas.getByRole("button", { name: "Expand sidebar" }));
+    await expect(nav).toHaveAttribute("data-open", "true");
+  },
+};
