@@ -19,7 +19,7 @@ export function LoginBlock() {
         className="grid gap-4"
         onSubmit={(event) => event.preventDefault()}>
         <div className="grid gap-2">
-          <label className="m-0! text-sm font-semibold text-default" htmlFor="login-email">
+          <label className="m-0 text-sm font-semibold text-default" htmlFor="login-email">
             Email address
           </label>
           <GlFormInput
@@ -35,7 +35,7 @@ export function LoginBlock() {
 
         <div className="grid gap-2">
           <div className="flex items-center justify-between gap-4">
-            <label className="m-0! text-sm font-semibold text-default" htmlFor="login-password">
+            <label className="m-0 text-sm font-semibold text-default" htmlFor="login-password">
               Password
             </label>
             <GlLink className="text-sm" href="#">Forgot password?</GlLink>
@@ -72,7 +72,7 @@ export function LoginBlock() {
         Continue with Google
       </GlButton>
 
-      <p className="m-0! text-center text-sm text-subtle">
+      <p className="m-0 text-center text-sm text-subtle">
         New here? <GlLink href="#">Create an account</GlLink>
       </p>
     </ShowcaseCard>

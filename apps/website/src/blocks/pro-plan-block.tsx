@@ -46,12 +46,12 @@ export function ProPlanBlock() {
 
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-3">
-            <h2 id="pro-plan-block-title" className="m-0! text-xl font-semibold text-heading">
+            <h2 id="pro-plan-block-title" className="m-0 text-xl font-semibold text-heading">
               AI Pro
             </h2>
             <GlBadge icon="license" variant="success">Recommended</GlBadge>
           </div>
-          <p className="mb-0! mt-1! text-sm text-subtle">
+          <p className="mb-0 mt-1 text-sm text-subtle">
             More intelligence and capacity for your everyday work.
           </p>
         </div>
@@ -77,7 +77,7 @@ export function ProPlanBlock() {
           </span>
           <span className="pb-0.5 text-sm text-subtle">USD / month</span>
         </div>
-        <p className="mb-0 mt-2! text-sm text-subtle">{selectedPlan.billedLabel}</p>
+        <p className="mb-0 mt-2 text-sm text-subtle">{selectedPlan.billedLabel}</p>
 
         <div className="my-5 border-t border-neutral-800" />
 
@@ -100,7 +100,7 @@ export function ProPlanBlock() {
         <GlButton block variant="confirm">
           Upgrade to Pro
         </GlButton>
-        <p className="mb-0! mt-3! text-center text-xs text-subtle">
+        <p className="mb-0 mt-3 text-center text-xs text-subtle">
           Cancel anytime. Your current plan stays active until renewal.
         </p>
       </div>

@@ -49,7 +49,7 @@ const tableOfContents = headings.filter(({ depth }) => depth >= 2 && depth <= 3)
     <div class="mx-6 sm:mx-8 lg:mx-12 xl:mx-16 2xl:mx-28">
       <div class="mx-auto w-full max-w-[96rem]">
         <div class="docs-layout-grid grid md:grid-cols-[14rem_minmax(0,1fr)]">
-          <aside class="hidden! px-4 py-6 md:sticky md:top-0 md:block! md:max-h-[100dvh] md:self-start md:overflow-y-auto lg:px-5 lg:py-8">
+          <aside class="hidden px-4 py-6 md:sticky md:top-0 md:block md:max-h-[100dvh] md:self-start md:overflow-y-auto lg:px-5 lg:py-8">
             <DocsNavigation
               client:media="(min-width: 768px)"
               currentId={entry.id}
@@ -62,7 +62,7 @@ const tableOfContents = headings.filter(({ depth }) => depth >= 2 && depth <= 3)
               <header class="mb-6">
                 <h1>{entry.data.title}</h1>
                 {entry.data.description && (
-                  <p class="mt-3! text-subtle">{entry.data.description}</p>
+                  <p class="mt-3 text-subtle">{entry.data.description}</p>
                 )}
               </header>
               {tableOfContents.length > 0 && (
@@ -84,7 +84,7 @@ const tableOfContents = headings.filter(({ depth }) => depth >= 2 && depth <= 3)
             </GlMarkdown>
           </article>
 
-          <aside class="hidden! px-5 py-8 min-[1360px]:block!">
+          <aside class="hidden px-5 py-8 min-[1360px]:block">
             <DocsTableOfContents
               class="sticky top-8 max-h-[calc(100dvh-4rem)] overflow-y-auto"
               headings={tableOfContents}

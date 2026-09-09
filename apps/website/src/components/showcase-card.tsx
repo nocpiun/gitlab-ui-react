@@ -8,8 +8,8 @@ type ShowcaseCardProps = PropsWithChildren<{
 
 export function ShowcaseCard({ children, className }: ShowcaseCardProps) {
   return (
-    <GlCard className="overflow-hidden border-subtle! bg-subtle! shadow-sm!">
-      <GlCardContent className={clsx("p-4! sm:p-6!", className)}>
+    <GlCard className="overflow-hidden border-subtle bg-subtle shadow-sm">
+      <GlCardContent className={clsx("p-4 sm:p-6", className)}>
         {children}
       </GlCardContent>
     </GlCard>

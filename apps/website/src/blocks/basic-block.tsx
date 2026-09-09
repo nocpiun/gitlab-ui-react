@@ -38,7 +38,7 @@ export function BasicBlock() {
         <GlButton
           icon="ellipsis_h"
           size="small"
-          className="ml-auto!"/>
+          className="ml-auto"/>
       </div>
 
       <GlFormInput placeholder="Search something..."/>
