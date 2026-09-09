@@ -47,24 +47,24 @@ export function DashboardBlock() {
           <GlBreadcrumbItem href="#infrastructure">Infrastructure</GlBreadcrumbItem>
           <GlBreadcrumbItem href="#overview">Overview</GlBreadcrumbItem>
         </GlBreadcrumb>
-        <h2 className="mt-4! text-[1.25rem]! font-semibold text-heading sm:text-[1.5rem]!">
+        <h2 className="mt-4 text-[1.25rem] font-semibold text-heading sm:text-[1.5rem]">
           Server Overview
         </h2>
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {metrics.map((metric) => (
-          <GlCard className="h-full border-subtle! bg-strong!" key={metric.label}>
+          <GlCard className="h-full border-subtle bg-strong" key={metric.label}>
             <GlCardHeader className="flex items-center justify-between gap-2">
-              <h3 className="text-sm!">{metric.label}</h3>
+              <h3 className="text-sm">{metric.label}</h3>
               <GlIcon name={metric.icon} size={16} variant="subtle" />
             </GlCardHeader>
 
-            <GlCardContent className="flex flex-col p-3!">
+            <GlCardContent className="flex flex-col p-3">
               <p className="text-[1.75rem] font-semibold leading-none text-heading">
                 {metric.value}
               </p>
-              <p className="mb-0! mt-2! text-xs leading-relaxed text-default">
+              <p className="mb-0 mt-2 text-xs leading-relaxed text-default">
                 {metric.description}
               </p>
               {metric.progress ? (

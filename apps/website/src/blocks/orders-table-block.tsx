@@ -92,7 +92,7 @@ export function OrdersTableBlock() {
             <GlTableRow>
               <GlTableHead>Order</GlTableHead>
               <GlTableHead>Status</GlTableHead>
-              <GlTableHead className="text-right!">Total</GlTableHead>
+              <GlTableHead className="text-right">Total</GlTableHead>
             </GlTableRow>
           </GlTableHeader>
           <GlTableBody>
@@ -117,7 +117,7 @@ export function OrdersTableBlock() {
               </GlTableRow>
             )) : (
               <GlTableRow>
-                <GlTableCell className="py-6! text-center text-subtle" colSpan={3}>
+                <GlTableCell className="py-6 text-center text-subtle" colSpan={3}>
                   No orders found
                 </GlTableCell>
               </GlTableRow>
@@ -144,7 +144,7 @@ export function OrdersTableBlock() {
           <GlBreadcrumbItem href="#statistics">Statistics</GlBreadcrumbItem>
           <GlBreadcrumbItem href="#orders">Orders</GlBreadcrumbItem>
         </GlBreadcrumb>
-        <h2 className="mb-4! mt-4! text-[1.25rem]! font-semibold text-heading sm:text-[1.5rem]!">
+        <h2 className="mb-4 mt-4 text-[1.25rem] font-semibold text-heading sm:text-[1.5rem]">
           Customer Orders
         </h2>
       </div>

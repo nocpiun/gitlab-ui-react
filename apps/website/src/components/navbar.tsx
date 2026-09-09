@@ -66,8 +66,8 @@ export function Navbar() {
   }
 
   return (
-    <header className="flex! flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-12 xl:px-28">
-      <nav aria-label="Primary navigation" className="flex flex-wrap *:hover:no-underline!">
+    <header className="flex flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-12 xl:px-28">
+      <nav aria-label="Primary navigation" className="flex flex-wrap *:hover:no-underline">
         {links.map(({ href, label, external }, i) => (
           <GlButton
             category="tertiary"
@@ -88,7 +88,7 @@ export function Navbar() {
           title={isDark ? "Switch to light mode" : "Switch to dark mode"}/>
         <GlFormInput
           aria-label="Search documentation"
-          className="min-w-0 flex-1! sm:min-w-56 lg:w-64!"
+          className="min-w-0 flex-1 sm:min-w-56 lg:w-64"
           placeholder="Search documents..."/>
         <GlListbox value={lang} onValueChange={(value) => setLang(value as any)}>
           {/** @todo */}
