@@ -27,9 +27,11 @@ export type ButtonOwner = {
 
 export type NavProviderContextValue = {
   activeFlyoutId: string | null;
+  captureFocusReturnTarget(element: HTMLElement | null): void;
   isDesktop: boolean;
   navId: string;
   open: boolean;
+  registerExternalToggle(element: HTMLElement): () => void;
   registerNav(id: symbol): () => void;
   requestOpen(
     open: boolean,

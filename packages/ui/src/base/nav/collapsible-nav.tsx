@@ -88,6 +88,15 @@ const navListVariants = cva("gl-nav-list");
 const DESKTOP_NAV_QUERY = "(min-width: 1200px)";
 const NavProviderContext = createContext<NavProviderContextValue | null>(null);
 
+function canReceiveRestoredFocus(element: HTMLElement | null) {
+  return Boolean(
+    element?.isConnected
+    && !element.hasAttribute("disabled")
+    && element.getAttribute("aria-disabled") !== "true"
+    && !element.closest("[aria-hidden='true'], [hidden], [inert]"),
+  );
+}
+
 function useNavProviderContext(component: string) {
   const context = useContext(NavProviderContext);
   if(!context) invariant(component, "must be used within GlNavProvider.");
@@ -108,7 +117,8 @@ export function GlNavProvider({
   const [viewportReady, setViewportReady] = useState(false);
   const [activeFlyoutId, setActiveFlyoutId] = useState<string | null>(null);
   const registeredNav = useRef<symbol | null>(null);
-  const externalOpener = useRef<HTMLElement | null>(null);
+  const externalToggles = useRef(new Set<HTMLElement>());
+  const focusReturnTarget = useRef<HTMLElement | null>(null);
   const restoreFocusOnClose = useRef(false);
   const previousOpen = useRef(open ?? uncontrolledOpen);
   const hasAutomaticInitialState = open === undefined && defaultOpen === undefined;
@@ -139,23 +149,45 @@ export function GlNavProvider({
   useEffect(() => {
     const wasOpen = previousOpen.current;
     previousOpen.current = resolvedOpen;
-    if(!wasOpen || resolvedOpen || !restoreFocusOnClose.current) return;
+    if(!wasOpen || resolvedOpen) return;
 
+    const shouldRestoreFocus = restoreFocusOnClose.current;
     restoreFocusOnClose.current = false;
-    const opener = externalOpener.current;
-    if(opener?.isConnected) opener.focus();
+    const rememberedTarget = focusReturnTarget.current;
+    focusReturnTarget.current = null;
+    if(!shouldRestoreFocus) return;
+
+    const fallbackTarget = Array.from(externalToggles.current)
+      .find((element) => canReceiveRestoredFocus(element));
+    const target = canReceiveRestoredFocus(rememberedTarget)
+      ? rememberedTarget
+      : fallbackTarget;
+    target?.focus();
   }, [resolvedOpen]);
+
+  const captureFocusReturnTarget = useCallback((element: HTMLElement | null) => {
+    if(canReceiveRestoredFocus(element)) focusReturnTarget.current = element;
+  }, []);
 
   const requestOpen = useCallback<NavProviderContextValue["requestOpen"]>((
     nextOpen,
     options,
   ) => {
     if(nextOpen === resolvedOpen) return;
-    if(nextOpen && options?.externalOpener) externalOpener.current = options.externalOpener;
+    if(nextOpen && options?.externalOpener) {
+      focusReturnTarget.current = options.externalOpener;
+    }
     if(!nextOpen && options?.restoreFocus) restoreFocusOnClose.current = true;
     if(!isControlled) setUncontrolledOpen(nextOpen);
     onOpenChange?.(nextOpen);
   }, [isControlled, onOpenChange, resolvedOpen]);
+
+  const registerExternalToggle = useCallback((element: HTMLElement) => {
+    externalToggles.current.add(element);
+    return () => {
+      externalToggles.current.delete(element);
+    };
+  }, []);
 
   const registerNav = useCallback((id: symbol) => {
     if(registeredNav.current && registeredNav.current !== id) {
@@ -170,16 +202,20 @@ export function GlNavProvider({
 
   const value = useMemo<NavProviderContextValue>(() => ({
     activeFlyoutId,
+    captureFocusReturnTarget,
     isDesktop,
     navId: resolvedNavId,
     open: resolvedOpen,
+    registerExternalToggle,
     registerNav,
     requestOpen,
     setActiveFlyoutId,
     viewportReady,
   }), [
     activeFlyoutId,
+    captureFocusReturnTarget,
     isDesktop,
+    registerExternalToggle,
     registerNav,
     requestOpen,
     resolvedNavId,
@@ -235,7 +271,15 @@ function ExternalCollapsibleNavToggle({
   ...buttonProps
 }: GlCollapsibleNavToggleProps & { forwardedRef: Ref<HTMLElement> }) {
   const provider = useNavProviderContext("GlCollapsibleNavToggle");
+  const elementRef = useRef<HTMLElement | null>(null);
+  const registerExternalToggle = provider.registerExternalToggle;
   const label = provider.open ? collapseLabel : expandLabel;
+
+  useEffect(() => {
+    const element = elementRef.current;
+    if(element) return registerExternalToggle(element);
+  }, [registerExternalToggle]);
+
   const handleClick: MouseEventHandler<HTMLElement> = (event) => {
     (onClick as MouseEventHandler<HTMLElement> | undefined)?.(event);
     if(event.defaultPrevented) return;
@@ -246,7 +290,7 @@ function ExternalCollapsibleNavToggle({
   const button = (
     <GlButton
       {...buttonProps as Omit<React.ComponentProps<typeof GlButton>, "children">}
-      ref={forwardedRef}
+      ref={mergeRefs(forwardedRef, elementRef)}
       aria-controls={provider.navId}
       aria-expanded={provider.open}
       aria-label={label}
@@ -414,6 +458,7 @@ export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
     const navElement = useRef<HTMLElement | null>(null);
     const [mounted, setMounted] = useState(false);
     const previousMobileOpen = useRef(false);
+    const captureFocusReturnTarget = provider.captureFocusReturnTarget;
     const isMobile = provider.viewportReady && !provider.isDesktop;
     const isMobileOpen = isMobile && provider.open;
 
@@ -437,8 +482,18 @@ export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
       previousMobileOpen.current = isMobileOpen;
       if(wasOpen || !isMobileOpen) return;
 
-      getFocusableElements(navElement.current!).at(0)?.focus();
-    }, [isMobileOpen]);
+      const nav = navElement.current!;
+      const activeElement = document.activeElement;
+      if(
+        activeElement instanceof HTMLElement
+        && activeElement !== document.body
+        && activeElement !== document.documentElement
+        && !nav.contains(activeElement)
+      ) {
+        captureFocusReturnTarget(activeElement);
+      }
+      getFocusableElements(nav).at(0)?.focus();
+    }, [captureFocusReturnTarget, isMobileOpen]);
 
     const handleKeyDown: KeyboardEventHandler<HTMLElement> = (event) => {
       onKeyDown?.(event);

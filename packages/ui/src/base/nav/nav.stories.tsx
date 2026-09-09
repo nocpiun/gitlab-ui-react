@@ -682,19 +682,27 @@ export const SubNavFlyout: Story = {
   },
 };
 
-export const MobileOverlay: Story = {
-  parameters: { viewport: { defaultViewport: "mobile1" } },
-  render: () => (
-    <GlNavProvider navId="mobile-navigation">
+function MobileOverlayExample() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <GlNavProvider open={open} onOpenChange={setOpen} navId="mobile-navigation">
+      <GlButton onClick={() => setOpen(true)}>Open programmatically</GlButton>
       <GlCollapsibleNavToggle />
       <GlCollapsibleNav aria-label="Mobile project navigation">
         {CollapsibleNavItems({ internalToggle: true })}
       </GlCollapsibleNav>
     </GlNavProvider>
-  ),
+  );
+}
+
+export const MobileOverlay: Story = {
+  parameters: { viewport: { defaultViewport: "mobile1" } },
+  render: () => <MobileOverlayExample />,
   play: async ({ canvas }) => {
+    const programmaticOpener = canvas.getByRole("button", { name: "Open programmatically" });
     const externalToggle = canvas.getByRole("button", { name: "Expand sidebar" });
-    await userEvent.click(externalToggle);
+    await userEvent.click(programmaticOpener);
     const nav = canvas.getByRole("navigation", { name: "Mobile project navigation" });
     const firstLink = canvas.getByRole("link", { name: "Issues 12" });
     const internalToggle = within(nav).getByRole("button", { name: "Collapse sidebar" });
@@ -732,10 +740,32 @@ export const MobileOverlay: Story = {
     await expect(firstLink).toHaveFocus();
     await userEvent.click(backdrop);
     await expect(nav).toHaveAttribute("data-open", "false");
-    await expect(externalToggle).toHaveFocus();
+    await expect(programmaticOpener).toHaveFocus();
     await expect(document.body.style.overflow).not.toBe("hidden");
     await userEvent.click(externalToggle);
     await userEvent.keyboard("{Escape}");
+    await expect(externalToggle).toHaveFocus();
+  },
+};
+
+export const MobileOverlayDefaultOpen: Story = {
+  parameters: { viewport: { defaultViewport: "mobile1" } },
+  render: () => (
+    <GlNavProvider defaultOpen navId="default-open-mobile-navigation">
+      <GlCollapsibleNavToggle />
+      <GlCollapsibleNav aria-label="Initially open mobile navigation">
+        {CollapsibleNavItems({ internalToggle: true })}
+      </GlCollapsibleNav>
+    </GlNavProvider>
+  ),
+  play: async ({ canvas }) => {
+    const externalToggle = canvas.getAllByRole("button", { name: "Collapse sidebar" })
+      .find((element) => element.dataset.glCollapsibleNavToggle === "external")!;
+    const firstLink = canvas.getByRole("link", { name: "Issues 12" });
+
+    await waitFor(() => expect(firstLink).toHaveFocus());
+    await userEvent.keyboard("{Escape}");
+    await expect(externalToggle).toHaveAccessibleName("Expand sidebar");
     await expect(externalToggle).toHaveFocus();
   },
 };
