@@ -648,6 +648,12 @@ export const SubNavFlyout: Story = {
     await userEvent.click(parent);
     await expect(within(document.body).queryByRole("link", { name: "Members" }))
       .not.toBeInTheDocument();
+    parent.click();
+    const synthesizedFlyout = await within(document.body).findByRole("link", { name: "Members" });
+    await waitFor(() => expect(synthesizedFlyout).toBeVisible());
+    parent.click();
+    await waitFor(() => expect(within(document.body).queryByRole("dialog"))
+      .not.toBeInTheDocument());
     await userEvent.hover(parent);
     const members = await within(document.body).findByRole("link", { name: "Members" });
     await waitFor(() => expect(members).toBeVisible());

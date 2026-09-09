@@ -363,8 +363,11 @@ export function useNavButtonInternal(
     onPointerDown?.(event);
   };
   const handleClick: MouseEventHandler<HTMLElement> = (event) => {
+    const isTouchClick = pointerType.current === "touch";
+    const isSynthesizedClick = event.detail === 0;
+    pointerType.current = "";
     onClick?.(event);
-    if(event.defaultPrevented || !owner.flyout || pointerType.current !== "touch") return;
+    if(event.defaultPrevented || !owner.flyout || (!isTouchClick && !isSynthesizedClick)) return;
 
     event.preventDefault();
     owner.flyout.toggle();
