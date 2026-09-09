@@ -718,6 +718,7 @@ export const MobileOverlay: Story = {
     await expect(nav).toHaveAttribute("data-open", "true");
     await expect(backdrop).toHaveAttribute("data-open", "true");
     await expect(document.body.style.overflow).toBe("hidden");
+    await waitFor(() => expect(programmaticOpener.closest("[inert]")).not.toBeNull());
     const drawerStyleProbe = document.createElement("aside");
     const drawerBodyStyleProbe = document.createElement("div");
     const drawerContentStyleProbe = document.createElement("div");
@@ -752,6 +753,7 @@ export const MobileOverlay: Story = {
     programmaticCloser.click();
     await waitFor(() => expect(nav).toHaveAttribute("data-open", "false"));
     await waitFor(() => expect(programmaticOpener).toHaveFocus());
+    await expect(programmaticOpener.closest("[inert]")).toBeNull();
     await expect(document.body.style.overflow).not.toBe("hidden");
     externalToggle.click();
     await waitFor(() => expect(nav).toHaveAttribute("data-open", "true"));
@@ -761,6 +763,28 @@ export const MobileOverlay: Story = {
     await expect(externalToggle).toHaveFocus();
     await userEvent.click(externalToggle);
     await userEvent.keyboard("{Escape}");
+    await expect(externalToggle).toHaveFocus();
+  },
+};
+
+export const MobileOverlayEmpty: Story = {
+  parameters: { viewport: { defaultViewport: "mobile1" } },
+  render: () => (
+    <GlNavProvider defaultOpen navId="empty-mobile-navigation">
+      <GlCollapsibleNavToggle title="Empty navigation toggle" />
+      <GlCollapsibleNav aria-label="Empty mobile navigation" />
+    </GlNavProvider>
+  ),
+  play: async ({ canvas }) => {
+    const nav = canvas.getByRole("navigation", { name: "Empty mobile navigation" });
+    const externalToggle = canvas.getByTitle("Empty navigation toggle");
+
+    await waitFor(() => expect(nav).toHaveFocus());
+    await expect(nav).toHaveAttribute("tabindex", "-1");
+    await expect(externalToggle.closest("[inert]")).not.toBeNull();
+    await userEvent.keyboard("{Escape}");
+    await expect(nav).toHaveAttribute("data-open", "false");
+    await waitFor(() => expect(externalToggle.closest("[inert]")).toBeNull());
     await expect(externalToggle).toHaveFocus();
   },
 };

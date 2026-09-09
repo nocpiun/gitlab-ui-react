@@ -11,6 +11,7 @@ import {
   useContext,
   useEffect,
   useId,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -87,6 +88,7 @@ const collapsibleNavVariants = cva([navClass, "gl-collapsible-nav"]);
 const navListVariants = cva("gl-nav-list");
 const DESKTOP_NAV_QUERY = "(min-width: 1200px)";
 const NavProviderContext = createContext<NavProviderContextValue | null>(null);
+const useIsomorphicLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 function canReceiveRestoredFocus(element: HTMLElement | null) {
   return Boolean(
@@ -287,6 +289,51 @@ function InternalCollapsibleNavToggle({
   } as GlNavButtonProps, forwardedRef, disabled);
 }
 
+function isolateOutsideElements(elements: HTMLElement[]) {
+  const document = elements.at(0)?.ownerDocument;
+  const body = document?.body;
+  const window = document?.defaultView;
+  if(!body || !window) return () => {};
+
+  const protectedRoots = new Set([
+    ...elements,
+    ...body.querySelectorAll<HTMLElement>("[aria-live]"),
+  ]);
+  const protectedBranches = new Set<HTMLElement>();
+  const changedElements = new Set<HTMLElement>();
+
+  for(const root of protectedRoots) {
+    for(let element: HTMLElement | null = root; element; element = element.parentElement) {
+      protectedBranches.add(element);
+      if(element === body) break;
+    }
+  }
+
+  const isolate = (container: HTMLElement) => {
+    for(const child of container.children) {
+      if(!(child instanceof window.HTMLElement)) continue;
+      if(protectedRoots.has(child)) continue;
+      if(protectedBranches.has(child)) {
+        isolate(child);
+        continue;
+      }
+      if(child.hasAttribute("inert")) continue;
+
+      child.setAttribute("inert", "");
+      changedElements.add(child);
+    }
+  };
+
+  isolate(body);
+  const observer = new window.MutationObserver(() => isolate(body));
+  observer.observe(body, { childList: true, subtree: true });
+
+  return () => {
+    observer.disconnect();
+    for(const element of changedElements) element.removeAttribute("inert");
+  };
+}
+
 function ExternalCollapsibleNavToggle({
   collapseLabel = "Collapse sidebar",
   expandLabel = "Expand sidebar",
@@ -476,14 +523,15 @@ export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
     children,
     className,
     onKeyDown,
+    tabIndex,
     ...elementProps
   }, forwardedRef) {
     const provider = useNavProviderContext("GlCollapsibleNav");
     const registerNav = provider.registerNav;
     const instanceId = useRef(Symbol("GlCollapsibleNav"));
     const navElement = useRef<HTMLElement | null>(null);
+    const backdropElement = useRef<HTMLDivElement | null>(null);
     const [mounted, setMounted] = useState(false);
-    const previousMobileOpen = useRef(false);
     const captureFocusReturnTarget = provider.captureFocusReturnTarget;
     const isMobile = provider.viewportReady && !provider.isDesktop;
     const isMobileOpen = isMobile && provider.open;
@@ -504,10 +552,8 @@ export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
       };
     }, [isMobileOpen]);
 
-    useEffect(() => {
-      const wasOpen = previousMobileOpen.current;
-      previousMobileOpen.current = isMobileOpen;
-      if(wasOpen || !isMobileOpen) return;
+    useIsomorphicLayoutEffect(() => {
+      if(!isMobileOpen) return;
 
       const nav = navElement.current!;
       const activeElement = document.activeElement;
@@ -519,8 +565,17 @@ export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
           ? activeElement
           : null,
       );
-      getFocusableElements(nav).at(0)?.focus();
+      (getFocusableElements(nav).at(0) ?? nav).focus();
     }, [captureFocusReturnTarget, isMobileOpen]);
+
+    useIsomorphicLayoutEffect(() => {
+      if(!isMobileOpen || !mounted) return;
+
+      const nav = navElement.current;
+      const backdrop = backdropElement.current;
+      if(!nav || !backdrop) return;
+      return isolateOutsideElements([nav, backdrop]);
+    }, [isMobileOpen, mounted]);
 
     const handleKeyDown: KeyboardEventHandler<HTMLElement> = (event) => {
       onKeyDown?.(event);
@@ -565,7 +620,8 @@ export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
           data-desktop={provider.isDesktop || undefined}
           data-open={provider.open}
           inert={isMobileHidden || undefined}
-          onKeyDown={handleKeyDown}>
+          onKeyDown={handleKeyDown}
+          tabIndex={isMobile ? (tabIndex ?? -1) : tabIndex}>
           <ul className={navListVariants()}>{children}</ul>
         </nav>
       </NavContext.Provider>
@@ -574,6 +630,7 @@ export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
     const backdrop = mounted && isMobile && typeof document !== "undefined"
       ? createPortal(
         <div
+          ref={backdropElement}
           className="gl-collapsible-nav-backdrop"
           data-open={provider.open}
           data-testid="collapsible-nav-backdrop"
