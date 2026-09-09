@@ -1,0 +1,24 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "paths": {
+      "@examples/*": [
+        "../../examples/*"
+      ],
+      "gitlab-ui-react": [
+        "../../packages/ui/src/index.ts"
+      ]
+    }
+  },
+  "include": [
+    ".astro/types.d.ts",
+    "**/*",
+    "../../examples/**/*.ts",
+    "../../examples/**/*.tsx"
+  ],
+  "exclude": [
+    "dist"
+  ]
+}

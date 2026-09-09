@@ -1,3 +1,18 @@
 {
-  "postcss.validate": false
+  "postcss.validate": false,
+  "tailwindCSS.validate": false,
+  "tailwindCSS.includeLanguages": {
+    "astro": "html"
+  },
+  "tailwindCSS.experimental.configFile": {
+    "apps/website/src/styles/global.css": [
+      "apps/website/src/**",
+      "docs/**",
+      "examples/**"
+    ]
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["class:list={([^}]*)}", "[\"'`]([^\"'`]*)[\"'`]"],
+    ["class\\s*=\\s*[\"'`]([^\"'`]*)[\"'`]", "([^\\s]+)"]
+  ]
 }

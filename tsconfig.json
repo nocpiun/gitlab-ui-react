@@ -13,6 +13,11 @@
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",
+    "paths": {
+      "gitlab-ui-react": [
+        "./packages/ui/src/index.ts"
+      ]
+    },
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,

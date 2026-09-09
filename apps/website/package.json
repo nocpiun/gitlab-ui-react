@@ -1,0 +1,34 @@
+{
+  "name": "website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "predev": "pnpm --filter gitlab-ui-react build",
+    "dev": "astro dev",
+    "precheck": "pnpm --filter gitlab-ui-react build",
+    "check": "astro check",
+    "prebuild": "pnpm --filter gitlab-ui-react build",
+    "build": "astro check && astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@gitlab-ui-react/styles": "workspace:^",
+    "@gitlab/fonts": "^1.3.1",
+    "cn": "^0.2.4",
+    "gitlab-ui-react": "workspace:^",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@astrojs/mdx": "^8.0.0",
+    "@astrojs/react": "^6.0.5",
+    "@gitlab-ui-react/tokens": "workspace:^",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "astro": "^7.3.1",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.3"
+  }
+}

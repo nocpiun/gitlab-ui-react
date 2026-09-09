@@ -1,0 +1,42 @@
+---
+type DocsHeading = {
+  depth: number;
+  slug: string;
+  text: string;
+};
+
+interface Props {
+  class?: string;
+  headings: DocsHeading[];
+  showTitle?: boolean;
+}
+
+const {
+  class: className,
+  headings,
+  showTitle = true,
+} = Astro.props;
+---
+
+<nav aria-label="On this page" class:list={[className]}>
+  {showTitle && (
+    <p class="mb-3 text-sm font-semibold tracking-wide text-subtle uppercase">
+      On this page
+    </p>
+  )}
+  {headings.length > 0 ? (
+    <ul class="m-0 flex list-none flex-col gap-1 p-0 text-sm xl:text-base">
+      {headings.map((heading) => (
+        <li class:list={["m-0 p-0", heading.depth === 3 && "ml-3"]}>
+          <a
+            class="block rounded-md px-2 py-1.5 text-subtle no-underline transition-colors hover:bg-subtle hover:text-default focus-visible:outline-2 focus-visible:outline-offset-2"
+            href={`#${heading.slug}`}>
+            {heading.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p class="m-0 text-sm text-subtle">No sections on this page.</p>
+  )}
+</nav>
