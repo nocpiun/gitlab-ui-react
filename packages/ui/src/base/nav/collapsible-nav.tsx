@@ -251,7 +251,7 @@ export function GlNavProvider({
 
 function InternalCollapsibleNavToggle({
   collapseLabel = "Collapse sidebar",
-  disabled: _disabled,
+  disabled = false,
   expandLabel = "Expand sidebar",
   forwardedRef,
   onClick,
@@ -282,7 +282,7 @@ function InternalCollapsibleNavToggle({
     ),
     onClick: handleClick,
     type,
-  } as GlNavButtonProps, forwardedRef);
+  } as GlNavButtonProps, forwardedRef, disabled);
 }
 
 function ExternalCollapsibleNavToggle({

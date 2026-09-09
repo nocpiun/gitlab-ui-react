@@ -278,6 +278,7 @@ export function useNavButtonInternal(
   component: "GlCollapsibleNavToggle" | "GlNavButton" | "GlSubNavButton",
   props: GlNavButtonProps,
   forwardedRef: Ref<HTMLElement>,
+  componentDisabled = false,
 ) {
   const owner = useContext(ButtonOwnerContext);
   const nav = useContext(NavContext);
@@ -329,6 +330,7 @@ export function useNavButtonInternal(
   const derivedLabel = simpleTextLabel(label);
   const hasAutomaticChevron = Boolean(owner.hasSubNav && !addon && !effectiveIconOnly);
   const hasEndSlot = Boolean(!effectiveIconOnly && (addon || hasAutomaticChevron));
+  const disabled = owner.disabled || componentDisabled;
   const resolvedAriaControls = subNavPanelId
     && (ariaExpanded === true || ariaExpanded === "true")
     ? subNavPanelId
@@ -415,7 +417,7 @@ export function useNavButtonInternal(
         aria-expanded={ariaExpanded}
         aria-label={resolvedAriaLabel}
         className={classes}
-        disabled={owner.disabled}
+        disabled={disabled}
         download={download}
         href={href || undefined}
         hrefLang={hrefLang}
@@ -445,7 +447,7 @@ export function useNavButtonInternal(
         aria-expanded={ariaExpanded}
         aria-label={resolvedAriaLabel}
         className={classes}
-        disabled={owner.disabled}
+        disabled={disabled}
         nativeButton
         onClick={handleClick}
         onKeyDown={handleKeyDown}

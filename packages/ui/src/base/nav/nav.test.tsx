@@ -505,6 +505,22 @@ describe("GlCollapsibleNav", () => {
     expect(markup).toContain("disabled=\"\"");
   });
 
+  it("honors disabled passed directly to an internal toggle", () => {
+    const markup = renderToStaticMarkup(
+      <GlNavProvider defaultOpen navId="disabled-toggle-sidebar">
+        <GlCollapsibleNav>
+          <GlNavItem>
+            <GlCollapsibleNavToggle disabled />
+          </GlNavItem>
+        </GlCollapsibleNav>
+      </GlNavProvider>,
+    );
+
+    expect(markup).toMatch(/<button[^>]*disabled=""/u);
+    expect(markup).toContain("aria-controls=\"disabled-toggle-sidebar\"");
+    expect(markup).toContain("data-disabled=\"\"");
+  });
+
   it("requires a direct leading and an accessible label for complex content", () => {
     expect(() => renderToStaticMarkup(
       <GlNavProvider>
