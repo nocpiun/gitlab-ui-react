@@ -1,11 +1,5 @@
-@layer theme, base, components, utilities;
-
 @import "tailwindcss/theme.css" layer(theme);
-/*
- * Keep utilities unlayered to preserve GitLab UI's Tailwind 3
- * "utilities imported last" cascade behavior.
- */
-@import "tailwindcss/utilities.css" source(none);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
 
 @config "../tailwind.config.js";
 
