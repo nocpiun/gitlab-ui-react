@@ -721,6 +721,7 @@ export const MobileOverlay: Story = {
     const navStyle = getComputedStyle(nav);
     const drawerStyle = getComputedStyle(drawerStyleProbe);
     const navListStyle = getComputedStyle(nav.querySelector(":scope > .gl-nav-list")!);
+    const indicatorStyle = getComputedStyle(firstLink, "::before");
     const drawerContentStyle = getComputedStyle(drawerContentStyleProbe);
     expect(navStyle.backgroundColor).toBe(drawerStyle.backgroundColor);
     expect(navStyle.boxShadow).toBe(drawerStyle.boxShadow);
@@ -729,6 +730,8 @@ export const MobileOverlay: Story = {
     expect(navStyle.borderTopRightRadius).toBe(drawerStyle.borderTopLeftRadius);
     expect(navListStyle.paddingTop).toBe(drawerContentStyle.paddingTop);
     expect(navListStyle.paddingRight).toBe(drawerContentStyle.paddingRight);
+    expect(Number.parseFloat(indicatorStyle.left))
+      .toBe(-Number.parseFloat(navListStyle.paddingLeft));
     drawerStyleProbe.remove();
     await waitFor(() => expect(firstLink).toHaveFocus());
     await userEvent.click(canvas.getByRole("button", { name: "Repository" }));

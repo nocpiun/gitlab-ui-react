@@ -288,6 +288,7 @@
     > .gl-nav-list {
       @apply gl-grow;
       @apply gl-p-5;
+      @apply gl-pl-3;
     }
 
     &[data-open="false"] {

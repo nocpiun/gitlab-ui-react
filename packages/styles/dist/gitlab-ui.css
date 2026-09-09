@@ -7454,6 +7454,7 @@ input[type="color"].gl-form-input.form-control:disabled {
   .gl-collapsible-nav > .gl-nav-list {
     flex-grow: 1;
     padding: var(--gl-spacing-scale-5);
+    padding-left: var(--gl-spacing-scale-3);
   }
   .gl-collapsible-nav[data-open="false"] {
     visibility: hidden;
