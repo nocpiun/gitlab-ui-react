@@ -675,10 +675,11 @@ function useNavButton(
   }
 
   const tooltipLabel = ariaLabel ?? derivedLabel;
-  if(!isRail || owner.hasSubNav || !tooltipLabel) return button;
+  const hasCollapsibleTooltip = isCollapsibleTopLevel && !owner.hasSubNav && tooltipLabel;
+  if(!hasCollapsibleTooltip) return button;
 
   return (
-    <GlTooltip>
+    <GlTooltip disabled={!isRail}>
       <GlTooltipTrigger>{button}</GlTooltipTrigger>
       <GlTooltipContent boundary="viewport" placement="right">
         {tooltipLabel}

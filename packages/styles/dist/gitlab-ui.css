@@ -7366,7 +7366,13 @@ input[type="color"].gl-form-input.form-control:disabled {
   --gl-collapsible-nav-collapsed-width: 3.5rem;
   flex-shrink: 0;
   width: var(--gl-collapsible-nav-expanded-width);
-  transition: width 250ms ease-out, transform 250ms ease-out, visibility 0s;
+  transition: width 200ms ease, transform 200ms ease, visibility 0s;
+}
+.gl-collapsible-nav .gl-nav-item {
+  transition: width 200ms ease;
+}
+.gl-collapsible-nav > .gl-nav-list > .gl-nav-list-item > .gl-nav-item-has-start-slot {
+  padding-inline-start: var(--gl-spacing-scale-1);
 }
 .gl-collapsible-nav .gl-nav-item-label, .gl-collapsible-nav .gl-nav-item-addon, .gl-collapsible-nav .gl-nav-item-chevron {
   transition: opacity 150ms ease-out, transform 150ms ease-out, max-width 150ms ease-out;
@@ -7396,6 +7402,9 @@ input[type="color"].gl-form-input.form-control:disabled {
 .gl-collapsible-nav-flyout {
   min-width: 12rem;
 }
+.gl-collapsible-nav-flyout.fade[data-ending-style] {
+  transition-duration: 0s;
+}
 .gl-collapsible-nav-flyout .gl-sub-nav {
   margin-top: var(--gl-spacing-scale-0);
 }
@@ -7404,8 +7413,11 @@ input[type="color"].gl-form-input.form-control:disabled {
     width: var(--gl-collapsible-nav-collapsed-width);
   }
   .gl-collapsible-nav[data-open="false"] .gl-nav-item-is-icon-only {
-    justify-content: center;
     gap: var(--gl-spacing-scale-0);
+    width: 1.75rem;
+    height: 1.75rem;
+    margin-inline-start: 0;
+    margin-inline-end: auto;
   }
   .gl-collapsible-nav[data-open="false"] .gl-nav-item-label, .gl-collapsible-nav[data-open="false"] .gl-nav-item-addon, .gl-collapsible-nav[data-open="false"] .gl-nav-item-chevron {
     flex-grow: 0;
@@ -7420,15 +7432,28 @@ input[type="color"].gl-form-input.form-control:disabled {
 }
 @media (max-width: 1199px) {
   .gl-collapsible-nav {
+    background-color: var(--gl-background-color-overlap);
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    overflow-y: auto;
+    --tw-shadow: var(--gl-shadow-lg);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    font-size: var(--gl-font-size-base);
+    --tw-leading: 1rem;
+    line-height: 1rem;
     position: fixed;
     inset-block: 0;
     inset-inline-start: 0;
     z-index: 1030;
     width: var(--gl-collapsible-nav-expanded-width);
     max-width: calc(100vw - 3rem);
-    overflow-y: auto;
-    background-color: var(--gl-background-color-default);
-    box-shadow: var(--gl-shadow-lg);
+    border-start-end-radius: var(--gl-drawer-border-radius);
+    border-end-end-radius: var(--gl-drawer-border-radius);
+  }
+  .gl-collapsible-nav > .gl-nav-list {
+    flex-grow: 1;
+    padding: var(--gl-spacing-scale-5);
   }
   .gl-collapsible-nav[data-open="false"] {
     visibility: hidden;
@@ -7443,7 +7468,7 @@ input[type="color"].gl-form-input.form-control:disabled {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .gl-collapsible-nav, .gl-collapsible-nav .gl-nav-item-label, .gl-collapsible-nav .gl-nav-item-addon, .gl-collapsible-nav .gl-nav-item-chevron, .gl-collapsible-nav-backdrop {
+  .gl-collapsible-nav, .gl-collapsible-nav .gl-nav-item, .gl-collapsible-nav .gl-nav-item-label, .gl-collapsible-nav .gl-nav-item-addon, .gl-collapsible-nav .gl-nav-item-chevron, .gl-collapsible-nav-backdrop {
     transition-duration: 0s;
   }
   .gl-collapsible-nav[data-open="false"], .gl-collapsible-nav[data-open="true"] {

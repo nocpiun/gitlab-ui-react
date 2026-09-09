@@ -511,14 +511,44 @@ export const ProviderRemoteControl: Story = {
 
     await expect(toggle).toHaveAttribute("aria-controls", "remote-project-navigation");
     await expect(nav).toHaveAttribute("data-open", "true");
+    const expandedIssues = canvas.getByRole("link", { name: "Issues 12" });
+    const expandedBounds = expandedIssues.getBoundingClientRect();
+    const expandedIconX = within(expandedIssues)
+      .getByTestId("nav-item-start").getBoundingClientRect().x;
     await userEvent.click(toggle);
+    await new Promise<void>((resolve) => {
+      requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+    });
+    expect(Math.round(within(expandedIssues).getByTestId("nav-item-start")
+      .getBoundingClientRect().x)).toBe(Math.round(expandedIconX));
     await expect(nav).toHaveAttribute("data-open", "false");
     await expect(canvas.getByRole("button", { name: "Expand sidebar" }))
       .toHaveAttribute("aria-expanded", "false");
     const issues = canvas.getByRole("link", { name: "Issues" });
+    await waitFor(() => {
+      const bounds = issues.getBoundingClientRect();
+      expect(Math.round(bounds.width)).toBe(Math.round(bounds.height));
+      expect(Math.round(bounds.height)).toBe(Math.round(expandedBounds.height));
+      expect(Math.round(bounds.x)).toBe(Math.round(expandedBounds.x));
+      expect(Math.round(within(issues).getByTestId("nav-item-start")
+        .getBoundingClientRect().x)).toBe(Math.round(expandedIconX));
+    });
     await userEvent.hover(issues);
     const tooltip = await within(document.body).findByRole("tooltip", { name: "Issues" });
     await waitFor(() => expect(tooltip).toBeVisible());
+    await userEvent.unhover(issues);
+    const collapsedBounds = issues.getBoundingClientRect();
+    await userEvent.click(canvas.getByRole("button", { name: "Expand sidebar" }));
+    await new Promise<void>((resolve) => {
+      requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+    });
+    const expandingBounds = issues.getBoundingClientRect();
+    expect(expandingBounds.width).toBeGreaterThan(collapsedBounds.width);
+    expect(expandingBounds.width).toBeLessThan(expandedBounds.width);
+    expect(Math.round(expandingBounds.height)).toBe(Math.round(expandedBounds.height));
+    expect(Math.round(expandingBounds.x)).toBe(Math.round(expandedBounds.x));
+    expect(Math.round(within(issues).getByTestId("nav-item-start")
+      .getBoundingClientRect().x)).toBe(Math.round(expandedIconX));
   },
 };
 
@@ -578,7 +608,7 @@ function ControlledCollapsibleNavExample() {
 
   return (
     <GlNavProvider open={open} onOpenChange={setOpen} navId="controlled-collapsible-navigation">
-      <div className="gl-flex gl-items-start gl-gap-3">
+      <div className="gl-flex gl-flex-col gl-items-start gl-gap-3">
         <GlCollapsibleNavToggle />
         <span aria-live="polite">Sidebar is {open ? "expanded" : "collapsed"}</span>
         <GlCollapsibleNav aria-label="Controlled collapsible navigation">
@@ -619,7 +649,18 @@ export const SubNavFlyout: Story = {
     await userEvent.hover(parent);
     const members = await within(document.body).findByRole("link", { name: "Members" });
     await waitFor(() => expect(members).toBeVisible());
+    const flyout = within(document.body).getByRole("dialog");
+    const flyoutStyleProbe = flyout.cloneNode(false) as HTMLElement;
+    document.body.append(flyoutStyleProbe);
+    flyoutStyleProbe.setAttribute("data-starting-style", "");
+    expect(getComputedStyle(flyoutStyleProbe).transitionDuration).toBe("0.15s");
+    flyoutStyleProbe.removeAttribute("data-starting-style");
+    flyoutStyleProbe.setAttribute("data-ending-style", "");
+    expect(getComputedStyle(flyoutStyleProbe).transitionDuration).toBe("0s");
+    flyoutStyleProbe.remove();
     await userEvent.unhover(parent);
+    await waitFor(() => expect(within(document.body).queryByRole("dialog"))
+      .not.toBeInTheDocument());
     parent.focus();
     await userEvent.keyboard("{Enter}");
     const integrations = await within(document.body).findByRole("link", { name: "Integrations" });
@@ -659,6 +700,26 @@ export const MobileOverlay: Story = {
     await expect(nav).toHaveAttribute("data-open", "true");
     await expect(backdrop).toHaveAttribute("data-open", "true");
     await expect(document.body.style.overflow).toBe("hidden");
+    const drawerStyleProbe = document.createElement("aside");
+    const drawerBodyStyleProbe = document.createElement("div");
+    const drawerContentStyleProbe = document.createElement("div");
+    drawerStyleProbe.className = "gl-drawer gl-drawer-default";
+    drawerBodyStyleProbe.className = "gl-drawer-body";
+    drawerBodyStyleProbe.append(drawerContentStyleProbe);
+    drawerStyleProbe.append(drawerBodyStyleProbe);
+    document.body.append(drawerStyleProbe);
+    const navStyle = getComputedStyle(nav);
+    const drawerStyle = getComputedStyle(drawerStyleProbe);
+    const navListStyle = getComputedStyle(nav.querySelector(":scope > .gl-nav-list")!);
+    const drawerContentStyle = getComputedStyle(drawerContentStyleProbe);
+    expect(navStyle.backgroundColor).toBe(drawerStyle.backgroundColor);
+    expect(navStyle.boxShadow).toBe(drawerStyle.boxShadow);
+    expect(navStyle.fontSize).toBe(drawerStyle.fontSize);
+    expect(navStyle.lineHeight).toBe(drawerStyle.lineHeight);
+    expect(navStyle.borderTopRightRadius).toBe(drawerStyle.borderTopLeftRadius);
+    expect(navListStyle.paddingTop).toBe(drawerContentStyle.paddingTop);
+    expect(navListStyle.paddingRight).toBe(drawerContentStyle.paddingRight);
+    drawerStyleProbe.remove();
     await waitFor(() => expect(firstLink).toHaveFocus());
     await userEvent.click(canvas.getByRole("button", { name: "Repository" }));
     await expect(nav).toHaveAttribute("data-open", "true");
