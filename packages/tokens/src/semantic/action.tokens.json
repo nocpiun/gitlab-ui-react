@@ -542,7 +542,7 @@
         "color": {
           "default": {
             "$value": {
-              "default": "{color.red.500}",
+              "default": "{color.red.600}",
               "dark": "{color.red.200}"
             },
             "$type": "color",
@@ -556,7 +556,7 @@
           },
           "hover": {
             "$value": {
-              "default": "{color.red.700}",
+              "default": "{color.red.800}",
               "dark": "{color.red.100}"
             },
             "$type": "color",
@@ -581,7 +581,7 @@
           },
           "active": {
             "$value": {
-              "default": "{color.red.900}",
+              "default": "{color.red.950}",
               "dark": "{color.red.100}"
             },
             "$type": "color",

@@ -123,7 +123,7 @@
     }
   },
   "🔒/alert-neutral-background-color": {
-    "$value": "{background-color-subtle}",
+    "$value": "{feedback-neutral-background-color}",
     "$type": "color",
     "$description": "Used for the background color of a neutral alert.",
     "$extensions": {
@@ -133,10 +133,20 @@
       ]
     }
   },
+  "🔒/alert-neutral-border-color": {
+    "$value": "{feedback-neutral-border-color}",
+    "$type": "color",
+    "$description": "Used for the border color of a neutral alert.",
+    "$extensions": {
+      "com.figma.scopes": [
+        "STROKE_COLOR"
+      ]
+    }
+  },
   "🔒/alert-neutral-border-top-color": {
     "$value": "{color-neutral-400}",
     "$type": "color",
-    "$description": "Used for the border center color of a neutral alert.",
+    "$description": "Used for the border color of a neutral alert.",
     "$extensions": {
       "com.figma.scopes": [
         "STROKE_COLOR"
@@ -154,7 +164,7 @@
     }
   },
   "🔒/alert-info-title-color": {
-    "$value": "{color-blue-300}",
+    "$value": "{color-blue-200}",
     "$type": "color",
     "$description": "Used for the title color of an info alert.",
     "$extensions": {
@@ -164,13 +174,23 @@
     }
   },
   "🔒/alert-info-background-color": {
-    "$value": "{background-color-subtle}",
+    "$value": "{feedback-info-background-color}",
     "$type": "color",
     "$description": "Used for the background color of an info alert.",
     "$extensions": {
       "com.figma.scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
+      ]
+    }
+  },
+  "🔒/alert-info-border-color": {
+    "$value": "{feedback-info-border-color}",
+    "$type": "color",
+    "$description": "Used for the border color of an info alert.",
+    "$extensions": {
+      "com.figma.scopes": [
+        "STROKE_COLOR"
       ]
     }
   },
@@ -190,7 +210,7 @@
     "$description": "Used for the border bottom color of an info alert."
   },
   "🔒/alert-success-title-color": {
-    "$value": "{color-green-300}",
+    "$value": "{color-green-200}",
     "$type": "color",
     "$description": "Used for the title color of a success alert.",
     "$extensions": {
@@ -200,13 +220,23 @@
     }
   },
   "🔒/alert-success-background-color": {
-    "$value": "{background-color-subtle}",
+    "$value": "{feedback-success-background-color}",
     "$type": "color",
     "$description": "Used for the background color of a success alert.",
     "$extensions": {
       "com.figma.scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
+      ]
+    }
+  },
+  "🔒/alert-success-border-color": {
+    "$value": "{feedback-success-border-color}",
+    "$type": "color",
+    "$description": "Used for the border color of a success alert.",
+    "$extensions": {
+      "com.figma.scopes": [
+        "STROKE_COLOR"
       ]
     }
   },
@@ -231,7 +261,7 @@
     }
   },
   "🔒/alert-warning-title-color": {
-    "$value": "{color-orange-300}",
+    "$value": "{color-orange-200}",
     "$type": "color",
     "$description": "Used for the title color of a warning alert.",
     "$extensions": {
@@ -241,13 +271,23 @@
     }
   },
   "🔒/alert-warning-background-color": {
-    "$value": "{background-color-subtle}",
+    "$value": "{feedback-warning-background-color}",
     "$type": "color",
     "$description": "Used for the background color of a warning alert.",
     "$extensions": {
       "com.figma.scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
+      ]
+    }
+  },
+  "🔒/alert-warning-border-color": {
+    "$value": "{feedback-warning-border-color}",
+    "$type": "color",
+    "$description": "Used for the border color of a warning alert.",
+    "$extensions": {
+      "com.figma.scopes": [
+        "STROKE_COLOR"
       ]
     }
   },
@@ -272,7 +312,7 @@
     }
   },
   "🔒/alert-danger-title-color": {
-    "$value": "{color-red-300}",
+    "$value": "{color-red-200}",
     "$type": "color",
     "$description": "Used for the title color of a danger alert.",
     "$extensions": {
@@ -282,13 +322,23 @@
     }
   },
   "🔒/alert-danger-background-color": {
-    "$value": "{background-color-subtle}",
+    "$value": "{feedback-danger-background-color}",
     "$type": "color",
     "$description": "Used for the background color of a danger alert.",
     "$extensions": {
       "com.figma.scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
+      ]
+    }
+  },
+  "🔒/alert-danger-border-color": {
+    "$value": "{feedback-danger-border-color}",
+    "$type": "color",
+    "$description": "Used for the border color of a danger alert.",
+    "$extensions": {
+      "com.figma.scopes": [
+        "STROKE_COLOR"
       ]
     }
   },
@@ -6857,7 +6907,7 @@
     }
   },
   "feedback-neutral-icon-color": {
-    "$value": "{color-neutral-300}",
+    "$value": "{color-neutral-200}",
     "$type": "color",
     "$description": "Used for the icon of a neutral feedback item when there isn't a specific meaning or urgency.",
     "$extensions": {
@@ -6899,7 +6949,7 @@
     }
   },
   "feedback-info-icon-color": {
-    "$value": "{color-blue-300}",
+    "$value": "{color-blue-200}",
     "$type": "color",
     "$description": "Used for the icon of an informational feedback item when highlighting new information or a change that doesn't require immediate action.",
     "$extensions": {
@@ -6941,7 +6991,7 @@
     }
   },
   "feedback-success-icon-color": {
-    "$value": "{color-green-300}",
+    "$value": "{color-green-200}",
     "$type": "color",
     "$description": "Used for the icon of a success feedback item when confirming the successful completion of a user-initiated action.",
     "$extensions": {
@@ -6983,7 +7033,7 @@
     }
   },
   "feedback-warning-icon-color": {
-    "$value": "{color-orange-300}",
+    "$value": "{color-orange-200}",
     "$type": "color",
     "$description": "Used for the icon of a warning feedback item when notifying about a potential issue or sensitive information.",
     "$extensions": {
@@ -7025,7 +7075,7 @@
     }
   },
   "feedback-danger-icon-color": {
-    "$value": "{color-red-300}",
+    "$value": "{color-red-200}",
     "$type": "color",
     "$description": "Used for the icon of a danger feedback item when notifying about a critical issue that has just occurred and requires immediate attention.",
     "$extensions": {
@@ -7067,7 +7117,7 @@
     }
   },
   "feedback-brand-icon-color": {
-    "$value": "{color-purple-300}",
+    "$value": "{color-purple-200}",
     "$type": "color",
     "$description": "Used for the icon of a brand-related feedback item when highlighting information that pertains to GitLab.",
     "$extensions": {

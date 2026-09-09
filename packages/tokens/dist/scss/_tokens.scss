@@ -111,19 +111,19 @@ $gl-color-green-800: #225131;
 $gl-color-green-900: #1e3e28;
 $gl-color-green-950: #17291c;
 $gl-color-neutral-0: #fff;
-$gl-color-neutral-10: #fbfafd;
-$gl-color-neutral-50: #ececef;
-$gl-color-neutral-100: #dcdcde;
-$gl-color-neutral-200: #bfbfc3;
-$gl-color-neutral-300: #a4a3a8;
-$gl-color-neutral-400: #89888d;
-$gl-color-neutral-500: #737278;
-$gl-color-neutral-600: #626168;
-$gl-color-neutral-700: #4c4b51;
-$gl-color-neutral-800: #3a383f;
+$gl-color-neutral-10: #f7f7f5;
+$gl-color-neutral-50: #ecebea;
+$gl-color-neutral-100: #dcdbd9;
+$gl-color-neutral-200: #c1bfbe;
+$gl-color-neutral-300: #a5a3a3;
+$gl-color-neutral-400: #8a8888;
+$gl-color-neutral-500: #747273;
+$gl-color-neutral-600: #646163;
+$gl-color-neutral-700: #4d4b4e;
+$gl-color-neutral-800: #3a383d;
 $gl-color-neutral-900: #28272d;
 $gl-color-neutral-950: #18171d;
-$gl-color-neutral-1000: #050506;
+$gl-color-neutral-1000: #050408;
 $gl-color-orange-50: #fdf1dd;
 $gl-color-orange-100: #f5d9a8;
 $gl-color-orange-200: #e9be74;
@@ -421,7 +421,7 @@ $gl-font-weight-heading: $gl-font-weight-bold;
 $gl-heading-default-margin-top: $gl-spacing-scale-0;
 $gl-heading-default-margin-bottom: $gl-spacing-scale-5;
 $gl-shadow-color-default: $gl-color-alpha-dark-16; // Used for the default shadow color.
-$gl-alert-neutral-border-top-color: $gl-color-alpha-0; // Used for the border center color of a neutral alert.
+$gl-alert-neutral-border-top-color: $gl-color-alpha-0; // Used for the border color of a neutral alert.
 $gl-alert-neutral-border-bottom-color: $gl-color-alpha-0; // Used for the border bottom color of a neutral alert.
 $gl-alert-info-border-top-color: $gl-color-alpha-0; // Used for the border color of an info alert.
 $gl-alert-info-border-bottom-color: $gl-color-alpha-0; // Used for the border bottom color of an info alert.
@@ -741,9 +741,9 @@ $gl-action-confirm-background-color-default: $gl-color-alpha-0; // Used for the 
 $gl-action-confirm-background-color-hover: $gl-color-alpha-dark-6; // Used for the background of a confirm (positive) action in the hover state.
 $gl-action-confirm-background-color-active: $gl-color-alpha-dark-16; // Used for the background of a confirm (positive) action in the active state.
 $gl-action-confirm-border-color-default: $gl-color-alpha-0; // Used for the border of a confirm action in the default state.
-$gl-action-danger-foreground-color-default: $gl-color-red-500; // Used for the foreground of a danger (destructive) action in the default state.
-$gl-action-danger-foreground-color-hover: $gl-color-red-700; // Used for the foreground of a danger (destructive) action in the hover state.
-$gl-action-danger-foreground-color-active: $gl-color-red-900; // Used for the foreground of a danger (destructive) action in the active state.
+$gl-action-danger-foreground-color-default: $gl-color-red-600; // Used for the foreground of a danger (destructive) action in the default state.
+$gl-action-danger-foreground-color-hover: $gl-color-red-800; // Used for the foreground of a danger (destructive) action in the hover state.
+$gl-action-danger-foreground-color-active: $gl-color-red-950; // Used for the foreground of a danger (destructive) action in the active state.
 $gl-action-danger-background-color-focus: $gl-action-danger-background-color-hover; // Used for the background of a danger (destructive) action in the focus state.
 $gl-action-danger-border-color-default: $gl-color-alpha-0; // Used for the border of a danger action in the default state.
 $gl-action-strong-confirm-background-color-default: $gl-color-blue-500; // Used for the background of a strong confirm action in the default state.
@@ -914,14 +914,19 @@ $gl-shadow-lg: 0 0 2px 0 $gl-shadow-color-default, 0 0 2px 0 $gl-shadow-color-de
 $gl-alert-border-radius: $gl-border-radius-lg; // Used for alert border radius.
 $gl-alert-neutral-title-color: $gl-text-color-heading; // Used for the title color of a neutral alert.
 $gl-alert-neutral-background-color: $gl-feedback-neutral-background-color; // Used for the background color of a neutral alert.
+$gl-alert-neutral-border-color: $gl-feedback-neutral-border-color; // Used for the border color of a neutral alert.
 $gl-alert-info-title-color: $gl-text-color-heading; // Used for the title color of an info alert.
 $gl-alert-info-background-color: $gl-feedback-info-background-color; // Used for the background color of an info alert.
+$gl-alert-info-border-color: $gl-feedback-info-border-color; // Used for the border color of an info alert.
 $gl-alert-success-title-color: $gl-text-color-heading; // Used for the title color of a success alert.
 $gl-alert-success-background-color: $gl-feedback-success-background-color; // Used for the background color of a success alert.
+$gl-alert-success-border-color: $gl-feedback-success-border-color; // Used for the border color of a success alert.
 $gl-alert-warning-title-color: $gl-text-color-heading; // Used for the title color of a warning alert.
 $gl-alert-warning-background-color: $gl-feedback-warning-background-color; // Used for the background color of a warning alert.
+$gl-alert-warning-border-color: $gl-feedback-warning-border-color; // Used for the border color of a warning alert.
 $gl-alert-danger-title-color: $gl-text-color-heading; // Used for the title color of a danger alert.
 $gl-alert-danger-background-color: $gl-feedback-danger-background-color; // Used for the background color of a danger alert.
+$gl-alert-danger-border-color: $gl-feedback-danger-border-color; // Used for the border color of a danger alert.
 $gl-avatar-square-border-radius-lg: $gl-border-radius-lg; // Border radius for square avatars at larger sizes (48px, 64px, 96px).
 $gl-badge-muted-background-color-hover: $gl-badge-muted-background-color-default; // Used for the background of a muted badge in the hover state.
 $gl-badge-muted-text-color-focus: $gl-badge-muted-text-color-hover; // Used for the text of a muted badge in the focus state.
