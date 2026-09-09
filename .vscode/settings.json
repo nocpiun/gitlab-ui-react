@@ -1,5 +1,6 @@
 {
   "postcss.validate": false,
+  "tailwindCSS.validate": false,
   "tailwindCSS.includeLanguages": {
     "astro": "html"
   },

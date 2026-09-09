@@ -1,39 +1,43 @@
 ---
-import { BookingBlock } from "./booking-block";
-import { CheckoutBlock } from "./checkout-block";
-import { InventoryBlock } from "./inventory-block";
-import { PlansBlock } from "./plans-block";
-import { SecurityBlock } from "./security-block";
-import { SupportBlock } from "./support-block";
-import { TasksBlock } from "./tasks-block";
-import { TravelPlanBlock } from "./travel-plan-block";
+import { BasicBlock } from "./basic-block";
+import { DashboardBlock } from "./dashboard-block";
+import { LoginBlock } from "./login-block";
+import { MemberProfileBlock } from "./member-profile-block";
+import { OrdersTableBlock } from "./orders-table-block";
+import { ProPlanBlock } from "./pro-plan-block";
+import { SkeletonBlock } from "./skeleton-block";
+import { Sidebars1Block } from "./sidebars-1-block";
+import { Sidebars2Block } from "./sidebars-2-block";
 ---
 
 <section class="showcase" aria-label="Interface examples for different products">
   <div class="showcase-grid">
-    <div class="showcase-item showcase-item-checkout">
-      <CheckoutBlock client:visible />
+    <div class="showcase-item">
+      <BasicBlock client:visible />
     </div>
-    <div class="showcase-item showcase-item-travel">
-      <TravelPlanBlock client:visible />
+    <div class="showcase-item">
+      <Sidebars1Block client:visible />
     </div>
-    <div class="showcase-item showcase-item-booking">
-      <BookingBlock />
+    <div class="showcase-item">
+      <Sidebars2Block client:visible />
     </div>
-    <div class="showcase-item showcase-item-tasks">
-      <TasksBlock client:visible />
+    <div class="showcase-item">
+      <LoginBlock client:visible />
     </div>
-    <div class="showcase-item showcase-item-support">
-      <SupportBlock />
+    <div class="showcase-item">
+      <ProPlanBlock client:visible />
     </div>
-    <div class="showcase-item showcase-item-inventory">
-      <InventoryBlock />
+    <div class="showcase-item">
+      <DashboardBlock client:visible />
     </div>
-    <div class="showcase-item showcase-item-security">
-      <SecurityBlock client:visible />
+    <div class="showcase-item">
+      <MemberProfileBlock client:visible />
     </div>
-    <div class="showcase-item showcase-item-plans">
-      <PlansBlock />
+    <div class="showcase-item">
+      <SkeletonBlock client:visible />
+    </div>
+    <div class="showcase-item">
+      <OrdersTableBlock client:visible />
     </div>
   </div>
 </section>
@@ -64,9 +68,11 @@ import { TravelPlanBlock } from "./travel-plan-block";
   }
 
   .showcase-grid {
+    height: 75rem;
     max-width: 96rem;
     margin: 0 auto;
     column-count: 4;
+    column-fill: auto;
     column-gap: var(--gl-spacing-scale-6);
   }
 
@@ -84,6 +90,7 @@ import { TravelPlanBlock } from "./travel-plan-block";
     }
 
     .showcase-grid {
+      height: 103rem;
       column-count: 2;
     }
   }
@@ -96,7 +103,9 @@ import { TravelPlanBlock } from "./travel-plan-block";
     }
 
     .showcase-grid {
+      height: auto;
       column-count: 1;
+      column-fill: balance;
     }
 
     .showcase-item {

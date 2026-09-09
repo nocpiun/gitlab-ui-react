@@ -89,6 +89,9 @@ importers:
       '@gitlab/fonts':
         specifier: ^1.3.1
         version: 1.3.1
+      cn:
+        specifier: ^0.2.4
+        version: 0.2.4
       gitlab-ui-react:
         specifier: workspace:^
         version: link:../../packages/ui
