@@ -20,6 +20,10 @@ test("converts upstream gl-* candidates without changing variant order", () => {
   );
   expect(toTailwindCandidate("dark")).toBeNull();
   expect(toTailwindCandidate("gl-dark")).toBeNull();
+  expect(toTailwindCandidate("gl-table")).toBeNull();
+  expect(toTailwindCandidate("gl-table-caption")).toBeNull();
+  expect(toTailwindCandidate("gl-table-cell")).toBeNull();
+  expect(toTailwindCandidate("gl-table-row")).toBeNull();
 });
 
 test("compiles @apply and restores upstream gl-* selectors", async () => {

@@ -2834,13 +2834,13 @@
     font-size: 87.5%;
     vertical-align: unset;
   }
-  .gl-table {
+  .table {
     margin-bottom: var(--gl-spacing-scale-3);
     width: 100%;
     background-color: transparent;
     color: var(--gl-text-color-default);
   }
-  .gl-table th, .gl-table td {
+  .table th, .table td {
     border-top-style: var(--tw-border-style);
     border-top-width: 1px;
     border-top-style: solid;
@@ -2848,7 +2848,7 @@
     padding: var(--gl-spacing-scale-4);
     vertical-align: top;
   }
-  .gl-table thead th {
+  .table thead th {
     border-bottom-width: 1px;
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 2px;
@@ -2856,7 +2856,7 @@
     border-bottom-color: var(--gl-border-color-default);
     vertical-align: bottom;
   }
-  .gl-table tbody + tbody {
+  .table tbody + tbody {
     border-top-width: 1px;
     border-top-style: var(--tw-border-style);
     border-top-width: 2px;
@@ -8460,18 +8460,6 @@
   }
   .gl-grid {
     display: grid;
-  }
-  .gl-table {
-    display: table;
-  }
-  .gl-table-caption {
-    display: table-caption;
-  }
-  .gl-table-cell {
-    display: table-cell;
-  }
-  .gl-table-row {
-    display: table-row;
   }
   .gl-h-0 {
     height: var(--gl-spacing-scale-0);
