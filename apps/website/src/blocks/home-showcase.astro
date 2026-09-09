@@ -1,0 +1,134 @@
+---
+import { BasicBlock } from "./basic-block";
+import { DashboardBlock } from "./dashboard-block";
+import { LoginBlock } from "./login-block";
+import { MemberProfileBlock } from "./member-profile-block";
+import { OrdersTableBlock } from "./orders-table-block";
+import { ProPlanBlock } from "./pro-plan-block";
+import { SkeletonBlock } from "./skeleton-block";
+import { Sidebars1Block } from "./sidebars-1-block";
+import { Sidebars2Block } from "./sidebars-2-block";
+---
+
+<section class="showcase" aria-label="Interface examples for different products">
+  <div class="showcase-grid">
+    <div class="showcase-item">
+      <BasicBlock client:visible />
+    </div>
+    <div class="showcase-item">
+      <Sidebars1Block client:visible />
+    </div>
+    <div class="showcase-item">
+      <Sidebars2Block client:visible />
+    </div>
+    <div class="showcase-item">
+      <LoginBlock client:visible />
+    </div>
+    <div class="showcase-item">
+      <ProPlanBlock client:visible />
+    </div>
+    <div class="showcase-item">
+      <DashboardBlock client:visible />
+    </div>
+    <div class="showcase-item">
+      <MemberProfileBlock client:visible />
+    </div>
+    <div class="showcase-item">
+      <SkeletonBlock client:visible />
+    </div>
+    <div class="showcase-item">
+      <OrdersTableBlock client:visible />
+    </div>
+  </div>
+</section>
+
+<style>
+  .showcase {
+    position: relative;
+    height: 70rem;
+    overflow: hidden;
+    padding: var(--gl-spacing-scale-10);
+  }
+
+  .showcase::after {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 24rem;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      color-mix(in srgb, var(--gl-background-color-default) 72%, transparent) 38%,
+      var(--gl-background-color-default) 92%
+    );
+    content: "";
+    pointer-events: none;
+  }
+
+  .showcase-grid {
+    height: 75rem;
+    max-width: 96rem;
+    margin: 0 auto;
+    column-count: 4;
+    column-fill: auto;
+    column-gap: var(--gl-spacing-scale-6);
+  }
+
+  .showcase-item {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: var(--gl-spacing-scale-6);
+    break-inside: avoid;
+    vertical-align: top;
+  }
+
+  .showcase-item:nth-child(2) {
+    break-after: avoid-column;
+  }
+
+  .showcase-item:nth-child(3) {
+    break-before: avoid-column;
+  }
+
+  @media (max-width: 89.99rem) {
+    .showcase {
+      height: auto;
+      overflow: visible;
+      padding-right: var(--gl-spacing-scale-6);
+      padding-left: var(--gl-spacing-scale-6);
+    }
+
+    .showcase::after {
+      display: none;
+    }
+
+    .showcase-grid {
+      height: auto;
+      column-count: 3;
+      column-fill: balance;
+    }
+  }
+
+  @media (max-width: 71.99rem) {
+    .showcase-grid {
+      column-count: 2;
+    }
+  }
+
+  @media (max-width: 47.99rem) {
+    .showcase {
+      padding-right: var(--gl-spacing-scale-5);
+      padding-left: var(--gl-spacing-scale-5);
+    }
+
+    .showcase-grid {
+      column-count: 1;
+    }
+
+    .showcase-item {
+      margin-bottom: var(--gl-spacing-scale-5);
+    }
+  }
+</style>

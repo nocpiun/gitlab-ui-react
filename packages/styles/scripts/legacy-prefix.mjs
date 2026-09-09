@@ -2,6 +2,11 @@ import postcss from "postcss";
 import selectorParser from "postcss-selector-parser";
 
 const LEGACY_PREFIX = "gl-";
+const NON_UTILITY_CANDIDATES = new Set([
+  // Theme scope marker used by consumers. Treating it as the legacy-prefixed
+  // utility `dark` rewrites the marker in generated dark variant selectors.
+  "gl-dark",
+]);
 
 function splitCandidate(candidate) {
   const parts = [];
@@ -65,6 +70,8 @@ function stripLegacyPrefix(utility) {
  * @example -gl-m-2 -> -m-2
  */
 export function toTailwindCandidate(candidate) {
+  if(NON_UTILITY_CANDIDATES.has(candidate)) return null;
+
   const parts = splitCandidate(candidate);
   const utility = stripLegacyPrefix(parts.at(-1));
 

@@ -19,6 +19,7 @@ test("converts upstream gl-* candidates without changing variant order", () => {
     "[&:nth-child(2)]:text-link",
   );
   expect(toTailwindCandidate("dark")).toBeNull();
+  expect(toTailwindCandidate("gl-dark")).toBeNull();
 });
 
 test("compiles @apply and restores upstream gl-* selectors", async () => {

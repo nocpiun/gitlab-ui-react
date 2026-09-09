@@ -4,6 +4,10 @@
 [![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg "LICENSE")](./LICENSE)
 [![Stars](https://img.shields.io/github/stars/nocpiun/gitlab-ui-react.svg?label=Stars)](https://github.com/nocpiun/gitlab-ui-react/stargazers)
 
+**Website:** <https://glui.nocp.space>
+
+**Storybook:** <https://glui-story.nocp.space>
+
 > [!warning]
 > 🚧 **This project is under heavy development.** 🚧 The vast majority of the code and tests were written by AI (Codex and Kimi Code). Humans direct architecture, priorities, and design decisions, but have not reviewed most of the code line-by-line. Use at your own risk.
 
