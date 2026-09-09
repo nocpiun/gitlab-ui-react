@@ -472,6 +472,7 @@ function getFocusableElements(container: HTMLElement) {
 
 export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
   function GlCollapsibleNav({
+    "aria-hidden": ariaHidden,
     children,
     className,
     onKeyDown,
@@ -486,6 +487,7 @@ export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
     const captureFocusReturnTarget = provider.captureFocusReturnTarget;
     const isMobile = provider.viewportReady && !provider.isDesktop;
     const isMobileOpen = isMobile && provider.open;
+    const isMobileHidden = isMobile && !provider.open;
 
     validateNavChildren(children);
 
@@ -558,11 +560,11 @@ export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
           {...elementProps}
           ref={mergeRefs(forwardedRef, navElement)}
           id={provider.navId}
-          aria-hidden={isMobile && !provider.open || undefined}
+          aria-hidden={isMobileHidden ? true : ariaHidden}
           className={collapsibleNavVariants({ className })}
           data-desktop={provider.isDesktop || undefined}
           data-open={provider.open}
-          inert={isMobile && !provider.open || undefined}
+          inert={isMobileHidden || undefined}
           onKeyDown={handleKeyDown}>
           <ul className={navListVariants()}>{children}</ul>
         </nav>

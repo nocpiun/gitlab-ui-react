@@ -484,6 +484,21 @@ describe("GlCollapsibleNav", () => {
     expect(id).toBe(controls);
   });
 
+  it("preserves consumer-provided aria-hidden state", () => {
+    const renderNav = (ariaHidden: boolean) => renderToStaticMarkup(
+      <GlNavProvider>
+        <GlCollapsibleNav aria-hidden={ariaHidden}>
+          <GlNavItem>
+            <GlNavButton><GlIcon name="issues" />Issues</GlNavButton>
+          </GlNavItem>
+        </GlCollapsibleNav>
+      </GlNavProvider>,
+    );
+
+    expect(renderNav(true)).toContain("aria-hidden=\"true\"");
+    expect(renderNav(false)).toContain("aria-hidden=\"false\"");
+  });
+
   it("forwards refs and applicable attributes to both toggle forms", () => {
     const externalRef = createRef<HTMLElement>();
     const internalRef = createRef<HTMLElement>();
