@@ -276,7 +276,9 @@ function InternalCollapsibleNavToggle({
     "aria-label": label,
     children: (
       <>
-        <GlIcon name={provider.open ? "collapse-left" : "collapse-right"} />
+        <GlIcon
+          className="gl-collapsible-nav-toggle-icon"
+          name={provider.open ? "collapse-left" : "collapse-right"} />
         {label}
       </>
     ),

@@ -7386,6 +7386,9 @@ input[type="color"].gl-form-input.form-control:disabled {
 .gl-collapsible-nav .gl-nav-item-addon, .gl-collapsible-nav .gl-nav-item-chevron {
   max-width: 1.5rem;
 }
+.gl-collapsible-nav-toggle-icon:dir(rtl) {
+  transform: scaleX(-1);
+}
 .gl-collapsible-nav-backdrop {
   position: fixed;
   inset: 0;

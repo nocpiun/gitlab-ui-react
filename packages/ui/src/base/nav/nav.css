@@ -210,6 +210,10 @@
   }
 }
 
+.gl-collapsible-nav-toggle-icon:dir(rtl) {
+  transform: scaleX(-1);
+}
+
 .gl-collapsible-nav-backdrop {
   position: fixed;
   inset: 0;
