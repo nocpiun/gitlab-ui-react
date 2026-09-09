@@ -677,9 +677,14 @@ export const SubNavFlyout: Story = {
     await userEvent.keyboard("{Escape}");
     await expect(parent).toHaveFocus();
     parent.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, pointerType: "touch" }));
-    parent.click();
+    parent.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, detail: 1 }));
     const touchFlyout = await within(document.body).findByRole("link", { name: "Members" });
     await waitFor(() => expect(touchFlyout).toBeVisible());
+    await userEvent.keyboard("{Escape}");
+    parent.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, pointerType: "pen" }));
+    parent.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, detail: 1 }));
+    const penFlyout = await within(document.body).findByRole("link", { name: "Members" });
+    await waitFor(() => expect(penFlyout).toBeVisible());
     await userEvent.keyboard("{Escape}");
     await userEvent.click(canvas.getByRole("button", { name: "Expand sidebar" }));
     await expect(canvas.getByRole("button", { name: "Manage" }))
