@@ -4,8 +4,8 @@
  *
  * Sass constants are expanded to match the upstream compiled output:
  * `$gl-spacing-scale-9` is `3rem`, `$gl-spacing-scale-5` is `1rem`,
- * `$gl-spacing-scale-4` is `.75rem`, `$gl-line-height-20` is `1.25rem`,
- * and `$gl-alert-top-border-size` is `2px`. The `gl-container-width-up(sm)`
+ * `$gl-spacing-scale-4` is `.75rem`, `$gl-spacing-scale-1` is `.25rem`,
+ * and `$gl-line-height-24` is `1.5rem`. The `gl-container-width-up(sm)`
  * mixin is written out as the established local `@container`/`@media` pair.
  * Compound action controls receive the upstream `gl-alert-action` styles
  * through direct-child selectors instead of an internally applied class.
@@ -24,27 +24,14 @@
   border-radius: var(--gl-alert-border-radius);
   padding-inline: calc(3rem + var(--gl-alert-padding-x, 0px));
   position: relative;
+  border: 1px solid;
 
-  @media (forced-colors: active) {
-    border: 1px solid transparent;
-  }
-
-  &::before {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 2px;
-    position: absolute;
-    top: -1px; /* To accumulate for the border width */
-    left: 0;
+  &-not-dismissible {
+    padding-right: calc(1rem + var(--gl-alert-padding-x, 0px));
   }
 
   .gl-link:not(.gl-label-link) {
     @apply gl-underline;
-  }
-
-  &-not-dismissible {
-    padding-right: calc(1rem + var(--gl-alert-padding-x, 0px));
   }
 }
 
@@ -63,10 +50,10 @@
   left: calc(1rem + var(--gl-alert-padding-x, 0px));
   @apply gl-flex;
   @apply gl-items-center;
-  height: 1.25rem;
+  height: 1.5rem;
 
   .gl-alert-has-title & {
-    top: calc(0.75rem + 2px);
+    top: 0.75rem;
   }
 }
 
@@ -109,7 +96,7 @@
 /* This is the replacement for .gl-alert-dismiss */
 .gl-dismiss-btn {
   position: absolute;
-  top: calc(0.75rem + 2px);
+  top: 0.75rem;
   right: calc(0.75rem + var(--gl-alert-padding-x, 0px));
 
   .gl-alert-has-title & {
@@ -121,16 +108,7 @@
 
 .gl-alert-danger {
   background-color: var(--gl-alert-danger-background-color);
-  border-bottom: 1px solid var(--gl-alert-danger-border-bottom-color);
-
-  &::before {
-    background: linear-gradient(
-      to right,
-      transparent 0%,
-      var(--gl-alert-danger-border-top-color) 50%,
-      transparent 100%
-    );
-  }
+  border-color: var(--gl-alert-danger-border-color);
 
   .gl-alert-title {
     color: var(--gl-alert-danger-title-color);
@@ -145,16 +123,7 @@
 
 .gl-alert-warning {
   background-color: var(--gl-alert-warning-background-color);
-  border-bottom: 1px solid var(--gl-alert-warning-border-bottom-color);
-
-  &::before {
-    background: linear-gradient(
-      to right,
-      transparent 0%,
-      var(--gl-alert-warning-border-top-color) 50%,
-      transparent 100%
-    );
-  }
+  border-color: var(--gl-alert-warning-border-color);
 
   .gl-alert-title {
     color: var(--gl-alert-warning-title-color);
@@ -169,16 +138,7 @@
 
 .gl-alert-tip {
   background-color: var(--gl-alert-neutral-background-color);
-  border-bottom: 1px solid var(--gl-alert-neutral-border-bottom-color);
-
-  &::before {
-    background: linear-gradient(
-      to right,
-      transparent 0%,
-      var(--gl-alert-neutral-border-top-color) 50%,
-      transparent 100%
-    );
-  }
+  border-color: var(--gl-alert-neutral-border-color);
 
   .gl-alert-title {
     color: var(--gl-alert-neutral-title-color);
@@ -193,16 +153,7 @@
 
 .gl-alert-info {
   background-color: var(--gl-alert-info-background-color);
-  border-bottom: 1px solid var(--gl-alert-info-border-bottom-color);
-
-  &::before {
-    background: linear-gradient(
-      to right,
-      transparent 0%,
-      var(--gl-alert-info-border-top-color) 50%,
-      transparent 100%
-    );
-  }
+  border-color: var(--gl-alert-info-border-color);
 
   .gl-alert-title {
     color: var(--gl-alert-info-title-color);
@@ -217,16 +168,7 @@
 
 .gl-alert-success {
   background-color: var(--gl-alert-success-background-color);
-  border-bottom: 1px solid var(--gl-alert-success-border-bottom-color);
-
-  &::before {
-    background: linear-gradient(
-      to right,
-      transparent 0%,
-      var(--gl-alert-success-border-top-color) 50%,
-      transparent 100%
-    );
-  }
+  border-color: var(--gl-alert-success-border-color);
 
   .gl-alert-title {
     color: var(--gl-alert-success-title-color);

@@ -4330,26 +4330,13 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
   border-radius: var(--gl-alert-border-radius);
   padding-inline: calc(3rem + var(--gl-alert-padding-x, 0px));
   position: relative;
-}
-@media (forced-colors: active) {
-  .gl-alert {
-    border: 1px solid transparent;
-  }
-}
-.gl-alert::before {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 2px;
-  position: absolute;
-  top: -1px;
-  left: 0;
-}
-.gl-alert .gl-link:not(.gl-label-link) {
-  text-decoration-line: underline;
+  border: 1px solid;
 }
 .gl-alert-not-dismissible {
   padding-right: calc(1rem + var(--gl-alert-padding-x, 0px));
+}
+.gl-alert .gl-link:not(.gl-label-link) {
+  text-decoration-line: underline;
 }
 .gl-alert-sticky {
   position: sticky;
@@ -4371,10 +4358,10 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
   left: calc(1rem + var(--gl-alert-padding-x, 0px));
   display: flex;
   align-items: center;
-  height: 1.25rem;
+  height: 1.5rem;
 }
 .gl-alert-has-title .gl-alert-icon-container {
-  top: calc(0.75rem + 2px);
+  top: 0.75rem;
 }
 .gl-alert-body {
   --tw-leading: var(--gl-line-height-20);
@@ -4415,7 +4402,7 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
 }
 .gl-dismiss-btn {
   position: absolute;
-  top: calc(0.75rem + 2px);
+  top: 0.75rem;
   right: calc(0.75rem + var(--gl-alert-padding-x, 0px));
 }
 .gl-alert-has-title .gl-dismiss-btn {
@@ -4423,10 +4410,7 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
 }
 .gl-alert-danger {
   background-color: var(--gl-alert-danger-background-color);
-  border-bottom: 1px solid var(--gl-alert-danger-border-bottom-color);
-}
-.gl-alert-danger::before {
-  background: linear-gradient( to right, transparent 0%, var(--gl-alert-danger-border-top-color) 50%, transparent 100% );
+  border-color: var(--gl-alert-danger-border-color);
 }
 .gl-alert-danger .gl-alert-title {
   color: var(--gl-alert-danger-title-color);
@@ -4438,10 +4422,7 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
 }
 .gl-alert-warning {
   background-color: var(--gl-alert-warning-background-color);
-  border-bottom: 1px solid var(--gl-alert-warning-border-bottom-color);
-}
-.gl-alert-warning::before {
-  background: linear-gradient( to right, transparent 0%, var(--gl-alert-warning-border-top-color) 50%, transparent 100% );
+  border-color: var(--gl-alert-warning-border-color);
 }
 .gl-alert-warning .gl-alert-title {
   color: var(--gl-alert-warning-title-color);
@@ -4453,10 +4434,7 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
 }
 .gl-alert-tip {
   background-color: var(--gl-alert-neutral-background-color);
-  border-bottom: 1px solid var(--gl-alert-neutral-border-bottom-color);
-}
-.gl-alert-tip::before {
-  background: linear-gradient( to right, transparent 0%, var(--gl-alert-neutral-border-top-color) 50%, transparent 100% );
+  border-color: var(--gl-alert-neutral-border-color);
 }
 .gl-alert-tip .gl-alert-title {
   color: var(--gl-alert-neutral-title-color);
@@ -4468,10 +4446,7 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
 }
 .gl-alert-info {
   background-color: var(--gl-alert-info-background-color);
-  border-bottom: 1px solid var(--gl-alert-info-border-bottom-color);
-}
-.gl-alert-info::before {
-  background: linear-gradient( to right, transparent 0%, var(--gl-alert-info-border-top-color) 50%, transparent 100% );
+  border-color: var(--gl-alert-info-border-color);
 }
 .gl-alert-info .gl-alert-title {
   color: var(--gl-alert-info-title-color);
@@ -4483,10 +4458,7 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
 }
 .gl-alert-success {
   background-color: var(--gl-alert-success-background-color);
-  border-bottom: 1px solid var(--gl-alert-success-border-bottom-color);
-}
-.gl-alert-success::before {
-  background: linear-gradient( to right, transparent 0%, var(--gl-alert-success-border-top-color) 50%, transparent 100% );
+  border-color: var(--gl-alert-success-border-color);
 }
 .gl-alert-success .gl-alert-title {
   color: var(--gl-alert-success-title-color);
