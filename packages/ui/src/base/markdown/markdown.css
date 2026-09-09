@@ -1,0 +1,233 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/markdown/markdown.scss
+ *
+ * Sass constants are expanded: `$gl-font-size-markdown-sm` is `0.875rem`,
+ * `$gl-border-size-1` is `1px`, and `$gl-border-size-4` is `4px`.
+ */
+
+.gl-markdown {
+  @apply gl-text-lg;
+  @apply gl-leading-24;
+  @apply gl-text-default;
+  @apply gl-font-regular;
+  @apply gl-font-normal;
+
+  :first-child {
+    @apply gl-mt-0;
+  }
+
+  h1,
+  .gl-h1 {
+    @apply gl-heading-1;
+    @apply gl-mt-7;
+  }
+
+  h2,
+  .gl-h2 {
+    @apply gl-heading-2;
+    @apply gl-mt-6;
+  }
+
+  h3,
+  .gl-h3 {
+    @apply gl-heading-3;
+    @apply gl-mt-6;
+  }
+
+  h4,
+  .gl-h4 {
+    @apply gl-heading-4;
+    @apply gl-mt-5;
+  }
+
+  h5,
+  .gl-h5 {
+    @apply gl-heading-5;
+    @apply gl-mt-5;
+  }
+
+  h6,
+  .gl-h6 {
+    @apply gl-heading-6;
+    @apply gl-mt-5;
+  }
+
+  p,
+  .gl-paragraph {
+    @apply gl-mt-0;
+    @apply gl-mb-0;
+
+    + p,
+    + .gl-paragraph {
+      @apply gl-mt-5;
+    }
+
+    &.sm {
+      font-size: 0.875rem;
+      @apply gl-leading-20;
+    }
+  }
+
+  .sm {
+    font-size: 0.875rem;
+    @apply gl-leading-20;
+  }
+
+  .monospace,
+  code {
+    @apply gl-font-monospace;
+  }
+
+  blockquote {
+    @apply gl-text-subtle;
+    @apply gl-py-3;
+    @apply gl-pl-6;
+    @apply gl-my-3;
+    @apply gl-mx-0;
+    box-shadow: inset 4px 0 0 0 var(--gl-border-color-strong);
+  }
+
+  .idiff {
+    @apply gl-rounded-default;
+    @apply gl-inline-flex;
+    @apply gl-px-2;
+  }
+
+  .deletion {
+    @apply gl-bg-status-danger;
+  }
+
+  .addition {
+    @apply gl-bg-status-success;
+  }
+
+  code {
+    @apply gl-rounded-default;
+    @apply gl-bg-strong;
+    @apply gl-text-strong;
+    @apply gl-px-2;
+    @apply gl-py-1;
+  }
+
+  pre {
+    @apply gl-rounded-default;
+    @apply gl-py-3;
+    @apply gl-px-4;
+    box-shadow: inset 0 0 0 1px var(--gl-border-color-default);
+    @apply gl-my-7;
+    @apply gl-overflow-auto;
+
+    code {
+      @apply gl-bg-default;
+      @apply gl-rounded-none;
+      @apply gl-text-strong;
+      @apply gl-p-0;
+    }
+  }
+
+  .audio-container {
+    @apply gl-inline-flex;
+    @apply gl-flex-col;
+    @apply gl-w-full;
+
+    audio {
+      @apply gl-w-full;
+    }
+
+    a {
+      @apply gl-mt-3;
+
+      &::before {
+        @apply gl-mr-2;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        content: "📎";
+      }
+    }
+  }
+
+  table {
+    @apply gl-my-7;
+
+    th,
+    td {
+      @apply gl-px-3;
+      @apply gl-py-4;
+      box-shadow: inset 0 -1px 0 0 var(--gl-border-color-default);
+      @apply gl-align-top;
+    }
+
+    th {
+      box-shadow:
+        inset 0 1px 0 0 var(--gl-border-color-default),
+        inset 0 -1px 0 0 var(--gl-border-color-default);
+      @apply gl-font-bold;
+    }
+
+    thead {
+      @apply gl-bg-strong;
+    }
+
+    tr:nth-child(even) {
+      @apply gl-bg-subtle;
+    }
+  }
+}
+
+.gl-compact-markdown {
+  @apply gl-text-base;
+  @apply gl-leading-20;
+
+  h1,
+  .gl-h1 {
+    @apply gl-heading-1-fixed;
+    @apply gl-mt-7;
+  }
+
+  h2,
+  .gl-h2 {
+    @apply gl-heading-2-fixed;
+    @apply gl-mt-6;
+  }
+
+  h3,
+  .gl-h3 {
+    @apply gl-heading-3-fixed;
+    @apply gl-mt-6;
+  }
+
+  h4,
+  .gl-h4 {
+    @apply gl-heading-4-fixed;
+    @apply gl-mt-5;
+  }
+
+  h5,
+  .gl-h5 {
+    @apply gl-heading-5-fixed;
+    @apply gl-mt-5;
+  }
+
+  h6,
+  .gl-h6 {
+    @apply gl-heading-6-fixed;
+    @apply gl-mt-5;
+  }
+
+  .sm {
+    @apply gl-text-sm;
+  }
+
+  .monospace,
+  code {
+    @apply gl-font-monospace;
+  }
+
+  table {
+    th,
+    td {
+      @apply gl-py-3;
+    }
+  }
+}
