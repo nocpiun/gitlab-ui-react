@@ -6,6 +6,13 @@ const NON_UTILITY_CANDIDATES = new Set([
   // Theme scope marker used by consumers. Treating it as the legacy-prefixed
   // utility `dark` rewrites the marker in generated dark variant selectors.
   "gl-dark",
+  // GlTable anatomy markers overlap Tailwind display utility names. Emitting
+  // them in the utilities layer would override the component's stacked
+  // display rules regardless of selector specificity.
+  "gl-table",
+  "gl-table-caption",
+  "gl-table-cell",
+  "gl-table-row",
 ]);
 
 function splitCandidate(candidate) {

@@ -20,6 +20,10 @@ test("converts upstream gl-* candidates without changing variant order", () => {
   );
   expect(toTailwindCandidate("dark")).toBeNull();
   expect(toTailwindCandidate("gl-dark")).toBeNull();
+  expect(toTailwindCandidate("gl-table")).toBeNull();
+  expect(toTailwindCandidate("gl-table-caption")).toBeNull();
+  expect(toTailwindCandidate("gl-table-cell")).toBeNull();
+  expect(toTailwindCandidate("gl-table-row")).toBeNull();
 });
 
 test("compiles @apply and restores upstream gl-* selectors", async () => {
@@ -48,20 +52,20 @@ test("expands nested media rules", async () => {
     createPostcssPlugins({ candidates: ["animate-skeleton-loader"] }),
   ).process(input, { from: inputPath });
   const root = postcss.parse(result.css);
-  const skeletonRule = root.nodes.find(
-    (node) => node.type === "rule" && node.selector === ".gl-animate-skeleton-loader",
-  );
+  let skeletonRule;
+  root.walkRules((rule) => {
+    if(rule.selector === ".gl-animate-skeleton-loader") skeletonRule = rule;
+  });
   expect(skeletonRule).toBeDefined();
   expect(skeletonRule.nodes.some(
     (node) => node.type === "atrule" && node.name === "media",
   )).toBe(false);
-  const reducedMotionRules = root.nodes
-    .filter(
-      (node) => node.type === "atrule"
-        && node.name === "media"
-        && node.params.includes("prefers-reduced-motion"),
-    )
-    .flatMap((node) => node.nodes ?? []);
+  const reducedMotionRules = [];
+  root.walkAtRules("media", (atRule) => {
+    if(atRule.params.includes("prefers-reduced-motion")) {
+      reducedMotionRules.push(...(atRule.nodes ?? []));
+    }
+  });
   expect(reducedMotionRules.some(
     (node) => node.type === "rule" && node.selector === ".gl-animate-skeleton-loader",
   )).toBe(true);
