@@ -20,9 +20,9 @@ async function compile() {
 function containingLayer(rule) {
   let parent = rule?.parent;
 
-  while(parent?.type !== "root") {
-    if(parent?.type === "atrule" && parent.name === "layer") return parent.params;
-    parent = parent?.parent;
+  while(parent && parent.type !== "root") {
+    if(parent.type === "atrule" && parent.name === "layer") return parent.params;
+    parent = parent.parent;
   }
 
   return null;
