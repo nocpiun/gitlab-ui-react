@@ -1,5 +1,7 @@
 import { useState } from "react";
 import {
+  GlAlert,
+  GlAlertDescription,
   GlBadge,
   GlBreadcrumb,
   GlBreadcrumbItem,
@@ -146,6 +148,12 @@ export function OrdersTableBlock() {
           Customer Orders
         </h2>
       </div>
+
+      <GlAlert className="mb-4" dismissible={false} variant="info">
+        <GlAlertDescription>
+          Recent order updates may take a few minutes to appear.
+        </GlAlertDescription>
+      </GlAlert>
 
       <GlTabs
         justified
