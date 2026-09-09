@@ -833,9 +833,16 @@ export const MobileOverlayRtl: Story = {
   ),
   play: async ({ canvas }) => {
     const nav = canvas.getByRole("navigation", { name: "RTL mobile project navigation" });
+    const firstLink = within(nav).getByRole("link", { name: "Issues 12" });
     const internalToggle = within(nav).getByRole("button", { name: "Collapse sidebar" });
 
     await expect(getComputedStyle(nav).direction).toBe("rtl");
+    const navListStyle = getComputedStyle(nav.querySelector(":scope > .gl-nav-list")!);
+    const indicatorStyle = getComputedStyle(firstLink, "::before");
+    expect(Number.parseFloat(navListStyle.paddingRight))
+      .toBeLessThan(Number.parseFloat(navListStyle.paddingLeft));
+    expect(Number.parseFloat(indicatorStyle.right))
+      .toBe(-Number.parseFloat(navListStyle.paddingRight));
     await userEvent.click(internalToggle);
     await expect(nav).toHaveAttribute("data-open", "false");
     await waitFor(() => {

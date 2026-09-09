@@ -292,7 +292,16 @@
     > .gl-nav-list {
       @apply gl-grow;
       @apply gl-p-5;
-      @apply gl-pl-3;
+      padding-inline-start: var(--gl-spacing-scale-3);
+    }
+
+    &:dir(rtl) .gl-nav-item-indicator-left.selected::before {
+      left: auto;
+      right: calc(var(--gl-spacing-scale-3) * -1);
+      border-top-left-radius: var(--gl-border-radius-default);
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: var(--gl-border-radius-default);
     }
 
     &[data-open="false"] {
