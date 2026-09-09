@@ -15,10 +15,15 @@ import BaseLayout from "../layouts/base-layout.astro";
     </p>
 
     <div class="mt-8 flex w-full max-w-sm flex-col gap-3 sm:mt-10 sm:w-auto sm:max-w-none sm:flex-row sm:gap-4">
-      <GlButton variant="confirm" className="w-full! dark:bg-white! dark:text-black! sm:w-auto!">
+      <GlButton
+        variant="confirm"
+        href="/docs"
+        className="w-full! no-underline! dark:bg-white! dark:text-black! sm:w-auto!">
         Get Started
       </GlButton>
-      <GlButton className="w-full! border-none! dark:bg-black! dark:text-white! sm:w-auto!">
+      <GlButton
+        href="/docs/components/button"
+        className="w-full! no-underline! border-none! dark:bg-black! dark:text-white! sm:w-auto!">
         Browse Components
       </GlButton>
     </div>
