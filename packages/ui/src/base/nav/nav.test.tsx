@@ -11,13 +11,15 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
 import GlAvatar from "../avatar/avatar";
 import GlIcon from "../icon/icon";
-import GlNav, {
+import {
   GlCollapsibleNav,
   GlCollapsibleNavToggle,
+  GlNavProvider,
+} from "./collapsible-nav";
+import GlNav, {
   GlNavButton,
   GlNavItem,
   GlNavItemAddon,
-  GlNavProvider,
   GlSubNav,
   GlSubNavButton,
   GlSubNavItem,

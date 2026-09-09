@@ -4,13 +4,15 @@ import { expect, fn, userEvent, waitFor, within } from "storybook/test";
 import GlAvatar from "../avatar/avatar";
 import GlButton from "../button/button";
 import GlIcon from "../icon/icon";
-import GlNav, {
+import {
   GlCollapsibleNav,
   GlCollapsibleNavToggle,
+  GlNavProvider,
+} from "./collapsible-nav";
+import GlNav, {
   GlNavButton,
   GlNavItem,
   GlNavItemAddon,
-  GlNavProvider,
   GlSubNav,
   GlSubNavButton,
   GlSubNavItem,

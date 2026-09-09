@@ -286,29 +286,33 @@ export type {
 } from "./base/popover/popover";
 export {
   default as GlNav,
-  GlCollapsibleNav,
-  GlCollapsibleNavToggle,
   GlNavButton,
   GlNavItem,
   GlNavItemAddon,
-  GlNavProvider,
   GlSubNav,
   GlSubNavButton,
   GlSubNavItem,
 } from "./base/nav/nav";
 export type {
-  GlCollapsibleNavProps,
-  GlCollapsibleNavToggleProps,
   GlNavButtonProps,
   GlNavItemAddonProps,
   GlNavItemIndicatorPosition,
   GlNavItemProps,
   GlNavProps,
-  GlNavProviderProps,
   GlSubNavButtonProps,
   GlSubNavItemProps,
   GlSubNavProps,
 } from "./base/nav/nav";
+export {
+  GlCollapsibleNav,
+  GlCollapsibleNavToggle,
+  GlNavProvider,
+} from "./base/nav/collapsible-nav";
+export type {
+  GlCollapsibleNavProps,
+  GlCollapsibleNavToggleProps,
+  GlNavProviderProps,
+} from "./base/nav/collapsible-nav";
 export { default as GlMarkdown } from "./base/markdown/markdown";
 export type {
   GlMarkdownProps,
