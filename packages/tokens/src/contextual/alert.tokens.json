@@ -30,10 +30,7 @@
       },
       "background": {
         "color": {
-          "$value": {
-            "default": "{feedback.neutral.background.color}",
-            "dark": "{background.color.subtle}"
-          },
+          "$value": "{feedback.neutral.background.color}",
           "$type": "color",
           "$description": "Used for the background color of a neutral alert.",
           "$extensions": {
@@ -45,6 +42,16 @@
         }
       },
       "border": {
+        "color": {
+          "$value": "{feedback.neutral.border.color}",
+          "$type": "color",
+          "$description": "Used for the border color of a neutral alert.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "STROKE_COLOR"
+            ]
+          }
+        },
         "top": {
           "color": {
             "$value": {
@@ -52,13 +59,14 @@
               "dark": "{color.neutral.400}"
             },
             "$type": "color",
-            "$description": "Used for the border center color of a neutral alert.",
+            "$description": "Used for the border color of a neutral alert.",
             "$extensions": {
               "com.figma.scopes": [
                 "STROKE_COLOR"
               ]
             }
-          }
+          },
+          "$deprecated": true
         },
         "bottom": {
           "color": {
@@ -70,7 +78,8 @@
                 "STROKE_COLOR"
               ]
             }
-          }
+          },
+          "$deprecated": true
         }
       }
     },
@@ -79,7 +88,7 @@
         "color": {
           "$value": {
             "default": "{text.color.heading}",
-            "dark": "{color.blue.300}"
+            "dark": "{color.blue.200}"
           },
           "$type": "color",
           "$description": "Used for the title color of an info alert.",
@@ -92,10 +101,7 @@
       },
       "background": {
         "color": {
-          "$value": {
-            "default": "{feedback.info.background.color}",
-            "dark": "{background.color.subtle}"
-          },
+          "$value": "{feedback.info.background.color}",
           "$type": "color",
           "$description": "Used for the background color of an info alert.",
           "$extensions": {
@@ -107,6 +113,16 @@
         }
       },
       "border": {
+        "color": {
+          "$value": "{feedback.info.border.color}",
+          "$type": "color",
+          "$description": "Used for the border color of an info alert.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "STROKE_COLOR"
+            ]
+          }
+        },
         "top": {
           "color": {
             "$value": {
@@ -120,14 +136,16 @@
                 "STROKE_COLOR"
               ]
             }
-          }
+          },
+          "$deprecated": true
         },
         "bottom": {
           "color": {
             "$value": "{color.alpha.0}",
             "$type": "color",
             "$description": "Used for the border bottom color of an info alert."
-          }
+          },
+          "$deprecated": true
         }
       }
     },
@@ -136,7 +154,7 @@
         "color": {
           "$value": {
             "default": "{text.color.heading}",
-            "dark": "{color.green.300}"
+            "dark": "{color.green.200}"
           },
           "$type": "color",
           "$description": "Used for the title color of a success alert.",
@@ -149,10 +167,7 @@
       },
       "background": {
         "color": {
-          "$value": {
-            "default": "{feedback.success.background.color}",
-            "dark": "{background.color.subtle}"
-          },
+          "$value": "{feedback.success.background.color}",
           "$type": "color",
           "$description": "Used for the background color of a success alert.",
           "$extensions": {
@@ -164,6 +179,16 @@
         }
       },
       "border": {
+        "color": {
+          "$value": "{feedback.success.border.color}",
+          "$type": "color",
+          "$description": "Used for the border color of a success alert.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "STROKE_COLOR"
+            ]
+          }
+        },
         "top": {
           "color": {
             "$value": {
@@ -177,7 +202,8 @@
                 "STROKE_COLOR"
               ]
             }
-          }
+          },
+          "$deprecated": true
         },
         "bottom": {
           "color": {
@@ -189,7 +215,8 @@
                 "STROKE_COLOR"
               ]
             }
-          }
+          },
+          "$deprecated": true
         }
       }
     },
@@ -198,7 +225,7 @@
         "color": {
           "$value": {
             "default": "{text.color.heading}",
-            "dark": "{color.orange.300}"
+            "dark": "{color.orange.200}"
           },
           "$type": "color",
           "$description": "Used for the title color of a warning alert.",
@@ -211,10 +238,7 @@
       },
       "background": {
         "color": {
-          "$value": {
-            "default": "{feedback.warning.background.color}",
-            "dark": "{background.color.subtle}"
-          },
+          "$value": "{feedback.warning.background.color}",
           "$type": "color",
           "$description": "Used for the background color of a warning alert.",
           "$extensions": {
@@ -226,6 +250,16 @@
         }
       },
       "border": {
+        "color": {
+          "$value": "{feedback.warning.border.color}",
+          "$type": "color",
+          "$description": "Used for the border color of a warning alert.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "STROKE_COLOR"
+            ]
+          }
+        },
         "top": {
           "color": {
             "$value": {
@@ -239,7 +273,8 @@
                 "STROKE_COLOR"
               ]
             }
-          }
+          },
+          "$deprecated": true
         },
         "bottom": {
           "color": {
@@ -251,7 +286,8 @@
                 "STROKE_COLOR"
               ]
             }
-          }
+          },
+          "$deprecated": true
         }
       }
     },
@@ -260,7 +296,7 @@
         "color": {
           "$value": {
             "default": "{text.color.heading}",
-            "dark": "{color.red.300}"
+            "dark": "{color.red.200}"
           },
           "$type": "color",
           "$description": "Used for the title color of a danger alert.",
@@ -273,10 +309,7 @@
       },
       "background": {
         "color": {
-          "$value": {
-            "default": "{feedback.danger.background.color}",
-            "dark": "{background.color.subtle}"
-          },
+          "$value": "{feedback.danger.background.color}",
           "$type": "color",
           "$description": "Used for the background color of a danger alert.",
           "$extensions": {
@@ -288,6 +321,16 @@
         }
       },
       "border": {
+        "color": {
+          "$value": "{feedback.danger.border.color}",
+          "$type": "color",
+          "$description": "Used for the border color of a danger alert.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "STROKE_COLOR"
+            ]
+          }
+        },
         "top": {
           "color": {
             "$value": {
@@ -301,7 +344,8 @@
                 "STROKE_COLOR"
               ]
             }
-          }
+          },
+          "$deprecated": true
         },
         "bottom": {
           "color": {
@@ -313,7 +357,8 @@
                 "STROKE_COLOR"
               ]
             }
-          }
+          },
+          "$deprecated": true
         }
       }
     }

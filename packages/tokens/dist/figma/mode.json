@@ -133,10 +133,20 @@
       ]
     }
   },
+  "🔒/alert-neutral-border-color": {
+    "$value": "{feedback-neutral-border-color}",
+    "$type": "color",
+    "$description": "Used for the border color of a neutral alert.",
+    "$extensions": {
+      "com.figma.scopes": [
+        "STROKE_COLOR"
+      ]
+    }
+  },
   "🔒/alert-neutral-border-top-color": {
     "$value": "{color-alpha-0}",
     "$type": "color",
-    "$description": "Used for the border center color of a neutral alert.",
+    "$description": "Used for the border color of a neutral alert.",
     "$extensions": {
       "com.figma.scopes": [
         "STROKE_COLOR"
@@ -174,6 +184,16 @@
       ]
     }
   },
+  "🔒/alert-info-border-color": {
+    "$value": "{feedback-info-border-color}",
+    "$type": "color",
+    "$description": "Used for the border color of an info alert.",
+    "$extensions": {
+      "com.figma.scopes": [
+        "STROKE_COLOR"
+      ]
+    }
+  },
   "🔒/alert-info-border-top-color": {
     "$value": "{color-alpha-0}",
     "$type": "color",
@@ -207,6 +227,16 @@
       "com.figma.scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
+      ]
+    }
+  },
+  "🔒/alert-success-border-color": {
+    "$value": "{feedback-success-border-color}",
+    "$type": "color",
+    "$description": "Used for the border color of a success alert.",
+    "$extensions": {
+      "com.figma.scopes": [
+        "STROKE_COLOR"
       ]
     }
   },
@@ -251,6 +281,16 @@
       ]
     }
   },
+  "🔒/alert-warning-border-color": {
+    "$value": "{feedback-warning-border-color}",
+    "$type": "color",
+    "$description": "Used for the border color of a warning alert.",
+    "$extensions": {
+      "com.figma.scopes": [
+        "STROKE_COLOR"
+      ]
+    }
+  },
   "🔒/alert-warning-border-top-color": {
     "$value": "{color-alpha-0}",
     "$type": "color",
@@ -289,6 +329,16 @@
       "com.figma.scopes": [
         "FRAME_FILL",
         "SHAPE_FILL"
+      ]
+    }
+  },
+  "🔒/alert-danger-border-color": {
+    "$value": "{feedback-danger-border-color}",
+    "$type": "color",
+    "$description": "Used for the border color of a danger alert.",
+    "$extensions": {
+      "com.figma.scopes": [
+        "STROKE_COLOR"
       ]
     }
   },
@@ -5996,7 +6046,7 @@
     }
   },
   "action-danger-foreground-color-default": {
-    "$value": "{color-red-500}",
+    "$value": "{color-red-600}",
     "$type": "color",
     "$description": "Used for the foreground of a danger (destructive) action in the default state.",
     "$extensions": {
@@ -6007,7 +6057,7 @@
     }
   },
   "action-danger-foreground-color-hover": {
-    "$value": "{color-red-700}",
+    "$value": "{color-red-800}",
     "$type": "color",
     "$description": "Used for the foreground of a danger (destructive) action in the hover state.",
     "$extensions": {
@@ -6029,7 +6079,7 @@
     }
   },
   "action-danger-foreground-color-active": {
-    "$value": "{color-red-900}",
+    "$value": "{color-red-950}",
     "$type": "color",
     "$description": "Used for the foreground of a danger (destructive) action in the active state.",
     "$extensions": {

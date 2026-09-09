@@ -111,19 +111,19 @@
   --gl-color-green-900: #1e3e28;
   --gl-color-green-950: #17291c;
   --gl-color-neutral-0: #fff;
-  --gl-color-neutral-10: #fbfafd;
-  --gl-color-neutral-50: #ececef;
-  --gl-color-neutral-100: #dcdcde;
-  --gl-color-neutral-200: #bfbfc3;
-  --gl-color-neutral-300: #a4a3a8;
-  --gl-color-neutral-400: #89888d;
-  --gl-color-neutral-500: #737278;
-  --gl-color-neutral-600: #626168;
-  --gl-color-neutral-700: #4c4b51;
-  --gl-color-neutral-800: #3a383f;
+  --gl-color-neutral-10: #f7f7f5;
+  --gl-color-neutral-50: #ecebea;
+  --gl-color-neutral-100: #dcdbd9;
+  --gl-color-neutral-200: #c1bfbe;
+  --gl-color-neutral-300: #a5a3a3;
+  --gl-color-neutral-400: #8a8888;
+  --gl-color-neutral-500: #747273;
+  --gl-color-neutral-600: #646163;
+  --gl-color-neutral-700: #4d4b4e;
+  --gl-color-neutral-800: #3a383d;
   --gl-color-neutral-900: #28272d;
   --gl-color-neutral-950: #18171d;
-  --gl-color-neutral-1000: #050506;
+  --gl-color-neutral-1000: #050408;
   --gl-color-orange-50: #fdf1dd;
   --gl-color-orange-100: #f5d9a8;
   --gl-color-orange-200: #e9be74;
@@ -741,9 +741,9 @@
   --gl-action-confirm-background-color-hover: var(--gl-color-alpha-dark-6);
   --gl-action-confirm-background-color-active: var(--gl-color-alpha-dark-16);
   --gl-action-confirm-border-color-default: var(--gl-color-alpha-0);
-  --gl-action-danger-foreground-color-default: var(--gl-color-red-500);
-  --gl-action-danger-foreground-color-hover: var(--gl-color-red-700);
-  --gl-action-danger-foreground-color-active: var(--gl-color-red-900);
+  --gl-action-danger-foreground-color-default: var(--gl-color-red-600);
+  --gl-action-danger-foreground-color-hover: var(--gl-color-red-800);
+  --gl-action-danger-foreground-color-active: var(--gl-color-red-950);
   --gl-action-danger-background-color-focus: var(--gl-action-danger-background-color-hover);
   --gl-action-danger-border-color-default: var(--gl-color-alpha-0);
   --gl-action-strong-confirm-background-color-default: var(--gl-color-blue-500);
@@ -914,14 +914,19 @@
   --gl-alert-border-radius: var(--gl-border-radius-lg);
   --gl-alert-neutral-title-color: var(--gl-text-color-heading);
   --gl-alert-neutral-background-color: var(--gl-feedback-neutral-background-color);
+  --gl-alert-neutral-border-color: var(--gl-feedback-neutral-border-color);
   --gl-alert-info-title-color: var(--gl-text-color-heading);
   --gl-alert-info-background-color: var(--gl-feedback-info-background-color);
+  --gl-alert-info-border-color: var(--gl-feedback-info-border-color);
   --gl-alert-success-title-color: var(--gl-text-color-heading);
   --gl-alert-success-background-color: var(--gl-feedback-success-background-color);
+  --gl-alert-success-border-color: var(--gl-feedback-success-border-color);
   --gl-alert-warning-title-color: var(--gl-text-color-heading);
   --gl-alert-warning-background-color: var(--gl-feedback-warning-background-color);
+  --gl-alert-warning-border-color: var(--gl-feedback-warning-border-color);
   --gl-alert-danger-title-color: var(--gl-text-color-heading);
   --gl-alert-danger-background-color: var(--gl-feedback-danger-background-color);
+  --gl-alert-danger-border-color: var(--gl-feedback-danger-border-color);
   --gl-avatar-square-border-radius-lg: var(--gl-border-radius-lg);
   --gl-badge-muted-background-color-hover: var(--gl-badge-muted-background-color-default);
   --gl-badge-muted-text-color-focus: var(--gl-badge-muted-text-color-hover);
@@ -1382,19 +1387,19 @@
   --gl-color-green-900: #1e3e28;
   --gl-color-green-950: #17291c;
   --gl-color-neutral-0: #fff;
-  --gl-color-neutral-10: #fbfafd;
-  --gl-color-neutral-50: #ececef;
-  --gl-color-neutral-100: #dcdcde;
-  --gl-color-neutral-200: #bfbfc3;
-  --gl-color-neutral-300: #a4a3a8;
-  --gl-color-neutral-400: #89888d;
-  --gl-color-neutral-500: #737278;
-  --gl-color-neutral-600: #626168;
-  --gl-color-neutral-700: #4c4b51;
-  --gl-color-neutral-800: #3a383f;
+  --gl-color-neutral-10: #f7f7f5;
+  --gl-color-neutral-50: #ecebea;
+  --gl-color-neutral-100: #dcdbd9;
+  --gl-color-neutral-200: #c1bfbe;
+  --gl-color-neutral-300: #a5a3a3;
+  --gl-color-neutral-400: #8a8888;
+  --gl-color-neutral-500: #747273;
+  --gl-color-neutral-600: #646163;
+  --gl-color-neutral-700: #4d4b4e;
+  --gl-color-neutral-800: #3a383d;
   --gl-color-neutral-900: #28272d;
   --gl-color-neutral-950: #18171d;
-  --gl-color-neutral-1000: #050506;
+  --gl-color-neutral-1000: #050408;
   --gl-color-orange-50: #fdf1dd;
   --gl-color-orange-100: #f5d9a8;
   --gl-color-orange-200: #e9be74;
@@ -1706,16 +1711,16 @@
   --gl-shadow-color-default: var(--gl-color-alpha-dark-40);
   --gl-alert-neutral-border-top-color: var(--gl-color-neutral-400);
   --gl-alert-neutral-border-bottom-color: var(--gl-color-alpha-0);
-  --gl-alert-info-title-color: var(--gl-color-blue-300);
+  --gl-alert-info-title-color: var(--gl-color-blue-200);
   --gl-alert-info-border-top-color: var(--gl-color-blue-400);
   --gl-alert-info-border-bottom-color: var(--gl-color-alpha-0);
-  --gl-alert-success-title-color: var(--gl-color-green-300);
+  --gl-alert-success-title-color: var(--gl-color-green-200);
   --gl-alert-success-border-top-color: var(--gl-color-green-400);
   --gl-alert-success-border-bottom-color: var(--gl-color-alpha-0);
-  --gl-alert-warning-title-color: var(--gl-color-orange-300);
+  --gl-alert-warning-title-color: var(--gl-color-orange-200);
   --gl-alert-warning-border-top-color: var(--gl-color-orange-400);
   --gl-alert-warning-border-bottom-color: var(--gl-color-alpha-0);
-  --gl-alert-danger-title-color: var(--gl-color-red-300);
+  --gl-alert-danger-title-color: var(--gl-color-red-200);
   --gl-alert-danger-border-top-color: var(--gl-color-red-400);
   --gl-alert-danger-border-bottom-color: var(--gl-color-alpha-0);
   --gl-application-chrome-background-color: var(--gl-color-neutral-1000);
@@ -2071,27 +2076,27 @@
   --gl-feedback-neutral-background-color: var(--gl-color-neutral-900);
   --gl-feedback-neutral-border-color: var(--gl-color-neutral-600);
   --gl-feedback-neutral-text-color: var(--gl-color-neutral-200);
-  --gl-feedback-neutral-icon-color: var(--gl-color-neutral-300);
+  --gl-feedback-neutral-icon-color: var(--gl-color-neutral-200);
   --gl-feedback-info-background-color: var(--gl-color-blue-950);
   --gl-feedback-info-border-color: var(--gl-color-blue-600);
   --gl-feedback-info-text-color: var(--gl-color-blue-200);
-  --gl-feedback-info-icon-color: var(--gl-color-blue-300);
+  --gl-feedback-info-icon-color: var(--gl-color-blue-200);
   --gl-feedback-success-background-color: var(--gl-color-green-900);
   --gl-feedback-success-border-color: var(--gl-color-green-600);
   --gl-feedback-success-text-color: var(--gl-color-green-200);
-  --gl-feedback-success-icon-color: var(--gl-color-green-300);
+  --gl-feedback-success-icon-color: var(--gl-color-green-200);
   --gl-feedback-warning-background-color: var(--gl-color-orange-900);
   --gl-feedback-warning-border-color: var(--gl-color-orange-600);
   --gl-feedback-warning-text-color: var(--gl-color-orange-200);
-  --gl-feedback-warning-icon-color: var(--gl-color-orange-300);
+  --gl-feedback-warning-icon-color: var(--gl-color-orange-200);
   --gl-feedback-danger-background-color: var(--gl-color-red-900);
   --gl-feedback-danger-border-color: var(--gl-color-red-300);
   --gl-feedback-danger-text-color: var(--gl-color-red-200);
-  --gl-feedback-danger-icon-color: var(--gl-color-red-300);
+  --gl-feedback-danger-icon-color: var(--gl-color-red-200);
   --gl-feedback-brand-background-color: var(--gl-color-purple-950);
   --gl-feedback-brand-border-color: var(--gl-color-purple-600);
   --gl-feedback-brand-text-color: var(--gl-color-purple-200);
-  --gl-feedback-brand-icon-color: var(--gl-color-purple-300);
+  --gl-feedback-brand-icon-color: var(--gl-color-purple-200);
   --gl-focus-ring-outer-color: var(--gl-color-blue-400);
   --gl-highlight-match-background-color: var(--gl-color-orange-200);
   --gl-highlight-match-text-color: var(--gl-color-neutral-950);
@@ -2200,11 +2205,16 @@
   --gl-shadow-lg: 0 0 2px 0 var(--gl-shadow-color-default), 0 0 2px 0 var(--gl-shadow-color-default), 0 4px 12px 0 var(--gl-shadow-color-default);
   --gl-alert-border-radius: var(--gl-border-radius-lg);
   --gl-alert-neutral-title-color: var(--gl-text-color-heading);
-  --gl-alert-neutral-background-color: var(--gl-background-color-subtle);
-  --gl-alert-info-background-color: var(--gl-background-color-subtle);
-  --gl-alert-success-background-color: var(--gl-background-color-subtle);
-  --gl-alert-warning-background-color: var(--gl-background-color-subtle);
-  --gl-alert-danger-background-color: var(--gl-background-color-subtle);
+  --gl-alert-neutral-background-color: var(--gl-feedback-neutral-background-color);
+  --gl-alert-neutral-border-color: var(--gl-feedback-neutral-border-color);
+  --gl-alert-info-background-color: var(--gl-feedback-info-background-color);
+  --gl-alert-info-border-color: var(--gl-feedback-info-border-color);
+  --gl-alert-success-background-color: var(--gl-feedback-success-background-color);
+  --gl-alert-success-border-color: var(--gl-feedback-success-border-color);
+  --gl-alert-warning-background-color: var(--gl-feedback-warning-background-color);
+  --gl-alert-warning-border-color: var(--gl-feedback-warning-border-color);
+  --gl-alert-danger-background-color: var(--gl-feedback-danger-background-color);
+  --gl-alert-danger-border-color: var(--gl-feedback-danger-border-color);
   --gl-avatar-square-border-radius-lg: var(--gl-border-radius-lg);
   --gl-badge-muted-background-color-hover: var(--gl-badge-muted-background-color-default);
   --gl-badge-muted-text-color-focus: var(--gl-badge-muted-text-color-hover);
@@ -4320,26 +4330,13 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
   border-radius: var(--gl-alert-border-radius);
   padding-inline: calc(3rem + var(--gl-alert-padding-x, 0px));
   position: relative;
-}
-@media (forced-colors: active) {
-  .gl-alert {
-    border: 1px solid transparent;
-  }
-}
-.gl-alert::before {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 2px;
-  position: absolute;
-  top: -1px;
-  left: 0;
-}
-.gl-alert .gl-link:not(.gl-label-link) {
-  text-decoration-line: underline;
+  border: 1px solid;
 }
 .gl-alert-not-dismissible {
   padding-right: calc(1rem + var(--gl-alert-padding-x, 0px));
+}
+.gl-alert .gl-link:not(.gl-label-link) {
+  text-decoration-line: underline;
 }
 .gl-alert-sticky {
   position: sticky;
@@ -4361,10 +4358,10 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
   left: calc(1rem + var(--gl-alert-padding-x, 0px));
   display: flex;
   align-items: center;
-  height: 1.25rem;
+  height: 1.5rem;
 }
 .gl-alert-has-title .gl-alert-icon-container {
-  top: calc(0.75rem + 2px);
+  top: 0.75rem;
 }
 .gl-alert-body {
   --tw-leading: var(--gl-line-height-20);
@@ -4405,7 +4402,7 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
 }
 .gl-dismiss-btn {
   position: absolute;
-  top: calc(0.75rem + 2px);
+  top: 0.75rem;
   right: calc(0.75rem + var(--gl-alert-padding-x, 0px));
 }
 .gl-alert-has-title .gl-dismiss-btn {
@@ -4413,10 +4410,7 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
 }
 .gl-alert-danger {
   background-color: var(--gl-alert-danger-background-color);
-  border-bottom: 1px solid var(--gl-alert-danger-border-bottom-color);
-}
-.gl-alert-danger::before {
-  background: linear-gradient( to right, transparent 0%, var(--gl-alert-danger-border-top-color) 50%, transparent 100% );
+  border-color: var(--gl-alert-danger-border-color);
 }
 .gl-alert-danger .gl-alert-title {
   color: var(--gl-alert-danger-title-color);
@@ -4428,10 +4422,7 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
 }
 .gl-alert-warning {
   background-color: var(--gl-alert-warning-background-color);
-  border-bottom: 1px solid var(--gl-alert-warning-border-bottom-color);
-}
-.gl-alert-warning::before {
-  background: linear-gradient( to right, transparent 0%, var(--gl-alert-warning-border-top-color) 50%, transparent 100% );
+  border-color: var(--gl-alert-warning-border-color);
 }
 .gl-alert-warning .gl-alert-title {
   color: var(--gl-alert-warning-title-color);
@@ -4443,10 +4434,7 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
 }
 .gl-alert-tip {
   background-color: var(--gl-alert-neutral-background-color);
-  border-bottom: 1px solid var(--gl-alert-neutral-border-bottom-color);
-}
-.gl-alert-tip::before {
-  background: linear-gradient( to right, transparent 0%, var(--gl-alert-neutral-border-top-color) 50%, transparent 100% );
+  border-color: var(--gl-alert-neutral-border-color);
 }
 .gl-alert-tip .gl-alert-title {
   color: var(--gl-alert-neutral-title-color);
@@ -4458,10 +4446,7 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
 }
 .gl-alert-info {
   background-color: var(--gl-alert-info-background-color);
-  border-bottom: 1px solid var(--gl-alert-info-border-bottom-color);
-}
-.gl-alert-info::before {
-  background: linear-gradient( to right, transparent 0%, var(--gl-alert-info-border-top-color) 50%, transparent 100% );
+  border-color: var(--gl-alert-info-border-color);
 }
 .gl-alert-info .gl-alert-title {
   color: var(--gl-alert-info-title-color);
@@ -4473,10 +4458,7 @@ table.gl-table:is( .b-table-stacked, .b-table-stacked-sm, .b-table-stacked-md, .
 }
 .gl-alert-success {
   background-color: var(--gl-alert-success-background-color);
-  border-bottom: 1px solid var(--gl-alert-success-border-bottom-color);
-}
-.gl-alert-success::before {
-  background: linear-gradient( to right, transparent 0%, var(--gl-alert-success-border-top-color) 50%, transparent 100% );
+  border-color: var(--gl-alert-success-border-color);
 }
 .gl-alert-success .gl-alert-title {
   color: var(--gl-alert-success-title-color);
@@ -6887,6 +6869,253 @@ input[type="color"].gl-form-input.form-control:disabled {
   .gl-dots-loader::before, .gl-dots-loader > span, .gl-dots-loader::after {
     background-color: CanvasText;
   }
+}
+.gl-markdown {
+  font-size: var(--gl-font-size-lg);
+  --tw-leading: var(--gl-line-height-24);
+  line-height: var(--gl-line-height-24);
+  color: var(--gl-text-color-default);
+  font-family: var(--gl-font-family-regular);
+  --tw-font-weight: var(--gl-font-weight-normal);
+  font-weight: var(--gl-font-weight-normal);
+}
+.gl-markdown :first-child {
+  margin-top: var(--gl-spacing-scale-0);
+}
+.gl-markdown h1, .gl-markdown .gl-h1 {
+  font-weight: var(--gl-heading-1-font-weight);
+  margin-top: var(--gl-heading-1-margin-top);
+  font-size: var(--gl-heading-1-font-size);
+  letter-spacing: var(--gl-heading-1-letter-spacing);
+  line-height: var(--gl-heading-1-line-height);
+  margin-bottom: var(--gl-heading-1-margin-bottom);
+  color: var(--gl-heading-1-color);
+  margin-top: var(--gl-spacing-scale-7);
+}
+.gl-markdown h2, .gl-markdown .gl-h2 {
+  font-weight: var(--gl-heading-2-font-weight);
+  margin-top: var(--gl-heading-2-margin-top);
+  font-size: var(--gl-heading-2-font-size);
+  letter-spacing: var(--gl-heading-2-letter-spacing);
+  line-height: var(--gl-heading-2-line-height);
+  margin-bottom: var(--gl-heading-2-margin-bottom);
+  color: var(--gl-heading-2-color);
+  margin-top: var(--gl-spacing-scale-6);
+}
+.gl-markdown h3, .gl-markdown .gl-h3 {
+  font-weight: var(--gl-heading-3-font-weight);
+  margin-top: var(--gl-heading-3-margin-top);
+  font-size: var(--gl-heading-3-font-size);
+  letter-spacing: var(--gl-heading-3-letter-spacing);
+  line-height: var(--gl-heading-3-line-height);
+  margin-bottom: var(--gl-heading-3-margin-bottom);
+  color: var(--gl-heading-3-color);
+  margin-top: var(--gl-spacing-scale-6);
+}
+.gl-markdown h4, .gl-markdown .gl-h4 {
+  font-weight: var(--gl-heading-4-font-weight);
+  margin-top: var(--gl-heading-4-margin-top);
+  font-size: var(--gl-heading-4-font-size);
+  letter-spacing: var(--gl-heading-4-letter-spacing);
+  line-height: var(--gl-heading-4-line-height);
+  margin-bottom: var(--gl-heading-4-margin-bottom);
+  color: var(--gl-heading-4-color);
+  margin-top: var(--gl-spacing-scale-5);
+}
+.gl-markdown h5, .gl-markdown .gl-h5 {
+  font-weight: var(--gl-heading-5-font-weight);
+  margin-top: var(--gl-heading-5-margin-top);
+  font-size: var(--gl-heading-5-font-size);
+  letter-spacing: var(--gl-heading-5-letter-spacing);
+  line-height: var(--gl-heading-5-line-height);
+  margin-bottom: var(--gl-heading-5-margin-bottom);
+  color: var(--gl-heading-5-color);
+  margin-top: var(--gl-spacing-scale-5);
+}
+.gl-markdown h6, .gl-markdown .gl-h6 {
+  font-weight: var(--gl-heading-6-font-weight);
+  margin-top: var(--gl-heading-6-margin-top);
+  font-size: var(--gl-heading-6-font-size);
+  letter-spacing: var(--gl-heading-6-letter-spacing);
+  line-height: var(--gl-heading-6-line-height);
+  margin-bottom: var(--gl-heading-6-margin-bottom);
+  color: var(--gl-heading-6-color);
+  margin-top: var(--gl-spacing-scale-5);
+}
+.gl-markdown p, .gl-markdown .gl-paragraph {
+  margin-top: var(--gl-spacing-scale-0);
+  margin-bottom: var(--gl-spacing-scale-0);
+}
+.gl-markdown p + p, .gl-markdown p + .gl-paragraph, .gl-markdown .gl-paragraph + p, .gl-markdown .gl-paragraph + .gl-paragraph {
+  margin-top: var(--gl-spacing-scale-5);
+}
+.gl-markdown p.sm, .gl-markdown .gl-paragraph.sm {
+  font-size: 0.875rem;
+  --tw-leading: var(--gl-line-height-20);
+  line-height: var(--gl-line-height-20);
+}
+.gl-markdown .sm {
+  font-size: 0.875rem;
+  --tw-leading: var(--gl-line-height-20);
+  line-height: var(--gl-line-height-20);
+}
+.gl-markdown .monospace, .gl-markdown code {
+  font-family: var(--default-mono-font, "GitLab Mono"), "JetBrains Mono", "Menlo", "DejaVu Sans Mono", "Liberation Mono", "Consolas", "Ubuntu Mono", "Courier New", "andale mono", "lucida console", monospace;
+  font-variant-ligatures: none;
+  font-family: var(--gl-font-family-monospace);
+}
+.gl-markdown blockquote {
+  color: var(--gl-text-color-subtle);
+  padding-block: var(--gl-spacing-scale-3);
+  padding-left: var(--gl-spacing-scale-6);
+  margin-block: var(--gl-spacing-scale-3);
+  margin-inline: var(--gl-spacing-scale-0);
+  box-shadow: inset 4px 0 0 0 var(--gl-border-color-strong);
+}
+.gl-markdown .idiff {
+  border-radius: var(--gl-border-radius-default);
+  display: inline-flex;
+  padding-inline: var(--gl-spacing-scale-2);
+}
+.gl-markdown .deletion {
+  background-color: var(--gl-status-danger-background-color);
+}
+.gl-markdown .addition {
+  background-color: var(--gl-status-success-background-color);
+}
+.gl-markdown code {
+  border-radius: var(--gl-border-radius-default);
+  background-color: var(--gl-background-color-strong);
+  color: var(--gl-text-color-strong);
+  padding-inline: var(--gl-spacing-scale-2);
+  padding-block: var(--gl-spacing-scale-1);
+}
+.gl-markdown pre {
+  border-radius: var(--gl-border-radius-default);
+  padding-block: var(--gl-spacing-scale-3);
+  padding-inline: var(--gl-spacing-scale-4);
+  box-shadow: inset 0 0 0 1px var(--gl-border-color-default);
+  margin-block: var(--gl-spacing-scale-7);
+  overflow: auto;
+}
+.gl-markdown pre code {
+  background-color: var(--gl-background-color-default);
+  border-radius: var(--gl-border-radius-none);
+  color: var(--gl-text-color-strong);
+  padding: var(--gl-spacing-scale-0);
+}
+.gl-markdown .audio-container {
+  display: inline-flex;
+  flex-direction: column;
+  width: 100%;
+}
+.gl-markdown .audio-container audio {
+  width: 100%;
+}
+.gl-markdown .audio-container a {
+  margin-top: var(--gl-spacing-scale-3);
+}
+.gl-markdown .audio-container a::before {
+  margin-right: var(--gl-spacing-scale-2);
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  content: "📎";
+}
+.gl-markdown table {
+  margin-block: var(--gl-spacing-scale-7);
+}
+.gl-markdown table th, .gl-markdown table td {
+  padding-inline: var(--gl-spacing-scale-3);
+  padding-block: var(--gl-spacing-scale-4);
+  box-shadow: inset 0 -1px 0 0 var(--gl-border-color-default);
+  vertical-align: top;
+}
+.gl-markdown table th {
+  box-shadow: inset 0 1px 0 0 var(--gl-border-color-default), inset 0 -1px 0 0 var(--gl-border-color-default);
+  --tw-font-weight: var(--gl-font-weight-bold);
+  font-weight: var(--gl-font-weight-bold);
+}
+.gl-markdown table thead {
+  background-color: var(--gl-background-color-strong);
+}
+.gl-markdown table tr:nth-child(even) {
+  background-color: var(--gl-background-color-subtle);
+}
+.gl-compact-markdown {
+  font-size: var(--gl-font-size-base);
+  --tw-leading: var(--gl-line-height-20);
+  line-height: var(--gl-line-height-20);
+}
+.gl-compact-markdown h1, .gl-compact-markdown .gl-h1 {
+  font-weight: var(--gl-heading-1-fixed-font-weight);
+  margin-top: var(--gl-heading-1-fixed-margin-top);
+  font-size: var(--gl-heading-1-fixed-font-size);
+  letter-spacing: var(--gl-heading-1-fixed-letter-spacing);
+  line-height: var(--gl-heading-1-fixed-line-height);
+  margin-bottom: var(--gl-heading-1-fixed-margin-bottom);
+  color: var(--gl-heading-1-fixed-color);
+  margin-top: var(--gl-spacing-scale-7);
+}
+.gl-compact-markdown h2, .gl-compact-markdown .gl-h2 {
+  font-weight: var(--gl-heading-2-fixed-font-weight);
+  margin-top: var(--gl-heading-2-fixed-margin-top);
+  font-size: var(--gl-heading-2-fixed-font-size);
+  letter-spacing: var(--gl-heading-2-fixed-letter-spacing);
+  line-height: var(--gl-heading-2-fixed-line-height);
+  margin-bottom: var(--gl-heading-2-fixed-margin-bottom);
+  color: var(--gl-heading-2-fixed-color);
+  margin-top: var(--gl-spacing-scale-6);
+}
+.gl-compact-markdown h3, .gl-compact-markdown .gl-h3 {
+  font-weight: var(--gl-heading-3-fixed-font-weight);
+  margin-top: var(--gl-heading-3-fixed-margin-top);
+  font-size: var(--gl-heading-3-fixed-font-size);
+  letter-spacing: var(--gl-heading-3-fixed-letter-spacing);
+  line-height: var(--gl-heading-3-fixed-line-height);
+  margin-bottom: var(--gl-heading-3-fixed-margin-bottom);
+  color: var(--gl-heading-3-fixed-color);
+  margin-top: var(--gl-spacing-scale-6);
+}
+.gl-compact-markdown h4, .gl-compact-markdown .gl-h4 {
+  font-weight: var(--gl-heading-4-fixed-font-weight);
+  margin-top: var(--gl-heading-4-fixed-margin-top);
+  font-size: var(--gl-heading-4-fixed-font-size);
+  letter-spacing: var(--gl-heading-4-fixed-letter-spacing);
+  line-height: var(--gl-heading-4-fixed-line-height);
+  margin-bottom: var(--gl-heading-4-fixed-margin-bottom);
+  color: var(--gl-heading-4-fixed-color);
+  margin-top: var(--gl-spacing-scale-5);
+}
+.gl-compact-markdown h5, .gl-compact-markdown .gl-h5 {
+  font-weight: var(--gl-heading-5-fixed-font-weight);
+  margin-top: var(--gl-heading-5-fixed-margin-top);
+  font-size: var(--gl-heading-5-fixed-font-size);
+  letter-spacing: var(--gl-heading-5-fixed-letter-spacing);
+  line-height: var(--gl-heading-5-fixed-line-height);
+  margin-bottom: var(--gl-heading-5-fixed-margin-bottom);
+  color: var(--gl-heading-5-fixed-color);
+  margin-top: var(--gl-spacing-scale-5);
+}
+.gl-compact-markdown h6, .gl-compact-markdown .gl-h6 {
+  font-weight: var(--gl-heading-6-fixed-font-weight);
+  margin-top: var(--gl-heading-6-fixed-margin-top);
+  font-size: var(--gl-heading-6-fixed-font-size);
+  letter-spacing: var(--gl-heading-6-fixed-letter-spacing);
+  line-height: var(--gl-heading-6-fixed-line-height);
+  margin-bottom: var(--gl-heading-6-fixed-margin-bottom);
+  color: var(--gl-heading-6-fixed-color);
+  margin-top: var(--gl-spacing-scale-5);
+}
+.gl-compact-markdown .sm {
+  font-size: var(--gl-font-size-sm);
+}
+.gl-compact-markdown .monospace, .gl-compact-markdown code {
+  font-family: var(--default-mono-font, "GitLab Mono"), "JetBrains Mono", "Menlo", "DejaVu Sans Mono", "Liberation Mono", "Consolas", "Ubuntu Mono", "Courier New", "andale mono", "lucida console", monospace;
+  font-variant-ligatures: none;
+  font-family: var(--gl-font-family-monospace);
+}
+.gl-compact-markdown table th, .gl-compact-markdown table td {
+  padding-block: var(--gl-spacing-scale-3);
 }
 .gl-modal {
   container-type: inline-size;
