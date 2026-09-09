@@ -688,8 +688,9 @@ function MobileOverlayExample() {
   return (
     <GlNavProvider open={open} onOpenChange={setOpen} navId="mobile-navigation">
       <GlButton onClick={() => setOpen(true)}>Open programmatically</GlButton>
+      <GlButton onClick={() => setOpen(false)}>Close programmatically</GlButton>
       <GlCollapsibleNavToggle />
-      <GlCollapsibleNav aria-label="Mobile project navigation">
+      <GlCollapsibleNav className="gl-mt-4" aria-label="Mobile project navigation">
         {CollapsibleNavItems({ internalToggle: true })}
       </GlCollapsibleNav>
     </GlNavProvider>
@@ -701,6 +702,7 @@ export const MobileOverlay: Story = {
   render: () => <MobileOverlayExample />,
   play: async ({ canvas }) => {
     const programmaticOpener = canvas.getByRole("button", { name: "Open programmatically" });
+    const programmaticCloser = canvas.getByRole("button", { name: "Close programmatically" });
     const externalToggle = canvas.getByRole("button", { name: "Expand sidebar" });
     await userEvent.click(programmaticOpener);
     const nav = canvas.getByRole("navigation", { name: "Mobile project navigation" });
@@ -741,10 +743,16 @@ export const MobileOverlay: Story = {
     await expect(internalToggle).toHaveFocus();
     await userEvent.tab();
     await expect(firstLink).toHaveFocus();
+    programmaticCloser.click();
+    await waitFor(() => expect(nav).toHaveAttribute("data-open", "false"));
+    await waitFor(() => expect(programmaticOpener).toHaveFocus());
+    await expect(document.body.style.overflow).not.toBe("hidden");
+    externalToggle.click();
+    await waitFor(() => expect(nav).toHaveAttribute("data-open", "true"));
+    await waitFor(() => expect(firstLink).toHaveFocus());
     await userEvent.click(backdrop);
     await expect(nav).toHaveAttribute("data-open", "false");
-    await expect(programmaticOpener).toHaveFocus();
-    await expect(document.body.style.overflow).not.toBe("hidden");
+    await expect(externalToggle).toHaveFocus();
     await userEvent.click(externalToggle);
     await userEvent.keyboard("{Escape}");
     await expect(externalToggle).toHaveFocus();

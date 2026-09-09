@@ -91,6 +91,8 @@ const NavProviderContext = createContext<NavProviderContextValue | null>(null);
 function canReceiveRestoredFocus(element: HTMLElement | null) {
   return Boolean(
     element?.isConnected
+    && element !== element.ownerDocument.body
+    && element !== element.ownerDocument.documentElement
     && !element.hasAttribute("disabled")
     && element.getAttribute("aria-disabled") !== "true"
     && !element.closest("[aria-hidden='true'], [hidden], [inert]"),
@@ -118,6 +120,7 @@ export function GlNavProvider({
   const [activeFlyoutId, setActiveFlyoutId] = useState<string | null>(null);
   const registeredNav = useRef<symbol | null>(null);
   const externalToggles = useRef(new Set<HTMLElement>());
+  const hasExplicitFocusReturnTarget = useRef(false);
   const focusReturnTarget = useRef<HTMLElement | null>(null);
   const restoreFocusOnClose = useRef(false);
   const previousOpen = useRef(open ?? uncontrolledOpen);
@@ -154,8 +157,12 @@ export function GlNavProvider({
     const shouldRestoreFocus = restoreFocusOnClose.current;
     restoreFocusOnClose.current = false;
     const rememberedTarget = focusReturnTarget.current;
+    hasExplicitFocusReturnTarget.current = false;
     focusReturnTarget.current = null;
     if(!shouldRestoreFocus) return;
+
+    const activeElement = typeof document === "undefined" ? null : document.activeElement;
+    if(activeElement instanceof HTMLElement && canReceiveRestoredFocus(activeElement)) return;
 
     const fallbackTarget = Array.from(externalToggles.current)
       .find((element) => canReceiveRestoredFocus(element));
@@ -166,8 +173,23 @@ export function GlNavProvider({
   }, [resolvedOpen]);
 
   const captureFocusReturnTarget = useCallback((element: HTMLElement | null) => {
-    if(canReceiveRestoredFocus(element)) focusReturnTarget.current = element;
+    restoreFocusOnClose.current = true;
+    if(
+      hasExplicitFocusReturnTarget.current
+      && canReceiveRestoredFocus(focusReturnTarget.current)
+    ) return;
+
+    hasExplicitFocusReturnTarget.current = false;
+    focusReturnTarget.current = canReceiveRestoredFocus(element) ? element : null;
   }, []);
+
+  useEffect(() => {
+    if(!isDesktop) return;
+
+    restoreFocusOnClose.current = false;
+    hasExplicitFocusReturnTarget.current = false;
+    focusReturnTarget.current = null;
+  }, [isDesktop]);
 
   const requestOpen = useCallback<NavProviderContextValue["requestOpen"]>((
     nextOpen,
@@ -175,6 +197,7 @@ export function GlNavProvider({
   ) => {
     if(nextOpen === resolvedOpen) return;
     if(nextOpen && options?.externalOpener) {
+      hasExplicitFocusReturnTarget.current = true;
       focusReturnTarget.current = options.externalOpener;
     }
     if(!nextOpen && options?.restoreFocus) restoreFocusOnClose.current = true;
@@ -484,14 +507,14 @@ export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
 
       const nav = navElement.current!;
       const activeElement = document.activeElement;
-      if(
+      captureFocusReturnTarget(
         activeElement instanceof HTMLElement
         && activeElement !== document.body
         && activeElement !== document.documentElement
         && !nav.contains(activeElement)
-      ) {
-        captureFocusReturnTarget(activeElement);
-      }
+          ? activeElement
+          : null,
+      );
       getFocusableElements(nav).at(0)?.focus();
     }, [captureFocusReturnTarget, isMobileOpen]);
 
