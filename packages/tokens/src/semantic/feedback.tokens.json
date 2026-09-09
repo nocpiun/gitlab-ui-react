@@ -130,7 +130,7 @@
         "color": {
           "$value": {
             "default": "{color.neutral.600}",
-            "dark": "{color.neutral.300}"
+            "dark": "{color.neutral.200}"
           },
           "$type": "color",
           "$description": "Used for the icon of a neutral feedback item when there isn't a specific meaning or urgency.",
@@ -194,7 +194,7 @@
         "color": {
           "$value": {
             "default": "{color.blue.600}",
-            "dark": "{color.blue.300}"
+            "dark": "{color.blue.200}"
           },
           "$type": "color",
           "$description": "Used for the icon of an informational feedback item when highlighting new information or a change that doesn't require immediate action.",
@@ -258,7 +258,7 @@
         "color": {
           "$value": {
             "default": "{color.green.600}",
-            "dark": "{color.green.300}"
+            "dark": "{color.green.200}"
           },
           "$type": "color",
           "$description": "Used for the icon of a success feedback item when confirming the successful completion of a user-initiated action.",
@@ -322,7 +322,7 @@
         "color": {
           "$value": {
             "default": "{color.orange.600}",
-            "dark": "{color.orange.300}"
+            "dark": "{color.orange.200}"
           },
           "$type": "color",
           "$description": "Used for the icon of a warning feedback item when notifying about a potential issue or sensitive information.",
@@ -386,7 +386,7 @@
         "color": {
           "$value": {
             "default": "{color.red.600}",
-            "dark": "{color.red.300}"
+            "dark": "{color.red.200}"
           },
           "$type": "color",
           "$description": "Used for the icon of a danger feedback item when notifying about a critical issue that has just occurred and requires immediate attention.",
@@ -450,7 +450,7 @@
         "color": {
           "$value": {
             "default": "{color.purple.600}",
-            "dark": "{color.purple.300}"
+            "dark": "{color.purple.200}"
           },
           "$type": "color",
           "$description": "Used for the icon of a brand-related feedback item when highlighting information that pertains to GitLab.",
