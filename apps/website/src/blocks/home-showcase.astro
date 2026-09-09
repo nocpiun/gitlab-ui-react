@@ -45,7 +45,7 @@ import { Sidebars2Block } from "./sidebars-2-block";
 <style>
   .showcase {
     position: relative;
-    height: 73rem;
+    height: 70rem;
     overflow: hidden;
     padding: var(--gl-spacing-scale-10);
   }
@@ -84,28 +84,47 @@ import { Sidebars2Block } from "./sidebars-2-block";
     vertical-align: top;
   }
 
-  @media (max-width: 74.99rem) {
+  .showcase-item:nth-child(2) {
+    break-after: avoid-column;
+  }
+
+  .showcase-item:nth-child(3) {
+    break-before: avoid-column;
+  }
+
+  @media (max-width: 89.99rem) {
     .showcase {
-      height: 108rem;
+      height: auto;
+      overflow: visible;
+      padding-right: var(--gl-spacing-scale-6);
+      padding-left: var(--gl-spacing-scale-6);
+    }
+
+    .showcase::after {
+      display: none;
     }
 
     .showcase-grid {
-      height: 103rem;
+      height: auto;
+      column-count: 3;
+      column-fill: balance;
+    }
+  }
+
+  @media (max-width: 71.99rem) {
+    .showcase-grid {
       column-count: 2;
     }
   }
 
   @media (max-width: 47.99rem) {
     .showcase {
-      height: 116rem;
       padding-right: var(--gl-spacing-scale-5);
       padding-left: var(--gl-spacing-scale-5);
     }
 
     .showcase-grid {
-      height: auto;
       column-count: 1;
-      column-fill: balance;
     }
 
     .showcase-item {

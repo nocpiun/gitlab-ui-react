@@ -14,10 +14,10 @@ import { ShowcaseCard } from "../components/showcase-card";
 
 export function Sidebars2Block() {
   return (
-    <ShowcaseCard className="flex gap-3">
+    <ShowcaseCard className="flex flex-col gap-3 sm:flex-row">
       <GlNav
         aria-label="Workspace navigation"
-        className="flex-1 border-r border-r-neutral-200 pr-3 dark:border-r-neutral-800">
+        className="flex-1 border-b border-section pb-3 sm:border-r sm:border-b-0 sm:pr-3 sm:pb-0">
         <GlNavItem selected>
           <GlNavButton>
             <GlIcon name="home" />

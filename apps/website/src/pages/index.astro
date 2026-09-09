@@ -5,20 +5,20 @@ import BaseLayout from "../layouts/base-layout.astro";
 ---
 
 <BaseLayout title="GitLab UI React">
-  <div class="min-h-75 mx-10 my-4 rounded-3xl bg-linear-30 from-brand-orange-01p via-brand-orange-01g via-60% to-brand-purple-01g flex flex-col justify-center items-center">
-    <h1 class="text-[5rem] text-center font-[700] dark:text-white!">
+  <div class="mx-4 my-3 flex min-h-64 flex-col items-center justify-center rounded-2xl bg-linear-30 from-brand-orange-01p via-brand-orange-01g via-60% to-brand-purple-01g px-5 py-12 sm:mx-6 sm:min-h-72 sm:rounded-3xl sm:px-8 lg:mx-10 lg:min-h-75">
+    <h1 class="max-w-6xl text-balance text-center text-[2.5rem] leading-tight font-[700] dark:text-white! sm:text-[3rem] md:text-[3.75rem] lg:text-[5rem]">
       Bringing GitLab's UI to React.
     </h1>
 
-    <p class="mt-5! text-[2rem] font-semibold text-center dark:text-white!">
+    <p class="mt-4! text-center text-[1.125rem] font-semibold dark:text-white! sm:mt-5! sm:text-[1.5rem] lg:text-[2rem]">
       GitLab Pajamas UI for React
     </p>
 
-    <div class="mt-10 flex gap-4">
-      <GlButton variant="confirm" className="dark:bg-white! dark:text-black!">
+    <div class="mt-8 flex w-full max-w-sm flex-col gap-3 sm:mt-10 sm:w-auto sm:max-w-none sm:flex-row sm:gap-4">
+      <GlButton variant="confirm" className="w-full! dark:bg-white! dark:text-black! sm:w-auto!">
         Get Started
       </GlButton>
-      <GlButton className="border-none! dark:bg-black! dark:text-white!">
+      <GlButton className="w-full! border-none! dark:bg-black! dark:text-white! sm:w-auto!">
         Browse Components
       </GlButton>
     </div>

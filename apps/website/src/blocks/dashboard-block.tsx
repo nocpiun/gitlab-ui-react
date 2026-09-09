@@ -47,10 +47,12 @@ export function DashboardBlock() {
           <GlBreadcrumbItem href="#infrastructure">Infrastructure</GlBreadcrumbItem>
           <GlBreadcrumbItem href="#overview">Overview</GlBreadcrumbItem>
         </GlBreadcrumb>
-        <h2 className="mt-4! text-3xl! font-semibold text-heading">Server Overview</h2>
+        <h2 className="mt-4! text-[1.25rem]! font-semibold text-heading sm:text-[1.5rem]!">
+          Server Overview
+        </h2>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {metrics.map((metric) => (
           <GlCard className="h-full border-subtle! bg-strong!" key={metric.label}>
             <GlCardHeader className="flex items-center justify-between gap-2">

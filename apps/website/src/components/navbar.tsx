@@ -52,23 +52,24 @@ export function Navbar() {
   }
 
   return (
-    <header className="px-28 py-6 flex! justify-between">
-      <div className="flex flex-wrap *:hover:no-underline!">
+    <header className="flex! flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-12 xl:px-28">
+      <nav aria-label="Primary navigation" className="flex flex-wrap *:hover:no-underline!">
         {links.map(({ href, label }, i) => (
           <GlButton category="tertiary" href={href} key={i}>
             {label}
           </GlButton>
         ))}
-      </div>
+      </nav>
 
-      <div className="flex flex-wrap gap-3">
+      <div className="flex w-full flex-nowrap items-center gap-2 lg:w-auto">
         <GlButton
           category="tertiary"
           icon={isDark ? "moon" : "sun"}
           onClick={toggleTheme}
           title={isDark ? "Switch to light mode" : "Switch to dark mode"}/>
         <GlFormInput
-          className="w-fit!"
+          aria-label="Search documentation"
+          className="min-w-0 flex-1! sm:min-w-56 lg:w-64!"
           placeholder="Search documents..."/>
         <GlListbox value={lang} onValueChange={(value) => setLang(value as any)}>
           {/** @todo */}

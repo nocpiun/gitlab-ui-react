@@ -25,7 +25,7 @@ import { ShowcaseCard } from "../components/showcase-card";
 export function BasicBlock() {
   return (
     <ShowcaseCard className="flex flex-col gap-4">
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         <GlButton variant="confirm">
           Button
         </GlButton>
@@ -62,7 +62,7 @@ export function BasicBlock() {
         ))}
       </GlButtonGroup>
 
-      <div className="flex justify-between">
+      <div className="flex flex-wrap justify-between gap-2">
         <GlModal>
           <GlModalTrigger>
             <GlButton>

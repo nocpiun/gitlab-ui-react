@@ -17,7 +17,7 @@ export function SkeletonBlock() {
           <rect height="24" rx="12" width="54" x="258" y="20" />
         </GlSkeletonLoader>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {[0, 1].map((item) => (
             <div className="rounded-lg border border-subtle bg-default p-4" key={item}>
               <GlSkeletonLoader

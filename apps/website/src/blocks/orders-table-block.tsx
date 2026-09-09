@@ -84,7 +84,7 @@ export function OrdersTableBlock() {
           type="search"
           value={query} />
 
-        <GlTable fixed hover small striped>
+        <GlTable fixed hover small stacked="sm" striped>
           <GlTableCaption className="sr-only">Customer orders</GlTableCaption>
           <GlTableHeader>
             <GlTableRow>
@@ -96,18 +96,22 @@ export function OrdersTableBlock() {
           <GlTableBody>
             {visibleOrders.length > 0 ? visibleOrders.map((order) => (
               <GlTableRow key={order.id}>
-                <GlTableHead scope="row">
+                <GlTableHead scope="row" stackedHeading="Order">
                   <span className="block font-semibold">{order.id}</span>
                   <span className="block truncate text-xs font-normal text-subtle">
                     {order.customer}
                   </span>
                 </GlTableHead>
-                <GlTableCell>
+                <GlTableCell stackedHeading="Status">
                   <GlBadge variant={order.status === "Completed" ? "success" : "warning"}>
                     {order.status}
                   </GlBadge>
                 </GlTableCell>
-                <GlTableCell className="text-right font-semibold">{order.total}</GlTableCell>
+                <GlTableCell
+                  className="text-right font-semibold"
+                  stackedHeading="Total">
+                  {order.total}
+                </GlTableCell>
               </GlTableRow>
             )) : (
               <GlTableRow>
@@ -138,7 +142,9 @@ export function OrdersTableBlock() {
           <GlBreadcrumbItem href="#statistics">Statistics</GlBreadcrumbItem>
           <GlBreadcrumbItem href="#orders">Orders</GlBreadcrumbItem>
         </GlBreadcrumb>
-        <h2 className="mb-4! mt-4! text-3xl! font-semibold text-heading">Customer Orders</h2>
+        <h2 className="mb-4! mt-4! text-[1.25rem]! font-semibold text-heading sm:text-[1.5rem]!">
+          Customer Orders
+        </h2>
       </div>
 
       <GlTabs
