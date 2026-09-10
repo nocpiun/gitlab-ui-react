@@ -1,0 +1,577 @@
+/**
+ * React-only responsive navigation helpers inspired by GitLab's Super Sidebar.
+ * These components intentionally compose the base Nav API instead of exposing
+ * the upstream application's sidebar state and persistence mechanisms.
+ */
+
+import {
+  createContext,
+  forwardRef,
+  useCallback,
+  useContext,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ButtonHTMLAttributes,
+  type KeyboardEventHandler,
+  type MouseEventHandler,
+  type ReactNode,
+  type Ref,
+} from "react";
+import { Collapsible as BaseCollapsible } from "@base-ui/react/collapsible";
+import { Dialog as BaseDialog } from "@base-ui/react/dialog";
+import { cva } from "class-variance-authority";
+import { useMergedRefs } from "../../internal/utils/merge-refs";
+import GlButton from "../button/button";
+import GlIcon from "../icon/icon";
+import GlPopover, {
+  GlPopoverContent,
+  GlPopoverTitle,
+  GlPopoverTrigger,
+} from "../popover/popover";
+import GlTooltip, { GlTooltipContent, GlTooltipTrigger } from "../tooltip/tooltip";
+import {
+  ButtonOwnerContext,
+  COLLAPSIBLE_NAV_TOGGLE_MARKER,
+  NavContext,
+  SubNavContext,
+  SubNavPanelIdContext,
+  flattenChildren,
+  getElementProps,
+  hasElementType,
+  invariant,
+  withoutChildren,
+  withoutChildrenAndId,
+  type NavProviderContextValue,
+  type NavSubNavRenderProps,
+} from "./nav-contexts";
+import {
+  GlNavItem,
+  useNavButtonInternal,
+  type GlNavButtonProps,
+  type GlNavProps,
+  type GlSubNavProps,
+} from "./nav";
+
+export type GlCollapsibleNavProps = Omit<GlNavProps, "id"> & {
+  /** The navigation ID is owned by GlNavProvider so every remote toggle shares it. */
+  id?: never;
+};
+
+export type GlNavProviderProps = {
+  children?: ReactNode;
+  /** Initial state when uncontrolled. */
+  defaultOpen?: boolean;
+  /** ID used by the navigation and every toggle's aria-controls. */
+  navId?: string;
+  /** Called when a toggle, backdrop, or Escape requests a state change. */
+  onOpenChange?: (open: boolean) => void;
+  /** Controlled expanded state. */
+  open?: boolean;
+};
+
+export type GlCollapsibleNavToggleProps = Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  "aria-controls" | "aria-expanded" | "aria-label" | "children"
+> & {
+  /** Accessible and visible label used while the sidebar is expanded. */
+  collapseLabel?: string;
+  /** Accessible label used while the sidebar is collapsed. */
+  expandLabel?: string;
+};
+
+const navClass = ["gl", "nav"].join("-");
+const collapsibleNavVariants = cva([navClass, "gl-collapsible-nav"]);
+const navListVariants = cva("gl-nav-list");
+const DESKTOP_NAV_QUERY = "(min-width: 1200px)";
+const NavProviderContext = createContext<NavProviderContextValue | null>(null);
+const useIsomorphicLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
+
+function canReceiveRestoredFocus(element: HTMLElement | null) {
+  return Boolean(
+    element?.isConnected
+    && element !== element.ownerDocument.body
+    && element !== element.ownerDocument.documentElement
+    && !element.hasAttribute("disabled")
+    && element.getAttribute("aria-disabled") !== "true"
+    && !element.closest("[aria-hidden='true'], [hidden], [inert]"),
+  );
+}
+
+function useNavProviderContext(component: string) {
+  const context = useContext(NavProviderContext);
+  if(!context) invariant(component, "must be used within GlNavProvider.");
+  return context;
+}
+
+export function GlNavProvider({
+  children,
+  defaultOpen,
+  navId,
+  onOpenChange,
+  open,
+}: GlNavProviderProps) {
+  const generatedId = useId();
+  const resolvedNavId = navId ?? `gl-collapsible-nav-${generatedId}`;
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen ?? false);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [viewportReady, setViewportReady] = useState(false);
+  const [activeFlyoutId, setActiveFlyoutId] = useState<string | null>(null);
+  const registeredNav = useRef<symbol | null>(null);
+  const externalToggles = useRef(new Set<HTMLElement>());
+  const hasExplicitFocusReturnTarget = useRef(false);
+  const focusReturnTarget = useRef<HTMLElement | null>(null);
+  const hasAutomaticInitialState = open === undefined && defaultOpen === undefined;
+  const isControlled = open !== undefined;
+  const resolvedOpen = open ?? uncontrolledOpen;
+
+  useEffect(() => {
+    if(typeof window === "undefined") return;
+    if(typeof window.matchMedia !== "function") {
+      setViewportReady(true);
+      return;
+    }
+
+    const mediaQuery = window.matchMedia(DESKTOP_NAV_QUERY);
+    setIsDesktop(mediaQuery.matches);
+    if(hasAutomaticInitialState) setUncontrolledOpen(mediaQuery.matches);
+    setViewportReady(true);
+
+    const handleChange = (event: MediaQueryListEvent) => setIsDesktop(event.matches);
+    if(typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", handleChange);
+      return () => mediaQuery.removeEventListener("change", handleChange);
+    }
+
+    // Older Safari and embedded WebViews only expose the legacy MediaQueryList API.
+    mediaQuery.addListener(handleChange);
+    return () => mediaQuery.removeListener(handleChange);
+  }, [hasAutomaticInitialState]);
+
+  useEffect(() => {
+    if(resolvedOpen || !isDesktop) setActiveFlyoutId(null);
+  }, [isDesktop, resolvedOpen]);
+
+  const captureFocusReturnTarget = useCallback((element: HTMLElement | null) => {
+    if(
+      hasExplicitFocusReturnTarget.current
+      && canReceiveRestoredFocus(focusReturnTarget.current)
+    ) return;
+
+    hasExplicitFocusReturnTarget.current = false;
+    if(canReceiveRestoredFocus(element)) focusReturnTarget.current = element;
+  }, []);
+
+  const getFocusReturnTarget = useCallback(() => {
+    const rememberedTarget = focusReturnTarget.current;
+    const fallbackTarget = Array.from(externalToggles.current)
+      .find((element) => canReceiveRestoredFocus(element));
+    const target = canReceiveRestoredFocus(rememberedTarget)
+      ? rememberedTarget
+      : fallbackTarget;
+
+    hasExplicitFocusReturnTarget.current = false;
+    focusReturnTarget.current = null;
+    return target ?? false;
+  }, []);
+
+  useEffect(() => {
+    if(!isDesktop) return;
+
+    hasExplicitFocusReturnTarget.current = false;
+    focusReturnTarget.current = null;
+  }, [isDesktop]);
+
+  const requestOpen = useCallback<NavProviderContextValue["requestOpen"]>((
+    nextOpen,
+    options,
+  ) => {
+    if(nextOpen === resolvedOpen) return;
+    if(nextOpen && !isDesktop && options?.externalOpener) {
+      hasExplicitFocusReturnTarget.current = true;
+      focusReturnTarget.current = options.externalOpener;
+    }
+    if(!isControlled) setUncontrolledOpen(nextOpen);
+    onOpenChange?.(nextOpen);
+  }, [isControlled, isDesktop, onOpenChange, resolvedOpen]);
+
+  const registerExternalToggle = useCallback((element: HTMLElement) => {
+    externalToggles.current.add(element);
+    return () => {
+      externalToggles.current.delete(element);
+    };
+  }, []);
+
+  const registerNav = useCallback((id: symbol) => {
+    if(registeredNav.current && registeredNav.current !== id) {
+      invariant("GlCollapsibleNav", "GlNavProvider accepts exactly one GlCollapsibleNav.");
+    }
+
+    registeredNav.current = id;
+    return () => {
+      if(registeredNav.current === id) registeredNav.current = null;
+    };
+  }, []);
+
+  const value = useMemo<NavProviderContextValue>(() => ({
+    activeFlyoutId,
+    captureFocusReturnTarget,
+    getFocusReturnTarget,
+    isDesktop,
+    navId: resolvedNavId,
+    open: resolvedOpen,
+    registerExternalToggle,
+    registerNav,
+    requestOpen,
+    setActiveFlyoutId,
+    viewportReady,
+  }), [
+    activeFlyoutId,
+    captureFocusReturnTarget,
+    getFocusReturnTarget,
+    isDesktop,
+    registerExternalToggle,
+    registerNav,
+    requestOpen,
+    resolvedNavId,
+    resolvedOpen,
+    viewportReady,
+  ]);
+
+  return <NavProviderContext.Provider value={value}>{children}</NavProviderContext.Provider>;
+}
+
+function InternalCollapsibleNavToggle({
+  collapseLabel = "Collapse sidebar",
+  disabled = false,
+  expandLabel = "Expand sidebar",
+  forwardedRef,
+  onClick,
+  type = "button",
+  ...buttonProps
+}: GlCollapsibleNavToggleProps & { forwardedRef: Ref<HTMLElement> }) {
+  const provider = useNavProviderContext("GlCollapsibleNavToggle");
+  const label = provider.open ? collapseLabel : expandLabel;
+
+  const handleClick: MouseEventHandler<HTMLElement> = (event) => {
+    (onClick as MouseEventHandler<HTMLElement> | undefined)?.(event);
+    if(event.defaultPrevented) return;
+    provider.requestOpen(!provider.open);
+  };
+
+  return useNavButtonInternal("GlCollapsibleNavToggle", {
+    ...buttonProps,
+    "aria-controls": provider.navId,
+    "aria-expanded": provider.open,
+    "aria-label": label,
+    children: (
+      <>
+        <GlIcon
+          className="gl-collapsible-nav-toggle-icon"
+          name={provider.open ? "collapse-left" : "collapse-right"} />
+        {label}
+      </>
+    ),
+    onClick: handleClick,
+    type,
+  } as GlNavButtonProps, forwardedRef, disabled);
+}
+
+function ExternalCollapsibleNavToggle({
+  collapseLabel = "Collapse sidebar",
+  expandLabel = "Expand sidebar",
+  forwardedRef,
+  onClick,
+  type = "button",
+  ...buttonProps
+}: GlCollapsibleNavToggleProps & { forwardedRef: Ref<HTMLElement> }) {
+  const provider = useNavProviderContext("GlCollapsibleNavToggle");
+  const elementRef = useRef<HTMLElement | null>(null);
+  const buttonRef = useMergedRefs(forwardedRef, elementRef);
+  const registerExternalToggle = provider.registerExternalToggle;
+  const label = provider.open ? collapseLabel : expandLabel;
+
+  useEffect(() => {
+    const element = elementRef.current;
+    if(element) return registerExternalToggle(element);
+  }, [registerExternalToggle]);
+
+  const handleClick: MouseEventHandler<HTMLElement> = (event) => {
+    (onClick as MouseEventHandler<HTMLElement> | undefined)?.(event);
+    if(event.defaultPrevented) return;
+    provider.requestOpen(!provider.open, {
+      externalOpener: event.currentTarget,
+    });
+  };
+  const button = (
+    <GlButton
+      {...buttonProps as Omit<React.ComponentProps<typeof GlButton>, "children">}
+      ref={buttonRef}
+      aria-controls={provider.navId}
+      aria-expanded={provider.open}
+      aria-label={label}
+      category="tertiary"
+      data-gl-collapsible-nav-toggle="external"
+      icon="sidebar"
+      onClick={handleClick}
+      type={type} />
+  );
+
+  return (
+    <GlTooltip>
+      <GlTooltipTrigger>{button}</GlTooltipTrigger>
+      <GlTooltipContent boundary="viewport" placement="right">{label}</GlTooltipContent>
+    </GlTooltip>
+  );
+}
+
+export const GlCollapsibleNavToggle = Object.assign(
+  forwardRef<HTMLElement, GlCollapsibleNavToggleProps>(
+    function GlCollapsibleNavToggle(props, forwardedRef) {
+      const owner = useContext(ButtonOwnerContext);
+      const componentProps = { ...props, forwardedRef };
+      return owner?.isToggle
+        ? <InternalCollapsibleNavToggle {...componentProps} />
+        : <ExternalCollapsibleNavToggle {...componentProps} />;
+    },
+  ),
+  { [COLLAPSIBLE_NAV_TOGGLE_MARKER]: true as const },
+);
+
+function CollapsibleSubNav({
+  button,
+  disabled,
+  flyoutLabel,
+  forwardedRef,
+  item,
+  owner,
+  subNav,
+}: NavSubNavRenderProps) {
+  const nav = useContext(NavContext);
+  if(nav?.kind !== "collapsible") {
+    invariant("GlNavItem", "collapsible SubNav rendering requires GlCollapsibleNav.");
+  }
+
+  const provider = nav.provider;
+  const generatedFlyoutId = useId();
+  const triggerRef = useRef<HTMLElement | null>(null);
+  const flyoutId = `gl-collapsible-nav-flyout-${generatedFlyoutId}`;
+  const isFlyout = provider.isDesktop && !provider.open;
+  const flyoutOpen = provider.activeFlyoutId === flyoutId;
+  const buttonProps = getElementProps(button);
+  const subNavProps = getElementProps(subNav);
+  const onOpenChange = subNavProps.onOpenChange as GlSubNavProps["onOpenChange"];
+  const open = typeof subNavProps.open === "boolean" ? subNavProps.open : undefined;
+  const panelId = typeof subNavProps.id === "string" ? subNavProps.id : undefined;
+
+  if(isFlyout) {
+    const flyoutOwner = {
+      ...owner,
+      flyout: {
+        close: () => provider.setActiveFlyoutId(null),
+        open: flyoutOpen,
+        toggle: () => provider.setActiveFlyoutId(flyoutOpen ? null : flyoutId),
+      },
+      triggerRef,
+    };
+    const handleFlyoutOpenChange = (nextOpen: boolean) => {
+      if(nextOpen) provider.setActiveFlyoutId(flyoutId);
+      else if(provider.activeFlyoutId === flyoutId) provider.setActiveFlyoutId(null);
+    };
+    const handleFlyoutKeyDown: KeyboardEventHandler<HTMLDivElement> = (event) => {
+      if(event.defaultPrevented || event.key !== "Escape") return;
+
+      event.preventDefault();
+      event.stopPropagation();
+      provider.setActiveFlyoutId(null);
+      triggerRef.current?.focus();
+    };
+
+    return (
+      <BaseCollapsible.Root
+        ref={forwardedRef as Ref<HTMLDivElement>}
+        defaultOpen={Boolean(subNavProps.defaultOpen)}
+        disabled={disabled}
+        onOpenChange={(nextOpen) => onOpenChange?.(nextOpen)}
+        open={open}
+        render={item}>
+        <GlPopover
+          disabled={disabled}
+          onOpenChange={handleFlyoutOpenChange}
+          open={flyoutOpen}
+          triggers={["hover"]}>
+          <ButtonOwnerContext.Provider value={flyoutOwner}>
+            <GlPopoverTrigger>{button}</GlPopoverTrigger>
+          </ButtonOwnerContext.Provider>
+          <GlPopoverContent
+            boundary="viewport"
+            className="gl-collapsible-nav-flyout"
+            onKeyDown={handleFlyoutKeyDown}
+            placement="right">
+            <GlPopoverTitle>{flyoutLabel}</GlPopoverTitle>
+            <SubNavContext.Provider value>{subNav}</SubNavContext.Provider>
+          </GlPopoverContent>
+        </GlPopover>
+      </BaseCollapsible.Root>
+    );
+  }
+
+  return (
+    <BaseCollapsible.Root
+      ref={forwardedRef as Ref<HTMLDivElement>}
+      defaultOpen={Boolean(subNavProps.defaultOpen)}
+      disabled={disabled}
+      onOpenChange={(nextOpen) => onOpenChange?.(nextOpen)}
+      open={open}
+      render={item}>
+      <ButtonOwnerContext.Provider value={owner}>
+        <SubNavPanelIdContext.Provider value={panelId}>
+          <BaseCollapsible.Trigger render={withoutChildren(button)}>
+            {buttonProps.children}
+          </BaseCollapsible.Trigger>
+        </SubNavPanelIdContext.Provider>
+      </ButtonOwnerContext.Provider>
+      <SubNavContext.Provider value>
+        <BaseCollapsible.Panel id={panelId} render={withoutChildrenAndId(subNav)}>
+          {subNavProps.children}
+        </BaseCollapsible.Panel>
+      </SubNavContext.Provider>
+    </BaseCollapsible.Root>
+  );
+}
+
+function renderCollapsibleSubNav(props: NavSubNavRenderProps) {
+  return <CollapsibleSubNav {...props} />;
+}
+
+function validateNavChildren(children: ReactNode) {
+  const nodes = flattenChildren(children);
+  if(nodes.some((node) => !hasElementType(node, GlNavItem))) {
+    invariant("GlCollapsibleNav", "only accepts GlNavItem children.");
+  }
+}
+
+function getFocusableElements(container: HTMLElement) {
+  const selector = [
+    "a[href]:not([aria-disabled='true'])",
+    "button:not(:disabled)",
+    "[tabindex]:not([tabindex='-1'])",
+  ].join(",");
+  return Array.from(container.querySelectorAll<HTMLElement>(selector))
+    .filter((element) => (
+      element.tabIndex >= 0
+      && !element.closest("[aria-hidden='true'], [hidden], [inert]")
+    ));
+}
+
+export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
+  function GlCollapsibleNav({
+    "aria-hidden": ariaHidden,
+    "aria-label": ariaLabel,
+    "aria-labelledby": ariaLabelledBy,
+    children,
+    className,
+    inert: consumerInert,
+    onKeyDown,
+    tabIndex,
+    ...elementProps
+  }, forwardedRef) {
+    const provider = useNavProviderContext("GlCollapsibleNav");
+    const registerNav = provider.registerNav;
+    const instanceId = useRef(Symbol("GlCollapsibleNav"));
+    const navElement = useRef<HTMLElement | null>(null);
+    const portalContainer = useRef<HTMLDivElement | null>(null);
+    const mergedNavRef = useMergedRefs(forwardedRef, navElement);
+    const captureFocusReturnTarget = provider.captureFocusReturnTarget;
+    const isMobile = provider.viewportReady && !provider.isDesktop;
+    const isMobileOpen = isMobile && provider.open;
+    const isMobileHidden = isMobile && !provider.open;
+
+    validateNavChildren(children);
+
+    useEffect(() => registerNav(instanceId.current), [registerNav]);
+
+    useIsomorphicLayoutEffect(() => {
+      if(!isMobileOpen || typeof document === "undefined") return;
+
+      const activeElement = document.activeElement;
+      captureFocusReturnTarget(
+        activeElement instanceof HTMLElement
+        && activeElement !== document.body
+        && activeElement !== document.documentElement
+        && !navElement.current?.contains(activeElement)
+          ? activeElement
+          : null,
+      );
+    }, [captureFocusReturnTarget, isMobileOpen]);
+
+    const nav = (
+      <NavContext.Provider value={{
+        kind: "collapsible",
+        provider,
+        renderSubNav: renderCollapsibleSubNav,
+      }}>
+        <nav
+          {...elementProps}
+          ref={mergedNavRef}
+          id={provider.navId}
+          aria-hidden={isMobileHidden ? true : ariaHidden}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
+          className={collapsibleNavVariants({ className })}
+          data-desktop={provider.isDesktop || undefined}
+          data-open={provider.open}
+          data-viewport-ready={provider.viewportReady}
+          inert={consumerInert}
+          onKeyDown={onKeyDown}
+          tabIndex={isMobile ? (tabIndex ?? -1) : tabIndex}>
+          <ul className={navListVariants()}>{children}</ul>
+        </nav>
+      </NavContext.Provider>
+    );
+
+    if(!isMobile) return nav;
+
+    const handleInitialFocus = () => {
+      const element = navElement.current;
+      if(!element) return false;
+
+      return getFocusableElements(element).at(0) ?? element;
+    };
+
+    return (
+      <>
+        <div ref={portalContainer} className="gl-collapsible-nav-portal-host" />
+        <BaseDialog.Root
+          disablePointerDismissal={!isMobile}
+          modal={isMobile}
+          onOpenChange={(nextOpen) => provider.requestOpen(nextOpen)}
+          open={isMobileOpen}>
+          <BaseDialog.Portal
+            className="gl-collapsible-nav-portal"
+            container={portalContainer}
+            keepMounted>
+            {isMobile ? (
+              <BaseDialog.Backdrop
+                className="gl-collapsible-nav-backdrop"
+                data-testid="collapsible-nav-backdrop" />
+            ) : null}
+            <BaseDialog.Popup
+              aria-label={isMobile && !ariaLabelledBy ? (ariaLabel ?? "Navigation") : undefined}
+              aria-labelledby={isMobile ? ariaLabelledBy : undefined}
+              aria-modal={isMobile || undefined}
+              className="gl-collapsible-nav-dialog"
+              finalFocus={() => provider.isDesktop ? false : provider.getFocusReturnTarget()}
+              initialFocus={handleInitialFocus}
+              role={isMobile ? "dialog" : "presentation"}>
+              {nav}
+            </BaseDialog.Popup>
+          </BaseDialog.Portal>
+        </BaseDialog.Root>
+      </>
+    );
+  },
+);

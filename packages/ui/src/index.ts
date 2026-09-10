@@ -303,6 +303,16 @@ export type {
   GlSubNavItemProps,
   GlSubNavProps,
 } from "./base/nav/nav";
+export {
+  GlCollapsibleNav,
+  GlCollapsibleNavToggle,
+  GlNavProvider,
+} from "./base/nav/collapsible-nav";
+export type {
+  GlCollapsibleNavProps,
+  GlCollapsibleNavToggleProps,
+  GlNavProviderProps,
+} from "./base/nav/collapsible-nav";
 export { default as GlMarkdown } from "./base/markdown/markdown";
 export type {
   GlMarkdownProps,

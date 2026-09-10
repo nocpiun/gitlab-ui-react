@@ -11,6 +11,11 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
 import GlAvatar from "../avatar/avatar";
 import GlIcon from "../icon/icon";
+import {
+  GlCollapsibleNav,
+  GlCollapsibleNavToggle,
+  GlNavProvider,
+} from "./collapsible-nav";
 import GlNav, {
   GlNavButton,
   GlNavItem,
@@ -283,7 +288,7 @@ describe("GlNavButton", () => {
     expect(markup).toMatch(
       /<a[^>]*>[\s\S]*data-testid="nav-item-start"[\s\S]*data-testid="nav-item-label"[\s\S]*data-testid="nav-item-end"[\s\S]*<\/a>/u,
     );
-    expect(markup).toContain("class=\"gl-nav-item-slot count\"");
+    expect(markup).toContain("class=\"gl-nav-item-slot gl-nav-item-addon count\"");
     expect(markup).toContain(">12</span>");
   });
 
@@ -412,6 +417,171 @@ describe("GlSubNav", () => {
   });
 });
 
+describe("GlCollapsibleNav", () => {
+  it("shares the provider ID and state with external and internal toggles during SSR", () => {
+    const markup = renderToStaticMarkup(
+      <GlNavProvider defaultOpen navId="project-sidebar">
+        <GlCollapsibleNavToggle />
+        <GlCollapsibleNav aria-label="Project navigation">
+          <GlNavItem>
+            <GlNavButton href="/issues"><GlIcon name="issues" />Issues</GlNavButton>
+          </GlNavItem>
+          <GlNavItem><GlCollapsibleNavToggle /></GlNavItem>
+        </GlCollapsibleNav>
+      </GlNavProvider>,
+    );
+
+    expect(markup).toMatch(/<nav[^>]*id="project-sidebar"[^>]*data-open="true"/u);
+    expect(markup).toMatch(/<nav[^>]*data-viewport-ready="false"/u);
+    expect(markup.match(/aria-controls="project-sidebar"/gu)).toHaveLength(2);
+    expect(markup.match(/aria-expanded="true"/gu)).toHaveLength(2);
+    expect(markup).toContain("data-gl-collapsible-nav-toggle=\"external\"");
+    expect(markup).toContain("Collapse sidebar");
+    expect(markup).toContain("collapse-left");
+  });
+
+  it("lets controlled state take precedence over defaultOpen", () => {
+    const markup = renderToStaticMarkup(
+      <GlNavProvider defaultOpen open={false} navId="controlled-sidebar">
+        <GlCollapsibleNavToggle />
+        <GlCollapsibleNav>
+          <GlNavItem><GlNavButton><GlIcon name="issues" />Issues</GlNavButton></GlNavItem>
+        </GlCollapsibleNav>
+      </GlNavProvider>,
+    );
+
+    expect(markup).toContain("data-open=\"false\"");
+    expect(markup).toContain("aria-expanded=\"false\"");
+    expect(markup).toContain("aria-label=\"Expand sidebar\"");
+  });
+
+  it("does not make a plain GlNav respond to its surrounding provider", () => {
+    const markup = renderToStaticMarkup(
+      <GlNavProvider open={false}>
+        <GlNav>
+          <GlNavItem><GlNavButton>Text-only plain item</GlNavButton></GlNavItem>
+        </GlNav>
+      </GlNavProvider>,
+    );
+
+    expect(markup).toContain("Text-only plain item");
+    expect(markup).not.toContain("gl-collapsible-nav");
+    expect(markup).not.toContain("gl-nav-item-is-icon-only");
+  });
+
+  it("uses a generated stable provider ID when navId is omitted", () => {
+    const markup = renderToStaticMarkup(
+      <GlNavProvider>
+        <GlCollapsibleNavToggle />
+        <GlCollapsibleNav>
+          <GlNavItem><GlNavButton><GlIcon name="issues" />Issues</GlNavButton></GlNavItem>
+        </GlCollapsibleNav>
+      </GlNavProvider>,
+    );
+    const controls = markup.match(/aria-controls="([^"]+)"/u)?.[1];
+    const id = markup.match(/<nav[^>]*id="([^"]+)"/u)?.[1];
+
+    expect(controls).toBeTruthy();
+    expect(id).toBe(controls);
+  });
+
+  it("preserves consumer-provided aria-hidden state", () => {
+    const renderNav = (ariaHidden: boolean) => renderToStaticMarkup(
+      <GlNavProvider>
+        <GlCollapsibleNav aria-hidden={ariaHidden}>
+          <GlNavItem>
+            <GlNavButton><GlIcon name="issues" />Issues</GlNavButton>
+          </GlNavItem>
+        </GlCollapsibleNav>
+      </GlNavProvider>,
+    );
+
+    expect(renderNav(true)).toContain("aria-hidden=\"true\"");
+    expect(renderNav(false)).toContain("aria-hidden=\"false\"");
+  });
+
+  it("preserves consumer-provided inert state", () => {
+    const markup = renderToStaticMarkup(
+      <GlNavProvider defaultOpen>
+        <GlCollapsibleNav inert>
+          <GlNavItem>
+            <GlNavButton><GlIcon name="issues" />Issues</GlNavButton>
+          </GlNavItem>
+        </GlCollapsibleNav>
+      </GlNavProvider>,
+    );
+
+    expect(markup).toMatch(/<nav[^>]*inert=""/u);
+  });
+
+  it("forwards refs and applicable attributes to both toggle forms", () => {
+    const externalRef = createRef<HTMLElement>();
+    const internalRef = createRef<HTMLElement>();
+    const markup = renderToStaticMarkup(
+      <GlNavProvider navId="sidebar">
+        <GlCollapsibleNavToggle ref={externalRef} className="external" title="Remote" />
+        <GlCollapsibleNav>
+          <GlNavItem disabled>
+            <GlCollapsibleNavToggle ref={internalRef} className="internal" title="Inline" />
+          </GlNavItem>
+        </GlCollapsibleNav>
+      </GlNavProvider>,
+    );
+
+    expect(markup).toContain("external");
+    expect(markup).toContain("title=\"Remote\"");
+    expect(markup).toContain("internal");
+    expect(markup).toContain("title=\"Inline\"");
+    expect(markup).toContain("disabled=\"\"");
+  });
+
+  it("honors disabled passed directly to an internal toggle", () => {
+    const markup = renderToStaticMarkup(
+      <GlNavProvider defaultOpen navId="disabled-toggle-sidebar">
+        <GlCollapsibleNav>
+          <GlNavItem>
+            <GlCollapsibleNavToggle disabled />
+          </GlNavItem>
+        </GlCollapsibleNav>
+      </GlNavProvider>,
+    );
+
+    expect(markup).toMatch(/<button[^>]*disabled=""/u);
+    expect(markup).toContain("aria-controls=\"disabled-toggle-sidebar\"");
+    expect(markup).toContain("data-disabled=\"\"");
+  });
+
+  it("requires a direct leading and an accessible label for complex content", () => {
+    expect(() => renderToStaticMarkup(
+      <GlNavProvider>
+        <GlCollapsibleNav>
+          <GlNavItem><GlNavButton>Issues</GlNavButton></GlNavItem>
+        </GlCollapsibleNav>
+      </GlNavProvider>,
+    )).toThrow("requires a direct leading GlIcon or GlAvatar");
+    expect(() => renderToStaticMarkup(
+      <GlNavProvider>
+        <GlCollapsibleNav>
+          <GlNavItem>
+            <GlNavButton><GlIcon name="issues" /><span>Issues</span></GlNavButton>
+          </GlNavItem>
+        </GlCollapsibleNav>
+      </GlNavProvider>,
+    )).toThrow("requires aria-label when its label is not simple text");
+    expect(() => renderToStaticMarkup(
+      <GlNavProvider>
+        <GlCollapsibleNav>
+          <GlNavItem>
+            <GlNavButton aria-label="Issues">
+              <GlIcon name="issues" /><span>Issues</span>
+            </GlNavButton>
+          </GlNavItem>
+        </GlCollapsibleNav>
+      </GlNavProvider>,
+    )).not.toThrow();
+  });
+});
+
 describe("composition errors", () => {
   it("rejects non-item children of GlNav", () => {
     expect(() => renderToStaticMarkup(<GlNav><span>Wrong</span></GlNav>))
@@ -518,5 +688,27 @@ describe("composition errors", () => {
         </GlNavItem>
       </GlNav>,
     )).toThrow("requires exactly one GlSubNavButton");
+  });
+
+  it("enforces collapsible navigation provider and toggle boundaries", () => {
+    expect(() => renderToStaticMarkup(<GlCollapsibleNav />))
+      .toThrow("[GlCollapsibleNav] must be used within GlNavProvider");
+    expect(() => renderToStaticMarkup(<GlCollapsibleNavToggle />))
+      .toThrow("[GlCollapsibleNavToggle] must be used within GlNavProvider");
+    expect(() => renderToStaticMarkup(
+      <GlNavProvider>
+        <GlNav><GlNavItem><GlCollapsibleNavToggle /></GlNavItem></GlNav>
+      </GlNavProvider>,
+    )).toThrow("GlCollapsibleNavToggle is only accepted by GlCollapsibleNav");
+    expect(() => renderToStaticMarkup(
+      <GlNavProvider>
+        <GlCollapsibleNav>
+          <GlNavItem>
+            <GlCollapsibleNavToggle />
+            <GlSubNav />
+          </GlNavItem>
+        </GlCollapsibleNav>
+      </GlNavProvider>,
+    )).toThrow("GlCollapsibleNavToggle cannot be used with GlSubNav");
   });
 });

@@ -13,19 +13,17 @@
  */
 
 import {
-  Children,
-  Fragment,
   cloneElement,
-  createContext,
-  createElement,
   forwardRef,
   isValidElement,
   useContext,
+  useRef,
   type ButtonHTMLAttributes,
-  type ElementType,
   type HTMLAttributes,
   type KeyboardEventHandler,
   type LiHTMLAttributes,
+  type MouseEventHandler,
+  type PointerEventHandler,
   type ReactElement,
   type ReactNode,
   type Ref,
@@ -33,9 +31,26 @@ import {
 import { Button as BaseButton } from "@base-ui/react/button";
 import { Collapsible as BaseCollapsible } from "@base-ui/react/collapsible";
 import { cva } from "class-variance-authority";
+import { useMergedRefs } from "../../internal/utils/merge-refs";
 import GlAvatar from "../avatar/avatar";
 import GlIcon from "../icon/icon";
 import GlLink, { type GlLinkProps } from "../link/link";
+import GlTooltip, { GlTooltipContent, GlTooltipTrigger } from "../tooltip/tooltip";
+import {
+  AddonContext,
+  ButtonOwnerContext,
+  NavContext,
+  SubNavContext,
+  SubNavPanelIdContext,
+  flattenChildren,
+  getElementProps,
+  hasElementType,
+  invariant,
+  isCollapsibleNavToggleElement,
+  withoutChildren,
+  withoutChildrenAndId,
+  type ButtonOwner,
+} from "./nav-contexts";
 
 export type GlNavItemIndicatorPosition = "bottom" | "left" | "right";
 
@@ -135,20 +150,6 @@ export type GlNavItemAddonProps = Omit<
   children?: ReactNode;
 };
 
-type ButtonOwner = {
-  disabled: boolean;
-  hasSubNav: boolean;
-  indicatorPosition: GlNavItemIndicatorPosition;
-  level: "nav" | "subnav";
-  selected: boolean;
-};
-
-const NavContext = createContext(false);
-const SubNavContext = createContext(false);
-const SubNavPanelIdContext = createContext<string | undefined>(undefined);
-const ButtonOwnerContext = createContext<ButtonOwner | null>(null);
-const AddonContext = createContext(false);
-
 // Keep these component selectors assembled at runtime. The Tailwind 3 prefix
 // compatibility scanner otherwise mistakes them for the `nav` and `nav-item`
 // utilities and rewrites Bootstrap compatibility selectors used by GlTabs.
@@ -184,46 +185,6 @@ const navListItemVariants = cva("gl-nav-list-item");
 const subNavVariants = cva("gl-sub-nav");
 const subNavListItemVariants = cva("gl-sub-nav-item");
 const navSlotVariants = cva("gl-nav-item-slot");
-
-function invariant(component: string, message: string): never {
-  throw new Error(`[${component}] ${message}`);
-}
-
-function flattenChildren(children: ReactNode, result: ReactNode[] = []): ReactNode[] {
-  Children.forEach(children, (child) => {
-    if(child === null || child === undefined || typeof child === "boolean") return;
-
-    if(isValidElement(child) && child.type === Fragment) {
-      flattenChildren((child.props as { children?: ReactNode }).children, result);
-      return;
-    }
-
-    result.push(child);
-  });
-
-  return result;
-}
-
-function hasElementType(node: ReactNode, component: React.ElementType) {
-  return isValidElement(node) && node.type === component;
-}
-
-function getElementProps(element: ReactElement) {
-  return element.props as Record<string, unknown> & { children?: ReactNode };
-}
-
-function withoutChildren(element: ReactElement) {
-  const props = { ...getElementProps(element) };
-  delete props.children;
-  return createElement(element.type as ElementType, props);
-}
-
-function withoutChildrenAndId(element: ReactElement) {
-  const props = { ...getElementProps(element) };
-  delete props.children;
-  delete props.id;
-  return createElement(element.type as ElementType, props);
-}
 
 function isLeading(node: ReactNode) {
   return hasElementType(node, GlIcon) || hasElementType(node, GlAvatar);
@@ -275,6 +236,12 @@ function resolveButtonContent(children: ReactNode, component: string): ResolvedB
   return { addon, label: addon ? nodes.slice(0, -1) : nodes, leading };
 }
 
+function simpleTextLabel(nodes: ReactNode[]) {
+  if(nodes.some((node) => typeof node !== "string" && typeof node !== "number")) return undefined;
+  const label = nodes.join("").replace(/\s+/gu, " ").trim();
+  return label || undefined;
+}
+
 function NavItemChevron() {
   return (
     <span
@@ -302,25 +269,30 @@ function NavItemChevron() {
 
 type NavButtonRuntimeProps = NavButtonSharedProps & NavLinkBaseProps & {
   href?: string;
+  onPointerDown?: PointerEventHandler<HTMLElement>;
   render?: GlLinkProps["render"];
   type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
 };
 
-function useNavButton(
-  component: "GlNavButton" | "GlSubNavButton",
+export function useNavButtonInternal(
+  component: "GlCollapsibleNavToggle" | "GlNavButton" | "GlSubNavButton",
   props: GlNavButtonProps,
   forwardedRef: Ref<HTMLElement>,
+  componentDisabled = false,
 ) {
   const owner = useContext(ButtonOwnerContext);
+  const nav = useContext(NavContext);
   const subNavPanelId = useContext(SubNavPanelIdContext);
-  const expectedLevel = component === "GlNavButton" ? "nav" : "subnav";
+  const expectedLevel = component === "GlSubNavButton" ? "subnav" : "nav";
 
-  if(owner?.level !== expectedLevel) {
+  if(owner?.level !== expectedLevel || (component === "GlCollapsibleNavToggle" && !owner.isToggle)) {
     invariant(
       component,
-      component === "GlNavButton"
+      component === "GlSubNavButton"
+        ? "must be the direct button child of GlSubNavItem."
+        : component === "GlNavButton"
         ? "must be the direct button child of GlNavItem."
-        : "must be the direct button child of GlSubNavItem.",
+        : "must be the direct toggle child of GlNavItem in GlCollapsibleNav.",
     );
   }
 
@@ -340,6 +312,7 @@ function useNavButton(
     onClick,
     onEscape,
     onKeyDown,
+    onPointerDown,
     onPointerLeave,
     onPointerOver,
     ping,
@@ -351,8 +324,13 @@ function useNavButton(
     ...elementProps
   } = props as NavButtonRuntimeProps;
   const { addon, label, leading } = resolveButtonContent(children, component);
-  const hasAutomaticChevron = Boolean(owner.hasSubNav && !addon && !isIconOnly);
-  const hasEndSlot = Boolean(!isIconOnly && (addon || hasAutomaticChevron));
+  const isCollapsibleTopLevel = nav?.kind === "collapsible" && owner.level === "nav";
+  const isRail = Boolean(isCollapsibleTopLevel && nav.provider.isDesktop && !nav.provider.open);
+  const effectiveIconOnly = isIconOnly || isRail;
+  const derivedLabel = simpleTextLabel(label);
+  const hasAutomaticChevron = Boolean(owner.hasSubNav && !addon && !effectiveIconOnly);
+  const hasEndSlot = Boolean(!effectiveIconOnly && (addon || hasAutomaticChevron));
+  const disabled = owner.disabled || componentDisabled;
   const resolvedAriaControls = subNavPanelId
     && (ariaExpanded === true || ariaExpanded === "true")
     ? subNavPanelId
@@ -361,7 +339,7 @@ function useNavButton(
     className,
     hasEndSlot,
     hasStartSlot: Boolean(leading),
-    iconOnly: isIconOnly,
+    iconOnly: effectiveIconOnly,
     indicatorPosition: owner.indicatorPosition,
     level: owner.level,
     selected: owner.selected,
@@ -371,11 +349,52 @@ function useNavButton(
     invariant(component, "isIconOnly requires a leading GlIcon or GlAvatar.");
   }
   if(isIconOnly && !ariaLabel) invariant(component, "isIconOnly requires aria-label.");
+  if(isCollapsibleTopLevel && !leading) {
+    invariant(component, "requires a direct leading GlIcon or GlAvatar in GlCollapsibleNav.");
+  }
+  if(isCollapsibleTopLevel && !ariaLabel && !derivedLabel) {
+    invariant(component, "requires aria-label when its label is not simple text.");
+  }
+
+  const pointerType = useRef("");
+  const buttonRef = useMergedRefs(forwardedRef, owner.triggerRef);
+  const handlePointerDown: PointerEventHandler<HTMLElement> = (event) => {
+    pointerType.current = event.pointerType;
+    onPointerDown?.(event);
+  };
+  const handleClick: MouseEventHandler<HTMLElement> = (event) => {
+    const isNonMousePointerClick = pointerType.current !== "" && pointerType.current !== "mouse";
+    const isSynthesizedClick = event.detail === 0;
+    pointerType.current = "";
+    onClick?.(event);
+    if(
+      event.defaultPrevented
+      || !owner.flyout
+      || (!isNonMousePointerClick && !isSynthesizedClick)
+    ) return;
+
+    event.preventDefault();
+    owner.flyout.toggle();
+  };
 
   const handleKeyDown: KeyboardEventHandler<HTMLElement> = (event) => {
     onKeyDown?.(event);
-    if(!event.defaultPrevented && event.key === "Escape") onEscape?.(event);
+    if(event.defaultPrevented) return;
+    if(owner.flyout && (event.key === "Enter" || event.key === " ")) {
+      event.preventDefault();
+      owner.flyout.toggle();
+      return;
+    }
+    if(event.key === "Escape") {
+      if(owner.flyout?.open) {
+        event.preventDefault();
+        owner.flyout.close();
+        event.currentTarget.focus();
+      }
+      onEscape?.(event);
+    }
   };
+  const resolvedAriaLabel = ariaLabel ?? (isRail ? derivedLabel : undefined);
   const content = (
     <>
       {leading ? (
@@ -394,24 +413,26 @@ function useNavButton(
     </>
   );
 
+  let button: ReactElement;
   if(Boolean(href) || render !== undefined) {
-    return (
+    button = (
       <GlLink
         {...elementProps}
-        ref={forwardedRef as Ref<HTMLAnchorElement>}
+        ref={buttonRef as Ref<HTMLAnchorElement>}
         aria-controls={resolvedAriaControls}
         aria-current={ariaCurrent ?? (owner.selected ? "page" : undefined)}
         aria-expanded={ariaExpanded}
-        aria-label={ariaLabel}
+        aria-label={resolvedAriaLabel}
         className={classes}
-        disabled={owner.disabled}
+        disabled={disabled}
         download={download}
         href={href || undefined}
         hrefLang={hrefLang}
         isUnsafeLink={isUnsafeLink}
         media={media}
-        onClick={onClick as React.MouseEventHandler<HTMLAnchorElement>}
+        onClick={handleClick as React.MouseEventHandler<HTMLAnchorElement>}
         onKeyDown={handleKeyDown as KeyboardEventHandler<HTMLAnchorElement>}
+        onPointerDown={handlePointerDown as React.PointerEventHandler<HTMLAnchorElement>}
         onPointerLeave={onPointerLeave as React.PointerEventHandler<HTMLAnchorElement>}
         onPointerOver={onPointerOver as React.PointerEventHandler<HTMLAnchorElement>}
         ping={ping}
@@ -423,26 +444,40 @@ function useNavButton(
         {content}
       </GlLink>
     );
+  } else {
+    button = (
+      <BaseButton
+        {...elementProps as unknown as BaseButton.Props}
+        ref={buttonRef}
+        aria-controls={resolvedAriaControls}
+        aria-current={ariaCurrent}
+        aria-expanded={ariaExpanded}
+        aria-label={resolvedAriaLabel}
+        className={classes}
+        disabled={disabled}
+        nativeButton
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        onPointerDown={handlePointerDown}
+        onPointerLeave={onPointerLeave}
+        onPointerOver={onPointerOver}
+        type={type}>
+        {content}
+      </BaseButton>
+    );
   }
 
+  const tooltipLabel = ariaLabel ?? derivedLabel;
+  const hasCollapsibleTooltip = isCollapsibleTopLevel && !owner.hasSubNav && tooltipLabel;
+  if(!hasCollapsibleTooltip) return button;
+
   return (
-    <BaseButton
-      {...elementProps as unknown as BaseButton.Props}
-      ref={forwardedRef}
-      aria-controls={resolvedAriaControls}
-      aria-current={ariaCurrent}
-      aria-expanded={ariaExpanded}
-      aria-label={ariaLabel}
-      className={classes}
-      disabled={owner.disabled}
-      nativeButton
-      onClick={onClick}
-      onKeyDown={handleKeyDown}
-      onPointerLeave={onPointerLeave}
-      onPointerOver={onPointerOver}
-      type={type}>
-      {content}
-    </BaseButton>
+    <GlTooltip disabled={!isRail}>
+      <GlTooltipTrigger>{button}</GlTooltipTrigger>
+      <GlTooltipContent boundary="viewport" placement="right">
+        {tooltipLabel}
+      </GlTooltipContent>
+    </GlTooltip>
   );
 }
 
@@ -450,12 +485,12 @@ export const GlNavButton = forwardRef<HTMLElement, GlNavButtonProps>(function Gl
   props,
   forwardedRef,
 ) {
-  return useNavButton("GlNavButton", props, forwardedRef);
+  return useNavButtonInternal("GlNavButton", props, forwardedRef);
 });
 
 export const GlSubNavButton = forwardRef<HTMLElement, GlSubNavButtonProps>(
   function GlSubNavButton(props, forwardedRef) {
-    return useNavButton("GlSubNavButton", props, forwardedRef);
+    return useNavButtonInternal("GlSubNavButton", props, forwardedRef);
   },
 );
 
@@ -472,7 +507,7 @@ export const GlNavItemAddon = forwardRef<HTMLSpanElement, GlNavItemAddonProps>(
       <span
         {...elementProps}
         ref={forwardedRef}
-        className={navSlotVariants({ className })}
+        className={navSlotVariants({ className: ["gl-nav-item-addon", className] })}
         data-testid="nav-item-end">
         {children}
       </span>
@@ -482,17 +517,13 @@ export const GlNavItemAddon = forwardRef<HTMLSpanElement, GlNavItemAddonProps>(
 
 function requireSingleButton(
   children: ReactNode,
-  component: "GlNavItem" | "GlSubNavItem",
+  component: "GlSubNavItem",
 ) {
   const nodes = flattenChildren(children);
-  const ButtonComponent = component === "GlNavItem" ? GlNavButton : GlSubNavButton;
-  const buttons = nodes.filter((node) => hasElementType(node, ButtonComponent));
+  const buttons = nodes.filter((node) => hasElementType(node, GlSubNavButton));
 
   if(buttons.length !== 1) {
-    invariant(
-      component,
-      `requires exactly one ${component === "GlNavItem" ? "GlNavButton" : "GlSubNavButton"}.`,
-    );
+    invariant(component, "requires exactly one GlSubNavButton.");
   }
 
   return { button: buttons[0] as ReactElement<GlNavButtonProps>, nodes };
@@ -521,25 +552,56 @@ export const GlNavItem = forwardRef<HTMLLIElement, GlNavItemProps>(function GlNa
   selected = false,
   ...elementProps
 }, forwardedRef) {
-  if(!useContext(NavContext)) invariant("GlNavItem", "must be a direct child of GlNav.");
+  const nav = useContext(NavContext);
+  if(!nav) invariant("GlNavItem", "must be a direct child of GlNav or GlCollapsibleNav.");
 
-  const { button, nodes } = requireSingleButton(children, "GlNavItem");
+  const nodes = flattenChildren(children);
+  const buttons = nodes.filter((node) => hasElementType(node, GlNavButton));
+  const toggles = nodes.filter(isCollapsibleNavToggleElement);
+  if(nav.kind === "plain" && toggles.length > 0) {
+    invariant("GlNavItem", "GlCollapsibleNavToggle is only accepted by GlCollapsibleNav.");
+  }
+  if(buttons.length + toggles.length !== 1) {
+    invariant(
+      "GlNavItem",
+      nav.kind === "collapsible"
+        ? "requires exactly one GlNavButton or GlCollapsibleNavToggle."
+        : "requires exactly one GlNavButton.",
+    );
+  }
+
+  const button = (buttons[0] ?? toggles[0]) as ReactElement<GlNavButtonProps>;
+  const isToggle = toggles.length === 1;
   const subNavs = nodes.filter((node) => hasElementType(node, GlSubNav));
   const unexpected = nodes.filter(
-    (node) => !hasElementType(node, GlNavButton) && !hasElementType(node, GlSubNav),
+    (node) => !hasElementType(node, GlNavButton)
+      && !isCollapsibleNavToggleElement(node)
+      && !hasElementType(node, GlSubNav),
   );
 
   if(unexpected.length > 0) {
-    invariant("GlNavItem", "only accepts GlNavButton and an optional GlSubNav.");
+    invariant(
+      "GlNavItem",
+      "only accepts GlNavButton or GlCollapsibleNavToggle and an optional GlSubNav.",
+    );
   }
   if(subNavs.length > 1) invariant("GlNavItem", "accepts at most one GlSubNav.");
-  if(nodes[0] !== button) invariant("GlNavItem", "GlNavButton must precede GlSubNav.");
+  if(nodes[0] !== button) {
+    invariant(
+      "GlNavItem",
+      isToggle ? "GlCollapsibleNavToggle must precede GlSubNav." : "GlNavButton must precede GlSubNav.",
+    );
+  }
+  if(isToggle && subNavs.length > 0) {
+    invariant("GlNavItem", "GlCollapsibleNavToggle cannot be used with GlSubNav.");
+  }
 
   const subNav = subNavs[0] as ReactElement<GlSubNavProps> | undefined;
   const owner: ButtonOwner = {
     disabled,
     hasSubNav: Boolean(subNav),
     indicatorPosition,
+    isToggle,
     level: "nav",
     selected,
   };
@@ -561,6 +623,23 @@ export const GlNavItem = forwardRef<HTMLLIElement, GlNavItemProps>(function GlNa
   const onOpenChange = subNavProps.onOpenChange as GlSubNavProps["onOpenChange"];
   const open = typeof subNavProps.open === "boolean" ? subNavProps.open : undefined;
   const panelId = typeof subNavProps.id === "string" ? subNavProps.id : undefined;
+
+  if(nav.kind === "collapsible") {
+    const resolvedContent = resolveButtonContent(buttonProps.children, "GlNavButton");
+    const flyoutLabel = typeof buttonProps["aria-label"] === "string"
+      ? buttonProps["aria-label"]
+      : simpleTextLabel(resolvedContent.label) ?? "Navigation";
+
+    return nav.renderSubNav({
+      button,
+      disabled,
+      flyoutLabel,
+      forwardedRef,
+      item,
+      owner,
+      subNav,
+    });
+  }
 
   return (
     <BaseCollapsible.Root
@@ -640,18 +719,22 @@ export const GlSubNavItem = forwardRef<HTMLLIElement, GlSubNavItemProps>(
   },
 );
 
+function validateNavChildren(children: ReactNode) {
+  const nodes = flattenChildren(children);
+  if(nodes.some((node) => !hasElementType(node, GlNavItem))) {
+    invariant("GlNav", "only accepts GlNavItem children.");
+  }
+}
+
 const GlNav = forwardRef<HTMLElement, GlNavProps>(function GlNav({
   children,
   className,
   ...elementProps
 }, forwardedRef) {
-  const nodes = flattenChildren(children);
-  if(nodes.some((node) => !hasElementType(node, GlNavItem))) {
-    invariant("GlNav", "only accepts GlNavItem children.");
-  }
+  validateNavChildren(children);
 
   return (
-    <NavContext.Provider value>
+    <NavContext.Provider value={{ kind: "plain" }}>
       <nav {...elementProps} ref={forwardedRef} className={navVariants({ className })}>
         <ul className={navListVariants()}>{children}</ul>
       </nav>

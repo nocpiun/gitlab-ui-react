@@ -169,3 +169,181 @@
     @apply gl-pl-7;
   }
 }
+
+/*
+ * GlCollapsibleNav is a React-only convenience API inspired by GitLab's
+ * Super Sidebar. Its state and responsive shell intentionally live here
+ * instead of being presented as an upstream Pajamas component.
+ */
+.gl-collapsible-nav {
+  --gl-collapsible-nav-expanded-width: 15rem;
+  --gl-collapsible-nav-collapsed-width: 3.5rem;
+
+  @apply gl-shrink-0;
+  width: var(--gl-collapsible-nav-expanded-width);
+  transition: width 200ms ease, transform 200ms ease, visibility 0s;
+
+  .gl-nav-item {
+    transition: width 200ms ease;
+  }
+
+  > .gl-nav-list > .gl-nav-list-item > .gl-nav-item-has-start-slot {
+    padding-inline-start: var(--gl-spacing-scale-1);
+  }
+
+  .gl-nav-item-label,
+  .gl-nav-item-addon,
+  .gl-nav-item-chevron {
+    transition: opacity 150ms ease-out, transform 150ms ease-out, max-width 150ms ease-out;
+  }
+
+  .gl-nav-item-label {
+    min-width: 0;
+    max-width: calc(var(--gl-collapsible-nav-expanded-width) - 4rem);
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .gl-nav-item-addon,
+  .gl-nav-item-chevron {
+    max-width: 1.5rem;
+  }
+}
+
+.gl-collapsible-nav-portal-host,
+.gl-collapsible-nav-portal,
+.gl-collapsible-nav-dialog {
+  display: contents;
+}
+
+.gl-collapsible-nav-toggle-icon:dir(rtl) {
+  transform: scaleX(-1);
+}
+
+.gl-collapsible-nav-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1029;
+  background-color: rgb(0 0 0 / 0.5);
+  opacity: 1;
+  transition: opacity 250ms ease-out;
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+  }
+}
+
+.gl-collapsible-nav-flyout {
+  min-width: 12rem;
+
+  &.fade[data-ending-style] {
+    transition-duration: 0s;
+  }
+
+  .gl-sub-nav {
+    @apply gl-mt-0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .gl-collapsible-nav[data-open="false"] {
+    width: var(--gl-collapsible-nav-collapsed-width);
+
+    .gl-nav-item-is-icon-only {
+      @apply gl-gap-0;
+      width: 1.75rem;
+      height: 1.75rem;
+      margin-inline-start: 0;
+      margin-inline-end: auto;
+    }
+
+    .gl-nav-item-label,
+    .gl-nav-item-addon,
+    .gl-nav-item-chevron {
+      @apply gl-grow-0;
+      max-width: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateX(-0.25rem);
+    }
+
+    .gl-nav-item-addon,
+    .gl-nav-item-chevron {
+      width: 0;
+    }
+  }
+}
+
+@media (max-width: 1199px) {
+  .gl-collapsible-nav[data-viewport-ready="false"] {
+    display: none;
+  }
+
+  .gl-collapsible-nav-dialog {
+    display: flex;
+    position: fixed;
+    inset-block: 0;
+    inset-inline-start: 0;
+    z-index: 1030;
+    width: max-content;
+    max-width: 100vw;
+    transform: translateX(0);
+    transition: transform 200ms ease;
+
+    &[data-closed],
+    &[data-starting-style],
+    &[data-ending-style] {
+      transform: translateX(-100%);
+    }
+
+    &:dir(rtl)[data-closed],
+    &:dir(rtl)[data-starting-style],
+    &:dir(rtl)[data-ending-style] {
+      transform: translateX(100%);
+    }
+  }
+
+  .gl-collapsible-nav {
+    @apply gl-bg-overlap;
+    @apply gl-flex;
+    @apply gl-h-full;
+    @apply gl-flex-col;
+    @apply gl-overflow-y-auto;
+    @apply gl-shadow-lg;
+    @apply gl-text-base;
+    @apply gl-leading-normal;
+    position: static;
+    width: var(--gl-collapsible-nav-expanded-width);
+    max-width: calc(100vw - 3rem);
+    border-start-end-radius: var(--gl-drawer-border-radius);
+    border-end-end-radius: var(--gl-drawer-border-radius);
+
+    > .gl-nav-list {
+      @apply gl-grow;
+      @apply gl-p-5;
+      padding-inline-start: var(--gl-spacing-scale-3);
+    }
+
+    &:dir(rtl) .gl-nav-item-indicator-left.selected::before {
+      left: auto;
+      right: calc(var(--gl-spacing-scale-3) * -1);
+      border-top-left-radius: var(--gl-border-radius-default);
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: var(--gl-border-radius-default);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gl-collapsible-nav,
+  .gl-collapsible-nav .gl-nav-item,
+  .gl-collapsible-nav .gl-nav-item-label,
+  .gl-collapsible-nav .gl-nav-item-addon,
+  .gl-collapsible-nav .gl-nav-item-chevron,
+  .gl-collapsible-nav-dialog,
+  .gl-collapsible-nav-backdrop {
+    transition-duration: 0s;
+  }
+}
