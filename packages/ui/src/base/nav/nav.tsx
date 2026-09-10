@@ -31,7 +31,7 @@ import {
 import { Button as BaseButton } from "@base-ui/react/button";
 import { Collapsible as BaseCollapsible } from "@base-ui/react/collapsible";
 import { cva } from "class-variance-authority";
-import { mergeRefs } from "../../internal/utils/merge-refs";
+import { useMergedRefs } from "../../internal/utils/merge-refs";
 import GlAvatar from "../avatar/avatar";
 import GlIcon from "../icon/icon";
 import GlLink, { type GlLinkProps } from "../link/link";
@@ -357,7 +357,7 @@ export function useNavButtonInternal(
   }
 
   const pointerType = useRef("");
-  const buttonRef = mergeRefs(forwardedRef, owner.triggerRef);
+  const buttonRef = useMergedRefs(forwardedRef, owner.triggerRef);
   const handlePointerDown: PointerEventHandler<HTMLElement> = (event) => {
     pointerType.current = event.pointerType;
     onPointerDown?.(event);
