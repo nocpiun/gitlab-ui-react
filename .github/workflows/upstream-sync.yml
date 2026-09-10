@@ -30,8 +30,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v6
-      with:
-        token: ${{ secrets.SYNC_PAT }}
 
     - name: Use pnpm 10.33.0
       uses: pnpm/action-setup@v6
@@ -59,7 +57,7 @@ jobs:
     - name: Create or update sync PR
       if: steps.sync.outputs.changed == 'true'
       env:
-        GH_TOKEN: ${{ secrets.SYNC_PAT }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         set -euo pipefail
         branch="bot/upstream-token-sync"
