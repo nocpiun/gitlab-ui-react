@@ -48,8 +48,8 @@ const tableOfContents = headings.filter(({ depth }) => depth >= 2 && depth <= 3)
   <div>
     <div class="mx-6 sm:mx-8 lg:mx-12 xl:mx-16 2xl:mx-28">
       <div class="mx-auto w-full max-w-[96rem]">
-        <div class="docs-layout-grid grid min-[1200px]:grid-cols-[15rem_minmax(0,1fr)]">
-          <aside class="min-[1200px]:sticky min-[1200px]:top-0 min-[1200px]:max-h-[100dvh] min-[1200px]:self-start min-[1200px]:overflow-y-auto min-[1200px]:py-8">
+        <div class="docs-layout-grid grid min-[1200px]:grid-cols-[15.75rem_minmax(0,1fr)]">
+          <aside class="min-[1200px]:sticky min-[1200px]:top-0 min-[1200px]:max-h-[100dvh] min-[1200px]:self-start min-[1200px]:overflow-x-hidden min-[1200px]:overflow-y-auto min-[1200px]:py-8 min-[1200px]:ps-3">
             <DocsNavigation
               client:load
               transition:persist="docs-navigation"
@@ -100,7 +100,7 @@ const tableOfContents = headings.filter(({ depth }) => depth >= 2 && depth <= 3)
 <style is:global>
   @media (min-width: 1360px) {
     .docs-layout-grid {
-      grid-template-columns: 15rem minmax(0, 1fr) 14rem;
+      grid-template-columns: 15.75rem minmax(0, 1fr) 14rem;
     }
   }
 
