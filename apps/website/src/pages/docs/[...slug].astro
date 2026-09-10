@@ -48,16 +48,16 @@ const tableOfContents = headings.filter(({ depth }) => depth >= 2 && depth <= 3)
   <div>
     <div class="mx-6 sm:mx-8 lg:mx-12 xl:mx-16 2xl:mx-28">
       <div class="mx-auto w-full max-w-[96rem]">
-        <div class="docs-layout-grid grid md:grid-cols-[14rem_minmax(0,1fr)]">
-          <aside class="hidden px-4 py-6 md:sticky md:top-0 md:block md:max-h-[100dvh] md:self-start md:overflow-y-auto lg:px-5 lg:py-8">
+        <div class="docs-layout-grid grid min-[1200px]:grid-cols-[15rem_minmax(0,1fr)]">
+          <aside class="min-[1200px]:sticky min-[1200px]:top-0 min-[1200px]:max-h-[100dvh] min-[1200px]:self-start min-[1200px]:overflow-y-auto min-[1200px]:py-8">
             <DocsNavigation
-              client:media="(min-width: 768px)"
+              client:load
               currentId={entry.id}
               entries={navigationEntries}
             />
           </aside>
 
-          <article class="min-w-0 py-6 sm:px-6 sm:py-8 md:px-8 lg:px-10 lg:py-10 xl:px-12">
+          <article class="min-w-0 py-8 max-md:pt-6 sm:px-6 sm:py-8 md:px-8 lg:px-10 lg:py-10 xl:px-12">
             <GlMarkdown className="docs-content mx-auto max-w-3xl">
               <header class="mb-6">
                 <h1>{entry.data.title}</h1>

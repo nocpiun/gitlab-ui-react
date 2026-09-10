@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 import { GlLink } from "gitlab-ui-react";
 import { Navbar } from "../components/navbar";
@@ -25,18 +26,24 @@ const currentYear = new Date().getFullYear();
     <title>{title}</title>
     <script is:inline>
       (() => {
-        try {
-          const storedTheme = localStorage.getItem("gitlab-ui-react-theme");
-          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-          const isDark = storedTheme === "dark" || (storedTheme === null && prefersDark);
+        const applyStoredTheme = () => {
+          try {
+            const storedTheme = localStorage.getItem("gitlab-ui-react-theme");
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            const isDark = storedTheme === "dark" || (storedTheme === null && prefersDark);
 
-          document.documentElement.classList.toggle("gl-dark", isDark);
-          document.documentElement.style.colorScheme = isDark ? "dark" : "light";
-        } catch {
-          // Keep the default light theme when browser storage is unavailable.
-        }
+            document.documentElement.classList.toggle("gl-dark", isDark);
+            document.documentElement.style.colorScheme = isDark ? "dark" : "light";
+          } catch {
+            // Keep the default light theme when browser storage is unavailable.
+          }
+        };
+
+        document.addEventListener("astro:after-swap", applyStoredTheme);
+        applyStoredTheme();
       })();
     </script>
+    <ClientRouter />
   </head>
 
   <body class="flex min-h-[100dvh] flex-col">
