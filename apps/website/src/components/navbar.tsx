@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { GlButton, GlFormInput, GlListbox, GlListboxContent, GlListboxGroup, GlListboxItem, GlListboxTrigger } from "gitlab-ui-react";
 import { githubRepoUrl, storybookUrl } from "../global";
+import { useAstroSpriteIconKey } from "../hooks/use-astro-sprite-icon-key";
 
 const THEME_STORAGE_KEY = "gitlab-ui-react-theme";
 
@@ -38,6 +39,7 @@ export function Navbar() {
   const [isDark, setIsDark] = useState(() => (
     typeof document !== "undefined" && document.documentElement.classList.contains("gl-dark")
   ));
+  const spriteIconKey = useAstroSpriteIconKey();
   /** @todo */
   const [lang, setLang] = useState<"en-us" | "zh-cn">("en-us");
 
@@ -83,6 +85,7 @@ export function Navbar() {
       <div className="flex w-full flex-nowrap items-center gap-2 lg:w-auto">
         <span className="contents" id="documentation-navigation-toggle-target" />
         <GlButton
+          key={`theme-toggle-${spriteIconKey}`}
           category="tertiary"
           icon={isDark ? "moon" : "sun"}
           onClick={toggleTheme}
@@ -95,7 +98,7 @@ export function Navbar() {
           value={lang}
           onValueChange={(value) => setLang(value as any)}>
           {/** @todo */}
-          <GlListboxTrigger icon="earth">
+          <GlListboxTrigger key={`language-trigger-${spriteIconKey}`} icon="earth">
             <span className="max-sm:hidden">
               English
             </span>

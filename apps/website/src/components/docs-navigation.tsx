@@ -3,40 +3,87 @@ import { createPortal } from "react-dom";
 import {
   GlCollapsibleNav,
   GlCollapsibleNavToggle,
+  GlIcon,
   GlNavButton,
   GlNavItem,
+  GlNavItemAddon,
   GlNavProvider,
   GlSubNav,
   GlSubNavButton,
   GlSubNavItem,
 } from "gitlab-ui-react";
+import { useAstroSpriteIconKey } from "../hooks/use-astro-sprite-icon-key";
 
-export type DocsNavigationEntry = {
+type DocsNavigationLink = {
+  external?: boolean;
   href: string;
-  id: string;
+  id?: string;
   title: string;
 };
 
+type DocsNavigationGroup = {
+  id: string;
+  items: DocsNavigationLink[];
+  title: string;
+};
+
+type DocsNavigationItem = DocsNavigationLink | DocsNavigationGroup;
+
 type DocsNavigationProps = {
   currentId: string;
-  entries: DocsNavigationEntry[];
 };
 
 const DESKTOP_NAV_QUERY = "(min-width: 1200px)";
 const NAVBAR_TOGGLE_TARGET_ID = "documentation-navigation-toggle-target";
 
-function formatGroupLabel(group: string) {
-  return group
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+const navigationItems: DocsNavigationItem[] = [
+  {
+    href: "/docs",
+    id: "index",
+    title: "Introduction",
+  },
+  {
+    href: "https://design.gitlab.com/product-foundations/design-tokens-directory",
+    title: "Design tokens",
+    external: true,
+  },
+  {
+    href: "https://design.gitlab.com/product-foundations/color",
+    title: "Color",
+    external: true,
+  },
+  {
+    href: "https://design.gitlab.com/product-foundations/iconography-directory",
+    title: "Icons",
+    external: true,
+  },
+  {
+    id: "components",
+    title: "Components",
+    items: [
+      {
+        href: "/docs/components/button",
+        id: "components/button",
+        title: "Button",
+      },
+    ],
+  },
+];
+
+function isNavigationGroup(item: DocsNavigationItem): item is DocsNavigationGroup {
+  return "items" in item;
 }
 
-export function DocsNavigation({ currentId, entries }: DocsNavigationProps) {
+function navigationLinkProps(link: DocsNavigationLink) {
+  return link.external
+    ? { href: link.href, rel: "noopener noreferrer", target: "_blank" }
+    : { href: link.href };
+}
+
+export function DocsNavigation({ currentId }: DocsNavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const spriteIconKey = useAstroSpriteIconKey();
   const [toggleTarget, setToggleTarget] = useState<HTMLElement | null>(null);
-  const rootEntries = entries.filter(({ id }) => !id.includes("/"));
-  const groupedEntries = new Map<string, DocsNavigationEntry[]>();
 
   useEffect(() => {
     const desktopQuery = window.matchMedia(DESKTOP_NAV_QUERY);
@@ -76,16 +123,6 @@ export function DocsNavigation({ currentId, entries }: DocsNavigationProps) {
     return () => targetObserver?.disconnect();
   }, []);
 
-  entries.forEach((entry) => {
-    const [group] = entry.id.split("/");
-
-    if(!entry.id.includes("/")) return;
-
-    const groupEntries = groupedEntries.get(group) ?? [];
-    groupEntries.push(entry);
-    groupedEntries.set(group, groupEntries);
-  });
-
   return (
     <GlNavProvider
       navId="documentation-navigation"
@@ -93,6 +130,7 @@ export function DocsNavigation({ currentId, entries }: DocsNavigationProps) {
       open={isOpen}>
       {toggleTarget ? createPortal(
         <GlCollapsibleNavToggle
+          key={`external-toggle-${spriteIconKey}`}
           className="min-[1200px]:hidden"
           collapseLabel="Collapse navigation"
           expandLabel="Expand navigation" />,
@@ -100,26 +138,35 @@ export function DocsNavigation({ currentId, entries }: DocsNavigationProps) {
       ) : null}
 
       <GlCollapsibleNav aria-label="Documentation navigation">
-        {rootEntries.map((entry) => (
-          <GlNavItem key={entry.id} selected={entry.id === currentId}>
-            <GlNavButton href={entry.href}>
-              {entry.title}
-            </GlNavButton>
-          </GlNavItem>
-        ))}
+        {navigationItems.map((item) => {
+          if(!isNavigationGroup(item)) {
+            return (
+              <GlNavItem key={item.id ?? item.href} selected={item.id === currentId}>
+                <GlNavButton className="*:flex *:items-center" aria-label={item.title} {...navigationLinkProps(item)}>
+                  {item.title}
+                  {item.external && (
+                    <GlNavItemAddon>
+                      <GlIcon key={spriteIconKey} name="external-link" size={12}/>
+                    </GlNavItemAddon>
+                  )}
+                </GlNavButton>
+              </GlNavItem>
+            );
+          }
 
-        {[...groupedEntries].map(([group, groupEntries]) => {
-          const containsCurrentPage = groupEntries.some(({ id }) => id === currentId);
+          const containsCurrentPage = item.items.some(({ id }) => id === currentId);
 
           return (
-            <GlNavItem key={`${group}:${currentId}`}>
+            <GlNavItem key={`${item.id}:${currentId}`}>
               <GlNavButton>
-                {formatGroupLabel(group)}
+                {item.title}
               </GlNavButton>
               <GlSubNav defaultOpen={containsCurrentPage}>
-                {groupEntries.map((entry) => (
-                  <GlSubNavItem key={entry.id} selected={entry.id === currentId}>
-                    <GlSubNavButton href={entry.href}>{entry.title}</GlSubNavButton>
+                {item.items.map((link) => (
+                  <GlSubNavItem key={link.id ?? link.href} selected={link.id === currentId}>
+                    <GlSubNavButton {...navigationLinkProps(link)}>
+                      {link.title}
+                    </GlSubNavButton>
                   </GlSubNavItem>
                 ))}
               </GlSubNav>
@@ -129,6 +176,7 @@ export function DocsNavigation({ currentId, entries }: DocsNavigationProps) {
 
         <GlNavItem className="mt-auto min-[1200px]:hidden">
           <GlCollapsibleNavToggle
+            key={`internal-toggle-${spriteIconKey}`}
             collapseLabel="Collapse"
             expandLabel="Expand" />
         </GlNavItem>
