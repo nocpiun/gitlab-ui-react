@@ -551,14 +551,17 @@ describe("GlCollapsibleNav", () => {
     expect(markup).toContain("data-disabled=\"\"");
   });
 
-  it("requires a direct leading and an accessible label for complex content", () => {
-    expect(() => renderToStaticMarkup(
+  it("allows text-only items and requires an accessible label for complex content", () => {
+    const textOnlyMarkup = renderToStaticMarkup(
       <GlNavProvider>
         <GlCollapsibleNav>
           <GlNavItem><GlNavButton>Issues</GlNavButton></GlNavItem>
         </GlCollapsibleNav>
       </GlNavProvider>,
-    )).toThrow("requires a direct leading GlIcon or GlAvatar");
+    );
+
+    expect(textOnlyMarkup).toContain("Issues");
+    expect(textOnlyMarkup).not.toContain("gl-nav-item-has-start-slot");
     expect(() => renderToStaticMarkup(
       <GlNavProvider>
         <GlCollapsibleNav>

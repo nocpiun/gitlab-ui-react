@@ -349,9 +349,6 @@ export function useNavButtonInternal(
     invariant(component, "isIconOnly requires a leading GlIcon or GlAvatar.");
   }
   if(isIconOnly && !ariaLabel) invariant(component, "isIconOnly requires aria-label.");
-  if(isCollapsibleTopLevel && !leading) {
-    invariant(component, "requires a direct leading GlIcon or GlAvatar in GlCollapsibleNav.");
-  }
   if(isCollapsibleTopLevel && !ariaLabel && !derivedLabel) {
     invariant(component, "requires aria-label when its label is not simple text.");
   }
