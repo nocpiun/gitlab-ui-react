@@ -43,9 +43,13 @@ export function DocsNavigation({ currentId, entries }: DocsNavigationProps) {
     const syncOpenState = () => setIsOpen(desktopQuery.matches);
 
     syncOpenState();
-    desktopQuery.addEventListener("change", syncOpenState);
+    if(typeof desktopQuery.addEventListener === "function") {
+      desktopQuery.addEventListener("change", syncOpenState);
+      return () => desktopQuery.removeEventListener("change", syncOpenState);
+    }
 
-    return () => desktopQuery.removeEventListener("change", syncOpenState);
+    desktopQuery.addListener(syncOpenState);
+    return () => desktopQuery.removeListener(syncOpenState);
   }, []);
 
   useEffect(() => {
