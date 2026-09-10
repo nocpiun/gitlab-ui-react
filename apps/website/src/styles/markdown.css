@@ -1,0 +1,28 @@
+.gl-markdown {
+  @apply text-base leading-24;
+}
+
+.gl-markdown > p {
+  @apply mb-5;
+}
+
+.gl-markdown > .docs-callout {
+  @apply my-5;
+}
+
+.gl-markdown .docs-callout .gl-alert-title {
+  margin-top: calc(var(--gl-spacing-scale-1) * -1);
+  margin-bottom: var(--gl-spacing-scale-2);
+  font-size: var(--gl-heading-scale-400-font-size);
+  font-weight: var(--gl-heading-scale-400-font-weight);
+  letter-spacing: var(--gl-heading-scale-400-letter-spacing);
+  line-height: var(--gl-heading-scale-400-line-height);
+}
+
+.gl-markdown .gl-alert .gl-alert-title {
+  @apply text-lg mb-3;
+}
+
+.gl-markdown .gl-alert .gl-alert-body {
+  @apply leading-24;
+}

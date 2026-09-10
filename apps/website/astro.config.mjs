@@ -1,8 +1,10 @@
 import { fileURLToPath } from "node:url";
+import { satteri } from "@astrojs/markdown-satteri";
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
+import { calloutsPlugin } from "./src/markdown/callouts.mjs";
 
 const examplesDirectory = fileURLToPath(new URL("../../examples", import.meta.url));
 const iconsSpriteUrl = `${fileURLToPath(
@@ -13,6 +15,11 @@ const uiEntry = fileURLToPath(new URL("../../packages/ui/src/index.ts", import.m
 export default defineConfig({
   output: "static",
   integrations: [react(), mdx()],
+  markdown: {
+    processor: satteri({
+      mdastPlugins: [calloutsPlugin],
+    }),
+  },
   vite: {
     plugins: [tailwindcss()],
     resolve: {
