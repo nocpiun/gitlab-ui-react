@@ -47,7 +47,7 @@ const currentYear = new Date().getFullYear();
   </head>
 
   <body class="flex min-h-[100dvh] flex-col">
-    <Navbar client:only="react" />
+    <Navbar client:only="react" transition:persist="site-navbar" />
 
     <main class="min-w-0 flex-1" id="main-content">
       <slot />

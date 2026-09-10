@@ -52,6 +52,7 @@ const tableOfContents = headings.filter(({ depth }) => depth >= 2 && depth <= 3)
           <aside class="min-[1200px]:sticky min-[1200px]:top-0 min-[1200px]:max-h-[100dvh] min-[1200px]:self-start min-[1200px]:overflow-y-auto min-[1200px]:py-8">
             <DocsNavigation
               client:load
+              transition:persist="docs-navigation"
               currentId={entry.id}
               entries={navigationEntries}
             />
