@@ -516,6 +516,7 @@ export const ProviderRemoteControl: Story = {
 
     await expect(toggle).toHaveAttribute("aria-controls", "remote-project-navigation");
     await expect(nav).toHaveAttribute("data-open", "true");
+    await expect(nav.closest(".gl-collapsible-nav-dialog")).toBeNull();
 
     const expandedIssues = canvas.getByRole("link", { name: "Issues 12" });
     const expandedBounds = expandedIssues.getBoundingClientRect();
@@ -753,6 +754,7 @@ export const MobileOverlay: Story = {
     const internalToggle = within(nav).getByRole("button", { name: "Collapse sidebar" });
     const backdrop = within(document.body).getByTestId("collapsible-nav-backdrop");
     await expect(nav).toHaveAttribute("data-open", "true");
+    await expect(nav.closest(".gl-collapsible-nav-dialog")).not.toBeNull();
     await expect(backdrop).toHaveAttribute("data-open");
     await expect(document.body.style.overflow).toBe("hidden");
     await expect(untabbableLink).toHaveAttribute("tabindex", "-1");

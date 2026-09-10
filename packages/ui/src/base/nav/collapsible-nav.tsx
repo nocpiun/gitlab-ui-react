@@ -524,6 +524,8 @@ export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
       </NavContext.Provider>
     );
 
+    if(!isMobile) return nav;
+
     const handleInitialFocus = () => {
       const element = navElement.current;
       if(!element) return false;
@@ -531,41 +533,36 @@ export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
       return getFocusableElements(element).at(0) ?? element;
     };
 
-    const dialog = (
-      <BaseDialog.Root
-        disablePointerDismissal={!isMobile}
-        modal={isMobile}
-        onOpenChange={(nextOpen) => provider.requestOpen(nextOpen)}
-        open={isMobileOpen}>
-        <BaseDialog.Portal
-          className="gl-collapsible-nav-portal"
-          container={portalContainer}
-          keepMounted>
-          {isMobile ? (
-            <BaseDialog.Backdrop
-              className="gl-collapsible-nav-backdrop"
-              data-testid="collapsible-nav-backdrop" />
-          ) : null}
-          <BaseDialog.Popup
-            aria-label={isMobile && !ariaLabelledBy ? (ariaLabel ?? "Navigation") : undefined}
-            aria-labelledby={isMobile ? ariaLabelledBy : undefined}
-            aria-modal={isMobile || undefined}
-            className="gl-collapsible-nav-dialog"
-            finalFocus={() => provider.isDesktop ? false : provider.getFocusReturnTarget()}
-            hidden={provider.isDesktop ? false : undefined}
-            initialFocus={handleInitialFocus}
-            role={isMobile ? "dialog" : "presentation"}>
-            {nav}
-          </BaseDialog.Popup>
-        </BaseDialog.Portal>
-      </BaseDialog.Root>
-    );
-
     return (
       <>
-        {/* Keep the portal at the Nav's layout position while Base UI owns the modal layer. */}
         <div ref={portalContainer} className="gl-collapsible-nav-portal-host" />
-        {provider.viewportReady ? dialog : nav}
+        <BaseDialog.Root
+          disablePointerDismissal={!isMobile}
+          modal={isMobile}
+          onOpenChange={(nextOpen) => provider.requestOpen(nextOpen)}
+          open={isMobileOpen}>
+          <BaseDialog.Portal
+            className="gl-collapsible-nav-portal"
+            container={portalContainer}
+            keepMounted>
+            {isMobile ? (
+              <BaseDialog.Backdrop
+                className="gl-collapsible-nav-backdrop"
+                data-testid="collapsible-nav-backdrop" />
+            ) : null}
+            <BaseDialog.Popup
+              aria-label={isMobile && !ariaLabelledBy ? (ariaLabel ?? "Navigation") : undefined}
+              aria-labelledby={isMobile ? ariaLabelledBy : undefined}
+              aria-modal={isMobile || undefined}
+              className="gl-collapsible-nav-dialog"
+              finalFocus={() => provider.isDesktop ? false : provider.getFocusReturnTarget()}
+              hidden={provider.isDesktop ? false : undefined}
+              initialFocus={handleInitialFocus}
+              role={isMobile ? "dialog" : "presentation"}>
+              {nav}
+            </BaseDialog.Popup>
+          </BaseDialog.Portal>
+        </BaseDialog.Root>
       </>
     );
   },
