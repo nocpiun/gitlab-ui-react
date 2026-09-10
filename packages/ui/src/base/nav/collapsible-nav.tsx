@@ -141,8 +141,14 @@ export function GlNavProvider({
     setViewportReady(true);
 
     const handleChange = (event: MediaQueryListEvent) => setIsDesktop(event.matches);
-    mediaQuery.addEventListener?.("change", handleChange);
-    return () => mediaQuery.removeEventListener?.("change", handleChange);
+    if(typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", handleChange);
+      return () => mediaQuery.removeEventListener("change", handleChange);
+    }
+
+    // Older Safari and embedded WebViews only expose the legacy MediaQueryList API.
+    mediaQuery.addListener(handleChange);
+    return () => mediaQuery.removeListener(handleChange);
   }, [hasAutomaticInitialState]);
 
   useEffect(() => {
