@@ -753,7 +753,9 @@ export const MobileOverlay: Story = {
     const untabbableLink = canvas.getByRole("link", { name: "Untabbable navigation item" });
     const internalToggle = within(nav).getByRole("button", { name: "Collapse sidebar" });
     const backdrop = within(document.body).getByTestId("collapsible-nav-backdrop");
+    const dialog = nav.closest<HTMLElement>(".gl-collapsible-nav-dialog")!;
     await expect(nav).toHaveAttribute("data-open", "true");
+    await expect(nav).toHaveAttribute("data-viewport-ready", "true");
     await expect(nav.closest(".gl-collapsible-nav-dialog")).not.toBeNull();
     await expect(backdrop).toHaveAttribute("data-open");
     await expect(document.body.style.overflow).toBe("hidden");
@@ -806,6 +808,7 @@ export const MobileOverlay: Story = {
 
     programmaticCloser.click();
     await waitFor(() => expect(nav).toHaveAttribute("data-open", "false"));
+    await waitFor(() => expect(dialog).toHaveAttribute("hidden"));
     await waitFor(() => expect(programmaticOpener).toHaveFocus());
     await waitFor(() => {
       expect(programmaticOpener.closest("[aria-hidden='true']")).toBeNull();

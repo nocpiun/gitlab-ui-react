@@ -432,6 +432,7 @@ describe("GlCollapsibleNav", () => {
     );
 
     expect(markup).toMatch(/<nav[^>]*id="project-sidebar"[^>]*data-open="true"/u);
+    expect(markup).toMatch(/<nav[^>]*data-viewport-ready="false"/u);
     expect(markup.match(/aria-controls="project-sidebar"/gu)).toHaveLength(2);
     expect(markup.match(/aria-expanded="true"/gu)).toHaveLength(2);
     expect(markup).toContain("data-gl-collapsible-nav-toggle=\"external\"");

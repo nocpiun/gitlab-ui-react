@@ -7439,6 +7439,9 @@
     }
   }
   @media (max-width: 1199px) {
+    .gl-collapsible-nav[data-viewport-ready="false"] {
+      display: none;
+    }
     .gl-collapsible-nav-dialog {
       display: flex;
       position: fixed;

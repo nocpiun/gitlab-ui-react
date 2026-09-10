@@ -516,6 +516,7 @@ export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
           className={collapsibleNavVariants({ className })}
           data-desktop={provider.isDesktop || undefined}
           data-open={provider.open}
+          data-viewport-ready={provider.viewportReady}
           inert={consumerInert}
           onKeyDown={onKeyDown}
           tabIndex={isMobile ? (tabIndex ?? -1) : tabIndex}>
@@ -556,7 +557,6 @@ export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
               aria-modal={isMobile || undefined}
               className="gl-collapsible-nav-dialog"
               finalFocus={() => provider.isDesktop ? false : provider.getFocusReturnTarget()}
-              hidden={provider.isDesktop ? false : undefined}
               initialFocus={handleInitialFocus}
               role={isMobile ? "dialog" : "presentation"}>
               {nav}
