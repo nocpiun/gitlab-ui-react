@@ -522,6 +522,7 @@ export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
     "aria-hidden": ariaHidden,
     children,
     className,
+    inert: consumerInert,
     onKeyDown,
     tabIndex,
     ...elementProps
@@ -619,7 +620,7 @@ export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
           className={collapsibleNavVariants({ className })}
           data-desktop={provider.isDesktop || undefined}
           data-open={provider.open}
-          inert={isMobileHidden || undefined}
+          inert={consumerInert || isMobileHidden || undefined}
           onKeyDown={handleKeyDown}
           tabIndex={isMobile ? (tabIndex ?? -1) : tabIndex}>
           <ul className={navListVariants()}>{children}</ul>

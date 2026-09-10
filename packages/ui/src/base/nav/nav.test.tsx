@@ -499,6 +499,20 @@ describe("GlCollapsibleNav", () => {
     expect(renderNav(false)).toContain("aria-hidden=\"false\"");
   });
 
+  it("preserves consumer-provided inert state", () => {
+    const markup = renderToStaticMarkup(
+      <GlNavProvider defaultOpen>
+        <GlCollapsibleNav inert>
+          <GlNavItem>
+            <GlNavButton><GlIcon name="issues" />Issues</GlNavButton>
+          </GlNavItem>
+        </GlCollapsibleNav>
+      </GlNavProvider>,
+    );
+
+    expect(markup).toMatch(/<nav[^>]*inert=""/u);
+  });
+
   it("forwards refs and applicable attributes to both toggle forms", () => {
     const externalRef = createRef<HTMLElement>();
     const internalRef = createRef<HTMLElement>();
