@@ -204,6 +204,7 @@
     white-space: nowrap;
   }
 
+  .gl-nav-item-addon,
   .gl-nav-item-chevron-slot {
     margin-inline-start: auto;
   }
