@@ -24,7 +24,7 @@ import {
 import { Collapsible as BaseCollapsible } from "@base-ui/react/collapsible";
 import { Dialog as BaseDialog } from "@base-ui/react/dialog";
 import { cva } from "class-variance-authority";
-import { mergeRefs } from "../../internal/utils/merge-refs";
+import { useMergedRefs } from "../../internal/utils/merge-refs";
 import GlButton from "../button/button";
 import GlIcon from "../icon/icon";
 import GlPopover, {
@@ -290,6 +290,7 @@ function ExternalCollapsibleNavToggle({
 }: GlCollapsibleNavToggleProps & { forwardedRef: Ref<HTMLElement> }) {
   const provider = useNavProviderContext("GlCollapsibleNavToggle");
   const elementRef = useRef<HTMLElement | null>(null);
+  const buttonRef = useMergedRefs(forwardedRef, elementRef);
   const registerExternalToggle = provider.registerExternalToggle;
   const label = provider.open ? collapseLabel : expandLabel;
 
@@ -308,7 +309,7 @@ function ExternalCollapsibleNavToggle({
   const button = (
     <GlButton
       {...buttonProps as Omit<React.ComponentProps<typeof GlButton>, "children">}
-      ref={mergeRefs(forwardedRef, elementRef)}
+      ref={buttonRef}
       aria-controls={provider.navId}
       aria-expanded={provider.open}
       aria-label={label}
@@ -483,6 +484,7 @@ export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
     const instanceId = useRef(Symbol("GlCollapsibleNav"));
     const navElement = useRef<HTMLElement | null>(null);
     const portalContainer = useRef<HTMLDivElement | null>(null);
+    const mergedNavRef = useMergedRefs(forwardedRef, navElement);
     const captureFocusReturnTarget = provider.captureFocusReturnTarget;
     const isMobile = provider.viewportReady && !provider.isDesktop;
     const isMobileOpen = isMobile && provider.open;
@@ -514,7 +516,7 @@ export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
       }}>
         <nav
           {...elementProps}
-          ref={mergeRefs(forwardedRef, navElement)}
+          ref={mergedNavRef}
           id={provider.navId}
           aria-hidden={isMobileHidden ? true : ariaHidden}
           aria-label={ariaLabel}
