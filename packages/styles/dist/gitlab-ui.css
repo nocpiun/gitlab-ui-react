@@ -7390,6 +7390,9 @@
   .gl-collapsible-nav .gl-nav-item-addon, .gl-collapsible-nav .gl-nav-item-chevron {
     max-width: 1.5rem;
   }
+  .gl-collapsible-nav-portal-host, .gl-collapsible-nav-portal, .gl-collapsible-nav-dialog {
+    display: contents;
+  }
   .gl-collapsible-nav-toggle-icon:dir(rtl) {
     transform: scaleX(-1);
   }
@@ -7398,13 +7401,11 @@
     inset: 0;
     z-index: 1029;
     background-color: rgb(0 0 0 / 0.5);
-    opacity: 0;
-    pointer-events: none;
+    opacity: 1;
     transition: opacity 250ms ease-out;
   }
-  .gl-collapsible-nav-backdrop[data-open="true"] {
-    opacity: 1;
-    pointer-events: auto;
+  .gl-collapsible-nav-backdrop[data-starting-style], .gl-collapsible-nav-backdrop[data-ending-style] {
+    opacity: 0;
   }
   .gl-collapsible-nav-flyout {
     min-width: 12rem;
@@ -7438,6 +7439,23 @@
     }
   }
   @media (max-width: 1199px) {
+    .gl-collapsible-nav-dialog {
+      display: flex;
+      position: fixed;
+      inset-block: 0;
+      inset-inline-start: 0;
+      z-index: 1030;
+      width: max-content;
+      max-width: 100vw;
+      transform: translateX(0);
+      transition: transform 200ms ease;
+    }
+    .gl-collapsible-nav-dialog[data-closed], .gl-collapsible-nav-dialog[data-starting-style], .gl-collapsible-nav-dialog[data-ending-style] {
+      transform: translateX(-100%);
+    }
+    .gl-collapsible-nav-dialog:dir(rtl)[data-closed], .gl-collapsible-nav-dialog:dir(rtl)[data-starting-style], .gl-collapsible-nav-dialog:dir(rtl)[data-ending-style] {
+      transform: translateX(100%);
+    }
     .gl-collapsible-nav {
       background-color: var(--gl-background-color-overlap);
       display: flex;
@@ -7449,10 +7467,7 @@
       font-size: var(--gl-font-size-base);
       --tw-leading: 1rem;
       line-height: 1rem;
-      position: fixed;
-      inset-block: 0;
-      inset-inline-start: 0;
-      z-index: 1030;
+      position: static;
       width: var(--gl-collapsible-nav-expanded-width);
       max-width: calc(100vw - 3rem);
       border-start-end-radius: var(--gl-drawer-border-radius);
@@ -7471,27 +7486,10 @@
       border-bottom-right-radius: 0;
       border-bottom-left-radius: var(--gl-border-radius-default);
     }
-    .gl-collapsible-nav[data-open="false"] {
-      visibility: hidden;
-      pointer-events: none;
-      transform: translateX(-100%);
-      transition-delay: 0s, 0s, 250ms;
-    }
-    .gl-collapsible-nav:dir(rtl)[data-open="false"] {
-      transform: translateX(100%);
-    }
-    .gl-collapsible-nav[data-open="true"] {
-      visibility: visible;
-      transform: translateX(0);
-      transition-delay: 0s;
-    }
   }
   @media (prefers-reduced-motion: reduce) {
-    .gl-collapsible-nav, .gl-collapsible-nav .gl-nav-item, .gl-collapsible-nav .gl-nav-item-label, .gl-collapsible-nav .gl-nav-item-addon, .gl-collapsible-nav .gl-nav-item-chevron, .gl-collapsible-nav-backdrop {
+    .gl-collapsible-nav, .gl-collapsible-nav .gl-nav-item, .gl-collapsible-nav .gl-nav-item-label, .gl-collapsible-nav .gl-nav-item-addon, .gl-collapsible-nav .gl-nav-item-chevron, .gl-collapsible-nav-dialog, .gl-collapsible-nav-backdrop {
       transition-duration: 0s;
-    }
-    .gl-collapsible-nav[data-open="false"], .gl-collapsible-nav[data-open="true"] {
-      transition-delay: 0s;
     }
   }
   .gl-pagination {
@@ -8547,9 +8545,6 @@
   }
   .gl-mt-3 {
     margin-top: var(--gl-spacing-scale-3);
-  }
-  .gl-mt-4 {
-    margin-top: var(--gl-spacing-scale-4);
   }
   .-gl-mr-3 {
     margin-right: calc(var(--gl-spacing-scale-3) * -1);

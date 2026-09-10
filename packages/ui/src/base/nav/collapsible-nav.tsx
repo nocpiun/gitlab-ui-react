@@ -21,8 +21,8 @@ import {
   type ReactNode,
   type Ref,
 } from "react";
-import { createPortal } from "react-dom";
 import { Collapsible as BaseCollapsible } from "@base-ui/react/collapsible";
+import { Dialog as BaseDialog } from "@base-ui/react/dialog";
 import { cva } from "class-variance-authority";
 import { mergeRefs } from "../../internal/utils/merge-refs";
 import GlButton from "../button/button";
@@ -124,8 +124,6 @@ export function GlNavProvider({
   const externalToggles = useRef(new Set<HTMLElement>());
   const hasExplicitFocusReturnTarget = useRef(false);
   const focusReturnTarget = useRef<HTMLElement | null>(null);
-  const restoreFocusOnClose = useRef(false);
-  const previousOpen = useRef(open ?? uncontrolledOpen);
   const hasAutomaticInitialState = open === undefined && defaultOpen === undefined;
   const isControlled = open !== undefined;
   const resolvedOpen = open ?? uncontrolledOpen;
@@ -151,44 +149,32 @@ export function GlNavProvider({
     if(resolvedOpen || !isDesktop) setActiveFlyoutId(null);
   }, [isDesktop, resolvedOpen]);
 
-  useEffect(() => {
-    const wasOpen = previousOpen.current;
-    previousOpen.current = resolvedOpen;
-    if(!wasOpen || resolvedOpen) return;
-
-    const shouldRestoreFocus = restoreFocusOnClose.current;
-    restoreFocusOnClose.current = false;
-    const rememberedTarget = focusReturnTarget.current;
-    hasExplicitFocusReturnTarget.current = false;
-    focusReturnTarget.current = null;
-    if(!shouldRestoreFocus) return;
-
-    const activeElement = typeof document === "undefined" ? null : document.activeElement;
-    if(activeElement instanceof HTMLElement && canReceiveRestoredFocus(activeElement)) return;
-
-    const fallbackTarget = Array.from(externalToggles.current)
-      .find((element) => canReceiveRestoredFocus(element));
-    const target = canReceiveRestoredFocus(rememberedTarget)
-      ? rememberedTarget
-      : fallbackTarget;
-    target?.focus();
-  }, [resolvedOpen]);
-
   const captureFocusReturnTarget = useCallback((element: HTMLElement | null) => {
-    restoreFocusOnClose.current = true;
     if(
       hasExplicitFocusReturnTarget.current
       && canReceiveRestoredFocus(focusReturnTarget.current)
     ) return;
 
     hasExplicitFocusReturnTarget.current = false;
-    focusReturnTarget.current = canReceiveRestoredFocus(element) ? element : null;
+    if(canReceiveRestoredFocus(element)) focusReturnTarget.current = element;
+  }, []);
+
+  const getFocusReturnTarget = useCallback(() => {
+    const rememberedTarget = focusReturnTarget.current;
+    const fallbackTarget = Array.from(externalToggles.current)
+      .find((element) => canReceiveRestoredFocus(element));
+    const target = canReceiveRestoredFocus(rememberedTarget)
+      ? rememberedTarget
+      : fallbackTarget;
+
+    hasExplicitFocusReturnTarget.current = false;
+    focusReturnTarget.current = null;
+    return target ?? false;
   }, []);
 
   useEffect(() => {
     if(!isDesktop) return;
 
-    restoreFocusOnClose.current = false;
     hasExplicitFocusReturnTarget.current = false;
     focusReturnTarget.current = null;
   }, [isDesktop]);
@@ -198,14 +184,13 @@ export function GlNavProvider({
     options,
   ) => {
     if(nextOpen === resolvedOpen) return;
-    if(nextOpen && options?.externalOpener) {
+    if(nextOpen && !isDesktop && options?.externalOpener) {
       hasExplicitFocusReturnTarget.current = true;
       focusReturnTarget.current = options.externalOpener;
     }
-    if(!nextOpen && options?.restoreFocus) restoreFocusOnClose.current = true;
     if(!isControlled) setUncontrolledOpen(nextOpen);
     onOpenChange?.(nextOpen);
-  }, [isControlled, onOpenChange, resolvedOpen]);
+  }, [isControlled, isDesktop, onOpenChange, resolvedOpen]);
 
   const registerExternalToggle = useCallback((element: HTMLElement) => {
     externalToggles.current.add(element);
@@ -228,6 +213,7 @@ export function GlNavProvider({
   const value = useMemo<NavProviderContextValue>(() => ({
     activeFlyoutId,
     captureFocusReturnTarget,
+    getFocusReturnTarget,
     isDesktop,
     navId: resolvedNavId,
     open: resolvedOpen,
@@ -239,6 +225,7 @@ export function GlNavProvider({
   }), [
     activeFlyoutId,
     captureFocusReturnTarget,
+    getFocusReturnTarget,
     isDesktop,
     registerExternalToggle,
     registerNav,
@@ -266,9 +253,7 @@ function InternalCollapsibleNavToggle({
   const handleClick: MouseEventHandler<HTMLElement> = (event) => {
     (onClick as MouseEventHandler<HTMLElement> | undefined)?.(event);
     if(event.defaultPrevented) return;
-    provider.requestOpen(!provider.open, {
-      restoreFocus: !provider.isDesktop && provider.open,
-    });
+    provider.requestOpen(!provider.open);
   };
 
   return useNavButtonInternal("GlCollapsibleNavToggle", {
@@ -287,51 +272,6 @@ function InternalCollapsibleNavToggle({
     onClick: handleClick,
     type,
   } as GlNavButtonProps, forwardedRef, disabled);
-}
-
-function isolateOutsideElements(elements: HTMLElement[]) {
-  const document = elements.at(0)?.ownerDocument;
-  const body = document?.body;
-  const window = document?.defaultView;
-  if(!body || !window) return () => {};
-
-  const protectedRoots = new Set([
-    ...elements,
-    ...body.querySelectorAll<HTMLElement>("[aria-live]"),
-  ]);
-  const protectedBranches = new Set<HTMLElement>();
-  const changedElements = new Set<HTMLElement>();
-
-  for(const root of protectedRoots) {
-    for(let element: HTMLElement | null = root; element; element = element.parentElement) {
-      protectedBranches.add(element);
-      if(element === body) break;
-    }
-  }
-
-  const isolate = (container: HTMLElement) => {
-    for(const child of container.children) {
-      if(!(child instanceof window.HTMLElement)) continue;
-      if(protectedRoots.has(child)) continue;
-      if(protectedBranches.has(child)) {
-        isolate(child);
-        continue;
-      }
-      if(child.hasAttribute("inert")) continue;
-
-      child.setAttribute("inert", "");
-      changedElements.add(child);
-    }
-  };
-
-  isolate(body);
-  const observer = new window.MutationObserver(() => isolate(body));
-  observer.observe(body, { childList: true, subtree: true });
-
-  return () => {
-    observer.disconnect();
-    for(const element of changedElements) element.removeAttribute("inert");
-  };
 }
 
 function ExternalCollapsibleNavToggle({
@@ -523,6 +463,8 @@ function getFocusableElements(container: HTMLElement) {
 export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
   function GlCollapsibleNav({
     "aria-hidden": ariaHidden,
+    "aria-label": ariaLabel,
+    "aria-labelledby": ariaLabelledBy,
     children,
     className,
     inert: consumerInert,
@@ -534,8 +476,7 @@ export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
     const registerNav = provider.registerNav;
     const instanceId = useRef(Symbol("GlCollapsibleNav"));
     const navElement = useRef<HTMLElement | null>(null);
-    const backdropElement = useRef<HTMLDivElement | null>(null);
-    const [mounted, setMounted] = useState(false);
+    const portalContainer = useRef<HTMLDivElement | null>(null);
     const captureFocusReturnTarget = provider.captureFocusReturnTarget;
     const isMobile = provider.viewportReady && !provider.isDesktop;
     const isMobileOpen = isMobile && provider.open;
@@ -544,70 +485,20 @@ export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
     validateNavChildren(children);
 
     useEffect(() => registerNav(instanceId.current), [registerNav]);
-    useEffect(() => setMounted(true), []);
-
-    useEffect(() => {
-      if(!isMobileOpen || typeof document === "undefined") return;
-
-      const previousOverflow = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = previousOverflow;
-      };
-    }, [isMobileOpen]);
 
     useIsomorphicLayoutEffect(() => {
-      if(!isMobileOpen) return;
+      if(!isMobileOpen || typeof document === "undefined") return;
 
-      const nav = navElement.current!;
       const activeElement = document.activeElement;
       captureFocusReturnTarget(
         activeElement instanceof HTMLElement
         && activeElement !== document.body
         && activeElement !== document.documentElement
-        && !nav.contains(activeElement)
+        && !navElement.current?.contains(activeElement)
           ? activeElement
           : null,
       );
-      (getFocusableElements(nav).at(0) ?? nav).focus();
     }, [captureFocusReturnTarget, isMobileOpen]);
-
-    useIsomorphicLayoutEffect(() => {
-      if(!isMobileOpen || !mounted) return;
-
-      const nav = navElement.current;
-      const backdrop = backdropElement.current;
-      if(!nav || !backdrop) return;
-      return isolateOutsideElements([nav, backdrop]);
-    }, [isMobileOpen, mounted]);
-
-    const handleKeyDown: KeyboardEventHandler<HTMLElement> = (event) => {
-      onKeyDown?.(event);
-      if(event.defaultPrevented || !isMobileOpen) return;
-
-      if(event.key === "Escape") {
-        event.preventDefault();
-        provider.requestOpen(false, { restoreFocus: true });
-        return;
-      }
-
-      if(event.key !== "Tab") return;
-      const focusable = getFocusableElements(event.currentTarget);
-      if(focusable.length === 0) {
-        event.preventDefault();
-        return;
-      }
-
-      const first = focusable[0];
-      const last = focusable.at(-1)!;
-      if(event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if(!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
 
     const nav = (
       <NavContext.Provider value={{
@@ -620,32 +511,62 @@ export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(
           ref={mergeRefs(forwardedRef, navElement)}
           id={provider.navId}
           aria-hidden={isMobileHidden ? true : ariaHidden}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
           className={collapsibleNavVariants({ className })}
           data-desktop={provider.isDesktop || undefined}
           data-open={provider.open}
-          inert={consumerInert || isMobileHidden || undefined}
-          onKeyDown={handleKeyDown}
+          inert={consumerInert}
+          onKeyDown={onKeyDown}
           tabIndex={isMobile ? (tabIndex ?? -1) : tabIndex}>
           <ul className={navListVariants()}>{children}</ul>
         </nav>
       </NavContext.Provider>
     );
 
-    const backdrop = mounted && isMobile && typeof document !== "undefined"
-      ? createPortal(
-        <div
-          ref={backdropElement}
-          className="gl-collapsible-nav-backdrop"
-          data-open={provider.open}
-          data-testid="collapsible-nav-backdrop"
-          aria-hidden="true"
-          onClick={() => {
-            if(provider.open) provider.requestOpen(false, { restoreFocus: true });
-          }} />,
-        document.body,
-      )
-      : null;
+    const handleInitialFocus = () => {
+      const element = navElement.current;
+      if(!element) return false;
 
-    return <>{backdrop}{nav}</>;
+      return getFocusableElements(element).at(0) ?? element;
+    };
+
+    const dialog = (
+      <BaseDialog.Root
+        disablePointerDismissal={!isMobile}
+        modal={isMobile}
+        onOpenChange={(nextOpen) => provider.requestOpen(nextOpen)}
+        open={isMobileOpen}>
+        <BaseDialog.Portal
+          className="gl-collapsible-nav-portal"
+          container={portalContainer}
+          keepMounted>
+          {isMobile ? (
+            <BaseDialog.Backdrop
+              className="gl-collapsible-nav-backdrop"
+              data-testid="collapsible-nav-backdrop" />
+          ) : null}
+          <BaseDialog.Popup
+            aria-label={isMobile && !ariaLabelledBy ? (ariaLabel ?? "Navigation") : undefined}
+            aria-labelledby={isMobile ? ariaLabelledBy : undefined}
+            aria-modal={isMobile || undefined}
+            className="gl-collapsible-nav-dialog"
+            finalFocus={() => provider.isDesktop ? false : provider.getFocusReturnTarget()}
+            hidden={provider.isDesktop ? false : undefined}
+            initialFocus={handleInitialFocus}
+            role={isMobile ? "dialog" : "presentation"}>
+            {nav}
+          </BaseDialog.Popup>
+        </BaseDialog.Portal>
+      </BaseDialog.Root>
+    );
+
+    return (
+      <>
+        {/* Keep the portal at the Nav's layout position while Base UI owns the modal layer. */}
+        <div ref={portalContainer} className="gl-collapsible-nav-portal-host" />
+        {provider.viewportReady ? dialog : nav}
+      </>
+    );
   },
 );

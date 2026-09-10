@@ -210,6 +210,12 @@
   }
 }
 
+.gl-collapsible-nav-portal-host,
+.gl-collapsible-nav-portal,
+.gl-collapsible-nav-dialog {
+  display: contents;
+}
+
 .gl-collapsible-nav-toggle-icon:dir(rtl) {
   transform: scaleX(-1);
 }
@@ -219,13 +225,12 @@
   inset: 0;
   z-index: 1029;
   background-color: rgb(0 0 0 / 0.5);
-  opacity: 0;
-  pointer-events: none;
+  opacity: 1;
   transition: opacity 250ms ease-out;
 
-  &[data-open="true"] {
-    opacity: 1;
-    pointer-events: auto;
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
   }
 }
 
@@ -271,6 +276,30 @@
 }
 
 @media (max-width: 1199px) {
+  .gl-collapsible-nav-dialog {
+    display: flex;
+    position: fixed;
+    inset-block: 0;
+    inset-inline-start: 0;
+    z-index: 1030;
+    width: max-content;
+    max-width: 100vw;
+    transform: translateX(0);
+    transition: transform 200ms ease;
+
+    &[data-closed],
+    &[data-starting-style],
+    &[data-ending-style] {
+      transform: translateX(-100%);
+    }
+
+    &:dir(rtl)[data-closed],
+    &:dir(rtl)[data-starting-style],
+    &:dir(rtl)[data-ending-style] {
+      transform: translateX(100%);
+    }
+  }
+
   .gl-collapsible-nav {
     @apply gl-bg-overlap;
     @apply gl-flex;
@@ -280,10 +309,7 @@
     @apply gl-shadow-lg;
     @apply gl-text-base;
     @apply gl-leading-normal;
-    position: fixed;
-    inset-block: 0;
-    inset-inline-start: 0;
-    z-index: 1030;
+    position: static;
     width: var(--gl-collapsible-nav-expanded-width);
     max-width: calc(100vw - 3rem);
     border-start-end-radius: var(--gl-drawer-border-radius);
@@ -303,23 +329,6 @@
       border-bottom-right-radius: 0;
       border-bottom-left-radius: var(--gl-border-radius-default);
     }
-
-    &[data-open="false"] {
-      visibility: hidden;
-      pointer-events: none;
-      transform: translateX(-100%);
-      transition-delay: 0s, 0s, 250ms;
-    }
-
-    &:dir(rtl)[data-open="false"] {
-      transform: translateX(100%);
-    }
-
-    &[data-open="true"] {
-      visibility: visible;
-      transform: translateX(0);
-      transition-delay: 0s;
-    }
   }
 }
 
@@ -329,12 +338,8 @@
   .gl-collapsible-nav .gl-nav-item-label,
   .gl-collapsible-nav .gl-nav-item-addon,
   .gl-collapsible-nav .gl-nav-item-chevron,
+  .gl-collapsible-nav-dialog,
   .gl-collapsible-nav-backdrop {
     transition-duration: 0s;
-  }
-
-  .gl-collapsible-nav[data-open="false"],
-  .gl-collapsible-nav[data-open="true"] {
-    transition-delay: 0s;
   }
 }

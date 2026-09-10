@@ -724,7 +724,7 @@ function MobileOverlayExample() {
       <GlButton onClick={() => setOpen(true)}>Open programmatically</GlButton>
       <GlButton onClick={() => setOpen(false)}>Close programmatically</GlButton>
       <GlCollapsibleNavToggle />
-      <GlCollapsibleNav className="gl-mt-4" aria-label="Mobile project navigation">
+      <GlCollapsibleNav aria-label="Mobile project navigation">
         {CollapsibleNavItems({ internalToggle: true })}
         <GlNavItem>
           <GlNavButton href="/untabbable" tabIndex={-1}>
@@ -753,10 +753,13 @@ export const MobileOverlay: Story = {
     const internalToggle = within(nav).getByRole("button", { name: "Collapse sidebar" });
     const backdrop = within(document.body).getByTestId("collapsible-nav-backdrop");
     await expect(nav).toHaveAttribute("data-open", "true");
-    await expect(backdrop).toHaveAttribute("data-open", "true");
+    await expect(backdrop).toHaveAttribute("data-open");
     await expect(document.body.style.overflow).toBe("hidden");
     await expect(untabbableLink).toHaveAttribute("tabindex", "-1");
-    await waitFor(() => expect(programmaticOpener.closest("[inert]")).not.toBeNull());
+    await expect(programmaticOpener.closest("[inert]")).toBeNull();
+    await waitFor(() => {
+      expect(programmaticOpener.closest("[aria-hidden='true']")).not.toBeNull();
+    });
 
     const drawerStyleProbe = document.createElement("aside");
     const drawerBodyStyleProbe = document.createElement("div");
@@ -772,12 +775,17 @@ export const MobileOverlay: Story = {
     const navListStyle = getComputedStyle(nav.querySelector(":scope > .gl-nav-list")!);
     const indicatorStyle = getComputedStyle(firstLink, "::before");
     const drawerContentStyle = getComputedStyle(drawerContentStyleProbe);
+    const navBounds = nav.getBoundingClientRect();
+    const viewportHeight = nav.ownerDocument.defaultView!.innerHeight;
 
+    expect(navBounds.top).toBeCloseTo(0);
+    expect(navBounds.bottom).toBeCloseTo(viewportHeight);
     expect(navStyle.backgroundColor).toBe(drawerStyle.backgroundColor);
     expect(navStyle.boxShadow).toBe(drawerStyle.boxShadow);
     expect(navStyle.fontSize).toBe(drawerStyle.fontSize);
     expect(navStyle.lineHeight).toBe(drawerStyle.lineHeight);
     expect(navStyle.borderTopRightRadius).toBe(drawerStyle.borderTopLeftRadius);
+    expect(navStyle.borderBottomRightRadius).toBe(drawerStyle.borderBottomLeftRadius);
     expect(navListStyle.paddingTop).toBe(drawerContentStyle.paddingTop);
     expect(navListStyle.paddingRight).toBe(drawerContentStyle.paddingRight);
     expect(Number.parseFloat(indicatorStyle.left))
@@ -792,12 +800,14 @@ export const MobileOverlay: Story = {
     await userEvent.keyboard("{Shift>}{Tab}{/Shift}");
     await expect(internalToggle).toHaveFocus();
     await userEvent.tab();
-    await expect(firstLink).toHaveFocus();
+    await waitFor(() => expect(firstLink).toHaveFocus());
 
     programmaticCloser.click();
     await waitFor(() => expect(nav).toHaveAttribute("data-open", "false"));
     await waitFor(() => expect(programmaticOpener).toHaveFocus());
-    await expect(programmaticOpener.closest("[inert]")).toBeNull();
+    await waitFor(() => {
+      expect(programmaticOpener.closest("[aria-hidden='true']")).toBeNull();
+    });
     await expect(document.body.style.overflow).not.toBe("hidden");
 
     externalToggle.click();
@@ -805,11 +815,11 @@ export const MobileOverlay: Story = {
     await waitFor(() => expect(firstLink).toHaveFocus());
     await userEvent.click(backdrop);
     await expect(nav).toHaveAttribute("data-open", "false");
-    await expect(externalToggle).toHaveFocus();
+    await waitFor(() => expect(externalToggle).toHaveFocus());
 
     await userEvent.click(externalToggle);
     await userEvent.keyboard("{Escape}");
-    await expect(externalToggle).toHaveFocus();
+    await waitFor(() => expect(externalToggle).toHaveFocus());
   },
 };
 
@@ -827,12 +837,17 @@ export const MobileOverlayEmpty: Story = {
 
     await waitFor(() => expect(nav).toHaveFocus());
     await expect(nav).toHaveAttribute("tabindex", "-1");
-    await expect(externalToggle.closest("[inert]")).not.toBeNull();
+    await expect(externalToggle.closest("[inert]")).toBeNull();
+    await waitFor(() => {
+      expect(externalToggle.closest("[aria-hidden='true']")).not.toBeNull();
+    });
 
     await userEvent.keyboard("{Escape}");
     await expect(nav).toHaveAttribute("data-open", "false");
-    await waitFor(() => expect(externalToggle.closest("[inert]")).toBeNull());
-    await expect(externalToggle).toHaveFocus();
+    await waitFor(() => {
+      expect(externalToggle.closest("[aria-hidden='true']")).toBeNull();
+    });
+    await waitFor(() => expect(externalToggle).toHaveFocus());
   },
 };
 
@@ -846,16 +861,17 @@ export const MobileOverlayDefaultOpen: Story = {
       </GlCollapsibleNav>
     </GlNavProvider>
   ),
-  play: async ({ canvas }) => {
-    const externalToggle = canvas.getAllByRole("button", { name: "Collapse sidebar" })
-      .find((element) => element.dataset.glCollapsibleNavToggle === "external")!;
+  play: async ({ canvas, canvasElement }) => {
+    const externalToggle = canvasElement.querySelector<HTMLElement>(
+      "[data-gl-collapsible-nav-toggle='external']",
+    )!;
     const firstLink = canvas.getByRole("link", { name: "Issues 12" });
 
     await waitFor(() => expect(firstLink).toHaveFocus());
 
     await userEvent.keyboard("{Escape}");
     await expect(externalToggle).toHaveAccessibleName("Expand sidebar");
-    await expect(externalToggle).toHaveFocus();
+    await waitFor(() => expect(externalToggle).toHaveFocus());
   },
 };
 
@@ -881,6 +897,7 @@ export const MobileOverlayRtl: Story = {
   ),
   play: async ({ canvas }) => {
     const nav = canvas.getByRole("navigation", { name: "RTL mobile project navigation" });
+    const dialog = nav.closest<HTMLElement>(".gl-collapsible-nav-dialog")!;
     const firstLink = within(nav).getByRole("link", { name: "Issues 12" });
     const internalToggle = within(nav).getByRole("button", { name: "Collapse sidebar" });
 
@@ -896,7 +913,7 @@ export const MobileOverlayRtl: Story = {
     await userEvent.click(internalToggle);
     await expect(nav).toHaveAttribute("data-open", "false");
     await waitFor(() => {
-      const closedTransform = new DOMMatrixReadOnly(getComputedStyle(nav).transform);
+      const closedTransform = new DOMMatrixReadOnly(getComputedStyle(dialog).transform);
       expect(closedTransform.m41).toBeGreaterThan(0);
     });
 

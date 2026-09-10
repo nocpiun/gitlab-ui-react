@@ -28,6 +28,7 @@ export type ButtonOwner = {
 export type NavProviderContextValue = {
   activeFlyoutId: string | null;
   captureFocusReturnTarget(element: HTMLElement | null): void;
+  getFocusReturnTarget(): HTMLElement | false;
   isDesktop: boolean;
   navId: string;
   open: boolean;
@@ -35,7 +36,7 @@ export type NavProviderContextValue = {
   registerNav(id: symbol): () => void;
   requestOpen(
     open: boolean,
-    options?: { externalOpener?: HTMLElement | null; restoreFocus?: boolean },
+    options?: { externalOpener?: HTMLElement | null },
   ): void;
   setActiveFlyoutId(id: string | null): void;
   viewportReady: boolean;
