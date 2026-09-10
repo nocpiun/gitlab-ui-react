@@ -105,6 +105,9 @@ importers:
       '@astrojs/check':
         specifier: ^0.9.10
         version: 0.9.10(prettier@3.9.6)(typescript@6.0.3)
+      '@astrojs/markdown-satteri':
+        specifier: 0.4.0
+        version: 0.4.0
       '@astrojs/mdx':
         specifier: ^8.0.0
         version: 8.0.0(@astrojs/markdown-satteri@0.4.0)(astro@7.3.1(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(jiti@2.7.0)(yaml@2.9.0))
@@ -126,6 +129,12 @@ importers:
       astro:
         specifier: ^7.3.1
         version: 7.3.1(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(jiti@2.7.0)(yaml@2.9.0)
+      satteri:
+        specifier: 0.10.5
+        version: 0.10.5
+      shiki:
+        specifier: ^4.4.3
+        version: 4.4.3
       tailwindcss:
         specifier: ^4.3.3
         version: 4.3.3

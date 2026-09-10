@@ -2,11 +2,14 @@
 import type { CollectionEntry } from "astro:content";
 import { getCollection, render } from "astro:content";
 import { GlIcon, GlMarkdown } from "gitlab-ui-react";
+import { DocsCallout } from "../../components/docs-callout";
+import { DocsCodeBlockCopyButtons } from "../../components/docs-code-block-copy-buttons";
+import { DocsExample } from "../../components/docs-example";
 import {
   DocsNavigation,
   type DocsNavigationEntry,
 } from "../../components/docs-navigation";
-import DocsTableOfContents from "../../components/docs-table-of-contents.astro";
+import { DocsTableOfContents } from "../../components/docs-table-of-contents";
 import BaseLayout from "../../layouts/base-layout.astro";
 
 interface Props {
@@ -63,7 +66,7 @@ const tableOfContents = headings.filter(({ depth }) => depth >= 2 && depth <= 3)
               <header class="mb-6">
                 <h1>{entry.data.title}</h1>
                 {entry.data.description && (
-                  <p class="mt-3 text-subtle">{entry.data.description}</p>
+                  <p class="mt-3 text-subtle text-lg">{entry.data.description}</p>
                 )}
               </header>
               {tableOfContents.length > 0 && (
@@ -75,19 +78,22 @@ const tableOfContents = headings.filter(({ depth }) => depth >= 2 && depth <= 3)
                       name="chevron-right" />
                   </summary>
                   <DocsTableOfContents
-                    class="px-2 pt-3"
+                    client:load
+                    className="px-2 pt-3"
                     headings={tableOfContents}
                     showTitle={false}
                   />
                 </details>
               )}
-              <Content />
+              <Content components={{ DocsCallout, DocsExample }} />
             </GlMarkdown>
+            <DocsCodeBlockCopyButtons client:load />
           </article>
 
           <aside class="hidden px-5 py-8 min-[1360px]:block">
             <DocsTableOfContents
-              class="sticky top-8 max-h-[calc(100dvh-4rem)] overflow-y-auto"
+              client:load
+              className="sticky top-8 max-h-[calc(100dvh-4rem)] overflow-y-auto"
               headings={tableOfContents}
             />
           </aside>
@@ -127,3 +133,21 @@ const tableOfContents = headings.filter(({ depth }) => depth >= 2 && depth <= 3)
     overflow-x: auto;
   }
 </style>
+
+<script>
+  document.addEventListener("click", (event) => {
+    if(!(event.target instanceof Element)) return;
+
+    const toggle = event.target.closest("[data-docs-example-toggle]");
+    if(!(toggle instanceof HTMLButtonElement)) return;
+
+    const example = toggle.closest("[data-docs-example]");
+    const component = example?.querySelector<HTMLElement>("[data-docs-example-component]");
+    const source = example?.querySelector<HTMLElement>("[data-docs-example-source]");
+    if(!component || !source) return;
+
+    const showSource = source.hidden;
+    source.hidden = !showSource;
+    toggle.setAttribute("aria-pressed", String(showSource));
+  });
+</script>

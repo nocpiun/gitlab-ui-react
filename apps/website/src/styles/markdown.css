@@ -1,0 +1,45 @@
+.gl-markdown {
+  @apply text-base leading-24;
+}
+
+.gl-markdown > p {
+  @apply mb-5;
+}
+
+.gl-markdown > .docs-callout {
+  @apply my-5;
+}
+
+.gl-markdown .gl-alert .gl-alert-title {
+  @apply text-lg mb-3;
+}
+
+.gl-markdown .gl-alert .gl-alert-body {
+  @apply leading-24;
+}
+
+.gl-markdown pre, .gl-markdown pre code {
+  @apply bg-subtle!;
+}
+
+.gl-dark .gl-markdown :is(.astro-code, .shiki),
+.gl-dark .gl-markdown :is(.astro-code, .shiki) span {
+  color: var(--shiki-dark) !important;
+}
+
+.gl-markdown .docs-code-block {
+  @apply relative my-7;
+}
+
+.gl-markdown .docs-code-block > pre {
+  @apply my-0 pe-9;
+}
+
+.gl-markdown .docs-code-copy-button {
+  @apply absolute top-3 end-3 z-1;
+}
+
+.gl-markdown .docs-example-source pre {
+  @apply my-0;
+  border-radius: calc(var(--gl-card-border-radius) - 0.25rem);
+}
