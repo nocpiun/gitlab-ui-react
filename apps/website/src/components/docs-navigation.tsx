@@ -108,7 +108,7 @@ export function DocsNavigation({ currentId, entries }: DocsNavigationProps) {
           const containsCurrentPage = groupEntries.some(({ id }) => id === currentId);
 
           return (
-            <GlNavItem key={group}>
+            <GlNavItem key={`${group}:${currentId}`}>
               <GlNavButton>
                 {formatGroupLabel(group)}
               </GlNavButton>
