@@ -1,0 +1,9 @@
+/*
+ * GitLab UI's Markdown styles rely on the user-agent list markers and
+ * indentation preserved by Bootstrap Reboot. Restore those defaults for
+ * hosts that use a reset such as Tailwind Preflight.
+ */
+.gl-markdown :where(ol, ul) {
+  list-style: revert;
+  padding-inline-start: revert;
+}
