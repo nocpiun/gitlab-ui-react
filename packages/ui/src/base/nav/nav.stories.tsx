@@ -565,10 +565,10 @@ export const ProviderRemoteControl: Story = {
   },
 };
 
-export const SubNavChevronAlignment: Story = {
+export const EndContentAlignment: Story = {
   render: () => (
-    <GlNavProvider defaultOpen navId="sub-nav-chevron-alignment">
-      <GlCollapsibleNav aria-label="Sub-navigation chevron alignment">
+    <GlNavProvider defaultOpen navId="nav-item-end-content-alignment">
+      <GlCollapsibleNav aria-label="Navigation item end content alignment">
         <GlNavItem>
           <GlNavButton><GlIcon name="settings" />Manage with icon</GlNavButton>
           <GlSubNav>
@@ -585,18 +585,37 @@ export const SubNavChevronAlignment: Story = {
             </GlSubNavItem>
           </GlSubNav>
         </GlNavItem>
+        <GlNavItem>
+          <GlNavButton>
+            <GlIcon name="settings" />
+            Item with icon
+            <GlNavItemAddon>12</GlNavItemAddon>
+          </GlNavButton>
+        </GlNavItem>
+        <GlNavItem>
+          <GlNavButton>
+            Item without icon
+            <GlNavItemAddon>12</GlNavItemAddon>
+          </GlNavButton>
+        </GlNavItem>
       </GlCollapsibleNav>
     </GlNavProvider>
   ),
   play: async ({ canvas }) => {
-    const withIcon = canvas.getByRole("button", { name: "Manage with icon" });
-    const withoutIcon = canvas.getByRole("button", { name: "Manage without icon" });
-    const withIconChevron = within(withIcon).getByTestId("nav-item-chevron");
-    const withoutIconChevron = within(withoutIcon).getByTestId("nav-item-chevron");
+    const withIconChevron = within(canvas.getByRole("button", { name: "Manage with icon" }))
+      .getByTestId("nav-item-chevron");
+    const withoutIconChevron = within(canvas.getByRole("button", { name: "Manage without icon" }))
+      .getByTestId("nav-item-chevron");
+    const withIconAddon = within(canvas.getByRole("button", { name: "Item with icon 12" }))
+      .getByTestId("nav-item-end");
+    const withoutIconAddon = within(canvas.getByRole("button", { name: "Item without icon 12" }))
+      .getByTestId("nav-item-end");
 
     await waitFor(() => {
       expect(Math.round(withoutIconChevron.getBoundingClientRect().right))
         .toBe(Math.round(withIconChevron.getBoundingClientRect().right));
+      expect(Math.round(withoutIconAddon.getBoundingClientRect().right))
+        .toBe(Math.round(withIconAddon.getBoundingClientRect().right));
     });
   },
 };
