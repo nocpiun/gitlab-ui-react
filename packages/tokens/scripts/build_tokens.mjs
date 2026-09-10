@@ -42,6 +42,7 @@ import {
   selectColorValuePreprocessor,
   convertClampStringToDimension,
 } from "./build_tokens_preprocessors.js";
+import { DARK_SELECTOR, LIGHT_SELECTOR } from "../src/color_mode.js";
 
 /**
  * Design tokens
@@ -234,7 +235,7 @@ const getStyleDictionaryConfigDefault = (buildPath) => (
             destination: "tokens.css",
             format: "css/variables",
             options: {
-              selector: ":root, .gl-light-scope",
+              selector: LIGHT_SELECTOR,
             },
           },
         ],
@@ -370,7 +371,7 @@ const getStyleDictionaryConfigDarkMode = (buildPath) => merge(getStyleDictionary
           {
             destination: "tokens.dark.css",
             options: {
-              selector: ":root.gl-dark, .gl-dark-scope",
+              selector: DARK_SELECTOR,
             },
           },
         ],
