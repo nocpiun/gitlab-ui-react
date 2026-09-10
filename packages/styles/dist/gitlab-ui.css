@@ -3745,6 +3745,10 @@
       box-shadow: none;
     }
   }
+  .gl-markdown :where(ol, ul) {
+    list-style: revert;
+    padding-inline-start: revert;
+  }
   .gl-modal-viewport {
     position: fixed;
     top: 0;

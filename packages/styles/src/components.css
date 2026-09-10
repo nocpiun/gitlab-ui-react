@@ -2,6 +2,7 @@
 @import "./buttons/clear-icon-button.css";
 @import "./breadcrumbs/bootstrap-breadcrumb.css";
 @import "./dropdowns/new-dropdown.css";
+@import "./markdown/markdown-foundations.css";
 @import "./modals/bootstrap-modal.css";
 @import "./popovers/bootstrap-popover.css";
 @import "./tabs/bootstrap-tabs.css";
