@@ -4,6 +4,7 @@ import { getCollection, render } from "astro:content";
 import { GlIcon, GlMarkdown } from "gitlab-ui-react";
 import { DocsCallout } from "../../components/docs-callout";
 import { DocsCodeBlockCopyButtons } from "../../components/docs-code-block-copy-buttons";
+import { DocsExample } from "../../components/docs-example";
 import {
   DocsNavigation,
   type DocsNavigationEntry,
@@ -84,7 +85,7 @@ const tableOfContents = headings.filter(({ depth }) => depth >= 2 && depth <= 3)
                   />
                 </details>
               )}
-              <Content components={{ DocsCallout }} />
+              <Content components={{ DocsCallout, DocsExample }} />
             </GlMarkdown>
             <DocsCodeBlockCopyButtons client:load />
           </article>
@@ -132,3 +133,21 @@ const tableOfContents = headings.filter(({ depth }) => depth >= 2 && depth <= 3)
     overflow-x: auto;
   }
 </style>
+
+<script>
+  document.addEventListener("click", (event) => {
+    if(!(event.target instanceof Element)) return;
+
+    const toggle = event.target.closest("[data-docs-example-toggle]");
+    if(!(toggle instanceof HTMLButtonElement)) return;
+
+    const example = toggle.closest("[data-docs-example]");
+    const component = example?.querySelector<HTMLElement>("[data-docs-example-component]");
+    const source = example?.querySelector<HTMLElement>("[data-docs-example-source]");
+    if(!component || !source) return;
+
+    const showSource = source.hidden;
+    source.hidden = !showSource;
+    toggle.setAttribute("aria-pressed", String(showSource));
+  });
+</script>
