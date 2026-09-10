@@ -514,7 +514,10 @@ function getFocusableElements(container: HTMLElement) {
     "[tabindex]:not([tabindex='-1'])",
   ].join(",");
   return Array.from(container.querySelectorAll<HTMLElement>(selector))
-    .filter((element) => !element.closest("[aria-hidden='true'], [hidden], [inert]"));
+    .filter((element) => (
+      element.tabIndex >= 0
+      && !element.closest("[aria-hidden='true'], [hidden], [inert]")
+    ));
 }
 
 export const GlCollapsibleNav = forwardRef<HTMLElement, GlCollapsibleNavProps>(

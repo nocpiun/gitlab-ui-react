@@ -227,12 +227,15 @@ export const IsParent: Story = {
     await userEvent.click(trigger);
     await expect(trigger).toHaveAttribute("aria-expanded", "true");
     await expect(canvas.getByRole("link", { name: "Milestones 3" })).toBeVisible();
+
     await userEvent.keyboard("{Escape}");
     await expect(escapeHandler).toHaveBeenCalledTimes(1);
+
     await userEvent.hover(trigger);
     await expect(pointerOverHandler).toHaveBeenCalled();
     await userEvent.unhover(trigger);
     await expect(pointerLeaveHandler).toHaveBeenCalled();
+
     await userEvent.keyboard(" ");
     await expect(trigger).toHaveAttribute("aria-expanded", "false");
   },
@@ -513,19 +516,23 @@ export const ProviderRemoteControl: Story = {
 
     await expect(toggle).toHaveAttribute("aria-controls", "remote-project-navigation");
     await expect(nav).toHaveAttribute("data-open", "true");
+
     const expandedIssues = canvas.getByRole("link", { name: "Issues 12" });
     const expandedBounds = expandedIssues.getBoundingClientRect();
     const expandedIconX = within(expandedIssues)
       .getByTestId("nav-item-start").getBoundingClientRect().x;
+
     await userEvent.click(toggle);
     await new Promise<void>((resolve) => {
       requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
     });
+
     expect(Math.round(within(expandedIssues).getByTestId("nav-item-start")
       .getBoundingClientRect().x)).toBe(Math.round(expandedIconX));
     await expect(nav).toHaveAttribute("data-open", "false");
     await expect(canvas.getByRole("button", { name: "Expand sidebar" }))
       .toHaveAttribute("aria-expanded", "false");
+
     const issues = canvas.getByRole("link", { name: "Issues" });
     await waitFor(() => {
       const bounds = issues.getBoundingClientRect();
@@ -535,15 +542,18 @@ export const ProviderRemoteControl: Story = {
       expect(Math.round(within(issues).getByTestId("nav-item-start")
         .getBoundingClientRect().x)).toBe(Math.round(expandedIconX));
     });
+
     await userEvent.hover(issues);
     const tooltip = await within(document.body).findByRole("tooltip", { name: "Issues" });
     await waitFor(() => expect(tooltip).toBeVisible());
     await userEvent.unhover(issues);
+
     const collapsedBounds = issues.getBoundingClientRect();
     await userEvent.click(canvas.getByRole("button", { name: "Expand sidebar" }));
     await new Promise<void>((resolve) => {
       requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
     });
+
     const expandingBounds = issues.getBoundingClientRect();
     expect(expandingBounds.width).toBeGreaterThan(collapsedBounds.width);
     expect(expandingBounds.width).toBeLessThan(expandedBounds.width);
@@ -595,11 +605,14 @@ export const MultipleToggles: Story = {
   play: async ({ canvas }) => {
     preventedToggleClick.mockClear();
     const nav = canvas.getByRole("navigation", { name: "Navigation with multiple toggles" });
+
     await userEvent.click(canvas.getByRole("button", { name: "Blocked expand" }));
     await expect(preventedToggleClick).toHaveBeenCalledOnce();
     await expect(nav).toHaveAttribute("data-open", "false");
+
     const toggles = canvas.getAllByRole("button", { name: "Expand sidebar" });
     await expect(toggles).toHaveLength(3);
+
     await userEvent.click(toggles[0]);
     await expect(canvas.getAllByRole("button", { name: "Collapse sidebar" })).toHaveLength(3);
   },
@@ -643,32 +656,39 @@ export const SubNavFlyout: Story = {
   play: async ({ canvas }) => {
     const parent = canvas.getByRole("button", { name: "Manage" });
     parent.focus();
+
     await expect(within(document.body).queryByRole("link", { name: "Members" }))
       .not.toBeInTheDocument();
     await userEvent.click(parent);
     await expect(within(document.body).queryByRole("link", { name: "Members" }))
       .not.toBeInTheDocument();
+
     parent.click();
     const synthesizedFlyout = await within(document.body).findByRole("link", { name: "Members" });
     await waitFor(() => expect(synthesizedFlyout).toBeVisible());
     parent.click();
     await waitFor(() => expect(within(document.body).queryByRole("dialog"))
       .not.toBeInTheDocument());
+
     await userEvent.hover(parent);
     const members = await within(document.body).findByRole("link", { name: "Members" });
     await waitFor(() => expect(members).toBeVisible());
+
     const flyout = within(document.body).getByRole("dialog");
     const flyoutStyleProbe = flyout.cloneNode(false) as HTMLElement;
     document.body.append(flyoutStyleProbe);
+
     flyoutStyleProbe.setAttribute("data-starting-style", "");
     expect(getComputedStyle(flyoutStyleProbe).transitionDuration).toBe("0.15s");
     flyoutStyleProbe.removeAttribute("data-starting-style");
     flyoutStyleProbe.setAttribute("data-ending-style", "");
     expect(getComputedStyle(flyoutStyleProbe).transitionDuration).toBe("0s");
     flyoutStyleProbe.remove();
+
     await userEvent.unhover(parent);
     await waitFor(() => expect(within(document.body).queryByRole("dialog"))
       .not.toBeInTheDocument());
+
     parent.focus();
     await userEvent.keyboard("{Enter}");
     const integrations = await within(document.body).findByRole("link", { name: "Integrations" });
@@ -676,16 +696,19 @@ export const SubNavFlyout: Story = {
     integrations.focus();
     await userEvent.keyboard("{Escape}");
     await expect(parent).toHaveFocus();
+
     parent.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, pointerType: "touch" }));
     parent.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, detail: 1 }));
     const touchFlyout = await within(document.body).findByRole("link", { name: "Members" });
     await waitFor(() => expect(touchFlyout).toBeVisible());
     await userEvent.keyboard("{Escape}");
+
     parent.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, pointerType: "pen" }));
     parent.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, detail: 1 }));
     const penFlyout = await within(document.body).findByRole("link", { name: "Members" });
     await waitFor(() => expect(penFlyout).toBeVisible());
     await userEvent.keyboard("{Escape}");
+
     await userEvent.click(canvas.getByRole("button", { name: "Expand sidebar" }));
     await expect(canvas.getByRole("button", { name: "Manage" }))
       .toHaveAttribute("aria-expanded", "true");
@@ -703,6 +726,12 @@ function MobileOverlayExample() {
       <GlCollapsibleNavToggle />
       <GlCollapsibleNav className="gl-mt-4" aria-label="Mobile project navigation">
         {CollapsibleNavItems({ internalToggle: true })}
+        <GlNavItem>
+          <GlNavButton href="/untabbable" tabIndex={-1}>
+            <GlIcon name="issues" />
+            Untabbable navigation item
+          </GlNavButton>
+        </GlNavItem>
       </GlCollapsibleNav>
     </GlNavProvider>
   );
@@ -715,15 +744,20 @@ export const MobileOverlay: Story = {
     const programmaticOpener = canvas.getByRole("button", { name: "Open programmatically" });
     const programmaticCloser = canvas.getByRole("button", { name: "Close programmatically" });
     const externalToggle = canvas.getByRole("button", { name: "Expand sidebar" });
+
     await userEvent.click(programmaticOpener);
+
     const nav = canvas.getByRole("navigation", { name: "Mobile project navigation" });
     const firstLink = canvas.getByRole("link", { name: "Issues 12" });
+    const untabbableLink = canvas.getByRole("link", { name: "Untabbable navigation item" });
     const internalToggle = within(nav).getByRole("button", { name: "Collapse sidebar" });
     const backdrop = within(document.body).getByTestId("collapsible-nav-backdrop");
     await expect(nav).toHaveAttribute("data-open", "true");
     await expect(backdrop).toHaveAttribute("data-open", "true");
     await expect(document.body.style.overflow).toBe("hidden");
+    await expect(untabbableLink).toHaveAttribute("tabindex", "-1");
     await waitFor(() => expect(programmaticOpener.closest("[inert]")).not.toBeNull());
+
     const drawerStyleProbe = document.createElement("aside");
     const drawerBodyStyleProbe = document.createElement("div");
     const drawerContentStyleProbe = document.createElement("div");
@@ -732,11 +766,13 @@ export const MobileOverlay: Story = {
     drawerBodyStyleProbe.append(drawerContentStyleProbe);
     drawerStyleProbe.append(drawerBodyStyleProbe);
     document.body.append(drawerStyleProbe);
+
     const navStyle = getComputedStyle(nav);
     const drawerStyle = getComputedStyle(drawerStyleProbe);
     const navListStyle = getComputedStyle(nav.querySelector(":scope > .gl-nav-list")!);
     const indicatorStyle = getComputedStyle(firstLink, "::before");
     const drawerContentStyle = getComputedStyle(drawerContentStyleProbe);
+
     expect(navStyle.backgroundColor).toBe(drawerStyle.backgroundColor);
     expect(navStyle.boxShadow).toBe(drawerStyle.boxShadow);
     expect(navStyle.fontSize).toBe(drawerStyle.fontSize);
@@ -747,25 +783,30 @@ export const MobileOverlay: Story = {
     expect(Number.parseFloat(indicatorStyle.left))
       .toBe(-Number.parseFloat(navListStyle.paddingLeft));
     drawerStyleProbe.remove();
+
     await waitFor(() => expect(firstLink).toHaveFocus());
     await userEvent.click(canvas.getByRole("button", { name: "Repository" }));
     await expect(nav).toHaveAttribute("data-open", "true");
+
     firstLink.focus();
     await userEvent.keyboard("{Shift>}{Tab}{/Shift}");
     await expect(internalToggle).toHaveFocus();
     await userEvent.tab();
     await expect(firstLink).toHaveFocus();
+
     programmaticCloser.click();
     await waitFor(() => expect(nav).toHaveAttribute("data-open", "false"));
     await waitFor(() => expect(programmaticOpener).toHaveFocus());
     await expect(programmaticOpener.closest("[inert]")).toBeNull();
     await expect(document.body.style.overflow).not.toBe("hidden");
+
     externalToggle.click();
     await waitFor(() => expect(nav).toHaveAttribute("data-open", "true"));
     await waitFor(() => expect(firstLink).toHaveFocus());
     await userEvent.click(backdrop);
     await expect(nav).toHaveAttribute("data-open", "false");
     await expect(externalToggle).toHaveFocus();
+
     await userEvent.click(externalToggle);
     await userEvent.keyboard("{Escape}");
     await expect(externalToggle).toHaveFocus();
@@ -787,6 +828,7 @@ export const MobileOverlayEmpty: Story = {
     await waitFor(() => expect(nav).toHaveFocus());
     await expect(nav).toHaveAttribute("tabindex", "-1");
     await expect(externalToggle.closest("[inert]")).not.toBeNull();
+
     await userEvent.keyboard("{Escape}");
     await expect(nav).toHaveAttribute("data-open", "false");
     await waitFor(() => expect(externalToggle.closest("[inert]")).toBeNull());
@@ -810,6 +852,7 @@ export const MobileOverlayDefaultOpen: Story = {
     const firstLink = canvas.getByRole("link", { name: "Issues 12" });
 
     await waitFor(() => expect(firstLink).toHaveFocus());
+
     await userEvent.keyboard("{Escape}");
     await expect(externalToggle).toHaveAccessibleName("Expand sidebar");
     await expect(externalToggle).toHaveFocus();
@@ -842,12 +885,14 @@ export const MobileOverlayRtl: Story = {
     const internalToggle = within(nav).getByRole("button", { name: "Collapse sidebar" });
 
     await expect(getComputedStyle(nav).direction).toBe("rtl");
+
     const navListStyle = getComputedStyle(nav.querySelector(":scope > .gl-nav-list")!);
     const indicatorStyle = getComputedStyle(firstLink, "::before");
     expect(Number.parseFloat(navListStyle.paddingRight))
       .toBeLessThan(Number.parseFloat(navListStyle.paddingLeft));
     expect(Number.parseFloat(indicatorStyle.right))
       .toBe(-Number.parseFloat(navListStyle.paddingRight));
+
     await userEvent.click(internalToggle);
     await expect(nav).toHaveAttribute("data-open", "false");
     await waitFor(() => {
