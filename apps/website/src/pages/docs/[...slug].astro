@@ -5,10 +5,7 @@ import { GlIcon, GlMarkdown } from "gitlab-ui-react";
 import { DocsCallout } from "../../components/docs-callout";
 import { DocsCodeBlockCopyButtons } from "../../components/docs-code-block-copy-buttons";
 import { DocsExample } from "../../components/docs-example";
-import {
-  DocsNavigation,
-  type DocsNavigationEntry,
-} from "../../components/docs-navigation";
+import { DocsNavigation } from "../../components/docs-navigation";
 import { DocsTableOfContents } from "../../components/docs-table-of-contents";
 import BaseLayout from "../../layouts/base-layout.astro";
 
@@ -28,19 +25,6 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const entries = await getCollection("docs");
-const navigationEntries: DocsNavigationEntry[] = entries
-  .map((navigationEntry) => ({
-    href: navigationEntry.id === "index" ? "/docs" : `/docs/${navigationEntry.id}`,
-    id: navigationEntry.id,
-    title: navigationEntry.data.title,
-  }))
-  .sort((firstEntry, secondEntry) => {
-    if(firstEntry.id === "index") return -1;
-    if(secondEntry.id === "index") return 1;
-
-    return firstEntry.id.localeCompare(secondEntry.id);
-  });
 const { Content, headings } = await render(entry);
 const tableOfContents = headings.filter(({ depth }) => depth >= 2 && depth <= 3);
 ---
@@ -57,7 +41,6 @@ const tableOfContents = headings.filter(({ depth }) => depth >= 2 && depth <= 3)
               client:load
               transition:persist="docs-navigation"
               currentId={entry.id}
-              entries={navigationEntries}
             />
           </aside>
 
