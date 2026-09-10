@@ -353,6 +353,7 @@ describe("GlSubNav", () => {
 
     expect(markup).toContain("aria-expanded=\"false\"");
     expect(markup).toContain("data-testid=\"nav-item-chevron\"");
+    expect(markup).toContain("gl-nav-item-chevron-slot");
     expect(markup).toContain("aria-hidden=\"true\"");
     expect(markup).not.toContain("defaultOpen");
   });

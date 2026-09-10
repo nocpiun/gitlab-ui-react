@@ -245,7 +245,7 @@ function simpleTextLabel(nodes: ReactNode[]) {
 function NavItemChevron() {
   return (
     <span
-      className={navSlotVariants()}
+      className={navSlotVariants({ className: "gl-nav-item-chevron-slot" })}
       data-testid="nav-item-chevron"
       aria-hidden="true">
       <svg

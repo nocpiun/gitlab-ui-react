@@ -7387,6 +7387,9 @@
     overflow: hidden;
     white-space: nowrap;
   }
+  .gl-collapsible-nav .gl-nav-item-chevron-slot {
+    margin-inline-start: auto;
+  }
   .gl-collapsible-nav .gl-nav-item-addon, .gl-collapsible-nav .gl-nav-item-chevron {
     max-width: 1.5rem;
   }
