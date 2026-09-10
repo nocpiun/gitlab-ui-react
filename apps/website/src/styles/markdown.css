@@ -22,6 +22,11 @@
   @apply bg-subtle!;
 }
 
+.gl-dark .gl-markdown :is(.astro-code, .shiki),
+.gl-dark .gl-markdown :is(.astro-code, .shiki) span {
+  color: var(--shiki-dark) !important;
+}
+
 .gl-markdown .docs-code-block {
   @apply relative my-7;
 }

@@ -17,6 +17,12 @@ export default defineConfig({
   output: "static",
   integrations: [react(), mdx()],
   markdown: {
+    shikiConfig: {
+      themes: {
+        light: "github-light",
+        dark: "github-dark",
+      },
+    },
     processor: satteri({
       mdastPlugins: [calloutsPlugin],
       hastPlugins: [codeBlocksPlugin],

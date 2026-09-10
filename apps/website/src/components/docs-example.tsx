@@ -19,9 +19,13 @@ const exampleSources = import.meta.glob<string>("@examples/*.tsx", {
   import: "default",
   query: "?raw",
 });
+const sourceCodeThemes = {
+  light: "github-light",
+  dark: "github-dark",
+} as const;
 const sourceHighlighter = await createHighlighter({
   langs: ["tsx"],
-  themes: ["github-dark"],
+  themes: Object.values(sourceCodeThemes),
 });
 
 function filenameFromPath(path: string) {
@@ -37,7 +41,7 @@ const examplesByFilename = new Map(
 const highlightedSourcesByFilename = new Map(
   Object.entries(exampleSources).map(([path, source]) => [
     filenameFromPath(path),
-    sourceHighlighter.codeToHtml(source, { lang: "tsx", theme: "github-dark" }),
+    sourceHighlighter.codeToHtml(source, { lang: "tsx", themes: sourceCodeThemes }),
   ]),
 );
 
