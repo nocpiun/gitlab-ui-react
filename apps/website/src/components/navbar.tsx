@@ -81,6 +81,7 @@ export function Navbar() {
       </nav>
 
       <div className="flex w-full flex-nowrap items-center gap-2 lg:w-auto">
+        <span className="contents" id="documentation-navigation-toggle-target" />
         <GlButton
           category="tertiary"
           icon={isDark ? "moon" : "sun"}
@@ -90,10 +91,14 @@ export function Navbar() {
           aria-label="Search documentation"
           className="min-w-0 flex-1 sm:min-w-56 lg:w-64"
           placeholder="Search documents..."/>
-        <GlListbox value={lang} onValueChange={(value) => setLang(value as any)}>
+        <GlListbox
+          value={lang}
+          onValueChange={(value) => setLang(value as any)}>
           {/** @todo */}
           <GlListboxTrigger icon="earth">
-            English
+            <span className="max-sm:hidden">
+              English
+            </span>
           </GlListboxTrigger>
           <GlListboxContent>
             <GlListboxGroup>
