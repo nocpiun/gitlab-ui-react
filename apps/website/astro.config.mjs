@@ -5,6 +5,7 @@ import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import { calloutsPlugin } from "./src/markdown/callouts.mjs";
+import { codeBlocksPlugin } from "./src/markdown/code-blocks.mjs";
 
 const examplesDirectory = fileURLToPath(new URL("../../examples", import.meta.url));
 const iconsSpriteUrl = `${fileURLToPath(
@@ -18,6 +19,7 @@ export default defineConfig({
   markdown: {
     processor: satteri({
       mdastPlugins: [calloutsPlugin],
+      hastPlugins: [codeBlocksPlugin],
     }),
   },
   vite: {

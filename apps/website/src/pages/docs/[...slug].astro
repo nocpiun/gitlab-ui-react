@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import { getCollection, render } from "astro:content";
 import { GlIcon, GlMarkdown } from "gitlab-ui-react";
 import { DocsCallout } from "../../components/docs-callout";
+import { DocsCodeBlockCopyButtons } from "../../components/docs-code-block-copy-buttons";
 import {
   DocsNavigation,
   type DocsNavigationEntry,
@@ -85,6 +86,7 @@ const tableOfContents = headings.filter(({ depth }) => depth >= 2 && depth <= 3)
               )}
               <Content components={{ DocsCallout }} />
             </GlMarkdown>
+            <DocsCodeBlockCopyButtons client:load />
           </article>
 
           <aside class="hidden px-5 py-8 min-[1360px]:block">
