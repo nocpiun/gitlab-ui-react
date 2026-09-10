@@ -565,6 +565,42 @@ export const ProviderRemoteControl: Story = {
   },
 };
 
+export const SubNavChevronAlignment: Story = {
+  render: () => (
+    <GlNavProvider defaultOpen navId="sub-nav-chevron-alignment">
+      <GlCollapsibleNav aria-label="Sub-navigation chevron alignment">
+        <GlNavItem>
+          <GlNavButton><GlIcon name="settings" />Manage with icon</GlNavButton>
+          <GlSubNav>
+            <GlSubNavItem>
+              <GlSubNavButton href="/with-icon">Child with icon</GlSubNavButton>
+            </GlSubNavItem>
+          </GlSubNav>
+        </GlNavItem>
+        <GlNavItem>
+          <GlNavButton>Manage without icon</GlNavButton>
+          <GlSubNav>
+            <GlSubNavItem>
+              <GlSubNavButton href="/without-icon">Child without icon</GlSubNavButton>
+            </GlSubNavItem>
+          </GlSubNav>
+        </GlNavItem>
+      </GlCollapsibleNav>
+    </GlNavProvider>
+  ),
+  play: async ({ canvas }) => {
+    const withIcon = canvas.getByRole("button", { name: "Manage with icon" });
+    const withoutIcon = canvas.getByRole("button", { name: "Manage without icon" });
+    const withIconChevron = within(withIcon).getByTestId("nav-item-chevron");
+    const withoutIconChevron = within(withoutIcon).getByTestId("nav-item-chevron");
+
+    await waitFor(() => {
+      expect(Math.round(withoutIconChevron.getBoundingClientRect().right))
+        .toBe(Math.round(withIconChevron.getBoundingClientRect().right));
+    });
+  },
+};
+
 export const InternalToggle: Story = {
   render: () => (
     <GlNavProvider defaultOpen navId="internal-toggle-navigation">
