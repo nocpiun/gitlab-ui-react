@@ -53,6 +53,10 @@ export function DocsNavigation({ currentId, entries }: DocsNavigationProps) {
   }, []);
 
   useEffect(() => {
+    if(!window.matchMedia(DESKTOP_NAV_QUERY).matches) setIsOpen(false);
+  }, [currentId]);
+
+  useEffect(() => {
     let targetObserver: MutationObserver | undefined;
 
     const findToggleTarget = () => {
