@@ -7,7 +7,7 @@ import {
   DocsNavigation,
   type DocsNavigationEntry,
 } from "../../components/docs-navigation";
-import DocsTableOfContents from "../../components/docs-table-of-contents.astro";
+import { DocsTableOfContents } from "../../components/docs-table-of-contents";
 import BaseLayout from "../../layouts/base-layout.astro";
 
 interface Props {
@@ -76,7 +76,8 @@ const tableOfContents = headings.filter(({ depth }) => depth >= 2 && depth <= 3)
                       name="chevron-right" />
                   </summary>
                   <DocsTableOfContents
-                    class="px-2 pt-3"
+                    client:load
+                    className="px-2 pt-3"
                     headings={tableOfContents}
                     showTitle={false}
                   />
@@ -88,7 +89,8 @@ const tableOfContents = headings.filter(({ depth }) => depth >= 2 && depth <= 3)
 
           <aside class="hidden px-5 py-8 min-[1360px]:block">
             <DocsTableOfContents
-              class="sticky top-8 max-h-[calc(100dvh-4rem)] overflow-y-auto"
+              client:load
+              className="sticky top-8 max-h-[calc(100dvh-4rem)] overflow-y-auto"
               headings={tableOfContents}
             />
           </aside>
