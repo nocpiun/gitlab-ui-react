@@ -3,7 +3,7 @@
  * packages/gitlab-ui/src/components/base/keyset_pagination/keyset_pagination.vue
  *
  * Adaptations:
- * - Vue's prev/next events map to onPrev/onNext callbacks.
+ * - Vue's prev/next events map to onPrevious/onNext callbacks.
  * - The two content slots map to previousButtonContent and nextButtonContent.
  */
 
@@ -38,7 +38,7 @@ export type GlKeysetPaginationProps = KeysetPaginationElementProps & {
   /** Called with endCursor when the enabled next control is activated. */
   onNext?: (endCursor: string | null) => void;
   /** Called with startCursor when the enabled previous control is activated. */
-  onPrev?: (startCursor: string | null) => void;
+  onPrevious?: (startCursor: string | null) => void;
   /** Link destination for the previous control. Empty values render a button. */
   prevButtonLink?: string | null;
   /** Content replacing the default previous text and icon. */
@@ -64,7 +64,7 @@ const GlKeysetPagination = forwardRef<HTMLElement, GlKeysetPaginationProps>(
     nextButtonLink = null,
     nextText = "Next",
     onNext,
-    onPrev,
+    onPrevious,
     prevButtonLink = null,
     previousButtonContent,
     prevText = "Previous",
@@ -85,7 +85,7 @@ const GlKeysetPagination = forwardRef<HTMLElement, GlKeysetPaginationProps>(
             data-testid="prevButton"
             disabled={disabled || !hasPreviousPage}
             href={prevButtonLink || undefined}
-            onClick={() => onPrev?.(startCursor)}>
+            onClick={() => onPrevious?.(startCursor)}>
             {previousButtonContent === undefined ? (
               <span className="gl-align-center gl-flex">
                 <GlIcon className="gl-mr-2" name="chevron-lg-left" />
