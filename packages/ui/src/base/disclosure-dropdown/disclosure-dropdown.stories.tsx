@@ -443,10 +443,10 @@ function ControlledCompositionExample() {
 
   return (
     <GlDisclosureDropdown open={open} onOpenChange={setOpen}>
-      <GlDisclosureDropdownTrigger
-        nativeButton
-        render={<button className="custom-story-trigger" type="button" />}>
-        Custom controlled trigger
+      <GlDisclosureDropdownTrigger asChild>
+        <button className="custom-story-trigger" type="button">
+          Custom controlled trigger
+        </button>
       </GlDisclosureDropdownTrigger>
       <GlDisclosureDropdownContent aria-label="Controlled actions">
         <GlDisclosureDropdownGroup>
@@ -464,7 +464,7 @@ function ControlledCompositionExample() {
   );
 }
 
-export const ControlledAndCustomRender: Story = {
+export const ControlledAndAsChild: Story = {
   render: () => <ControlledCompositionExample />,
   play: async ({ canvas }) => {
     const trigger = canvas.getByRole("button", { name: "Custom controlled trigger" });

@@ -35,8 +35,8 @@ function ModalExample({
   return (
     <div className="gl-p-5">
       <GlModal {...rootProps}>
-        <GlModalTrigger>
-          <GlButton category="primary" variant="confirm">Open modal</GlButton>
+        <GlModalTrigger category="primary" variant="confirm">
+          Open modal
         </GlModalTrigger>
         <GlModalContent {...contentProps}>
           <GlModalHeader>
@@ -90,7 +90,7 @@ function KeyedChildrenExample({ rootProps }: { rootProps: GlModalProps }) {
   return (
     <div className="gl-p-5">
       <GlModal {...rootProps}>
-        <GlModalTrigger><GlButton>Open modal</GlButton></GlModalTrigger>
+        <GlModalTrigger asChild><GlButton>Open modal</GlButton></GlModalTrigger>
         <GlModalContent>
           <GlModalHeader>
             <GlModalTitle>Keyed child actions</GlModalTitle>
@@ -225,7 +225,7 @@ export const CustomHeader: Story = {
   render: (args) => (
     <div className="gl-p-5">
       <GlModal {...args}>
-        <GlModalTrigger><GlButton>Open modal</GlButton></GlModalTrigger>
+        <GlModalTrigger asChild><GlButton>Open modal</GlButton></GlModalTrigger>
         <GlModalContent>
           <GlModalHeader>
             <span aria-hidden="true">Review:</span>
@@ -307,7 +307,7 @@ export const WithoutTitle: Story = {
   render: (args) => (
     <div className="gl-p-5">
       <GlModal {...args}>
-        <GlModalTrigger><GlButton>Open modal</GlButton></GlModalTrigger>
+        <GlModalTrigger asChild><GlButton>Open modal</GlButton></GlModalTrigger>
         <GlModalContent aria-label="Modal without a title">
           <GlModalHeader />
           <p>{loremIpsum}</p>

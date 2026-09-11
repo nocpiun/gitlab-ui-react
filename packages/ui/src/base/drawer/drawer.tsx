@@ -12,7 +12,6 @@
 import {
   Children,
   Fragment,
-  cloneElement,
   createContext,
   forwardRef,
   isValidElement,
@@ -21,10 +20,15 @@ import {
   type HTMLAttributes,
   type ReactElement,
   type ReactNode,
-  type Ref,
 } from "react";
 import { Dialog as BaseDialog } from "@base-ui/react/dialog";
 import { cva } from "class-variance-authority";
+import {
+  resolveTriggerContent,
+  resolveTriggerRender,
+  type GlTriggerAsChildProps,
+  type GlTriggerDefaultProps,
+} from "../../internal/trigger/trigger-composition";
 import { useMergedRefs } from "../../internal/utils/merge-refs";
 import GlButton from "../button/button";
 
@@ -43,12 +47,23 @@ export type GlDrawerProps = {
   open?: boolean;
 };
 
-export type GlDrawerTriggerProps = {
-  /** A single element that receives trigger behavior and ARIA attributes. */
-  children: ReactElement;
+type DrawerTriggerBaseProps = Omit<
+  BaseDialog.Trigger.Props,
+  "children" | "className" | "disabled" | "nativeButton" | "render" | "style"
+>;
+
+type DrawerDefaultTriggerProps = GlTriggerDefaultProps & {
+  nativeButton?: never;
+};
+
+type DrawerAsChildTriggerProps = GlTriggerAsChildProps & {
   /** Set to false when the child does not ultimately render a native button. */
   nativeButton?: BaseDialog.Trigger.Props["nativeButton"];
 };
+
+export type GlDrawerTriggerProps = DrawerTriggerBaseProps & (
+  DrawerDefaultTriggerProps | DrawerAsChildTriggerProps
+);
 
 type PopupProps = Omit<
   BaseDialog.Popup.Props,
@@ -364,15 +379,42 @@ export const GlDrawerFooter = forwardRef<HTMLDivElement, GlDrawerFooterProps>(
 );
 
 export const GlDrawerTrigger = forwardRef<HTMLElement, GlDrawerTriggerProps>(
-  function GlDrawerTrigger({ children, nativeButton = true }, forwardedRef) {
+  function GlDrawerTrigger({
+    asChild = false,
+    block = false,
+    category = "primary",
+    children,
+    className,
+    disabled = false,
+    icon,
+    loading = false,
+    nativeButton,
+    size = "medium",
+    style,
+    variant = "default",
+    ...triggerProps
+  }, forwardedRef) {
     useDrawerRootContext("GlDrawerTrigger");
-    const trigger = Children.only(children) as ReactElement<{ ref?: Ref<HTMLElement> }>;
-    const triggerRef = useMergedRefs(trigger.props.ref, forwardedRef);
+    const effectiveDisabled = disabled || loading;
+    const triggerRender = resolveTriggerRender(
+      "GlDrawerTrigger",
+      asChild,
+      children,
+      { block, category, disabled, icon, loading, size, variant },
+    );
+    const mergedRef = useMergedRefs(forwardedRef);
 
     return (
       <BaseDialog.Trigger
-        nativeButton={nativeButton}
-        render={cloneElement(trigger, { ref: triggerRef })} />
+        {...triggerProps}
+        ref={mergedRef}
+        className={className}
+        disabled={effectiveDisabled}
+        nativeButton={asChild ? nativeButton : true}
+        render={triggerRender}
+        style={style}>
+        {resolveTriggerContent(asChild, children)}
+      </BaseDialog.Trigger>
     );
   },
 );

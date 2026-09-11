@@ -54,7 +54,7 @@ function renderModal(
 ) {
   return renderToStaticMarkup(
     <GlModal {...props}>
-      <GlModalTrigger>
+      <GlModalTrigger asChild>
         <button type="button">Open modal</button>
       </GlModalTrigger>
       <GlModalContent {...contentProps}>{children}</GlModalContent>
@@ -63,6 +63,22 @@ function renderModal(
 }
 
 describe("GlModal", () => {
+  it("renders text inside a GitLab-styled default trigger", () => {
+    const markup = renderToStaticMarkup(
+      <GlModal>
+        <GlModalTrigger category="tertiary" variant="confirm">
+          Open default modal
+        </GlModalTrigger>
+      </GlModal>,
+    );
+
+    expect(markup.match(/<button/g)).toHaveLength(1);
+    expect(markup).toContain("gl-button");
+    expect(markup).toContain("btn-confirm-tertiary");
+    expect(markup).toContain("Open default modal");
+    expect(markup).toContain("aria-haspopup=\"dialog\"");
+  });
+
   it("composes the child element as a dialog trigger", () => {
     const markup = renderModal();
 
@@ -70,6 +86,44 @@ describe("GlModal", () => {
     expect(markup).toContain("Open modal</button>");
     expect(markup).toContain("aria-haspopup=\"dialog\"");
     expect(markup).not.toContain("aria-expanded=\"true\"");
+  });
+
+  it("merges trigger and child styles in asChild mode", () => {
+    const markup = renderToStaticMarkup(
+      <GlModal>
+        <GlModalTrigger
+          asChild
+          className="trigger-class"
+          style={{ backgroundColor: "red", color: "red" }}>
+          <button
+            className="child-class"
+            style={{ color: "blue" }}
+            type="button">
+            Styled modal
+          </button>
+        </GlModalTrigger>
+      </GlModal>,
+    );
+
+    expect(markup.match(/<button/g)).toHaveLength(1);
+    expect(markup).toContain("child-class trigger-class");
+    expect(markup).toContain("background-color:red;color:blue");
+  });
+
+  it("composes with GlButton as a single styled control", () => {
+    const markup = renderToStaticMarkup(
+      <GlModal>
+        <GlModalTrigger asChild className="trigger-class">
+          <GlButton className="child-class" variant="danger">
+            Delete from modal
+          </GlButton>
+        </GlModalTrigger>
+      </GlModal>,
+    );
+
+    expect(markup.match(/<button/g)).toHaveLength(1);
+    expect(markup).toContain("child-class trigger-class");
+    expect(markup).toContain("btn-danger");
   });
 
   it("accepts uncontrolled and controlled open state without changing hydration-safe SSR", () => {
@@ -86,7 +140,7 @@ describe("GlModal", () => {
     expect(renderToStaticMarkup(<GlModal />)).toBe("");
     expect(renderToStaticMarkup(
       <GlModal>
-        <GlModalTrigger><button type="button">Open</button></GlModalTrigger>
+        <GlModalTrigger asChild><button type="button">Open</button></GlModalTrigger>
       </GlModal>,
     )).toContain("Open");
   });
@@ -96,7 +150,7 @@ describe("GlModal", () => {
     const markup = renderToStaticMarkup(
       <GlModal>
         <Fragment>
-          <GlModalTrigger><button type="button">Open</button></GlModalTrigger>
+          <GlModalTrigger asChild><button type="button">Open</button></GlModalTrigger>
           {showContent && (
             <GlModalContent aria-label="Modal">
               <GlModalHeader />
@@ -115,8 +169,8 @@ describe("GlModal", () => {
     );
     expect(() => renderToStaticMarkup(
       <GlModal>
-        <GlModalTrigger><button type="button">One</button></GlModalTrigger>
-        <GlModalTrigger><button type="button">Two</button></GlModalTrigger>
+        <GlModalTrigger asChild><button type="button">One</button></GlModalTrigger>
+        <GlModalTrigger asChild><button type="button">Two</button></GlModalTrigger>
       </GlModal>,
     )).toThrowError("GlModal accepts at most one GlModalTrigger child.");
     expect(() => renderToStaticMarkup(
@@ -129,7 +183,7 @@ describe("GlModal", () => {
 
   it("requires every structural part to be in its documented context", () => {
     expect(() => renderToStaticMarkup(
-      <GlModalTrigger><button type="button">Open</button></GlModalTrigger>,
+      <GlModalTrigger asChild><button type="button">Open</button></GlModalTrigger>,
     )).toThrowError("GlModalTrigger must be used inside GlModal.");
     expect(() => renderToStaticMarkup(
       <GlModalContent aria-label="Modal"><GlModalHeader /></GlModalContent>,
@@ -158,7 +212,7 @@ describe("GlModal", () => {
 
     expect(() => renderToStaticMarkup(
       <GlModal>
-        <GlModalTrigger ref={triggerRef}>
+        <GlModalTrigger ref={triggerRef} asChild>
           <button type="button">Open</button>
         </GlModalTrigger>
         <GlModalContent ref={contentRef} title="Modal content">

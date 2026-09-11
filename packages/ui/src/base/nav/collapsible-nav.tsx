@@ -321,8 +321,8 @@ function ExternalCollapsibleNavToggle({
   );
 
   return (
-    <GlTooltip>
-      <GlTooltipTrigger>{button}</GlTooltipTrigger>
+    <GlTooltip disabled={provider.open && !provider.isDesktop}>
+      <GlTooltipTrigger asChild>{button}</GlTooltipTrigger>
       <GlTooltipContent boundary="viewport" placement="right">{label}</GlTooltipContent>
     </GlTooltip>
   );
@@ -404,7 +404,7 @@ function CollapsibleSubNav({
           open={flyoutOpen}
           triggers={["hover"]}>
           <ButtonOwnerContext.Provider value={flyoutOwner}>
-            <GlPopoverTrigger>{button}</GlPopoverTrigger>
+            <GlPopoverTrigger asChild>{button}</GlPopoverTrigger>
           </ButtonOwnerContext.Provider>
           <GlPopoverContent
             boundary="viewport"

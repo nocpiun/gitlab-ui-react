@@ -50,9 +50,7 @@ export const Default: Story = {
   render: (args) => (
     <div style={storyLayout}>
       <GlPopover {...args}>
-        <GlPopoverTrigger>
-          <GlButton>Popover</GlButton>
-        </GlPopoverTrigger>
+        <GlPopoverTrigger>Popover</GlPopoverTrigger>
         <GlPopoverContent>
           <GlPopoverTitle>Popover title</GlPopoverTitle>
           <span>A popover provides supplemental, useful information about an element.</span>
@@ -98,7 +96,7 @@ export const WithCloseButton: Story = {
   render: (args) => (
     <div style={storyLayout}>
       <GlPopover {...args} triggers={["click"]}>
-        <GlPopoverTrigger>
+        <GlPopoverTrigger asChild>
           <GlButton>Compliance framework</GlButton>
         </GlPopoverTrigger>
         <GlPopoverContent
@@ -129,7 +127,7 @@ export const TextLinks: Story = {
   render: (args) => (
     <div style={storyLayout}>
       <GlPopover {...args} triggers={["click"]}>
-        <GlPopoverTrigger>
+        <GlPopoverTrigger asChild>
           <GlButton id="text-links-popover-trigger">Learn about popovers</GlButton>
         </GlPopoverTrigger>
         <GlPopoverContent showCloseButton>
@@ -170,7 +168,7 @@ export const OnFocus: Story = {
   render: (args) => (
     <div style={storyLayout}>
       <GlPopover {...args} triggers={["focus"]}>
-        <GlPopoverTrigger>
+        <GlPopoverTrigger asChild>
           <GlButton>Focus trigger</GlButton>
         </GlPopoverTrigger>
         <GlPopoverContent>
@@ -199,7 +197,7 @@ export const OnClick: Story = {
   render: (args) => (
     <div style={storyLayout}>
       <GlPopover {...args} triggers={["click"]}>
-        <GlPopoverTrigger>
+        <GlPopoverTrigger asChild>
           <GlButton>Click trigger</GlButton>
         </GlPopoverTrigger>
         <GlPopoverContent>
@@ -228,7 +226,7 @@ export const NoFade: Story = {
   render: (args) => (
     <div style={storyLayout}>
       <GlPopover {...args}>
-        <GlPopoverTrigger>
+        <GlPopoverTrigger asChild>
           <GlButton>Popover without fade</GlButton>
         </GlPopoverTrigger>
         <GlPopoverContent noFade>
@@ -246,7 +244,7 @@ export const Disabled: Story = {
   render: (args) => (
     <div style={storyLayout}>
       <GlPopover {...args} disabled triggers={["click"]}>
-        <GlPopoverTrigger>
+        <GlPopoverTrigger asChild>
           <GlButton onClick={disabledPopoverTriggerClick}>Disabled popover</GlButton>
         </GlPopoverTrigger>
         <GlPopoverContent>
@@ -280,7 +278,7 @@ function ControlledManualPopover() {
         onOpenChange={setOpen}
         open={open}
         triggers={[]}>
-        <GlPopoverTrigger>
+        <GlPopoverTrigger asChild>
           <GlButton>Manual trigger</GlButton>
         </GlPopoverTrigger>
         <GlPopoverContent noFade>
@@ -313,7 +311,7 @@ export const InsideModal: Story = {
   render: (args) => (
     <div className="modal-content" data-testid="modal-content" style={storyLayout}>
       <GlPopover {...args} triggers={["click"]}>
-        <GlPopoverTrigger>
+        <GlPopoverTrigger asChild>
           <GlButton>Modal popover</GlButton>
         </GlPopoverTrigger>
         <GlPopoverContent>
@@ -340,7 +338,7 @@ export const Placements: Story = {
     <div className="gl-grid gl-grid-cols-2 gl-gap-12 gl-p-12">
       {placements.map((placement) => (
         <GlPopover key={placement} open triggers={[]}>
-          <GlPopoverTrigger>
+          <GlPopoverTrigger asChild>
             <GlButton>{placement}</GlButton>
           </GlPopoverTrigger>
           <GlPopoverContent noFade placement={placement}>

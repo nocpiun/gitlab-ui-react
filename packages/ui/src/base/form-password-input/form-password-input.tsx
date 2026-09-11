@@ -114,7 +114,7 @@ const GlFormPasswordInput = forwardRef<HTMLInputElement, GlFormPasswordInputProp
           type={isMasked ? "password" : "text"}
           value={value} />
         <GlTooltip>
-          <GlTooltipTrigger>
+          <GlTooltipTrigger asChild>
             <GlButton
               aria-label={toggleLabel}
               category="tertiary"

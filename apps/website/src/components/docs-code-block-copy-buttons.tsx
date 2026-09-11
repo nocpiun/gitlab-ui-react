@@ -40,7 +40,7 @@ function CodeCopyButton({ code, locale }: { code: string; locale: Locale }) {
 
   return (
     <GlTooltip>
-      <GlTooltipTrigger>
+      <GlTooltipTrigger asChild>
         <GlButton
           aria-label={label}
           category="tertiary"

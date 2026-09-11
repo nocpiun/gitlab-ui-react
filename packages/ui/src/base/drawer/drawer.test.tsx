@@ -45,7 +45,7 @@ function renderDrawer(
 ) {
   return renderToStaticMarkup(
     <GlDrawer {...props}>
-      <GlDrawerTrigger>
+      <GlDrawerTrigger asChild>
         <button type="button">Open drawer</button>
       </GlDrawerTrigger>
       <GlDrawerContent>{children}</GlDrawerContent>
@@ -54,6 +54,22 @@ function renderDrawer(
 }
 
 describe("GlDrawer", () => {
+  it("renders text inside a GitLab-styled default trigger", () => {
+    const markup = renderToStaticMarkup(
+      <GlDrawer>
+        <GlDrawerTrigger category="tertiary" variant="danger">
+          Open default drawer
+        </GlDrawerTrigger>
+      </GlDrawer>,
+    );
+
+    expect(markup.match(/<button/g)).toHaveLength(1);
+    expect(markup).toContain("gl-button");
+    expect(markup).toContain("btn-danger-tertiary");
+    expect(markup).toContain("Open default drawer");
+    expect(markup).toContain("aria-haspopup=\"dialog\"");
+  });
+
   it("composes the child element as a dialog trigger", () => {
     const markup = renderDrawer();
 
@@ -61,6 +77,28 @@ describe("GlDrawer", () => {
     expect(markup).toContain("Open drawer</button>");
     expect(markup).toContain("aria-haspopup=\"dialog\"");
     expect(markup).not.toContain("aria-expanded=\"true\"");
+  });
+
+  it("merges trigger and child styles in asChild mode", () => {
+    const markup = renderToStaticMarkup(
+      <GlDrawer>
+        <GlDrawerTrigger
+          asChild
+          className="trigger-class"
+          style={{ backgroundColor: "red", color: "red" }}>
+          <button
+            className="child-class"
+            style={{ color: "blue" }}
+            type="button">
+            Styled drawer
+          </button>
+        </GlDrawerTrigger>
+      </GlDrawer>,
+    );
+
+    expect(markup.match(/<button/g)).toHaveLength(1);
+    expect(markup).toContain("child-class trigger-class");
+    expect(markup).toContain("background-color:red;color:blue");
   });
 
   it("accepts uncontrolled and controlled open state without changing hydration-safe SSR", () => {
@@ -77,7 +115,7 @@ describe("GlDrawer", () => {
     expect(renderToStaticMarkup(<GlDrawer />)).toBe("");
     expect(renderToStaticMarkup(
       <GlDrawer>
-        <GlDrawerTrigger><button type="button">Open</button></GlDrawerTrigger>
+        <GlDrawerTrigger asChild><button type="button">Open</button></GlDrawerTrigger>
       </GlDrawer>,
     )).toContain("Open");
   });
@@ -87,7 +125,7 @@ describe("GlDrawer", () => {
     const markup = renderToStaticMarkup(
       <GlDrawer>
         <Fragment>
-          <GlDrawerTrigger><button type="button">Open</button></GlDrawerTrigger>
+          <GlDrawerTrigger asChild><button type="button">Open</button></GlDrawerTrigger>
           {showContent && (
             <GlDrawerContent aria-label="Drawer">
               <GlDrawerHeader />
@@ -106,8 +144,8 @@ describe("GlDrawer", () => {
     );
     expect(() => renderToStaticMarkup(
       <GlDrawer>
-        <GlDrawerTrigger><button type="button">One</button></GlDrawerTrigger>
-        <GlDrawerTrigger><button type="button">Two</button></GlDrawerTrigger>
+        <GlDrawerTrigger asChild><button type="button">One</button></GlDrawerTrigger>
+        <GlDrawerTrigger asChild><button type="button">Two</button></GlDrawerTrigger>
       </GlDrawer>,
     )).toThrowError("GlDrawer accepts at most one GlDrawerTrigger child.");
     expect(() => renderToStaticMarkup(
@@ -120,7 +158,7 @@ describe("GlDrawer", () => {
 
   it("requires trigger and content to be inside GlDrawer", () => {
     expect(() => renderToStaticMarkup(
-      <GlDrawerTrigger><button type="button">Open</button></GlDrawerTrigger>,
+      <GlDrawerTrigger asChild><button type="button">Open</button></GlDrawerTrigger>,
     )).toThrowError("GlDrawerTrigger must be used inside GlDrawer.");
     expect(() => renderToStaticMarkup(
       <GlDrawerContent aria-label="Drawer" />,
@@ -137,7 +175,7 @@ describe("GlDrawer", () => {
 
     expect(() => renderToStaticMarkup(
       <GlDrawer>
-        <GlDrawerTrigger ref={triggerRef}>
+        <GlDrawerTrigger ref={triggerRef} asChild>
           <button type="button">Open</button>
         </GlDrawerTrigger>
         <GlDrawerContent ref={contentRef} title="drawer">

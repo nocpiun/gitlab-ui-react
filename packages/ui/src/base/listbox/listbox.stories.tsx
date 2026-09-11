@@ -514,11 +514,11 @@ const CustomTrigger = forwardRef<
   );
 });
 
-export const CustomRenderAndValidation: Story = {
+export const AsChildAndValidation: Story = {
   render: () => (
     <GlListbox state={false}>
-      <GlListboxTrigger render={<CustomTrigger />}>
-        Custom trigger
+      <GlListboxTrigger asChild>
+        <CustomTrigger>Custom trigger</CustomTrigger>
       </GlListboxTrigger>
       <GlListboxContent panelMatchTriggerWidth>
         <GlListboxGroup>
