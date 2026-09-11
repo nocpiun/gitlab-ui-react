@@ -3,6 +3,7 @@ import { satteri } from "@astrojs/markdown-satteri";
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
+import pagefind from "astro-pagefind";
 import { defineConfig } from "astro/config";
 import { calloutsPlugin } from "./src/markdown/callouts.mjs";
 import { codeBlocksPlugin } from "./src/markdown/code-blocks.mjs";
@@ -23,7 +24,7 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
-  integrations: [react(), mdx()],
+  integrations: [react(), mdx(), pagefind()],
   markdown: {
     shikiConfig: {
       themes: {

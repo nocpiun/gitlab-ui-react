@@ -1,0 +1,48 @@
+:is(.site-search-trigger, .site-search-modal) {
+  --pf-text: var(--gl-text-color-default);
+  --pf-text-secondary: var(--gl-text-color-subtle);
+  --pf-text-muted: var(--gl-control-placeholder-color);
+  --pf-background: var(--gl-background-color-default);
+  --pf-border: var(--gl-border-color-default);
+  --pf-border-focus: var(--gl-control-border-color-hover);
+  --pf-skeleton: var(--gl-background-color-strong);
+  --pf-skeleton-shine: var(--gl-background-color-subtle);
+  --pf-hover: var(--gl-action-neutral-background-color-hover);
+  --pf-mark: var(--gl-text-color-strong);
+  --pf-scroll-shadow: var(--gl-shadow-color-default);
+  --pf-shadow-sm: var(--gl-shadow-sm);
+  --pf-shadow-md: var(--gl-shadow-md);
+  --pf-shadow-lg: var(--gl-shadow-lg);
+  --pf-error-bg: var(--gl-feedback-danger-background-color);
+  --pf-error-border: var(--gl-feedback-danger-border-color);
+  --pf-error-text: var(--gl-feedback-danger-text-color);
+  --pf-error-text-secondary: var(--gl-feedback-danger-text-color);
+  --pf-outline-focus: var(--gl-focus-ring-outer-color);
+  --pf-font: var(--gl-font-family-regular);
+  --pf-input-height: 2rem;
+  --pf-border-radius: var(--gl-border-radius-md);
+  --pf-modal-backdrop: var(--gl-background-color-overlay);
+  --pf-modal-max-width: min(42rem, calc(100vw - 2rem));
+}
+
+.site-search-trigger {
+  @apply block;
+}
+
+.site-search-trigger pagefind-modal-trigger {
+  @apply block w-full;
+}
+
+.site-search-trigger pagefind-modal-trigger button {
+  @apply rounded-[0.5rem]!;
+}
+
+.site-search-trigger .pf-trigger-text {
+  @apply min-w-0 overflow-hidden text-ellipsis whitespace-nowrap;
+}
+
+@media (max-width: 479px) {
+  .site-search-trigger .pf-trigger-shortcut {
+    @apply hidden!;
+  }
+}
