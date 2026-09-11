@@ -608,6 +608,7 @@ export const GlNavItem = forwardRef<HTMLLIElement, GlNavItemProps>(function GlNa
   }
 
   const subNavProps = getElementProps(subNav);
+  validateSubNavChildren(subNavProps.children);
   const onOpenChange = subNavProps.onOpenChange as GlSubNavProps["onOpenChange"];
   const open = typeof subNavProps.open === "boolean" ? subNavProps.open : undefined;
   const panelId = typeof subNavProps.id === "string" ? subNavProps.id : undefined;

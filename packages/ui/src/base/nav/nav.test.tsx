@@ -680,7 +680,7 @@ describe("composition errors", () => {
       <GlNav>
         <GlNavItem>
           <GlNavButton>Parent</GlNavButton>
-          <GlSubNav defaultOpen><span>Wrong</span></GlSubNav>
+          <GlSubNav><span>Wrong</span></GlSubNav>
         </GlNavItem>
       </GlNav>,
     )).toThrow("[GlSubNav] only accepts GlSubNavItem children.");
