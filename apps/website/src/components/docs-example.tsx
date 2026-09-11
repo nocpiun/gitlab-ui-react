@@ -1,4 +1,4 @@
-import type { ComponentType } from "react";
+import { type ComponentType, useId } from "react";
 import { GlButton, GlCard, GlCardContent, GlCardHeader, GlLink } from "gitlab-ui-react";
 import { createHighlighter } from "shiki";
 
@@ -12,10 +12,10 @@ export type DocsExampleProps = {
   storybookId?: string;
 };
 
-const exampleModules = import.meta.glob<ExampleModule>("@examples/*.tsx", {
+const exampleModules = import.meta.glob<ExampleModule>("@examples/**/*.tsx", {
   eager: true,
 });
-const exampleSources = import.meta.glob<string>("@examples/*.tsx", {
+const exampleSources = import.meta.glob<string>("@examples/**/*.tsx", {
   eager: true,
   import: "default",
   query: "?raw",
@@ -29,29 +29,38 @@ const sourceHighlighter = await createHighlighter({
   themes: Object.values(sourceCodeThemes),
 });
 
-function filenameFromPath(path: string) {
-  return path.slice(path.lastIndexOf("/") + 1);
+function relativeExamplePath(path: string) {
+  const normalizedPath = path.replaceAll("\\", "/");
+  const examplesDirectory = "examples/";
+  const directoryIndex = normalizedPath.lastIndexOf(examplesDirectory);
+
+  if(directoryIndex === -1) {
+    throw new Error(`[DocsExample] Unable to resolve example path "${path}".`);
+  }
+
+  return normalizedPath.slice(directoryIndex + examplesDirectory.length);
 }
 
-const examplesByFilename = new Map(
+const examplesByPath = new Map(
   Object.entries(exampleModules).map(([path, module]) => [
-    filenameFromPath(path),
+    relativeExamplePath(path),
     module.default,
   ]),
 );
-const highlightedSourcesByFilename = new Map(
+const highlightedSourcesByPath = new Map(
   Object.entries(exampleSources).map(([path, source]) => [
-    filenameFromPath(path),
+    relativeExamplePath(path),
     sourceHighlighter.codeToHtml(source, { lang: "tsx", themes: sourceCodeThemes }),
   ]),
 );
 
 export function DocsExample({ filename, title, storybookId }: DocsExampleProps) {
-  const Example = examplesByFilename.get(filename);
-  const highlightedSource = highlightedSourcesByFilename.get(filename);
+  const sourceId = useId();
+  const Example = examplesByPath.get(filename);
+  const highlightedSource = highlightedSourcesByPath.get(filename);
 
   if(!Example || highlightedSource === undefined) {
-    const availableExamples = [...examplesByFilename.keys()].sort().join(", ");
+    const availableExamples = [...examplesByPath.keys()].sort().join(", ");
     throw new Error(
       `[DocsExample] Unknown example file "${filename}". Available files: ${availableExamples}`,
     );
@@ -71,9 +80,12 @@ export function DocsExample({ filename, title, storybookId }: DocsExampleProps) 
             </GlLink>
           )}
           <GlButton
+            aria-controls={sourceId}
+            aria-label={`Show source code for ${title}`}
             aria-pressed="false"
             category="tertiary"
             data-docs-example-toggle
+            data-docs-example-title={title}
             size="small"
             icon="code"/>
         </div>
@@ -82,6 +94,7 @@ export function DocsExample({ filename, title, storybookId }: DocsExampleProps) 
         <Example />
       </GlCardContent>
       <div
+        id={sourceId}
         className="docs-example-source mt-3"
         data-docs-example-source
         dangerouslySetInnerHTML={{ __html: highlightedSource }}
