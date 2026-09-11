@@ -342,7 +342,7 @@ function NativeRadioGroupResetExample({
 export const NativeRadioGroupFormReset: Story = {
   render: (args) => <NativeRadioGroupResetExample onValueChange={args.onValueChange} />,
   play: async ({ args, canvas }) => {
-    args.onValueChange.mockClear();
+    args.onValueChange?.mockClear();
     const pizza = canvas.getByRole("radio", { name: "Pizza" });
     const tacos = canvas.getByRole("radio", { name: "Tacos" });
 

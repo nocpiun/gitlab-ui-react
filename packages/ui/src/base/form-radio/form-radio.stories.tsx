@@ -226,7 +226,7 @@ export const NativeRadioFormReset: Story = {
   },
   render: (args) => <NativeRadioResetExample onCheckedChange={args.onCheckedChange} />,
   play: async ({ args, canvas }) => {
-    args.onCheckedChange.mockClear();
+    args.onCheckedChange?.mockClear();
     const one = canvas.getByRole("radio", { name: "One" });
     const two = canvas.getByRole("radio", { name: "Two" });
 

@@ -355,7 +355,7 @@ export const NativeCheckboxFormReset: Story = {
   },
   render: (args) => <NativeCheckboxResetExample onCheckedChange={args.onCheckedChange} />,
   play: async ({ args, canvas }) => {
-    args.onCheckedChange.mockClear();
+    args.onCheckedChange?.mockClear();
     const checkbox = canvas.getByRole("checkbox", { name: "Standalone checkbox" });
 
     await userEvent.click(checkbox);
