@@ -27,8 +27,10 @@
 
 import {
   useCallback,
+  useEffect,
   useId,
   useMemo,
+  useRef,
   useState,
   type HTMLAttributes,
   type ReactNode,
@@ -119,17 +121,49 @@ export default function GlFormRadioGroup({
   const isControlled = value !== undefined;
   const [uncontrolledValue, setUncontrolledValue] = useState<unknown>(defaultValue);
   const selectedValue = isControlled ? value : uncontrolledValue;
+  const groupRef = useRef<HTMLDivElement | null>(null);
+  const selectedValueRef = useRef(selectedValue);
 
   const computedState = typeof state === "boolean" ? state : null;
   const computedAriaInvalid = normalizeAriaInvalid(ariaInvalid, computedState);
 
-  const select = useCallback((value: unknown) => {
-    if(looseEqual(value, selectedValue)) return;
-    if(!isControlled) setUncontrolledValue(value);
-    onValueChange?.(value);
-  }, [isControlled, onValueChange, selectedValue]);
+  // Uncontrolled radios are reset by the browser. Keep the group's model in
+  // sync so later radio interactions start from the restored selection.
+  useEffect(() => {
+    if(isControlled) return undefined;
+
+    const groupElement = groupRef.current;
+    const associatedForm = groupElement?.closest("form");
+    if(!groupElement || !associatedForm) return undefined;
+
+    const handleReset = (event: Event) => {
+      const previousValue = selectedValueRef.current;
+      selectedValueRef.current = defaultValue;
+      queueMicrotask(() => {
+        if(event.defaultPrevented) {
+          selectedValueRef.current = previousValue;
+        } else if(groupRef.current === groupElement) {
+          setUncontrolledValue(defaultValue);
+        }
+      });
+    };
+    associatedForm.addEventListener("reset", handleReset);
+    return () => associatedForm.removeEventListener("reset", handleReset);
+  }, [defaultValue, isControlled]);
+
+  const select = useCallback((nextValue: unknown) => {
+    const currentValue = isControlled ? value : selectedValueRef.current;
+    if(looseEqual(nextValue, currentValue)) return;
+    if(!isControlled) {
+      selectedValueRef.current = nextValue;
+      setUncontrolledValue(nextValue);
+    }
+    onValueChange?.(nextValue);
+  }, [isControlled, onValueChange, value]);
 
   const contextValue = useMemo<GlFormRadioGroupContextValue>(() => ({
+    defaultValue,
+    isControlled,
     value: selectedValue,
     disabled,
     // Radios tied to the same model must have the same name, especially for
@@ -138,7 +172,17 @@ export default function GlFormRadioGroup({
     required,
     select,
     state: computedState,
-  }), [selectedValue, disabled, name, internalId, required, select, computedState]);
+  }), [
+    defaultValue,
+    isControlled,
+    selectedValue,
+    disabled,
+    name,
+    internalId,
+    required,
+    select,
+    computedState,
+  ]);
 
   const formOptions = normalizeFormOptions(options);
 
@@ -146,6 +190,7 @@ export default function GlFormRadioGroup({
     <GlFormRadioGroupContext.Provider value={contextValue}>
       <div
         {...elementProps}
+        ref={groupRef}
         aria-invalid={computedAriaInvalid}
         aria-required={required || undefined}
         className={clsx("gl-form-radio-group gl-outline-none", className)}

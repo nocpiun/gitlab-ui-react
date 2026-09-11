@@ -52,9 +52,10 @@ export const GlListboxSearchInput = forwardRef<
   const setSearchInputId = contentContext?.setSearchInputId;
   const setSearchInputElement = contentContext?.setSearchInputElement;
   const setSearchValue = contentContext?.setSearchValue;
+  const isControlled = value !== undefined;
   const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
   const [inputElement, setInputElement] = useState<HTMLInputElement | null>(null);
-  const actualValue = value ?? uncontrolledValue;
+  const actualValue = isControlled ? value : uncontrolledValue;
   const actualId = id ?? contentContext?.searchInputId;
   const mergedRef = useMergedRefs(forwardedRef, setInputElement);
 
@@ -73,11 +74,31 @@ export const GlListboxSearchInput = forwardRef<
     setSearchValue?.(actualValue);
   }, [actualValue, setSearchValue]);
 
+  // Leave the DOM value uncontrolled when `value` is omitted. After a native
+  // form reset, mirror the browser-owned value into the derived search state.
+  useEffect(() => {
+    if(isControlled || !inputElement) return undefined;
+
+    const syncValue = () => setUncontrolledValue(inputElement.value);
+    syncValue();
+
+    const associatedForm = inputElement.form;
+    if(!associatedForm) return undefined;
+
+    const handleReset = (event: Event) => {
+      queueMicrotask(() => {
+        if(!event.defaultPrevented) syncValue();
+      });
+    };
+    associatedForm.addEventListener("reset", handleReset);
+    return () => associatedForm.removeEventListener("reset", handleReset);
+  }, [defaultValue, inputElement, inputProps.form, isControlled]);
+
   const changeValue = useCallback((nextValue: string) => {
-    if(value === undefined) setUncontrolledValue(nextValue);
+    if(!isControlled) setUncontrolledValue(nextValue);
     setSearchValue?.(nextValue);
     onValueChange?.(nextValue);
-  }, [onValueChange, setSearchValue, value]);
+  }, [isControlled, onValueChange, setSearchValue]);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     onChange?.(event);
@@ -102,6 +123,7 @@ export const GlListboxSearchInput = forwardRef<
   const handleClear: MouseEventHandler<HTMLElement> = (event) => {
     event.preventDefault();
     event.stopPropagation();
+    if(!isControlled && inputElement) inputElement.value = "";
     changeValue("");
     inputElement?.focus();
   };
@@ -127,13 +149,14 @@ export const GlListboxSearchInput = forwardRef<
           aria-label={ariaLabel ?? placeholder}
           className={clsx("gl-listbox-search-input", className)}
           disabled={disabled}
+          defaultValue={isControlled ? undefined : defaultValue}
           id={actualId}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           role="combobox"
           type="search"
-          value={actualValue} />
+          value={isControlled ? actualValue : undefined} />
         {actualValue ? (
           <GlButton
             aria-label={clearLabel}

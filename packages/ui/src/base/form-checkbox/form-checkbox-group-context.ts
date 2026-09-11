@@ -15,6 +15,12 @@ export interface GlFormCheckboxGroupContextValue {
   ariaDescribedby?: string;
   /** Group-level `aria-labelledby`, applied like `ariaDescribedby`. */
   ariaLabelledby?: string;
+  /** The group's initial selected values, used by uncontrolled checkboxes. */
+  defaultValue: unknown[];
+  /** Whether the group owns its checked state through the `value` prop. */
+  isControlled: boolean;
+  /** Returns the latest selected values, including pending uncontrolled updates. */
+  getValue: () => unknown[];
   /** The group's current selected values. */
   value: unknown[];
   /** Whether the whole group is disabled. */

@@ -36,7 +36,6 @@ import {
   useEffect,
   useId,
   useRef,
-  useState,
   type ChangeEvent,
   type InputHTMLAttributes,
   type ReactNode,
@@ -115,6 +114,7 @@ const GlFormCheckbox = forwardRef<HTMLInputElement, GlFormCheckboxProps>(functio
   className,
   defaultChecked = false,
   disabled = false,
+  form,
   help,
   id,
   indeterminate = false,
@@ -134,11 +134,13 @@ const GlFormCheckbox = forwardRef<HTMLInputElement, GlFormCheckboxProps>(functio
   const group = useContext(GlFormCheckboxGroupContext);
   const isGroup = group !== null;
 
-  const isControlled = checked !== undefined;
-  const [uncontrolledChecked, setUncontrolledChecked] = useState(defaultChecked);
-  const isChecked = isGroup
+  const isControlled = isGroup ? group.isControlled : checked !== undefined;
+  const controlledChecked = isGroup
     ? looseIndexOf(group.value, value) > -1
-    : isControlled ? checked : uncontrolledChecked;
+    : checked;
+  const initialChecked = isGroup
+    ? looseIndexOf(group.defaultValue, value) > -1
+    : defaultChecked;
 
   // Inside a group, the group's validation state wins (upstream's
   // `computedState` reads `group.computedState`).
@@ -164,24 +166,44 @@ const GlFormCheckbox = forwardRef<HTMLInputElement, GlFormCheckboxProps>(functio
     }
   }, [indeterminate, isGroup]);
 
+  // Native form reset bypasses React's checked-value tracker. Synchronize it
+  // after the browser restores defaultChecked so the next change is observed.
+  useEffect(() => {
+    if(isControlled) return undefined;
+
+    const input = inputRef.current;
+    const associatedForm = input?.form;
+    if(!input || !associatedForm) return undefined;
+
+    const handleReset = (event: Event) => {
+      queueMicrotask(() => {
+        if(!event.defaultPrevented && inputRef.current === input) {
+          const resetChecked = input.checked;
+          input.checked = resetChecked;
+        }
+      });
+    };
+    associatedForm.addEventListener("reset", handleReset);
+    return () => associatedForm.removeEventListener("reset", handleReset);
+  }, [form, isControlled]);
+
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const { checked: targetChecked, indeterminate: targetIndeterminate } = event.target;
     onChange?.(event);
     if(event.defaultPrevented) return;
 
     if(isGroup) {
-      const index = looseIndexOf(group.value, value);
+      const groupValue = group.getValue();
+      const index = looseIndexOf(groupValue, value);
       let nextValue: unknown[];
       if(targetChecked && index < 0) {
-        nextValue = [...group.value, value];
+        nextValue = [...groupValue, value];
       } else if(!targetChecked && index > -1) {
-        nextValue = [...group.value.slice(0, index), ...group.value.slice(index + 1)];
+        nextValue = [...groupValue.slice(0, index), ...groupValue.slice(index + 1)];
       } else {
-        nextValue = [...group.value];
+        nextValue = [...groupValue];
       }
       group.updateValue(nextValue);
-    } else {
-      if(!isControlled) setUncontrolledChecked(targetChecked);
     }
 
     onCheckedChange?.(targetChecked);
@@ -199,11 +221,13 @@ const GlFormCheckbox = forwardRef<HTMLInputElement, GlFormCheckboxProps>(functio
         aria-label={ariaLabel}
         aria-labelledby={computedAriaLabelledby}
         aria-required={isRequired || undefined}
-        checked={isChecked}
+        checked={isControlled ? controlledChecked : undefined}
         className={inputVariants({
           state: computedState === true ? "valid" : computedState === false ? "invalid" : "none",
         })}
         disabled={isDisabled}
+        defaultChecked={isControlled ? undefined : initialChecked}
+        form={form}
         id={inputId}
         name={computedName}
         onChange={handleChange}

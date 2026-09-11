@@ -31,8 +31,10 @@
 
 import {
   useCallback,
+  useEffect,
   useId,
   useMemo,
+  useRef,
   useState,
   type HTMLAttributes,
   type ReactNode,
@@ -126,23 +128,62 @@ export default function GlFormCheckboxGroup({
   const isControlled = value !== undefined;
   const [uncontrolledValue, setUncontrolledValue] = useState<unknown[]>(() => [...defaultValue]);
   const selectedValue = isControlled ? value : uncontrolledValue;
+  const groupRef = useRef<HTMLDivElement | null>(null);
+  const selectedValueRef = useRef(selectedValue);
 
   const computedState = typeof state === "boolean" ? state : null;
   const computedAriaInvalid = normalizeAriaInvalid(ariaInvalid, computedState);
 
+  // Uncontrolled checkboxes are reset by the browser. Keep the group's model
+  // in sync so later checkbox interactions start from the restored selection.
+  useEffect(() => {
+    if(isControlled) return undefined;
+
+    const groupElement = groupRef.current;
+    const associatedForm = groupElement?.closest("form");
+    if(!groupElement || !associatedForm) return undefined;
+
+    const handleReset = (event: Event) => {
+      const previousValue = selectedValueRef.current;
+      const nextValue = [...defaultValue];
+      selectedValueRef.current = nextValue;
+      queueMicrotask(() => {
+        if(event.defaultPrevented) {
+          selectedValueRef.current = previousValue;
+        } else if(groupRef.current === groupElement) {
+          setUncontrolledValue(nextValue);
+        }
+      });
+    };
+    associatedForm.addEventListener("reset", handleReset);
+    return () => associatedForm.removeEventListener("reset", handleReset);
+  }, [defaultValue, isControlled]);
+
   // Upstream only emits for actual selection changes, so loosely equal
   // updates are ignored here as well.
   const updateValue = useCallback((nextValue: unknown[]) => {
-    if(looseEqual(nextValue, selectedValue)) {
+    const currentValue = isControlled ? value : selectedValueRef.current;
+    if(looseEqual(nextValue, currentValue)) {
       return;
     }
-    if(!isControlled) setUncontrolledValue(nextValue);
+    if(!isControlled) {
+      selectedValueRef.current = nextValue;
+      setUncontrolledValue(nextValue);
+    }
     onValueChange?.(nextValue);
-  }, [isControlled, onValueChange, selectedValue]);
+  }, [isControlled, onValueChange, value]);
+
+  const getValue = useCallback(
+    () => isControlled ? value : selectedValueRef.current,
+    [isControlled, value],
+  );
 
   const contextValue = useMemo<GlFormCheckboxGroupContextValue>(() => ({
     ariaDescribedby,
     ariaLabelledby,
+    defaultValue,
+    getValue,
+    isControlled,
     value: selectedValue,
     disabled,
     // Checkboxes tied to the same model must have the same name, especially
@@ -154,6 +195,9 @@ export default function GlFormCheckboxGroup({
   }), [
     ariaDescribedby,
     ariaLabelledby,
+    defaultValue,
+    getValue,
+    isControlled,
     selectedValue,
     disabled,
     name,
@@ -169,6 +213,7 @@ export default function GlFormCheckboxGroup({
     <GlFormCheckboxGroupContext.Provider value={contextValue}>
       <div
         {...elementProps}
+        ref={groupRef}
         aria-invalid={computedAriaInvalid}
         aria-required={required || undefined}
         className={clsx("gl-form-checkbox-group gl-outline-none", className)}

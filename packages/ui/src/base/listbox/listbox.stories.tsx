@@ -675,3 +675,48 @@ export const InfiniteScrollReobservesAfterItemsChange: Story = {
     );
   },
 };
+
+function NativeSearchResetExample() {
+  const [, rerender] = useState(0);
+  const formId = "listbox-search-reset-form";
+
+  return (
+    <>
+      <form id={formId} />
+      <GlListbox defaultOpen>
+        <GlListboxTrigger>Search reset example</GlListboxTrigger>
+        <GlListboxContent>
+          <GlListboxSearchInput
+            defaultValue="back"
+            form={formId}
+            placeholder="Resettable search" />
+          <GlListboxGroup>
+            <GlListboxItem value="backend">Backend</GlListboxItem>
+          </GlListboxGroup>
+          <GlListboxFooter>
+            <button form={formId} type="reset">Reset search</button>
+            <button onClick={() => rerender((count) => count + 1)} type="button">
+              Rerender search
+            </button>
+          </GlListboxFooter>
+        </GlListboxContent>
+      </GlListbox>
+    </>
+  );
+}
+
+export const NativeSearchInputFormReset: Story = {
+  render: () => <NativeSearchResetExample />,
+  play: async ({ canvas }) => {
+    const search = await canvas.findByRole("combobox", { name: "Resettable search" });
+
+    await userEvent.clear(search);
+    await userEvent.type(search, "front");
+    await expect(search).toHaveValue("front");
+
+    await userEvent.click(canvas.getByRole("button", { name: "Reset search" }));
+    await waitFor(() => expect(search).toHaveValue("back"));
+    await userEvent.click(canvas.getByRole("button", { name: "Rerender search" }));
+    await expect(search).toHaveValue("back");
+  },
+};

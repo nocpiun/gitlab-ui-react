@@ -29,8 +29,9 @@
 import {
   forwardRef,
   useContext,
+  useEffect,
   useId,
-  useState,
+  useRef,
   type ChangeEvent,
   type InputHTMLAttributes,
   type ReactNode,
@@ -38,6 +39,7 @@ import {
 import { cva } from "class-variance-authority";
 import { clsx } from "cn";
 import { looseEqual } from "../../internal/form/equality-utils";
+import { mergeRefs } from "../../internal/utils/merge-refs";
 import { GlFormRadioGroupContext } from "../form-radio-group/form-radio-group-context";
 
 type RadioElementProps = Omit<
@@ -98,6 +100,7 @@ const GlFormRadio = forwardRef<HTMLInputElement, GlFormRadioProps>(function GlFo
   className,
   defaultChecked = false,
   disabled = false,
+  form,
   help,
   id,
   name,
@@ -110,15 +113,14 @@ const GlFormRadio = forwardRef<HTMLInputElement, GlFormRadioProps>(function GlFo
 }, forwardedRef) {
   const generatedId = useId().replace(/[^a-zA-Z0-9_-]/g, "");
   const inputId = id || `gitlab_ui_radio_${generatedId}`;
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const group = useContext(GlFormRadioGroupContext);
   const isGroup = group !== null;
 
-  const isControlled = checked !== undefined;
-  const [uncontrolledChecked, setUncontrolledChecked] = useState(defaultChecked);
-  const isChecked = isGroup
-    ? looseEqual(group.value, value)
-    : isControlled ? checked : uncontrolledChecked;
+  const isControlled = isGroup ? group.isControlled : checked !== undefined;
+  const controlledChecked = isGroup ? looseEqual(group.value, value) : checked;
+  const initialChecked = isGroup ? looseEqual(group.defaultValue, value) : defaultChecked;
 
   // Inside a group, the group's validation state wins (upstream's
   // `computedState` reads `group.computedState`).
@@ -132,14 +134,33 @@ const GlFormRadio = forwardRef<HTMLInputElement, GlFormRadioProps>(function GlFo
   // only be required when its group is.
   const isRequired = Boolean(computedName) && (isGroup ? group.required : required);
 
+  // Native form reset bypasses React's checked-value tracker. Synchronize it
+  // after the browser restores defaultChecked so the next change is observed.
+  useEffect(() => {
+    if(isControlled) return undefined;
+
+    const input = inputRef.current;
+    const associatedForm = input?.form;
+    if(!input || !associatedForm) return undefined;
+
+    const handleReset = (event: Event) => {
+      queueMicrotask(() => {
+        if(!event.defaultPrevented && inputRef.current === input) {
+          const resetChecked = input.checked;
+          input.checked = resetChecked;
+        }
+      });
+    };
+    associatedForm.addEventListener("reset", handleReset);
+    return () => associatedForm.removeEventListener("reset", handleReset);
+  }, [form, isControlled]);
+
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     onChange?.(event);
     if(event.defaultPrevented) return;
 
     if(isGroup) {
       group.select(value);
-    } else if(!isControlled) {
-      setUncontrolledChecked(event.target.checked);
     }
     onCheckedChange?.(event.target.checked);
   }
@@ -149,14 +170,16 @@ const GlFormRadio = forwardRef<HTMLInputElement, GlFormRadioProps>(function GlFo
       className={clsx("gl-form-radio custom-radio custom-control", className)}>
       <input
         {...elementProps}
-        ref={forwardedRef}
+        ref={mergeRefs(inputRef, forwardedRef)}
         aria-invalid={computedState === false ? "true" : undefined}
         aria-required={isRequired || undefined}
-        checked={isChecked}
+        checked={isControlled ? controlledChecked : undefined}
         className={inputVariants({
           state: computedState === true ? "valid" : computedState === false ? "invalid" : "none",
         })}
         disabled={isDisabled}
+        defaultChecked={isControlled ? undefined : initialChecked}
+        form={form}
         id={inputId}
         name={computedName}
         onChange={handleChange}

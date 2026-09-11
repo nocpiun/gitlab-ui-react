@@ -318,3 +318,51 @@ export const HtmlOptionHydration: Story = {
     }
   },
 };
+
+function NativeRadioGroupResetExample({
+  onValueChange,
+}: Pick<GlFormRadioGroupProps, "onValueChange">) {
+  const [, rerender] = useState(0);
+
+  return (
+    <form>
+      <GlFormRadioGroup
+        defaultValue="pizza"
+        name="native-radio-group"
+        onValueChange={onValueChange}
+        options={defaultOptions} />
+      <button type="reset">Reset radio group</button>
+      <button onClick={() => rerender((count) => count + 1)} type="button">
+        Rerender radio group
+      </button>
+    </form>
+  );
+}
+
+export const NativeRadioGroupFormReset: Story = {
+  render: (args) => <NativeRadioGroupResetExample onValueChange={args.onValueChange} />,
+  play: async ({ args, canvas }) => {
+    args.onValueChange.mockClear();
+    const pizza = canvas.getByRole("radio", { name: "Pizza" });
+    const tacos = canvas.getByRole("radio", { name: "Tacos" });
+
+    await userEvent.click(tacos);
+    await expect(pizza).not.toBeChecked();
+    await expect(tacos).toBeChecked();
+
+    await userEvent.click(canvas.getByRole("button", { name: "Reset radio group" }));
+    await waitFor(() => expect(pizza).toBeChecked());
+    await expect(tacos).not.toBeChecked();
+    await userEvent.click(canvas.getByRole("button", { name: "Rerender radio group" }));
+    await expect(pizza).toBeChecked();
+    await expect(tacos).not.toBeChecked();
+
+    const resetTacos = canvas.getByRole("radio", { name: "Tacos" });
+    await expect(resetTacos).not.toBeDisabled();
+    await expect(resetTacos).not.toBeChecked();
+    await userEvent.click(resetTacos);
+    await expect(resetTacos).toBeChecked();
+    await expect(args.onValueChange).toHaveBeenCalledTimes(2);
+    await expect(args.onValueChange).toHaveBeenLastCalledWith("tacos");
+  },
+};

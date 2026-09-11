@@ -8,6 +8,10 @@
 import { createContext } from "react";
 
 export interface GlFormRadioGroupContextValue {
+  /** The group's initial selected value, used by uncontrolled radios. */
+  defaultValue: unknown;
+  /** Whether the group owns its checked state through the `value` prop. */
+  isControlled: boolean;
   /** The group's current selected value. */
   value: unknown;
   /** Whether the whole group is disabled. */

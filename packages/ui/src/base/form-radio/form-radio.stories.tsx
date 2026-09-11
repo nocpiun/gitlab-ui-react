@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { expect, fn, userEvent } from "storybook/test";
+import { expect, fn, userEvent, waitFor } from "storybook/test";
 import GlFormRadio, { type GlFormRadioProps } from "./form-radio";
 
 const meta = {
@@ -192,5 +192,58 @@ export const Required: Story = {
     await expect(input).toBeRequired();
     await expect(input).toHaveAttribute("aria-required", "true");
     await expect(input).toHaveAttribute("name", "required-option");
+  },
+};
+
+function NativeRadioResetExample({
+  onCheckedChange,
+}: Pick<GlFormRadioProps, "onCheckedChange">) {
+  const [, rerender] = useState(0);
+
+  return (
+    <form>
+      <GlFormRadio
+        defaultChecked
+        name="native-radio"
+        onCheckedChange={onCheckedChange}
+        value="one">
+        One
+      </GlFormRadio>
+      <GlFormRadio name="native-radio" onCheckedChange={onCheckedChange} value="two">
+        Two
+      </GlFormRadio>
+      <button type="reset">Reset radios</button>
+      <button onClick={() => rerender((count) => count + 1)} type="button">
+        Rerender radios
+      </button>
+    </form>
+  );
+}
+
+export const NativeRadioFormReset: Story = {
+  args: {
+    children: undefined,
+  },
+  render: (args) => <NativeRadioResetExample onCheckedChange={args.onCheckedChange} />,
+  play: async ({ args, canvas }) => {
+    args.onCheckedChange.mockClear();
+    const one = canvas.getByRole("radio", { name: "One" });
+    const two = canvas.getByRole("radio", { name: "Two" });
+
+    await userEvent.click(two);
+    await expect(one).not.toBeChecked();
+    await expect(two).toBeChecked();
+
+    await userEvent.click(canvas.getByRole("button", { name: "Reset radios" }));
+    await waitFor(() => expect(one).toBeChecked());
+    await expect(two).not.toBeChecked();
+    await userEvent.click(canvas.getByRole("button", { name: "Rerender radios" }));
+    await expect(one).toBeChecked();
+    await expect(two).not.toBeChecked();
+
+    const resetTwo = canvas.getByRole("radio", { name: "Two" });
+    await userEvent.click(resetTwo);
+    await expect(args.onCheckedChange).toHaveBeenCalledTimes(2);
+    await expect(args.onCheckedChange).toHaveBeenLastCalledWith(true);
   },
 };

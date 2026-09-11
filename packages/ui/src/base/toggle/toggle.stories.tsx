@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState, type CSSProperties } from "react";
-import { expect, fn, userEvent } from "storybook/test";
+import { expect, fn, userEvent, waitFor } from "storybook/test";
 import GlToggle, { type GlToggleLabelPosition, type GlToggleProps } from "./toggle";
 
 const labelPositions = [
@@ -179,5 +179,37 @@ export const AllVariants: Story = {
     await expect(toggles[0]).toHaveAttribute("aria-checked", "true");
     await expect(toggles[2]).toHaveAttribute("aria-disabled", "true");
     await expect(toggles[4].querySelector(".gl-spinner")).not.toBeNull();
+  },
+};
+
+function NativeToggleResetExample() {
+  const [, rerender] = useState(0);
+
+  return (
+    <form>
+      <GlToggle defaultValue label="Resettable toggle" name="feature" />
+      <button type="reset">Reset toggle</button>
+      <button onClick={() => rerender((count) => count + 1)} type="button">
+        Rerender toggle
+      </button>
+    </form>
+  );
+}
+
+export const NativeFormReset: Story = {
+  render: () => <NativeToggleResetExample />,
+  play: async ({ canvas }) => {
+    const toggle = canvas.getByRole("switch", { name: "Resettable toggle" });
+    const hiddenInput = canvas.getByDisplayValue("true");
+
+    await userEvent.click(toggle);
+    await expect(toggle).toHaveAttribute("aria-checked", "false");
+    await expect(hiddenInput).toHaveValue("false");
+
+    await userEvent.click(canvas.getByRole("button", { name: "Reset toggle" }));
+    await waitFor(() => expect(toggle).toHaveAttribute("aria-checked", "true"));
+    await expect(hiddenInput).toHaveValue("true");
+    await userEvent.click(canvas.getByRole("button", { name: "Rerender toggle" }));
+    await expect(toggle).toHaveAttribute("aria-checked", "true");
   },
 };

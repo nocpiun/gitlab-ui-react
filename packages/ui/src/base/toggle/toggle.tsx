@@ -5,7 +5,9 @@
 
 import {
   forwardRef,
+  useEffect,
   useId,
+  useRef,
   useState,
   type HTMLAttributes,
   type MouseEvent,
@@ -115,6 +117,28 @@ const GlToggle = forwardRef<HTMLButtonElement, GlToggleProps>(function GlToggle(
   const isControlled = value !== undefined;
   const [uncontrolledValue, setUncontrolledValue] = useState(Boolean(defaultValue));
   const checked = isControlled ? value : uncontrolledValue;
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+
+  // A toggle is a composite control, so the browser cannot reset its React
+  // state through the hidden input. Restore the uncontrolled state when its
+  // containing form is reset.
+  useEffect(() => {
+    if(isControlled) return undefined;
+
+    const wrapper = wrapperRef.current;
+    const associatedForm = wrapper?.closest("form");
+    if(!wrapper || !associatedForm) return undefined;
+
+    const handleReset = (event: Event) => {
+      queueMicrotask(() => {
+        if(!event.defaultPrevented && wrapperRef.current === wrapper) {
+          setUncontrolledValue(Boolean(defaultValue));
+        }
+      });
+    };
+    associatedForm.addEventListener("reset", handleReset);
+    return () => associatedForm.removeEventListener("reset", handleReset);
+  }, [defaultValue, isControlled]);
 
   const isVerticalLayout = labelPosition !== "left";
   const shouldRenderDescription = Boolean(description) && isVerticalLayout;
@@ -132,6 +156,7 @@ const GlToggle = forwardRef<HTMLButtonElement, GlToggleProps>(function GlToggle(
   return (
     <div
       {...elementProps}
+      ref={wrapperRef}
       className={wrapperVariants({
         className,
         disabled,
