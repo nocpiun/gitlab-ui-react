@@ -43,6 +43,11 @@ const navigationItems: DocsNavigationItem[] = [
     title: "Introduction",
   },
   {
+    href: "/docs/installation",
+    id: "installation",
+    title: "Installation",
+  },
+  {
     href: "https://design.gitlab.com/product-foundations/design-tokens-directory",
     title: "Design tokens",
     external: true,

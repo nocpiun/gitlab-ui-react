@@ -1,6 +1,39 @@
 ---
-title: Docs
-description: Docs for GitLab UI React.
+title: Introduction
+description: A type-safe React implementation of GitLab's Pajamas Design System
 ---
 
-todo.
+GitLab UI for React ports the component library behind GitLab's [Pajamas Design System](https://design.gitlab.com) from Vue to React. It aims to match the appearance, behavior, interaction patterns, and accessibility of the upstream GitLab UI components while providing an idiomatic, type-safe React API.
+
+> [!warning]
+> 🚧 **This project is under heavy development.** 🚧
+>
+> Most of the code and tests were written by AI (Codex and Kimi Code). Humans direct architecture, priorities, and design decisions, but have not reviewed most of the code line by line. Use it at your own risk.
+
+## What is available
+
+- A distributable package of GitLab design tokens in `packages/tokens`. See the official [Design Token Directory](https://design.gitlab.com/product-foundations/design-tokens-directory) for the complete token reference.
+- Foundational styles in `packages/styles/src` and a prebuilt stylesheet bundle at `packages/styles/dist/gitlab-ui.css`.
+- Basic components including `GlButton`, `GlLink`, `GlBadge`, and `GlCard`.
+- Form components, including `GlFormInput`, `GlFormTextarea`, `GlFormCheckbox`, `GlFormRadio`, `GlFormSelect`, etc.
+
+## Work in progress
+
+The project is actively expanding its component coverage and release tooling. Current areas of work include:
+
+- Advanced form components
+- Advanced composite components
+- Chart components
+- Package publishing workflows
+- Documentation
+- Compatibility and API consistency checks
+
+## Resources
+
+- [Storybook](https://glui-story.nocp.space)
+- [Pajamas Design System](https://design.gitlab.com)
+- [Upstream repository](https://gitlab.com/gitlab-org/gitlab-services/design.gitlab.com)
+
+## License
+
+[MIT](https://github.com/nocpiun/gitlab-ui-react/blob/main/LICENSE)
