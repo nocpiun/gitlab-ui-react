@@ -45,6 +45,32 @@ export const Default: Story = {
   },
 };
 
+export const NativeFormReset: Story = {
+  args: {
+    defaultValue: "2020-01-15",
+    max: "2020-01-31",
+    value: undefined,
+  },
+  render: (args) => (
+    <form>
+      <GlFormDate {...args} />
+      <button type="reset">Reset form</button>
+    </form>
+  ),
+  play: async ({ canvas }) => {
+    const input = canvas.getByDisplayValue("2020-01-15");
+
+    await fireEvent.change(input, { target: { value: "2020-02-02" } });
+    await expect(input).toHaveValue("2020-02-02");
+    await expect(canvas.getByText("Must be before maximum date.")).toBeInTheDocument();
+
+    await userEvent.click(canvas.getByRole("button", { name: "Reset form" }));
+    await expect(input).toHaveValue("2020-01-15");
+    await waitFor(() => expect(canvas.queryByText("Must be before maximum date."))
+      .not.toBeInTheDocument());
+  },
+};
+
 export const Disabled: Story = {
   args: {
     disabled: true,

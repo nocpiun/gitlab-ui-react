@@ -68,6 +68,29 @@ export const Default: Story = {
   },
 };
 
+export const NativeFormReset: Story = {
+  args: {
+    defaultValue: "initial-secret",
+    value: undefined,
+  },
+  render: (args) => (
+    <form>
+      <GlFormPasswordInput {...args} />
+      <button type="reset">Reset form</button>
+    </form>
+  ),
+  play: async ({ canvas }) => {
+    const input = canvas.getByDisplayValue("initial-secret");
+
+    await userEvent.clear(input);
+    await userEvent.type(input, "edited-secret");
+    await expect(input).toHaveValue("edited-secret");
+
+    await userEvent.click(canvas.getByRole("button", { name: "Reset form" }));
+    await expect(input).toHaveValue("initial-secret");
+  },
+};
+
 export const Revealed: Story = {
   args: {
     initialVisibility: true,

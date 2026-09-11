@@ -98,6 +98,37 @@ export const Default: Story = {
   },
 };
 
+export const NativeFormReset: Story = {
+  args: {
+    debounce: 500,
+    defaultValue: "Default value",
+    value: undefined,
+  },
+  render: (args) => (
+    <form>
+      <GlFormInput {...args} />
+      <button type="reset" onMouseDown={(event) => event.preventDefault()}>
+        Reset form
+      </button>
+    </form>
+  ),
+  play: async ({ args, canvas }) => {
+    const input = canvas.getByRole("textbox");
+    args.onValueChange!.mockClear();
+
+    await userEvent.clear(input);
+    await userEvent.type(input, "Edited value");
+    await expect(input).toHaveValue("Edited value");
+    await expect(args.onValueChange).not.toHaveBeenCalled();
+
+    await userEvent.click(canvas.getByRole("button", { name: "Reset form" }));
+    await expect(input).toHaveValue("Default value");
+
+    await new Promise((resolve) => setTimeout(resolve, 600));
+    await expect(args.onValueChange).not.toHaveBeenCalled();
+  },
+};
+
 export const Controlled: Story = {
   args: {
     defaultValue: undefined,

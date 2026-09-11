@@ -119,6 +119,30 @@ const GlFormDate = forwardRef<HTMLInputElement, GlFormDateProps>(function GlForm
     setValueAsDate(inputRef.current?.valueAsDate ?? null);
   }, [currentValue]);
 
+  // GlFormInput leaves the DOM value to the browser in uncontrolled mode.
+  // After a native reset, mirror that value into date validation and the
+  // accessible long-date description without controlling the input itself.
+  useEffect(() => {
+    if(isControlled) return undefined;
+
+    const input = inputRef.current;
+    if(!input) return undefined;
+
+    const syncValue = () => setUncontrolledValue(input.value);
+    syncValue();
+
+    const associatedForm = input.form;
+    if(!associatedForm) return undefined;
+
+    const handleReset = (event: Event) => {
+      queueMicrotask(() => {
+        if(!event.defaultPrevented && inputRef.current === input) syncValue();
+      });
+    };
+    associatedForm.addEventListener("reset", handleReset);
+    return () => associatedForm.removeEventListener("reset", handleReset);
+  }, [defaultValue, inputProps.form, isControlled]);
+
   const isLessThanMin = Boolean(currentValue && min && currentValue < min);
   const isGreaterThanMax = Boolean(currentValue && max && currentValue > max);
   const isInvalid = isLessThanMin || isGreaterThanMax;
@@ -144,6 +168,7 @@ const GlFormDate = forwardRef<HTMLInputElement, GlFormDateProps>(function GlForm
         {...inputProps}
         ref={mergeRefs(inputRef, forwardedRef)}
         aria-describedby={ariaDescribedBy}
+        defaultValue={isControlled ? undefined : defaultValue}
         id={inputId}
         max={max ?? undefined}
         min={min ?? undefined}
@@ -156,7 +181,7 @@ const GlFormDate = forwardRef<HTMLInputElement, GlFormDateProps>(function GlForm
         placeholder="yyyy-mm-dd"
         state={!isInvalid}
         type="date"
-        value={currentValue ?? ""} />
+        value={isControlled ? currentValue ?? "" : undefined} />
       {outputValue ? (
         <output id={outputId} htmlFor={inputId} className="gl-sr-only">
           {outputValue}

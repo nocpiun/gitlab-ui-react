@@ -251,6 +251,7 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
     const initialValue = isControlled ? value : defaultValue;
     const modelValueRef = useRef(initialValue);
     const [uncontrolledValue, setUncontrolledValue] = useState(() => toStringValue(initialValue));
+    const acceptedValueRef = useRef(toStringValue(initialValue));
     // Preserve an editable draft while a controlled value change is debounced.
     const [controlledDraft, setControlledDraft] = useState<{
       sourceValue: string | null | undefined;
@@ -318,6 +319,34 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
       modelValueRef.current = value;
     }, [computedDebounce, isControlled, value]);
 
+    // The browser owns an uncontrolled textarea's value and restores its
+    // default on form.reset(). Mirror that reset only into derived UI state.
+    useEffect(() => {
+      if(isControlled) return undefined;
+
+      const textarea = textareaRef.current;
+      if(!textarea) return undefined;
+
+      const syncValue = () => {
+        acceptedValueRef.current = textarea.value;
+        modelValueRef.current = textarea.value;
+        setUncontrolledValue(textarea.value);
+      };
+      syncValue();
+
+      const associatedForm = textarea.form;
+      if(!associatedForm) return undefined;
+
+      const handleReset = (event: Event) => {
+        clearDebounce();
+        queueMicrotask(() => {
+          if(!event.defaultPrevented && textareaRef.current === textarea) syncValue();
+        });
+      };
+      associatedForm.addEventListener("reset", handleReset);
+      return () => associatedForm.removeEventListener("reset", handleReset);
+    }, [defaultValue, form, isControlled]);
+
     const scheduleHeight = useCallback(() => {
       if(animationFrameRef.current !== null) {
         window.cancelAnimationFrame(animationFrameRef.current);
@@ -368,11 +397,15 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
 
     function handleInput(event: ChangeEvent<HTMLTextAreaElement>) {
       onChange?.(event);
-      if(event.defaultPrevented) return;
+      if(event.defaultPrevented) {
+        if(!isControlled) event.currentTarget.value = acceptedValueRef.current;
+        return;
+      }
 
       const formattedValue = formatValue(event.target.value, event);
       if(formattedValue === false || event.defaultPrevented) {
         event.preventDefault();
+        if(!isControlled) event.currentTarget.value = acceptedValueRef.current;
         return;
       }
       if(isControlled) {
@@ -380,6 +413,8 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
           setControlledDraft({ sourceValue: value, value: formattedValue });
         }
       } else {
+        event.currentTarget.value = formattedValue;
+        acceptedValueRef.current = formattedValue;
         setUncontrolledValue(formattedValue);
       }
       updateValue(formattedValue);
@@ -388,7 +423,11 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
     function handleBlur(event: FocusEvent<HTMLTextAreaElement>) {
       const formattedValue = formatValue(event.target.value, event);
       if(formattedValue !== false) {
-        if(!isControlled) setUncontrolledValue(formattedValue);
+        if(!isControlled) {
+          event.currentTarget.value = formattedValue;
+          acceptedValueRef.current = formattedValue;
+          setUncontrolledValue(formattedValue);
+        }
         updateValue(formattedValue, true);
       }
       onBlur?.(event);
@@ -430,6 +469,7 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
         aria-required={required ? true : undefined}
         autoComplete={autoComplete || undefined}
         className={textareaClassName}
+        defaultValue={isControlled ? undefined : toStringValue(defaultValue)}
         disabled={disabled}
         form={form || undefined}
         id={textareaId}
@@ -443,7 +483,7 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
         required={required}
         rows={computedRows}
         style={textareaStyle}
-        value={renderedValue} />
+        value={isControlled ? renderedValue : undefined} />
     );
 
     if(!showCharacterCount) return textarea;

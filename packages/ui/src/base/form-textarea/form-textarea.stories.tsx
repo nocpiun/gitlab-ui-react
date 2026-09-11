@@ -135,6 +135,36 @@ export const Default: Story = {
   },
 };
 
+export const NativeFormReset: Story = {
+  args: {
+    characterCountLimit: 10,
+    characterCountOverLimitText: "Over limit.",
+    defaultValue: "Default",
+    remainingCharacterCountText: "Within limit.",
+    value: undefined,
+  },
+  render: (args) => (
+    <form>
+      <GlFormTextarea {...args} />
+      <button type="reset">Reset form</button>
+    </form>
+  ),
+  play: async ({ canvas }) => {
+    const textarea = canvas.getByRole("textbox", { name: "Description" });
+
+    await userEvent.clear(textarea);
+    await userEvent.type(textarea, "More than ten characters");
+    await expect(textarea).toHaveValue("More than ten characters");
+    await expect(canvas.getByText("Over limit.", { selector: "small" }))
+      .toHaveClass("gl-text-danger");
+
+    await userEvent.click(canvas.getByRole("button", { name: "Reset form" }));
+    await expect(textarea).toHaveValue("Default");
+    await waitFor(() => expect(canvas.getByText("Within limit.", { selector: "small" }))
+      .toHaveClass("gl-text-subtle"));
+  },
+};
+
 export const WithCharacterCount: Story = {
   args: {
     characterCountLimit: 10,
