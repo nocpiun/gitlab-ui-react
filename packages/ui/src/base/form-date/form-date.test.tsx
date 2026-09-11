@@ -64,6 +64,11 @@ describe("GlFormDate", () => {
       expect(markup).toContain("disabled");
       expect(markup).toMatch(/readonly/i);
     });
+
+    it("preserves a consumer aria-describedby value", () => {
+      expect(renderDate({ "aria-describedby": "external-help" }))
+        .toContain("aria-describedby=\"external-help\"");
+    });
   });
 
   describe("validation", () => {
@@ -73,6 +78,18 @@ describe("GlFormDate", () => {
       expect(markup).toContain("aria-invalid=\"true\"");
       expect(markup).toMatch(/aria-describedby="[^"]*form-date-invalid-feedback-[^"]*"/);
       expect(markup).toMatch(/class="invalid-feedback"[^>]*>Must be after minimum date\./);
+    });
+
+    it("preserves consumer descriptions alongside generated feedback", () => {
+      const markup = renderDate({
+        "aria-describedby": "external-help",
+        min: "2020-01-01",
+        value: "2019-01-01",
+      });
+
+      expect(markup).toMatch(
+        /aria-describedby="external-help form-date-invalid-feedback-[^"]+"/,
+      );
     });
 
     it("renders the max feedback and aria-invalid when value exceeds max", () => {

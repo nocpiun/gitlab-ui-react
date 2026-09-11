@@ -15,6 +15,7 @@ import {
   type ReactNode,
 } from "react";
 import { cva } from "class-variance-authority";
+import { mergeAriaIds } from "../../internal/utils/merge-aria-ids";
 import { useMergedRefs } from "../../internal/utils/merge-refs";
 import GlIcon from "../icon/icon";
 import GlLoadingIcon from "../loading-icon/loading-icon";
@@ -102,6 +103,8 @@ const toggleVariants = cva(["gl-toggle", "gl-shrink-0"], {
 });
 
 const GlToggle = forwardRef<HTMLButtonElement, GlToggleProps>(function GlToggle({
+  "aria-describedby": ariaDescribedBy,
+  "aria-labelledby": ariaLabelledBy,
   className,
   defaultValue,
   description,
@@ -155,6 +158,11 @@ const GlToggle = forwardRef<HTMLButtonElement, GlToggleProps>(function GlToggle(
   const isVerticalLayout = labelPosition !== "left";
   const shouldRenderDescription = Boolean(description) && isVerticalLayout;
   const shouldRenderHelp = Boolean(help) && isVerticalLayout;
+  const computedAriaDescribedBy = mergeAriaIds(
+    ariaDescribedBy,
+    shouldRenderHelp ? helpId : undefined,
+  );
+  const computedAriaLabelledBy = mergeAriaIds(ariaLabelledBy, labelId);
 
   const toggleFeature: MouseEventHandler<HTMLButtonElement> = (event) => {
     onClick?.(event);
@@ -192,9 +200,9 @@ const GlToggle = forwardRef<HTMLButtonElement, GlToggleProps>(function GlToggle(
       <button
         {...buttonProps}
         aria-checked={checked}
-        aria-describedby={shouldRenderHelp ? helpId : undefined}
+        aria-describedby={computedAriaDescribedBy}
         aria-disabled={effectiveDisabled || undefined}
-        aria-labelledby={labelId}
+        aria-labelledby={computedAriaLabelledBy}
         className={toggleVariants({
           checked,
           className,

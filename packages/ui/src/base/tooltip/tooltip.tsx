@@ -31,6 +31,7 @@ import {
   type GlTriggerAsChildProps,
 } from "../../internal/trigger/trigger-composition";
 import { mapOverlayOpenChangeDetails } from "../../internal/overlay/overlay-utils";
+import { mergeAriaIds } from "../../internal/utils/merge-aria-ids";
 import { useMergedRefs } from "../../internal/utils/merge-refs";
 import { getGlTooltipDefaultContainer } from "./container";
 
@@ -158,14 +159,6 @@ function physicalPlacement(side: BaseTooltip.Popup.State["side"]): GlTooltipPlac
   return side;
 }
 
-function mergeAriaDescribedBy(
-  existingValue: string | undefined,
-  tooltipId: string | undefined,
-): string | undefined {
-  const ids = `${existingValue ?? ""} ${tooltipId ?? ""}`.trim().split(/\s+/).filter(Boolean);
-  return ids.length > 0 ? [...new Set(ids)].join(" ") : undefined;
-}
-
 export function resolveTooltipBoundary(
   boundary: GlTooltipContentProps["boundary"] = "clipping-ancestors",
 ): BaseTooltip.Positioner.Props["collisionBoundary"] {
@@ -275,11 +268,11 @@ export const GlTooltipTrigger = forwardRef<HTMLElement, GlTooltipTriggerProps>(
     const childAriaDescribedBy = asChild
       ? (triggerRender.props as { "aria-describedby"?: string })["aria-describedby"]
       : undefined;
-    const existingAriaDescribedBy = mergeAriaDescribedBy(
+    const existingAriaDescribedBy = mergeAriaIds(
       ariaDescribedBy,
       childAriaDescribedBy,
     );
-    const describedBy = mergeAriaDescribedBy(
+    const describedBy = mergeAriaIds(
       existingAriaDescribedBy,
       context.open ? context.tooltipId : undefined,
     );

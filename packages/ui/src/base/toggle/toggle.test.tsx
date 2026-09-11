@@ -130,6 +130,19 @@ describe("GlToggle", () => {
     it("omits aria-describedby without help", () => {
       expect(renderToggle()).not.toContain("aria-describedby");
     });
+
+    it("preserves external descriptions with and without help", () => {
+      const withoutHelp = renderToggle({ "aria-describedby": "external-help" });
+      const withHelp = renderToggle({
+        "aria-describedby": "external-help",
+        help: "help text",
+      });
+
+      expect(withoutHelp).toContain("aria-describedby=\"external-help\"");
+      expect(withHelp).toMatch(
+        /aria-describedby="external-help toggle-help-[^"]+"/,
+      );
+    });
   });
 
   describe("label position", () => {
@@ -159,5 +172,10 @@ describe("GlToggle", () => {
 
     expect(markup).toContain("id=\"example-toggle\"");
     expect(markup).toContain("aria-labelledby=\"example-toggle\"");
+  });
+
+  it("preserves external labels alongside the rendered label", () => {
+    expect(renderToggle({ "aria-labelledby": "external-label" }))
+      .toMatch(/aria-labelledby="external-label toggle-label-[^"]+"/);
   });
 });

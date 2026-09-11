@@ -30,11 +30,11 @@ import GlFormInput, {
   type GlFormInputProps,
   type GlFormInputValue,
 } from "../form-input/form-input";
+import { mergeAriaIds } from "../../internal/utils/merge-aria-ids";
 import { mergeRefs } from "../../internal/utils/merge-refs";
 
 type FormInputPassthroughProps = Omit<
   GlFormInputProps,
-  | "aria-describedby"
   | "ariaInvalid"
   | "debounce"
   | "defaultValue"
@@ -87,6 +87,7 @@ export type GlFormDateProps = FormInputPassthroughProps & {
 };
 
 const GlFormDate = forwardRef<HTMLInputElement, GlFormDateProps>(function GlFormDate({
+  "aria-describedby": ariaDescribedBy,
   defaultValue = "",
   id = null,
   min = null,
@@ -151,10 +152,11 @@ const GlFormDate = forwardRef<HTMLInputElement, GlFormDateProps>(function GlForm
     ? new Intl.DateTimeFormat(undefined, { dateStyle: "full" }).format(valueAsDate)
     : null;
 
-  const ariaDescribedBy = [
-    valueAsDate ? outputId : null,
-    isInvalid ? invalidFeedbackId : null,
-  ].filter(Boolean).join(" ") || undefined;
+  const computedAriaDescribedBy = mergeAriaIds(
+    ariaDescribedBy,
+    valueAsDate ? outputId : undefined,
+    isInvalid ? invalidFeedbackId : undefined,
+  );
 
   function handleValueChange(newValue: GlFormInputValue) {
     const nextValue = String(newValue);
@@ -167,7 +169,7 @@ const GlFormDate = forwardRef<HTMLInputElement, GlFormDateProps>(function GlForm
       <GlFormInput
         {...inputProps}
         ref={mergeRefs(inputRef, forwardedRef)}
-        aria-describedby={ariaDescribedBy}
+        aria-describedby={computedAriaDescribedBy}
         defaultValue={isControlled ? undefined : defaultValue}
         id={inputId}
         max={max ?? undefined}
