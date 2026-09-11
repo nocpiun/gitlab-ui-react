@@ -6,36 +6,21 @@ import {
   GlIcon,
 } from "gitlab-ui-react";
 import { ShowcaseCard } from "../components/showcase-card";
+import { type Locale } from "../i18n/config";
+import {
+  type BillingCycle,
+  formatCurrency,
+  showcaseContent,
+} from "../i18n/showcase-content";
 
-const features = [
-  "Access to advanced AI models",
-  "Unlimited projects and chats",
-  "Faster responses at peak times",
-  "Priority access to new features",
-];
-
-type BillingCycle = "monthly" | "annual";
-
-const billingOptions: Record<BillingCycle, {
-  billedLabel: string;
-  buttonLabel: string;
-  price: number;
-}> = {
-  monthly: {
-    billedLabel: "Billed monthly",
-    buttonLabel: "Monthly",
-    price: 29,
-  },
-  annual: {
-    billedLabel: "$288 billed annually",
-    buttonLabel: "Annual · Save 17%",
-    price: 24,
-  },
+type ProPlanBlockProps = {
+  locale: Locale;
 };
 
-export function ProPlanBlock() {
+export function ProPlanBlock({ locale }: ProPlanBlockProps) {
+  const content = showcaseContent[locale].proPlan;
   const [billingCycle, setBillingCycle] = useState<BillingCycle>("annual");
-  const selectedPlan = billingOptions[billingCycle];
+  const selectedPlan = content.billingOptions[billingCycle];
 
   return (
     <ShowcaseCard className="flex flex-col gap-5">
@@ -47,25 +32,25 @@ export function ProPlanBlock() {
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-3">
             <h2 id="pro-plan-block-title" className="m-0 text-xl font-semibold text-heading">
-              AI Pro
+              {content.title}
             </h2>
-            <GlBadge icon="license" variant="success">Recommended</GlBadge>
+            <GlBadge icon="license" variant="success">{content.recommended}</GlBadge>
           </div>
           <p className="mb-0 mt-1 text-sm text-subtle">
-            More intelligence and capacity for your everyday work.
+            {content.description}
           </p>
         </div>
       </div>
 
-      <GlButtonGroup aria-label="Billing cycle" className="flex w-full">
-        {(Object.keys(billingOptions) as BillingCycle[]).map((cycle) => (
+      <GlButtonGroup aria-label={content.billingCycleLabel} className="flex w-full">
+        {(Object.keys(content.billingOptions) as BillingCycle[]).map((cycle) => (
           <GlButton
             aria-pressed={billingCycle === cycle}
             className="flex-1"
             key={cycle}
             onClick={() => setBillingCycle(cycle)}
             selected={billingCycle === cycle}>
-            {billingOptions[cycle].buttonLabel}
+            {content.billingOptions[cycle].buttonLabel}
           </GlButton>
         ))}
       </GlButtonGroup>
@@ -73,18 +58,18 @@ export function ProPlanBlock() {
       <div aria-live="polite" className="rounded-xl border border-strong bg-default p-5">
         <div className="flex items-end gap-2">
           <span className="text-[2.5rem] font-semibold leading-none text-heading">
-            ${selectedPlan.price}
+            {formatCurrency(locale, selectedPlan.price, content.currency, 0)}
           </span>
-          <span className="pb-0.5 text-sm text-subtle">USD / month</span>
+          <span className="pb-0.5 text-sm text-subtle">{content.perMonth}</span>
         </div>
         <p className="mb-0 mt-2 text-sm text-subtle">{selectedPlan.billedLabel}</p>
 
         <div className="my-5 border-t border-neutral-800" />
 
-        <p className="m-0 text-sm font-semibold text-heading">Everything you need to move faster</p>
+        <p className="m-0 text-sm font-semibold text-heading">{content.featuresTitle}</p>
         <ul className="mb-0 mt-4 grid list-none gap-3 p-0">
-          {features.map((feature) => (
-            <li className="flex items-start gap-3 text-sm text-default" key={feature}>
+          {content.features.map((feature, index) => (
+            <li className="flex items-start gap-3 text-sm text-default" key={index}>
               <GlIcon
                 className="mt-0.5 shrink-0"
                 name="check-circle"
@@ -98,10 +83,10 @@ export function ProPlanBlock() {
 
       <div>
         <GlButton block variant="confirm">
-          Upgrade to Pro
+          {content.upgrade}
         </GlButton>
         <p className="mb-0 mt-3 text-center text-xs text-subtle">
-          Cancel anytime. Your current plan stays active until renewal.
+          {content.cancelAnytime}
         </p>
       </div>
     </ShowcaseCard>

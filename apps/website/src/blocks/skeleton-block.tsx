@@ -1,12 +1,21 @@
 import { GlSkeletonLoader } from "gitlab-ui-react";
 import { ShowcaseCard } from "../components/showcase-card";
+import { type Locale } from "../i18n/config";
+import { showcaseContent } from "../i18n/showcase-content";
 
-export function SkeletonBlock() {
+type SkeletonBlockProps = {
+  locale: Locale;
+};
+
+export function SkeletonBlock({ locale }: SkeletonBlockProps) {
+  const content = showcaseContent[locale].skeleton;
+
   return (
-    <ShowcaseCard className="flex flex-col gap-5">
-      <GlSkeletonLoader />
-      <div aria-busy="true" aria-label="Workspace content is loading" className="grid gap-5">
+    <ShowcaseCard>
+      <div aria-busy="true" aria-label={content.loadingLabel} className="flex flex-col gap-5">
+        <GlSkeletonLoader aria-hidden="true" />
         <GlSkeletonLoader
+          aria-hidden="true"
           className="w-full"
           height={64}
           preserveAspectRatio="none"
@@ -21,6 +30,7 @@ export function SkeletonBlock() {
           {[0, 1].map((item) => (
             <div className="rounded-lg border border-subtle bg-default p-4" key={item}>
               <GlSkeletonLoader
+                aria-hidden="true"
                 className="w-full"
                 height={58}
                 preserveAspectRatio="none"

@@ -3,25 +3,43 @@ import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
+import { languageTags, localeSwitchPath, localizedPath, type Locale } from "../i18n/config";
 
 interface Props {
+  alternatePaths: Partial<Record<Locale, string>>;
+  locale: Locale;
   title: string;
   description?: string;
 }
 
 const {
+  alternatePaths,
+  locale,
   title,
   description = "GitLab UI for React",
 } = Astro.props;
+const switchPath = localeSwitchPath(locale, alternatePaths);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={languageTags[locale]}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    {alternatePaths.en && (
+      <link rel="alternate" hreflang="en" href={new URL(alternatePaths.en, Astro.site)} />
+    )}
+    {alternatePaths.zh && (
+      <link rel="alternate" hreflang="zh-CN" href={new URL(alternatePaths.zh, Astro.site)} />
+    )}
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={new URL(alternatePaths.en ?? localizedPath("en"), Astro.site)}
+    />
     <script is:inline>
       (() => {
         const applyStoredTheme = () => {
@@ -45,12 +63,17 @@ const {
   </head>
 
   <body class="flex min-h-[100dvh] flex-col">
-    <Navbar client:only="react" transition:persist="site-navbar" />
+    <Navbar
+      client:only="react"
+      transition:persist="site-navbar"
+      locale={locale}
+      localeSwitchPath={switchPath}
+    />
 
     <main class="min-w-0 flex-1" id="main-content">
       <slot />
     </main>
 
-    <Footer />
+    <Footer locale={locale} />
   </body>
 </html>

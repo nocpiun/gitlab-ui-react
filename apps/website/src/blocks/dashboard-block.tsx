@@ -10,54 +10,41 @@ import {
   GlProgressBar,
 } from "gitlab-ui-react";
 import { ShowcaseCard } from "../components/showcase-card";
+import { type Locale } from "../i18n/config";
+import { showcaseContent } from "../i18n/showcase-content";
 
-const metrics = [
-  {
-    description: "Average processor utilization.",
-    icon: "tachometer",
-    label: "CPU usage",
-    value: "42%",
-  },
-  {
-    description: "Memory currently used by services.",
-    icon: "metrics",
-    label: "Memory usage",
-    value: "12.6 GB",
-  },
-  {
-    description: "Transferred over the last 30 days.",
-    icon: "earth",
-    label: "Network traffic",
-    value: "248 GB",
-  },
-  {
-    description: "Availability during this period.",
-    icon: "status_success",
-    label: "Uptime",
-    progress: 99.98,
-    value: "99.98%",
-  },
-];
+const metricIcons = {
+  cpu: "tachometer",
+  memory: "metrics",
+  network: "earth",
+  uptime: "status_success",
+} as const;
 
-export function DashboardBlock() {
+type DashboardBlockProps = {
+  locale: Locale;
+};
+
+export function DashboardBlock({ locale }: DashboardBlockProps) {
+  const content = showcaseContent[locale].dashboard;
+
   return (
     <ShowcaseCard className="flex flex-col gap-4">
       <div>
-        <GlBreadcrumb autoResize={false} aria-label="Dashboard location">
-          <GlBreadcrumbItem href="#infrastructure">Infrastructure</GlBreadcrumbItem>
-          <GlBreadcrumbItem href="#overview">Overview</GlBreadcrumbItem>
+        <GlBreadcrumb autoResize={false} aria-label={content.breadcrumbLabel}>
+          <GlBreadcrumbItem href="#infrastructure">{content.infrastructure}</GlBreadcrumbItem>
+          <GlBreadcrumbItem href="#overview">{content.overview}</GlBreadcrumbItem>
         </GlBreadcrumb>
         <h2 className="mt-4 text-[1.25rem] font-semibold text-heading sm:text-[1.5rem]">
-          Server Overview
+          {content.serverOverview}
         </h2>
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {metrics.map((metric) => (
-          <GlCard className="h-full border-subtle bg-strong" key={metric.label}>
+        {content.metrics.map((metric) => (
+          <GlCard className="h-full border-subtle bg-strong" key={metric.key}>
             <GlCardHeader className="flex items-center justify-between gap-2">
               <h3 className="text-sm">{metric.label}</h3>
-              <GlIcon name={metric.icon} size={16} variant="subtle" />
+              <GlIcon name={metricIcons[metric.key]} size={16} variant="subtle" />
             </GlCardHeader>
 
             <GlCardContent className="flex flex-col p-3">
@@ -78,14 +65,14 @@ export function DashboardBlock() {
             </GlCardContent>
 
             <GlCardFooter className="text-xs">
-              Updated just now
+              {content.updated}
             </GlCardFooter>
           </GlCard>
         ))}
       </div>
 
       <div className="flex items-center justify-between gap-3">
-        <span className="text-sm text-subtle">Average response time</span>
+        <span className="text-sm text-subtle">{content.averageResponseTime}</span>
         <GlBadge icon="clock" variant="info">128 ms</GlBadge>
       </div>
     </ShowcaseCard>

@@ -5,34 +5,42 @@ import {
   GlBadge,
 } from "gitlab-ui-react";
 import { ShowcaseCard } from "../components/showcase-card";
+import { type Locale } from "../i18n/config";
+import { showcaseContent } from "../i18n/showcase-content";
 
-export function MemberProfileBlock() {
+type MemberProfileBlockProps = {
+  locale: Locale;
+};
+
+export function MemberProfileBlock({ locale }: MemberProfileBlockProps) {
+  const content = showcaseContent[locale].memberProfile;
+
   return (
     <ShowcaseCard className="flex flex-col gap-5">
       <GlAvatarLabeled
-        entityName="Norcleeh"
-        label="Norcleeh"
-        labelLink="#NriotHrreion"
+        entityName={content.displayName}
+        label={content.displayName}
+        labelLink={"#" + content.handle.slice(1)}
         shape="circle"
         size={32}
-        subLabel="@NriotHrreion · Software Engineering"/>
+        subLabel={content.handle + " · " + content.role}/>
 
       <div className="border-t border-section">
         <GlAttributeList
           descriptionClassName="text-default"
           labelClassName="text-subtle"
           layout="horizontal">
-          <GlAttributeListItem icon="group" label="Team">
-            Software
+          <GlAttributeListItem icon="group" label={content.teamLabel}>
+            {content.team}
           </GlAttributeListItem>
-          <GlAttributeListItem icon="location-dot" label="Location">
-            Mainland China
+          <GlAttributeListItem icon="location-dot" label={content.locationLabel}>
+            {content.location}
           </GlAttributeListItem>
-          <GlAttributeListItem icon="clock" label="Time zone">
-            UTC+8
+          <GlAttributeListItem icon="clock" label={content.timeZoneLabel}>
+            {content.timeZone}
           </GlAttributeListItem>
-          <GlAttributeListItem icon="on-call-schedules" label="Schedule">
-            <GlBadge variant="info">On call</GlBadge>
+          <GlAttributeListItem icon="on-call-schedules" label={content.scheduleLabel}>
+            <GlBadge variant="info">{content.schedule}</GlBadge>
           </GlAttributeListItem>
         </GlAttributeList>
       </div>

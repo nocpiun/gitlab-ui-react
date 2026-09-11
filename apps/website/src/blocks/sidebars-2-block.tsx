@@ -11,23 +11,31 @@ import {
   GlSubNavItem,
 } from "gitlab-ui-react";
 import { ShowcaseCard } from "../components/showcase-card";
+import { type Locale } from "../i18n/config";
+import { showcaseContent } from "../i18n/showcase-content";
 
-export function Sidebars2Block() {
+type Sidebars2BlockProps = {
+  locale: Locale;
+};
+
+export function Sidebars2Block({ locale }: Sidebars2BlockProps) {
+  const content = showcaseContent[locale].sidebars2;
+
   return (
     <ShowcaseCard className="flex flex-col gap-3 sm:flex-row">
       <GlNav
-        aria-label="Workspace navigation"
+        aria-label={content.workspaceNavigationLabel}
         className="flex-1 border-b border-section pb-3 sm:border-r sm:border-b-0 sm:pr-3 sm:pb-0">
         <GlNavItem selected>
           <GlNavButton>
             <GlIcon name="home" />
-            Home
+            {content.home}
           </GlNavButton>
         </GlNavItem>
         <GlNavItem>
           <GlNavButton>
             <GlIcon name="project" />
-            Projects
+            {content.projects}
             <GlNavItemAddon>
               <GlBadge>8</GlBadge>
             </GlNavItemAddon>
@@ -36,13 +44,13 @@ export function Sidebars2Block() {
         <GlNavItem>
           <GlNavButton>
             <GlIcon name="group" />
-            Groups
+            {content.groups}
           </GlNavButton>
         </GlNavItem>
         <GlNavItem>
           <GlNavButton>
             <GlIcon name="todo-done" />
-            To-do
+            {content.todo}
             <GlNavItemAddon>
               <GlBadge variant="info">3</GlBadge>
             </GlNavItemAddon>
@@ -51,12 +59,12 @@ export function Sidebars2Block() {
         <GlNavItem>
           <GlNavButton>
             <GlIcon name="compass" />
-            Explore
+            {content.explore}
           </GlNavButton>
         </GlNavItem>
       </GlNav>
 
-      <GlNav aria-label="Project navigation" className="flex-1">
+      <GlNav aria-label={content.projectNavigationLabel} className="flex-1">
         <GlNavItem>
           <GlNavButton>
             <GlAvatar entityName="OPanel" shape="rect" size={24} />
@@ -66,19 +74,19 @@ export function Sidebars2Block() {
         <GlNavItem>
           <GlNavButton>
             <GlIcon name="overview" />
-            Overview
+            {content.overview}
           </GlNavButton>
         </GlNavItem>
         <GlNavItem>
           <GlNavButton>
             <GlIcon name="planning" />
-            Plan
+            {content.plan}
           </GlNavButton>
           <GlSubNav defaultOpen>
             <GlSubNavItem selected>
               <GlSubNavButton>
                 <GlIcon name="issues" />
-                Issues
+                {content.issues}
                 <GlNavItemAddon>
                   <GlBadge>12</GlBadge>
                 </GlNavItemAddon>
@@ -87,7 +95,7 @@ export function Sidebars2Block() {
             <GlSubNavItem>
               <GlSubNavButton>
                 <GlIcon name="issue-open-m" />
-                Boards
+                {content.boards}
               </GlSubNavButton>
             </GlSubNavItem>
           </GlSubNav>
@@ -95,19 +103,19 @@ export function Sidebars2Block() {
         <GlNavItem>
           <GlNavButton>
             <GlIcon name="code" />
-            Code
+            {content.code}
           </GlNavButton>
           <GlSubNav>
             <GlSubNavItem>
               <GlSubNavButton>
                 <GlIcon name="merge-request" />
-                Merge requests
+                {content.mergeRequests}
               </GlSubNavButton>
             </GlSubNavItem>
             <GlSubNavItem>
               <GlSubNavButton>
                 <GlIcon name="repository" />
-                Repository
+                {content.repository}
               </GlSubNavButton>
             </GlSubNavItem>
           </GlSubNav>
@@ -115,7 +123,7 @@ export function Sidebars2Block() {
         <GlNavItem>
           <GlNavButton>
             <GlIcon name="rocket" />
-            Build
+            {content.build}
           </GlNavButton>
         </GlNavItem>
       </GlNav>

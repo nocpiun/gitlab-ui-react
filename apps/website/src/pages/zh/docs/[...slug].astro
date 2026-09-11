@@ -1,10 +1,10 @@
 ---
 import { getCollection } from "astro:content";
-import DocsPage from "../../components/docs-page.astro";
-import { docsStaticPaths } from "../../i18n/docs";
+import DocsPage from "../../../components/docs-page.astro";
+import { docsStaticPaths } from "../../../i18n/docs";
 
 export async function getStaticPaths() {
-  return docsStaticPaths(await getCollection("docs"), "en");
+  return docsStaticPaths(await getCollection("docs"), "zh");
 }
 
 const { alternatePaths, currentId, entry } = Astro.props;
@@ -14,5 +14,5 @@ const { alternatePaths, currentId, entry } = Astro.props;
   alternatePaths={alternatePaths}
   currentId={currentId}
   entry={entry}
-  locale="en"
+  locale="zh"
 />

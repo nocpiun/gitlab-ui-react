@@ -13,6 +13,8 @@ import {
   GlSubNavItem,
 } from "gitlab-ui-react";
 import { useAstroSpriteIconKey } from "../hooks/use-astro-sprite-icon-key";
+import { localizedPath, type Locale } from "../i18n/config";
+import { siteMessages } from "../i18n/messages";
 
 type DocsNavigationLink = {
   external?: boolean;
@@ -31,49 +33,54 @@ type DocsNavigationItem = DocsNavigationLink | DocsNavigationGroup;
 
 type DocsNavigationProps = {
   currentId: string;
+  locale: Locale;
 };
 
 const DESKTOP_NAV_QUERY = "(min-width: 1200px)";
 const NAVBAR_TOGGLE_TARGET_ID = "documentation-navigation-toggle-target";
 
-const navigationItems: DocsNavigationItem[] = [
+function getNavigationItems(locale: Locale): DocsNavigationItem[] {
+  const messages = siteMessages[locale].docs.navigation;
+
+  return [
   {
-    href: "/docs",
+    href: localizedPath(locale, "/docs"),
     id: "index",
-    title: "Introduction",
+    title: messages.introduction,
   },
   {
-    href: "/docs/installation",
+    href: localizedPath(locale, "/docs/installation"),
     id: "installation",
-    title: "Installation",
+    title: messages.installation,
   },
   {
     href: "https://design.gitlab.com/product-foundations/design-tokens-directory",
-    title: "Design tokens",
+    title: messages.designTokens,
     external: true,
   },
   {
     href: "https://design.gitlab.com/product-foundations/color",
-    title: "Color",
+    title: messages.color,
     external: true,
   },
   {
     href: "https://design.gitlab.com/product-foundations/iconography-directory",
-    title: "Icons",
+    title: messages.icons,
     external: true,
   },
   {
     id: "components",
-    title: "Components",
+    title: messages.components,
     items: [
       {
-        href: "/docs/components/button",
+        href: localizedPath(locale, "/docs/components/button"),
         id: "components/button",
         title: "Button",
       },
     ],
   },
-];
+  ];
+}
 
 function isNavigationGroup(item: DocsNavigationItem): item is DocsNavigationGroup {
   return "items" in item;
@@ -85,7 +92,9 @@ function navigationLinkProps(link: DocsNavigationLink) {
     : { href: link.href };
 }
 
-export function DocsNavigation({ currentId }: DocsNavigationProps) {
+export function DocsNavigation({ currentId, locale }: DocsNavigationProps) {
+  const messages = siteMessages[locale].docs.navigation;
+  const navigationItems = getNavigationItems(locale);
   const [isOpen, setIsOpen] = useState(false);
   const spriteIconKey = useAstroSpriteIconKey();
   const [toggleTarget, setToggleTarget] = useState<HTMLElement | null>(null);
@@ -137,12 +146,12 @@ export function DocsNavigation({ currentId }: DocsNavigationProps) {
         <GlCollapsibleNavToggle
           key={`external-toggle-${spriteIconKey}`}
           className="min-[1200px]:hidden"
-          collapseLabel="Collapse navigation"
-          expandLabel="Expand navigation" />,
+          collapseLabel={messages.collapseNavigation}
+          expandLabel={messages.expandNavigation} />,
         toggleTarget,
       ) : null}
 
-      <GlCollapsibleNav aria-label="Documentation navigation">
+      <GlCollapsibleNav aria-label={messages.documentationLabel}>
         {navigationItems.map((item) => {
           if(!isNavigationGroup(item)) {
             return (
@@ -182,8 +191,8 @@ export function DocsNavigation({ currentId }: DocsNavigationProps) {
         <GlNavItem className="mt-auto min-[1200px]:hidden">
           <GlCollapsibleNavToggle
             key={`internal-toggle-${spriteIconKey}`}
-            collapseLabel="Collapse"
-            expandLabel="Expand" />
+            collapseLabel={messages.collapse}
+            expandLabel={messages.expand} />
         </GlNavItem>
       </GlCollapsibleNav>
     </GlNavProvider>

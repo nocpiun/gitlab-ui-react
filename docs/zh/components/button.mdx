@@ -1,0 +1,92 @@
+---
+title: Button
+description: 用于触发操作，并说明激活后会发生什么。
+---
+
+## 用法
+
+```tsx
+import { GlButton } from "gitlab-ui-react";
+```
+
+```tsx
+<GlButton>Create issue</GlButton>
+```
+
+## 默认
+
+默认按钮采用中等尺寸、主要类别和默认变体。其 HTML `type` 默认为 `button`，因此不会意外提交表单。
+
+<DocsExample
+  filename="button/ButtonExample.tsx"
+  title="按钮示例"
+  storybookId="ui-base-button--default"/>
+
+## 类别与变体
+
+类别用于控制强调程度，变体用于表达操作意图。新界面应优先使用主要类别和第三级类别；次要类别继续用于兼容现有界面。
+
+<DocsExample
+  filename="button/ButtonVariantsExample.tsx"
+  title="类别与变体"
+  storybookId="ui-base-button--variants-and-categories"/>
+
+## 尺寸与布局
+
+大多数场景应使用中等尺寸，以提供更大的点击区域。紧凑区域可以使用小尺寸；当操作应填满父容器时，尤其是在窄屏布局中，可以使用 `block`。
+
+<DocsExample
+  filename="button/ButtonSizesExample.tsx"
+  title="尺寸与全宽布局"
+  storybookId="ui-base-button--sizes-and-block"/>
+
+## 图标与计数
+
+当文字或图标本身足以说明操作时，可以单独使用其中一种。每个纯图标按钮都需要 `aria-label`。计数可以通过 `countSrText` 为辅助技术补充视觉用户能够从界面推断出的上下文。
+
+<DocsExample
+  filename="button/ButtonContentExample.tsx"
+  title="图标与计数"/>
+
+## 状态
+
+原生按钮操作进行中时使用 `loading`。禁用按钮仍可获得焦点，并使用 `aria-disabled`；请通过 `aria-describedby` 将它与可见的解释文字关联。对于切换按钮，应保持 `selected` 与 `aria-pressed` 同步。
+
+<DocsExample
+  filename="button/ButtonStatesExample.tsx"
+  title="加载、禁用与选中状态"/>
+
+## 无障碍
+
+- 为每个按钮提供简洁的无障碍名称。可见文字通常可以满足要求；纯图标按钮需要 `aria-label`。
+- 保持键盘焦点顺序与视觉顺序一致，不要隐藏可见的焦点指示器。
+- 解释操作不可用的原因。当解释已显示在页面中时，优先使用 `aria-describedby`。
+- 按钮作为切换控件时，将 `selected` 与对应的 `aria-pressed` 值配合使用。
+- 仅将 `href` 用于导航。不提供 `href` 时，`GlButton` 会渲染语义化的 `<button>`。
+
+## API
+
+下面列出最常用的属性。`GlButton` 还接受受支持的 Base UI 按钮属性，并将 DOM 属性传递给渲染后的元素。
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `category` | 将操作层级设置为 `primary`、`secondary` 或 `tertiary`。 | `"primary"` |
+| `variant` | 通过 `default`、`confirm`、`danger`、`link` 或 `reset` 样式表达意图。 | `"default"` |
+| `size` | 将控件尺寸设置为 `small` 或 `medium`。 | `"medium"` |
+| `block` | 将按钮扩展到父容器宽度。 | `false` |
+| `icon` | 添加 GitLab SVG 库中的图标。 | — |
+| `count` | 在标签后显示非负数字计数。 | `null` |
+| `countSrText` | 为计数添加屏幕阅读器上下文。 | — |
+| `disabled` | 阻止激活，同时保留控件的可聚焦性。 | `false` |
+| `loading` | 显示加载图标，并阻止原生按钮激活。 | `false` |
+| `selected` | 应用选中外观；请与 `aria-pressed` 配合使用。 | `false` |
+| `href` | 渲染为带按钮样式的链接。 | — |
+| `type` | 将原生按钮类型设置为 `button`、`submit` 或 `reset`。 | `"button"` |
+| `label` | 渲染为带按钮样式、不可交互的 `span`。 | `false` |
+| `render` | 将行为组合到自定义 React 元素上。 | — |
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Button](https://design.gitlab.com/components/button/)
+- [Storybook 中的 Button stories](https://glui-story.nocp.space/?path=/docs/ui-base-button--docs)
+- [Button 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/button/button.tsx)

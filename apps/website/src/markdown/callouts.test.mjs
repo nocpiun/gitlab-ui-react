@@ -12,16 +12,16 @@ function compile(source) {
 
 describe("calloutsPlugin", () => {
   it.each([
-    ["NOTE", "Note", "info"],
-    ["TIP", "Tip", "tip"],
-    ["IMPORTANT", "Important", "info"],
-    ["WARNING", "Warning", "warning"],
-    ["CAUTION", "Caution", "danger"],
-  ])("maps %s callouts to a GlAlert-compatible variant", (marker, title, variant) => {
+    ["NOTE", "info"],
+    ["TIP", "tip"],
+    ["IMPORTANT", "info"],
+    ["WARNING", "warning"],
+    ["CAUTION", "danger"],
+  ])("maps %s callouts to a semantic kind and GlAlert-compatible variant", (marker, variant) => {
     const code = compile(`> [!${marker}]\n> Callout body.`);
 
     expect(code).toContain("const { DocsCallout } = _components;");
-    expect(code).toContain(`title: "${title}"`);
+    expect(code).toContain(`kind: "${marker.toLowerCase()}"`);
     expect(code).toContain(`variant: "${variant}"`);
     expect(code).not.toContain(`[!${marker}]`);
   });
