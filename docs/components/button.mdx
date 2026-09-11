@@ -1,8 +1,92 @@
 ---
 title: Button
-description: Button component example.
+description: Triggers an action and communicates what happens when it is activated.
 ---
 
-import ButtonExample from "@examples/ButtonExample";
+## Usage
 
-<ButtonExample />
+```tsx
+import { GlButton } from "gitlab-ui-react";
+```
+
+```tsx
+<GlButton>Create issue</GlButton>
+```
+
+## Default
+
+The default button uses the medium size, primary category, and default variant. Its HTML `type` defaults to `button`, so it does not submit a form accidentally.
+
+<DocsExample
+  filename="button/ButtonExample.tsx"
+  title="Example button"
+  storybookId="ui-base-button--default"/>
+
+## Categories and variants
+
+The category controls emphasis, while the variant communicates intent. Prefer primary and tertiary categories in new interfaces; the secondary category remains available for compatibility.
+
+<DocsExample
+  filename="button/ButtonVariantsExample.tsx"
+  title="Categories and variants"
+  storybookId="ui-base-button--variants-and-categories"/>
+
+## Size and layout
+
+Use the medium size in most contexts for the larger target. Use the small size in compact areas, and `block` when the action should fill its container, especially in narrow layouts.
+
+<DocsExample
+  filename="button/ButtonSizesExample.tsx"
+  title="Sizes and full width"
+  storybookId="ui-base-button--sizes-and-block"/>
+
+## Icons and counts
+
+Use text or an icon when either can communicate the action on its own. Every icon-only button needs an `aria-label`. A count can include `countSrText` to give assistive technology the context that sighted users infer from the interface.
+
+<DocsExample
+  filename="button/ButtonContentExample.tsx"
+  title="Icons and counts"/>
+
+## States
+
+Use `loading` while a native button action is in progress. A disabled button remains focusable and uses `aria-disabled`, so connect it to visible explanatory text with `aria-describedby`. For a toggle button, keep `selected` and `aria-pressed` in sync.
+
+<DocsExample
+  filename="button/ButtonStatesExample.tsx"
+  title="Loading, disabled, and selected"/>
+
+## Accessibility
+
+- Give every button a concise accessible name. Visible text usually provides it; icon-only buttons require `aria-label`.
+- Keep keyboard focus order the same as visual order, and do not suppress the visible focus indicator.
+- Explain why an action is unavailable. Prefer `aria-describedby` when the explanation already appears on the page.
+- Pair `selected` with the matching `aria-pressed` value when the button behaves as a toggle.
+- Use `href` only for navigation. Without `href`, `GlButton` renders a semantic `<button>`.
+
+## API
+
+These are the props used most often. `GlButton` also accepts supported Base UI button props and forwards DOM attributes to the rendered element.
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `category` | Sets the action hierarchy to `primary`, `secondary`, or `tertiary`. | `"primary"` |
+| `variant` | Communicates intent with `default`, `confirm`, `danger`, `link`, or `reset` styling. | `"default"` |
+| `size` | Sets the control to `small` or `medium`. | `"medium"` |
+| `block` | Expands the button to the width of its parent. | `false` |
+| `icon` | Adds an icon from the GitLab SVG library. | — |
+| `count` | Displays a non-negative numeric count after the label. | `null` |
+| `countSrText` | Adds screen-reader context to the count. | — |
+| `disabled` | Prevents activation while keeping the control focusable. | `false` |
+| `loading` | Shows a spinner and prevents activation of a native button. | `false` |
+| `selected` | Applies the selected appearance; pair it with `aria-pressed`. | `false` |
+| `href` | Renders an anchor styled as a button. | — |
+| `type` | Sets the native button type to `button`, `submit`, or `reset`. | `"button"` |
+| `label` | Renders a non-interactive `span` styled as a button. | `false` |
+| `render` | Composes the behavior onto a custom React element. | — |
+
+## Related resources
+
+- [Button in the Pajamas Design System](https://design.gitlab.com/components/button/)
+- [Button stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-button--docs)
+- [Button source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/button/button.tsx)

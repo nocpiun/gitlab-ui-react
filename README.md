@@ -29,10 +29,11 @@ GitLab UI for React ports that component library to React. The project aims to m
 - A distributable package of GitLab design tokens (`packages/tokens`). For the complete token reference, see the [official Design Token Directory](https://design.gitlab.com/product-foundations/design-tokens-directory).
 - Foundational styles (`packages/styles/src`) and a prebuilt stylesheet bundle (`packages/styles/dist/gitlab-ui.css`).
 - Basic components, including `GlButton`, `GlLink`, `GlBadge`, `GlCard`, etc.
+- Form components, including `GlFormInput`, `GlFormTextarea`, `GlFormCheckbox`, `GlFormRadio`, `GlFormSelect`, etc.
 
 ### In progress
 
-- Form components
+- Advanced form components
 - Advanced composite components
 - Chart components
 - Package publishing workflows

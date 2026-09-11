@@ -132,5 +132,10 @@ const tableOfContents = headings.filter(({ depth }) => depth >= 2 && depth <= 3)
     const showSource = source.hidden;
     source.hidden = !showSource;
     toggle.setAttribute("aria-pressed", String(showSource));
+    const exampleTitle = toggle.getAttribute("data-docs-example-title") ?? "example";
+    toggle.setAttribute(
+      "aria-label",
+      `${showSource ? "Hide" : "Show"} source code for ${exampleTitle}`,
+    );
   });
 </script>

@@ -39,6 +39,10 @@
   @apply absolute top-3 end-3 z-1;
 }
 
+.gl-markdown table code {
+  white-space: nowrap;
+}
+
 .gl-markdown .docs-example-source pre {
   @apply my-0;
   border-radius: calc(var(--gl-card-border-radius) - 0.25rem);
