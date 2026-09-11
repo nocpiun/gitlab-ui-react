@@ -71,10 +71,8 @@ export const Default: Story = {
     <GlDisclosureDropdown {...args}>
       <GlDisclosureDropdownTrigger>Actions</GlDisclosureDropdownTrigger>
       <GlDisclosureDropdownContent>
-        <GlDisclosureDropdownGroup>
-          <GlDisclosureDropdownItem icon="pencil" value="edit">Edit project</GlDisclosureDropdownItem>
-          <GlDisclosureDropdownItem disabled value="archive">Archive project</GlDisclosureDropdownItem>
-        </GlDisclosureDropdownGroup>
+        <GlDisclosureDropdownItem icon="pencil" value="edit">Edit project</GlDisclosureDropdownItem>
+        <GlDisclosureDropdownItem disabled value="archive">Archive project</GlDisclosureDropdownItem>
         <GlDisclosureDropdownGroup bordered>
           <GlDisclosureDropdownGroupLabel>Danger zone</GlDisclosureDropdownGroupLabel>
           <GlDisclosureDropdownItem value="delete" variant="danger">

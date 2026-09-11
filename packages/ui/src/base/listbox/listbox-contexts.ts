@@ -32,4 +32,3 @@ export type ListboxContentContextValue = {
 };
 
 export const ListboxContentContext = createContext<ListboxContentContextValue | null>(null);
-export const ListboxGroupContext = createContext(false);

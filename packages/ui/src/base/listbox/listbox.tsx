@@ -64,7 +64,6 @@ import GlListboxSearchInput, {
 } from "./listbox-search-input";
 import {
   ListboxContentContext,
-  ListboxGroupContext,
   type ListboxContentContextValue,
   type RegisteredListboxItem,
 } from "./listbox-contexts";
@@ -1251,8 +1250,6 @@ export const GlListboxItem = forwardRef<HTMLElement, GlListboxItemProps>(
   }, forwardedRef) {
     const context = useListboxContext("GlListboxItem");
     const contentContext = useContext(ListboxContentContext);
-    const insideGroup = useContext(ListboxGroupContext);
-    if(!insideGroup) throw new Error("GlListboxItem must be used inside GlListboxGroup.");
     if(!contentContext) throw new Error("GlListboxItem must be used inside GlListboxContent.");
     const { registerItem, unregisterItem } = contentContext;
     const generatedId = useId();

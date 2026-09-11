@@ -14,7 +14,6 @@ import {
 import { Menu as BaseMenu } from "@base-ui/react/menu";
 import { cva } from "class-variance-authority";
 import {
-  DisclosureDropdownGroupContext,
   DisclosureDropdownIconSpacingContext,
   hasDirectDisclosureDropdownItemIcon,
 } from "./disclosure-dropdown";
@@ -118,11 +117,9 @@ export const GlDisclosureDropdownGroup = forwardRef<
       className={groupVariants({ bordered, borderPosition, className })}
       style={style}>
       {labels}
-      <DisclosureDropdownGroupContext.Provider value>
-        <DisclosureDropdownIconSpacingContext.Provider value={hasIconColumn}>
-          <div className={groupItemsVariants()}>{items}</div>
-        </DisclosureDropdownIconSpacingContext.Provider>
-      </DisclosureDropdownGroupContext.Provider>
+      <DisclosureDropdownIconSpacingContext.Provider value={hasIconColumn}>
+        <div className={groupItemsVariants()}>{items}</div>
+      </DisclosureDropdownIconSpacingContext.Provider>
     </BaseMenu.Group>
   );
 });

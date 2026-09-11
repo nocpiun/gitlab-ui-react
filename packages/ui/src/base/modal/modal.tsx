@@ -36,7 +36,7 @@ import GlButton, { type GlButtonProps } from "../button/button";
 export type GlModalSize = "sm" | "md" | "lg";
 
 export type GlModalProps = {
-  /** GlModalTrigger and GlModalContent compound parts. */
+  /** Modal parts and supporting content. Multiple triggers may open the same modal. */
   children?: ReactNode;
   /** Whether the modal is initially open when uncontrolled. */
   defaultOpen?: boolean;
@@ -585,8 +585,8 @@ export const GlModalContent = forwardRef<HTMLDivElement, GlModalContentProps>(
   },
 );
 
-function validateModalChildren(children: ReactNode) {
-  const seenParts = new Set<unknown>();
+function validateSingleModalContent(children: ReactNode) {
+  let hasContent = false;
 
   const visit = (nodes: ReactNode) => {
     Children.forEach(nodes, (child) => {
@@ -597,20 +597,9 @@ function validateModalChildren(children: ReactNode) {
         return;
       }
 
-      const isModalPart = isValidElement(child)
-        && (child.type === GlModalTrigger || child.type === GlModalContent);
-      if(!isModalPart) {
-        throw new Error(
-          "GlModal only accepts GlModalTrigger and GlModalContent as direct children. "
-          + "Arrays, Fragments, and conditional children are supported.",
-        );
-      }
-      if(seenParts.has(child.type)) {
-        const partName = child.type === GlModalTrigger ? "GlModalTrigger" : "GlModalContent";
-        throw new Error(`GlModal accepts at most one ${partName} child.`);
-      }
-
-      seenParts.add(child.type);
+      if(!isValidElement(child) || child.type !== GlModalContent) return;
+      if(hasContent) throw new Error("GlModal accepts at most one GlModalContent child.");
+      hasContent = true;
     });
   };
 
@@ -624,7 +613,7 @@ export default function GlModal({
   onOpenChange,
   open,
 }: GlModalProps) {
-  validateModalChildren(children);
+  validateSingleModalContent(children);
 
   const handleOpenChange = (nextOpen: boolean) => {
     onOpenChange?.(nextOpen);

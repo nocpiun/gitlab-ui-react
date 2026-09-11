@@ -138,16 +138,30 @@ describe("GlDrawer", () => {
     expect(markup).toContain("Open");
   });
 
-  it("rejects unsupported and duplicate root compound parts", () => {
-    expect(() => renderToStaticMarkup(<GlDrawer>Invalid</GlDrawer>)).toThrowError(
-      "GlDrawer only accepts GlDrawerTrigger and GlDrawerContent as direct children.",
-    );
-    expect(() => renderToStaticMarkup(
+  it("accepts supporting content, wrapped triggers, and multiple triggers", () => {
+    function WrappedTrigger() {
+      return (
+        <GlDrawerTrigger asChild>
+          <button type="button">Wrapped trigger</button>
+        </GlDrawerTrigger>
+      );
+    }
+
+    const markup = renderToStaticMarkup(
       <GlDrawer>
-        <GlDrawerTrigger asChild><button type="button">One</button></GlDrawerTrigger>
-        <GlDrawerTrigger asChild><button type="button">Two</button></GlDrawerTrigger>
+        <span>Supporting content</span>
+        <WrappedTrigger />
+        <GlDrawerTrigger asChild><button type="button">Direct trigger</button></GlDrawerTrigger>
       </GlDrawer>,
-    )).toThrowError("GlDrawer accepts at most one GlDrawerTrigger child.");
+    );
+
+    expect(markup).toContain("Supporting content");
+    expect(markup).toContain("Wrapped trigger");
+    expect(markup).toContain("Direct trigger");
+    expect(markup.match(/<button/g)).toHaveLength(2);
+  });
+
+  it("rejects duplicate root content", () => {
     expect(() => renderToStaticMarkup(
       <GlDrawer>
         <GlDrawerContent aria-label="One" />

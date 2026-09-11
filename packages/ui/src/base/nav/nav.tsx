@@ -531,14 +531,6 @@ function validateSubNavChildren(children: ReactNode) {
   if(nodes.some((node) => !hasElementType(node, GlSubNavItem))) {
     invariant("GlSubNav", "only accepts GlSubNavItem children.");
   }
-
-  nodes.forEach((node) => {
-    const props = getElementProps(node as ReactElement);
-    const structure = requireSingleButton(props.children, "GlSubNavItem");
-    if(structure.nodes.length !== 1) {
-      invariant("GlSubNavItem", "only accepts one GlSubNavButton.");
-    }
-  });
 }
 
 export const GlNavItem = forwardRef<HTMLLIElement, GlNavItemProps>(function GlNavItem({
