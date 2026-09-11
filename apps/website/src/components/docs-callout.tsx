@@ -4,21 +4,24 @@ import {
   GlAlertDescription,
   type GlAlertVariant,
 } from "gitlab-ui-react";
+import { type Locale } from "../i18n/config";
+import { siteMessages, type CalloutKind } from "../i18n/messages";
 
-type DocsCalloutProps = {
+export type DocsCalloutProps = {
   children?: ReactNode;
-  title: string;
+  kind: CalloutKind;
+  locale: Locale;
   variant: GlAlertVariant;
 };
 
-export function DocsCallout({ children, title, variant }: DocsCalloutProps) {
+export function DocsCallout({ children, kind, locale, variant }: DocsCalloutProps) {
   return (
     <GlAlert
       className="docs-callout"
       dismissible={false}
       headerLevel={3}
       politeness="off"
-      title={title}
+      title={siteMessages[locale].docs.callouts[kind]}
       variant={variant}>
       <GlAlertDescription>{children}</GlAlertDescription>
     </GlAlert>

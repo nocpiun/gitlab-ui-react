@@ -1,0 +1,50 @@
+---
+import { GlButton } from "gitlab-ui-react";
+import HomeShowcase from "../blocks/home-showcase.astro";
+import { localizedPath, type Locale } from "../i18n/config";
+import { siteMessages } from "../i18n/messages";
+import BaseLayout from "../layouts/base-layout.astro";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const messages = siteMessages[locale];
+const alternatePaths = {
+  en: localizedPath("en"),
+  zh: localizedPath("zh"),
+};
+---
+
+<BaseLayout
+  alternatePaths={alternatePaths}
+  description={messages.home.description}
+  locale={locale}
+  title="GitLab UI React">
+  <div class="mx-4 my-3 flex min-h-64 flex-col items-center justify-center rounded-2xl bg-linear-30 from-brand-orange-01p via-brand-orange-01g via-60% to-brand-purple-01g px-5 py-12 sm:mx-6 sm:min-h-72 sm:rounded-3xl sm:px-8 lg:mx-10 lg:min-h-75">
+    <h1 class="max-w-6xl text-balance text-center text-[2.5rem] leading-tight font-[700] dark:text-white sm:text-[3rem] md:text-[3.75rem] lg:text-[5rem]">
+      {messages.home.title}
+    </h1>
+
+    <p class="mt-4 text-center text-[1.125rem] font-semibold dark:text-white sm:mt-5 sm:text-[1.5rem] lg:text-[2rem]">
+      {messages.home.description}
+    </p>
+
+    <div class="mt-8 flex w-full max-w-sm flex-col gap-3 sm:mt-10 sm:w-auto sm:max-w-none sm:flex-row sm:gap-4">
+      <GlButton
+        variant="confirm"
+        href={localizedPath(locale, "/docs")}
+        className="w-full no-underline dark:bg-white dark:text-black sm:w-auto">
+        {messages.home.getStarted}
+      </GlButton>
+      <GlButton
+        href={localizedPath(locale, "/docs/components/button")}
+        className="w-full no-underline border-none dark:bg-black dark:text-white sm:w-auto">
+        {messages.home.browseComponents}
+      </GlButton>
+    </div>
+  </div>
+
+  <HomeShowcase locale={locale} />
+</BaseLayout>

@@ -8,36 +8,45 @@ import { ProPlanBlock } from "./pro-plan-block";
 import { SkeletonBlock } from "./skeleton-block";
 import { Sidebars1Block } from "./sidebars-1-block";
 import { Sidebars2Block } from "./sidebars-2-block";
+import type { Locale } from "../i18n/config";
+import { siteMessages } from "../i18n/messages";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const messages = siteMessages[locale];
 ---
 
-<section class="showcase" aria-label="Interface examples for different products">
+<section class="showcase" aria-label={messages.home.showcaseLabel}>
   <div class="showcase-grid">
     <div class="showcase-item">
-      <BasicBlock client:visible />
+      <BasicBlock client:visible locale={locale} />
     </div>
     <div class="showcase-item">
-      <Sidebars1Block client:visible />
+      <Sidebars1Block client:visible locale={locale} />
     </div>
     <div class="showcase-item">
-      <Sidebars2Block client:visible />
+      <Sidebars2Block client:visible locale={locale} />
     </div>
     <div class="showcase-item">
-      <LoginBlock client:visible />
+      <LoginBlock client:visible locale={locale} />
     </div>
     <div class="showcase-item">
-      <ProPlanBlock client:visible />
+      <ProPlanBlock client:visible locale={locale} />
     </div>
     <div class="showcase-item">
-      <DashboardBlock client:visible />
+      <DashboardBlock client:visible locale={locale} />
     </div>
     <div class="showcase-item">
-      <MemberProfileBlock client:visible />
+      <MemberProfileBlock client:visible locale={locale} />
     </div>
     <div class="showcase-item">
-      <SkeletonBlock client:visible />
+      <SkeletonBlock client:visible locale={locale} />
     </div>
     <div class="showcase-item">
-      <OrdersTableBlock client:visible />
+      <OrdersTableBlock client:visible locale={locale} />
     </div>
   </div>
 </section>

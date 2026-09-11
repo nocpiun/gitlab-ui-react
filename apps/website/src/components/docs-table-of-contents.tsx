@@ -7,6 +7,8 @@ import {
   GlSubNavButton,
   GlSubNavItem,
 } from "gitlab-ui-react";
+import { type Locale } from "../i18n/config";
+import { siteMessages } from "../i18n/messages";
 
 type DocsHeading = {
   depth: number;
@@ -17,6 +19,7 @@ type DocsHeading = {
 type DocsTableOfContentsProps = {
   className?: string;
   headings: DocsHeading[];
+  locale: Locale;
   showTitle?: boolean;
 };
 
@@ -58,8 +61,10 @@ function groupHeadings(headings: DocsHeading[]) {
 export function DocsTableOfContents({
   className,
   headings,
+  locale,
   showTitle = true,
 }: DocsTableOfContentsProps) {
+  const messages = siteMessages[locale].docs.tableOfContents;
   const [activeHeading, setActiveHeading] = useState<string>();
   const sections = groupHeadings(headings);
 
@@ -153,7 +158,7 @@ export function DocsTableOfContents({
           })}
         </GlNav>
       ) : (
-        <p className="m-0 text-sm text-subtle">No sections on this page.</p>
+        <p className="m-0 text-sm text-subtle">{messages.empty}</p>
       )}
     </div>
   );

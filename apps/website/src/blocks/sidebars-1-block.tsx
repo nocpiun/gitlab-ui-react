@@ -1,81 +1,91 @@
 import { GlAvatar, GlIcon, GlNav, GlNavButton, GlNavItem, GlSubNav, GlSubNavButton, GlSubNavItem } from "gitlab-ui-react";
 import { ShowcaseCard } from "../components/showcase-card";
+import { type Locale } from "../i18n/config";
+import { showcaseContent } from "../i18n/showcase-content";
 
-export function Sidebars1Block() {
+type Sidebars1BlockProps = {
+  locale: Locale;
+};
+
+export function Sidebars1Block({ locale }: Sidebars1BlockProps) {
+  const content = showcaseContent[locale].sidebars1;
+
   return (
     <ShowcaseCard className="flex flex-col gap-3 sm:flex-row">
-      <GlNav className="flex-1 border-b border-section pb-3 sm:border-r sm:border-b-0 sm:pr-3 sm:pb-0">
+      <GlNav
+        aria-label={content.accountNavigationLabel}
+        className="flex-1 border-b border-section pb-3 sm:border-r sm:border-b-0 sm:pr-3 sm:pb-0">
         <GlNavItem>
           <GlNavButton>
             <GlAvatar
-              entityName="Norcleeh"
+              entityName={content.user}
               shape="rect"
               size={24}/>
-            Norcleeh
+            {content.user}
           </GlNavButton>
         </GlNavItem>
         <GlNavItem>
           <GlNavButton>
             <GlIcon name="credit-card"/>
-            Billing
+            {content.billing}
           </GlNavButton>
         </GlNavItem>
         <GlNavItem>
           <GlNavButton>
             <GlIcon name="notifications"/>
-            Notifications
+            {content.notifications}
           </GlNavButton>
         </GlNavItem>
         <GlNavItem>
           <GlNavButton>
             <GlIcon name="settings"/>
-            Settings
+            {content.settings}
           </GlNavButton>
           <GlSubNav>
             <GlSubNavItem>
               <GlSubNavButton>
                 <GlIcon name="appearance"/>
-                Appearance
+                {content.appearance}
               </GlSubNavButton>
             </GlSubNavItem>
             <GlSubNavItem>
               <GlSubNavButton>
                 <GlIcon name="preferences"/>
-                Preferences
+                {content.preferences}
               </GlSubNavButton>
             </GlSubNavItem>
           </GlSubNav>
         </GlNavItem>
       </GlNav>
-      <GlNav className="flex-1">
+      <GlNav aria-label={content.adminNavigationLabel} className="flex-1">
         <GlNavItem>
           <GlNavButton>
             <GlIcon name="dashboard"/>
-            Dashboard
+            {content.dashboard}
           </GlNavButton>
         </GlNavItem>
         <GlNavItem selected>
           <GlNavButton>
             <GlIcon name="chart"/>
-            Monitor
+            {content.monitor}
           </GlNavButton>
         </GlNavItem>
         <GlNavItem>
           <GlNavButton>
             <GlIcon name="users"/>
-            Users
+            {content.users}
           </GlNavButton>
         </GlNavItem>
         <GlNavItem>
           <GlNavButton>
             <GlIcon name="security-configuration"/>
-            Security
+            {content.security}
           </GlNavButton>
         </GlNavItem>
         <GlNavItem>
           <GlNavButton>
             <GlIcon name="policy"/>
-            Logs
+            {content.logs}
           </GlNavButton>
         </GlNavItem>
       </GlNav>

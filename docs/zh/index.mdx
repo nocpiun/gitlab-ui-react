@@ -1,0 +1,39 @@
+---
+title: 介绍
+description: GitLab Pajamas 设计系统的类型安全 React 实现
+---
+
+GitLab UI React 将 GitLab [Pajamas 设计系统](https://design.gitlab.com)背后的组件库从 Vue 移植到 React。项目旨在保持上游 GitLab UI 组件的外观、行为、交互模式与无障碍特性，同时提供符合 React 习惯的类型安全 API。
+
+> [!warning]
+> 🚧 **本项目仍在密集开发中。** 🚧
+>
+> 大部分代码和测试由 AI（Codex 和 Kimi Code）编写。人类负责架构、优先级和设计决策，但尚未逐行审查大部分代码。使用时请自行评估风险。
+
+## 已有内容
+
+- 可分发的 GitLab 设计令牌包位于 `packages/tokens`。完整的令牌参考请查看官方[设计令牌目录](https://design.gitlab.com/product-foundations/design-tokens-directory)。
+- 基础样式位于 `packages/styles/src`，预构建样式表位于 `packages/styles/dist/gitlab-ui.css`。
+- 基础组件，包括 `GlButton`、`GlLink`、`GlBadge` 和 `GlCard`。
+- 表单组件，包括 `GlFormInput`、`GlFormTextarea`、`GlFormCheckbox`、`GlFormRadio` 和 `GlFormSelect` 等。
+
+## 正在进行
+
+项目正在持续扩展组件覆盖范围和发布工具。当前工作包括：
+
+- 高级表单组件
+- 高级复合组件
+- 图表组件
+- 包发布工作流
+- 文档
+- 兼容性与 API 一致性检查
+
+## 资源
+
+- [Storybook](https://glui-story.nocp.space)
+- [Pajamas 设计系统](https://design.gitlab.com)
+- [上游仓库](https://gitlab.com/gitlab-org/gitlab-services/design.gitlab.com)
+
+## 许可证
+
+[MIT](https://github.com/nocpiun/gitlab-ui-react/blob/main/LICENSE)

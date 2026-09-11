@@ -1,6 +1,8 @@
 import { type ComponentType, useId } from "react";
 import { GlButton, GlCard, GlCardContent, GlCardHeader, GlLink } from "gitlab-ui-react";
 import { createHighlighter } from "shiki";
+import { formatTemplate, type Locale } from "../i18n/config";
+import { siteMessages } from "../i18n/messages";
 
 type ExampleModule = {
   default: ComponentType;
@@ -8,6 +10,7 @@ type ExampleModule = {
 
 export type DocsExampleProps = {
   filename: string;
+  locale: Locale;
   title: string;
   storybookId?: string;
 };
@@ -54,8 +57,11 @@ const highlightedSourcesByPath = new Map(
   ]),
 );
 
-export function DocsExample({ filename, title, storybookId }: DocsExampleProps) {
+export function DocsExample({ filename, locale, title, storybookId }: DocsExampleProps) {
   const sourceId = useId();
+  const messages = siteMessages[locale].docs.example;
+  const hideSourceLabel = formatTemplate(messages.hideSource, { title });
+  const showSourceLabel = formatTemplate(messages.showSource, { title });
   const Example = examplesByPath.get(filename);
   const highlightedSource = highlightedSourcesByPath.get(filename);
 
@@ -73,6 +79,7 @@ export function DocsExample({ filename, title, storybookId }: DocsExampleProps) 
         <div className="flex items-center gap-3">
           {storybookId && (
             <GlLink
+              aria-label={messages.storybookLinkLabel}
               showExternalIcon
               href={"https://glui-story.nocp.space/?path=/story/"+ storybookId}
               target="_blank">
@@ -81,10 +88,12 @@ export function DocsExample({ filename, title, storybookId }: DocsExampleProps) 
           )}
           <GlButton
             aria-controls={sourceId}
-            aria-label={`Show source code for ${title}`}
+            aria-label={showSourceLabel}
             aria-pressed="false"
             category="tertiary"
             data-docs-example-toggle
+            data-docs-example-hide-label={hideSourceLabel}
+            data-docs-example-show-label={showSourceLabel}
             data-docs-example-title={title}
             size="small"
             icon="code"/>

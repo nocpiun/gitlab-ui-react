@@ -6,6 +6,8 @@ import {
   GlTooltipContent,
   GlTooltipTrigger,
 } from "gitlab-ui-react";
+import { type Locale } from "../i18n/config";
+import { siteMessages } from "../i18n/messages";
 
 type CopyStatus = "copied" | "failed" | "idle";
 
@@ -16,16 +18,10 @@ type CopyTarget = {
 
 const COPY_FEEDBACK_DURATION = 1500;
 
-const copyLabels: Record<CopyStatus, string> = {
-  copied: "Code copied",
-  failed: "Copy failed",
-  idle: "Copy code",
-};
-
-function CodeCopyButton({ code }: { code: string }) {
+function CodeCopyButton({ code, locale }: { code: string; locale: Locale }) {
   const [status, setStatus] = useState<CopyStatus>("idle");
   const resetTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-  const label = copyLabels[status];
+  const label = siteMessages[locale].docs.codeCopy[status];
 
   useEffect(() => () => clearTimeout(resetTimer.current), []);
 
@@ -60,7 +56,7 @@ function CodeCopyButton({ code }: { code: string }) {
   );
 }
 
-export function DocsCodeBlockCopyButtons() {
+export function DocsCodeBlockCopyButtons({ locale }: { locale: Locale }) {
   const [targets, setTargets] = useState<CopyTarget[]>([]);
 
   useEffect(() => {
@@ -75,6 +71,6 @@ export function DocsCodeBlockCopyButtons() {
   }, []);
 
   return targets.map(({ code, container }, index) => (
-    createPortal(<CodeCopyButton code={code} />, container, index)
+    createPortal(<CodeCopyButton code={code} locale={locale} />, container, index)
   ));
 }

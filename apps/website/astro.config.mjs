@@ -14,7 +14,15 @@ const iconsSpriteUrl = `${fileURLToPath(
 const uiEntry = fileURLToPath(new URL("../../packages/ui/src/index.ts", import.meta.url));
 
 export default defineConfig({
+  site: "https://glui.nocp.space",
   output: "static",
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en", "zh"],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   integrations: [react(), mdx()],
   markdown: {
     shikiConfig: {

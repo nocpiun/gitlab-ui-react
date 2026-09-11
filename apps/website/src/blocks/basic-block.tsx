@@ -21,43 +21,53 @@ import {
   GlToggle
 } from "gitlab-ui-react";
 import { ShowcaseCard } from "../components/showcase-card";
+import { type Locale } from "../i18n/config";
+import { formatTemplate } from "../i18n/config";
+import { showcaseContent } from "../i18n/showcase-content";
 
-export function BasicBlock() {
+type BasicBlockProps = {
+  locale: Locale;
+};
+
+export function BasicBlock({ locale }: BasicBlockProps) {
+  const content = showcaseContent[locale].basic;
+
   return (
     <ShowcaseCard className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center gap-3">
         <GlButton variant="confirm">
-          Button
+          {content.button}
         </GlButton>
         <GlButton>
-          Button
+          {content.button}
         </GlButton>
         <GlButton category="tertiary">
-          Button
+          {content.button}
         </GlButton>
         <GlButton
           icon="ellipsis_h"
           size="small"
+          aria-label={content.moreActions}
           className="ml-auto"/>
       </div>
 
-      <GlFormInput placeholder="Search something..."/>
+      <GlFormInput placeholder={content.searchPlaceholder}/>
 
-      <GlFormTextarea placeholder="Send message..."/>
+      <GlFormTextarea placeholder={content.sendPlaceholder}/>
 
       <div className="flex items-center">
         <GlBadge variant="tier" icon="license">
-          Ultimate
+          {content.tier}
         </GlBadge>
-        <GlFormRadio className="ml-auto"/>
-        <GlFormCheckbox checked/>
-        <GlToggle />
+        <GlFormRadio aria-label={content.radioLabel} className="ml-auto"/>
+        <GlFormCheckbox ariaLabel={content.checkboxLabel} checked/>
+        <GlToggle label={content.toggleLabel} labelPosition="hidden" />
       </div>
 
       <GlButtonGroup>
         {[1, 2, 3].map((value) => (
           <GlButton key={value}>
-            Button {value}
+            {formatTemplate(content.buttonNumber, { number: value })}
           </GlButton>
         ))}
       </GlButtonGroup>
@@ -66,22 +76,21 @@ export function BasicBlock() {
         <GlModal>
           <GlModalTrigger>
             <GlButton>
-              Open Modal
+              {content.openModal}
             </GlButton>
           </GlModalTrigger>
           <GlModalContent>
             <GlModalHeader>
               <GlModalTitle>
-                Hello Pajamas!
+                {content.modalTitle}
               </GlModalTitle>
             </GlModalHeader>
             <div>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              {content.modalBody}
             </div>
             <GlModalFooter>
               <GlModalClose variant="confirm">
-                Confirm
+                {content.confirm}
               </GlModalClose>
             </GlModalFooter>
           </GlModalContent>
@@ -89,15 +98,15 @@ export function BasicBlock() {
 
         <GlDisclosureDropdown>
           <GlDisclosureDropdownTrigger>
-            Dropdown
+            {content.dropdown}
           </GlDisclosureDropdownTrigger>
           <GlDisclosureDropdownContent>
             <GlDisclosureDropdownGroup>
               <GlDisclosureDropdownItem value="foo">
-                Foo
+                {content.dropdownItems[0]}
               </GlDisclosureDropdownItem>
               <GlDisclosureDropdownItem value="bar">
-                Bar
+                {content.dropdownItems[1]}
               </GlDisclosureDropdownItem>
             </GlDisclosureDropdownGroup>
           </GlDisclosureDropdownContent>

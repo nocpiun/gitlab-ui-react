@@ -1,11 +1,11 @@
 import { defineMdastPlugin } from "satteri";
 
 const CALLOUTS = {
-  caution: { title: "Caution", variant: "danger" },
-  important: { title: "Important", variant: "info" },
-  note: { title: "Note", variant: "info" },
-  tip: { title: "Tip", variant: "tip" },
-  warning: { title: "Warning", variant: "warning" },
+  caution: { variant: "danger" },
+  important: { variant: "info" },
+  note: { variant: "info" },
+  tip: { variant: "tip" },
+  warning: { variant: "warning" },
 };
 
 const CALLOUT_MARKER = /^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\](?:[ \t]*\r?\n|[ \t]+|$)/i;
@@ -39,7 +39,7 @@ export const calloutsPlugin = defineMdastPlugin({
       type: "mdxJsxFlowElement",
       name: "DocsCallout",
       attributes: [
-        { type: "mdxJsxAttribute", name: "title", value: callout.title },
+        { type: "mdxJsxAttribute", name: "kind", value: marker[1].toLowerCase() },
         { type: "mdxJsxAttribute", name: "variant", value: callout.variant },
       ],
       children: firstParagraph
