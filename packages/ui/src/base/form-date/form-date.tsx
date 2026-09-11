@@ -22,7 +22,6 @@ import {
   useId,
   useRef,
   useState,
-  type ChangeEvent,
   type ChangeEventHandler,
   type FocusEventHandler,
   type KeyboardEventHandler,
@@ -113,8 +112,9 @@ const GlFormDate = forwardRef<HTMLInputElement, GlFormDateProps>(function GlForm
   const currentValue = isControlled ? value : uncontrolledValue;
   const [valueAsDate, setValueAsDate] = useState<Date | null>(null);
 
-  // Upstream `updateValueAsDate`: refreshed on mount, on `value` prop changes,
-  // and on `change` (see `handleChange` below).
+  // Refresh the accessible description only after the effective value changes.
+  // In controlled mode an attempted edit may be rejected by the parent, so the
+  // native change event alone must not update this derived state.
   useEffect(() => {
     setValueAsDate(inputRef.current?.valueAsDate ?? null);
   }, [currentValue]);
@@ -132,11 +132,6 @@ const GlFormDate = forwardRef<HTMLInputElement, GlFormDateProps>(function GlForm
     isInvalid ? invalidFeedbackId : null,
   ].filter(Boolean).join(" ") || undefined;
 
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    setValueAsDate(event.currentTarget.valueAsDate);
-    onChange?.(event);
-  }
-
   function handleValueChange(newValue: GlFormInputValue) {
     const nextValue = String(newValue);
     if(!isControlled) setUncontrolledValue(nextValue);
@@ -153,7 +148,7 @@ const GlFormDate = forwardRef<HTMLInputElement, GlFormDateProps>(function GlForm
         max={max ?? undefined}
         min={min ?? undefined}
         onBlur={onBlur}
-        onChange={handleChange}
+        onChange={onChange}
         onFocus={onFocus}
         onKeyDown={onKeyDown}
         onValueChange={handleValueChange}

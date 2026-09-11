@@ -116,13 +116,19 @@ export const ChangeEvent: Story = {
   args: {
     value: "2020-01-15",
   },
-  play: async ({ args, canvas }) => {
+  play: async ({ args, canvas, canvasElement }) => {
     const input = canvas.getByDisplayValue("2020-01-15");
+    await waitFor(() => expect(canvasElement.querySelector("output")).not.toBeNull());
+    const output = canvasElement.querySelector("output")!;
+    const originalDescription = output.textContent;
 
     await fireEvent.change(input, { target: { value: "2020-01-20" } });
 
     await expect(args.onChange).toHaveBeenCalledTimes(1);
     await expect(args.onValueChange).toHaveBeenCalledWith("2020-01-20");
+    await expect(input).toHaveValue("2020-01-15");
+    await expect(output.textContent).toBe(originalDescription);
+    await expect(input.getAttribute("aria-describedby")).toContain(output.id);
   },
 };
 
