@@ -21,6 +21,43 @@ describe("GlToggle", () => {
     expect(markup).toMatch(/aria-labelledby="[^"]+"/);
   });
 
+  it("applies native attributes to the button", () => {
+    const markup = renderToStaticMarkup(
+      <GlToggle
+        className="custom-toggle"
+        data-purpose="toggle-button"
+        label="toggle label"
+        style={{ color: "red" }} />,
+    );
+    const wrapper = markup.match(/^<div[^>]*>/)?.[0];
+    const button = markup.match(/<button[^>]*>/)?.[0];
+
+    expect(wrapper).not.toContain("custom-toggle");
+    expect(wrapper).not.toContain("data-purpose");
+    expect(button).toContain("gl-toggle");
+    expect(button).toContain("custom-toggle");
+    expect(button).toContain("data-purpose=\"toggle-button\"");
+    expect(button).toContain("style=\"color:red\"");
+  });
+
+  it("applies wrapperProps to the outer layout element", () => {
+    const markup = renderToggle({
+      wrapperProps: {
+        className: "custom-wrapper",
+        id: "toggle-layout",
+        style: { gap: "1rem" },
+      },
+    });
+    const wrapper = markup.match(/^<div[^>]*>/)?.[0];
+    const button = markup.match(/<button[^>]*>/)?.[0];
+
+    expect(wrapper).toContain("gl-toggle-wrapper");
+    expect(wrapper).toContain("custom-wrapper");
+    expect(wrapper).toContain("id=\"toggle-layout\"");
+    expect(wrapper).toContain("style=\"gap:1rem\"");
+    expect(button).not.toContain("custom-wrapper");
+  });
+
   it.each([
     [true, "true", true],
     [false, "false", false],

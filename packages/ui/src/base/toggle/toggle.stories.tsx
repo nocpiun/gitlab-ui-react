@@ -186,13 +186,19 @@ function NativeToggleResetExample() {
   const [, rerender] = useState(0);
 
   return (
-    <form>
-      <GlToggle defaultValue label="Resettable toggle" name="feature" />
-      <button type="reset">Reset toggle</button>
-      <button onClick={() => rerender((count) => count + 1)} type="button">
-        Rerender toggle
-      </button>
-    </form>
+    <>
+      <GlToggle
+        defaultValue
+        form="toggle-reset-form"
+        label="Resettable toggle"
+        name="feature" />
+      <form id="toggle-reset-form">
+        <button type="reset">Reset toggle</button>
+        <button onClick={() => rerender((count) => count + 1)} type="button">
+          Rerender toggle
+        </button>
+      </form>
+    </>
   );
 }
 

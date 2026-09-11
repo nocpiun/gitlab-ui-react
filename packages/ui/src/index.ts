@@ -408,6 +408,7 @@ export { default as GlToggle } from "./base/toggle/toggle";
 export type {
   GlToggleLabelPosition,
   GlToggleProps,
+  GlToggleWrapperProps,
 } from "./base/toggle/toggle";
 export {
   default as GlTooltip,
