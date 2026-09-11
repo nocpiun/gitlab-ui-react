@@ -1,9 +1,12 @@
 ---
 import { ClientRouter } from "astro:transitions";
+import PagefindConfig from "astro-pagefind/components/PagefindConfig.astro";
 import "../styles/global.css";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { languageTags, localeSwitchPath, localizedPath, type Locale } from "../i18n/config";
+import { siteMessages } from "../i18n/messages";
+import { docsSearchInstance } from "../search";
 
 interface Props {
   alternatePaths: Partial<Record<Locale, string>>;
@@ -19,6 +22,7 @@ const {
   description = "GitLab UI for React",
 } = Astro.props;
 const switchPath = localeSwitchPath(locale, alternatePaths);
+const searchInstance = docsSearchInstance(locale);
 ---
 
 <!doctype html>
@@ -49,6 +53,7 @@ const switchPath = localeSwitchPath(locale, alternatePaths);
             const isDark = storedTheme === "dark" || (storedTheme === null && prefersDark);
 
             document.documentElement.classList.toggle("gl-dark", isDark);
+            document.documentElement.dataset.pfTheme = isDark ? "dark" : "light";
             document.documentElement.style.colorScheme = isDark ? "dark" : "light";
           } catch {
             // Keep the default light theme when browser storage is unavailable.
@@ -63,6 +68,23 @@ const switchPath = localeSwitchPath(locale, alternatePaths);
   </head>
 
   <body class="flex min-h-[100dvh] flex-col">
+    <PagefindConfig instance={searchInstance} lang={languageTags[locale]} />
+    <pagefind-modal class="site-search-modal" instance={searchInstance} reset-on-close>
+      <pagefind-modal-header>
+        <pagefind-input
+          instance={searchInstance}
+          placeholder={siteMessages[locale].navbar.searchPlaceholder}
+        />
+      </pagefind-modal-header>
+      <pagefind-modal-body>
+        <pagefind-summary instance={searchInstance} />
+        <pagefind-results instance={searchInstance} max-sub-results="3" />
+      </pagefind-modal-body>
+      <pagefind-modal-footer>
+        <pagefind-keyboard-hints instance={searchInstance} />
+      </pagefind-modal-footer>
+    </pagefind-modal>
+
     <Navbar
       client:only="react"
       transition:persist="site-navbar"
@@ -77,3 +99,31 @@ const switchPath = localeSwitchPath(locale, alternatePaths);
     <Footer locale={locale} />
   </body>
 </html>
+
+<script>
+  import { locales } from "../i18n/config";
+  import { docsSearchInstance } from "../search";
+
+  type PagefindComponentsWindow = Window & {
+    PagefindComponents?: {
+      getInstanceManager(): {
+        removeInstance(name: string): void;
+      };
+    };
+  };
+
+  document.addEventListener("astro:before-swap", () => {
+    const manager = (window as PagefindComponentsWindow).PagefindComponents?.getInstanceManager();
+
+    for(const locale of locales) manager?.removeInstance(docsSearchInstance(locale));
+  });
+
+  document.addEventListener("click", (event) => {
+    if(!(event.target instanceof Element)) return;
+
+    const resultLink = event.target.closest("pagefind-results a");
+    const modal = resultLink?.closest<HTMLElement & { close(): void }>("pagefind-modal");
+
+    modal?.close();
+  });
+</script>

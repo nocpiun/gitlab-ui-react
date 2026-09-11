@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { navigate } from "astro:transitions/client";
-import { GlButton, GlFormInput, GlListbox, GlListboxContent, GlListboxGroup, GlListboxItem, GlListboxTrigger } from "gitlab-ui-react";
+import { GlButton, GlListbox, GlListboxContent, GlListboxGroup, GlListboxItem, GlListboxTrigger } from "gitlab-ui-react";
+import { DocsSearchTrigger } from "./docs-search-trigger";
 import { githubRepoUrl, storybookUrl } from "../global";
 import { useAstroSpriteIconKey } from "../hooks/use-astro-sprite-icon-key";
 import { formatTemplate, isLocale, localeLabels, localizedPath, type Locale } from "../i18n/config";
@@ -10,6 +11,7 @@ const THEME_STORAGE_KEY = "gitlab-ui-react-theme";
 
 function applyTheme(isDark: boolean) {
   document.documentElement.classList.toggle("gl-dark", isDark);
+  document.documentElement.dataset.pfTheme = isDark ? "dark" : "light";
   document.documentElement.style.colorScheme = isDark ? "dark" : "light";
 }
 
@@ -96,10 +98,7 @@ export function Navbar({ locale, localeSwitchPath }: NavbarProps) {
           icon={isDark ? "moon" : "sun"}
           onClick={toggleTheme}
           title={isDark ? messages.navbar.switchToLight : messages.navbar.switchToDark}/>
-        <GlFormInput
-          aria-label={messages.navbar.searchLabel}
-          className="min-w-0 flex-1 sm:min-w-56 lg:w-64"
-          placeholder={messages.navbar.searchPlaceholder}/>
+        <DocsSearchTrigger locale={locale} />
         <GlListbox
           value={locale}
           onValueChange={(value) => {

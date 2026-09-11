@@ -99,7 +99,7 @@ export function DocsExample({ filename, locale, title, storybookId }: DocsExampl
             icon="code"/>
         </div>
       </GlCardHeader>
-      <GlCardContent data-docs-example-component>
+      <GlCardContent data-docs-example-component data-pagefind-ignore="index">
         <Example />
       </GlCardContent>
       <div

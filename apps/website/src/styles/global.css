@@ -1,6 +1,7 @@
 @import "tailwindcss" source("../");
 @import "@gitlab-ui-react/styles";
 @import "./markdown.css";
+@import "./search.css";
 
 @config "../../tailwind.config.cjs";
 
