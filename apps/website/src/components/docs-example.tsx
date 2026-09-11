@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import { GlButton, GlCard, GlCardContent, GlCardHeader } from "gitlab-ui-react";
+import { GlButton, GlCard, GlCardContent, GlCardHeader, GlLink } from "gitlab-ui-react";
 import { createHighlighter } from "shiki";
 
 type ExampleModule = {
@@ -9,6 +9,7 @@ type ExampleModule = {
 export type DocsExampleProps = {
   filename: string;
   title: string;
+  storybookId?: string;
 };
 
 const exampleModules = import.meta.glob<ExampleModule>("@examples/*.tsx", {
@@ -45,7 +46,7 @@ const highlightedSourcesByFilename = new Map(
   ]),
 );
 
-export function DocsExample({ filename, title }: DocsExampleProps) {
+export function DocsExample({ filename, title, storybookId }: DocsExampleProps) {
   const Example = examplesByFilename.get(filename);
   const highlightedSource = highlightedSourcesByFilename.get(filename);
 
@@ -60,12 +61,22 @@ export function DocsExample({ filename, title }: DocsExampleProps) {
     <GlCard className="my-7" data-docs-example>
       <GlCardHeader className="flex items-center justify-between gap-3 pr-1 pt-1 pb-2">
         <span className="text-300 font-bold">{title}</span>
-        <GlButton
-          aria-pressed="false"
-          category="tertiary"
-          data-docs-example-toggle
-          size="small"
-          icon="code"/>
+        <div className="flex items-center gap-3">
+          {storybookId && (
+            <GlLink
+              showExternalIcon
+              href={"https://glui-story.nocp.space/?path=/story/"+ storybookId}
+              target="_blank">
+              Storybook
+            </GlLink>
+          )}
+          <GlButton
+            aria-pressed="false"
+            category="tertiary"
+            data-docs-example-toggle
+            size="small"
+            icon="code"/>
+        </div>
       </GlCardHeader>
       <GlCardContent data-docs-example-component>
         <Example />
