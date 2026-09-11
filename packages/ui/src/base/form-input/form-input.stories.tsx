@@ -447,6 +447,53 @@ export const NumberModifier: Story = {
   },
 };
 
+export const ControlledNumberModifier: Story = {
+  args: {
+    defaultValue: undefined,
+    number: true,
+    value: 1,
+  },
+  render: (args) => <ControlledInput {...args} />,
+  play: async ({ args, canvas }) => {
+    const input = canvas.getByRole("textbox");
+
+    await userEvent.type(input, ".");
+    await expect(input).toHaveValue("1.");
+    await expect(args.onValueChange).not.toHaveBeenCalled();
+
+    await userEvent.type(input, "5");
+    await expect(args.onValueChange).toHaveBeenLastCalledWith(1.5);
+    await expect(input).toHaveValue("1.5");
+
+    args.onValueChange!.mockClear();
+    await userEvent.type(input, "0");
+    await expect(input).toHaveValue("1.50");
+    await expect(args.onValueChange).not.toHaveBeenCalled();
+
+    await userEvent.tab();
+    await expect(input).toHaveValue("1.5");
+  },
+};
+
+export const ControlledNumberModifierRejectedUpdate: Story = {
+  args: {
+    defaultValue: undefined,
+    number: true,
+    value: 1,
+  },
+  render: (args) => <GlFormInput {...args} />,
+  play: async ({ args, canvas }) => {
+    const input = canvas.getByRole("textbox");
+
+    await userEvent.type(input, ".");
+    await expect(input).toHaveValue("1.");
+
+    await userEvent.type(input, "5");
+    await expect(args.onValueChange).toHaveBeenLastCalledWith(1.5);
+    await expect(input).toHaveValue("1");
+  },
+};
+
 export const Trim: Story = {
   args: {
     trim: true,
@@ -459,6 +506,26 @@ export const Trim: Story = {
 
     await expect(args.onValueChange).toHaveBeenLastCalledWith("a");
     await expect(input).toHaveValue(" a ");
+  },
+};
+
+export const ControlledTrim: Story = {
+  args: {
+    defaultValue: undefined,
+    trim: true,
+    value: "hello",
+  },
+  render: (args) => <ControlledInput {...args} />,
+  play: async ({ args, canvas }) => {
+    const input = canvas.getByRole("textbox");
+
+    await userEvent.type(input, " ");
+    await expect(input).toHaveValue("hello ");
+    await expect(args.onValueChange).not.toHaveBeenCalled();
+
+    await userEvent.type(input, "world");
+    await expect(input).toHaveValue("hello world");
+    await expect(args.onValueChange).toHaveBeenLastCalledWith("hello world");
   },
 };
 

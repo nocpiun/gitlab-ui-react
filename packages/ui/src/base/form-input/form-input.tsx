@@ -245,8 +245,8 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
   const isControlled = value !== undefined;
   const initialValue = isControlled ? value : defaultValue;
   const acceptedValueRef = useRef(toStringValue(initialValue));
-  // A controlled input normally renders its prop directly. Delayed updates are
-  // the exception: keep the user's draft visible until blur/debounce commits it.
+  // A controlled input normally renders its prop directly. Keep a draft for
+  // delayed updates and for raw modifier text whose model value is unchanged.
   const [controlledDraft, setControlledDraft] = useState<{
     sourceValue: GlFormInputValue | undefined;
     value: string;
@@ -259,10 +259,10 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
     ? Math.max(Math.trunc(numericDebounce), 0)
     : 0;
   const hasDelayedValueChange = lazy || computedDebounce > 0;
+  const hasValueModifier = number || trim;
   // Tying the draft to its source prop makes an external value change override
-  // the draft immediately, before the synchronization effect clears its timer.
+  // it immediately, before the synchronization effect clears the draft.
   const renderedValue = controlledDraft !== null
-    && hasDelayedValueChange
     && Object.is(controlledDraft.sourceValue, value)
     ? controlledDraft.value
     : toStringValue(value);
@@ -336,7 +336,10 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
       if(modified !== currentModelValue) {
         if(!isControlled) modelValueRef.current = modified;
         onValueChange?.(modified);
-      } else if(hasFormatter) {
+      } else if(
+        hasFormatter
+        && !(isControlled && hasValueModifier && newValue !== toStringValue(modified))
+      ) {
         // When the model value hasn't changed but the actual input value is
         // out of sync, make sure to reset it to the model value. Usually
         // caused by browser autocomplete and how it triggers the change or
@@ -382,6 +385,19 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
     if(isControlled) {
       if(hasDelayedValueChange) {
         setControlledDraft({ sourceValue: value, value: formattedValue });
+      } else {
+        const modifiedValue = modifyInputValue(formattedValue, trim, number);
+        const currentModelValue = modifyInputValue(value ?? "", trim, number);
+        // `.number` and `.trim` can leave the model unchanged while the raw
+        // text is still meaningful input in progress, such as `1.` or a
+        // trailing space. Preserve that text until it changes the model or
+        // the field is blurred.
+        const shouldPreserveModifierDraft = hasValueModifier
+          && modifiedValue === currentModelValue
+          && formattedValue !== toStringValue(value);
+        setControlledDraft(shouldPreserveModifierDraft
+          ? { sourceValue: value, value: formattedValue }
+          : null);
       }
     } else {
       event.currentTarget.value = formattedValue;
@@ -395,6 +411,7 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
     // browsers (e.g. caused by autocomplete).
     const formattedValue = formatValue(event.target.value, event, true);
     if(formattedValue !== false) {
+      if(isControlled) setControlledDraft(null);
       // We need to use the modified value here to apply the `.trim` and
       // `.number` modifiers properly
       if(!isControlled) {
