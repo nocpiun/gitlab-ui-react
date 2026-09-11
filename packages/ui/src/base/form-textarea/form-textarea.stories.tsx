@@ -164,7 +164,6 @@ export const Debounced: Story = {
     debounce: 200,
     value: "",
   },
-  render: (args) => <GlFormTextarea {...args} defaultValue="" value={undefined} />,
   play: async ({ args, canvas }) => {
     const textarea = canvas.getByRole("textbox", { name: "Description" });
 
@@ -176,6 +175,23 @@ export const Debounced: Story = {
       () => expect(args.onValueChange).toHaveBeenLastCalledWith("Debounced"),
       { timeout: 1000 },
     );
+  },
+};
+
+export const DebouncedRejectedUpdate: Story = {
+  args: {
+    debounce: 50,
+    value: "",
+  },
+  render: (args) => <GlFormTextarea {...args} />,
+  play: async ({ args, canvas }) => {
+    const textarea = canvas.getByRole("textbox", { name: "Description" });
+
+    await userEvent.type(textarea, "draft");
+    await expect(textarea).toHaveValue("draft");
+
+    await waitFor(() => expect(args.onValueChange).toHaveBeenLastCalledWith("draft"));
+    await expect(textarea).toHaveValue("");
   },
 };
 

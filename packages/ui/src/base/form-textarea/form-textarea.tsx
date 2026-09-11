@@ -251,7 +251,19 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
     const initialValue = isControlled ? value : defaultValue;
     const modelValueRef = useRef(initialValue);
     const [uncontrolledValue, setUncontrolledValue] = useState(() => toStringValue(initialValue));
-    const renderedValue = isControlled ? toStringValue(value) : uncontrolledValue;
+    // Preserve an editable draft while a controlled value change is debounced.
+    const [controlledDraft, setControlledDraft] = useState<{
+      sourceValue: string | null | undefined;
+      value: string;
+    } | null>(null);
+    const computedDebounce = Math.max(toInteger(debounce), 0);
+    const renderedValue = isControlled
+      ? controlledDraft !== null
+        && computedDebounce > 0
+        && Object.is(controlledDraft.sourceValue, value)
+        ? controlledDraft.value
+        : toStringValue(value)
+      : uncontrolledValue;
     const [heightInPx, setHeightInPx] = useState<string | null>(null);
 
     const computedState = typeof state === "boolean" ? state : null;
@@ -279,6 +291,7 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
       clearDebounce();
 
       const doUpdate = () => {
+        if(isControlled && computedDebounce > 0) setControlledDraft(null);
         const currentModelValue = isControlled ? value : modelValueRef.current;
         if(newValue !== currentModelValue) {
           if(!isControlled) modelValueRef.current = newValue;
@@ -291,7 +304,6 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
         }
       };
 
-      const computedDebounce = Math.max(toInteger(debounce), 0);
       if(computedDebounce > 0 && !force) {
         debounceTimerRef.current = setTimeout(doUpdate, computedDebounce);
       } else {
@@ -302,8 +314,9 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
     useEffect(() => {
       if(!isControlled) return;
       clearDebounce();
+      setControlledDraft(null);
       modelValueRef.current = value;
-    }, [isControlled, value]);
+    }, [computedDebounce, isControlled, value]);
 
     const scheduleHeight = useCallback(() => {
       if(animationFrameRef.current !== null) {
@@ -362,7 +375,13 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
         event.preventDefault();
         return;
       }
-      if(!isControlled) setUncontrolledValue(formattedValue);
+      if(isControlled) {
+        if(computedDebounce > 0) {
+          setControlledDraft({ sourceValue: value, value: formattedValue });
+        }
+      } else {
+        setUncontrolledValue(formattedValue);
+      }
       updateValue(formattedValue);
     }
 

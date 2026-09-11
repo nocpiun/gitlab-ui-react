@@ -17,6 +17,22 @@ function ControlledInput(args: ComponentProps<typeof GlFormInput>) {
   );
 }
 
+function ResettableDebouncedInput(args: ComponentProps<typeof GlFormInput>) {
+  const [value, setValue] = useState("Committed value");
+
+  return (
+    <div>
+      <GlFormInput {...args} value={value} />
+      <button
+        type="button"
+        onClick={() => setValue("External reset")}
+        onMouseDown={(event) => event.preventDefault()}>
+        Reset externally
+      </button>
+    </div>
+  );
+}
+
 const meta = {
   title: "UI/Base/Form Input",
   component: GlFormInput,
@@ -260,13 +276,16 @@ export const ResponsiveWidths: Story = {
 export const Debounce: Story = {
   args: {
     debounce: 50,
-    defaultValue: "",
+    defaultValue: undefined,
+    value: "",
   },
+  render: (args) => <ControlledInput {...args} />,
   play: async ({ args, canvas }) => {
     const input = canvas.getByRole("textbox");
 
     await userEvent.type(input, "ab");
 
+    await expect(input).toHaveValue("ab");
     await expect(args.onValueChange).not.toHaveBeenCalled();
     await waitFor(() => expect(args.onValueChange).toHaveBeenCalledTimes(1));
     await expect(args.onValueChange).toHaveBeenLastCalledWith("ab");
@@ -275,20 +294,65 @@ export const Debounce: Story = {
 
 export const Lazy: Story = {
   args: {
+    defaultValue: undefined,
     lazy: true,
-    defaultValue: "",
+    value: "",
   },
+  render: (args) => <ControlledInput {...args} />,
   play: async ({ args, canvas }) => {
     const input = canvas.getByRole("textbox");
 
     await userEvent.type(input, "ab");
 
+    await expect(input).toHaveValue("ab");
     await expect(args.onChange).toHaveBeenCalledTimes(2);
     await expect(args.onValueChange).not.toHaveBeenCalled();
 
     // Lazy value changes are committed on blur.
     await userEvent.tab();
     await expect(args.onValueChange).toHaveBeenCalledWith("ab");
+  },
+};
+
+export const ControlledLazyRejectedUpdate: Story = {
+  args: {
+    defaultValue: undefined,
+    lazy: true,
+    value: "",
+  },
+  render: (args) => <GlFormInput {...args} />,
+  play: async ({ args, canvas }) => {
+    const input = canvas.getByRole("textbox");
+
+    await userEvent.type(input, "draft");
+    await expect(input).toHaveValue("draft");
+
+    await userEvent.tab();
+    await expect(args.onValueChange).toHaveBeenLastCalledWith("draft");
+    await expect(input).toHaveValue("");
+  },
+};
+
+export const ControlledDebounceExternalReset: Story = {
+  args: {
+    debounce: 500,
+    defaultValue: undefined,
+    value: "",
+  },
+  render: (args) => <ResettableDebouncedInput {...args} />,
+  play: async ({ args, canvas }) => {
+    const input = canvas.getByRole("textbox");
+    const reset = canvas.getByRole("button", { name: "Reset externally" });
+    args.onValueChange!.mockClear();
+
+    await userEvent.type(input, " draft");
+    await expect(input).toHaveValue("Committed value draft");
+
+    await userEvent.click(reset);
+    await expect(input).toHaveValue("External reset");
+
+    await new Promise((resolve) => setTimeout(resolve, 600));
+    await expect(args.onValueChange).not.toHaveBeenCalled();
   },
 };
 

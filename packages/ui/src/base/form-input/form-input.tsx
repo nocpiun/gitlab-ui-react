@@ -245,10 +245,29 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
   const isControlled = value !== undefined;
   const initialValue = isControlled ? value : defaultValue;
   const [uncontrolledValue, setUncontrolledValue] = useState(() => toStringValue(initialValue));
+  // A controlled input normally renders its prop directly. Delayed updates are
+  // the exception: keep the user's draft visible until blur/debounce commits it.
+  const [controlledDraft, setControlledDraft] = useState<{
+    sourceValue: GlFormInputValue | undefined;
+    value: string;
+  } | null>(null);
   const modelValueRef = useRef<GlFormInputValue>(
     modifyInputValue(initialValue, trim, number),
   );
-  const renderedValue = isControlled ? toStringValue(value) : uncontrolledValue;
+  const numericDebounce = Number(debounce);
+  const computedDebounce = Number.isFinite(numericDebounce)
+    ? Math.max(Math.trunc(numericDebounce), 0)
+    : 0;
+  const hasDelayedValueChange = lazy || computedDebounce > 0;
+  // Tying the draft to its source prop makes an external value change override
+  // the draft immediately, before the synchronization effect clears its timer.
+  const renderedValue = isControlled
+    ? controlledDraft !== null
+      && hasDelayedValueChange
+      && Object.is(controlledDraft.sourceValue, value)
+      ? controlledDraft.value
+      : toStringValue(value)
+    : uncontrolledValue;
 
   function clearDebounce() {
     if(debounceTimerRef.current !== null) {
@@ -271,8 +290,9 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
   useEffect(() => {
     if(!isControlled) return;
     clearDebounce();
+    setControlledDraft(null);
     modelValueRef.current = modifyInputValue(value ?? "", trim, number);
-  }, [isControlled, number, trim, value]);
+  }, [computedDebounce, isControlled, lazy, number, trim, value]);
 
   function updateValue(newValue: string, force = false) {
     if(lazy && !force) {
@@ -282,6 +302,7 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
     // even when the model hasn't changed
     clearDebounce();
     const doUpdate = () => {
+      if(isControlled && hasDelayedValueChange) setControlledDraft(null);
       const modified = modifyInputValue(newValue, trim, number);
       const currentModelValue = isControlled
         ? modifyInputValue(value ?? "", trim, number)
@@ -304,10 +325,6 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
     };
     // Ensure we have a positive integer equal to or greater than 0
     // (lodash `toInteger` semantics)
-    const numericDebounce = Number(debounce);
-    const computedDebounce = Number.isFinite(numericDebounce)
-      ? Math.max(Math.trunc(numericDebounce), 0)
-      : 0;
     // Only debounce the value update when a value greater than `0` is set and
     // we are not in lazy mode or this is a forced update
     if(computedDebounce > 0 && !lazy && !force) {
@@ -330,7 +347,13 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
       event.preventDefault();
       return;
     }
-    if(!isControlled) setUncontrolledValue(formattedValue);
+    if(isControlled) {
+      if(hasDelayedValueChange) {
+        setControlledDraft({ sourceValue: value, value: formattedValue });
+      }
+    } else {
+      setUncontrolledValue(formattedValue);
+    }
     updateValue(formattedValue);
   }
 
