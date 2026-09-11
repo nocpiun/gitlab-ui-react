@@ -3,10 +3,8 @@
  * packages/gitlab-ui/src/components/base/form/form_password_input/form_password_input.vue
  *
  * Adaptations:
- * - The `v-model` pair maps to the controlled `value` prop plus the `onInput`
- *   callback forwarded to the inner GlFormInput (upstream forwards all
- *   listeners with `v-on="$listeners"`); `onChange`/`onUpdate`/`onBlur` and
- *   the other GlFormInput props pass through as well.
+ * - Value state uses the inner GlFormInput's `value`, `defaultValue`, and
+ *   `onValueChange` API. Native input events pass through unchanged.
  * - The `visibility-change` event maps to the `onVisibilityChange` callback.
  * - The `v-gl-tooltip` directive on the toggle maps to the compound GlTooltip
  *   parts backed by Base UI trigger composition.
@@ -41,6 +39,7 @@ import GlTooltip, { GlTooltipContent, GlTooltipTrigger } from "../tooltip/toolti
 export type GlFormPasswordInputProps = Omit<
   GlFormInputProps,
   | "className"
+  | "defaultValue"
   | "disabled"
   | "style"
   | "type"
@@ -72,22 +71,24 @@ export type GlFormPasswordInputProps = Omit<
   style?: CSSProperties;
   /** The input's value. */
   value?: string;
+  /** Initial input value when used uncontrolled. */
+  defaultValue?: string;
 };
 
 const GlFormPasswordInput = forwardRef<HTMLInputElement, GlFormPasswordInputProps>(
   function GlFormPasswordInput({
     className,
+    defaultValue,
     inputClassName,
     disabled = false,
     // Upstream defaults resolve through its i18n runtime (`translate`); this
     // package has none, so the upstream English defaults are used directly.
     hideLabel = "Hide password",
     initialVisibility = false,
-    onInput,
     onVisibilityChange,
     revealLabel = "Reveal password",
     style,
-    value = "",
+    value,
     width = null,
     ...inputProps
   }, forwardedRef) {
@@ -109,8 +110,8 @@ const GlFormPasswordInput = forwardRef<HTMLInputElement, GlFormPasswordInputProp
           {...inputProps}
           ref={forwardedRef}
           className={clsx("gl-form-password-input-field", inputClassName)}
+          defaultValue={defaultValue}
           disabled={disabled}
-          onInput={onInput}
           type={isMasked ? "password" : "text"}
           value={value} />
         <GlTooltip>

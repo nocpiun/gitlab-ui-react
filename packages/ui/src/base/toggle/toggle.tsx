@@ -19,7 +19,7 @@ export type GlToggleLabelPosition = "top" | "left" | "hidden";
 
 type ToggleElementProps = Omit<
   HTMLAttributes<HTMLDivElement>,
-  "defaultValue" | "onChange"
+  "defaultValue"
 >;
 
 export type GlToggleProps = ToggleElementProps & {
@@ -44,9 +44,9 @@ export type GlToggleProps = ToggleElementProps & {
   labelPosition?: GlToggleLabelPosition;
   /** Name attribute for a hidden input element carrying the value. */
   name?: string;
-  /** Called with the next state when the toggle is activated. */
-  onChange?: (value: boolean) => void;
-  /** The toggle's state. */
+  /** Called with the next value when the toggle is activated. */
+  onValueChange?: (value: boolean) => void;
+  /** The controlled value. */
   value?: boolean;
 };
 
@@ -104,7 +104,7 @@ const GlToggle = forwardRef<HTMLButtonElement, GlToggleProps>(function GlToggle(
   labelId: labelIdProp,
   labelPosition = "top",
   name,
-  onChange,
+  onValueChange,
   value,
   ...elementProps
 }, forwardedRef) {
@@ -112,8 +112,9 @@ const GlToggle = forwardRef<HTMLButtonElement, GlToggleProps>(function GlToggle(
   const labelId = labelIdProp ?? `toggle-label-${generatedId}`;
   const helpId = `toggle-help-${generatedId}`;
 
+  const isControlled = value !== undefined;
   const [uncontrolledValue, setUncontrolledValue] = useState(Boolean(defaultValue));
-  const checked = value ?? uncontrolledValue;
+  const checked = isControlled ? value : uncontrolledValue;
 
   const isVerticalLayout = labelPosition !== "left";
   const shouldRenderDescription = Boolean(description) && isVerticalLayout;
@@ -124,8 +125,8 @@ const GlToggle = forwardRef<HTMLButtonElement, GlToggleProps>(function GlToggle(
     if(disabled) return;
 
     const nextValue = !checked;
-    setUncontrolledValue(nextValue);
-    onChange?.(nextValue);
+    if(!isControlled) setUncontrolledValue(nextValue);
+    onValueChange?.(nextValue);
   };
 
   return (

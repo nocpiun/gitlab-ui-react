@@ -7,11 +7,9 @@
  * group context in `src/base/form-radio-group/form-radio-group-context.ts`.
  *
  * Adaptations:
- * - The `v-model` pair maps to the `checked` prop plus `onInput` (the model
- *   event) and `onChange` (user interaction) callbacks. Like upstream's
- *   `localChecked`, the component keeps internal state seeded from `checked`
- *   and re-synced when the prop changes, so it also selects without a
- *   listener.
+ * - Checked state uses React's controlled `checked` or uncontrolled
+ *   `defaultChecked` API, with `onCheckedChange` reporting state changes.
+ *   `onChange` and `onInput` retain their native React event semantics.
  * - The `help` scoped slot maps to the `help` prop. Additional attributes are
  *   applied to the `<input>` element, like upstream's `v-bind="computedAttrs"`;
  *   `className` is applied to the root wrapper, matching Vue's class
@@ -49,28 +47,27 @@ type RadioElementProps = Omit<
   | "checked"
   | "children"
   | "className"
+  | "defaultChecked"
   | "onChange"
-  | "onInput"
   | "type"
   | "value"
 >;
 
 export type GlFormRadioProps = RadioElementProps & {
-  /**
-   * The current value of the radio. When bound to multiple radios, this is
-   * the value of the currently selected radio. Defaults to `null`.
-   */
-  checked?: unknown;
+  /** The controlled checked state. Ignored inside a GlFormRadioGroup. */
+  checked?: boolean;
   /** The radio content, rendered inside the `<label>`. */
   children?: ReactNode;
   /** Additional CSS class(es) merged onto the root wrapper. */
   className?: string;
+  /** Initial checked state when used uncontrolled. Ignored inside a group. */
+  defaultChecked?: boolean;
   /** Help text rendered below the label content. */
   help?: ReactNode;
-  /** The model event: called with the selected value when it changes. */
-  onInput?: (checked: unknown) => void;
-  /** Called with the selected value on user interaction. */
-  onChange?: (value: unknown) => void;
+  /** Called with the native React change event. */
+  onChange?: InputHTMLAttributes<HTMLInputElement>["onChange"];
+  /** Called with the next checked state on user interaction. */
+  onCheckedChange?: (checked: boolean) => void;
   /**
    * Adds the `required` attribute to the input. Only takes effect when a
    * `name` is provided, like upstream.
@@ -79,9 +76,8 @@ export type GlFormRadioProps = RadioElementProps & {
   /** Validation state: `true` valid, `false` invalid, `null` none. */
   state?: boolean | null;
   /**
-   * Value returned when this radio is selected. Defaults to `true`, unlike
-   * the HTML default of "on", so selecting a radio without an explicit value
-   * sets the bound model to `true`.
+   * Native form value and, inside a group, the option value. Defaults to
+   * `true`, preserving the upstream option default.
    */
   value?: unknown;
 };
@@ -97,15 +93,16 @@ const inputVariants = cva("custom-control-input", {
 });
 
 const GlFormRadio = forwardRef<HTMLInputElement, GlFormRadioProps>(function GlFormRadio({
-  checked = null,
+  checked,
   children,
   className,
+  defaultChecked = false,
   disabled = false,
   help,
   id,
   name,
   onChange,
-  onInput,
+  onCheckedChange,
   required = false,
   state = null,
   value = true,
@@ -117,20 +114,11 @@ const GlFormRadio = forwardRef<HTMLInputElement, GlFormRadioProps>(function GlFo
   const group = useContext(GlFormRadioGroupContext);
   const isGroup = group !== null;
 
-  // Internal checked state seeded from the `checked` prop, mirroring
-  // upstream's `localChecked`. The prop watcher maps to a render-phase
-  // adjustment so the input stays in sync before paint. Inside a group the
-  // shared group value is the source of truth and this state is unused.
-  const [localChecked, setLocalChecked] = useState<unknown>(checked);
-  const [prevChecked, setPrevChecked] = useState(checked);
-  if(!Object.is(prevChecked, checked)) {
-    setPrevChecked(checked);
-    if(!looseEqual(checked, localChecked)) {
-      setLocalChecked(checked);
-    }
-  }
-
-  const isChecked = looseEqual(isGroup ? group.checked : localChecked, value);
+  const isControlled = checked !== undefined;
+  const [uncontrolledChecked, setUncontrolledChecked] = useState(defaultChecked);
+  const isChecked = isGroup
+    ? looseEqual(group.value, value)
+    : isControlled ? checked : uncontrolledChecked;
 
   // Inside a group, the group's validation state wins (upstream's
   // `computedState` reads `group.computedState`).
@@ -144,17 +132,16 @@ const GlFormRadio = forwardRef<HTMLInputElement, GlFormRadioProps>(function GlFo
   // only be required when its group is.
   const isRequired = Boolean(computedName) && (isGroup ? group.required : required);
 
-  function handleChange(_event: ChangeEvent<HTMLInputElement>) {
-    // Upstream emits the model event first (via the `localChecked` watcher)
-    // and the `change` event on the next tick; inside a group the selection
-    // also updates the group's shared model and fires the group's events.
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    onChange?.(event);
+    if(event.defaultPrevented) return;
+
     if(isGroup) {
       group.select(value);
-    } else {
-      setLocalChecked(value);
+    } else if(!isControlled) {
+      setUncontrolledChecked(event.target.checked);
     }
-    onInput?.(value);
-    onChange?.(value);
+    onCheckedChange?.(event.target.checked);
   }
 
   return (

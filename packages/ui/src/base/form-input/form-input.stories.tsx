@@ -1,6 +1,21 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useState, type ComponentProps } from "react";
 import { expect, fireEvent, fn, userEvent, waitFor } from "storybook/test";
 import GlFormInput from "./form-input";
+
+function ControlledInput(args: ComponentProps<typeof GlFormInput>) {
+  const [value, setValue] = useState(args.value ?? args.defaultValue ?? "");
+
+  return (
+    <GlFormInput
+      {...args}
+      value={value}
+      onValueChange={(nextValue) => {
+        setValue(nextValue);
+        args.onValueChange?.(nextValue);
+      }} />
+  );
+}
 
 const meta = {
   title: "UI/Base/Form Input",
@@ -9,11 +24,10 @@ const meta = {
     id: "input-id",
     onBlur: fn(),
     onChange: fn(),
-    onInput: fn(),
-    onUpdate: fn(),
+    onValueChange: fn(),
     placeholder: "Placeholder",
     type: "text",
-    value: "some text",
+    defaultValue: "some text",
   },
   argTypes: {
     state: {
@@ -62,10 +76,23 @@ export const Default: Story = {
     await expect(getComputedStyle(input).transitionTimingFunction).toBe("ease-in-out, ease-in-out");
     await userEvent.type(input, "foo");
 
-    // `onUpdate` fires immediately per keystroke, `onInput` is the model event.
-    await expect(args.onUpdate).toHaveBeenLastCalledWith("foo");
-    await expect(args.onInput).toHaveBeenLastCalledWith("foo");
+    await expect(args.onValueChange).toHaveBeenLastCalledWith("foo");
+    await expect(args.onChange).toHaveBeenCalled();
     await expect(input).toHaveValue("foo");
+  },
+};
+
+export const Controlled: Story = {
+  args: {
+    defaultValue: undefined,
+    value: "Controlled value",
+  },
+  render: (args) => <ControlledInput {...args} />,
+  play: async ({ canvas }) => {
+    const input = canvas.getByRole("textbox");
+
+    await userEvent.type(input, " updated");
+    await expect(input).toHaveValue("Controlled value updated");
   },
 };
 
@@ -233,53 +260,49 @@ export const ResponsiveWidths: Story = {
 export const Debounce: Story = {
   args: {
     debounce: 50,
-    value: "",
+    defaultValue: "",
   },
   play: async ({ args, canvas }) => {
     const input = canvas.getByRole("textbox");
 
     await userEvent.type(input, "ab");
 
-    // `onUpdate` is synchronous; the model event fires after the delay.
-    await expect(args.onUpdate).toHaveBeenCalledTimes(2);
-    await expect(args.onInput).not.toHaveBeenCalled();
-    await waitFor(() => expect(args.onInput).toHaveBeenCalledTimes(1));
-    await expect(args.onInput).toHaveBeenLastCalledWith("ab");
+    await expect(args.onValueChange).not.toHaveBeenCalled();
+    await waitFor(() => expect(args.onValueChange).toHaveBeenCalledTimes(1));
+    await expect(args.onValueChange).toHaveBeenLastCalledWith("ab");
   },
 };
 
 export const Lazy: Story = {
   args: {
     lazy: true,
-    value: "",
+    defaultValue: "",
   },
   play: async ({ args, canvas }) => {
     const input = canvas.getByRole("textbox");
 
     await userEvent.type(input, "ab");
 
-    await expect(args.onUpdate).toHaveBeenCalledTimes(2);
-    await expect(args.onInput).not.toHaveBeenCalled();
+    await expect(args.onChange).toHaveBeenCalledTimes(2);
+    await expect(args.onValueChange).not.toHaveBeenCalled();
 
-    // The model updates on the native change event (fired on blur).
+    // Lazy value changes are committed on blur.
     await userEvent.tab();
-    await expect(args.onChange).toHaveBeenCalledWith("ab");
-    await expect(args.onInput).toHaveBeenCalledWith("ab");
+    await expect(args.onValueChange).toHaveBeenCalledWith("ab");
   },
 };
 
 export const Formatter: Story = {
   args: {
     formatter: (value: string) => value.toLowerCase(),
-    value: "",
+    defaultValue: "",
   },
   play: async ({ args, canvas }) => {
     const input = canvas.getByRole("textbox");
 
     await userEvent.type(input, "AB");
 
-    await expect(args.onUpdate).toHaveBeenLastCalledWith("ab");
-    await expect(args.onInput).toHaveBeenLastCalledWith("ab");
+    await expect(args.onValueChange).toHaveBeenLastCalledWith("ab");
     await expect(input).toHaveValue("ab");
   },
 };
@@ -288,7 +311,7 @@ export const LazyFormatter: Story = {
   args: {
     formatter: (value: string) => value.toLowerCase(),
     lazyFormatter: true,
-    value: "",
+    defaultValue: "",
   },
   play: async ({ args, canvas }) => {
     const input = canvas.getByRole("textbox");
@@ -296,20 +319,19 @@ export const LazyFormatter: Story = {
     await userEvent.type(input, "AB");
 
     // The formatter is not applied per keystroke…
-    await expect(args.onUpdate).toHaveBeenLastCalledWith("AB");
     await expect(input).toHaveValue("AB");
 
     // …but applies on blur.
     await userEvent.tab();
     await expect(input).toHaveValue("ab");
-    await expect(args.onInput).toHaveBeenLastCalledWith("ab");
+    await expect(args.onValueChange).toHaveBeenLastCalledWith("ab");
   },
 };
 
 export const NumberModifier: Story = {
   args: {
     number: true,
-    value: "",
+    defaultValue: "",
   },
   play: async ({ args, canvas }) => {
     const input = canvas.getByRole("textbox");
@@ -318,15 +340,14 @@ export const NumberModifier: Story = {
 
     // The model event carries a native number: emitted for 1, 12, 123, 123.4,
     // 123.45 ("123." and "123.450" are numerically unchanged and skipped).
-    await expect(args.onInput).toHaveBeenLastCalledWith(123.45);
-    await expect(args.onInput).toHaveBeenCalledTimes(5);
+    await expect(args.onValueChange).toHaveBeenLastCalledWith(123.45);
+    await expect(args.onValueChange).toHaveBeenCalledTimes(5);
     await expect(input).toHaveValue("123.450");
 
     // Typing another trailing zero updates the raw value but not the model.
     await userEvent.type(input, "0");
 
-    await expect(args.onInput).toHaveBeenCalledTimes(5);
-    await expect(args.onUpdate).toHaveBeenCalledTimes(8);
+    await expect(args.onValueChange).toHaveBeenCalledTimes(5);
     await expect(input).toHaveValue("123.4500");
   },
 };
@@ -334,14 +355,14 @@ export const NumberModifier: Story = {
 export const Trim: Story = {
   args: {
     trim: true,
-    value: "",
+    defaultValue: "",
   },
   play: async ({ args, canvas }) => {
     const input = canvas.getByRole("textbox");
 
     await userEvent.type(input, " a ");
 
-    await expect(args.onInput).toHaveBeenLastCalledWith("a");
+    await expect(args.onValueChange).toHaveBeenLastCalledWith("a");
     await expect(input).toHaveValue(" a ");
   },
 };
@@ -349,7 +370,7 @@ export const Trim: Story = {
 export const Autofocus: Story = {
   args: {
     autofocus: true,
-    value: "",
+    defaultValue: "",
   },
   play: async ({ canvas }) => {
     await waitFor(() => expect(canvas.getByRole("textbox")).toHaveFocus());

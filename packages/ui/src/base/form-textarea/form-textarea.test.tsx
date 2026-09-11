@@ -27,6 +27,11 @@ describe("GlFormTextarea", () => {
       expect(renderTextarea({ value: null })).toContain("></textarea>");
     });
 
+    it("renders an uncontrolled default value", () => {
+      expect(renderTextarea({ defaultValue: "Initial description" }))
+        .toContain(">Initial description</textarea>");
+    });
+
     it("generates an ID and omits upstream-empty optional attributes", () => {
       const markup = renderTextarea({
         autoComplete: "",

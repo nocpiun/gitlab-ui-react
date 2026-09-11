@@ -11,6 +11,7 @@ const meta = {
     onChange: fn(),
     onFocus: fn(),
     onKeyDown: fn(),
+    onValueChange: fn(),
   },
   parameters: {
     docs: {
@@ -121,7 +122,7 @@ export const ChangeEvent: Story = {
     await fireEvent.change(input, { target: { value: "2020-01-20" } });
 
     await expect(args.onChange).toHaveBeenCalledTimes(1);
-    await expect(args.onChange).toHaveBeenCalledWith("2020-01-20");
+    await expect(args.onValueChange).toHaveBeenCalledWith("2020-01-20");
   },
 };
 

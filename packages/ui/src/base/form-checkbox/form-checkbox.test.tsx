@@ -10,7 +10,7 @@ const renderCheckbox = (props: ComponentProps<typeof GlFormCheckbox> = {}) => re
 describe("GlFormCheckbox", () => {
   describe("rendering defaults", () => {
     it("has the structure <div><input><label></label></div>", () => {
-      const markup = renderCheckbox({ checked: "", value: "a" });
+      const markup = renderCheckbox();
 
       expect(markup).toMatch(/^<div[^>]*><input[^>]*><label[^>]*>foobar<\/label><\/div>$/);
     });
@@ -58,22 +58,22 @@ describe("GlFormCheckbox", () => {
   });
 
   describe("checked state", () => {
-    it("can start checked when checked matches value", () => {
-      expect(renderCheckbox({ checked: "checked_value", value: "checked_value", name: "foo" }))
+    it("is checked when checked is true", () => {
+      expect(renderCheckbox({ checked: true, value: "checked_value", name: "foo" }))
         .toMatch(/<input[^>]*checked=""/);
     });
 
-    it("is unchecked when checked does not match value", () => {
-      expect(renderCheckbox({ checked: "", value: "a" })).not.toContain("checked");
+    it("is unchecked when checked is false", () => {
+      expect(renderCheckbox({ checked: false, value: "a" })).not.toContain("checked");
     });
 
-    it("is checked when the value is in the checked array", () => {
-      expect(renderCheckbox({ checked: ["foo", "bar"], value: "bar" }))
+    it("uses defaultChecked for an uncontrolled checkbox", () => {
+      expect(renderCheckbox({ defaultChecked: true }))
         .toMatch(/<input[^>]*checked=""/);
     });
 
-    it("is unchecked when the value is not in the checked array", () => {
-      expect(renderCheckbox({ checked: ["foo"], value: "bar" })).not.toContain("checked");
+    it("does not derive checked state from the native value", () => {
+      expect(renderCheckbox({ checked: false, value: "bar" })).not.toContain("checked");
     });
   });
 

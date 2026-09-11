@@ -6,11 +6,9 @@
  * (ported from packages/gitlab-ui/src/utils/equality_utils.js).
  *
  * Adaptations:
- * - The `v-model` pair maps to the `checked` prop plus `onInput` (the model
- *   event) and `onChange` (user interaction) callbacks. Like upstream's
- *   `localChecked`, the component keeps internal state seeded from `checked`
- *   and re-synced when the prop changes, so it also toggles without a
- *   listener.
+ * - Checked state uses React's controlled `checked` or uncontrolled
+ *   `defaultChecked` API, with `onCheckedChange` reporting state changes.
+ *   `onChange` and `onInput` retain their native React event semantics.
  * - The `help` scoped slot maps to the `help` prop. Additional attributes are
  *   applied to the `<input>` element, like upstream's `v-bind="computedAttrs"`;
  *   `className` is applied to the root wrapper, matching Vue's class
@@ -45,7 +43,7 @@ import {
 } from "react";
 import { cva } from "class-variance-authority";
 import { clsx } from "cn";
-import { looseEqual, looseIndexOf } from "../../internal/form/equality-utils";
+import { looseIndexOf } from "../../internal/form/equality-utils";
 import { mergeRefs } from "../../internal/utils/merge-refs";
 import { GlFormCheckboxGroupContext } from "./form-checkbox-group-context";
 
@@ -58,8 +56,8 @@ type CheckboxElementProps = Omit<
   | "checked"
   | "children"
   | "className"
+  | "defaultChecked"
   | "onChange"
-  | "onInput"
   | "type"
   | "value"
 >;
@@ -69,25 +67,24 @@ export type GlFormCheckboxProps = CheckboxElementProps & {
   ariaLabel?: string;
   /** ID of the element that labels the checkbox; used as `aria-labelledby`. */
   ariaLabelledby?: string;
-  /**
-   * The current value of the checkbox. Must be an array when multiple
-   * checkboxes are bound to the same model. Defaults to `null`.
-   */
-  checked?: unknown;
+  /** The controlled checked state. Ignored inside a GlFormCheckboxGroup. */
+  checked?: boolean;
   /** The checkbox content, rendered inside the `<label>`. */
   children?: ReactNode;
   /** Additional CSS class(es) merged onto the root wrapper. */
   className?: string;
+  /** Initial checked state when used uncontrolled. Ignored inside a group. */
+  defaultChecked?: boolean;
   /** Help text rendered below the label content. */
   help?: ReactNode;
   /** Renders the checkbox in an indeterminate state (single-checkbox mode only). */
   indeterminate?: boolean;
   /** Called with the input's `indeterminate` flag after user interaction. */
   onIndeterminateChange?: (indeterminate: boolean) => void;
-  /** The model event: called with the new checked value when it changes. */
-  onInput?: (checked: unknown) => void;
-  /** Called with the new checked value on user interaction. */
-  onChange?: (checked: unknown) => void;
+  /** Called with the native React change event. */
+  onChange?: InputHTMLAttributes<HTMLInputElement>["onChange"];
+  /** Called with the next checked state on user interaction. */
+  onCheckedChange?: (checked: boolean) => void;
   /**
    * Adds the `required` attribute to the input. Only takes effect when a
    * `name` is provided, like upstream.
@@ -95,9 +92,7 @@ export type GlFormCheckboxProps = CheckboxElementProps & {
   required?: boolean;
   /** Validation state: `true` valid, `false` invalid, `null` none. */
   state?: boolean | null;
-  /** Value returned when this checkbox is unchecked. Not applicable when the model is an array. */
-  uncheckedValue?: unknown;
-  /** Value returned when this checkbox is checked. */
+  /** Native form value and, inside a group, the option value. */
   value?: unknown;
 };
 
@@ -115,20 +110,20 @@ const GlFormCheckbox = forwardRef<HTMLInputElement, GlFormCheckboxProps>(functio
   "aria-describedby": ariaDescribedby,
   ariaLabel,
   ariaLabelledby,
-  checked = null,
+  checked,
   children,
   className,
+  defaultChecked = false,
   disabled = false,
   help,
   id,
   indeterminate = false,
   name,
   onChange,
+  onCheckedChange,
   onIndeterminateChange,
-  onInput,
   required = false,
   state = null,
-  uncheckedValue = false,
   value = true,
   ...elementProps
 }, forwardedRef) {
@@ -139,24 +134,11 @@ const GlFormCheckbox = forwardRef<HTMLInputElement, GlFormCheckboxProps>(functio
   const group = useContext(GlFormCheckboxGroupContext);
   const isGroup = group !== null;
 
-  // Internal checked state seeded from the `checked` prop, mirroring
-  // upstream's `localChecked`. The prop watcher maps to a render-phase
-  // adjustment so the input stays in sync before paint. Inside a group the
-  // shared group value is the source of truth and this state is unused.
-  const [localChecked, setLocalChecked] = useState<unknown>(checked);
-  const [prevChecked, setPrevChecked] = useState(checked);
-  if(!Object.is(prevChecked, checked)) {
-    setPrevChecked(checked);
-    if(!looseEqual(checked, localChecked)) {
-      setLocalChecked(checked);
-    }
-  }
-
-  const effectiveChecked = isGroup ? group.checked : localChecked;
-  const isArrayMode = Array.isArray(effectiveChecked);
-  const isChecked = isArrayMode
-    ? looseIndexOf(effectiveChecked, value) > -1
-    : looseEqual(effectiveChecked, value);
+  const isControlled = checked !== undefined;
+  const [uncontrolledChecked, setUncontrolledChecked] = useState(defaultChecked);
+  const isChecked = isGroup
+    ? looseIndexOf(group.value, value) > -1
+    : isControlled ? checked : uncontrolledChecked;
 
   // Inside a group, the group's validation state wins (upstream's
   // `computedState` reads `group.computedState`).
@@ -174,44 +156,35 @@ const GlFormCheckbox = forwardRef<HTMLInputElement, GlFormCheckboxProps>(functio
   const computedAriaDescribedby = ariaDescribedby ?? group?.ariaDescribedby;
   const computedAriaLabelledby = ariaLabelledby ?? group?.ariaLabelledby;
 
-  // The DOM `indeterminate` property is only supported in single-checkbox
-  // mode, never when the model is an array (upstream `setIndeterminate`).
+  // The DOM `indeterminate` property is only supported outside a group.
   useEffect(() => {
     const input = inputRef.current;
     if(input) {
-      input.indeterminate = isArrayMode ? false : indeterminate;
+      input.indeterminate = isGroup ? false : indeterminate;
     }
-  }, [indeterminate, isArrayMode]);
+  }, [indeterminate, isGroup]);
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const { checked: targetChecked, indeterminate: targetIndeterminate } = event.target;
+    onChange?.(event);
+    if(event.defaultPrevented) return;
 
-    let newChecked: unknown;
-    if(Array.isArray(effectiveChecked)) {
-      const index = looseIndexOf(effectiveChecked, value);
-      if(targetChecked && index < 0) {
-        // Add value to array
-        newChecked = [...effectiveChecked, value];
-      } else if(!targetChecked && index > -1) {
-        // Remove value from array
-        newChecked = [...effectiveChecked.slice(0, index), ...effectiveChecked.slice(index + 1)];
-      } else {
-        newChecked = effectiveChecked;
-      }
-    } else {
-      newChecked = targetChecked ? value : uncheckedValue;
-    }
-
-    // Upstream emits the model event first (via the `localChecked` watcher)
-    // and the `change` event on the next tick; inside a group the toggle also
-    // updates the group's shared model and fires the group's events.
     if(isGroup) {
-      group.updateChecked(newChecked as unknown[]);
+      const index = looseIndexOf(group.value, value);
+      let nextValue: unknown[];
+      if(targetChecked && index < 0) {
+        nextValue = [...group.value, value];
+      } else if(!targetChecked && index > -1) {
+        nextValue = [...group.value.slice(0, index), ...group.value.slice(index + 1)];
+      } else {
+        nextValue = [...group.value];
+      }
+      group.updateValue(nextValue);
     } else {
-      setLocalChecked(newChecked);
+      if(!isControlled) setUncontrolledChecked(targetChecked);
     }
-    onInput?.(newChecked);
-    onChange?.(newChecked);
+
+    onCheckedChange?.(targetChecked);
     onIndeterminateChange?.(targetIndeterminate);
   }
 

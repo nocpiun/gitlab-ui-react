@@ -10,7 +10,7 @@ const renderRadio = (props: ComponentProps<typeof GlFormRadio> = {}) => renderTo
 describe("GlFormRadio", () => {
   describe("rendering defaults", () => {
     it("has the structure <div><input><label></label></div>", () => {
-      const markup = renderRadio({ checked: "", value: "a" });
+      const markup = renderRadio();
 
       expect(markup).toMatch(/^<div[^>]*><input[^>]*><label[^>]*>foobar<\/label><\/div>$/);
     });
@@ -58,13 +58,17 @@ describe("GlFormRadio", () => {
   });
 
   describe("checked state", () => {
-    it("can start checked when checked matches value", () => {
-      expect(renderRadio({ checked: "checked_value", value: "checked_value", name: "foo" }))
+    it("is checked when checked is true", () => {
+      expect(renderRadio({ checked: true, value: "checked_value", name: "foo" }))
         .toMatch(/<input[^>]*checked=""/);
     });
 
-    it("is unchecked when checked does not match value", () => {
-      expect(renderRadio({ checked: "", value: "a" })).not.toContain("checked");
+    it("is unchecked when checked is false", () => {
+      expect(renderRadio({ checked: false, value: "a" })).not.toContain("checked");
+    });
+
+    it("uses defaultChecked for an uncontrolled radio", () => {
+      expect(renderRadio({ defaultChecked: true })).toMatch(/<input[^>]*checked=""/);
     });
   });
 

@@ -32,6 +32,10 @@ describe("GlFormInput", () => {
       expect(renderInput({ value: 42 })).toContain("value=\"42\"");
     });
 
+    it("renders an uncontrolled default value", () => {
+      expect(renderInput({ defaultValue: "initial text" })).toContain("value=\"initial text\"");
+    });
+
     it("merges a consumer className", () => {
       expect(renderInput({ className: "custom-class" }))
         .toMatch(/class="[^"]*gl-form-input[^"]*custom-class[^"]*"/);

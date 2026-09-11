@@ -7,7 +7,7 @@ const meta = {
   component: GlFormPasswordInput,
   args: {
     id: "password-input",
-    onInput: fn(),
+    onValueChange: fn(),
     onVisibilityChange: fn(),
     value: "super-secret-token",
   },
@@ -54,7 +54,7 @@ export const Default: Story = {
 
     // Typing forwards the input event (upstream's v-model pass-through)
     await userEvent.type(canvas.getByDisplayValue("super-secret-token"), "x");
-    await expect(args.onInput).toHaveBeenLastCalledWith("super-secret-tokenx");
+    await expect(args.onValueChange).toHaveBeenLastCalledWith("super-secret-tokenx");
 
     // The toggle is vertically centered inside the input's inline end
     const inputElement = canvas.getByDisplayValue(/super-secret-token/);

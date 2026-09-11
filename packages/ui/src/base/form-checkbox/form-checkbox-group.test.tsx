@@ -165,9 +165,9 @@ describe("GlFormCheckboxGroup", () => {
     });
   });
 
-  describe("checked state", () => {
-    it("checks the checkboxes whose values are in the checked array", () => {
-      const markup = renderGroup({ options: ["one", "two", "three"], checked: ["two"] });
+  describe("selected value", () => {
+    it("checks the checkboxes whose values are selected", () => {
+      const markup = renderGroup({ options: ["one", "two", "three"], value: ["two"] });
       const inputs = markup.match(/<input[^>]*>/g) ?? [];
 
       expect(inputs[0]).not.toContain("checked");
@@ -177,7 +177,7 @@ describe("GlFormCheckboxGroup", () => {
 
     it("checks a checkbox passed as a child through the group context", () => {
       const markup = renderToStaticMarkup(
-        <GlFormCheckboxGroup checked={["slot-option"]}>
+        <GlFormCheckboxGroup value={["slot-option"]}>
           <GlFormCheckbox value="slot-option">Slot option</GlFormCheckbox>
         </GlFormCheckboxGroup>,
       );

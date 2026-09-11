@@ -52,6 +52,7 @@ describe("GlFormDate", () => {
     it.each([
       [{ min: "2020-01-01" }, "min=\"2020-01-01\""],
       [{ max: "2020-01-31" }, "max=\"2020-01-31\""],
+      [{ defaultValue: "2020-01-18" }, "value=\"2020-01-18\""],
       [{ value: "2020-01-19" }, "value=\"2020-01-19\""],
     ])("passes %o to the input", (props, attribute) => {
       expect(renderDate(props)).toContain(attribute);

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState, type CSSProperties } from "react";
-import { expect, userEvent } from "storybook/test";
+import { expect, fn, userEvent } from "storybook/test";
 import GlToggle, { type GlToggleLabelPosition, type GlToggleProps } from "./toggle";
 
 const labelPositions = [
@@ -19,7 +19,10 @@ const collectionStyle: CSSProperties = {
 function ControlledToggle(args: GlToggleProps) {
   const [value, setValue] = useState(Boolean(args.value));
 
-  return <GlToggle {...args} value={value} onChange={setValue} />;
+  return <GlToggle {...args} value={value} onValueChange={(nextValue) => {
+    setValue(nextValue);
+    args.onValueChange?.(nextValue);
+  }} />;
 }
 
 const meta = {
@@ -31,6 +34,7 @@ const meta = {
     isLoading: false,
     label: "Label",
     labelPosition: "top",
+    onValueChange: fn(),
     value: true,
   },
   argTypes: {
@@ -57,13 +61,14 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  play: async ({ canvas }) => {
+  play: async ({ args, canvas }) => {
     const toggle = canvas.getByRole("switch", { name: "Label" });
 
     await expect(toggle).toHaveAttribute("aria-checked", "true");
 
     await userEvent.click(toggle);
     await expect(toggle).toHaveAttribute("aria-checked", "false");
+    await expect(args.onValueChange).toHaveBeenLastCalledWith(false);
 
     await userEvent.click(toggle);
     await expect(toggle).toHaveAttribute("aria-checked", "true");
