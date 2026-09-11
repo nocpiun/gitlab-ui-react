@@ -31,9 +31,9 @@ const meta = {
   args: {
     disabled: false,
     help: "Toggle something for the website.",
-    isLoading: false,
     label: "Label",
     labelPosition: "top",
+    loading: false,
     onValueChange: fn(),
     value: true,
   },
@@ -137,16 +137,16 @@ export const Disabled: Story = {
 
 export const Loading: Story = {
   args: {
-    isLoading: true,
+    loading: true,
   },
-  play: async ({ canvas }) => {
+  play: async ({ args, canvas }) => {
     const toggle = canvas.getByRole("switch", { name: "Label" });
 
     await expect(toggle).toHaveClass("is-loading", "is-disabled");
     await expect(toggle.querySelector(".gl-spinner")).not.toBeNull();
-    // Loading is visual only: activation still works, like upstream.
     await userEvent.click(toggle);
-    await expect(toggle).toHaveAttribute("aria-checked", "false");
+    await expect(toggle).toHaveAttribute("aria-checked", "true");
+    await expect(args.onValueChange).not.toHaveBeenCalled();
   },
 };
 
@@ -155,7 +155,7 @@ export const AllVariants: Story = {
     disabled: {
       control: false,
     },
-    isLoading: {
+    loading: {
       control: false,
     },
     value: {
@@ -168,8 +168,8 @@ export const AllVariants: Story = {
       <GlToggle label="Off" />
       <GlToggle disabled label="On disabled" value />
       <GlToggle disabled label="Off disabled" />
-      <GlToggle isLoading label="Loading on" value />
-      <GlToggle isLoading label="Loading off" />
+      <GlToggle loading label="Loading on" value />
+      <GlToggle loading label="Loading off" />
     </div>
   ),
   play: async ({ canvas }) => {

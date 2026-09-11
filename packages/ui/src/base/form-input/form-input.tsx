@@ -84,8 +84,8 @@ type BaseInputProps = Omit<
 export type GlFormInputProps = BaseInputProps & {
   /** Value for the `aria-invalid` attribute. When unset, `state={false}` implies `"true"`. */
   ariaInvalid?: boolean | string;
-  /** Attempts to focus the control on mount when visible. Does not set the `autofocus` attribute. */
-  autofocus?: boolean;
+  /** Attempts to focus the control on mount when visible. */
+  autoFocus?: boolean;
   /** Additional CSS class(es) merged onto the input. */
   className?: string;
   /** Debounces `onValueChange` by this many milliseconds. Has no effect when `lazy` is set. */
@@ -196,7 +196,7 @@ const inputVariants = cva("gl-form-input", {
 
 const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFormInput({
   ariaInvalid = false,
-  autofocus = false,
+  autoFocus = false,
   className,
   debounce,
   defaultValue = "",
@@ -450,10 +450,10 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
     };
   }, [localType]);
 
-  // Upstream `handleAutofocus`: focus on mount when `autofocus` is set and the
+  // Upstream `handleAutofocus`: focus on mount when `autoFocus` is set and the
   // control is visible.
   useEffect(() => {
-    if(!autofocus) return undefined;
+    if(!autoFocus) return undefined;
     const frame = window.requestAnimationFrame(() => {
       const input = inputRef.current;
       if(input && !input.disabled && isVisible(input)) {

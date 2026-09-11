@@ -531,7 +531,7 @@ export const ControlledTrim: Story = {
 
 export const Autofocus: Story = {
   args: {
-    autofocus: true,
+    autoFocus: true,
     defaultValue: "",
   },
   play: async ({ canvas }) => {

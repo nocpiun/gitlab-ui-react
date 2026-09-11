@@ -77,7 +77,7 @@ export type GlFormTextareaProps = NativeTextareaProps & {
   /** Optional value for the `aria-invalid` attribute. */
   ariaInvalid?: boolean | string;
   /** Attempts to focus the textarea on mount when it is visible. */
-  autofocus?: boolean;
+  autoFocus?: boolean;
   /** Browser autocomplete hint. */
   autoComplete?: string;
   /** Maximum character count used to display the associated character counter. */
@@ -208,7 +208,7 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
   function GlFormTextarea({
     "aria-describedby": ariaDescribedBy,
     ariaInvalid = false,
-    autofocus = false,
+    autoFocus = false,
     autoComplete,
     characterCountLimit = null,
     characterCountOverLimitText,
@@ -375,7 +375,7 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
     }, [scheduleHeight, showCharacterCount]);
 
     useEffect(() => {
-      if(!autofocus) return undefined;
+      if(!autoFocus) return undefined;
 
       const frame = window.requestAnimationFrame(() => {
         const textarea = textareaRef.current;

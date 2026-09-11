@@ -84,9 +84,9 @@ describe("GlToggle", () => {
     });
   });
 
-  describe("isLoading", () => {
+  describe("loading", () => {
     it("renders a spinner instead of the thumb icon and marks the toggle disabled", () => {
-      const markup = renderToggle({ isLoading: true });
+      const markup = renderToggle({ loading: true });
 
       expect(markup).toContain("gl-spinner");
       expect(markup).toContain("toggle-loading");
@@ -95,12 +95,11 @@ describe("GlToggle", () => {
       expect(markup).not.toContain("toggle-icon");
     });
 
-    it("still emits change events", () => {
-      // Upstream only blocks activation when `disabled`; loading is visual.
-      const markup = renderToggle({ isLoading: true });
+    it("prevents activation", () => {
+      const markup = renderToggle({ loading: true });
 
-      expect(markup).not.toContain("aria-disabled");
-      expect(markup).not.toContain("disabled=\"\"");
+      expect(markup).toContain("aria-disabled=\"true\"");
+      expect(markup).toContain("disabled=\"\"");
     });
   });
 
