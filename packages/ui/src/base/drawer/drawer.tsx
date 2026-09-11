@@ -6,9 +6,10 @@
  * - Vue's slots map to strict compound React parts.
  * - Base UI Dialog supplies portal, dismissal, focus trapping, and dialog semantics.
  * - The visual props live on GlDrawerContent and sticky behavior lives on GlDrawerHeader.
- * - The close event maps to onOpenChange(false), while opened maps to onOpened.
+ * - Overlay lifecycle callbacks use the shared React API.
  */
 
+import type { GlOverlayOpenChangeDetails } from "../../internal/overlay/overlay-types";
 import {
   Children,
   Fragment,
@@ -29,6 +30,7 @@ import {
   type GlTriggerAsChildProps,
   type GlTriggerDefaultProps,
 } from "../../internal/trigger/trigger-composition";
+import { mapOverlayOpenChangeDetails } from "../../internal/overlay/overlay-utils";
 import { useMergedRefs } from "../../internal/utils/merge-refs";
 import GlButton from "../button/button";
 
@@ -39,10 +41,10 @@ export type GlDrawerProps = {
   children?: ReactNode;
   /** Whether the drawer is initially open when uncontrolled. */
   defaultOpen?: boolean;
-  /** Called after the opening transition finishes. */
-  onOpened?: () => void;
   /** Called when interaction requests an open-state change. */
-  onOpenChange?: (open: boolean) => void;
+  onOpenChange?: (open: boolean, details: GlOverlayOpenChangeDetails) => void;
+  /** Called after the opening or closing transition finishes. */
+  onOpenChangeComplete?: (open: boolean) => void;
   /** Controlled open state. */
   open?: boolean;
 };
@@ -488,17 +490,17 @@ function validateSingleDrawerContent(children: ReactNode) {
 export default function GlDrawer({
   children,
   defaultOpen = false,
-  onOpened,
   onOpenChange,
+  onOpenChangeComplete,
   open,
 }: GlDrawerProps) {
   validateSingleDrawerContent(children);
 
-  const handleOpenChange = (nextOpen: boolean) => {
-    onOpenChange?.(nextOpen);
-  };
-  const handleOpenChangeComplete = (nextOpen: boolean) => {
-    if(nextOpen) onOpened?.();
+  const handleOpenChange = (
+    nextOpen: boolean,
+    details: BaseDialog.Root.ChangeEventDetails,
+  ) => {
+    onOpenChange?.(nextOpen, mapOverlayOpenChangeDetails(details));
   };
 
   return (
@@ -507,7 +509,7 @@ export default function GlDrawer({
       disablePointerDismissal
       modal
       onOpenChange={handleOpenChange}
-      onOpenChangeComplete={handleOpenChangeComplete}
+      onOpenChangeComplete={onOpenChangeComplete}
       open={open}>
       <DrawerRootContext.Provider value>
         {children}

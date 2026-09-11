@@ -8,6 +8,7 @@
  * - Vue's show model maps to open/defaultOpen/onOpenChange.
  */
 
+import type { GlOverlayOpenChangeDetails } from "../../internal/overlay/overlay-types";
 import {
   Children,
   Fragment,
@@ -34,6 +35,7 @@ import {
   type GlTriggerAsChildProps,
   type GlTriggerDefaultProps,
 } from "../../internal/trigger/trigger-composition";
+import { mapOverlayOpenChangeDetails } from "../../internal/overlay/overlay-utils";
 import { useMergedRefs } from "../../internal/utils/merge-refs";
 import GlButton from "../button/button";
 
@@ -51,7 +53,9 @@ export type GlPopoverProps = {
   /** Prevents the popover from opening without disabling the trigger element. */
   disabled?: boolean;
   /** Called when user interaction requests an open-state change. */
-  onOpenChange?: (open: boolean) => void;
+  onOpenChange?: (open: boolean, details: GlOverlayOpenChangeDetails) => void;
+  /** Called after the opening or closing transition finishes. */
+  onOpenChangeComplete?: (open: boolean) => void;
   /** Controlled open state. */
   open?: boolean;
   /** Enabled trigger modes. An empty array provides manual, controlled behavior. */
@@ -123,7 +127,7 @@ export type GlPopoverTitleProps = Omit<BasePopover.Title.Props, "className"> & {
 };
 
 type PopoverContextValue = {
-  activateFocusTrigger(): void;
+  activateFocusTrigger(event: Event): void;
   activateHoverTrigger(): void;
   closeDelay: number;
   delay: number;
@@ -295,6 +299,7 @@ export default function GlPopover({
   delay = 50,
   disabled = false,
   onOpenChange,
+  onOpenChangeComplete,
   open,
   triggers = DEFAULT_TRIGGERS,
 }: GlPopoverProps) {
@@ -312,11 +317,14 @@ export default function GlPopover({
   const focusTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const previousOpenRef = useRef(isOpen);
 
-  const requestOpenChange = useCallback((nextOpen: boolean) => {
+  const requestOpenChange = useCallback((
+    nextOpen: boolean,
+    details: GlOverlayOpenChangeDetails,
+  ) => {
     if(nextOpen === isOpen || (nextOpen && disabled)) return;
 
     if(!isControlled) setUncontrolledOpen(nextOpen);
-    onOpenChange?.(nextOpen);
+    onOpenChange?.(nextOpen, details);
   }, [disabled, isControlled, isOpen, onOpenChange]);
   const requestOpenChangeRef = useRef(requestOpenChange);
   requestOpenChangeRef.current = requestOpenChange;
@@ -333,7 +341,7 @@ export default function GlPopover({
     cancelPendingFocusOpen();
   }, [cancelPendingFocusOpen]);
 
-  const activateFocusTrigger = useCallback(() => {
+  const activateFocusTrigger = useCallback((event: Event) => {
     if(disabled || !triggerModes.has("focus")) return;
 
     activeTriggerModesRef.current.add("focus");
@@ -341,13 +349,15 @@ export default function GlPopover({
     if(isOpen) return;
 
     if(delay <= 0) {
-      requestOpenChangeRef.current(true);
+      requestOpenChangeRef.current(true, { event, reason: "trigger" });
       return;
     }
 
     focusTimerRef.current = setTimeout(() => {
       focusTimerRef.current = null;
-      if(activeTriggerModesRef.current.has("focus")) requestOpenChangeRef.current(true);
+      if(activeTriggerModesRef.current.has("focus")) {
+        requestOpenChangeRef.current(true, { event, reason: "trigger" });
+      }
     }, delay);
   }, [cancelPendingFocusOpen, delay, disabled, isOpen, triggerModes]);
 
@@ -402,7 +412,7 @@ export default function GlPopover({
     }
 
     if(nextOpen) cancelPendingFocusOpen();
-    requestOpenChange(nextOpen);
+    requestOpenChange(nextOpen, mapOverlayOpenChangeDetails(details));
   }, [
     cancelPendingFocusOpen,
     disabled,
@@ -469,6 +479,7 @@ export default function GlPopover({
       <BasePopover.Root
         modal={false}
         onOpenChange={handleOpenChange}
+        onOpenChangeComplete={onOpenChangeComplete}
         open={isOpen}
         triggerId={triggerId}>
         {children}
@@ -526,7 +537,7 @@ export const GlPopoverTrigger = forwardRef<HTMLElement, GlPopoverTriggerProps>(
       if(event.baseUIHandlerPrevented) return;
       if(!event.currentTarget.matches(":focus-visible")) return;
 
-      context.activateFocusTrigger();
+      context.activateFocusTrigger(event.nativeEvent);
     };
 
     const handleBlur: NonNullable<BasePopover.Trigger.Props["onBlur"]> = (event) => {

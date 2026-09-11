@@ -113,6 +113,10 @@ export type {
   GlDropdownPlacement,
   GlDropdownPositioningStrategy,
 } from "./internal/dropdown/dropdown-types";
+export type {
+  GlOverlayOpenChangeDetails,
+  GlOverlayOpenChangeReason,
+} from "./internal/overlay/overlay-types";
 export {
   default as GlDisclosureDropdown,
   GlDisclosureDropdownContent,

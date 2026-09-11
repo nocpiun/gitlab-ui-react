@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState, type CSSProperties } from "react";
-import { expect, userEvent, waitFor, within } from "storybook/test";
+import { expect, fn, userEvent, waitFor, within } from "storybook/test";
 import GlButton from "../button/button";
 import GlTooltip, {
   GlTooltipContent,
@@ -22,10 +22,13 @@ const meta = {
   args: {
     closeDelay: 0,
     delay: 0,
+    onOpenChange: fn(),
+    onOpenChangeComplete: fn(),
   },
   argTypes: {
     children: { control: false },
     onOpenChange: { control: false },
+    onOpenChangeComplete: { control: false },
   },
   parameters: {
     docs: {
@@ -49,7 +52,7 @@ const makePlacementStory = (placement: GlTooltipPlacement): Story => ({
       </GlTooltip>
     </div>
   ),
-  play: async ({ canvas }) => {
+  play: async ({ args, canvas }) => {
     const trigger = canvas.getByText("Tooltip");
 
     await expect(trigger).not.toHaveClass("gl-button");
@@ -58,6 +61,11 @@ const makePlacementStory = (placement: GlTooltipPlacement): Story => ({
     const tooltip = await within(document.body).findByRole("tooltip");
 
     await waitFor(() => expect(tooltip).toBeVisible());
+    await waitFor(() => expect(args.onOpenChange).toHaveBeenLastCalledWith(
+      true,
+      expect.objectContaining({ reason: "trigger" }),
+    ));
+    await waitFor(() => expect(args.onOpenChangeComplete).toHaveBeenLastCalledWith(true));
     await expect(tooltip).toHaveTextContent("some tooltip text");
     await expect(tooltip).toHaveClass("gl-tooltip", `bs-tooltip-${placement}`);
     await waitFor(() => expect(trigger).toHaveAttribute("aria-describedby", tooltip.id));
@@ -153,9 +161,9 @@ function ControlledTooltipExample(props: GlTooltipProps) {
       <GlTooltip
         {...props}
         open={open}
-        onOpenChange={(nextOpen) => {
+        onOpenChange={(nextOpen, details) => {
           setOpen(nextOpen);
-          props.onOpenChange?.(nextOpen);
+          props.onOpenChange?.(nextOpen, details);
         }}>
         <GlTooltipTrigger asChild>
           <GlButton>Controlled tooltip</GlButton>
@@ -168,7 +176,7 @@ function ControlledTooltipExample(props: GlTooltipProps) {
 
 export const Controlled: Story = {
   render: (args) => <ControlledTooltipExample {...args} />,
-  play: async ({ canvas }) => {
+  play: async ({ args, canvas }) => {
     const button = canvas.getByRole("button", { name: "Controlled tooltip" });
     const body = within(document.body);
 
@@ -178,6 +186,11 @@ export const Controlled: Story = {
 
     await userEvent.keyboard("{Escape}");
     await waitFor(() => expect(body.queryByRole("tooltip")).not.toBeInTheDocument());
+    await waitFor(() => expect(args.onOpenChange).toHaveBeenLastCalledWith(
+      false,
+      expect.objectContaining({ reason: "escape" }),
+    ));
+    await waitFor(() => expect(args.onOpenChangeComplete).toHaveBeenLastCalledWith(false));
   },
 };
 
@@ -191,9 +204,9 @@ function DisabledControlledTooltipExample(props: GlTooltipProps) {
         {...props}
         disabled
         open
-        onOpenChange={(nextOpen) => {
+        onOpenChange={(nextOpen, details) => {
           if(!nextOpen) setCloseNotifications((count) => count + 1);
-          props.onOpenChange?.(nextOpen);
+          props.onOpenChange?.(nextOpen, details);
         }}>
         <GlTooltipTrigger asChild>
           <GlButton>Disabled controlled tooltip</GlButton>
@@ -206,9 +219,13 @@ function DisabledControlledTooltipExample(props: GlTooltipProps) {
 
 export const DisabledControlled: Story = {
   render: (args) => <DisabledControlledTooltipExample {...args} />,
-  play: async ({ canvas }) => {
+  play: async ({ args, canvas }) => {
     await waitFor(() => expect(canvas.getByRole("status", { name: "Close notifications" }))
       .toHaveTextContent("1"));
+    await waitFor(() => expect(args.onOpenChange).toHaveBeenLastCalledWith(
+      false,
+      expect.objectContaining({ reason: "disabled" }),
+    ));
     await expect(canvas.getByRole("button", { name: "Disabled controlled tooltip" }))
       .not.toHaveAttribute("aria-describedby");
     await expect(within(document.body).queryByRole("tooltip")).not.toBeInTheDocument();

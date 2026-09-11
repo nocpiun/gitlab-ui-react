@@ -75,12 +75,12 @@ export type GlDisclosureDropdownProps = Omit<
   defaultOpen?: boolean;
   onAction?: (details: GlDisclosureDropdownActionDetails) => void;
   onBeforeClose?: (details: GlDropdownBeforeCloseDetails) => void;
-  onHidden?: () => void;
   onOpenChange?: (
     open: boolean,
     details: GlDropdownOpenChangeDetails,
   ) => void;
-  onShown?: () => void;
+  /** Called after the opening or closing transition finishes. */
+  onOpenChangeComplete?: (open: boolean) => void;
   open?: boolean;
 };
 
@@ -259,9 +259,8 @@ export const GlDisclosureDropdown = forwardRef<
   defaultOpen = false,
   onAction,
   onBeforeClose,
-  onHidden,
   onOpenChange,
-  onShown,
+  onOpenChangeComplete,
   open,
   ...rootProps
 }, forwardedRef) {
@@ -317,13 +316,9 @@ export const GlDisclosureDropdown = forwardRef<
   }, [onBeforeClose, onOpenChange]);
 
   const handleOpenChangeComplete = useCallback((nextOpen: boolean) => {
-    if(nextOpen) {
-      onShown?.();
-    } else {
-      onHidden?.();
-      forceReturnFocusRef.current = false;
-    }
-  }, [onHidden, onShown]);
+    if(!nextOpen) forceReturnFocusRef.current = false;
+    onOpenChangeComplete?.(nextOpen);
+  }, [onOpenChangeComplete]);
 
   const openMenu = useCallback(() => {
     returnFocusRef.current = false;

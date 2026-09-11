@@ -50,9 +50,8 @@ const meta = {
     children: { control: false },
     onAction: { control: false },
     onBeforeClose: { control: false },
-    onHidden: { control: false },
     onOpenChange: { control: false },
-    onShown: { control: false },
+    onOpenChangeComplete: { control: false },
   },
   parameters: {
     docs: {
@@ -287,8 +286,8 @@ const beforeClose = fn((details: GlDropdownBeforeCloseDetails) => {
 export const CancellableCloseLifecycle: Story = {
   args: {
     onBeforeClose: beforeClose,
-    onHidden: fn(),
-    onShown: fn(),
+    onOpenChange: fn(),
+    onOpenChangeComplete: fn(),
   },
   render: (args) => (
     <GlDisclosureDropdown {...args}>
@@ -304,7 +303,11 @@ export const CancellableCloseLifecycle: Story = {
     beforeClose.mockClear();
     const trigger = canvas.getByRole("button", { name: "Lifecycle actions" });
     await userEvent.click(trigger);
-    await waitFor(() => expect(args.onShown).toHaveBeenCalledOnce());
+    await waitFor(() => expect(args.onOpenChange).toHaveBeenLastCalledWith(
+      true,
+      expect.objectContaining({ reason: "trigger" }),
+    ));
+    await waitFor(() => expect(args.onOpenChangeComplete).toHaveBeenLastCalledWith(true));
 
     await userEvent.click(canvas.getByRole("menuitem", { name: "Save changes" }));
     await expect(trigger).toHaveAttribute("aria-expanded", "true");
@@ -312,8 +315,12 @@ export const CancellableCloseLifecycle: Story = {
 
     await userEvent.keyboard("{Escape}");
     await expect(beforeClose.mock.calls[1]?.[0].reason).toBe("escape");
+    await waitFor(() => expect(args.onOpenChange).toHaveBeenLastCalledWith(
+      false,
+      expect.objectContaining({ reason: "escape" }),
+    ));
     await waitFor(() => expect(trigger).toHaveFocus());
-    await waitFor(() => expect(args.onHidden).toHaveBeenCalledOnce());
+    await waitFor(() => expect(args.onOpenChangeComplete).toHaveBeenLastCalledWith(false));
   },
 };
 

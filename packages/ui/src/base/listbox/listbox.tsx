@@ -85,9 +85,9 @@ type GlListboxCommonProps = Omit<
   disabled?: boolean;
   loading?: boolean;
   onBeforeClose?: (details: GlDropdownBeforeCloseDetails) => void;
-  onHidden?: () => void;
   onOpenChange?: (open: boolean, details: GlDropdownOpenChangeDetails) => void;
-  onShown?: () => void;
+  /** Called after the opening or closing transition finishes. */
+  onOpenChangeComplete?: (open: boolean) => void;
   open?: boolean;
   /** Validation state applied to the trigger. */
   state?: boolean | null;
@@ -293,9 +293,8 @@ export const GlListbox = forwardRef<GlDropdownHandle, GlListboxProps>(
       loading = false,
       multiple = false,
       onBeforeClose,
-      onHidden,
       onOpenChange,
-      onShown,
+      onOpenChangeComplete,
       onValueChange,
       open: controlledOpen,
       state = null,
@@ -392,13 +391,12 @@ export const GlListbox = forwardRef<GlDropdownHandle, GlListboxProps>(
     }, [controlledOpen, onBeforeClose, onOpenChange]);
 
     const handleOpenChangeComplete = useCallback((nextOpen: boolean) => {
-      if(nextOpen) onShown?.();
-      else {
+      if(!nextOpen) {
         if(returnFocusRef.current) triggerElementRef.current?.focus();
-        onHidden?.();
         forceReturnFocusRef.current = false;
       }
-    }, [onHidden, onShown]);
+      onOpenChangeComplete?.(nextOpen);
+    }, [onOpenChangeComplete]);
 
     const openListbox = useCallback(() => {
       returnFocusRef.current = false;
