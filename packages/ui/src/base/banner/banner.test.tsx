@@ -131,61 +131,28 @@ describe("GlBanner", () => {
     expect(markup).not.toContain("Hidden actions");
   });
 
-  it("rejects duplicate compound parts", () => {
-    const duplicateParts = [
-      {
-        children: (
-          <>
-            <GlBannerTitle>One</GlBannerTitle>
-            <GlBannerTitle>Two</GlBannerTitle>
-          </>
-        ),
-        name: "GlBannerTitle",
-      },
-      {
-        children: (
-          <>
-            <GlBannerDescription>One</GlBannerDescription>
-            <GlBannerDescription>Two</GlBannerDescription>
-          </>
-        ),
-        name: "GlBannerDescription",
-      },
-      {
-        children: (
-          <>
-            <GlBannerActions>One</GlBannerActions>
-            <GlBannerActions>Two</GlBannerActions>
-          </>
-        ),
-        name: "GlBannerActions",
-      },
-    ];
-
-    for(const part of duplicateParts) {
-      expect(() => renderBanner({}, part.children)).toThrowError(
-        `GlBanner accepts at most one ${part.name} child.`,
-      );
-    }
-  });
-
-  it("rejects unsupported direct children", () => {
+  it("accepts ordinary, wrapped, and repeated content", () => {
     function WrappedTitle() {
       return <GlBannerTitle>Wrapped title</GlBannerTitle>;
     }
 
-    const invalidChildren = [
-      "Direct text",
-      <div key="native">Native element</div>,
-      <WrappedTitle key="wrapped" />,
-    ];
+    const markup = renderBanner({}, (
+      <>
+        Direct text
+        <div>Native element</div>
+        <WrappedTitle />
+        <GlBannerTitle>Another title</GlBannerTitle>
+        <GlBannerActions>First actions</GlBannerActions>
+        <GlBannerActions>Second actions</GlBannerActions>
+      </>
+    ));
 
-    for(const child of invalidChildren) {
-      expect(() => renderBanner({}, child)).toThrowError(
-        "GlBanner only accepts GlBannerTitle, GlBannerDescription, and GlBannerActions "
-        + "as direct children. Arrays, Fragments, and conditional children are supported.",
-      );
-    }
+    expect(markup).toContain("Direct text");
+    expect(markup).toContain("Native element");
+    expect(markup).toContain("Wrapped title");
+    expect(markup).toContain("Another title");
+    expect(markup).toContain("First actions");
+    expect(markup).toContain("Second actions");
   });
 
   it("preserves the consumer-provided part order", () => {

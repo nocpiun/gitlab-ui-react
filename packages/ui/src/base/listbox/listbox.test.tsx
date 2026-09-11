@@ -200,12 +200,15 @@ describe("GlListbox", () => {
     expect(markup).toContain("color:blue");
   });
 
-  it("requires items to be nested in a group", () => {
+  it("accepts ungrouped items inside the listbox content", () => {
     expect(() => renderToStaticMarkup(
-      <GlListbox>
-        <GlListboxItem value="one">One</GlListboxItem>
+      <GlListbox defaultOpen>
+        <GlListboxTrigger>Options</GlListboxTrigger>
+        <GlListboxContent>
+          <GlListboxItem value="one">One</GlListboxItem>
+        </GlListboxContent>
       </GlListbox>,
-    )).toThrowError("GlListboxItem must be used inside GlListboxGroup.");
+    )).not.toThrow();
   });
 
   it("supports groups without labels", () => {

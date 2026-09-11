@@ -185,8 +185,6 @@ const DropdownContext = createContext<DropdownContextValue | null>(null);
 
 /** @internal Shared with the colocated group implementation. */
 export const DisclosureDropdownIconSpacingContext = createContext(false);
-/** @internal Enforces the public Item-within-Group composition contract. */
-export const DisclosureDropdownGroupContext = createContext(false);
 
 const rootVariants = cva(["gl-disclosure-dropdown", "gl-new-dropdown"]);
 
@@ -825,11 +823,7 @@ export const GlDisclosureDropdownItem = forwardRef<
   ...elementProps
 }, forwardedRef) {
   const context = useDropdownContext("GlDisclosureDropdownItem");
-  const insideGroup = useContext(DisclosureDropdownGroupContext);
   const reserveIconSpace = useContext(DisclosureDropdownIconSpacingContext);
-  if(!insideGroup) {
-    throw new Error("GlDisclosureDropdownItem must be used inside GlDisclosureDropdownGroup.");
-  }
   const handleClick: MouseEventHandler<HTMLElement> = (event) => {
     onClick?.(event);
     if(event.defaultPrevented) {

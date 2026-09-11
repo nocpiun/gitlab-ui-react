@@ -3,7 +3,7 @@
  * packages/gitlab-ui/src/components/base/banner/banner.vue
  *
  * Adaptations:
- * - Vue's title prop and content/action slots map to strict compound parts.
+ * - Vue's title prop and content/action slots map to optional compound helpers.
  * - The `close` event maps to `onClose`; action behavior belongs to the
  *   controls composed inside `GlBannerActions`.
  * - Illustration props and rendering are intentionally omitted from this port.
@@ -12,10 +12,7 @@
  */
 
 import {
-  Children,
-  Fragment,
   forwardRef,
-  isValidElement,
   type HTMLAttributes,
   type MouseEventHandler,
   type ReactNode,
@@ -30,7 +27,7 @@ export type GlBannerProps = Omit<
   HTMLAttributes<HTMLDivElement>,
   "children" | "onClose" | "title"
 > & {
-  /** Unique GlBannerTitle, GlBannerDescription, and GlBannerActions parts. */
+  /** Banner content. The compound helpers provide the standard layout. */
   children?: ReactNode;
   /** The close button's accessible label. */
   dismissLabel?: string;
@@ -97,43 +94,6 @@ export const GlBannerActions = forwardRef<HTMLDivElement, GlBannerActionsProps>(
   },
 );
 
-function getBannerPartName(type: unknown): string | null {
-  if(type === GlBannerTitle) return "GlBannerTitle";
-  if(type === GlBannerDescription) return "GlBannerDescription";
-  if(type === GlBannerActions) return "GlBannerActions";
-  return null;
-}
-
-function validateBannerChildren(children: ReactNode) {
-  const seenParts = new Set<string>();
-
-  const visit = (nodes: ReactNode) => {
-    Children.forEach(nodes, (child) => {
-      if(child === null || child === undefined || typeof child === "boolean") return;
-
-      if(isValidElement<{ children?: ReactNode }>(child) && child.type === Fragment) {
-        visit(child.props.children);
-        return;
-      }
-
-      const partName = isValidElement(child) ? getBannerPartName(child.type) : null;
-      if(!partName) {
-        throw new Error(
-          "GlBanner only accepts GlBannerTitle, GlBannerDescription, and GlBannerActions "
-          + "as direct children. Arrays, Fragments, and conditional children are supported.",
-        );
-      }
-      if(seenParts.has(partName)) {
-        throw new Error(`GlBanner accepts at most one ${partName} child.`);
-      }
-
-      seenParts.add(partName);
-    });
-  };
-
-  visit(children);
-}
-
 const GlBanner = forwardRef<HTMLDivElement, GlBannerProps>(function GlBanner({
   children,
   className,
@@ -142,8 +102,6 @@ const GlBanner = forwardRef<HTMLDivElement, GlBannerProps>(function GlBanner({
   variant = "promotion",
   ...elementProps
 }, forwardedRef) {
-  validateBannerChildren(children);
-
   return (
     <GlCard
       {...elementProps}

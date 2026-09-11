@@ -35,7 +35,7 @@ import GlButton from "../button/button";
 export type GlDrawerVariant = "default" | "sidebar";
 
 export type GlDrawerProps = {
-  /** GlDrawerTrigger and GlDrawerContent compound parts. */
+  /** Drawer parts and supporting content. Multiple triggers may open the same drawer. */
   children?: ReactNode;
   /** Whether the drawer is initially open when uncontrolled. */
   defaultOpen?: boolean;
@@ -464,8 +464,8 @@ export const GlDrawerContent = forwardRef<HTMLElement, GlDrawerContentProps>(
   },
 );
 
-function validateDrawerChildren(children: ReactNode) {
-  const seenParts = new Set<unknown>();
+function validateSingleDrawerContent(children: ReactNode) {
+  let hasContent = false;
 
   const visit = (nodes: ReactNode) => {
     Children.forEach(nodes, (child) => {
@@ -476,20 +476,9 @@ function validateDrawerChildren(children: ReactNode) {
         return;
       }
 
-      const isDrawerPart = isValidElement(child)
-        && (child.type === GlDrawerTrigger || child.type === GlDrawerContent);
-      if(!isDrawerPart) {
-        throw new Error(
-          "GlDrawer only accepts GlDrawerTrigger and GlDrawerContent as direct children. "
-          + "Arrays, Fragments, and conditional children are supported.",
-        );
-      }
-      if(seenParts.has(child.type)) {
-        const partName = child.type === GlDrawerTrigger ? "GlDrawerTrigger" : "GlDrawerContent";
-        throw new Error(`GlDrawer accepts at most one ${partName} child.`);
-      }
-
-      seenParts.add(child.type);
+      if(!isValidElement(child) || child.type !== GlDrawerContent) return;
+      if(hasContent) throw new Error("GlDrawer accepts at most one GlDrawerContent child.");
+      hasContent = true;
     });
   };
 
@@ -503,7 +492,7 @@ export default function GlDrawer({
   onOpenChange,
   open,
 }: GlDrawerProps) {
-  validateDrawerChildren(children);
+  validateSingleDrawerContent(children);
 
   const handleOpenChange = (nextOpen: boolean) => {
     onOpenChange?.(nextOpen);

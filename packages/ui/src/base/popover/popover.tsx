@@ -262,19 +262,6 @@ function physicalPlacement(side: BasePopover.Popup.State["side"]): GlPopoverPlac
   return side;
 }
 
-function containsPopoverTitle(children: ReactNode): boolean {
-  let containsTitle = false;
-
-  Children.forEach(children, (child) => {
-    if(containsTitle || !isValidElement<{ children?: ReactNode }>(child)) return;
-
-    containsTitle = child.type === GlPopoverTitle
-      || containsPopoverTitle(child.props.children);
-  });
-
-  return containsTitle;
-}
-
 function resolvePopoverContent(children: ReactNode): ResolvedPopoverContent {
   const result: ResolvedPopoverContent = { body: [], title: null };
 
@@ -292,14 +279,6 @@ function resolvePopoverContent(children: ReactNode): ResolvedPopoverContent {
       }
       result.title = child as ResolvedPopoverContent["title"];
       return;
-    }
-
-    if(isValidElement<{ children?: ReactNode }>(child)
-      && containsPopoverTitle(child.props.children)) {
-      throw new Error(
-        "GlPopoverTitle must be used as a direct child of GlPopoverContent. "
-        + "Fragments are supported.",
-      );
     }
 
     result.body.push(child);

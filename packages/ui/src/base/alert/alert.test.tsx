@@ -200,52 +200,28 @@ describe("GlAlert", () => {
       expect(markup).not.toContain("Hidden actions");
     });
 
-    it("rejects duplicate compound parts", () => {
-      const duplicateParts = [
-        {
-          children: (
-            <>
-              <GlAlertDescription>One</GlAlertDescription>
-              <GlAlertDescription>Two</GlAlertDescription>
-            </>
-          ),
-          name: "GlAlertDescription",
-        },
-        {
-          children: (
-            <>
-              <GlAlertActions>One</GlAlertActions>
-              <GlAlertActions>Two</GlAlertActions>
-            </>
-          ),
-          name: "GlAlertActions",
-        },
-      ];
-
-      for(const part of duplicateParts) {
-        expect(() => renderAlert({}, part.children)).toThrowError(
-          `GlAlert accepts at most one ${part.name} child.`,
-        );
-      }
-    });
-
-    it("rejects unsupported direct children", () => {
+    it("accepts ordinary, wrapped, and repeated content", () => {
       function WrappedDescription() {
         return <GlAlertDescription>Wrapped description</GlAlertDescription>;
       }
 
-      const invalidChildren = [
-        "Direct text",
-        <div key="native">Native element</div>,
-        <WrappedDescription key="wrapped" />,
-      ];
+      const markup = renderAlert({}, (
+        <>
+          Direct text
+          <div>Native element</div>
+          <WrappedDescription />
+          <GlAlertDescription>Another description</GlAlertDescription>
+          <GlAlertActions>First actions</GlAlertActions>
+          <GlAlertActions>Second actions</GlAlertActions>
+        </>
+      ));
 
-      for(const child of invalidChildren) {
-        expect(() => renderAlert({}, child)).toThrowError(
-          "GlAlert only accepts GlAlertDescription and GlAlertActions as direct children. "
-          + "Arrays, Fragments, and conditional children are supported.",
-        );
-      }
+      expect(markup).toContain("Direct text");
+      expect(markup).toContain("Native element");
+      expect(markup).toContain("Wrapped description");
+      expect(markup).toContain("Another description");
+      expect(markup).toContain("First actions");
+      expect(markup).toContain("Second actions");
     });
 
     it("renders the title first and preserves the compound part order", () => {

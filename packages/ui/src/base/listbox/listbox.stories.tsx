@@ -62,11 +62,9 @@ export const Default: Story = {
       <GlListboxTrigger>Select department</GlListboxTrigger>
       <GlListboxContent>
         <>{showDefaultSearch && <GlListboxSearchInput />}</>
-        <GlListboxGroup>
-          <GlListboxItem value="frontend">Frontend</GlListboxItem>
-          <GlListboxItem value="backend">Backend</GlListboxItem>
-          <GlListboxItem disabled value="security">Security</GlListboxItem>
-        </GlListboxGroup>
+        <GlListboxItem value="frontend">Frontend</GlListboxItem>
+        <GlListboxItem value="backend">Backend</GlListboxItem>
+        <GlListboxItem disabled value="security">Security</GlListboxItem>
       </GlListboxContent>
     </GlListbox>
   ),
@@ -92,7 +90,7 @@ export const Default: Story = {
     await expect(canvas.queryByRole("menu")).not.toBeInTheDocument();
     await expect(canvas.queryByRole("menuitemradio")).not.toBeInTheDocument();
     await expect(listbox).toHaveAttribute("aria-labelledby", trigger.id);
-    await expect(within(listbox).getByRole("group")).not.toHaveAttribute("aria-labelledby");
+    await expect(within(listbox).queryByRole("group")).not.toBeInTheDocument();
     const selectedOption = within(listbox).getByRole("option", { name: "Backend" });
     await expect(selectedOption).toHaveAttribute("aria-selected", "true");
     await waitFor(() => expect(selectedOption).toHaveFocus());

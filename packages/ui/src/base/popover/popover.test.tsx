@@ -147,16 +147,6 @@ describe("GlPopover", () => {
     )).toThrowError("GlPopoverContent must be used inside GlPopover.");
   });
 
-  it("requires the title to be a direct child of GlPopoverContent", () => {
-    expect(() => renderPopover(
-      <div>
-        <GlPopoverTitle>Nested title</GlPopoverTitle>
-      </div>,
-    )).toThrowError(
-      "GlPopoverTitle must be used as a direct child of GlPopoverContent. Fragments are supported.",
-    );
-  });
-
   it("allows the title through a Fragment", () => {
     expect(() => renderPopover(
       <Fragment>

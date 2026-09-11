@@ -3,8 +3,8 @@
  * packages/gitlab-ui/src/components/base/alert/alert.vue
  *
  * Adaptations:
- * - Vue's title prop and body/action slots map to the title prop and strict
- *   compound description/action parts.
+ * - Vue's title prop and body/action slots map to the title prop and optional
+ *   compound description/action helpers.
  * - The `dismiss` event maps to `onDismiss`; action behavior belongs to the
  *   controls composed inside `GlAlertActions`.
  * - The exposed `focus()` method maps to the forwarded div ref; the
@@ -17,10 +17,7 @@
  */
 
 import {
-  Children,
-  Fragment,
   forwardRef,
-  isValidElement,
   useRef,
   useState,
   type FocusEventHandler,
@@ -38,7 +35,7 @@ export type GlAlertPoliteness = "assertive" | "off" | "polite";
 export type GlAlertHeaderLevel = 1 | 2 | 3 | 4 | 5 | 6;
 
 export type GlAlertProps = Omit<HTMLAttributes<HTMLDivElement>, "children" | "title"> & {
-  /** Unique GlAlertDescription and GlAlertActions parts. */
+  /** Alert content. GlAlertDescription and GlAlertActions provide the standard layout. */
   children?: ReactNode;
   /** Controls the dismiss button's visibility. */
   dismissible?: boolean;
@@ -134,42 +131,6 @@ export const GlAlertActions = forwardRef<HTMLDivElement, GlAlertActionsProps>(
   },
 );
 
-function getAlertPartName(type: unknown): string | null {
-  if(type === GlAlertDescription) return "GlAlertDescription";
-  if(type === GlAlertActions) return "GlAlertActions";
-  return null;
-}
-
-function validateAlertChildren(children: ReactNode) {
-  const seenParts = new Set<string>();
-
-  const visit = (nodes: ReactNode) => {
-    Children.forEach(nodes, (child) => {
-      if(child === null || child === undefined || typeof child === "boolean") return;
-
-      if(isValidElement<{ children?: ReactNode }>(child) && child.type === Fragment) {
-        visit(child.props.children);
-        return;
-      }
-
-      const partName = isValidElement(child) ? getAlertPartName(child.type) : null;
-      if(!partName) {
-        throw new Error(
-          "GlAlert only accepts GlAlertDescription and GlAlertActions as direct children. "
-          + "Arrays, Fragments, and conditional children are supported.",
-        );
-      }
-      if(seenParts.has(partName)) {
-        throw new Error(`GlAlert accepts at most one ${partName} child.`);
-      }
-
-      seenParts.add(partName);
-    });
-  };
-
-  visit(children);
-}
-
 const GlAlert = forwardRef<HTMLDivElement, GlAlertProps>(function GlAlert({
   children,
   className,
@@ -186,8 +147,6 @@ const GlAlert = forwardRef<HTMLDivElement, GlAlertProps>(function GlAlert({
   variant = "info",
   ...elementProps
 }, forwardedRef) {
-  validateAlertChildren(children);
-
   const [hasProgrammaticFocus, setHasProgrammaticFocus] = useState(false);
   const pointerInteractionRef = useRef(false);
 

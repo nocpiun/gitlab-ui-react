@@ -163,16 +163,30 @@ describe("GlModal", () => {
     expect(markup).toContain("Open");
   });
 
-  it("rejects unsupported and duplicate root compound parts", () => {
-    expect(() => renderToStaticMarkup(<GlModal>Invalid</GlModal>)).toThrowError(
-      "GlModal only accepts GlModalTrigger and GlModalContent as direct children.",
-    );
-    expect(() => renderToStaticMarkup(
+  it("accepts supporting content, wrapped triggers, and multiple triggers", () => {
+    function WrappedTrigger() {
+      return (
+        <GlModalTrigger asChild>
+          <button type="button">Wrapped trigger</button>
+        </GlModalTrigger>
+      );
+    }
+
+    const markup = renderToStaticMarkup(
       <GlModal>
-        <GlModalTrigger asChild><button type="button">One</button></GlModalTrigger>
-        <GlModalTrigger asChild><button type="button">Two</button></GlModalTrigger>
+        <span>Supporting content</span>
+        <WrappedTrigger />
+        <GlModalTrigger asChild><button type="button">Direct trigger</button></GlModalTrigger>
       </GlModal>,
-    )).toThrowError("GlModal accepts at most one GlModalTrigger child.");
+    );
+
+    expect(markup).toContain("Supporting content");
+    expect(markup).toContain("Wrapped trigger");
+    expect(markup).toContain("Direct trigger");
+    expect(markup.match(/<button/g)).toHaveLength(2);
+  });
+
+  it("rejects duplicate root content", () => {
     expect(() => renderToStaticMarkup(
       <GlModal>
         <GlModalContent aria-label="One"><GlModalHeader /></GlModalContent>

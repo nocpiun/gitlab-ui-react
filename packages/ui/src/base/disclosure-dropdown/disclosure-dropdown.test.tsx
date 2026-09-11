@@ -172,12 +172,15 @@ describe("GlDisclosureDropdown", () => {
     expect(markup).toContain("color:blue");
   });
 
-  it("requires items to be nested in a group", () => {
+  it("accepts ungrouped items inside the dropdown content", () => {
     expect(() => renderToStaticMarkup(
-      <GlDisclosureDropdown>
-        <GlDisclosureDropdownItem value="edit">Edit</GlDisclosureDropdownItem>
+      <GlDisclosureDropdown defaultOpen>
+        <GlDisclosureDropdownTrigger>Actions</GlDisclosureDropdownTrigger>
+        <GlDisclosureDropdownContent>
+          <GlDisclosureDropdownItem value="edit">Edit</GlDisclosureDropdownItem>
+        </GlDisclosureDropdownContent>
       </GlDisclosureDropdown>,
-    )).toThrowError("GlDisclosureDropdownItem must be used inside GlDisclosureDropdownGroup.");
+    )).not.toThrow();
   });
 
   it("supports groups without labels", () => {
