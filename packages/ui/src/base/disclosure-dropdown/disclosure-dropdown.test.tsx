@@ -9,6 +9,7 @@ import GlDisclosureDropdown, {
   GlDisclosureDropdownItem,
   GlDisclosureDropdownTrigger,
   hasDirectDisclosureDropdownItemIcon,
+  type GlDisclosureDropdownTriggerProps,
 } from "./disclosure-dropdown";
 import { resolveDropdownPlacement } from "../../internal/dropdown/dropdown-utils";
 import {
@@ -41,6 +42,33 @@ describe("GlDisclosureDropdown", () => {
     expect(markup).not.toContain("aria-expanded=\"true\"");
     expect(markup).toContain("btn-md btn-default");
     expect(markup).toContain("chevron-down-icon");
+  });
+
+  it("composes an asChild trigger without nesting buttons", () => {
+    const markup = renderToStaticMarkup(
+      <GlDisclosureDropdown>
+        <GlDisclosureDropdownTrigger
+          asChild
+          className="trigger-class"
+          style={{ backgroundColor: "red", color: "red" }}>
+          <button
+            className="child-class"
+            id="custom-actions-trigger"
+            style={{ color: "blue" }}
+            type="button">
+            Custom actions
+          </button>
+        </GlDisclosureDropdownTrigger>
+      </GlDisclosureDropdown>,
+    );
+
+    expect(markup.match(/<button/g)).toHaveLength(1);
+    expect(markup).toContain("child-class gl-new-dropdown-toggle trigger-class");
+    expect(markup).toContain("id=\"custom-actions-trigger\"");
+    expect(markup).toContain("background-color:red;color:blue");
+    expect(markup).not.toContain("chevron-down-icon");
+    expectTypeOf<"render" extends keyof GlDisclosureDropdownTriggerProps ? true : false>()
+      .toEqualTypeOf<false>();
   });
 
   it("applies trigger appearance, icon-only, screen-reader, and no-caret props", () => {

@@ -186,7 +186,7 @@ const GlLabel = forwardRef<HTMLSpanElement, GlLabelProps>(function GlLabel({
       style={labelStyle}>
       {hasTooltip ? (
         <GlTooltip>
-          <GlTooltipTrigger>{labelContent}</GlTooltipTrigger>
+          <GlTooltipTrigger asChild>{labelContent}</GlTooltipTrigger>
           <GlTooltipContent boundary="viewport" placement={tooltipPlacement}>
             {tooltipTitle}
           </GlTooltipContent>

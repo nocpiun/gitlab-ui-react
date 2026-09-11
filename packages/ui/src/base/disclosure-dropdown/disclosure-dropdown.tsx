@@ -42,11 +42,6 @@ import {
 import { Menu as BaseMenu } from "@base-ui/react/menu";
 import { cva } from "class-variance-authority";
 import { clsx } from "cn";
-import GlButton, {
-  type GlButtonCategory,
-  type GlButtonSize,
-  type GlButtonVariant,
-} from "../button/button";
 import GlIcon from "../icon/icon";
 import GlLink from "../link/link";
 import {
@@ -57,6 +52,12 @@ import {
   shouldRestoreDropdownFocus,
 } from "../../internal/dropdown/dropdown-utils";
 import { useMergedRefs } from "../../internal/utils/merge-refs";
+import {
+  resolveTriggerContent,
+  resolveTriggerRender,
+  type GlTriggerAsChildProps,
+  type GlTriggerDefaultProps,
+} from "../../internal/trigger/trigger-composition";
 
 export type GlDisclosureDropdownActionDetails = {
   /** The original React click event, including keyboard-generated clicks. */
@@ -83,24 +84,27 @@ export type GlDisclosureDropdownProps = Omit<
   open?: boolean;
 };
 
-export type GlDisclosureDropdownTriggerProps = Omit<
+type DisclosureDropdownTriggerBaseProps = Omit<
   BaseMenu.Trigger.Props,
-  "children" | "className" | "disabled" | "nativeButton" | "render"
-> & {
-  block?: boolean;
-  category?: GlButtonCategory;
-  children?: ReactNode;
-  className?: string;
-  disabled?: boolean;
-  icon?: string;
-  loading?: boolean;
-  nativeButton?: boolean;
+  "children" | "className" | "disabled" | "nativeButton" | "render" | "style"
+>;
+
+type DisclosureDropdownDefaultTriggerProps = GlTriggerDefaultProps & {
+  nativeButton?: never;
   noCaret?: boolean;
-  render?: BaseMenu.Trigger.Props["render"];
-  size?: GlButtonSize;
   textSrOnly?: boolean;
-  variant?: GlButtonVariant;
 };
+
+type DisclosureDropdownAsChildTriggerProps = GlTriggerAsChildProps & {
+  /** Set to false when the child does not ultimately render a native button. */
+  nativeButton?: BaseMenu.Trigger.Props["nativeButton"];
+  noCaret?: never;
+  textSrOnly?: never;
+};
+
+export type GlDisclosureDropdownTriggerProps = DisclosureDropdownTriggerBaseProps & (
+  DisclosureDropdownDefaultTriggerProps | DisclosureDropdownAsChildTriggerProps
+);
 
 type PopupProps = Omit<
   BaseMenu.Popup.Props,
@@ -400,6 +404,7 @@ export const GlDisclosureDropdownTrigger = forwardRef<
 >(function GlDisclosureDropdownTrigger({
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledBy,
+  asChild = false,
   block = false,
   category = "primary",
   children,
@@ -411,17 +416,24 @@ export const GlDisclosureDropdownTrigger = forwardRef<
   nativeButton,
   noCaret = false,
   onKeyDown,
-  render,
   size = "medium",
+  style,
   textSrOnly = false,
   variant = "default",
   ...triggerProps
 }, forwardedRef) {
   const context = useDropdownContext("GlDisclosureDropdownTrigger");
-  const actualId = id ?? context.triggerId;
-  const hasText = Children.toArray(children).length > 0;
-  const iconOnly = Boolean(icon) && (!hasText || textSrOnly);
-  const caretOnly = !noCaret && !icon && (!hasText || textSrOnly);
+  const hasText = !asChild && Children.toArray(children).length > 0;
+  const iconOnly = !asChild && Boolean(icon) && (!hasText || textSrOnly);
+  const caretOnly = !asChild && !noCaret && !icon && (!hasText || textSrOnly);
+  const triggerRender = resolveTriggerRender(
+    "GlDisclosureDropdownTrigger",
+    asChild,
+    children,
+    { block, category, disabled, icon, loading, size, variant },
+  );
+  const childId = asChild ? (triggerRender.props as { id?: string }).id : undefined;
+  const actualId = childId ?? id ?? context.triggerId;
   const mergedRef = useMergedRefs(forwardedRef, context.setTriggerElement);
   const environment = typeof process === "undefined" ? undefined : process.env.NODE_ENV;
 
@@ -438,7 +450,7 @@ export const GlDisclosureDropdownTrigger = forwardRef<
 
   if(
     environment !== "production"
-    && !render
+    && !asChild
     && !hasText
     && !ariaLabel
     && !ariaLabelledBy
@@ -449,7 +461,12 @@ export const GlDisclosureDropdownTrigger = forwardRef<
     );
   }
 
-  const classes = triggerVariants({ caretOnly, className, iconOnly, noCaret });
+  const classes = triggerVariants({
+    caretOnly,
+    className,
+    iconOnly,
+    noCaret: !asChild && noCaret,
+  });
   const handleKeyDown = useCallback((event: ReactKeyboardEvent<HTMLElement>) => {
     const baseEvent = event as Parameters<NonNullable<BaseMenu.Trigger.Props["onKeyDown"]>>[0];
     onKeyDown?.(baseEvent);
@@ -471,17 +488,6 @@ export const GlDisclosureDropdownTrigger = forwardRef<
     </>
   ) : null;
 
-  const triggerRender = render ?? (
-    <GlButton
-      block={block}
-      category={category}
-      disabled={disabled}
-      icon={icon}
-      loading={loading}
-      size={size}
-      variant={variant} />
-  );
-
   return (
     <BaseMenu.Trigger
       {...triggerProps}
@@ -492,10 +498,11 @@ export const GlDisclosureDropdownTrigger = forwardRef<
       disabled={disabled || loading}
       handle={context.handle}
       id={actualId}
-      nativeButton={render ? nativeButton : true}
+      nativeButton={asChild ? nativeButton : true}
       onKeyDown={handleKeyDown}
-      render={triggerRender}>
-      {render ? children : defaultContent}
+      render={triggerRender}
+      style={style}>
+      {resolveTriggerContent(asChild, children, defaultContent)}
     </BaseMenu.Trigger>
   );
 });

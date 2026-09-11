@@ -11,7 +11,6 @@
 import {
   Children,
   Fragment,
-  cloneElement,
   createContext,
   forwardRef,
   isValidElement,
@@ -22,11 +21,16 @@ import {
   type HTMLAttributes,
   type ReactElement,
   type ReactNode,
-  type Ref,
 } from "react";
 import { Dialog as BaseDialog } from "@base-ui/react/dialog";
 import { cva } from "class-variance-authority";
 import { useMergedRefs } from "../../internal/utils/merge-refs";
+import {
+  resolveTriggerContent,
+  resolveTriggerRender,
+  type GlTriggerAsChildProps,
+  type GlTriggerDefaultProps,
+} from "../../internal/trigger/trigger-composition";
 import GlButton, { type GlButtonProps } from "../button/button";
 
 export type GlModalSize = "sm" | "md" | "lg";
@@ -44,12 +48,23 @@ export type GlModalProps = {
   open?: boolean;
 };
 
-export type GlModalTriggerProps = {
-  /** A single element that receives trigger behavior and ARIA attributes. */
-  children: ReactElement;
+type ModalTriggerBaseProps = Omit<
+  BaseDialog.Trigger.Props,
+  "children" | "className" | "disabled" | "nativeButton" | "render" | "style"
+>;
+
+type ModalDefaultTriggerProps = GlTriggerDefaultProps & {
+  nativeButton?: never;
+};
+
+type ModalAsChildTriggerProps = GlTriggerAsChildProps & {
   /** Set to false when the child does not ultimately render a native button. */
   nativeButton?: BaseDialog.Trigger.Props["nativeButton"];
 };
+
+export type GlModalTriggerProps = ModalTriggerBaseProps & (
+  ModalDefaultTriggerProps | ModalAsChildTriggerProps
+);
 
 type PopupProps = Omit<
   BaseDialog.Popup.Props,
@@ -469,15 +484,42 @@ export const GlModalFooter = forwardRef<HTMLDivElement, GlModalFooterProps>(
 );
 
 export const GlModalTrigger = forwardRef<HTMLElement, GlModalTriggerProps>(
-  function GlModalTrigger({ children, nativeButton = true }, forwardedRef) {
+  function GlModalTrigger({
+    asChild = false,
+    block = false,
+    category = "primary",
+    children,
+    className,
+    disabled = false,
+    icon,
+    loading = false,
+    nativeButton,
+    size = "medium",
+    style,
+    variant = "default",
+    ...triggerProps
+  }, forwardedRef) {
     useModalRootContext("GlModalTrigger");
-    const trigger = Children.only(children) as ReactElement<{ ref?: Ref<HTMLElement> }>;
-    const triggerRef = useMergedRefs(trigger.props.ref, forwardedRef);
+    const effectiveDisabled = disabled || loading;
+    const triggerRender = resolveTriggerRender(
+      "GlModalTrigger",
+      asChild,
+      children,
+      { block, category, disabled, icon, loading, size, variant },
+    );
+    const mergedRef = useMergedRefs(forwardedRef);
 
     return (
       <BaseDialog.Trigger
-        nativeButton={nativeButton}
-        render={cloneElement(trigger, { ref: triggerRef })} />
+        {...triggerProps}
+        ref={mergedRef}
+        className={className}
+        disabled={effectiveDisabled}
+        nativeButton={asChild ? nativeButton : true}
+        render={triggerRender}
+        style={style}>
+        {resolveTriggerContent(asChild, children)}
+      </BaseDialog.Trigger>
     );
   },
 );

@@ -44,38 +44,36 @@ const makePlacementStory = (placement: GlTooltipPlacement): Story => ({
   render: (args) => (
     <div style={wrapperStyle}>
       <GlTooltip {...args}>
-        <GlTooltipTrigger>
-          <GlButton>Tooltip</GlButton>
-        </GlTooltipTrigger>
+        <GlTooltipTrigger>Tooltip</GlTooltipTrigger>
         <GlTooltipContent placement={placement}>some tooltip text</GlTooltipContent>
       </GlTooltip>
     </div>
   ),
   play: async ({ canvas }) => {
-    const button = canvas.getByRole("button");
+    const trigger = canvas.getByText("Tooltip");
 
-    await userEvent.click(button);
-    await waitFor(() => expect(button).toHaveFocus());
+    await expect(trigger).not.toHaveClass("gl-button");
+    await userEvent.hover(trigger);
 
     const tooltip = await within(document.body).findByRole("tooltip");
 
     await waitFor(() => expect(tooltip).toBeVisible());
     await expect(tooltip).toHaveTextContent("some tooltip text");
     await expect(tooltip).toHaveClass("gl-tooltip", `bs-tooltip-${placement}`);
-    await waitFor(() => expect(button).toHaveAttribute("aria-describedby", tooltip.id));
+    await waitFor(() => expect(trigger).toHaveAttribute("aria-describedby", tooltip.id));
 
     // The arrow tip touches the trigger with no gap between them.
     const arrow = tooltip.querySelector(".arrow");
 
     await expect(arrow).not.toBeNull();
 
-    const buttonRect = button.getBoundingClientRect();
+    const triggerRect = trigger.getBoundingClientRect();
     const arrowRect = arrow!.getBoundingClientRect();
     const gaps: Record<GlTooltipPlacement, number> = {
-      bottom: buttonRect.bottom - arrowRect.top,
-      left: buttonRect.left - arrowRect.right,
-      right: arrowRect.left - buttonRect.right,
-      top: arrowRect.bottom - buttonRect.top,
+      bottom: triggerRect.bottom - arrowRect.top,
+      left: triggerRect.left - arrowRect.right,
+      right: arrowRect.left - triggerRect.right,
+      top: arrowRect.bottom - triggerRect.top,
     };
 
     await expect(Math.abs(gaps[placement])).toBeLessThanOrEqual(2);
@@ -94,7 +92,7 @@ export const HtmlContent: Story = {
   render: (args) => (
     <div style={wrapperStyle}>
       <GlTooltip {...args}>
-        <GlTooltipTrigger>
+        <GlTooltipTrigger asChild>
           <GlButton>HTML tooltip</GlButton>
         </GlTooltipTrigger>
         <GlTooltipContent>
@@ -116,7 +114,7 @@ export const ContentOptions: Story = {
   render: (args) => (
     <div style={wrapperStyle}>
       <GlTooltip {...args} noninteractive>
-        <GlTooltipTrigger>
+        <GlTooltipTrigger asChild>
           <GlButton aria-describedby="existing-description">Content options</GlButton>
         </GlTooltipTrigger>
         <GlTooltipContent
@@ -159,7 +157,7 @@ function ControlledTooltipExample(props: GlTooltipProps) {
           setOpen(nextOpen);
           props.onOpenChange?.(nextOpen);
         }}>
-        <GlTooltipTrigger>
+        <GlTooltipTrigger asChild>
           <GlButton>Controlled tooltip</GlButton>
         </GlTooltipTrigger>
         <GlTooltipContent>Controlled content</GlTooltipContent>
@@ -197,7 +195,7 @@ function DisabledControlledTooltipExample(props: GlTooltipProps) {
           if(!nextOpen) setCloseNotifications((count) => count + 1);
           props.onOpenChange?.(nextOpen);
         }}>
-        <GlTooltipTrigger>
+        <GlTooltipTrigger asChild>
           <GlButton>Disabled controlled tooltip</GlButton>
         </GlTooltipTrigger>
         <GlTooltipContent>Disabled controlled content</GlTooltipContent>

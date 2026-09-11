@@ -470,7 +470,7 @@ export function useNavButtonInternal(
 
   return (
     <GlTooltip disabled={!isRail}>
-      <GlTooltipTrigger>{button}</GlTooltipTrigger>
+      <GlTooltipTrigger asChild>{button}</GlTooltipTrigger>
       <GlTooltipContent boundary="viewport" placement="right">
         {tooltipLabel}
       </GlTooltipContent>

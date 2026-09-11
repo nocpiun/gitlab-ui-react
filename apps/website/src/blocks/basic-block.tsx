@@ -74,7 +74,7 @@ export function BasicBlock({ locale }: BasicBlockProps) {
 
       <div className="flex flex-wrap justify-between gap-2">
         <GlModal>
-          <GlModalTrigger>
+          <GlModalTrigger asChild>
             <GlButton>
               {content.openModal}
             </GlButton>

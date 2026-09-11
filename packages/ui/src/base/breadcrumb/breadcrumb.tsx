@@ -249,7 +249,7 @@ const BreadcrumbClipboardButton = forwardRef<HTMLElement, ClipboardButtonProps>(
 
     return (
       <GlTooltip>
-        <GlTooltipTrigger>
+        <GlTooltipTrigger asChild>
           <GlButton
             ref={forwardedRef}
             aria-label={localTitle}

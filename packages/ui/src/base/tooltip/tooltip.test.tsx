@@ -1,6 +1,7 @@
-import type { ReactElement } from "react";
+import { createRef, type ReactElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, expectTypeOf, it, vi } from "vitest";
+import GlButton from "../button/button";
 import GlTooltip, {
   GlTooltipContent,
   GlTooltipTrigger,
@@ -8,6 +9,7 @@ import GlTooltip, {
   resolveTooltipContainer,
   type GlTooltipContentProps,
   type GlTooltipProps,
+  type GlTooltipTriggerProps,
 } from "./tooltip";
 import { getGlTooltipDefaultContainer, setGlTooltipDefaultContainer } from "./container";
 
@@ -19,7 +21,7 @@ function renderTooltip(
 ) {
   return renderToStaticMarkup(
     <GlTooltip {...rootProps}>
-      <GlTooltipTrigger>{trigger}</GlTooltipTrigger>
+      <GlTooltipTrigger asChild>{trigger}</GlTooltipTrigger>
       <GlTooltipContent>some tooltip text</GlTooltipContent>
     </GlTooltip>,
   );
@@ -31,11 +33,65 @@ afterEach(() => {
 });
 
 describe("GlTooltip", () => {
+  it("renders text inside an unstyled inline trigger", () => {
+    const markup = renderToStaticMarkup(
+      <GlTooltip>
+        <GlTooltipTrigger>Default tooltip</GlTooltipTrigger>
+      </GlTooltip>,
+    );
+
+    expect(markup.match(/<span/g)).toHaveLength(1);
+    expect(markup).toContain(">Default tooltip</span>");
+    expect(markup).not.toContain("<button");
+    expect(markup).not.toContain("gl-button");
+    expect(markup).not.toContain("class=");
+    expectTypeOf<"variant" extends keyof GlTooltipTriggerProps ? true : false>()
+      .toEqualTypeOf<false>();
+  });
+
+  it("renders a styled button only when GlButton is composed with asChild", () => {
+    const markup = renderToStaticMarkup(
+      <GlTooltip>
+        <GlTooltipTrigger asChild>
+          <GlButton category="tertiary" variant="confirm">Button tooltip</GlButton>
+        </GlTooltipTrigger>
+      </GlTooltip>,
+    );
+
+    expect(markup.match(/<button/g)).toHaveLength(1);
+    expect(markup).toContain("gl-button");
+    expect(markup).toContain("btn-confirm-tertiary");
+  });
+
   it("renders the composed child element as the trigger", () => {
     const markup = renderTooltip();
 
     expect(markup).toContain("<button");
     expect(markup).toContain(">Tooltip</button>");
+  });
+
+  it("merges styles and accepts a ref in asChild mode", () => {
+    const triggerRef = createRef<HTMLElement>();
+    const markup = renderToStaticMarkup(
+      <GlTooltip>
+        <GlTooltipTrigger
+          ref={triggerRef}
+          asChild
+          className="trigger-class"
+          style={{ backgroundColor: "red", color: "red" }}>
+          <button
+            className="child-class"
+            style={{ color: "blue" }}
+            type="button">
+            Styled tooltip
+          </button>
+        </GlTooltipTrigger>
+      </GlTooltip>,
+    );
+
+    expect(markup.match(/<button/g)).toHaveLength(1);
+    expect(markup).toContain("child-class trigger-class");
+    expect(markup).toContain("background-color:red;color:blue");
   });
 
   it("does not render the popup or tooltip description while closed", () => {
@@ -91,7 +147,7 @@ describe("GlTooltip", () => {
 
   it("requires the trigger to be inside GlTooltip", () => {
     expect(() => renderToStaticMarkup(
-      <GlTooltipTrigger>
+      <GlTooltipTrigger asChild>
         <button type="button">Tooltip</button>
       </GlTooltipTrigger>,
     )).toThrowError("GlTooltipTrigger must be used inside GlTooltip.");

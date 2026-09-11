@@ -8,7 +8,6 @@
  */
 
 import {
-  Children,
   cloneElement,
   createContext,
   forwardRef,
@@ -25,6 +24,12 @@ import {
 } from "react";
 import { Tooltip as BaseTooltip } from "@base-ui/react/tooltip";
 import { cva } from "class-variance-authority";
+import {
+  resolveTriggerContent,
+  resolveTriggerRender,
+  type GlTriggerAsChildProps,
+} from "../../internal/trigger/trigger-composition";
+import { useMergedRefs } from "../../internal/utils/merge-refs";
 import { getGlTooltipDefaultContainer } from "./container";
 
 export type GlTooltipPlacement = "top" | "right" | "bottom" | "left";
@@ -49,10 +54,32 @@ export type GlTooltipProps = {
   open?: boolean;
 };
 
-export type GlTooltipTriggerProps = {
-  /** A single element that receives the trigger behavior and ARIA attributes. */
-  children: ReactElement;
+type TooltipTriggerBaseProps = Omit<
+  BaseTooltip.Trigger.Props,
+  | "children"
+  | "className"
+  | "closeDelay"
+  | "closeOnClick"
+  | "delay"
+  | "disabled"
+  | "handle"
+  | "payload"
+  | "render"
+  | "style"
+>;
+
+type TooltipDefaultTriggerProps = {
+  /** Renders the trigger content inside an unstyled inline element. */
+  asChild?: false;
+  children?: ReactNode;
+  className?: string;
+  disabled?: boolean;
+  style?: CSSProperties;
 };
+
+export type GlTooltipTriggerProps = TooltipTriggerBaseProps & (
+  TooltipDefaultTriggerProps | GlTriggerAsChildProps
+);
 
 type PopupProps = Omit<
   BaseTooltip.Popup.Props,
@@ -215,24 +242,60 @@ export default function GlTooltip({
   );
 }
 
-export function GlTooltipTrigger({ children }: GlTooltipTriggerProps) {
-  const context = useTooltipContext("GlTooltipTrigger");
-  const trigger = Children.only(children) as ReactElement<{ "aria-describedby"?: string }>;
-  const describedBy = mergeAriaDescribedBy(
-    trigger.props["aria-describedby"],
-    context.open ? context.tooltipId : undefined,
-  );
-  const renderedTrigger = cloneElement(trigger, { "aria-describedby": describedBy });
+export const GlTooltipTrigger = forwardRef<HTMLElement, GlTooltipTriggerProps>(
+  function GlTooltipTrigger({
+    "aria-describedby": ariaDescribedBy,
+    asChild = false,
+    children,
+    className,
+    disabled = false,
+    style,
+    ...triggerProps
+  }, forwardedRef) {
+    const context = useTooltipContext("GlTooltipTrigger");
+    const triggerRender = resolveTriggerRender(
+      "GlTooltipTrigger",
+      asChild,
+      children,
+      {},
+      <span />,
+    );
+    const childAriaDescribedBy = asChild
+      ? (triggerRender.props as { "aria-describedby"?: string })["aria-describedby"]
+      : undefined;
+    const existingAriaDescribedBy = mergeAriaDescribedBy(
+      ariaDescribedBy,
+      childAriaDescribedBy,
+    );
+    const describedBy = mergeAriaDescribedBy(
+      existingAriaDescribedBy,
+      context.open ? context.tooltipId : undefined,
+    );
+    const renderedTrigger = asChild
+      ? cloneElement(
+        triggerRender as ReactElement<{ "aria-describedby"?: string }>,
+        { "aria-describedby": describedBy },
+      )
+      : triggerRender;
+    const mergedRef = useMergedRefs(forwardedRef);
 
-  return (
-    <BaseTooltip.Trigger
-      closeDelay={context.closeDelay}
-      closeOnClick={false}
-      delay={context.delay}
-      disabled={context.disabled}
-      render={renderedTrigger} />
-  );
-}
+    return (
+      <BaseTooltip.Trigger
+        {...triggerProps}
+        ref={mergedRef}
+        aria-describedby={describedBy}
+        className={className}
+        closeDelay={context.closeDelay}
+        closeOnClick={false}
+        delay={context.delay}
+        disabled={disabled || context.disabled}
+        render={renderedTrigger}
+        style={style}>
+        {resolveTriggerContent(asChild, children)}
+      </BaseTooltip.Trigger>
+    );
+  },
+);
 
 export const GlTooltipContent = forwardRef<HTMLDivElement, GlTooltipContentProps>(
   function GlTooltipContent({

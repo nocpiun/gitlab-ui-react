@@ -10,6 +10,7 @@ import GlListbox, {
   GlListboxTrigger,
   type GlListboxMultipleProps,
   type GlListboxSingleProps,
+  type GlListboxTriggerProps,
   type GlListboxValue,
 } from "./listbox";
 import { resolveDropdownPlacement } from "../../internal/dropdown/dropdown-utils";
@@ -36,6 +37,44 @@ describe("GlListbox", () => {
     expect(markup).toContain("btn-md btn-default");
     expect(markup).toContain("chevron-down-icon");
     expect(markup).not.toContain("aria-expanded=\"true\"");
+  });
+
+  it("composes an asChild trigger without nesting buttons", () => {
+    const markup = renderToStaticMarkup(
+      <GlListbox state={false}>
+        <GlListboxTrigger
+          asChild
+          className="trigger-class"
+          style={{ backgroundColor: "red", color: "red" }}>
+          <button
+            className="child-class"
+            id="custom-listbox-trigger"
+            style={{ color: "blue" }}
+            type="button">
+            Custom listbox
+          </button>
+        </GlListboxTrigger>
+      </GlListbox>,
+    );
+
+    expect(markup.match(/<button/g)).toHaveLength(1);
+    expect(markup).toContain("child-class gl-new-dropdown-toggle is-invalid trigger-class");
+    expect(markup).toContain("id=\"custom-listbox-trigger\"");
+    expect(markup).toContain("background-color:red;color:blue");
+    expect(markup).not.toContain("chevron-down-icon");
+    expectTypeOf<"render" extends keyof GlListboxTriggerProps ? true : false>()
+      .toEqualTypeOf<false>();
+  });
+
+  it("supports trigger-level loading in default mode", () => {
+    const markup = renderToStaticMarkup(
+      <GlListbox>
+        <GlListboxTrigger loading>Loading projects</GlListboxTrigger>
+      </GlListbox>,
+    );
+
+    expect(markup).toContain("gl-button-loading-indicator");
+    expect(markup).toContain("disabled=\"\"");
   });
 
   it("applies trigger appearance, validation, and accessible icon-only props", () => {

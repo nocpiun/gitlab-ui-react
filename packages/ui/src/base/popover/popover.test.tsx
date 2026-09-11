@@ -1,4 +1,4 @@
-import { Fragment, type ReactNode } from "react";
+import { Fragment, createRef, type ReactNode } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, expectTypeOf, it, vi } from "vitest";
 import GlPopover, {
@@ -16,7 +16,7 @@ vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" })
 function renderPopover(children: ReactNode = "Popover body", rootProps: GlPopoverProps = {}) {
   return renderToStaticMarkup(
     <GlPopover {...rootProps}>
-      <GlPopoverTrigger>
+      <GlPopoverTrigger asChild>
         <button type="button">Open popover</button>
       </GlPopoverTrigger>
       <GlPopoverContent>{children}</GlPopoverContent>
@@ -25,6 +25,22 @@ function renderPopover(children: ReactNode = "Popover body", rootProps: GlPopove
 }
 
 describe("GlPopover", () => {
+  it("renders text inside a GitLab-styled default trigger", () => {
+    const markup = renderToStaticMarkup(
+      <GlPopover>
+        <GlPopoverTrigger category="tertiary" variant="confirm">
+          Open default popover
+        </GlPopoverTrigger>
+      </GlPopover>,
+    );
+
+    expect(markup.match(/<button/g)).toHaveLength(1);
+    expect(markup).toContain("gl-button");
+    expect(markup).toContain("btn-confirm-tertiary");
+    expect(markup).toContain("Open default popover");
+    expect(markup).toContain("aria-haspopup=\"dialog\"");
+  });
+
   it("composes the child element as a dialog trigger", () => {
     const markup = renderPopover();
 
@@ -32,6 +48,30 @@ describe("GlPopover", () => {
     expect(markup).toContain("Open popover</button>");
     expect(markup).toContain("aria-haspopup=\"dialog\"");
     expect(markup).not.toContain("aria-expanded=\"true\"");
+  });
+
+  it("merges styles and accepts a ref in asChild mode", () => {
+    const triggerRef = createRef<HTMLElement>();
+    const markup = renderToStaticMarkup(
+      <GlPopover>
+        <GlPopoverTrigger
+          ref={triggerRef}
+          asChild
+          className="trigger-class"
+          style={{ backgroundColor: "red", color: "red" }}>
+          <button
+            className="child-class"
+            style={{ color: "blue" }}
+            type="button">
+            Styled popover
+          </button>
+        </GlPopoverTrigger>
+      </GlPopover>,
+    );
+
+    expect(markup.match(/<button/g)).toHaveLength(1);
+    expect(markup).toContain("child-class trigger-class");
+    expect(markup).toContain("background-color:red;color:blue");
   });
 
   it("supports an initially open uncontrolled state", () => {
@@ -95,7 +135,7 @@ describe("GlPopover", () => {
 
   it("requires the trigger to be inside GlPopover", () => {
     expect(() => renderToStaticMarkup(
-      <GlPopoverTrigger>
+      <GlPopoverTrigger asChild>
         <button type="button">Open</button>
       </GlPopoverTrigger>,
     )).toThrowError("GlPopoverTrigger must be used inside GlPopover.");

@@ -37,9 +37,7 @@ function DrawerExample({
     <div className="gl-p-5">
       <GlButton className="gl-mr-2">Outside action</GlButton>
       <GlDrawer {...rootProps}>
-        <GlDrawerTrigger>
-          <GlButton>Open drawer</GlButton>
-        </GlDrawerTrigger>
+        <GlDrawerTrigger>Open drawer</GlDrawerTrigger>
         <GlDrawerContent {...contentProps}>
           <GlDrawerHeader sticky={stickyHeader}>
             <GlDrawerTitle>{title}</GlDrawerTitle>
@@ -250,7 +248,7 @@ export const HeaderOffset: Story = {
   render: (args) => (
     <div className="gl-p-5">
       <GlDrawer {...args}>
-        <GlDrawerTrigger>
+        <GlDrawerTrigger asChild>
           <GlButton>Open offset drawer</GlButton>
         </GlDrawerTrigger>
         <GlDrawerContent
@@ -282,7 +280,7 @@ export const WithoutTitle: Story = {
   render: (args) => (
     <div className="gl-p-5">
       <GlDrawer {...args}>
-        <GlDrawerTrigger>
+        <GlDrawerTrigger asChild>
           <GlButton>Open drawer without a title</GlButton>
         </GlDrawerTrigger>
         <GlDrawerContent aria-label="Drawer without a title">

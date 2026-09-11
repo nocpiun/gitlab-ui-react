@@ -28,6 +28,13 @@ import {
 } from "react";
 import { Popover as BasePopover } from "@base-ui/react/popover";
 import { cva } from "class-variance-authority";
+import {
+  resolveTriggerContent,
+  resolveTriggerRender,
+  type GlTriggerAsChildProps,
+  type GlTriggerDefaultProps,
+} from "../../internal/trigger/trigger-composition";
+import { useMergedRefs } from "../../internal/utils/merge-refs";
 import GlButton from "../button/button";
 
 export type GlPopoverPlacement = "top" | "right" | "bottom" | "left";
@@ -51,12 +58,33 @@ export type GlPopoverProps = {
   triggers?: readonly GlPopoverTriggerMode[];
 };
 
-export type GlPopoverTriggerProps = {
-  /** A single element that receives the trigger behavior and ARIA attributes. */
-  children: ReactElement;
+type PopoverTriggerBaseProps = Omit<
+  BasePopover.Trigger.Props,
+  | "children"
+  | "className"
+  | "closeDelay"
+  | "delay"
+  | "disabled"
+  | "handle"
+  | "nativeButton"
+  | "openOnHover"
+  | "payload"
+  | "render"
+  | "style"
+>;
+
+type PopoverDefaultTriggerProps = GlTriggerDefaultProps & {
+  nativeButton?: never;
+};
+
+type PopoverAsChildTriggerProps = GlTriggerAsChildProps & {
   /** Set to false when the child does not ultimately render a native button. */
   nativeButton?: BasePopover.Trigger.Props["nativeButton"];
 };
+
+export type GlPopoverTriggerProps = PopoverTriggerBaseProps & (
+  PopoverDefaultTriggerProps | PopoverAsChildTriggerProps
+);
 
 type PopupProps = Omit<
   BasePopover.Popup.Props,
@@ -470,63 +498,105 @@ export default function GlPopover({
   );
 }
 
-export function GlPopoverTrigger({
-  children,
-  nativeButton = true,
-}: GlPopoverTriggerProps) {
-  const context = usePopoverContext("GlPopoverTrigger");
-  const trigger = Children.only(children);
-  const childId = (trigger.props as { id?: string }).id;
-  const actualId = childId ?? context.triggerId;
-  const updateTriggerId = context.updateTriggerId;
+export const GlPopoverTrigger = forwardRef<HTMLElement, GlPopoverTriggerProps>(
+  function GlPopoverTrigger({
+    asChild = false,
+    block = false,
+    category = "primary",
+    children,
+    className,
+    disabled = false,
+    icon,
+    id,
+    loading = false,
+    nativeButton,
+    onBlur,
+    onClick,
+    onFocus,
+    onMouseEnter,
+    onMouseLeave,
+    size = "medium",
+    style,
+    variant = "default",
+    ...triggerProps
+  }, forwardedRef) {
+    const context = usePopoverContext("GlPopoverTrigger");
+    const effectiveDisabled = disabled || loading;
+    const triggerRender = resolveTriggerRender(
+      "GlPopoverTrigger",
+      asChild,
+      children,
+      { block, category, disabled, icon, loading, size, variant },
+    );
+    const childId = asChild ? (triggerRender.props as { id?: string }).id : undefined;
+    const actualId = childId ?? id ?? context.triggerId;
+    const updateTriggerId = context.updateTriggerId;
+    const mergedRef = useMergedRefs(forwardedRef, context.setTriggerElement);
 
-  useEffect(() => {
-    updateTriggerId(actualId);
-  }, [actualId, updateTriggerId]);
+    useEffect(() => {
+      updateTriggerId(actualId);
+    }, [actualId, updateTriggerId]);
 
-  useEffect(
-    () => context.resetActiveTriggers,
-    [context.resetActiveTriggers],
-  );
+    useEffect(
+      () => context.resetActiveTriggers,
+      [context.resetActiveTriggers],
+    );
 
-  const handleFocus: NonNullable<BasePopover.Trigger.Props["onFocus"]> = (event) => {
-    if(!event.currentTarget.matches(":focus-visible")) return;
+    const handleFocus: NonNullable<BasePopover.Trigger.Props["onFocus"]> = (event) => {
+      onFocus?.(event);
+      if(event.baseUIHandlerPrevented) return;
+      if(!event.currentTarget.matches(":focus-visible")) return;
 
-    context.activateFocusTrigger();
-  };
+      context.activateFocusTrigger();
+    };
 
-  const handleBlur = () => {
-    if(!context.open) context.deactivateFocusTrigger();
-  };
+    const handleBlur: NonNullable<BasePopover.Trigger.Props["onBlur"]> = (event) => {
+      onBlur?.(event);
+      if(event.baseUIHandlerPrevented) return;
+      if(!context.open) context.deactivateFocusTrigger();
+    };
 
-  const handleClick = () => {
-    context.toggleClickTrigger();
-  };
+    const handleClick: NonNullable<BasePopover.Trigger.Props["onClick"]> = (event) => {
+      onClick?.(event);
+      if(event.baseUIHandlerPrevented) return;
+      context.toggleClickTrigger();
+    };
 
-  const handleMouseEnter = () => {
-    context.activateHoverTrigger();
-  };
+    const handleMouseEnter: NonNullable<BasePopover.Trigger.Props["onMouseEnter"]> = (event) => {
+      onMouseEnter?.(event);
+      if(event.baseUIHandlerPrevented) return;
+      context.activateHoverTrigger();
+    };
 
-  const handleMouseLeave = () => {
-    context.deactivateHoverTrigger();
-  };
+    const handleMouseLeave: NonNullable<BasePopover.Trigger.Props["onMouseLeave"]> = (event) => {
+      onMouseLeave?.(event);
+      if(event.baseUIHandlerPrevented) return;
+      context.deactivateHoverTrigger();
+    };
 
-  return (
-    <BasePopover.Trigger
-      ref={context.setTriggerElement}
-      closeDelay={context.closeDelay}
-      delay={context.delay}
-      id={actualId}
-      nativeButton={nativeButton}
-      onBlur={handleBlur}
-      onClick={handleClick}
-      onFocus={handleFocus}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      openOnHover={context.triggerModes.has("hover")}
-      render={trigger} />
-  );
-}
+    return (
+      <BasePopover.Trigger
+        {...triggerProps}
+        ref={mergedRef}
+        className={className}
+        closeDelay={context.closeDelay}
+        delay={context.delay}
+        disabled={effectiveDisabled}
+        id={actualId}
+        nativeButton={asChild ? nativeButton : true}
+        onBlur={handleBlur}
+        onClick={handleClick}
+        onFocus={handleFocus}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        openOnHover={context.triggerModes.has("hover")}
+        render={triggerRender}
+        style={style}>
+        {resolveTriggerContent(asChild, children)}
+      </BasePopover.Trigger>
+    );
+  },
+);
 
 export const GlPopoverContent = forwardRef<HTMLDivElement, GlPopoverContentProps>(
   function GlPopoverContent({
