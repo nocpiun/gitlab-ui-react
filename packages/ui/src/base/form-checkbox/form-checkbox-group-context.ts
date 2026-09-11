@@ -15,8 +15,14 @@ export interface GlFormCheckboxGroupContextValue {
   ariaDescribedby?: string;
   /** Group-level `aria-labelledby`, applied like `ariaDescribedby`. */
   ariaLabelledby?: string;
-  /** The group's current value (the shared model array). */
-  checked: unknown[];
+  /** The group's initial selected values, used by uncontrolled checkboxes. */
+  defaultValue: unknown[];
+  /** Whether the group owns its checked state through the `value` prop. */
+  isControlled: boolean;
+  /** Returns the latest selected values, including pending uncontrolled updates. */
+  getValue: () => unknown[];
+  /** The group's current selected values. */
+  value: unknown[];
   /** Whether the whole group is disabled. */
   disabled: boolean;
   /** The group's name; always set (user-provided or generated). */
@@ -25,8 +31,8 @@ export interface GlFormCheckboxGroupContextValue {
   required: boolean;
   /** The group's validation state: `true` valid, `false` invalid, `null` none. */
   state: boolean | null;
-  /** Updates the shared model and emits the group's input/change events. */
-  updateChecked: (checked: unknown[]) => void;
+  /** Updates the selected values and emits `onValueChange`. */
+  updateValue: (value: unknown[]) => void;
 }
 
 export const GlFormCheckboxGroupContext = createContext<GlFormCheckboxGroupContextValue | null>(null);

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { expect, fn, userEvent, waitFor } from "storybook/test";
 import GlFormCheckbox, { type GlFormCheckboxProps } from "./form-checkbox";
-import GlFormCheckboxGroup, { type GlFormCheckboxGroupProps } from "./form-checkbox-group";
+import GlFormCheckboxGroup from "./form-checkbox-group";
 
 const meta = {
   title: "UI/Base/Form Checkbox",
@@ -10,8 +10,8 @@ const meta = {
   args: {
     children: "Option",
     onChange: fn(),
+    onCheckedChange: fn(),
     onIndeterminateChange: fn(),
-    onInput: fn(),
   },
   argTypes: {
     state: {
@@ -40,8 +40,8 @@ export const Default: Story = {
     <div>
       <GlFormCheckbox {...args} value="option">Option</GlFormCheckbox>
       <GlFormCheckbox {...args} value="slot-option" help="With help text.">Slot option</GlFormCheckbox>
-      <GlFormCheckbox {...args} value="checked-option" checked="checked-option">Checked option</GlFormCheckbox>
-      <GlFormCheckbox {...args} value="checked-disabled-option" checked="checked-disabled-option" disabled>Checked disabled option</GlFormCheckbox>
+      <GlFormCheckbox {...args} value="checked-option" checked>Checked option</GlFormCheckbox>
+      <GlFormCheckbox {...args} value="checked-disabled-option" checked disabled>Checked disabled option</GlFormCheckbox>
       <GlFormCheckbox {...args} value="disabled-option" disabled>Disabled option</GlFormCheckbox>
       <GlFormCheckbox {...args} value="disabled-option-with-help-text" disabled help="With help text.">Disabled option</GlFormCheckbox>
       <GlFormCheckbox {...args} value="indeterminate-option" indeterminate>Indeterminate option</GlFormCheckbox>
@@ -88,8 +88,8 @@ export const Default: Story = {
 
 export const SingleCheckbox: Story = {
   args: {
-    checked: "checked-option",
     children: "Checked option",
+    defaultChecked: true,
     value: "checked-option",
   },
   play: async ({ args, canvas }) => {
@@ -97,89 +97,29 @@ export const SingleCheckbox: Story = {
 
     await expect(input).toBeChecked();
 
-    // Without a listener updating the `checked` prop, the internal state
-    // toggles and the callbacks receive the new value, like upstream.
     await userEvent.click(input);
     await expect(input).not.toBeChecked();
-    await expect(args.onInput).toHaveBeenLastCalledWith(false);
-    await expect(args.onChange).toHaveBeenLastCalledWith(false);
+    await expect(args.onCheckedChange).toHaveBeenLastCalledWith(false);
+    await expect(args.onChange).toHaveBeenCalled();
 
     await userEvent.click(input);
     await expect(input).toBeChecked();
-    await expect(args.onInput).toHaveBeenLastCalledWith("checked-option");
-    await expect(args.onChange).toHaveBeenLastCalledWith("checked-option");
+    await expect(args.onCheckedChange).toHaveBeenLastCalledWith(true);
   },
 };
 
-export const CustomValues: Story = {
+export const NativeValue: Story = {
   args: {
-    checked: "foo",
-    children: "Custom values",
-    uncheckedValue: "foo",
+    children: "Native value",
     value: "bar",
   },
   play: async ({ args, canvas }) => {
-    const input = canvas.getByRole("checkbox", { name: "Custom values" });
-
-    // checked="foo" does not match value="bar", so the box starts unchecked
+    const input = canvas.getByRole("checkbox", { name: "Native value" });
     await expect(input).not.toBeChecked();
+    await expect(input).toHaveAttribute("value", "bar");
 
     await userEvent.click(input);
-    await expect(args.onChange).toHaveBeenLastCalledWith("bar");
-
-    await userEvent.click(input);
-    await expect(args.onChange).toHaveBeenLastCalledWith("foo");
-  },
-};
-
-function ArrayValueExample(args: GlFormCheckboxProps) {
-  const [checked, setChecked] = useState<unknown[]>(["foo"]);
-  const handleInput = (value: unknown) => {
-    args.onInput?.(value);
-    setChecked(value as unknown[]);
-  };
-  return (
-    <div>
-      <GlFormCheckbox
-        {...args}
-        checked={checked}
-        onInput={handleInput}
-        value="foo">
-        Foo
-      </GlFormCheckbox>
-      <GlFormCheckbox
-        {...args}
-        checked={checked}
-        onInput={handleInput}
-        value="bar">
-        Bar
-      </GlFormCheckbox>
-    </div>
-  );
-}
-
-export const ArrayValue: Story = {
-  args: {
-    children: undefined,
-  },
-  render: (args) => <ArrayValueExample {...args} />,
-  play: async ({ args, canvas }) => {
-    const foo = canvas.getByRole("checkbox", { name: "Foo" });
-    const bar = canvas.getByRole("checkbox", { name: "Bar" });
-
-    await expect(foo).toBeChecked();
-    await expect(bar).not.toBeChecked();
-
-    // Checking adds the value to the model array
-    await userEvent.click(bar);
-    await expect(args.onInput).toHaveBeenLastCalledWith(["foo", "bar"]);
-    await expect(args.onChange).toHaveBeenLastCalledWith(["foo", "bar"]);
-    await expect(bar).toBeChecked();
-
-    // Unchecking removes it again
-    await userEvent.click(bar);
-    await expect(args.onInput).toHaveBeenLastCalledWith(["foo"]);
-    await expect(bar).not.toBeChecked();
+    await expect(args.onCheckedChange).toHaveBeenLastCalledWith(true);
   },
 };
 
@@ -199,7 +139,7 @@ export const Indeterminate: Story = {
     await expect(input).toHaveProperty("indeterminate", false);
     await expect(input).toBeChecked();
     await expect(args.onIndeterminateChange).toHaveBeenLastCalledWith(false);
-    await expect(args.onChange).toHaveBeenLastCalledWith("indeterminate-option");
+    await expect(args.onCheckedChange).toHaveBeenLastCalledWith(true);
   },
 };
 
@@ -250,22 +190,20 @@ export const CheckboxGroup: Story = {
   args: {
     children: undefined,
   },
-  render: (args) => (
+  render: () => (
     <GlFormCheckboxGroup
-      checked={["slot-option"]}
+      defaultValue={["slot-option"]}
       first={(
         <GlFormCheckbox help="Help text." value="slot-option">
           Slot option with help text
         </GlFormCheckbox>
       )}
       name="checkbox-group-name"
-      onChange={args.onChange}
-      onInput={args.onInput}
       options={groupOptions}>
       <GlFormCheckbox value="last-option">Last option</GlFormCheckbox>
     </GlFormCheckboxGroup>
   ),
-  play: async ({ args, canvas }) => {
+  play: async ({ canvas }) => {
     const group = canvas.getByRole("group");
     await expect(group).toHaveClass("gl-form-checkbox-group");
     await expect(group).toHaveAttribute("tabindex", "-1");
@@ -286,39 +224,30 @@ export const CheckboxGroup: Story = {
       await expect(checkbox).toHaveAttribute("name", "checkbox-group-name");
     }
 
-    // Checking adds the value to the shared model and emits input then change
+    // Checking adds the value to the shared model.
     await userEvent.click(tacos);
-    await expect(args.onInput).toHaveBeenLastCalledWith(["slot-option", "tacos"]);
-    await expect(args.onChange).toHaveBeenLastCalledWith(["slot-option", "tacos"]);
     await expect(tacos).toBeChecked();
     await expect(slotOption).toBeChecked();
 
     // Unchecking removes it again
     await userEvent.click(slotOption);
-    await expect(args.onInput).toHaveBeenLastCalledWith(["tacos"]);
-    await expect(args.onChange).toHaveBeenLastCalledWith(["tacos"]);
     await expect(slotOption).not.toBeChecked();
     await expect(tacos).toBeChecked();
   },
 };
 
-function ControlledGroupExample(args: Pick<GlFormCheckboxGroupProps, "onChange" | "onInput">) {
-  const [checked, setChecked] = useState<unknown[]>(["tacos"]);
-  const handleInput = (value: unknown[]) => {
-    args.onInput?.(value);
-    setChecked(value);
-  };
+function ControlledGroupExample() {
+  const [value, setValue] = useState<unknown[]>(["tacos"]);
   return (
     <div>
       <GlFormCheckboxGroup
-        checked={checked}
-        onChange={args.onChange}
-        onInput={handleInput}
+        value={value}
+        onValueChange={setValue}
         options={groupOptions} />
       <p>
         Selected:
         {" "}
-        {checked.map(String).join(", ")}
+        {value.map(String).join(", ")}
       </p>
     </div>
   );
@@ -328,7 +257,7 @@ export const ControlledCheckboxGroup: Story = {
   args: {
     children: undefined,
   },
-  render: (args) => <ControlledGroupExample onChange={args.onChange} onInput={args.onInput} />,
+  render: () => <ControlledGroupExample />,
   play: async ({ canvas }) => {
     const tacos = canvas.getByRole("checkbox", { name: "Tacos" });
     const pizza = canvas.getByRole("checkbox", { name: "Pizza" });
@@ -351,18 +280,14 @@ export const GroupValidationStates: Story = {
   args: {
     children: undefined,
   },
-  render: (args) => (
+  render: () => (
     <div>
       <GlFormCheckboxGroup
         name="valid-group"
-        onChange={args.onChange}
-        onInput={args.onInput}
         options={["one", "two"]}
         state />
       <GlFormCheckboxGroup
         name="invalid-group"
-        onChange={args.onChange}
-        onInput={args.onInput}
         options={["one", "two"]}
         state={false} />
     </div>
@@ -385,11 +310,9 @@ export const GroupRequired: Story = {
   args: {
     children: undefined,
   },
-  render: (args) => (
+  render: () => (
     <GlFormCheckboxGroup
       name="required-group"
-      onChange={args.onChange}
-      onInput={args.onInput}
       options={["one", "two"]}
       required />
   ),
@@ -401,5 +324,102 @@ export const GroupRequired: Story = {
       await expect(checkbox).toBeRequired();
       await expect(checkbox).toHaveAttribute("aria-required", "true");
     }
+  },
+};
+
+function NativeCheckboxResetExample({
+  onCheckedChange,
+}: Pick<GlFormCheckboxProps, "onCheckedChange">) {
+  const [, rerender] = useState(0);
+
+  return (
+    <form>
+      <GlFormCheckbox
+        defaultChecked
+        name="standalone"
+        onCheckedChange={onCheckedChange}
+        value="yes">
+        Standalone checkbox
+      </GlFormCheckbox>
+      <button type="reset">Reset checkbox</button>
+      <button onClick={() => rerender((count) => count + 1)} type="button">
+        Rerender checkbox
+      </button>
+    </form>
+  );
+}
+
+export const NativeCheckboxFormReset: Story = {
+  args: {
+    children: undefined,
+  },
+  render: (args) => <NativeCheckboxResetExample onCheckedChange={args.onCheckedChange} />,
+  play: async ({ args, canvas }) => {
+    args.onCheckedChange?.mockClear();
+    const checkbox = canvas.getByRole("checkbox", { name: "Standalone checkbox" });
+
+    await userEvent.click(checkbox);
+    await expect(checkbox).not.toBeChecked();
+    await userEvent.click(canvas.getByRole("button", { name: "Reset checkbox" }));
+    await waitFor(() => expect(checkbox).toBeChecked());
+    await userEvent.click(canvas.getByRole("button", { name: "Rerender checkbox" }));
+    await expect(checkbox).toBeChecked();
+
+    const resetCheckbox = canvas.getByRole("checkbox", { name: "Standalone checkbox" });
+    await userEvent.click(resetCheckbox);
+    await expect(args.onCheckedChange).toHaveBeenCalledTimes(2);
+    await expect(args.onCheckedChange).toHaveBeenLastCalledWith(false);
+  },
+};
+
+const nativeCheckboxGroupValueChange = fn();
+
+function NativeCheckboxGroupResetExample() {
+  const [, rerender] = useState(0);
+
+  return (
+    <form>
+      <GlFormCheckboxGroup
+        defaultValue={["pizza"]}
+        name="food"
+        onValueChange={nativeCheckboxGroupValueChange}
+        options={groupOptions} />
+      <button type="reset">Reset checkbox group</button>
+      <button onClick={() => rerender((count) => count + 1)} type="button">
+        Rerender checkbox group
+      </button>
+    </form>
+  );
+}
+
+export const NativeCheckboxGroupFormReset: Story = {
+  args: {
+    children: undefined,
+  },
+  render: () => <NativeCheckboxGroupResetExample />,
+  play: async ({ canvas }) => {
+    nativeCheckboxGroupValueChange.mockClear();
+    const pizza = canvas.getByRole("checkbox", { name: "Pizza" });
+    const tacos = canvas.getByRole("checkbox", { name: "Tacos" });
+
+    await userEvent.click(pizza);
+    await userEvent.click(tacos);
+    await expect(pizza).not.toBeChecked();
+    await expect(tacos).toBeChecked();
+
+    await userEvent.click(canvas.getByRole("button", { name: "Reset checkbox group" }));
+    await waitFor(() => expect(pizza).toBeChecked());
+    await expect(tacos).not.toBeChecked();
+    await userEvent.click(canvas.getByRole("button", { name: "Rerender checkbox group" }));
+    await expect(pizza).toBeChecked();
+    await expect(tacos).not.toBeChecked();
+
+    const resetTacos = canvas.getByRole("checkbox", { name: "Tacos" });
+    await expect(resetTacos).not.toBeDisabled();
+    await expect(resetTacos).not.toBeChecked();
+    await userEvent.click(resetTacos);
+    await expect(resetTacos).toBeChecked();
+    await expect(nativeCheckboxGroupValueChange)
+      .toHaveBeenLastCalledWith(["pizza", "tacos"]);
   },
 };

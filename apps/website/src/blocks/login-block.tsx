@@ -33,7 +33,7 @@ export function LoginBlock({ locale }: LoginBlockProps) {
             autoComplete="email"
             id="login-email"
             name="email"
-            onInput={(value) => setEmail(String(value))}
+            onValueChange={(value) => setEmail(String(value))}
             placeholder={content.emailPlaceholder}
             required
             type="email"
@@ -52,7 +52,7 @@ export function LoginBlock({ locale }: LoginBlockProps) {
             hideLabel={content.hidePassword}
             id="login-password"
             name="password"
-            onInput={(value) => setPassword(String(value))}
+            onValueChange={(value) => setPassword(String(value))}
             placeholder={content.passwordPlaceholder}
             revealLabel={content.revealPassword}
             required
@@ -62,7 +62,7 @@ export function LoginBlock({ locale }: LoginBlockProps) {
         <GlFormCheckbox
           checked={rememberMe}
           name="remember-me"
-          onInput={(checked) => setRememberMe(Boolean(checked))}>
+          onCheckedChange={setRememberMe}>
           {content.rememberMe}
         </GlFormCheckbox>
 

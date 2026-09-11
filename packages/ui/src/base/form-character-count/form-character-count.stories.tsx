@@ -22,7 +22,7 @@ function CharacterCountExample(args: ComponentProps<typeof GlFormCharacterCount>
         id={inputId}
         aria-describedby={args.countTextId}
         value={value}
-        onInput={(newValue) => setValue(String(newValue))} />
+        onValueChange={(newValue) => setValue(String(newValue))} />
       <GlFormCharacterCount
         {...args}
         value={value}

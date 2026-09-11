@@ -3,9 +3,9 @@
  * packages/gitlab-ui/src/components/base/form/form_textarea/form_textarea.vue
  *
  * Adaptations:
- * - Vue's `v-model` maps to the controlled `value` / `onInput` pair. The
- *   upstream `update`, native `change`, `blur`, `focus`, and `submit` events
- *   map to `onUpdate`, `onChange`, `onBlur`, `onFocus`, and `onSubmit`.
+ * - Vue's `v-model` maps to React's controlled `value` or uncontrolled
+ *   `defaultValue`, with `onValueChange` reporting formatted value changes.
+ *   `onChange` and `onInput` retain their native React event semantics.
  * - The two character-count scoped slots map to the
  *   `remainingCharacterCountText` and `characterCountOverLimitText` value
  *   props. The component does not accept `children`.
@@ -26,6 +26,7 @@ import {
   useRef,
   useState,
   type ChangeEvent,
+  type ChangeEventHandler,
   type CSSProperties,
   type FocusEvent,
   type FocusEventHandler,
@@ -63,7 +64,6 @@ type NativeTextareaProps = Omit<
   | "onBlur"
   | "onChange"
   | "onFocus"
-  | "onInput"
   | "onKeyUp"
   | "placeholder"
   | "readOnly"
@@ -88,8 +88,10 @@ export type GlFormTextareaProps = NativeTextareaProps & {
   children?: never;
   /** Additional class name merged onto the native textarea. */
   className?: string;
-  /** Debounces the model update (`onInput`) by this many milliseconds. */
+  /** Debounces `onValueChange` by this many milliseconds. */
   debounce?: number | string;
+  /** Initial value when used uncontrolled. */
+  defaultValue?: string;
   /** Disables the native textarea. */
   disabled?: boolean;
   /** Formats values produced by input, change, and blur interactions. */
@@ -104,20 +106,18 @@ export type GlFormTextareaProps = NativeTextareaProps & {
   name?: string;
   /** Prevents manual resizing. Automatic-height mode always prevents it. */
   noResize?: boolean;
-  /** Called with the formatted value on the native `change` event. */
-  onChange?: (value: string) => void;
+  /** Called with the native React change event. */
+  onChange?: ChangeEventHandler<HTMLTextAreaElement>;
   /** Called with the native blur event. */
   onBlur?: FocusEventHandler<HTMLTextAreaElement>;
   /** Called with the native focus event. */
   onFocus?: FocusEventHandler<HTMLTextAreaElement>;
-  /** The model event, called with the formatted value after any debounce. */
-  onInput?: (value: string) => void;
   /** Called for native keyup events in addition to submit-key handling. */
   onKeyUp?: KeyboardEventHandler<HTMLTextAreaElement>;
   /** Called when Ctrl+Enter or Cmd+Enter is released and `submitOnEnter` is enabled. */
   onSubmit?: () => void;
-  /** Called immediately on every accepted input event with its formatted value. */
-  onUpdate?: (value: string) => void;
+  /** Called with the formatted value after any debounce. */
+  onValueChange?: (value: string) => void;
   /** Native placeholder text. */
   placeholder?: string;
   /** Sets the native readonly state. */
@@ -214,6 +214,7 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
     characterCountOverLimitText,
     className,
     debounce = 0,
+    defaultValue = "",
     disabled = false,
     formatter,
     form,
@@ -224,10 +225,9 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
     onBlur,
     onChange,
     onFocus,
-    onInput,
     onKeyUp,
     onSubmit,
-    onUpdate,
+    onValueChange,
     placeholder,
     readOnly = false,
     remainingCharacterCountText,
@@ -238,7 +238,7 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
     style,
     submitOnEnter = false,
     textareaClasses,
-    value = "",
+    value,
     ...elementProps
   }, forwardedRef) {
     const generatedId = useId().replace(/[^a-zA-Z0-9_-]/g, "");
@@ -247,8 +247,24 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
     const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const animationFrameRef = useRef<number | null>(null);
-    const modelValueRef = useRef<string | null>(value);
-    const [localValue, setLocalValue] = useState(() => toStringValue(value));
+    const isControlled = value !== undefined;
+    const initialValue = isControlled ? value : defaultValue;
+    const modelValueRef = useRef(initialValue);
+    const [uncontrolledValue, setUncontrolledValue] = useState(() => toStringValue(initialValue));
+    const acceptedValueRef = useRef(toStringValue(initialValue));
+    // Preserve an editable draft while a controlled value change is debounced.
+    const [controlledDraft, setControlledDraft] = useState<{
+      sourceValue: string | null | undefined;
+      value: string;
+    } | null>(null);
+    const computedDebounce = Math.max(toInteger(debounce), 0);
+    const renderedValue = isControlled
+      ? controlledDraft !== null
+        && computedDebounce > 0
+        && Object.is(controlledDraft.sourceValue, value)
+        ? controlledDraft.value
+        : toStringValue(value)
+      : uncontrolledValue;
     const [heightInPx, setHeightInPx] = useState<string | null>(null);
 
     const computedState = typeof state === "boolean" ? state : null;
@@ -276,9 +292,11 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
       clearDebounce();
 
       const doUpdate = () => {
-        if(newValue !== modelValueRef.current) {
-          modelValueRef.current = newValue;
-          onInput?.(newValue);
+        if(isControlled && computedDebounce > 0) setControlledDraft(null);
+        const currentModelValue = isControlled ? value : modelValueRef.current;
+        if(newValue !== currentModelValue) {
+          if(!isControlled) modelValueRef.current = newValue;
+          onValueChange?.(newValue);
         } else if(formatter) {
           const textarea = textareaRef.current;
           if(textarea && newValue !== textarea.value) {
@@ -287,7 +305,6 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
         }
       };
 
-      const computedDebounce = Math.max(toInteger(debounce), 0);
       if(computedDebounce > 0 && !force) {
         debounceTimerRef.current = setTimeout(doUpdate, computedDebounce);
       } else {
@@ -295,16 +312,40 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
       }
     }
 
-    const [previousValue, setPreviousValue] = useState(value);
-    if(!Object.is(previousValue, value)) {
-      setPreviousValue(value);
-      const stringifiedValue = toStringValue(value);
-      if(stringifiedValue !== localValue || value !== modelValueRef.current) {
+    useEffect(() => {
+      if(!isControlled) return;
+      clearDebounce();
+      setControlledDraft(null);
+      modelValueRef.current = value;
+    }, [computedDebounce, isControlled, value]);
+
+    // The browser owns an uncontrolled textarea's value and restores its
+    // default on form.reset(). Mirror that reset only into derived UI state.
+    useEffect(() => {
+      if(isControlled) return undefined;
+
+      const textarea = textareaRef.current;
+      if(!textarea) return undefined;
+
+      const syncValue = () => {
+        acceptedValueRef.current = textarea.value;
+        modelValueRef.current = textarea.value;
+        setUncontrolledValue(textarea.value);
+      };
+      syncValue();
+
+      const associatedForm = textarea.form;
+      if(!associatedForm) return undefined;
+
+      const handleReset = (event: Event) => {
         clearDebounce();
-        setLocalValue(stringifiedValue);
-        modelValueRef.current = value;
-      }
-    }
+        queueMicrotask(() => {
+          if(!event.defaultPrevented && textareaRef.current === textarea) syncValue();
+        });
+      };
+      associatedForm.addEventListener("reset", handleReset);
+      return () => associatedForm.removeEventListener("reset", handleReset);
+    }, [defaultValue, form, isControlled]);
 
     const scheduleHeight = useCallback(() => {
       if(animationFrameRef.current !== null) {
@@ -325,33 +366,13 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
 
     useEffect(() => {
       scheduleHeight();
-    }, [localValue, scheduleHeight]);
+    }, [renderedValue, scheduleHeight]);
 
     useEffect(() => {
       const textarea = textareaRef.current;
       if(!textarea) return undefined;
       return observeVisibility(textarea, scheduleHeight);
     }, [scheduleHeight, showCharacterCount]);
-
-    useEffect(() => {
-      const textarea = textareaRef.current;
-      if(!textarea) return undefined;
-
-      const handleChange = (event: Event) => {
-        const target = event.target as HTMLTextAreaElement;
-        const formattedValue = formatValue(target.value, event);
-        if(formattedValue === false || event.defaultPrevented) {
-          event.preventDefault();
-          return;
-        }
-        setLocalValue(formattedValue);
-        updateValue(formattedValue, true);
-        onChange?.(formattedValue);
-      };
-
-      textarea.addEventListener("change", handleChange);
-      return () => textarea.removeEventListener("change", handleChange);
-    });
 
     useEffect(() => {
       if(!autofocus) return undefined;
@@ -375,20 +396,38 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
     }, []);
 
     function handleInput(event: ChangeEvent<HTMLTextAreaElement>) {
+      onChange?.(event);
+      if(event.defaultPrevented) {
+        if(!isControlled) event.currentTarget.value = acceptedValueRef.current;
+        return;
+      }
+
       const formattedValue = formatValue(event.target.value, event);
       if(formattedValue === false || event.defaultPrevented) {
         event.preventDefault();
+        if(!isControlled) event.currentTarget.value = acceptedValueRef.current;
         return;
       }
-      setLocalValue(formattedValue);
+      if(isControlled) {
+        if(computedDebounce > 0) {
+          setControlledDraft({ sourceValue: value, value: formattedValue });
+        }
+      } else {
+        event.currentTarget.value = formattedValue;
+        acceptedValueRef.current = formattedValue;
+        setUncontrolledValue(formattedValue);
+      }
       updateValue(formattedValue);
-      onUpdate?.(formattedValue);
     }
 
     function handleBlur(event: FocusEvent<HTMLTextAreaElement>) {
       const formattedValue = formatValue(event.target.value, event);
       if(formattedValue !== false) {
-        setLocalValue(formattedValue);
+        if(!isControlled) {
+          event.currentTarget.value = formattedValue;
+          acceptedValueRef.current = formattedValue;
+          setUncontrolledValue(formattedValue);
+        }
         updateValue(formattedValue, true);
       }
       onBlur?.(event);
@@ -430,6 +469,7 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
         aria-required={required ? true : undefined}
         autoComplete={autoComplete || undefined}
         className={textareaClassName}
+        defaultValue={isControlled ? undefined : toStringValue(defaultValue)}
         disabled={disabled}
         form={form || undefined}
         id={textareaId}
@@ -443,7 +483,7 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
         required={required}
         rows={computedRows}
         style={textareaStyle}
-        value={localValue} />
+        value={isControlled ? renderedValue : undefined} />
     );
 
     if(!showCharacterCount) return textarea;
@@ -456,7 +496,7 @@ const GlFormTextarea = forwardRef<HTMLTextAreaElement, GlFormTextareaProps>(
           limit={characterCountLimit}
           overLimitText={characterCountOverLimitText ?? null}
           remainingCountText={remainingCharacterCountText ?? null}
-          value={value} />
+          value={renderedValue} />
       </div>
     );
   },

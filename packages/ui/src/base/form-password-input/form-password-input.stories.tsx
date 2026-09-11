@@ -7,7 +7,7 @@ const meta = {
   component: GlFormPasswordInput,
   args: {
     id: "password-input",
-    onInput: fn(),
+    onValueChange: fn(),
     onVisibilityChange: fn(),
     value: "super-secret-token",
   },
@@ -54,7 +54,7 @@ export const Default: Story = {
 
     // Typing forwards the input event (upstream's v-model pass-through)
     await userEvent.type(canvas.getByDisplayValue("super-secret-token"), "x");
-    await expect(args.onInput).toHaveBeenLastCalledWith("super-secret-tokenx");
+    await expect(args.onValueChange).toHaveBeenLastCalledWith("super-secret-tokenx");
 
     // The toggle is vertically centered inside the input's inline end
     const inputElement = canvas.getByDisplayValue(/super-secret-token/);
@@ -65,6 +65,29 @@ export const Default: Story = {
     await expect(Math.abs(toggleCenter - inputCenter)).toBeLessThan(1);
     await expect(toggleRect.right).toBeLessThanOrEqual(inputRect.right);
     await expect(toggleRect.right).toBeGreaterThan(inputRect.right - 40);
+  },
+};
+
+export const NativeFormReset: Story = {
+  args: {
+    defaultValue: "initial-secret",
+    value: undefined,
+  },
+  render: (args) => (
+    <form>
+      <GlFormPasswordInput {...args} />
+      <button type="reset">Reset form</button>
+    </form>
+  ),
+  play: async ({ canvas }) => {
+    const input = canvas.getByDisplayValue("initial-secret");
+
+    await userEvent.clear(input);
+    await userEvent.type(input, "edited-secret");
+    await expect(input).toHaveValue("edited-secret");
+
+    await userEvent.click(canvas.getByRole("button", { name: "Reset form" }));
+    await expect(input).toHaveValue("initial-secret");
   },
 };
 

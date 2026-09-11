@@ -88,7 +88,7 @@ describe("GlFormRadioGroup", () => {
 
   describe("options", () => {
     it("renders a radio per option with the option text", () => {
-      const markup = renderGroup({ options: ["one", "two", "three"], checked: "" });
+      const markup = renderGroup({ options: ["one", "two", "three"], value: "" });
 
       expect(markup.match(/type="radio"/g)).toHaveLength(3);
       expect(markup).toContain(">one</label>");
@@ -110,7 +110,7 @@ describe("GlFormRadioGroup", () => {
     it("respects the option disabled flag", () => {
       const markup = renderGroup({
         options: [{ text: "one" }, { text: "two", disabled: true }],
-        checked: "",
+        value: "",
       });
       const inputs = markup.match(/<input[^>]*>/g) ?? [];
 
@@ -137,9 +137,9 @@ describe("GlFormRadioGroup", () => {
     });
   });
 
-  describe("checked state", () => {
-    it("checks the radio matching the checked value", () => {
-      const markup = renderGroup({ options: ["one", "two", "three"], checked: "two" });
+  describe("selected value", () => {
+    it("checks the radio matching the selected value", () => {
+      const markup = renderGroup({ options: ["one", "two", "three"], value: "two" });
       const inputs = markup.match(/<input[^>]*>/g) ?? [];
 
       expect(inputs[0]).not.toContain("checked");
@@ -149,7 +149,7 @@ describe("GlFormRadioGroup", () => {
 
     it("checks a radio passed as a child through the group context", () => {
       const markup = renderToStaticMarkup(
-        <GlFormRadioGroup checked="slot-option">
+        <GlFormRadioGroup value="slot-option">
           <GlFormRadio value="slot-option">Slot option</GlFormRadio>
         </GlFormRadioGroup>,
       );
@@ -160,7 +160,7 @@ describe("GlFormRadioGroup", () => {
     it("renders the first prop before and children after the option radios", () => {
       const markup = renderToStaticMarkup(
         <GlFormRadioGroup
-          checked=""
+          value=""
           first={<GlFormRadio value="first-option">First option</GlFormRadio>}
           options={["middle"]}>
           <GlFormRadio value="last-option">Last option</GlFormRadio>
@@ -179,7 +179,7 @@ describe("GlFormRadioGroup", () => {
 
   describe("group context", () => {
     it("gives every radio the group name, falling back to the generated group ID", () => {
-      const markup = renderGroup({ options: ["one", "two"], checked: "" });
+      const markup = renderGroup({ options: ["one", "two"], value: "" });
       const groupId = /id="(gitlab_ui_radio_group_[^"]+)"/.exec(markup)?.[1];
       const names = [...markup.matchAll(/<input[^>]*name="([^"]+)"/g)].map((match) => match[1]);
 
@@ -190,7 +190,7 @@ describe("GlFormRadioGroup", () => {
 
     it("prefers the provided group name over a radio's own name", () => {
       const markup = renderToStaticMarkup(
-        <GlFormRadioGroup name="group-name" checked="">
+        <GlFormRadioGroup name="group-name" value="">
           <GlFormRadio name="own-name" value="one">One</GlFormRadio>
         </GlFormRadioGroup>,
       );
@@ -200,14 +200,14 @@ describe("GlFormRadioGroup", () => {
     });
 
     it("disables every radio when the group is disabled", () => {
-      const markup = renderGroup({ disabled: true, options: ["one", "two"], checked: "" });
+      const markup = renderGroup({ disabled: true, options: ["one", "two"], value: "" });
 
       expect(markup.match(/<input[^>]*disabled=""[^>]*type="radio"|type="radio"[^>]*disabled=""/g)).toHaveLength(2);
     });
 
     it("keeps a child radio disabled when the group is not", () => {
       const markup = renderToStaticMarkup(
-        <GlFormRadioGroup checked="">
+        <GlFormRadioGroup value="">
           <GlFormRadio disabled value="one">One</GlFormRadio>
         </GlFormRadioGroup>,
       );
@@ -216,7 +216,7 @@ describe("GlFormRadioGroup", () => {
     });
 
     it("makes every radio required when the group is required", () => {
-      const markup = renderGroup({ checked: "", options: ["one", "two"], required: true });
+      const markup = renderGroup({ value: "", options: ["one", "two"], required: true });
       const inputs = markup.match(/<input[^>]*>/g) ?? [];
 
       expect(inputs).toHaveLength(2);
@@ -229,14 +229,14 @@ describe("GlFormRadioGroup", () => {
 
   describe("validation state", () => {
     it("gives every radio is-valid when state=true", () => {
-      const markup = renderGroup({ checked: "", options: ["one", "two"], state: true });
+      const markup = renderGroup({ value: "", options: ["one", "two"], state: true });
 
       expect(markup.match(/is-valid/g)).toHaveLength(2);
       expect(markup).not.toContain("is-invalid");
     });
 
     it("gives every radio is-invalid and aria-invalid when state=false", () => {
-      const markup = renderGroup({ checked: "", options: ["one", "two"], state: false });
+      const markup = renderGroup({ value: "", options: ["one", "two"], state: false });
 
       expect(markup.match(/is-invalid/g)).toHaveLength(2);
       expect(markup.match(/aria-invalid="true"/g)).toHaveLength(3); // 2 inputs + wrapper
@@ -244,7 +244,7 @@ describe("GlFormRadioGroup", () => {
     });
 
     it("has no validation classes when state=null", () => {
-      const markup = renderGroup({ checked: "", options: ["one"], state: null });
+      const markup = renderGroup({ value: "", options: ["one"], state: null });
 
       expect(markup).not.toContain("is-valid");
       expect(markup).not.toContain("is-invalid");

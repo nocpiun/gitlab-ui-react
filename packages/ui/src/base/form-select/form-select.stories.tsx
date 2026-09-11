@@ -22,7 +22,7 @@ const meta = {
     defaultValue: "Pizza",
     disabled: false,
     onChange: fn(),
-    onInput: fn(),
+    onValueChange: fn(),
     state: null,
     width: null,
   },
@@ -71,10 +71,8 @@ export const Default: Story = {
     await userEvent.selectOptions(select, "Tacos");
 
     await expect(select).toHaveValue("Tacos");
-    await expect(args.onInput).toHaveBeenLastCalledWith("Tacos");
-    await expect(args.onChange).toHaveBeenLastCalledWith("Tacos");
-    await expect(args.onInput?.mock.invocationCallOrder.at(-1))
-      .toBeLessThan(args.onChange?.mock.invocationCallOrder.at(-1) ?? -Infinity);
+    await expect(args.onValueChange).toHaveBeenLastCalledWith("Tacos");
+    await expect(args.onChange).toHaveBeenCalled();
   },
 };
 
@@ -168,8 +166,7 @@ export const Multiple: Story = {
     await userEvent.selectOptions(select, "Tacos");
 
     await expect(select).toHaveValue(["Tacos", "Burger"]);
-    await expect(args.onInput).toHaveBeenLastCalledWith(["Tacos", "Burger"]);
-    await expect(args.onChange).toHaveBeenLastCalledWith(["Tacos", "Burger"]);
+    await expect(args.onValueChange).toHaveBeenLastCalledWith(["Tacos", "Burger"]);
   },
 };
 
@@ -179,9 +176,9 @@ function ControlledExample(args: GlFormSelectProps) {
   return (
     <div>
       <label htmlFor="controlled-select">Food</label>
-      <GlFormSelect {...args} id="controlled-select" onInput={(nextValue) => {
+      <GlFormSelect {...args} id="controlled-select" onValueChange={(nextValue) => {
         setValue(nextValue as string);
-        args.onInput?.(nextValue);
+        args.onValueChange?.(nextValue);
       }} value={value}>
         {foodItems}
       </GlFormSelect>

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { expect, fn, userEvent } from "storybook/test";
+import { expect, fn, userEvent, waitFor } from "storybook/test";
 import GlFormRadio, { type GlFormRadioProps } from "./form-radio";
 
 const meta = {
@@ -9,7 +9,7 @@ const meta = {
   args: {
     children: "Option",
     onChange: fn(),
-    onInput: fn(),
+    onCheckedChange: fn(),
   },
   argTypes: {
     state: {
@@ -38,8 +38,8 @@ export const Default: Story = {
     <div>
       <GlFormRadio {...args} name="radio-group" value="option">Option</GlFormRadio>
       <GlFormRadio {...args} name="radio-group" value="slot-option" help="With help text.">Slot option</GlFormRadio>
-      <GlFormRadio {...args} checked="checked-option" name="radio-group" value="checked-option">Checked option</GlFormRadio>
-      <GlFormRadio {...args} checked="checked-disabled-option" disabled name="last-radio-group" value="checked-disabled-option">Checked disabled option</GlFormRadio>
+      <GlFormRadio {...args} checked name="radio-group" value="checked-option">Checked option</GlFormRadio>
+      <GlFormRadio {...args} checked disabled name="last-radio-group" value="checked-disabled-option">Checked disabled option</GlFormRadio>
       <GlFormRadio {...args} disabled name="radio-group" value="disabled-option">Disabled option</GlFormRadio>
       <GlFormRadio {...args} disabled name="radio-group" value="disabled-option-with-help-text" help="With help text.">Disabled option with help text</GlFormRadio>
     </div>
@@ -76,17 +76,15 @@ export const Default: Story = {
 
 export const SingleRadio: Story = {
   args: {
-    checked: "checked-option",
     children: "Checked option",
+    defaultChecked: true,
     value: "checked-option",
   },
-  play: async ({ args, canvas }) => {
+  play: async ({ canvas }) => {
     const input = canvas.getByRole("radio", { name: "Checked option" });
 
     await expect(input).toBeChecked();
 
-    // Without a listener updating the `checked` prop, the internal state
-    // keeps the selection, like upstream.
     await userEvent.click(input);
     await expect(input).toBeChecked();
   },
@@ -94,44 +92,45 @@ export const SingleRadio: Story = {
 
 export const CustomValue: Story = {
   args: {
-    checked: "foo",
     children: "Custom value",
     value: "bar",
   },
   play: async ({ args, canvas }) => {
     const input = canvas.getByRole("radio", { name: "Custom value" });
 
-    // checked="foo" does not match value="bar", so the radio starts unchecked
     await expect(input).not.toBeChecked();
+    await expect(input).toHaveAttribute("value", "bar");
 
     await userEvent.click(input);
-    await expect(args.onInput).toHaveBeenLastCalledWith("bar");
-    await expect(args.onChange).toHaveBeenLastCalledWith("bar");
+    await expect(args.onCheckedChange).toHaveBeenLastCalledWith(true);
+    await expect(args.onChange).toHaveBeenCalled();
     await expect(input).toBeChecked();
   },
 };
 
 function RadioGroupExample(args: GlFormRadioProps) {
-  const [checked, setChecked] = useState<unknown>("one");
-  const handleInput = (value: unknown) => {
-    args.onInput?.(value);
-    setChecked(value);
-  };
+  const [value, setValue] = useState<"one" | "two">("one");
   return (
     <div>
       <GlFormRadio
         {...args}
-        checked={checked}
+        checked={value === "one"}
         name="example-group"
-        onInput={handleInput}
+        onCheckedChange={(nextChecked) => {
+          args.onCheckedChange?.(nextChecked);
+          if(nextChecked) setValue("one");
+        }}
         value="one">
         One
       </GlFormRadio>
       <GlFormRadio
         {...args}
-        checked={checked}
+        checked={value === "two"}
         name="example-group"
-        onInput={handleInput}
+        onCheckedChange={(nextChecked) => {
+          args.onCheckedChange?.(nextChecked);
+          if(nextChecked) setValue("two");
+        }}
         value="two">
         Two
       </GlFormRadio>
@@ -151,10 +150,9 @@ export const RadioGroup: Story = {
     await expect(one).toBeChecked();
     await expect(two).not.toBeChecked();
 
-    // Selecting the other radio moves the shared model value
+    // Selecting the other radio updates the controlled checked states.
     await userEvent.click(two);
-    await expect(args.onInput).toHaveBeenLastCalledWith("two");
-    await expect(args.onChange).toHaveBeenLastCalledWith("two");
+    await expect(args.onCheckedChange).toHaveBeenLastCalledWith(true);
     await expect(two).toBeChecked();
     await expect(one).not.toBeChecked();
   },
@@ -194,5 +192,58 @@ export const Required: Story = {
     await expect(input).toBeRequired();
     await expect(input).toHaveAttribute("aria-required", "true");
     await expect(input).toHaveAttribute("name", "required-option");
+  },
+};
+
+function NativeRadioResetExample({
+  onCheckedChange,
+}: Pick<GlFormRadioProps, "onCheckedChange">) {
+  const [, rerender] = useState(0);
+
+  return (
+    <form>
+      <GlFormRadio
+        defaultChecked
+        name="native-radio"
+        onCheckedChange={onCheckedChange}
+        value="one">
+        One
+      </GlFormRadio>
+      <GlFormRadio name="native-radio" onCheckedChange={onCheckedChange} value="two">
+        Two
+      </GlFormRadio>
+      <button type="reset">Reset radios</button>
+      <button onClick={() => rerender((count) => count + 1)} type="button">
+        Rerender radios
+      </button>
+    </form>
+  );
+}
+
+export const NativeRadioFormReset: Story = {
+  args: {
+    children: undefined,
+  },
+  render: (args) => <NativeRadioResetExample onCheckedChange={args.onCheckedChange} />,
+  play: async ({ args, canvas }) => {
+    args.onCheckedChange?.mockClear();
+    const one = canvas.getByRole("radio", { name: "One" });
+    const two = canvas.getByRole("radio", { name: "Two" });
+
+    await userEvent.click(two);
+    await expect(one).not.toBeChecked();
+    await expect(two).toBeChecked();
+
+    await userEvent.click(canvas.getByRole("button", { name: "Reset radios" }));
+    await waitFor(() => expect(one).toBeChecked());
+    await expect(two).not.toBeChecked();
+    await userEvent.click(canvas.getByRole("button", { name: "Rerender radios" }));
+    await expect(one).toBeChecked();
+    await expect(two).not.toBeChecked();
+
+    const resetTwo = canvas.getByRole("radio", { name: "Two" });
+    await userEvent.click(resetTwo);
+    await expect(args.onCheckedChange).toHaveBeenCalledTimes(2);
+    await expect(args.onCheckedChange).toHaveBeenLastCalledWith(true);
   },
 };

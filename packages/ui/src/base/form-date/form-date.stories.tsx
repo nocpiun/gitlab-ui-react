@@ -11,6 +11,7 @@ const meta = {
     onChange: fn(),
     onFocus: fn(),
     onKeyDown: fn(),
+    onValueChange: fn(),
   },
   parameters: {
     docs: {
@@ -41,6 +42,32 @@ export const Default: Story = {
     await expect(args.onKeyDown).toHaveBeenCalled();
     await userEvent.tab();
     await expect(args.onBlur).toHaveBeenCalledTimes(1);
+  },
+};
+
+export const NativeFormReset: Story = {
+  args: {
+    defaultValue: "2020-01-15",
+    max: "2020-01-31",
+    value: undefined,
+  },
+  render: (args) => (
+    <form>
+      <GlFormDate {...args} />
+      <button type="reset">Reset form</button>
+    </form>
+  ),
+  play: async ({ canvas }) => {
+    const input = canvas.getByDisplayValue("2020-01-15");
+
+    await fireEvent.change(input, { target: { value: "2020-02-02" } });
+    await expect(input).toHaveValue("2020-02-02");
+    await expect(canvas.getByText("Must be before maximum date.")).toBeInTheDocument();
+
+    await userEvent.click(canvas.getByRole("button", { name: "Reset form" }));
+    await expect(input).toHaveValue("2020-01-15");
+    await waitFor(() => expect(canvas.queryByText("Must be before maximum date."))
+      .not.toBeInTheDocument());
   },
 };
 
@@ -115,13 +142,19 @@ export const ChangeEvent: Story = {
   args: {
     value: "2020-01-15",
   },
-  play: async ({ args, canvas }) => {
+  play: async ({ args, canvas, canvasElement }) => {
     const input = canvas.getByDisplayValue("2020-01-15");
+    await waitFor(() => expect(canvasElement.querySelector("output")).not.toBeNull());
+    const output = canvasElement.querySelector("output")!;
+    const originalDescription = output.textContent;
 
     await fireEvent.change(input, { target: { value: "2020-01-20" } });
 
     await expect(args.onChange).toHaveBeenCalledTimes(1);
-    await expect(args.onChange).toHaveBeenCalledWith("2020-01-20");
+    await expect(args.onValueChange).toHaveBeenCalledWith("2020-01-20");
+    await expect(input).toHaveValue("2020-01-15");
+    await expect(output.textContent).toBe(originalDescription);
+    await expect(input.getAttribute("aria-describedby")).toContain(output.id);
   },
 };
 

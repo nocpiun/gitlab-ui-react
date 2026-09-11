@@ -7,10 +7,10 @@
  * packages/gitlab-ui/src/utils/form_options_utils.js).
  *
  * Adaptations:
- * - The `v-model` pair maps to the `checked` prop plus `onInput` (the model
- *   event) and `onChange` (user interaction) callbacks. Like upstream's
- *   `localChecked`, internal state is seeded from `checked` and re-synced when
- *   the prop changes, so the group also works uncontrolled.
+ * - The `v-model` pair maps to React's controlled `value` or uncontrolled
+ *   `defaultValue`, with `onValueChange` reporting selection changes.
+ *   `onChange` and `onInput` retain their native bubbling event semantics on
+ *   the group wrapper.
  * - The `first` and default slots map to the `first` prop and `children`.
  * - Option `html` is sanitized and rendered by the internal SafeHtml
  *   component, the React counterpart of upstream's `safe_html` directive; on
@@ -27,8 +27,10 @@
 
 import {
   useCallback,
+  useEffect,
   useId,
   useMemo,
+  useRef,
   useState,
   type HTMLAttributes,
   type ReactNode,
@@ -59,8 +61,7 @@ type GroupElementProps = Omit<
   HTMLAttributes<HTMLDivElement>,
   | "aria-invalid"
   | "aria-required"
-  | "onChange"
-  | "onInput"
+  | "defaultValue"
 >;
 
 export type GlFormRadioGroupProps = GroupElementProps & {
@@ -69,11 +70,8 @@ export type GlFormRadioGroupProps = GroupElementProps & {
    * it to "true"; when unset, a `state` of `false` dictates it instead.
    */
   ariaInvalid?: boolean | string;
-  /**
-   * The current value of the group: the value of the currently selected
-   * radio. Defaults to `null`.
-   */
-  checked?: unknown;
+  /** Initial selected value for an uncontrolled group. */
+  defaultValue?: unknown;
   /** Radios rendered after the radios generated from `options`. */
   children?: ReactNode;
   /** Disables the whole group; child radios can additionally be disabled individually. */
@@ -87,64 +85,86 @@ export type GlFormRadioGroupProps = GroupElementProps & {
    * group ID, so grouped radios always share a name.
    */
   name?: string;
-  /** The model event: called with the selected value when it changes. */
-  onInput?: (checked: unknown) => void;
   /** Called with the selected value on user interaction. */
-  onChange?: (value: unknown) => void;
+  onValueChange?: (value: unknown) => void;
   /** Array of items to render as radios. */
   options?: GlFormRadioGroupOption[];
   /** Adds the `required` attribute to the grouped radios. */
   required?: boolean;
   /** Validation state: `true` valid, `false` invalid, `null` none. */
   state?: boolean | null;
+  /** Current selected value for a controlled group. */
+  value?: unknown;
 };
 
 export default function GlFormRadioGroup({
   "aria-describedby": ariaDescribedby,
   "aria-labelledby": ariaLabelledby,
   ariaInvalid = false,
-  checked = null,
   children,
   className,
+  defaultValue = null,
   disabled = false,
   first,
   id,
   name,
-  onChange,
-  onInput,
+  onValueChange,
   options = [],
   required = false,
   state = null,
+  value,
   ...elementProps
 }: GlFormRadioGroupProps) {
   const generatedId = useId().replace(/[^a-zA-Z0-9_-]/g, "");
   const internalId = id || `gitlab_ui_radio_group_${generatedId}`;
 
-  // Internal checked state seeded from the `checked` prop, mirroring
-  // upstream's `localChecked`. The prop watcher maps to a render-phase
-  // adjustment so the selection stays in sync before paint.
-  const [localChecked, setLocalChecked] = useState<unknown>(checked);
-  const [prevChecked, setPrevChecked] = useState(checked);
-  if(!Object.is(prevChecked, checked)) {
-    setPrevChecked(checked);
-    if(!looseEqual(checked, localChecked)) {
-      setLocalChecked(checked);
-    }
-  }
+  const isControlled = value !== undefined;
+  const [uncontrolledValue, setUncontrolledValue] = useState<unknown>(defaultValue);
+  const selectedValue = isControlled ? value : uncontrolledValue;
+  const groupRef = useRef<HTMLDivElement | null>(null);
+  const selectedValueRef = useRef(selectedValue);
 
   const computedState = typeof state === "boolean" ? state : null;
   const computedAriaInvalid = normalizeAriaInvalid(ariaInvalid, computedState);
 
-  // A user selection updates the shared model and emits the model event
-  // first, then the change event, like upstream.
-  const select = useCallback((value: unknown) => {
-    setLocalChecked(value);
-    onInput?.(value);
-    onChange?.(value);
-  }, [onInput, onChange]);
+  // Uncontrolled radios are reset by the browser. Keep the group's model in
+  // sync so later radio interactions start from the restored selection.
+  useEffect(() => {
+    if(isControlled) return undefined;
+
+    const groupElement = groupRef.current;
+    const associatedForm = groupElement?.closest("form");
+    if(!groupElement || !associatedForm) return undefined;
+
+    const handleReset = (event: Event) => {
+      const previousValue = selectedValueRef.current;
+      selectedValueRef.current = defaultValue;
+      queueMicrotask(() => {
+        if(event.defaultPrevented) {
+          selectedValueRef.current = previousValue;
+        } else if(groupRef.current === groupElement) {
+          setUncontrolledValue(defaultValue);
+        }
+      });
+    };
+    associatedForm.addEventListener("reset", handleReset);
+    return () => associatedForm.removeEventListener("reset", handleReset);
+  }, [defaultValue, isControlled]);
+
+  const select = useCallback((nextValue: unknown) => {
+    const currentValue = isControlled ? value : selectedValueRef.current;
+    if(looseEqual(nextValue, currentValue)) return;
+    if(!isControlled) {
+      selectedValueRef.current = nextValue;
+      setUncontrolledValue(nextValue);
+    }
+    onValueChange?.(nextValue);
+  }, [isControlled, onValueChange, value]);
 
   const contextValue = useMemo<GlFormRadioGroupContextValue>(() => ({
-    checked: localChecked,
+    defaultValue,
+    isControlled,
+    value: selectedValue,
     disabled,
     // Radios tied to the same model must have the same name, especially for
     // ARIA accessibility. Groups always have one (upstream's `groupName`).
@@ -152,7 +172,17 @@ export default function GlFormRadioGroup({
     required,
     select,
     state: computedState,
-  }), [localChecked, disabled, name, internalId, required, select, computedState]);
+  }), [
+    defaultValue,
+    isControlled,
+    selectedValue,
+    disabled,
+    name,
+    internalId,
+    required,
+    select,
+    computedState,
+  ]);
 
   const formOptions = normalizeFormOptions(options);
 
@@ -160,6 +190,7 @@ export default function GlFormRadioGroup({
     <GlFormRadioGroupContext.Provider value={contextValue}>
       <div
         {...elementProps}
+        ref={groupRef}
         aria-invalid={computedAriaInvalid}
         aria-required={required || undefined}
         className={clsx("gl-form-radio-group gl-outline-none", className)}

@@ -90,7 +90,7 @@ export function OrdersTableBlock({ locale }: OrdersTableBlockProps) {
       <div className="grid gap-4 pt-4">
         <GlFormInput
           aria-label={content.searchLabel}
-          onInput={(value) => {
+          onValueChange={(value) => {
             setQuery(String(value));
             setCurrentPage(1);
           }}

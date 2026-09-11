@@ -19,7 +19,7 @@ const meta = {
     name: "radio-group-name",
     options: defaultOptions,
     onChange: fn(),
-    onInput: fn(),
+    onValueChange: fn(),
   },
   argTypes: {
     state: {
@@ -44,7 +44,7 @@ export const Default: Story = {
   render: (args) => (
     <GlFormRadioGroup
       {...args}
-      checked="slot-option"
+      defaultValue="slot-option"
       first={(
         <GlFormRadio value="slot-option" help="Help text.">
           Slot option with help text
@@ -73,29 +73,32 @@ export const Default: Story = {
       await expect(radio).toHaveAttribute("name", "radio-group-name");
     }
 
-    // A user selection moves the shared model and emits input then change
+    // A user selection moves the shared model.
     await userEvent.click(tacos);
-    await expect(args.onInput).toHaveBeenLastCalledWith("tacos");
-    await expect(args.onChange).toHaveBeenLastCalledWith("tacos");
+    await expect(args.onValueChange).toHaveBeenLastCalledWith("tacos");
+    await expect(args.onChange).toHaveBeenCalled();
     await expect(tacos).toBeChecked();
     await expect(slotOption).not.toBeChecked();
 
     await userEvent.click(last);
-    await expect(args.onInput).toHaveBeenLastCalledWith("Last option");
+    await expect(args.onValueChange).toHaveBeenLastCalledWith("Last option");
     await expect(last).toBeChecked();
     await expect(tacos).not.toBeChecked();
   },
 };
 
 function ControlledGroupExample(args: GlFormRadioGroupProps) {
-  const [checked, setChecked] = useState<unknown>("tacos");
+  const [value, setValue] = useState<unknown>("tacos");
   return (
     <div>
-      <GlFormRadioGroup {...args} checked={checked} onInput={setChecked} />
+      <GlFormRadioGroup {...args} value={value} onValueChange={(nextValue) => {
+        setValue(nextValue);
+        args.onValueChange?.(nextValue);
+      }} />
       <p>
         Selected:
         {" "}
-        {String(checked)}
+        {String(value)}
       </p>
     </div>
   );
@@ -313,5 +316,53 @@ export const HtmlOptionHydration: Story = {
     } finally {
       console.error = originalError;
     }
+  },
+};
+
+function NativeRadioGroupResetExample({
+  onValueChange,
+}: Pick<GlFormRadioGroupProps, "onValueChange">) {
+  const [, rerender] = useState(0);
+
+  return (
+    <form>
+      <GlFormRadioGroup
+        defaultValue="pizza"
+        name="native-radio-group"
+        onValueChange={onValueChange}
+        options={defaultOptions} />
+      <button type="reset">Reset radio group</button>
+      <button onClick={() => rerender((count) => count + 1)} type="button">
+        Rerender radio group
+      </button>
+    </form>
+  );
+}
+
+export const NativeRadioGroupFormReset: Story = {
+  render: (args) => <NativeRadioGroupResetExample onValueChange={args.onValueChange} />,
+  play: async ({ args, canvas }) => {
+    args.onValueChange?.mockClear();
+    const pizza = canvas.getByRole("radio", { name: "Pizza" });
+    const tacos = canvas.getByRole("radio", { name: "Tacos" });
+
+    await userEvent.click(tacos);
+    await expect(pizza).not.toBeChecked();
+    await expect(tacos).toBeChecked();
+
+    await userEvent.click(canvas.getByRole("button", { name: "Reset radio group" }));
+    await waitFor(() => expect(pizza).toBeChecked());
+    await expect(tacos).not.toBeChecked();
+    await userEvent.click(canvas.getByRole("button", { name: "Rerender radio group" }));
+    await expect(pizza).toBeChecked();
+    await expect(tacos).not.toBeChecked();
+
+    const resetTacos = canvas.getByRole("radio", { name: "Tacos" });
+    await expect(resetTacos).not.toBeDisabled();
+    await expect(resetTacos).not.toBeChecked();
+    await userEvent.click(resetTacos);
+    await expect(resetTacos).toBeChecked();
+    await expect(args.onValueChange).toHaveBeenCalledTimes(2);
+    await expect(args.onValueChange).toHaveBeenLastCalledWith("tacos");
   },
 };

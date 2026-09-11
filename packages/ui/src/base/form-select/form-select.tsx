@@ -9,8 +9,9 @@
  *   with a custom listbox. This preserves upstream's form, keyboard, mobile,
  *   and accessibility semantics while allowing idiomatic React composition.
  * - Vue's `v-model` maps to React's controlled `value` or uncontrolled
- *   `defaultValue`; `onInput` and `onChange` receive the selected string (or
- *   a string array in multiple mode).
+ *   `defaultValue`, with `onValueChange` receiving the selected string (or a
+ *   string array in multiple mode). `onChange` keeps its native React event
+ *   semantics.
  * - `className` applies to the select and `wrapperClassName` applies to the
  *   structural wrapper that draws the chevron.
  */
@@ -44,7 +45,6 @@ type SelectElementProps = Omit<
   | "className"
   | "defaultValue"
   | "onChange"
-  | "onInput"
   | "value"
 >;
 
@@ -57,10 +57,10 @@ export type GlFormSelectProps = SelectElementProps & {
   className?: string;
   /** Initial value for an uncontrolled select. */
   defaultValue?: GlFormSelectValue;
+  /** Called with the native React change event. */
+  onChange?: SelectHTMLAttributes<HTMLSelectElement>["onChange"];
   /** Called with the selected value on user interaction. */
-  onChange?: (value: GlFormSelectValue) => void;
-  /** The model callback, called before `onChange` with the selected value. */
-  onInput?: (value: GlFormSelectValue) => void;
+  onValueChange?: (value: GlFormSelectValue) => void;
   /** Validation state: `true` valid, `false` invalid, `null` none. */
   state?: boolean | null;
   /** Current value for a controlled select. */
@@ -121,7 +121,7 @@ const GlFormSelect = forwardRef<HTMLSelectElement, GlFormSelectProps>(function G
   hidden,
   id,
   onChange,
-  onInput,
+  onValueChange,
   required = false,
   state = null,
   value,
@@ -134,12 +134,14 @@ const GlFormSelect = forwardRef<HTMLSelectElement, GlFormSelectProps>(function G
   const computedAriaInvalid = normalizeAriaInvalid(ariaInvalid, computedState);
 
   function handleChange(event: ChangeEvent<HTMLSelectElement>) {
+    onChange?.(event);
+    if(event.defaultPrevented) return;
+
     const selectedValue = event.currentTarget.multiple
       ? Array.from(event.currentTarget.selectedOptions, (option) => option.value)
       : event.currentTarget.value;
 
-    onInput?.(selectedValue);
-    onChange?.(selectedValue);
+    onValueChange?.(selectedValue);
   }
 
   return (

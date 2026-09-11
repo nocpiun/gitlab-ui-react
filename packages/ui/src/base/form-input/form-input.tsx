@@ -3,12 +3,10 @@
  * packages/gitlab-ui/src/components/base/form/form_input/form_input.vue
  *
  * Adaptations:
- * - The `v-model` pair maps to a controlled `value` prop plus `onInput`
- *   (the model event, emitted after `trim`/`number` modifiers according to
- *   the `debounce`/`lazy` rules). The upstream `update`, `change`, and `blur`
- *   events map to the `onUpdate`, `onChange`, and `onBlur` callbacks.
- *   `onChange` corresponds to the native `change` event, which React does not
- *   expose as a prop, so it is attached as a native listener.
+ * - The `v-model` pair maps to React's controlled `value` or uncontrolled
+ *   `defaultValue`, with `onValueChange` emitted after `trim`/`number`
+ *   modifiers according to the `debounce`/`lazy` rules. `onChange` and
+ *   `onInput` retain their native React event semantics.
  * - Upstream's `readonly` prop maps to the native `readOnly` attribute, and
  *   `ariaInvalid` maps to `aria-invalid`.
  * - The fallback input ID is generated with `useId` during render (SSR-safe)
@@ -25,6 +23,7 @@ import {
   useRef,
   useState,
   type ChangeEvent,
+  type ChangeEventHandler,
   type FocusEvent,
   type FocusEventHandler,
 } from "react";
@@ -74,7 +73,6 @@ type BaseInputProps = Omit<
   | "defaultValue"
   | "onBlur"
   | "onChange"
-  | "onInput"
   | "onValueChange"
   | "readOnly"
   | "render"
@@ -90,8 +88,10 @@ export type GlFormInputProps = BaseInputProps & {
   autofocus?: boolean;
   /** Additional CSS class(es) merged onto the input. */
   className?: string;
-  /** Debounces the model update (`onInput`) by this many milliseconds. Has no effect when `lazy` is set. */
+  /** Debounces `onValueChange` by this many milliseconds. Has no effect when `lazy` is set. */
   debounce?: number | string;
+  /** Initial value when used uncontrolled. */
+  defaultValue?: GlFormInputValue;
   /** Formats the input value. Returning `false` cancels the update. */
   formatter?: GlFormInputFormatter;
   /** Updates the model on `change`/`blur` instead of on every keystroke (the `.lazy` modifier). */
@@ -100,14 +100,12 @@ export type GlFormInputProps = BaseInputProps & {
   lazyFormatter?: boolean;
   /** Converts the model value to a native number when possible (the `.number` modifier). */
   number?: boolean;
-  /** Called with the formatted value on the native `change` event. */
-  onChange?: (value: string) => void;
+  /** Called with the native React change event. */
+  onChange?: ChangeEventHandler<HTMLInputElement>;
   /** Called with the native blur event. */
   onBlur?: FocusEventHandler<HTMLInputElement>;
-  /** The model event: called with the modified value per the `debounce`/`lazy` rules. */
-  onInput?: (value: GlFormInputValue) => void;
-  /** Called immediately on every keystroke with the formatted (unmodified) value. */
-  onUpdate?: (value: string) => void;
+  /** Called with the modified value per the `debounce`/`lazy` rules. */
+  onValueChange?: (value: GlFormInputValue) => void;
   /** Renders the control as plain text (no borders) and forces `readOnly`. */
   plaintext?: boolean;
   /** Sets the `readonly` attribute on the control. */
@@ -133,6 +131,17 @@ function toFloat(value: string, defaultValue: GlFormInputValue = NaN): GlFormInp
 // lodash `toString` semantics for the supported value types
 function toStringValue(value: GlFormInputValue | null | undefined): string {
   return value === null || value === undefined ? "" : String(value);
+}
+
+function modifyInputValue(
+  value: GlFormInputValue,
+  trim: boolean,
+  number: boolean,
+): GlFormInputValue {
+  let modified: GlFormInputValue = toStringValue(value);
+  if(trim) modified = modified.trim();
+  if(number) modified = toFloat(modified, modified);
+  return modified;
 }
 
 // bootstrap-vue `isVisible` (vendor/bootstrap-vue/src/utils/dom.js)
@@ -190,6 +199,7 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
   autofocus = false,
   className,
   debounce,
+  defaultValue = "",
   disabled = false,
   form,
   formatter,
@@ -203,8 +213,7 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
   number = false,
   onBlur,
   onChange,
-  onInput,
-  onUpdate,
+  onValueChange,
   placeholder,
   plaintext = false,
   readOnly = false,
@@ -213,7 +222,7 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
   step,
   trim = false,
   type = "text",
-  value = "",
+  value,
   width = null,
   ...elementProps
 }, forwardedRef) {
@@ -233,26 +242,30 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
   const computedState = typeof state === "boolean" ? state : null;
   const hasFormatter = typeof formatter === "function";
 
-  // `localValue` is the string rendered into the input; `modelValueRef` tracks
-  // the last value emitted through `onInput` (the upstream `vModelValue`).
-  const [localValue, setLocalValue] = useState(() => toStringValue(value));
-  const modelValueRef = useRef<GlFormInputValue | null>(null);
-  if(modelValueRef.current === null) {
-    modelValueRef.current = modifyValue(value);
-  }
-
-  function modifyValue(newValue: GlFormInputValue): GlFormInputValue {
-    let modified: GlFormInputValue = toStringValue(newValue);
-    // Emulate the `.trim` modifier behaviour
-    if(trim) {
-      modified = modified.trim();
-    }
-    // Emulate the `.number` modifier behaviour
-    if(number) {
-      modified = toFloat(modified, modified);
-    }
-    return modified;
-  }
+  const isControlled = value !== undefined;
+  const initialValue = isControlled ? value : defaultValue;
+  const acceptedValueRef = useRef(toStringValue(initialValue));
+  // A controlled input normally renders its prop directly. Keep a draft for
+  // delayed updates and for raw modifier text whose model value is unchanged.
+  const [controlledDraft, setControlledDraft] = useState<{
+    sourceValue: GlFormInputValue | undefined;
+    value: string;
+  } | null>(null);
+  const modelValueRef = useRef<GlFormInputValue>(
+    modifyInputValue(initialValue, trim, number),
+  );
+  const numericDebounce = Number(debounce);
+  const computedDebounce = Number.isFinite(numericDebounce)
+    ? Math.max(Math.trunc(numericDebounce), 0)
+    : 0;
+  const hasDelayedValueChange = lazy || computedDebounce > 0;
+  const hasValueModifier = number || trim;
+  // Tying the draft to its source prop makes an external value change override
+  // it immediately, before the synchronization effect clears the draft.
+  const renderedValue = controlledDraft !== null
+    && Object.is(controlledDraft.sourceValue, value)
+    ? controlledDraft.value
+    : toStringValue(value);
 
   function clearDebounce() {
     if(debounceTimerRef.current !== null) {
@@ -272,21 +285,40 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
     return toStringValue(newValue);
   }
 
-  // Sync from the `value` prop, mirroring the upstream watcher: adjustments
-  // during render keep the input in sync before paint, like Vue's pre-render
-  // watcher.
-  const [prevValue, setPrevValue] = useState(value);
-  if(!Object.is(prevValue, value)) {
-    setPrevValue(value);
-    const stringified = toStringValue(value);
-    const modified = modifyValue(value);
-    if(stringified !== localValue || modified !== modelValueRef.current) {
-      // Clear any pending debounce timeout, as we are overwriting the user input
+  useEffect(() => {
+    if(!isControlled) return;
+    clearDebounce();
+    setControlledDraft(null);
+    modelValueRef.current = modifyInputValue(value ?? "", trim, number);
+  }, [computedDebounce, isControlled, lazy, number, trim, value]);
+
+  // Keep the DOM genuinely uncontrolled when `value` is omitted so native
+  // form reset semantics remain intact. The reset listener only synchronizes
+  // bookkeeping that the browser cannot update for us.
+  useEffect(() => {
+    if(isControlled) return undefined;
+
+    const input = inputRef.current;
+    if(!input) return undefined;
+
+    const syncValue = () => {
+      acceptedValueRef.current = input.value;
+      modelValueRef.current = modifyInputValue(input.value, trim, number);
+    };
+    syncValue();
+
+    const associatedForm = input.form;
+    if(!associatedForm) return undefined;
+
+    const handleReset = (event: Event) => {
       clearDebounce();
-      setLocalValue(stringified);
-      modelValueRef.current = modified;
-    }
-  }
+      queueMicrotask(() => {
+        if(!event.defaultPrevented && inputRef.current === input) syncValue();
+      });
+    };
+    associatedForm.addEventListener("reset", handleReset);
+    return () => associatedForm.removeEventListener("reset", handleReset);
+  }, [defaultValue, form, isControlled, number, trim]);
 
   function updateValue(newValue: string, force = false) {
     if(lazy && !force) {
@@ -296,11 +328,18 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
     // even when the model hasn't changed
     clearDebounce();
     const doUpdate = () => {
-      const modified = modifyValue(newValue);
-      if(modified !== modelValueRef.current) {
-        modelValueRef.current = modified;
-        onInput?.(modified);
-      } else if(hasFormatter) {
+      if(isControlled && hasDelayedValueChange) setControlledDraft(null);
+      const modified = modifyInputValue(newValue, trim, number);
+      const currentModelValue = isControlled
+        ? modifyInputValue(value ?? "", trim, number)
+        : modelValueRef.current;
+      if(modified !== currentModelValue) {
+        if(!isControlled) modelValueRef.current = modified;
+        onValueChange?.(modified);
+      } else if(
+        hasFormatter
+        && !(isControlled && hasValueModifier && newValue !== toStringValue(modified))
+      ) {
         // When the model value hasn't changed but the actual input value is
         // out of sync, make sure to reset it to the model value. Usually
         // caused by browser autocomplete and how it triggers the change or
@@ -309,16 +348,14 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/3498
         const input = inputRef.current;
         if(input && modified !== input.value) {
-          input.value = toStringValue(modified);
+          const nextValue = toStringValue(modified);
+          input.value = nextValue;
+          if(!isControlled) acceptedValueRef.current = nextValue;
         }
       }
     };
     // Ensure we have a positive integer equal to or greater than 0
     // (lodash `toInteger` semantics)
-    const numericDebounce = Number(debounce);
-    const computedDebounce = Number.isFinite(numericDebounce)
-      ? Math.max(Math.trunc(numericDebounce), 0)
-      : 0;
     // Only debounce the value update when a value greater than `0` is set and
     // we are not in lazy mode or this is a forced update
     if(computedDebounce > 0 && !lazy && !force) {
@@ -330,54 +367,58 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
 
   // React's `onChange` is the native `input` event (upstream `onInput`).
   function handleInput(event: ChangeEvent<HTMLInputElement>) {
+    onChange?.(event);
+    if(event.defaultPrevented) {
+      if(!isControlled) event.currentTarget.value = acceptedValueRef.current;
+      return;
+    }
+
     const inputValue = event.target.value;
     const formattedValue = formatValue(inputValue, event);
     // Exit when the `formatter` function strictly returned `false`
     // or prevented the input event
     if(formattedValue === false || event.defaultPrevented) {
       event.preventDefault();
+      if(!isControlled) event.currentTarget.value = acceptedValueRef.current;
       return;
     }
-    setLocalValue(formattedValue);
+    if(isControlled) {
+      if(hasDelayedValueChange) {
+        setControlledDraft({ sourceValue: value, value: formattedValue });
+      } else {
+        const modifiedValue = modifyInputValue(formattedValue, trim, number);
+        const currentModelValue = modifyInputValue(value ?? "", trim, number);
+        // `.number` and `.trim` can leave the model unchanged while the raw
+        // text is still meaningful input in progress, such as `1.` or a
+        // trailing space. Preserve that text until it changes the model or
+        // the field is blurred.
+        const shouldPreserveModifierDraft = hasValueModifier
+          && modifiedValue === currentModelValue
+          && formattedValue !== toStringValue(value);
+        setControlledDraft(shouldPreserveModifierDraft
+          ? { sourceValue: value, value: formattedValue }
+          : null);
+      }
+    } else {
+      event.currentTarget.value = formattedValue;
+      acceptedValueRef.current = formattedValue;
+    }
     updateValue(formattedValue);
-    // The `input` and `update` events are swapped upstream, see
-    // https://gitlab.com/gitlab-org/gitlab-ui/-/merge_requests/1628
-    onUpdate?.(formattedValue);
   }
 
-  // The native `change` event (upstream `onChange`), attached natively because
-  // React maps `onChange` to the `input` event. The listener is re-registered
-  // on every render so it always closes over the latest props.
-  useEffect(() => {
-    const input = inputRef.current;
-    if(!input) return undefined;
-
-    const handleChange = (event: Event) => {
-      const target = event.target as HTMLInputElement;
-      const formattedValue = formatValue(target.value, event);
-      // Exit when the `formatter` function strictly returned `false`
-      // or prevented the input event
-      if(formattedValue === false || event.defaultPrevented) {
-        event.preventDefault();
-        return;
-      }
-      setLocalValue(formattedValue);
-      updateValue(formattedValue, true);
-      onChange?.(formattedValue);
-    };
-
-    input.addEventListener("change", handleChange);
-    return () => input.removeEventListener("change", handleChange);
-  });
-
   function handleBlur(event: FocusEvent<HTMLInputElement>) {
-    // Apply the `localValue` on blur to prevent cursor jumps on mobile
-    // browsers (e.g. caused by autocomplete)
+    // Apply the displayed value on blur to prevent cursor jumps on mobile
+    // browsers (e.g. caused by autocomplete).
     const formattedValue = formatValue(event.target.value, event, true);
     if(formattedValue !== false) {
+      if(isControlled) setControlledDraft(null);
       // We need to use the modified value here to apply the `.trim` and
       // `.number` modifiers properly
-      setLocalValue(toStringValue(modifyValue(formattedValue)));
+      if(!isControlled) {
+        const nextValue = toStringValue(modifyInputValue(formattedValue, trim, number));
+        event.currentTarget.value = nextValue;
+        acceptedValueRef.current = nextValue;
+      }
       // We pass the formatted value here since `updateValue` handles the
       // modifiers itself
       updateValue(formattedValue, true);
@@ -445,6 +486,7 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
       aria-invalid={computedAriaInvalid}
       aria-required={required ? true : undefined}
       className={computedClass}
+      defaultValue={isControlled ? undefined : toStringValue(defaultValue)}
       disabled={disabled}
       form={form}
       id={id ?? `gl-form-input-${generatedId}`}
@@ -459,7 +501,7 @@ const GlFormInput = forwardRef<HTMLInputElement, GlFormInputProps>(function GlFo
       required={required}
       step={step}
       type={localType}
-      value={localValue} />
+      value={isControlled ? renderedValue : undefined} />
   );
 });
 

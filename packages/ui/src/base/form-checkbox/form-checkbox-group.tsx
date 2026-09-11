@@ -7,10 +7,10 @@
  * packages/gitlab-ui/src/utils/form_options_utils.js).
  *
  * Adaptations:
- * - The `v-model` pair maps to the `checked` prop plus `onInput` (the model
- *   event) and `onChange` (user interaction) callbacks. Like upstream's
- *   `localChecked`, internal state is seeded from `checked` and re-synced when
- *   the prop changes, so the group also works uncontrolled.
+ * - The `v-model` pair maps to React's controlled `value` or uncontrolled
+ *   `defaultValue`, with `onValueChange` reporting selection changes.
+ *   `onChange` and `onInput` retain their native bubbling event semantics on
+ *   the group wrapper.
  * - The `first` and default slots map to the `first` prop and `children`.
  * - Option `html` is sanitized and rendered by the internal SafeHtml
  *   component, the React counterpart of upstream's `safe_html` directive; on
@@ -31,8 +31,10 @@
 
 import {
   useCallback,
+  useEffect,
   useId,
   useMemo,
+  useRef,
   useState,
   type HTMLAttributes,
   type ReactNode,
@@ -63,8 +65,7 @@ type GroupElementProps = Omit<
   HTMLAttributes<HTMLDivElement>,
   | "aria-invalid"
   | "aria-required"
-  | "onChange"
-  | "onInput"
+  | "defaultValue"
 >;
 
 export type GlFormCheckboxGroupProps = GroupElementProps & {
@@ -73,8 +74,8 @@ export type GlFormCheckboxGroupProps = GroupElementProps & {
    * it to "true"; when unset, a `state` of `false` dictates it instead.
    */
   ariaInvalid?: boolean | string;
-  /** The current value of the group: the values of the checked boxes. Defaults to `[]`. */
-  checked?: unknown[];
+  /** Initial selected values for an uncontrolled group. */
+  defaultValue?: unknown[];
   /** Checkboxes rendered after the checkboxes generated from `options`. */
   children?: ReactNode;
   /** Disables the whole group; child checkboxes can additionally be disabled individually. */
@@ -88,94 +89,122 @@ export type GlFormCheckboxGroupProps = GroupElementProps & {
    * group ID, so grouped checkboxes always share a name.
    */
   name?: string;
-  /** The model event: called with the new checked values when they change. */
-  onInput?: (checked: unknown[]) => void;
-  /** Called with the new checked values on user interaction. */
-  onChange?: (checked: unknown[]) => void;
+  /** Called with the selected values on user interaction. */
+  onValueChange?: (value: unknown[]) => void;
   /** Array of items to render as checkboxes. */
   options?: GlFormCheckboxGroupOption[];
   /** Adds the `required` attribute to the grouped checkboxes. */
   required?: boolean;
   /** Validation state: `true` valid, `false` invalid, `null` none. */
   state?: boolean | null;
+  /** Current selected values for a controlled group. */
+  value?: unknown[];
 };
 
-// A stable empty-array default: an inline `checked = []` destructuring
-// default would create a new array on every render, and the render-phase
-// prop sync below would then see a "changed" `checked` identity on every
-// render and setState in an infinite loop.
-const DEFAULT_EMPTY_CHECKED: unknown[] = [];
+// Keep the uncontrolled default stable when the prop is omitted.
+const DEFAULT_EMPTY_VALUE: unknown[] = [];
 
 export default function GlFormCheckboxGroup({
   "aria-describedby": ariaDescribedby,
   "aria-labelledby": ariaLabelledby,
   ariaInvalid = false,
-  checked = DEFAULT_EMPTY_CHECKED,
   children,
   className,
+  defaultValue = DEFAULT_EMPTY_VALUE,
   disabled = false,
   first,
   id,
   name,
-  onChange,
-  onInput,
+  onValueChange,
   options = [],
   required = false,
   state = null,
+  value,
   ...elementProps
 }: GlFormCheckboxGroupProps) {
   const generatedId = useId().replace(/[^a-zA-Z0-9_-]/g, "");
   const internalId = id || `gitlab_ui_checkbox_group_${generatedId}`;
 
-  // Internal checked state seeded from the `checked` prop, mirroring
-  // upstream's `localChecked`. The prop watcher maps to a render-phase
-  // adjustment so the selection stays in sync before paint.
-  const [localChecked, setLocalChecked] = useState<unknown[]>(checked);
-  const [prevChecked, setPrevChecked] = useState(checked);
-  if(!Object.is(prevChecked, checked)) {
-    setPrevChecked(checked);
-    if(!looseEqual(checked, localChecked)) {
-      setLocalChecked(checked);
-    }
-  }
+  const isControlled = value !== undefined;
+  const [uncontrolledValue, setUncontrolledValue] = useState<unknown[]>(() => [...defaultValue]);
+  const selectedValue = isControlled ? value : uncontrolledValue;
+  const groupRef = useRef<HTMLDivElement | null>(null);
+  const selectedValueRef = useRef(selectedValue);
 
   const computedState = typeof state === "boolean" ? state : null;
   const computedAriaInvalid = normalizeAriaInvalid(ariaInvalid, computedState);
 
-  // A user interaction updates the shared model and emits the model event
-  // first, then the change event, like upstream. Upstream's `localChecked`
-  // watcher only emits when the value actually changes, so loosely equal
+  // Uncontrolled checkboxes are reset by the browser. Keep the group's model
+  // in sync so later checkbox interactions start from the restored selection.
+  useEffect(() => {
+    if(isControlled) return undefined;
+
+    const groupElement = groupRef.current;
+    const associatedForm = groupElement?.closest("form");
+    if(!groupElement || !associatedForm) return undefined;
+
+    const handleReset = (event: Event) => {
+      const previousValue = selectedValueRef.current;
+      const nextValue = [...defaultValue];
+      selectedValueRef.current = nextValue;
+      queueMicrotask(() => {
+        if(event.defaultPrevented) {
+          selectedValueRef.current = previousValue;
+        } else if(groupRef.current === groupElement) {
+          setUncontrolledValue(nextValue);
+        }
+      });
+    };
+    associatedForm.addEventListener("reset", handleReset);
+    return () => associatedForm.removeEventListener("reset", handleReset);
+  }, [defaultValue, isControlled]);
+
+  // Upstream only emits for actual selection changes, so loosely equal
   // updates are ignored here as well.
-  const updateChecked = useCallback((value: unknown[]) => {
-    if(looseEqual(value, localChecked)) {
+  const updateValue = useCallback((nextValue: unknown[]) => {
+    const currentValue = isControlled ? value : selectedValueRef.current;
+    if(looseEqual(nextValue, currentValue)) {
       return;
     }
-    setLocalChecked(value);
-    onInput?.(value);
-    onChange?.(value);
-  }, [localChecked, onInput, onChange]);
+    if(!isControlled) {
+      selectedValueRef.current = nextValue;
+      setUncontrolledValue(nextValue);
+    }
+    onValueChange?.(nextValue);
+  }, [isControlled, onValueChange, value]);
+
+  const getValue = useCallback(
+    () => isControlled ? value : selectedValueRef.current,
+    [isControlled, value],
+  );
 
   const contextValue = useMemo<GlFormCheckboxGroupContextValue>(() => ({
     ariaDescribedby,
     ariaLabelledby,
-    checked: localChecked,
+    defaultValue,
+    getValue,
+    isControlled,
+    value: selectedValue,
     disabled,
     // Checkboxes tied to the same model must have the same name, especially
     // for ARIA accessibility. Groups always have one (upstream's `groupName`).
     name: name || internalId,
     required,
     state: computedState,
-    updateChecked,
+    updateValue,
   }), [
     ariaDescribedby,
     ariaLabelledby,
-    localChecked,
+    defaultValue,
+    getValue,
+    isControlled,
+    selectedValue,
     disabled,
     name,
     internalId,
     required,
     computedState,
-    updateChecked,
+    updateValue,
   ]);
 
   const formOptions = normalizeFormOptions(options);
@@ -184,6 +213,7 @@ export default function GlFormCheckboxGroup({
     <GlFormCheckboxGroupContext.Provider value={contextValue}>
       <div
         {...elementProps}
+        ref={groupRef}
         aria-invalid={computedAriaInvalid}
         aria-required={required || undefined}
         className={clsx("gl-form-checkbox-group gl-outline-none", className)}

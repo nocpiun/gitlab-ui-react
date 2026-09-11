@@ -11,9 +11,9 @@ function ControlledTextarea(args: ComponentProps<typeof GlFormTextarea>) {
     <GlFormTextarea
       {...args}
       value={value}
-      onInput={(newValue) => {
+      onValueChange={(newValue) => {
         setValue(newValue);
-        args.onInput?.(newValue);
+        args.onValueChange?.(newValue);
       }} />
   );
 }
@@ -31,9 +31,9 @@ function CharacterCountTextarea(args: ComponentProps<typeof GlFormTextarea>) {
     <GlFormTextarea
       {...args}
       value={value}
-      onInput={(newValue) => {
+      onValueChange={(newValue) => {
         setValue(newValue);
-        args.onInput?.(newValue);
+        args.onValueChange?.(newValue);
       }}
       remainingCharacterCountText={characterText(Math.max(remainingCount, 0), "remaining")}
       characterCountOverLimitText={characterText(Math.max(-remainingCount, 0), "over limit")} />
@@ -66,9 +66,8 @@ const meta = {
     onBlur: fn(),
     onChange: fn(),
     onFocus: fn(),
-    onInput: fn(),
     onSubmit: fn(),
-    onUpdate: fn(),
+    onValueChange: fn(),
     placeholder: "Enter a description",
     readOnly: false,
     required: false,
@@ -93,13 +92,10 @@ const meta = {
     onFocus: {
       control: false,
     },
-    onInput: {
+    onValueChange: {
       control: false,
     },
     onSubmit: {
-      control: false,
-    },
-    onUpdate: {
       control: false,
     },
     remainingCharacterCountText: {
@@ -131,12 +127,41 @@ export const Default: Story = {
     await userEvent.type(textarea, "Hello");
 
     await expect(textarea).toHaveValue("Hello");
-    await expect(args.onUpdate).toHaveBeenLastCalledWith("Hello");
-    await expect(args.onInput).toHaveBeenLastCalledWith("Hello");
+    await expect(args.onValueChange).toHaveBeenLastCalledWith("Hello");
+    await expect(args.onChange).toHaveBeenCalled();
 
     await userEvent.tab();
     await expect(args.onBlur).toHaveBeenCalled();
-    await expect(args.onChange).toHaveBeenLastCalledWith("Hello");
+  },
+};
+
+export const NativeFormReset: Story = {
+  args: {
+    characterCountLimit: 10,
+    characterCountOverLimitText: "Over limit.",
+    defaultValue: "Default",
+    remainingCharacterCountText: "Within limit.",
+    value: undefined,
+  },
+  render: (args) => (
+    <form>
+      <GlFormTextarea {...args} />
+      <button type="reset">Reset form</button>
+    </form>
+  ),
+  play: async ({ canvas }) => {
+    const textarea = canvas.getByRole("textbox", { name: "Description" });
+
+    await userEvent.clear(textarea);
+    await userEvent.type(textarea, "More than ten characters");
+    await expect(textarea).toHaveValue("More than ten characters");
+    await expect(canvas.getByText("Over limit.", { selector: "small" }))
+      .toHaveClass("gl-text-danger");
+
+    await userEvent.click(canvas.getByRole("button", { name: "Reset form" }));
+    await expect(textarea).toHaveValue("Default");
+    await waitFor(() => expect(canvas.getByText("Within limit.", { selector: "small" }))
+      .toHaveClass("gl-text-subtle"));
   },
 };
 
@@ -175,12 +200,28 @@ export const Debounced: Story = {
     await userEvent.type(textarea, "Debounced");
 
     await expect(textarea).toHaveValue("Debounced");
-    await expect(args.onUpdate).toHaveBeenLastCalledWith("Debounced");
-    await expect(args.onInput).not.toHaveBeenCalled();
+    await expect(args.onValueChange).not.toHaveBeenCalled();
     await waitFor(
-      () => expect(args.onInput).toHaveBeenLastCalledWith("Debounced"),
+      () => expect(args.onValueChange).toHaveBeenLastCalledWith("Debounced"),
       { timeout: 1000 },
     );
+  },
+};
+
+export const DebouncedRejectedUpdate: Story = {
+  args: {
+    debounce: 50,
+    value: "",
+  },
+  render: (args) => <GlFormTextarea {...args} />,
+  play: async ({ args, canvas }) => {
+    const textarea = canvas.getByRole("textbox", { name: "Description" });
+
+    await userEvent.type(textarea, "draft");
+    await expect(textarea).toHaveValue("draft");
+
+    await waitFor(() => expect(args.onValueChange).toHaveBeenLastCalledWith("draft"));
+    await expect(textarea).toHaveValue("");
   },
 };
 
