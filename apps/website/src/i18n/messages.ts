@@ -54,6 +54,8 @@ export type SiteMessages = {
     };
     tableOfContents: {
       empty: string;
+      label: string;
+      title: string;
     };
   };
 };
@@ -117,6 +119,8 @@ export const siteMessages = {
       },
       tableOfContents: {
         empty: "No sections on this page.",
+        label: "On this page",
+        title: "On this page",
       },
     },
   },
@@ -178,6 +182,8 @@ export const siteMessages = {
       },
       tableOfContents: {
         empty: "此页面没有章节。",
+        label: "On this page",
+        title: "On this page",
       },
     },
   },

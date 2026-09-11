@@ -108,12 +108,12 @@ export function DocsTableOfContents({
     <div className={className}>
       {showTitle ? (
         <p className="mb-4 text-xs font-semibold tracking-wide text-subtle uppercase">
-          On this page
+          {messages.title}
         </p>
       ) : null}
 
       {sections.length > 0 ? (
-        <GlNav aria-label="On this page" className="ps-3 min-[1360px]:border-l border-l-section dark:border-l-neutral-800">
+        <GlNav aria-label={messages.label} className="ps-3 min-[1360px]:border-l border-l-section dark:border-l-neutral-800">
           {sections.map(({ heading, subheadings }) => {
             const isActive = heading.slug === activeHeading;
 
