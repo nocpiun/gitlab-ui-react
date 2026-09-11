@@ -12,7 +12,7 @@ const meta = {
     hasNextPage: true,
     hasPreviousPage: false,
     onNext: next,
-    onPrev: previous,
+    onPrevious: previous,
   },
   argTypes: {
     nextButtonContent: { control: false },
@@ -53,7 +53,7 @@ export const CursorEvents: Story = {
     await userEvent.click(canvas.getByRole("button", { name: "Previous" }));
     await userEvent.click(canvas.getByRole("button", { name: "Next" }));
 
-    await expect(args.onPrev).toHaveBeenLastCalledWith("START_CURSOR");
+    await expect(args.onPrevious).toHaveBeenLastCalledWith("START_CURSOR");
     await expect(args.onNext).toHaveBeenLastCalledWith("END_CURSOR");
   },
 };
@@ -89,7 +89,7 @@ export const Disabled: Story = {
     await expect(nextButton).toHaveAttribute("aria-disabled", "true");
     await userEvent.click(previousButton);
     await userEvent.click(nextButton);
-    await expect(args.onPrev).not.toHaveBeenCalled();
+    await expect(args.onPrevious).not.toHaveBeenCalled();
     await expect(args.onNext).not.toHaveBeenCalled();
   },
 };

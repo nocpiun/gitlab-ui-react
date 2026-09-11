@@ -34,12 +34,15 @@ import GlListboxSearchInput from "./listbox-search-input";
 const meta = {
   title: "UI/Base/Listbox",
   component: GlListbox,
+  args: {
+    onOpenChange: fn(),
+    onOpenChangeComplete: fn(),
+  },
   argTypes: {
     children: { control: false },
     onBeforeClose: { control: false },
-    onHidden: { control: false },
     onOpenChange: { control: false },
-    onShown: { control: false },
+    onOpenChangeComplete: { control: false },
     onValueChange: { control: false },
   },
   parameters: {
@@ -57,8 +60,11 @@ type Story = StoryObj<typeof meta>;
 const showDefaultSearch = false;
 
 export const Default: Story = {
-  render: () => (
-    <GlListbox defaultValue="backend">
+  render: (args) => (
+    <GlListbox
+      defaultValue="backend"
+      onOpenChange={args.onOpenChange}
+      onOpenChangeComplete={args.onOpenChangeComplete}>
       <GlListboxTrigger>Select department</GlListboxTrigger>
       <GlListboxContent>
         <>{showDefaultSearch && <GlListboxSearchInput />}</>
@@ -68,7 +74,7 @@ export const Default: Story = {
       </GlListboxContent>
     </GlListbox>
   ),
-  play: async ({ canvas, canvasElement }) => {
+  play: async ({ args, canvas, canvasElement }) => {
     const trigger = canvas.getByRole("button", { name: "Select department" });
     let insertedNoResults = false;
     const observer = new MutationObserver((records) => {
@@ -83,6 +89,11 @@ export const Default: Story = {
     observer.observe(canvasElement, { childList: true, subtree: true });
     await expect(trigger).toHaveAttribute("aria-haspopup", "listbox");
     await userEvent.click(trigger);
+    await waitFor(() => expect(args.onOpenChange).toHaveBeenLastCalledWith(
+      true,
+      expect.objectContaining({ reason: "trigger" }),
+    ));
+    await waitFor(() => expect(args.onOpenChangeComplete).toHaveBeenLastCalledWith(true));
 
     const listbox = await canvas.findByRole("listbox");
     const options = within(listbox).getAllByRole("option");
@@ -101,6 +112,11 @@ export const Default: Story = {
 
     await userEvent.click(within(listbox).getByRole("option", { name: "Frontend" }));
     await waitFor(() => expect(trigger).not.toHaveAttribute("aria-expanded", "true"));
+    await waitFor(() => expect(args.onOpenChange).toHaveBeenLastCalledWith(
+      false,
+      expect.objectContaining({ reason: "item" }),
+    ));
+    await waitFor(() => expect(args.onOpenChangeComplete).toHaveBeenLastCalledWith(false));
     await expect(trigger).toHaveFocus();
   },
 };

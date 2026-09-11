@@ -3,6 +3,7 @@
  */
 
 import type { HTMLAttributes } from "react";
+import type { GlOverlayOpenChangeDetails } from "../overlay/overlay-types";
 
 export type GlDropdownCloseReason =
   | "trigger"
@@ -12,12 +13,7 @@ export type GlDropdownCloseReason =
   | "focus-out"
   | "imperative";
 
-export type GlDropdownOpenChangeDetails = {
-  /** The native event that caused the state change. */
-  event: Event;
-  /** A stable reason that does not expose Base UI's internal reason strings. */
-  reason: GlDropdownCloseReason;
-};
+export type GlDropdownOpenChangeDetails = GlOverlayOpenChangeDetails<GlDropdownCloseReason>;
 
 export type GlDropdownBeforeCloseDetails = GlDropdownOpenChangeDetails & {
   readonly defaultPrevented: boolean;

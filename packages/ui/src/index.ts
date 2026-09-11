@@ -113,6 +113,10 @@ export type {
   GlDropdownPlacement,
   GlDropdownPositioningStrategy,
 } from "./internal/dropdown/dropdown-types";
+export type {
+  GlOverlayOpenChangeDetails,
+  GlOverlayOpenChangeReason,
+} from "./internal/overlay/overlay-types";
 export {
   default as GlDisclosureDropdown,
   GlDisclosureDropdownContent,
@@ -408,6 +412,7 @@ export { default as GlToggle } from "./base/toggle/toggle";
 export type {
   GlToggleLabelPosition,
   GlToggleProps,
+  GlToggleWrapperProps,
 } from "./base/toggle/toggle";
 export {
   default as GlTooltip,

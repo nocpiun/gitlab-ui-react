@@ -21,6 +21,43 @@ describe("GlToggle", () => {
     expect(markup).toMatch(/aria-labelledby="[^"]+"/);
   });
 
+  it("applies native attributes to the button", () => {
+    const markup = renderToStaticMarkup(
+      <GlToggle
+        className="custom-toggle"
+        data-purpose="toggle-button"
+        label="toggle label"
+        style={{ color: "red" }} />,
+    );
+    const wrapper = markup.match(/^<div[^>]*>/)?.[0];
+    const button = markup.match(/<button[^>]*>/)?.[0];
+
+    expect(wrapper).not.toContain("custom-toggle");
+    expect(wrapper).not.toContain("data-purpose");
+    expect(button).toContain("gl-toggle");
+    expect(button).toContain("custom-toggle");
+    expect(button).toContain("data-purpose=\"toggle-button\"");
+    expect(button).toContain("style=\"color:red\"");
+  });
+
+  it("applies wrapperProps to the outer layout element", () => {
+    const markup = renderToggle({
+      wrapperProps: {
+        className: "custom-wrapper",
+        id: "toggle-layout",
+        style: { gap: "1rem" },
+      },
+    });
+    const wrapper = markup.match(/^<div[^>]*>/)?.[0];
+    const button = markup.match(/<button[^>]*>/)?.[0];
+
+    expect(wrapper).toContain("gl-toggle-wrapper");
+    expect(wrapper).toContain("custom-wrapper");
+    expect(wrapper).toContain("id=\"toggle-layout\"");
+    expect(wrapper).toContain("style=\"gap:1rem\"");
+    expect(button).not.toContain("custom-wrapper");
+  });
+
   it.each([
     [true, "true", true],
     [false, "false", false],
@@ -47,9 +84,9 @@ describe("GlToggle", () => {
     });
   });
 
-  describe("isLoading", () => {
+  describe("loading", () => {
     it("renders a spinner instead of the thumb icon and marks the toggle disabled", () => {
-      const markup = renderToggle({ isLoading: true });
+      const markup = renderToggle({ loading: true });
 
       expect(markup).toContain("gl-spinner");
       expect(markup).toContain("toggle-loading");
@@ -58,12 +95,11 @@ describe("GlToggle", () => {
       expect(markup).not.toContain("toggle-icon");
     });
 
-    it("still emits change events", () => {
-      // Upstream only blocks activation when `disabled`; loading is visual.
-      const markup = renderToggle({ isLoading: true });
+    it("prevents activation", () => {
+      const markup = renderToggle({ loading: true });
 
-      expect(markup).not.toContain("aria-disabled");
-      expect(markup).not.toContain("disabled=\"\"");
+      expect(markup).toContain("aria-disabled=\"true\"");
+      expect(markup).toContain("disabled=\"\"");
     });
   });
 
@@ -94,6 +130,19 @@ describe("GlToggle", () => {
     it("omits aria-describedby without help", () => {
       expect(renderToggle()).not.toContain("aria-describedby");
     });
+
+    it("preserves external descriptions with and without help", () => {
+      const withoutHelp = renderToggle({ "aria-describedby": "external-help" });
+      const withHelp = renderToggle({
+        "aria-describedby": "external-help",
+        help: "help text",
+      });
+
+      expect(withoutHelp).toContain("aria-describedby=\"external-help\"");
+      expect(withHelp).toMatch(
+        /aria-describedby="external-help toggle-help-[^"]+"/,
+      );
+    });
   });
 
   describe("label position", () => {
@@ -123,5 +172,10 @@ describe("GlToggle", () => {
 
     expect(markup).toContain("id=\"example-toggle\"");
     expect(markup).toContain("aria-labelledby=\"example-toggle\"");
+  });
+
+  it("preserves external labels alongside the rendered label", () => {
+    expect(renderToggle({ "aria-labelledby": "external-label" }))
+      .toMatch(/aria-labelledby="external-label toggle-label-[^"]+"/);
   });
 });

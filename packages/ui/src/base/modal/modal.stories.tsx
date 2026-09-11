@@ -111,13 +111,13 @@ const meta = {
   component: GlModal,
   args: {
     defaultOpen: false,
-    onOpened: fn(),
     onOpenChange: fn(),
+    onOpenChangeComplete: fn(),
   },
   argTypes: {
     children: { control: false },
-    onOpened: { control: false },
     onOpenChange: { control: false },
+    onOpenChangeComplete: { control: false },
     open: { control: false },
   },
   parameters: {
@@ -159,8 +159,11 @@ export const Default: Story = {
     await expect(dialog).toHaveAttribute("aria-labelledby", title.id);
     await expect(dialog).toHaveAttribute("aria-describedby", modalBody?.id);
     await expect(dialog.parentElement).toHaveClass("gl-modal-dialog", "gl-modal-md");
-    await expect(args.onOpenChange).toHaveBeenLastCalledWith(true);
-    await waitFor(() => expect(args.onOpened).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(args.onOpenChange).toHaveBeenLastCalledWith(
+      true,
+      expect.objectContaining({ reason: "trigger" }),
+    ));
+    await waitFor(() => expect(args.onOpenChangeComplete).toHaveBeenLastCalledWith(true));
     await waitFor(() => expect(cancel).toHaveFocus());
 
     await userEvent.tab();
@@ -172,7 +175,11 @@ export const Default: Story = {
 
     await userEvent.click(cancel);
     await waitFor(() => expect(body.queryByRole("dialog")).not.toBeInTheDocument());
-    await expect(args.onOpenChange).toHaveBeenLastCalledWith(false);
+    await waitFor(() => expect(args.onOpenChange).toHaveBeenLastCalledWith(
+      false,
+      expect.objectContaining({ reason: "close" }),
+    ));
+    await waitFor(() => expect(args.onOpenChangeComplete).toHaveBeenLastCalledWith(false));
     await expect(trigger).toHaveFocus();
 
     await userEvent.click(trigger);

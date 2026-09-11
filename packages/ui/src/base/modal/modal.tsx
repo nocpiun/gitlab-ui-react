@@ -8,6 +8,7 @@
  * - The header close control remains automatic; GlModalClose is a footer action button.
  */
 
+import type { GlOverlayOpenChangeDetails } from "../../internal/overlay/overlay-types";
 import {
   Children,
   Fragment,
@@ -31,6 +32,7 @@ import {
   type GlTriggerAsChildProps,
   type GlTriggerDefaultProps,
 } from "../../internal/trigger/trigger-composition";
+import { mapOverlayOpenChangeDetails } from "../../internal/overlay/overlay-utils";
 import GlButton, { type GlButtonProps } from "../button/button";
 
 export type GlModalSize = "sm" | "md" | "lg";
@@ -40,10 +42,10 @@ export type GlModalProps = {
   children?: ReactNode;
   /** Whether the modal is initially open when uncontrolled. */
   defaultOpen?: boolean;
-  /** Called after the opening transition finishes. */
-  onOpened?: () => void;
   /** Called when interaction requests an open-state change. */
-  onOpenChange?: (open: boolean) => void;
+  onOpenChange?: (open: boolean, details: GlOverlayOpenChangeDetails) => void;
+  /** Called after the opening or closing transition finishes. */
+  onOpenChangeComplete?: (open: boolean) => void;
   /** Controlled open state. */
   open?: boolean;
 };
@@ -609,17 +611,17 @@ function validateSingleModalContent(children: ReactNode) {
 export default function GlModal({
   children,
   defaultOpen = false,
-  onOpened,
   onOpenChange,
+  onOpenChangeComplete,
   open,
 }: GlModalProps) {
   validateSingleModalContent(children);
 
-  const handleOpenChange = (nextOpen: boolean) => {
-    onOpenChange?.(nextOpen);
-  };
-  const handleOpenChangeComplete = (nextOpen: boolean) => {
-    if(nextOpen) onOpened?.();
+  const handleOpenChange = (
+    nextOpen: boolean,
+    details: BaseDialog.Root.ChangeEventDetails,
+  ) => {
+    onOpenChange?.(nextOpen, mapOverlayOpenChangeDetails(details));
   };
 
   return (
@@ -627,7 +629,7 @@ export default function GlModal({
       defaultOpen={defaultOpen}
       modal
       onOpenChange={handleOpenChange}
-      onOpenChangeComplete={handleOpenChangeComplete}
+      onOpenChangeComplete={onOpenChangeComplete}
       open={open}>
       <ModalRootContext.Provider value>
         {children}

@@ -67,13 +67,13 @@ const meta = {
   component: GlDrawer,
   args: {
     defaultOpen: false,
-    onOpened: fn(),
     onOpenChange: fn(),
+    onOpenChangeComplete: fn(),
   },
   argTypes: {
     children: { control: false },
-    onOpened: { control: false },
     onOpenChange: { control: false },
+    onOpenChangeComplete: { control: false },
     open: { control: false },
   },
   parameters: {
@@ -125,8 +125,11 @@ export const Default: Story = {
     await expectDesktopWidthWithContainerQueries(dialog, "400px");
     await expect(dialog).toHaveAttribute("aria-modal", "true");
     await expect(dialog).toHaveAttribute("aria-labelledby", title.id);
-    await expect(args.onOpenChange).toHaveBeenCalledWith(true);
-    await waitFor(() => expect(args.onOpened).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(args.onOpenChange).toHaveBeenCalledWith(
+      true,
+      expect.objectContaining({ reason: "trigger" }),
+    ));
+    await waitFor(() => expect(args.onOpenChangeComplete).toHaveBeenLastCalledWith(true));
     await waitFor(() => expect(closeButton).toHaveFocus());
 
     await userEvent.tab();
@@ -140,14 +143,21 @@ export const Default: Story = {
 
     await userEvent.click(closeButton);
     await waitFor(() => expect(body.queryByRole("dialog")).not.toBeInTheDocument());
-    await expect(args.onOpenChange).toHaveBeenLastCalledWith(false);
+    await waitFor(() => expect(args.onOpenChange).toHaveBeenLastCalledWith(
+      false,
+      expect.objectContaining({ reason: "close" }),
+    ));
+    await waitFor(() => expect(args.onOpenChangeComplete).toHaveBeenLastCalledWith(false));
     await expect(trigger).toHaveFocus();
 
     await userEvent.click(trigger);
     await body.findByRole("dialog");
     await userEvent.keyboard("{Escape}");
     await waitFor(() => expect(body.queryByRole("dialog")).not.toBeInTheDocument());
-    await expect(args.onOpenChange).toHaveBeenLastCalledWith(false);
+    await waitFor(() => expect(args.onOpenChange).toHaveBeenLastCalledWith(
+      false,
+      expect.objectContaining({ reason: "escape" }),
+    ));
     await expect(trigger).toHaveFocus();
   },
 };

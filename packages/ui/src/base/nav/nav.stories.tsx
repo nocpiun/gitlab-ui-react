@@ -857,7 +857,7 @@ export const MobileOverlay: Story = {
 
     firstLink.focus();
     await userEvent.keyboard("{Shift>}{Tab}{/Shift}");
-    await expect(internalToggle).toHaveFocus();
+    await waitFor(() => expect(internalToggle).toHaveFocus());
     await userEvent.tab();
     await waitFor(() => expect(firstLink).toHaveFocus());
 

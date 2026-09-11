@@ -24,10 +24,13 @@ const meta = {
   args: {
     closeDelay: 0,
     delay: 0,
+    onOpenChange: fn(),
+    onOpenChangeComplete: fn(),
   },
   argTypes: {
     children: { control: false },
     onOpenChange: { control: false },
+    onOpenChangeComplete: { control: false },
     triggers: {
       control: "check",
       options: ["click", "hover", "focus"],
@@ -58,7 +61,7 @@ export const Default: Story = {
       </GlPopover>
     </div>
   ),
-  play: async ({ canvas }) => {
+  play: async ({ args, canvas }) => {
     const trigger = canvas.getByRole("button", { name: "Popover" });
 
     await userEvent.tab();
@@ -68,6 +71,11 @@ export const Default: Story = {
     const title = within(dialog).getByRole("heading", { name: "Popover title" });
 
     await waitFor(() => expect(dialog).toBeVisible());
+    await waitFor(() => expect(args.onOpenChange).toHaveBeenLastCalledWith(
+      true,
+      expect.objectContaining({ reason: "trigger" }),
+    ));
+    await waitFor(() => expect(args.onOpenChangeComplete).toHaveBeenLastCalledWith(true));
     await expect(dialog).toHaveClass("gl-popover", "has-title", "bs-popover-top");
     await expect(dialog.querySelector(".popover-body")).toHaveTextContent(
       "A popover provides supplemental, useful information about an element.",
@@ -83,6 +91,11 @@ export const Default: Story = {
 
     await userEvent.keyboard("{Escape}");
     await waitFor(() => expect(within(document.body).queryByRole("dialog")).not.toBeInTheDocument());
+    await waitFor(() => expect(args.onOpenChange).toHaveBeenLastCalledWith(
+      false,
+      expect.objectContaining({ reason: "escape" }),
+    ));
+    await waitFor(() => expect(args.onOpenChangeComplete).toHaveBeenLastCalledWith(false));
 
     await userEvent.hover(trigger);
     fireEvent.mouseEnter(trigger);

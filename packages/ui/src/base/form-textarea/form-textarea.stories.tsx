@@ -58,7 +58,7 @@ const meta = {
   component: GlFormTextarea,
   args: {
     "aria-label": "Description",
-    autofocus: false,
+    autoFocus: false,
     characterCountLimit: null,
     debounce: 0,
     disabled: false,
@@ -308,7 +308,7 @@ export const WithCustomClasses: Story = {
 
 export const Autofocus: Story = {
   args: {
-    autofocus: true,
+    autoFocus: true,
     value: "",
   },
   play: async ({ canvas }) => {

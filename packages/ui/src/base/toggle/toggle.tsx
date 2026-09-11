@@ -9,22 +9,27 @@ import {
   useId,
   useRef,
   useState,
+  type ButtonHTMLAttributes,
   type HTMLAttributes,
-  type MouseEvent,
+  type MouseEventHandler,
   type ReactNode,
 } from "react";
 import { cva } from "class-variance-authority";
+import { mergeAriaIds } from "../../internal/utils/merge-aria-ids";
+import { useMergedRefs } from "../../internal/utils/merge-refs";
 import GlIcon from "../icon/icon";
 import GlLoadingIcon from "../loading-icon/loading-icon";
 
 export type GlToggleLabelPosition = "top" | "left" | "hidden";
 
-type ToggleElementProps = Omit<
-  HTMLAttributes<HTMLDivElement>,
-  "defaultValue"
+type ToggleButtonProps = Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  "children" | "defaultValue" | "disabled" | "name" | "type" | "value"
 >;
 
-export type GlToggleProps = ToggleElementProps & {
+export type GlToggleWrapperProps = Omit<HTMLAttributes<HTMLDivElement>, "children">;
+
+export type GlToggleProps = ToggleButtonProps & {
   /** Initial state when used uncontrolled. */
   defaultValue?: boolean;
   /** Description text below the label. Only rendered in vertical layouts (`top`/`hidden`). */
@@ -33,8 +38,8 @@ export type GlToggleProps = ToggleElementProps & {
   disabled?: boolean;
   /** Help text below the toggle, linked via `aria-describedby`. Only rendered in vertical layouts. */
   help?: ReactNode;
-  /** Whether the toggle is in the loading state: a spinner replaces the thumb. */
-  isLoading?: boolean;
+  /** Whether a spinner replaces the thumb and activation is prevented. */
+  loading?: boolean;
   /** The toggle's label; used as the switch's accessible name via `aria-labelledby`. */
   label?: ReactNode;
   /** ID of the label element. Defaults to a generated ID. */
@@ -50,6 +55,8 @@ export type GlToggleProps = ToggleElementProps & {
   onValueChange?: (value: boolean) => void;
   /** The controlled value. */
   value?: boolean;
+  /** Attributes applied to the outer layout element. */
+  wrapperProps?: GlToggleWrapperProps;
 };
 
 const wrapperVariants = cva(["gl-toggle-wrapper", "gl-mb-0", "gl-flex"], {
@@ -96,19 +103,24 @@ const toggleVariants = cva(["gl-toggle", "gl-shrink-0"], {
 });
 
 const GlToggle = forwardRef<HTMLButtonElement, GlToggleProps>(function GlToggle({
+  "aria-describedby": ariaDescribedBy,
+  "aria-labelledby": ariaLabelledBy,
   className,
   defaultValue,
   description,
   disabled = false,
+  form,
   help,
-  isLoading = false,
   label,
   labelId: labelIdProp,
   labelPosition = "top",
+  loading = false,
   name,
+  onClick,
   onValueChange,
   value,
-  ...elementProps
+  wrapperProps,
+  ...buttonProps
 }, forwardedRef) {
   const generatedId = useId();
   const labelId = labelIdProp ?? `toggle-label-${generatedId}`;
@@ -117,36 +129,44 @@ const GlToggle = forwardRef<HTMLButtonElement, GlToggleProps>(function GlToggle(
   const isControlled = value !== undefined;
   const [uncontrolledValue, setUncontrolledValue] = useState(Boolean(defaultValue));
   const checked = isControlled ? value : uncontrolledValue;
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const effectiveDisabled = disabled || loading;
+  const buttonElementRef = useRef<HTMLButtonElement | null>(null);
+  const buttonRef = useMergedRefs(buttonElementRef, forwardedRef);
+  const { className: wrapperClassName, ...wrapperElementProps } = wrapperProps ?? {};
 
   // A toggle is a composite control, so the browser cannot reset its React
   // state through the hidden input. Restore the uncontrolled state when its
-  // containing form is reset.
+  // associated form is reset.
   useEffect(() => {
     if(isControlled) return undefined;
 
-    const wrapper = wrapperRef.current;
-    const associatedForm = wrapper?.closest("form");
-    if(!wrapper || !associatedForm) return undefined;
+    const button = buttonElementRef.current;
+    const associatedForm = button?.form;
+    if(!button || !associatedForm) return undefined;
 
     const handleReset = (event: Event) => {
       queueMicrotask(() => {
-        if(!event.defaultPrevented && wrapperRef.current === wrapper) {
+        if(!event.defaultPrevented && buttonElementRef.current === button) {
           setUncontrolledValue(Boolean(defaultValue));
         }
       });
     };
     associatedForm.addEventListener("reset", handleReset);
     return () => associatedForm.removeEventListener("reset", handleReset);
-  }, [defaultValue, isControlled]);
+  }, [defaultValue, form, isControlled]);
 
   const isVerticalLayout = labelPosition !== "left";
   const shouldRenderDescription = Boolean(description) && isVerticalLayout;
   const shouldRenderHelp = Boolean(help) && isVerticalLayout;
+  const computedAriaDescribedBy = mergeAriaIds(
+    ariaDescribedBy,
+    shouldRenderHelp ? helpId : undefined,
+  );
+  const computedAriaLabelledBy = mergeAriaIds(ariaLabelledBy, labelId);
 
-  const toggleFeature = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    if(disabled) return;
+  const toggleFeature: MouseEventHandler<HTMLButtonElement> = (event) => {
+    onClick?.(event);
+    if(event.defaultPrevented || effectiveDisabled) return;
 
     const nextValue = !checked;
     if(!isControlled) setUncontrolledValue(nextValue);
@@ -155,14 +175,13 @@ const GlToggle = forwardRef<HTMLButtonElement, GlToggleProps>(function GlToggle(
 
   return (
     <div
-      {...elementProps}
-      ref={wrapperRef}
+      data-testid="toggle-wrapper"
+      {...wrapperElementProps}
       className={wrapperVariants({
-        className,
-        disabled,
+        className: wrapperClassName,
+        disabled: effectiveDisabled,
         layout: isVerticalLayout ? "vertical" : "inline",
-      })}
-      data-testid="toggle-wrapper">
+      })}>
       <span
         className={labelVariants({
           hidden: labelPosition === "hidden",
@@ -177,19 +196,26 @@ const GlToggle = forwardRef<HTMLButtonElement, GlToggleProps>(function GlToggle(
           {description}
         </span>
       ) : null}
-      {name ? <input name={name} type="hidden" value={String(checked)} /> : null}
+      {name ? <input form={form} name={name} type="hidden" value={String(checked)} /> : null}
       <button
+        {...buttonProps}
         aria-checked={checked}
-        aria-describedby={shouldRenderHelp ? helpId : undefined}
-        aria-disabled={disabled || undefined}
-        aria-labelledby={labelId}
-        className={toggleVariants({ checked, disabled: disabled || isLoading, loading: isLoading })}
-        disabled={disabled}
+        aria-describedby={computedAriaDescribedBy}
+        aria-disabled={effectiveDisabled || undefined}
+        aria-labelledby={computedAriaLabelledBy}
+        className={toggleVariants({
+          checked,
+          className,
+          disabled: effectiveDisabled,
+          loading,
+        })}
+        disabled={effectiveDisabled}
+        form={form}
         onClick={toggleFeature}
-        ref={forwardedRef}
+        ref={buttonRef}
         role="switch"
         type="button">
-        {isLoading ? (
+        {loading ? (
           <GlLoadingIcon className="toggle-loading" color="dark" />
         ) : (
           <span className="toggle-icon">

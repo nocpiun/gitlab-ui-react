@@ -7,6 +7,7 @@
  * The upstream `show` model maps to open/defaultOpen/onOpenChange.
  */
 
+import type { GlOverlayOpenChangeDetails } from "../../internal/overlay/overlay-types";
 import {
   cloneElement,
   createContext,
@@ -29,6 +30,8 @@ import {
   resolveTriggerRender,
   type GlTriggerAsChildProps,
 } from "../../internal/trigger/trigger-composition";
+import { mapOverlayOpenChangeDetails } from "../../internal/overlay/overlay-utils";
+import { mergeAriaIds } from "../../internal/utils/merge-aria-ids";
 import { useMergedRefs } from "../../internal/utils/merge-refs";
 import { getGlTooltipDefaultContainer } from "./container";
 
@@ -49,7 +52,9 @@ export type GlTooltipProps = {
   /** Prevents the tooltip content from being hovered without closing. */
   noninteractive?: boolean;
   /** Called when user interaction requests an open-state change. */
-  onOpenChange?: (open: boolean) => void;
+  onOpenChange?: (open: boolean, details: GlOverlayOpenChangeDetails) => void;
+  /** Called after the opening or closing transition finishes. */
+  onOpenChangeComplete?: (open: boolean) => void;
   /** Controlled open state. */
   open?: boolean;
 };
@@ -154,14 +159,6 @@ function physicalPlacement(side: BaseTooltip.Popup.State["side"]): GlTooltipPlac
   return side;
 }
 
-function mergeAriaDescribedBy(
-  existingValue: string | undefined,
-  tooltipId: string | undefined,
-): string | undefined {
-  const ids = `${existingValue ?? ""} ${tooltipId ?? ""}`.trim().split(/\s+/).filter(Boolean);
-  return ids.length > 0 ? [...new Set(ids)].join(" ") : undefined;
-}
-
 export function resolveTooltipBoundary(
   boundary: GlTooltipContentProps["boundary"] = "clipping-ancestors",
 ): BaseTooltip.Positioner.Props["collisionBoundary"] {
@@ -193,6 +190,7 @@ export default function GlTooltip({
   id,
   noninteractive = false,
   onOpenChange,
+  onOpenChangeComplete,
   open,
 }: GlTooltipProps) {
   const generatedId = useId();
@@ -202,22 +200,28 @@ export default function GlTooltip({
   const requestedOpen = open ?? uncontrolledOpen;
   const isOpen = !disabled && requestedOpen;
 
-  const handleOpenChange = useCallback((nextOpen: boolean) => {
+  const handleOpenChange = useCallback((
+    nextOpen: boolean,
+    details: BaseTooltip.Root.ChangeEventDetails,
+  ) => {
     if(nextOpen === requestedOpen) return;
 
     if(!isControlled) setUncontrolledOpen(nextOpen);
-    onOpenChange?.(nextOpen);
+    onOpenChange?.(nextOpen, mapOverlayOpenChangeDetails(details));
   }, [isControlled, onOpenChange, requestedOpen]);
 
-  const notifyOpenChange = useEffectEvent((nextOpen: boolean) => {
-    onOpenChange?.(nextOpen);
+  const notifyOpenChange = useEffectEvent((
+    nextOpen: boolean,
+    details: GlOverlayOpenChangeDetails,
+  ) => {
+    onOpenChange?.(nextOpen, details);
   });
 
   useEffect(() => {
     if(!disabled || !requestedOpen) return;
 
     if(!isControlled) setUncontrolledOpen(false);
-    notifyOpenChange(false);
+    notifyOpenChange(false, { event: new Event("disabled"), reason: "disabled" });
   }, [disabled, isControlled, requestedOpen]);
 
   const context = useMemo<TooltipContextValue>(() => ({
@@ -235,6 +239,7 @@ export default function GlTooltip({
         disabled={disabled}
         disableHoverablePopup={noninteractive}
         onOpenChange={handleOpenChange}
+        onOpenChangeComplete={onOpenChangeComplete}
         open={isOpen}>
         {children}
       </BaseTooltip.Root>
@@ -263,11 +268,11 @@ export const GlTooltipTrigger = forwardRef<HTMLElement, GlTooltipTriggerProps>(
     const childAriaDescribedBy = asChild
       ? (triggerRender.props as { "aria-describedby"?: string })["aria-describedby"]
       : undefined;
-    const existingAriaDescribedBy = mergeAriaDescribedBy(
+    const existingAriaDescribedBy = mergeAriaIds(
       ariaDescribedBy,
       childAriaDescribedBy,
     );
-    const describedBy = mergeAriaDescribedBy(
+    const describedBy = mergeAriaIds(
       existingAriaDescribedBy,
       context.open ? context.tooltipId : undefined,
     );
