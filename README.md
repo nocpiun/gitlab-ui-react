@@ -42,9 +42,6 @@ GitLab UI for React ports that component library to React. The project aims to m
 
 Contributions to this project are welcomed. You can fork this project and start your contributing. If you don't know how to do, please follow the instruction [Creating a Pull Request from a Fork](https://docs.github.com/en/pull-requests/how-tos/create-pull-requests/creating-a-pull-request-from-a-fork).
 
-Maintainers can find the automated versioning, npm authentication, and
-prerelease instructions in [RELEASING.md](./RELEASING.md).
-
 ## License
 
 [MIT](./LICENSE)
