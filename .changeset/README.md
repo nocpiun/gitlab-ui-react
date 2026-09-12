@@ -57,5 +57,3 @@ ordinary installs therefore receive the newest prerelease.
 
 Files named `.changeset/auto-*.md` are reserved for CI and must not be committed.
 The release bot owns `.changeset/release-state.json`; do not edit it manually.
-See [`RELEASING.md`](../RELEASING.md) for initial npm authentication and trusted
-publisher setup.
