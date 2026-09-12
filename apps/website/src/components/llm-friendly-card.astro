@@ -55,17 +55,20 @@ const links = [
 </div>
 
 <script>
-  document.querySelectorAll<HTMLButtonElement>("[data-copy-prompt]").forEach((button) => {
-    button.addEventListener("click", async () => {
-      const prompt = button.dataset.copyPrompt;
+  document.addEventListener("click", async (event) => {
+    if(!(event.target instanceof Element)) return;
 
-      try {
-        if(!prompt) throw new Error("Missing prompt");
-        await navigator.clipboard.writeText(prompt);
-        window.alert(button.dataset.copySuccess);
-      } catch {
-        window.alert(button.dataset.copyFailed);
-      }
-    });
+    const button = event.target.closest<HTMLButtonElement>("button[data-copy-prompt]");
+    if(!button) return;
+
+    const prompt = button.dataset.copyPrompt;
+
+    try {
+      if(!prompt) throw new Error("Missing prompt");
+      await navigator.clipboard.writeText(prompt);
+      window.alert(button.dataset.copySuccess);
+    } catch {
+      window.alert(button.dataset.copyFailed);
+    }
   });
 </script>
