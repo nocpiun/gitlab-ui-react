@@ -1,6 +1,6 @@
 {
   "name": "@gitlab-ui-react/tokens",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Design tokens for GitLab UI React",
   "type": "module",
   "repository": {

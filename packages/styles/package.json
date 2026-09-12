@@ -1,6 +1,6 @@
 {
   "name": "@gitlab-ui-react/styles",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Styles for GitLab UI React",
   "type": "module",
   "repository": {
