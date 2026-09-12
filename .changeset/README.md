@@ -29,6 +29,16 @@ request that should be a major release, run `pnpm changeset`, select all three
 packages with a `major` bump, commit the generated Markdown file, and merge it
 to `main`. The rolling version pull request will update automatically.
 
+## Pending release snapshots
+
+Each version pull request records its source commit in
+`.changeset/release-state.json`. If release-worthy commits reach `main` after
+that snapshot, the release workflow creates another version pull request
+instead of publishing newer code under the stale version. The replacement
+version consolidates all unpublished changelog entries and removes version
+sections that never reached npm. Missing, malformed, or unreachable snapshot
+state blocks publishing rather than silently dropping commits.
+
 ## Prerelease lifecycle
 
 Before entering prerelease mode, publish all pending `0.x` changes.
@@ -46,5 +56,6 @@ Prereleases intentionally become npm's `latest` version. During alpha and beta,
 ordinary installs therefore receive the newest prerelease.
 
 Files named `.changeset/auto-*.md` are reserved for CI and must not be committed.
+The release bot owns `.changeset/release-state.json`; do not edit it manually.
 See [`RELEASING.md`](../RELEASING.md) for initial npm authentication and trusted
 publisher setup.

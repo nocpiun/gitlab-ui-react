@@ -38,10 +38,19 @@ export type PackageReleaseState = PackageDefinition & {
   commits: Commit[];
   currentVersion: string;
   fromTag: string | null;
+  fromRevision: string | null;
   latestTag: string | null;
+  pendingPublication: boolean;
+};
+
+export type ReleaseSnapshot = {
+  coveredThrough: string;
+  manualNotes?: Record<string, string[]>;
+  version: string;
 };
 
 export const INITIAL_UNPUBLISHED_VERSION = "0.0.0";
+export const RELEASE_SNAPSHOT_FILE = ".changeset/release-state.json";
 
 export const PUBLISHABLE_PACKAGES: PackageDefinition[] = [
   { directory: "packages/ui", name: "gitlab-ui-react" },
@@ -65,6 +74,65 @@ function git(args: string[], cwd: string): string {
     encoding: "utf8",
     stdio: ["ignore", "pipe", "pipe"],
   }).trim();
+}
+
+function gitSucceeds(args: string[], cwd: string): boolean {
+  try {
+    execFileSync("git", args, {
+      cwd,
+      stdio: "ignore",
+    });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function isManualNotes(value: unknown): value is Record<string, string[]> {
+  if(typeof value !== "object" || value === null || Array.isArray(value)) return false;
+  return Object.values(value).every(
+    (notes) => Array.isArray(notes) && notes.every((note) => typeof note === "string"),
+  );
+}
+
+export function readReleaseSnapshot(root = REPOSITORY_ROOT): ReleaseSnapshot | null {
+  const snapshotPath = join(root, RELEASE_SNAPSHOT_FILE);
+  if(!existsSync(snapshotPath)) return null;
+
+  let snapshot: unknown;
+  try {
+    snapshot = JSON.parse(readFileSync(snapshotPath, "utf8"));
+  } catch (error) {
+    throw new Error(`Could not parse ${RELEASE_SNAPSHOT_FILE}.`, { cause: error });
+  }
+
+  if(
+    typeof snapshot !== "object" ||
+    snapshot === null ||
+    !("version" in snapshot) ||
+    typeof snapshot.version !== "string" ||
+    !("coveredThrough" in snapshot) ||
+    typeof snapshot.coveredThrough !== "string" ||
+    !/^[0-9a-f]{40}(?:[0-9a-f]{24})?$/i.test(snapshot.coveredThrough) ||
+    ("manualNotes" in snapshot &&
+      snapshot.manualNotes !== undefined &&
+      !isManualNotes(snapshot.manualNotes))
+  ) {
+    throw new Error(`${RELEASE_SNAPSHOT_FILE} has an invalid release snapshot.`);
+  }
+
+  return snapshot as ReleaseSnapshot;
+}
+
+export function writeReleaseSnapshot(
+  snapshot: ReleaseSnapshot,
+  root = REPOSITORY_ROOT,
+): void {
+  writeFileSync(
+    join(root, RELEASE_SNAPSHOT_FILE),
+    `${JSON.stringify(snapshot, null, 2)}\n`,
+    "utf8",
+  );
 }
 
 export function conventionalParts(subject: string, body = ""): ConventionalParts | null {
@@ -207,7 +275,7 @@ export function latestPackageTagFromTags(
 }
 
 export type GenerationDecision = {
-  action: "error" | "generate" | "skip";
+  action: "error" | "generate" | "pending";
   reason: string;
 };
 
@@ -220,7 +288,7 @@ export function decideGeneration(
       return { action: "generate", reason: "unpublished package at the initial baseline" };
     }
     return {
-      action: "skip",
+      action: "pending",
       reason: `package version ${packageVersion} is awaiting its first publish`,
     };
   }
@@ -228,7 +296,7 @@ export function decideGeneration(
   const comparison = compareVersions(packageVersion, latestTagVersion);
   if(comparison > 0) {
     return {
-      action: "skip",
+      action: "pending",
       reason: `package version ${packageVersion} is ahead of tag ${latestTagVersion}`,
     };
   }
@@ -305,7 +373,7 @@ function commitsAfter(root: string, tag: string | null): Commit[] {
 
 export function collectReleaseStates(
   root = REPOSITORY_ROOT,
-  options: { stableRange?: boolean } = {},
+  options: { includePendingHistory?: boolean; stableRange?: boolean } = {},
 ): PackageReleaseState[] {
   const versions = Object.fromEntries(
     PUBLISHABLE_PACKAGES.map((definition) => [
@@ -313,37 +381,68 @@ export function collectReleaseStates(
       readPackageVersion(root, definition),
     ]),
   );
-  assertFixedVersions(versions);
+  const fixedVersion = assertFixedVersions(versions);
 
   const tagOutput = git(["tag", "--list"], root);
   const tags = tagOutput ? tagOutput.split("\n").filter(Boolean) : [];
   const commitCache = new Map<string, Commit[]>();
 
-  return PUBLISHABLE_PACKAGES.map((definition) => {
+  const packageStates = PUBLISHABLE_PACKAGES.map((definition) => {
     const currentVersion = versions[definition.name];
     const latestTag = latestPackageTagFromTags(tags, definition.name);
     const decision = decideGeneration(currentVersion, latestTag?.version ?? null);
     if(decision.action === "error") {
       throw new Error(`${definition.name}: ${decision.reason}`);
     }
+    return { currentVersion, decision, definition, latestTag };
+  });
 
+  const hasPendingPublication = packageStates.some(
+    ({ decision }) => decision.action === "pending",
+  );
+  const snapshot = hasPendingPublication ? readReleaseSnapshot(root) : null;
+  if(hasPendingPublication && !snapshot) {
+    throw new Error(
+      `${RELEASE_SNAPSHOT_FILE} is required while package version ${fixedVersion} is ahead of its latest tag.`,
+    );
+  }
+  if(snapshot && snapshot.version !== fixedVersion) {
+    throw new Error(
+      `${RELEASE_SNAPSHOT_FILE} describes version ${snapshot.version}, but package manifests contain ${fixedVersion}.`,
+    );
+  }
+  if(
+    snapshot &&
+    !gitSucceeds(["merge-base", "--is-ancestor", snapshot.coveredThrough, "HEAD"], root)
+  ) {
+    throw new Error(
+      `${RELEASE_SNAPSHOT_FILE} coveredThrough ${snapshot.coveredThrough} is not an ancestor of HEAD.`,
+    );
+  }
+
+  return packageStates.map(({ currentVersion, decision, definition, latestTag }) => {
     const rangeTag = options.stableRange
       ? latestPackageTagFromTags(tags, definition.name, true)
       : latestTag;
-    const cacheKey = rangeTag?.tag ?? "<all-history>";
-    let commits: Commit[] = [];
-    if(decision.action === "generate") {
-      commits = commitCache.get(cacheKey) ?? commitsAfter(root, rangeTag?.tag ?? null);
-      commitCache.set(cacheKey, commits);
-    }
+    const fromRevision =
+      decision.action === "pending" && !options.includePendingHistory
+        ? snapshot!.coveredThrough
+        : rangeTag?.tag ?? null;
+    const cacheKey = fromRevision ?? "<all-history>";
+    const commits = commitCache.get(cacheKey) ?? commitsAfter(root, fromRevision);
+    commitCache.set(cacheKey, commits);
 
-    console.log(`[release] ${definition.name}: ${decision.action} (${decision.reason})`);
+    console.log(
+      `[release] ${definition.name}: ${decision.action} (${decision.reason}); scanning ${fromRevision ?? "all history"}..HEAD`,
+    );
     return {
       ...definition,
       currentVersion,
       latestTag: latestTag?.tag ?? null,
       fromTag: rangeTag?.tag ?? null,
+      fromRevision,
       commits,
+      pendingPublication: decision.action === "pending",
     };
   });
 }

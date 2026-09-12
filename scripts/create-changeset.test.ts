@@ -12,6 +12,7 @@ import {
   latestPackageTagFromTags,
   renderChangeset,
   run,
+  writeReleaseSnapshot,
 } from "./create-changeset.mts";
 
 const temporaryDirectories: string[] = [];
@@ -29,6 +30,13 @@ function commit(root: string, message: string): void {
     ["-c", "commit.gpgSign=false", "commit", "-m", message],
     { cwd: root },
   );
+}
+
+function head(root: string): string {
+  return execFileSync("git", ["rev-parse", "HEAD"], {
+    cwd: root,
+    encoding: "utf8",
+  }).trim();
 }
 
 describe("automatic release classification", () => {
@@ -86,8 +94,8 @@ describe("release tag state", () => {
 
   it("distinguishes initial versioning from a pending first publish", () => {
     expect(decideGeneration("0.0.0", null).action).toBe("generate");
-    expect(decideGeneration("0.1.0", null).action).toBe("skip");
-    expect(decideGeneration("0.2.0", "0.1.0").action).toBe("skip");
+    expect(decideGeneration("0.1.0", null).action).toBe("pending");
+    expect(decideGeneration("0.2.0", "0.1.0").action).toBe("pending");
     expect(decideGeneration("0.1.0", "0.1.0").action).toBe("generate");
     expect(decideGeneration("0.1.0", "0.2.0").action).toBe("error");
   });
@@ -135,6 +143,7 @@ describe("automatic changeset generation", () => {
     execFileSync("git", ["config", "user.email", "release-test@example.com"], { cwd: root });
     execFileSync("git", ["config", "user.name", "Release Test"], { cwd: root });
     commit(root, "feat(packages): create public packages");
+    const initialSnapshot = head(root);
 
     const initial = run(root);
     expect(initial.bumps).toEqual({
@@ -153,6 +162,7 @@ describe("automatic changeset generation", () => {
         `${JSON.stringify({ name, version: "0.1.0" }, null, 2)}\n`,
       );
     }
+    writeReleaseSnapshot({ coveredThrough: initialSnapshot, version: "0.1.0" }, root);
     commit(root, "chore: version packages");
 
     expect(run(root)).toEqual({ bumps: {}, written: null });
@@ -180,6 +190,8 @@ describe("automatic changeset generation", () => {
     const rollingChangeset = readFileSync(secondUpdate.written!, "utf8");
     expect(rollingChangeset).toContain("fix(button): correct focus");
     expect(rollingChangeset).toContain("feat(styles): add button styles");
+    const secondSnapshot = head(root);
+    unlinkSync(secondUpdate.written!);
 
     for(const [directory, name] of packages) {
       writeFileSync(
@@ -187,6 +199,7 @@ describe("automatic changeset generation", () => {
         `${JSON.stringify({ name, version: "0.2.0" }, null, 2)}\n`,
       );
     }
+    writeReleaseSnapshot({ coveredThrough: secondSnapshot, version: "0.2.0" }, root);
     commit(root, "chore: version packages");
     expect(run(root)).toEqual({ bumps: {}, written: null });
 
@@ -208,6 +221,8 @@ describe("automatic changeset generation", () => {
     expect(readFileSync(tokenSync.written!, "utf8")).toContain(
       "chore(tokens): sync upstream design tokens",
     );
+    const tokenSnapshot = head(root);
+    unlinkSync(tokenSync.written!);
 
     for(const [directory, name] of packages) {
       writeFileSync(
@@ -215,6 +230,7 @@ describe("automatic changeset generation", () => {
         `${JSON.stringify({ name, version: "0.2.1" }, null, 2)}\n`,
       );
     }
+    writeReleaseSnapshot({ coveredThrough: tokenSnapshot, version: "0.2.1" }, root);
     commit(root, "chore: version packages");
     expect(run(root)).toEqual({ bumps: {}, written: null });
     for(const [, name] of packages) {
@@ -237,5 +253,5 @@ describe("automatic changeset generation", () => {
       "@gitlab-ui-react/styles": "patch",
       "@gitlab-ui-react/tokens": "patch",
     });
-  });
+  }, 30_000);
 });

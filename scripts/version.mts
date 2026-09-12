@@ -7,9 +7,12 @@ import { fileURLToPath } from "node:url";
 
 import {
   PUBLISHABLE_PACKAGES,
+  assertFixedVersions,
   collectReleaseStates,
   conventionalParts,
+  readReleaseSnapshot,
   releaseCommitsForPackage,
+  writeReleaseSnapshot,
   type Commit,
 } from "./create-changeset.mts";
 
@@ -22,6 +25,10 @@ type PreState = {
 export type ManualChangeset = {
   packages: string[];
   summary: string;
+};
+
+export type VersionRunOptions = {
+  runChangesetVersion?: () => void;
 };
 
 const SCRIPT_DIRECTORY = dirname(fileURLToPath(import.meta.url));
@@ -208,6 +215,31 @@ export function rewriteReleaseSection(
   return `${rebuilt}\n`;
 }
 
+export function removeReleaseSection(changelog: string, version: string): string {
+  const lines = changelog.split("\n");
+  const heading = `## ${version}`;
+  const start = lines.findIndex((line) => line.trim() === heading);
+  if(start === -1) return changelog;
+
+  let end = lines.length;
+  for(let index = start + 1; index < lines.length; index += 1) {
+    if(/^##\s+\S/.test(lines[index])) {
+      end = index;
+      break;
+    }
+  }
+
+  const rebuilt = [...lines.slice(0, start), ...lines.slice(end)]
+    .join("\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .replace(/\s+$/, "");
+  return `${rebuilt}\n`;
+}
+
+function uniqueNotes(...groups: Array<readonly string[] | undefined>): string[] {
+  return [...new Set(groups.flatMap((notes) => notes ?? []))];
+}
+
 function readVersions(root: string): Record<string, string> {
   return Object.fromEntries(
     PUBLISHABLE_PACKAGES.map(({ directory, name }) => {
@@ -248,23 +280,41 @@ function resetPrereleaseCounters(root: string, preState: PreState | null): void 
   }
 }
 
-export function run(root = REPOSITORY_ROOT): void {
+export function run(root = REPOSITORY_ROOT, options: VersionRunOptions = {}): void {
   const preState = readPreState(root);
+  const previousSnapshot = readReleaseSnapshot(root);
   const releaseStates = collectReleaseStates(root, {
+    includePendingHistory: true,
     stableRange: preState?.mode === "exit",
   });
   const manualNotes = loadManualNotes(root, preState);
   const before = readVersions(root);
+  const coveredThrough = execFileSync("git", ["rev-parse", "HEAD"], {
+    cwd: root,
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "pipe"],
+  }).trim();
 
   resetPrereleaseCounters(root, preState);
   console.log("[release] Running `changeset version`.");
-  const version = pnpmInvocation(["exec", "changeset", "version"]);
-  execFileSync(version.command, version.args, {
-    cwd: root,
-    stdio: "inherit",
-  });
+  if(options.runChangesetVersion) {
+    options.runChangesetVersion();
+  } else {
+    const version = pnpmInvocation(["exec", "changeset", "version"]);
+    execFileSync(version.command, version.args, {
+      cwd: root,
+      stdio: "inherit",
+    });
+  }
 
   const after = readVersions(root);
+  const nextFixedVersion = assertFixedVersions(after);
+  const previousFixedVersion = assertFixedVersions(before);
+  if(nextFixedVersion === previousFixedVersion) {
+    throw new Error("`changeset version` did not advance the fixed package version.");
+  }
+
+  const snapshotManualNotes: Record<string, string[]> = {};
   for(const state of releaseStates) {
     const nextVersion = after[state.name];
     if(!nextVersion || nextVersion === before[state.name]) continue;
@@ -275,15 +325,44 @@ export function run(root = REPOSITORY_ROOT): void {
     }
 
     const commits = releaseCommitsForPackage(state);
-    const body = groupedChangelogBody(commits, manualNotes.get(state.name));
+    const inheritedManualNotes =
+      state.pendingPublication && previousSnapshot?.version === state.currentVersion
+        ? previousSnapshot.manualNotes?.[state.name]
+        : undefined;
+    const combinedManualNotes = uniqueNotes(
+      inheritedManualNotes,
+      manualNotes.get(state.name),
+    );
+    if(combinedManualNotes.length > 0) {
+      snapshotManualNotes[state.name] = combinedManualNotes;
+    }
+
+    const body = groupedChangelogBody(commits, combinedManualNotes);
     const original = readFileSync(changelogPath, "utf8");
-    const updated = rewriteReleaseSection(original, nextVersion, body);
+    let updated = rewriteReleaseSection(original, nextVersion, body);
     if(updated === original) {
       throw new Error(`Could not find ${nextVersion} in ${state.directory}/CHANGELOG.md.`);
+    }
+    if(state.pendingPublication) {
+      updated = removeReleaseSection(updated, state.currentVersion);
     }
     writeFileSync(changelogPath, updated, "utf8");
     console.log(`[release] Rewrote ${state.directory}/CHANGELOG.md for ${nextVersion}.`);
   }
+
+  writeReleaseSnapshot(
+    {
+      coveredThrough,
+      ...(Object.keys(snapshotManualNotes).length > 0
+        ? { manualNotes: snapshotManualNotes }
+        : {}),
+      version: nextFixedVersion,
+    },
+    root,
+  );
+  console.log(
+    `[release] Recorded ${nextFixedVersion} snapshot through ${coveredThrough}.`,
+  );
 }
 
 function isDirectRun(): boolean {

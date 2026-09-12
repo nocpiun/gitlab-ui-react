@@ -5,6 +5,7 @@ import {
   contributorNames,
   groupedChangelogBody,
   parseManualChangeset,
+  removeReleaseSection,
   rewriteReleaseSection,
 } from "./version.mts";
 
@@ -91,6 +92,29 @@ Prepare the first alpha release.
     expect(rewritten).toContain("## 0.2.0\n\n### Features\n\n- new component");
     expect(rewritten).toContain("## 0.1.0\n\n- previous");
     expect(rewritten).not.toContain("### Minor Changes");
+  });
+
+  it("removes a release section that was never published", () => {
+    const changelog = `# gitlab-ui-react
+
+## 0.2.0
+
+- current
+
+## 0.1.1
+
+- superseded
+
+## 0.1.0
+
+- published
+`;
+    const updated = removeReleaseSection(changelog, "0.1.1");
+
+    expect(updated).toContain("## 0.2.0\n\n- current");
+    expect(updated).toContain("## 0.1.0\n\n- published");
+    expect(updated).not.toContain("## 0.1.1");
+    expect(updated).not.toContain("superseded");
   });
 });
 
