@@ -1,8 +1,19 @@
 {
   "name": "gitlab-ui-react",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "GitLab UI components for React",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nocpiun/gitlab-ui-react.git",
+    "directory": "packages/ui"
+  },
+  "homepage": "https://glui.nocp.space",
+  "bugs": "https://github.com/nocpiun/gitlab-ui-react/issues",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "exports": {
     "./*": {
       "types": "./dist/base/*/index.d.ts",
