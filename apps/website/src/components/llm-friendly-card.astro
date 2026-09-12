@@ -1,0 +1,74 @@
+---
+import { GlLink } from "gitlab-ui-react";
+import { formatTemplate, type Locale } from "../i18n/config";
+import { siteMessages } from "../i18n/messages";
+
+interface Props {
+  className?: string;
+  href: string;
+  locale: Locale;
+}
+
+const { className, href, locale } = Astro.props;
+const messages = siteMessages[locale].docs.llmFriendly;
+const markdownUrl = new URL(href, Astro.site);
+const prompt = formatTemplate(messages.prompt, { url: markdownUrl.toString() });
+
+function createPromptUrl(baseUrl: string) {
+  const url = new URL(baseUrl);
+  url.searchParams.set("q", prompt);
+  return url.toString();
+}
+
+const links = [
+  { href: markdownUrl.toString(), label: messages.link },
+  { href: createPromptUrl("https://chatgpt.com/"), label: messages.chatGptLink },
+  { href: createPromptUrl("https://chat.deepseek.com/"), label: messages.deepSeekLink },
+  { href: createPromptUrl("https://claude.ai/new"), label: messages.claudeLink },
+];
+---
+
+<div class:list={["rounded-lg border border-section bg-subtle p-4", className]}>
+  <p class="m-0 text-sm text-subtle">{messages.hint}</p>
+  <ul class="mt-3 mb-0 space-y-1 ps-5 text-sm">
+    {
+      links.map((link) => (
+        <li>
+          <GlLink href={link.href} showExternalIcon target="_blank">
+            {link.label}
+          </GlLink>
+        </li>
+      ))
+    }
+    <li>
+      <button
+        class="gl-link hover:underline appearance-none border-0 bg-transparent p-0"
+        data-copy-failed={messages.copyFailed}
+        data-copy-prompt={prompt}
+        data-copy-success={messages.copied}
+        type="button"
+      >
+        {messages.copyPrompt}
+      </button>
+    </li>
+  </ul>
+</div>
+
+<script>
+  document.addEventListener("click", async (event) => {
+    if(!(event.target instanceof Element)) return;
+
+    const button = event.target.closest<HTMLButtonElement>("button[data-copy-prompt]");
+    if(!button) return;
+
+    const prompt = button.dataset.copyPrompt;
+
+    try {
+      if(!prompt) throw new Error("Missing prompt");
+      await navigator.clipboard.writeText(prompt);
+      window.alert(button.dataset.copySuccess);
+    } catch {
+      window.alert(button.dataset.copyFailed);
+    }
+  });
+</script>
