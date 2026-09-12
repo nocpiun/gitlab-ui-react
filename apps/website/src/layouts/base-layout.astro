@@ -13,6 +13,7 @@ interface Props {
   locale: Locale;
   title: string;
   description?: string;
+  markdownPath?: string;
 }
 
 const {
@@ -20,6 +21,7 @@ const {
   locale,
   title,
   description = "GitLab UI for React",
+  markdownPath,
 } = Astro.props;
 const switchPath = localeSwitchPath(locale, alternatePaths);
 const searchInstance = docsSearchInstance(locale);
@@ -33,6 +35,10 @@ const searchInstance = docsSearchInstance(locale);
     <meta name="description" content={description} />
     <title>{title}</title>
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="describedby" type="text/markdown" href={new URL("/llms.txt", Astro.site)} />
+    {markdownPath && (
+      <link rel="alternate" type="text/markdown" href={new URL(markdownPath, Astro.site)} />
+    )}
     {alternatePaths.en && (
       <link rel="alternate" hreflang="en" href={new URL(alternatePaths.en, Astro.site)} />
     )}

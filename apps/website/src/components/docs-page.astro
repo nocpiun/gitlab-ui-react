@@ -7,6 +7,7 @@ import { DocsNavigation } from "./docs-navigation";
 import { DocsTableOfContents } from "./docs-table-of-contents";
 import { localizedDocsComponents } from "./localized-docs-components";
 import type { Locale } from "../i18n/config";
+import { docsMarkdownPath } from "../llm";
 import { siteMessages } from "../i18n/messages";
 import BaseLayout from "../layouts/base-layout.astro";
 
@@ -28,6 +29,7 @@ const mdxComponents = localizedDocsComponents(locale);
   alternatePaths={alternatePaths}
   description={entry.data.description ?? entry.data.title}
   locale={locale}
+  markdownPath={docsMarkdownPath(locale, currentId)}
   title={entry.data.title + " · GitLab UI React"}>
   <div>
     <div class="mx-6 sm:mx-8 lg:mx-12 xl:mx-16 2xl:mx-28">
