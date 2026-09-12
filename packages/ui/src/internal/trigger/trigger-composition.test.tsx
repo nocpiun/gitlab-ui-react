@@ -5,13 +5,11 @@ import {
   type ReactNode,
 } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
   resolveTriggerContent,
   resolveTriggerRender,
 } from "./trigger-composition";
-
-vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
 
 describe("trigger composition", () => {
   it("creates a GitLab button for default trigger content", () => {

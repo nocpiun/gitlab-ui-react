@@ -184,9 +184,6 @@ importers:
       '@base-ui/react':
         specifier: ^1.7.0
         version: 1.7.0(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@gitlab/svgs':
-        specifier: ^3.163.0
-        version: 3.163.0
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -200,6 +197,9 @@ importers:
         specifier: 10.6.0
         version: 10.6.0
     devDependencies:
+      '@gitlab/svgs':
+        specifier: ^3.163.0
+        version: 3.163.0
       '@types/react':
         specifier: ^19.2.18
         version: 19.2.18

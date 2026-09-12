@@ -10,10 +10,8 @@
 import type { ComponentProps } from "react";
 import { createRef } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import GlAccordion, { GlAccordionItem } from "./accordion";
-
-vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
 
 const renderAccordion = (
   itemProps: Partial<ComponentProps<typeof GlAccordionItem>> = {},

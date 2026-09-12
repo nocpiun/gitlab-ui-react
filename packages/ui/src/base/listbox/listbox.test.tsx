@@ -20,8 +20,6 @@ import {
 } from "./listbox-group";
 import GlListboxSearchInput from "./listbox-search-input";
 
-vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
-
 describe("GlListbox", () => {
   it("renders listbox trigger semantics and default appearance", () => {
     const markup = renderToStaticMarkup(

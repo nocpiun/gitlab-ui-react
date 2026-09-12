@@ -1,9 +1,7 @@
 import type { ComponentProps } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import GlToggle, { type GlToggleLabelPosition } from "./toggle";
-
-vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
 
 const renderToggle = (props: ComponentProps<typeof GlToggle> = {}) => renderToStaticMarkup(
   <GlToggle label="toggle label" {...props} />,
@@ -66,7 +64,8 @@ describe("GlToggle", () => {
 
     expect(markup).toContain(`aria-checked="${ariaChecked}"`);
     expect(markup.includes("is-checked")).toBe(hasCheckedClass);
-    expect(markup).toContain(value ? "#check-xs" : "#close-xs");
+    expect(markup).toContain(`data-testid="${value ? "check-xs" : "close-xs"}-icon"`);
+    expect(markup).toContain("<path");
   });
 
   describe("disabled", () => {

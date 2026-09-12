@@ -1,6 +1,6 @@
 import { createRef, type ComponentProps } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, expectTypeOf, it, vi } from "vitest";
+import { describe, expect, expectTypeOf, it } from "vitest";
 import GlTokenSelector, {
   type GlTokenSelectorInputProps,
   type GlTokenSelectorItem,
@@ -8,8 +8,6 @@ import GlTokenSelector, {
   type GlTokenSelectorProps,
 } from "./token-selector";
 import { getAvailableItems, tokenSelectorItemKey } from "./token-selector-helpers";
-
-vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
 
 const selectedItems: GlTokenSelectorItem[] = [
   { id: 1, name: "One", owner: "GitLab" },

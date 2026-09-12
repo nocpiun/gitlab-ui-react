@@ -1,9 +1,7 @@
 import type { ComponentProps } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import GlLabel from "./label";
-
-vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
 
 const defaultProps = {
   backgroundColor: "rgb(204, 204, 204)",
@@ -89,7 +87,8 @@ describe("GlLabel", () => {
 
       expect(markup).toContain("class=\"btn gl-button btn-sm btn-reset btn-reset-tertiary gl-label-close\"");
       expect(markup).toContain("aria-label=\"Remove label - title\"");
-      expect(markup).toContain("href=\"/path/to/icons.svg#close-xs\"");
+      expect(markup).toContain("data-testid=\"close-xs-icon\"");
+      expect(markup).toContain("<path");
       expect(markup).toContain("s12");
     });
 

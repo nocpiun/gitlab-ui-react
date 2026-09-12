@@ -3,8 +3,6 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import GlBadge, { type GlBadgeVariant } from "./badge";
 
-vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
-
 const renderBadge = (
   props: ComponentProps<typeof GlBadge> = {},
   children: ReactNode = "Badge text",
@@ -47,7 +45,8 @@ describe("GlBadge", () => {
 
       expect(markup).toContain("gl-badge-icon");
       expect(markup).toContain("s16");
-      expect(markup).toContain("href=\"/path/to/icons.svg#warning\"");
+      expect(markup).toContain("data-testid=\"warning-icon\"");
+      expect(markup).toContain("<path");
     });
 
     it("renders a 12px icon for the sm icon size", () => {

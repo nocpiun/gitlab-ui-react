@@ -8,12 +8,10 @@
 
 import type { ComponentProps, ReactNode } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import GlBroadcastMessage, {
   type GlBroadcastMessageTheme,
 } from "./broadcast-message";
-
-vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
 
 const themes = [
   "indigo",

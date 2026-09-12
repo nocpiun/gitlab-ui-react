@@ -8,7 +8,7 @@
 
 import { Fragment, createRef, forwardRef, type ComponentPropsWithoutRef } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import GlAvatar from "../avatar/avatar";
 import GlIcon from "../icon/icon";
 import {
@@ -24,8 +24,6 @@ import GlNav, {
   GlSubNavButton,
   GlSubNavItem,
 } from "./nav";
-
-vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
 
 const navItemClass = ["gl", "nav", "item"].join("-");
 
