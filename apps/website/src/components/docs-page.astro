@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import { render } from "astro:content";
 import { GlIcon, GlMarkdown } from "gitlab-ui-react";
 import { DocsCodeBlockCopyButtons } from "./docs-code-block-copy-buttons";
+import LlmFriendlyCard from "./llm-friendly-card.astro";
 import { DocsNavigation } from "./docs-navigation";
 import { DocsTableOfContents } from "./docs-table-of-contents";
 import { localizedDocsComponents } from "./localized-docs-components";
@@ -23,13 +24,14 @@ const { Content, headings } = await render(entry);
 const messages = siteMessages[locale];
 const tableOfContents = headings.filter(({ depth }) => depth >= 2 && depth <= 3);
 const mdxComponents = localizedDocsComponents(locale);
+const markdownPath = docsMarkdownPath(locale, currentId);
 ---
 
 <BaseLayout
   alternatePaths={alternatePaths}
   description={entry.data.description ?? entry.data.title}
   locale={locale}
-  markdownPath={docsMarkdownPath(locale, currentId)}
+  markdownPath={markdownPath}
   title={entry.data.title + " · GitLab UI React"}>
   <div>
     <div class="mx-6 sm:mx-8 lg:mx-12 xl:mx-16 2xl:mx-28">
@@ -53,7 +55,7 @@ const mdxComponents = localizedDocsComponents(locale);
                 )}
               </header>
               {tableOfContents.length > 0 && (
-                <details class="group mb-8 rounded-lg border border-section bg-subtle p-3 min-[1360px]:hidden" data-pagefind-ignore="all">
+                <details class="group mb-4 rounded-lg border border-section bg-subtle p-3 min-[1360px]:hidden" data-pagefind-ignore="all">
                   <summary class="flex cursor-pointer list-none items-center justify-between gap-3 rounded-md px-2 py-1 font-semibold text-heading marker:content-none focus-visible:outline-2 focus-visible:outline-offset-2 [&::-webkit-details-marker]:hidden">
                     {messages.docs.tableOfContents.title}
                     <GlIcon
@@ -69,18 +71,25 @@ const mdxComponents = localizedDocsComponents(locale);
                   />
                 </details>
               )}
+              <LlmFriendlyCard
+                className="mb-8 min-[1360px]:hidden"
+                href={markdownPath}
+                locale={locale}
+              />
               <Content components={mdxComponents} />
             </GlMarkdown>
             <DocsCodeBlockCopyButtons client:load locale={locale} />
           </article>
 
           <aside class="hidden px-5 py-8 min-[1360px]:block">
-            <DocsTableOfContents
-              client:load
-              className="sticky top-8 max-h-[calc(100dvh-4rem)] overflow-y-auto"
-              headings={tableOfContents}
-              locale={locale}
-            />
+            <div class="sticky top-8 max-h-[calc(100dvh-4rem)] overflow-y-auto">
+              <DocsTableOfContents
+                client:load
+                headings={tableOfContents}
+                locale={locale}
+              />
+              <LlmFriendlyCard className="mt-6" href={markdownPath} locale={locale} />
+            </div>
           </aside>
         </div>
       </div>

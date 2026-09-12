@@ -39,6 +39,17 @@ export type SiteMessages = {
       hideSource: string;
       showSource: string;
     };
+    llmFriendly: {
+      chatGptLink: string;
+      deepSeekLink: string;
+      claudeLink: string;
+      copied: string;
+      copyFailed: string;
+      copyPrompt: string;
+      hint: string;
+      link: string;
+      prompt: string;
+    };
     navigation: {
       collapse: string;
       collapseNavigation: string;
@@ -104,6 +115,18 @@ export const siteMessages = {
         hideSource: "Hide source code for {title}",
         showSource: "Show source code for {title}",
       },
+      llmFriendly: {
+        chatGptLink: "Send to ChatGPT",
+        deepSeekLink: "Send to DeepSeek",
+        claudeLink: "Send to Claude",
+        copied: "Prompt copied",
+        copyFailed: "Copy failed",
+        copyPrompt: "Copy prompt",
+        hint: "This docs is LLM-friendly and available as clean Markdown.",
+        link: "View as Markdown",
+        prompt:
+          "I'm looking at this GitLab UI React documentation: {url}.\nHelp me understand how to use it. Read the page first, then be ready to explain concepts, give examples, or help debug based on it.",
+      },
       navigation: {
         collapse: "Collapse",
         collapseNavigation: "Collapse navigation",
@@ -166,6 +189,18 @@ export const siteMessages = {
         storybookLinkLabel: "Storybook（外部链接）",
         hideSource: "隐藏“{title}”的源代码",
         showSource: "显示“{title}”的源代码",
+      },
+      llmFriendly: {
+        chatGptLink: "发送给 ChatGPT",
+        deepSeekLink: "发送给 DeepSeek",
+        claudeLink: "发送给 Claude",
+        copied: "提示词已复制",
+        copyFailed: "复制失败",
+        copyPrompt: "复制提示词",
+        hint: "本文档对 LLM 友好，已提供纯净 Markdown 版本。",
+        link: "查看 Markdown",
+        prompt:
+          "我正在查看这份 GitLab UI React 文档：{url}。\n请先阅读该页面并帮助我理解如何使用它，然后根据文档解释概念、提供示例或协助调试。",
       },
       navigation: {
         collapse: "收起",
