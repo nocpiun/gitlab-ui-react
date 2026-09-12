@@ -36,15 +36,15 @@ import {
   type ReactNode,
 } from "react";
 import { clsx } from "cn";
-import GlFormRadio from "../form-radio/form-radio";
-import SafeHtml from "../../internal/safe-html/safe-html";
-import { normalizeAriaInvalid } from "../../internal/form/aria-invalid-utils";
-import { looseEqual } from "../../internal/form/equality-utils";
-import { normalizeFormOptions } from "../../internal/form/form-options-utils";
+import GlFormRadio from "../form-radio/form-radio.js";
+import SafeHtml from "../../internal/safe-html/safe-html.js";
+import { normalizeAriaInvalid } from "../../internal/form/aria-invalid-utils.js";
+import { looseEqual } from "../../internal/form/equality-utils.js";
+import { normalizeFormOptions } from "../../internal/form/form-options-utils.js";
 import {
   GlFormRadioGroupContext,
   type GlFormRadioGroupContextValue,
-} from "./form-radio-group-context";
+} from "./form-radio-group-context.js";
 
 export type GlFormRadioGroupOption = string | number | {
   /** Value returned when this option is selected. Defaults to `text`. */

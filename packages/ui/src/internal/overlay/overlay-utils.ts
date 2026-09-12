@@ -5,7 +5,7 @@
 import type {
   GlOverlayOpenChangeDetails,
   GlOverlayOpenChangeReason,
-} from "./overlay-types";
+} from "./overlay-types.js";
 
 type BaseOpenChangeDetails = {
   event: Event;

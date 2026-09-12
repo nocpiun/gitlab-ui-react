@@ -22,10 +22,10 @@ import {
   type ReactNode,
 } from "react";
 import { clsx } from "cn";
-import { useMergedRefs } from "../../internal/utils/merge-refs";
-import TokenContainer from "./token-container";
-import TokenSelectorDropdown from "./token-selector-dropdown";
-import { getAvailableItems, getBoundedIndex, idsAreEqual, itemLabel } from "./token-selector-helpers";
+import { useMergedRefs } from "../../internal/utils/merge-refs.js";
+import TokenContainer from "./token-container.js";
+import TokenSelectorDropdown from "./token-selector-dropdown.js";
+import { getAvailableItems, getBoundedIndex, idsAreEqual, itemLabel } from "./token-selector-helpers.js";
 
 export type GlTokenSelectorItemId = string | number;
 

@@ -4,7 +4,7 @@
  * packages/gitlab-ui/src/components/base/token_selector/helpers.js
  */
 
-import type { GlTokenSelectorItem } from "./token-selector";
+import type { GlTokenSelectorItem } from "./token-selector.js";
 
 export function idsAreEqual(
   first: GlTokenSelectorItem["id"],

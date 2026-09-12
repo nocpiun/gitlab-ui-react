@@ -23,7 +23,7 @@ import {
   type ReactNode,
 } from "react";
 import { cva } from "class-variance-authority";
-import GlIcon from "../icon/icon";
+import GlIcon from "../icon/icon.js";
 
 export type GlAttributeListLayout = "horizontal" | "vertical";
 

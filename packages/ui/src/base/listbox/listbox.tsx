@@ -14,7 +14,7 @@ import type {
   GlDropdownOpenChangeDetails,
   GlDropdownPlacement,
   GlDropdownPositioningStrategy,
-} from "../../internal/dropdown/dropdown-types";
+} from "../../internal/dropdown/dropdown-types.js";
 import {
   Children,
   Fragment,
@@ -43,30 +43,30 @@ import { Menu as BaseMenu } from "@base-ui/react/menu";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { cva } from "class-variance-authority";
 import { clsx } from "cn";
-import GlIcon from "../icon/icon";
-import GlLoadingIcon from "../loading-icon/loading-icon";
+import GlIcon from "../icon/icon.js";
+import GlLoadingIcon from "../loading-icon/loading-icon.js";
 import {
   isDropdownItemVisible,
   mapDropdownChangeReason,
   resolveDropdownOffset,
   resolveDropdownPlacement,
   shouldRestoreDropdownFocus,
-} from "../../internal/dropdown/dropdown-utils";
-import { useMergedRefs } from "../../internal/utils/merge-refs";
+} from "../../internal/dropdown/dropdown-utils.js";
+import { useMergedRefs } from "../../internal/utils/merge-refs.js";
 import {
   resolveTriggerContent,
   resolveTriggerRender,
   type GlTriggerAsChildProps,
   type GlTriggerDefaultProps,
-} from "../../internal/trigger/trigger-composition";
+} from "../../internal/trigger/trigger-composition.js";
 import GlListboxSearchInput, {
   type GlListboxSearchInputProps,
-} from "./listbox-search-input";
+} from "./listbox-search-input.js";
 import {
   ListboxContentContext,
   type ListboxContentContextValue,
   type RegisteredListboxItem,
-} from "./listbox-contexts";
+} from "./listbox-contexts.js";
 
 export type GlListboxValue = string | number | null;
 

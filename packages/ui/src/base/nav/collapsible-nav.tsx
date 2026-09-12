@@ -24,15 +24,15 @@ import {
 import { Collapsible as BaseCollapsible } from "@base-ui/react/collapsible";
 import { Dialog as BaseDialog } from "@base-ui/react/dialog";
 import { cva } from "class-variance-authority";
-import { useMergedRefs } from "../../internal/utils/merge-refs";
-import GlButton from "../button/button";
-import GlIcon from "../icon/icon";
+import { useMergedRefs } from "../../internal/utils/merge-refs.js";
+import GlButton from "../button/button.js";
+import GlIcon from "../icon/icon.js";
 import GlPopover, {
   GlPopoverContent,
   GlPopoverTitle,
   GlPopoverTrigger,
-} from "../popover/popover";
-import GlTooltip, { GlTooltipContent, GlTooltipTrigger } from "../tooltip/tooltip";
+} from "../popover/popover.js";
+import GlTooltip, { GlTooltipContent, GlTooltipTrigger } from "../tooltip/tooltip.js";
 import {
   ButtonOwnerContext,
   COLLAPSIBLE_NAV_TOGGLE_MARKER,
@@ -47,14 +47,14 @@ import {
   withoutChildrenAndId,
   type NavProviderContextValue,
   type NavSubNavRenderProps,
-} from "./nav-contexts";
+} from "./nav-contexts.js";
 import {
   GlNavItem,
   useNavButtonInternal,
   type GlNavButtonProps,
   type GlNavProps,
   type GlSubNavProps,
-} from "./nav";
+} from "./nav.js";
 
 export type GlCollapsibleNavProps = Omit<GlNavProps, "id"> & {
   /** The navigation ID is owned by GlNavProvider so every remote toggle shares it. */

@@ -8,7 +8,7 @@
  * - The header close control remains automatic; GlModalClose is a footer action button.
  */
 
-import type { GlOverlayOpenChangeDetails } from "../../internal/overlay/overlay-types";
+import type { GlOverlayOpenChangeDetails } from "../../internal/overlay/overlay-types.js";
 import {
   Children,
   Fragment,
@@ -25,15 +25,15 @@ import {
 } from "react";
 import { Dialog as BaseDialog } from "@base-ui/react/dialog";
 import { cva } from "class-variance-authority";
-import { useMergedRefs } from "../../internal/utils/merge-refs";
+import { useMergedRefs } from "../../internal/utils/merge-refs.js";
 import {
   resolveTriggerContent,
   resolveTriggerRender,
   type GlTriggerAsChildProps,
   type GlTriggerDefaultProps,
-} from "../../internal/trigger/trigger-composition";
-import { mapOverlayOpenChangeDetails } from "../../internal/overlay/overlay-utils";
-import GlButton, { type GlButtonProps } from "../button/button";
+} from "../../internal/trigger/trigger-composition.js";
+import { mapOverlayOpenChangeDetails } from "../../internal/overlay/overlay-utils.js";
+import GlButton, { type GlButtonProps } from "../button/button.js";
 
 export type GlModalSize = "sm" | "md" | "lg";
 

@@ -15,8 +15,8 @@ import {
 } from "react";
 import { useRender } from "@base-ui/react/use-render";
 import { cva } from "class-variance-authority";
-import GlIcon from "../icon/icon";
-import GlLink from "../link/link";
+import GlIcon from "../icon/icon.js";
+import GlLink from "../link/link.js";
 
 export type GlBadgeVariant = "neutral" | "info" | "success" | "warning" | "danger" | "tier";
 export type GlBadgeIconSize = "sm" | "md";

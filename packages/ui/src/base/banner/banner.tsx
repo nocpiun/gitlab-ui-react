@@ -18,8 +18,8 @@ import {
   type ReactNode,
 } from "react";
 import { cva } from "class-variance-authority";
-import GlButton from "../button/button";
-import GlCard, { GlCardContent } from "../card/card";
+import GlButton from "../button/button.js";
+import GlCard, { GlCardContent } from "../card/card.js";
 
 export type GlBannerVariant = "promotion" | "introduction";
 

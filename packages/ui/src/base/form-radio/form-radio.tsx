@@ -38,9 +38,9 @@ import {
 } from "react";
 import { cva } from "class-variance-authority";
 import { clsx } from "cn";
-import { looseEqual } from "../../internal/form/equality-utils";
-import { mergeRefs } from "../../internal/utils/merge-refs";
-import { GlFormRadioGroupContext } from "../form-radio-group/form-radio-group-context";
+import { looseEqual } from "../../internal/form/equality-utils.js";
+import { mergeRefs } from "../../internal/utils/merge-refs.js";
+import { GlFormRadioGroupContext } from "../form-radio-group/form-radio-group-context.js";
 
 type RadioElementProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,

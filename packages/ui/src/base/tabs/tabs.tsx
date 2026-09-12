@@ -28,9 +28,9 @@ import {
 import { Tabs as BaseTabs } from "@base-ui/react/tabs";
 import { cva } from "class-variance-authority";
 import { clsx, type ClassValue } from "cn";
-import GlBadge from "../badge/badge";
-import GlIcon from "../icon/icon";
-import GlTab, { type GlTabProps } from "./tab";
+import GlBadge from "../badge/badge.js";
+import GlIcon from "../icon/icon.js";
+import GlTab, { type GlTabProps } from "./tab.js";
 
 type TabsRootElementProps = Omit<
   HTMLAttributes<HTMLDivElement>,
