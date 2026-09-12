@@ -1,4 +1,4 @@
-import { GlButton } from "gitlab-ui-react";
+import { GlButton } from "gitlab-ui-react/button";
 
 export default function ButtonStatesExample() {
   return (

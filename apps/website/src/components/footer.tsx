@@ -1,4 +1,4 @@
-import { GlLink } from "gitlab-ui-react";
+import { GlLink } from "gitlab-ui-react/link";
 import { githubRepoUrl, storybookUrl } from "../global";
 import { formatTemplate, localizedPath, type Locale } from "../i18n/config";
 import { siteMessages } from "../i18n/messages";

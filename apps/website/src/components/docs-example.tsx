@@ -1,5 +1,7 @@
 import { type ComponentType, useId } from "react";
-import { GlButton, GlCard, GlCardContent, GlCardHeader, GlLink } from "gitlab-ui-react";
+import { GlButton } from "gitlab-ui-react/button";
+import { GlCard, GlCardContent, GlCardHeader } from "gitlab-ui-react/card";
+import { GlLink } from "gitlab-ui-react/link";
 import { createHighlighter } from "shiki";
 import { formatTemplate, type Locale } from "../i18n/config";
 import { siteMessages } from "../i18n/messages";

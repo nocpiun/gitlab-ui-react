@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import { navigate } from "astro:transitions/client";
-import { GlButton, GlListbox, GlListboxContent, GlListboxGroup, GlListboxItem, GlListboxTrigger } from "gitlab-ui-react";
+import { GlButton } from "gitlab-ui-react/button";
+import {
+  GlListbox,
+  GlListboxContent,
+  GlListboxGroup,
+  GlListboxItem,
+  GlListboxTrigger,
+} from "gitlab-ui-react/listbox";
 import { DocsSearchTrigger } from "./docs-search-trigger";
 import { githubRepoUrl, storybookUrl } from "../global";
 import { useAstroSpriteIconKey } from "../hooks/use-astro-sprite-icon-key";

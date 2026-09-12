@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { GlIcon } from "gitlab-ui-react/icon";
 import {
   GlCollapsibleNav,
   GlCollapsibleNavToggle,
-  GlIcon,
   GlNavButton,
   GlNavItem,
   GlNavItemAddon,
@@ -11,7 +11,7 @@ import {
   GlSubNav,
   GlSubNavButton,
   GlSubNavItem,
-} from "gitlab-ui-react";
+} from "gitlab-ui-react/nav";
 import { useAstroSpriteIconKey } from "../hooks/use-astro-sprite-icon-key";
 import { localizedPath, type Locale } from "../i18n/config";
 import { siteMessages } from "../i18n/messages";

@@ -1,11 +1,9 @@
 import { useState } from "react";
-import {
-  GlButton,
-  GlFormCheckbox,
-  GlFormInput,
-  GlFormPasswordInput,
-  GlLink,
-} from "gitlab-ui-react";
+import { GlButton } from "gitlab-ui-react/button";
+import { GlFormCheckbox } from "gitlab-ui-react/form-checkbox";
+import { GlFormInput } from "gitlab-ui-react/form-input";
+import { GlFormPasswordInput } from "gitlab-ui-react/form-password-input";
+import { GlLink } from "gitlab-ui-react/link";
 import { ShowcaseCard } from "../components/showcase-card";
 import { type Locale } from "../i18n/config";
 import { showcaseContent } from "../i18n/showcase-content";

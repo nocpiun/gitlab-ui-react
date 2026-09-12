@@ -1,4 +1,13 @@
-import { GlAvatar, GlIcon, GlNav, GlNavButton, GlNavItem, GlSubNav, GlSubNavButton, GlSubNavItem } from "gitlab-ui-react";
+import { GlAvatar } from "gitlab-ui-react/avatar";
+import { GlIcon } from "gitlab-ui-react/icon";
+import {
+  GlNav,
+  GlNavButton,
+  GlNavItem,
+  GlSubNav,
+  GlSubNavButton,
+  GlSubNavItem,
+} from "gitlab-ui-react/nav";
 import { ShowcaseCard } from "../components/showcase-card";
 import { type Locale } from "../i18n/config";
 import { showcaseContent } from "../i18n/showcase-content";

@@ -14,8 +14,8 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "paths": {
-      "gitlab-ui-react": [
-        "./packages/ui/src/index.ts"
+      "gitlab-ui-react/*": [
+        "./packages/ui/src/base/*/index.ts"
       ]
     },
     "allowImportingTsExtensions": true,

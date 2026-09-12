@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
-import { GlCard, GlCardContent } from "gitlab-ui-react";
+import { GlCard, GlCardContent } from "gitlab-ui-react/card";
 import { clsx } from "cn";
 
 type ShowcaseCardProps = PropsWithChildren<{

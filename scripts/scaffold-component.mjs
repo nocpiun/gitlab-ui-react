@@ -67,7 +67,7 @@ function ensureTrailingEol(contents, eol) {
 }
 
 function assertRepo(root) {
-  for(const relativePath of ["packages/ui/src/index.ts", "packages/styles/src/components.css"]) {
+  for(const relativePath of ["packages/ui/src/base", "packages/styles/src/components.css"]) {
     if(!existsSync(path.join(root, relativePath))) {
       fail(`${root} is not a gitlab-ui-react root; missing ${relativePath}`);
     }
@@ -143,7 +143,6 @@ if(path.isAbsolute(upstreamDir) || upstreamDir.includes("\n") || upstreamDir.inc
   fail("--upstream-dir must be a single-line relative path");
 }
 
-const modulePath = `./base/${options.name}/${options.name}`;
 const componentDir = path.join(root, "packages/ui/src/base", options.name);
 const propsType = types[0];
 const typeDeclarations = types.length
@@ -160,8 +159,22 @@ const provenance = (fileName) => `/**
  * Ported from GitLab UI:
  * ${upstreamDir}/${fileName}
  */`;
+const publicTypeExports = types.length
+  ? `
+
+export type {
+${types
+  .slice()
+  .sort((left, right) => left.localeCompare(right, "en"))
+  .map((typeName) => `  ${typeName},`)
+  .join("\n")}
+} from "./${options.name}.js";`
+  : "";
+const publicEntry =
+  `export { default as ${symbol} } from "./${options.name}.js";${publicTypeExports}\n`;
 
 const files = new Map([
+  ["index.ts", publicEntry],
   [
     `${options.name}.tsx`,
     `${provenance(`${upstreamName}.vue`)}
@@ -209,34 +222,6 @@ const state = { root, dryRun: options.dryRun, created: [], updated: [], skipped:
 for(const [fileName, contents] of files) {
   writeNewFile(path.join(componentDir, fileName), contents, state);
 }
-
-const indexPath = path.join(root, "packages/ui/src/index.ts");
-updateFile(
-  indexPath,
-  (contents) => {
-    if(contents.includes(`from "${modulePath}"`)) return contents;
-    if(new RegExp(`\\b${symbol}\\b`).test(contents)) {
-      fail(`${symbol} is already exported from another module in packages/ui/src/index.ts`);
-    }
-
-    const eol = detectEol(contents);
-    const typeBlock = types.length
-      ? `${eol}export type {${eol}${types
-          .slice()
-          .sort((left, right) => left.localeCompare(right, "en"))
-          .map((typeName) => `  ${typeName},`)
-          .join(eol)}${eol}} from "${modulePath}";`
-      : "";
-    const registration = `export { default as ${symbol} } from "${modulePath}";${typeBlock}`;
-    return insertSortedRegistration(
-      contents,
-      registration,
-      symbol,
-      /^export \{ default as ([A-Z][A-Za-z0-9]*) \} from .+;\r?$/gm,
-    );
-  },
-  state,
-);
 
 const stylesPath = path.join(root, "packages/styles/src/components.css");
 const cssImport = `@import "../../ui/src/base/${options.name}/${options.name}.css";`;

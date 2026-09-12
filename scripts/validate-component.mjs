@@ -196,19 +196,20 @@ const componentDir = path.join(root, "packages/ui/src/base", options.name);
 const testPath = path.join(componentDir, `${options.name}.test.tsx`);
 const cssPath = path.join(componentDir, `${options.name}.css`);
 const storyPath = path.join(componentDir, `${options.name}.stories.tsx`);
-const indexPath = path.join(root, "packages/ui/src/index.ts");
+const indexPath = path.join(componentDir, "index.ts");
+const packagePath = path.join(root, "packages/ui/package.json");
 const stylesEntryPath = path.join(root, "packages/styles/src/components.css");
 
 if(!existsSync(componentDir) || !statSync(componentDir).isDirectory()) {
   fail(`component directory does not exist: ${componentDir}`);
 }
 if(!existsSync(testPath)) fail(`focused test does not exist: ${testPath}`);
-if(!existsSync(indexPath) || !existsSync(stylesEntryPath)) {
+if(!existsSync(indexPath) || !existsSync(packagePath) || !existsSync(stylesEntryPath)) {
   fail(`${root} is not a gitlab-ui-react repository root`);
 }
 
 assertNoScaffoldMarkers(componentDir);
-assertRegistration(indexPath, `./base/${options.name}/${options.name}`, "component export");
+assertRegistration(indexPath, `./${options.name}.js`, "component export");
 
 const hasStyles = existsSync(cssPath) && !options.skipStyles;
 if(hasStyles) {
@@ -249,7 +250,7 @@ writeFileSync(
 const context = { root, failures: [] };
 const targetRelative = path.relative(root, componentDir).replaceAll("\\", "/");
 const quickSteps = [
-  pnpmStep("target lint", ["exec", "oxlint", targetRelative, "packages/ui/src/index.ts"]),
+  pnpmStep("target lint", ["exec", "oxlint", targetRelative]),
   pnpmStep("focused tests", ["exec", "vitest", "run", "--config", focusedConfig]),
   pnpmStep("UI package build", ["--filter", "gitlab-ui-react", "build"]),
   ...(hasStyles

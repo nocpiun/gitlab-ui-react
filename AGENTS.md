@@ -9,7 +9,7 @@
 
 ## Workspace 结构
 
-- `packages/ui`：React 组件库，包名为 `gitlab-ui-react`。组件源码位于 `src/base/<component>/`，公共 API 从 `src/index.ts` 导出，Vite 负责 JS 构建，TypeScript 单独生成声明文件。
+- `packages/ui`：React 组件库，包名为 `gitlab-ui-react`。组件源码位于 `src/base/<component>/`，每个目录通过自己的 `index.ts` 形成 `gitlab-ui-react/<component>` 公共入口；Vite 负责 JS 多入口构建，TypeScript 单独生成声明文件。
 - `packages/tokens`：设计 token 的源 JSON、Style Dictionary 构建脚本及生成产物，包名为 `@gitlab-ui-react/tokens`。
 - `packages/styles`：基础样式、组件样式、Tailwind 集成和最终 CSS，包名为 `@gitlab-ui-react/styles`，通过 `workspace:^` 依赖 tokens。跨组件共享的表单样式（Bootstrap 兼容层、GitLab shared override、feedback）集中在 `src/forms/`，由 `src/components.css` 在任何组件私有 CSS 之前导入。
 - `apps`：workspace 已预留的应用目录；不存在具体应用时不要假设其运行方式。
@@ -29,7 +29,7 @@
 
 - 移植或实质同步 `packages/ui` 组件时，使用项目 Skill：`.agents/skills/port-gitlab-ui-component/SKILL.md`；详细的上游核对、API 转换、样式、测试和交付流程以该文件为准。
 - 保留上游可观察行为、视觉语义和可访问性，并转换为符合 React 习惯的类型化 API；使用 Base UI 作为基底（icon 除外），使用 cva 管理变体和类名。
-- 公共组件和类型从 `packages/ui/src/index.ts` 导出。组件 CSS 与源码同目录，并由 `packages/styles/src/components.css` 导入；优先复用现有 tokens、styles 和 icons。
+- 公共组件和类型从所属目录的 `packages/ui/src/base/<component>/index.ts` 导出，不提供 `gitlab-ui-react` 根入口。组件 CSS 与源码同目录，并由 `packages/styles/src/components.css` 导入；优先复用现有 tokens、styles 和 icons。
 - 覆盖语义、键盘、焦点、ARIA 及上游支持的状态；有意偏离或延后的行为必须在代码或文档中明确说明。
 
 ## 验证

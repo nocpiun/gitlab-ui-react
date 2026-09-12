@@ -1,9 +1,9 @@
 import {
   GlAttributeList,
   GlAttributeListItem,
-  GlAvatarLabeled,
-  GlBadge,
-} from "gitlab-ui-react";
+} from "gitlab-ui-react/attribute-list";
+import { GlAvatarLabeled } from "gitlab-ui-react/avatar-labeled";
+import { GlBadge } from "gitlab-ui-react/badge";
 import { ShowcaseCard } from "../components/showcase-card";
 import { type Locale } from "../i18n/config";
 import { showcaseContent } from "../i18n/showcase-content";

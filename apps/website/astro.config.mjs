@@ -9,7 +9,7 @@ import { calloutsPlugin } from "./src/markdown/callouts.mjs";
 import { codeBlocksPlugin } from "./src/markdown/code-blocks.mjs";
 
 const examplesDirectory = fileURLToPath(new URL("../../examples", import.meta.url));
-const uiEntry = fileURLToPath(new URL("../../packages/ui/src/index.ts", import.meta.url));
+const uiComponentsDirectory = fileURLToPath(new URL("../../packages/ui/src/base", import.meta.url));
 
 export default defineConfig({
   site: "https://glui.nocp.space",
@@ -37,10 +37,13 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     resolve: {
-      alias: {
-        "@examples": examplesDirectory,
-        "gitlab-ui-react": uiEntry,
-      },
+      alias: [
+        { find: "@examples", replacement: examplesDirectory },
+        {
+          find: /^gitlab-ui-react\/([^/]+)$/,
+          replacement: `${uiComponentsDirectory}/$1/index.ts`,
+        },
+      ],
     },
   },
 });

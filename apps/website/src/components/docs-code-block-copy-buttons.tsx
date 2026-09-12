@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { GlButton } from "gitlab-ui-react/button";
 import {
-  GlButton,
   GlTooltip,
   GlTooltipContent,
   GlTooltipTrigger,
-} from "gitlab-ui-react";
+} from "gitlab-ui-react/tooltip";
 import { type Locale } from "../i18n/config";
 import { siteMessages } from "../i18n/messages";
 

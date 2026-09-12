@@ -6,7 +6,7 @@ import {
   GlSubNav,
   GlSubNavButton,
   GlSubNavItem,
-} from "gitlab-ui-react";
+} from "gitlab-ui-react/nav";
 import { type Locale } from "../i18n/config";
 import { siteMessages } from "../i18n/messages";
 
