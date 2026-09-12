@@ -181,7 +181,7 @@ describe("GlDrawer", () => {
 
   it("accepts refs for the trigger, content, and each structural part", () => {
     const triggerRef = createRef<HTMLElement>();
-    const contentRef = createRef<HTMLElement>();
+    const contentRef = createRef<HTMLDivElement>();
     const headerRef = createRef<HTMLDivElement>();
     const titleRef = createRef<HTMLHeadingElement>();
     const actionsRef = createRef<HTMLDivElement>();
