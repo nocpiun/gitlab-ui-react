@@ -346,7 +346,7 @@ export function assertFixedVersions(versions: Record<string, string>): string {
 
 function readCommit(root: string, sha: string): Commit {
   const metadata = git(
-    ["show", "-s", "--format=%s%x00%b%x00%an%x00%ae", sha],
+    ["show", "-s", "--format=%s%x00%b%x00%aN%x00%aE", sha],
     root,
   ).split("\0");
   const filesOutput = git(
