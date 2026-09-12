@@ -8424,9 +8424,6 @@
   .gl-token-selector-input {
     padding: 0.375rem 0.5rem;
   }
-  .gl-token-selector-empty:empty {
-    display: none;
-  }
   .gl-tooltip-positioner {
     z-index: 1070;
   }

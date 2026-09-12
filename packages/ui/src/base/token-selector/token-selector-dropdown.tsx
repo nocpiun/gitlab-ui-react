@@ -168,6 +168,9 @@ export default function TokenSelectorDropdown({
                 : null}
               {dropdownFooter}
             </BaseCombobox.List>
+            <BaseCombobox.Empty className="gl-sr-only">
+              {loading ? loadingContent : noResultsContent}
+            </BaseCombobox.Empty>
           </div>
         </div>
       </BaseCombobox.Positioner>
