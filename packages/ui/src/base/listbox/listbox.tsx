@@ -1071,6 +1071,7 @@ export const GlListboxContent = forwardRef<HTMLDivElement, GlListboxContentProps
       && itemCount > 0;
     const popupRender: NonNullable<BaseMenu.Popup.Props["render"]> = (renderProps) => {
       const semanticProps = { ...renderProps };
+      delete semanticProps["aria-orientation"];
       delete semanticProps.role;
       return <div {...semanticProps} />;
     };

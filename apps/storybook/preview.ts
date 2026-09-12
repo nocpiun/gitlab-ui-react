@@ -15,6 +15,9 @@ const preview: Preview = {
   ],
   parameters: {
     a11y: {
+      // Base UI's focus guards are deliberately focusable sentinels hidden from
+      // assistive technology. Axe cannot infer their focus-management behavior.
+      context: { exclude: ["[data-base-ui-focus-guard]"] },
       test: "error",
     },
     controls: {

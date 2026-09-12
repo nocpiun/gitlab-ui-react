@@ -91,6 +91,7 @@ export const Default: Story = {
     await expect(canvas.getAllByRole("menuitem")).toHaveLength(3);
     const editItem = canvas.getByRole("menuitem", { name: "Edit project" });
     await expect(editItem).toHaveClass("gl-new-dropdown-item");
+    await expect(editItem).toHaveAttribute("tabindex", "0");
     await expect(editItem).not.toHaveClass("gl-new-dropdown-item-content");
     await expect(editItem.firstElementChild).toHaveClass("gl-new-dropdown-item-content");
     await expect(canvas.getByRole("menuitem", { name: "Archive project" }))
@@ -495,7 +496,9 @@ export const NestedDropdowns: Story = {
         </GlDisclosureDropdownGroup>
         <div className="gl-p-2">
           <GlDisclosureDropdown>
-            <GlDisclosureDropdownTrigger size="small">Nested actions</GlDisclosureDropdownTrigger>
+            <GlDisclosureDropdownTrigger role="menuitem" size="small">
+              Nested actions
+            </GlDisclosureDropdownTrigger>
             <GlDisclosureDropdownContent placement="right-start">
               <GlDisclosureDropdownGroup>
                 <GlDisclosureDropdownItem value="nested">Nested item</GlDisclosureDropdownItem>
@@ -511,7 +514,7 @@ export const NestedDropdowns: Story = {
     await userEvent.click(outerTrigger);
     await canvas.findByRole("menuitem", { name: "Outer item" });
 
-    const nestedTrigger = await canvas.findByRole("button", { name: "Nested actions" });
+    const nestedTrigger = await canvas.findByRole("menuitem", { name: "Nested actions" });
     await userEvent.click(nestedTrigger);
     await waitFor(() => expect(canvas.getAllByRole("menu")).toHaveLength(2));
     await userEvent.click(canvas.getByRole("menuitem", { name: "Nested item" }));

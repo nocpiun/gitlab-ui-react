@@ -21,6 +21,12 @@ const meta = {
       },
     },
   },
+  render: (args) => (
+    <>
+      <label htmlFor={args.id}>Date</label>
+      <GlFormDate {...args} />
+    </>
+  ),
 } satisfies Meta<typeof GlFormDate>;
 
 export default meta;
@@ -53,6 +59,7 @@ export const NativeFormReset: Story = {
   },
   render: (args) => (
     <form>
+      <label htmlFor={args.id}>Date</label>
       <GlFormDate {...args} />
       <button type="reset">Reset form</button>
     </form>

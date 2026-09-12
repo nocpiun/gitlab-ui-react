@@ -848,7 +848,8 @@ export const GlDisclosureDropdownItem = forwardRef<
       label={label}
       nativeButton={render ? nativeButton : href === undefined}
       onClick={handleClick}
-      render={itemRender}>
+      render={itemRender}
+      tabIndex={disabled ? undefined : elementProps.tabIndex ?? 0}>
       <span className="gl-new-dropdown-item-content">
         <span className="gl-new-dropdown-item-text-wrapper">
           {icon || reserveIconSpace ? (

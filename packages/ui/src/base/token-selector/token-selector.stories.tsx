@@ -344,6 +344,8 @@ export const AsyncResultsAfterBlur: Story = {
     input.focus();
     await waitFor(() => expect(input).toHaveAttribute("aria-expanded", "true"));
     await expect(await canvas.findByRole("option", { name: "Runner" })).toBeVisible();
+    await expect(canvas.getByRole("button", { name: "Results loaded" }))
+      .not.toHaveAttribute("aria-hidden");
   },
 };
 
@@ -361,7 +363,9 @@ export const NoResults: Story = {
   ),
   play: async ({ canvas }) => {
     canvas.getByRole("combobox", { name: "Empty projects" }).focus();
-    await expect(await canvas.findByText("No projects found")).toBeVisible();
+    const emptyOption = await canvas.findByRole("option", { name: "No projects found" });
+    await expect(emptyOption).toBeVisible();
+    await expect(emptyOption.parentElement).toHaveAttribute("role", "listbox");
   },
 };
 

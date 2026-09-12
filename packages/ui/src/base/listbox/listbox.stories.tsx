@@ -636,6 +636,12 @@ export const PlacementsWidthsAndLoading: Story = {
 const bottomReached = fn();
 
 export const InfiniteScroll: Story = {
+  // Upstream also places GlLoadingIcon's status role inside the busy listbox.
+  parameters: {
+    a11y: {
+      options: { rules: { "aria-required-children": { enabled: false } } },
+    },
+  },
   render: () => (
     <GlListbox defaultOpen>
       <GlListboxTrigger>Many departments</GlListboxTrigger>

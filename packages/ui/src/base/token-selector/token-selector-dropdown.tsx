@@ -23,6 +23,7 @@ type TokenSelectorDropdownProps = {
   loadingContent: ReactNode;
   menuClassName?: string;
   noResultsContent: ReactNode;
+  open: boolean;
   onSelect: (item: GlTokenSelectorItem) => void;
   renderDropdownItem?: (
     item: GlTokenSelectorItem,
@@ -93,6 +94,7 @@ export default function TokenSelectorDropdown({
   loadingContent,
   menuClassName,
   noResultsContent,
+  open,
   onSelect,
   portalContainer,
   renderDropdownItem,
@@ -100,6 +102,8 @@ export default function TokenSelectorDropdown({
   userDefinedItem,
 }: TokenSelectorDropdownProps) {
   const allItems = userDefinedItem ? [...items, userDefinedItem] : items;
+
+  if(!open) return null;
 
   const statusOption = (content: ReactNode, key: string) => (
     <div
@@ -121,10 +125,9 @@ export default function TokenSelectorDropdown({
         className="gl-new-dropdown-container"
         side="bottom"
         sideOffset={4}>
-        <BaseCombobox.Popup
-          className="gl-new-dropdown-panel gl-new-dropdown-panel-fixed-width"
-          finalFocus={false}
-          initialFocus={false}>
+        {/* The upstream popup is non-modal. BaseCombobox.Popup treats an external
+            combobox input as modal and hides unrelated page content from AT. */}
+        <div className="gl-new-dropdown-panel gl-new-dropdown-panel-fixed-width">
           <div className="gl-new-dropdown-inner">
             <BaseCombobox.List
               id={componentId}
@@ -157,14 +160,16 @@ export default function TokenSelectorDropdown({
                   </DropdownOption>
                 );
               })}
-              <BaseCombobox.Empty className="gl-token-selector-empty">
-                {loading ? statusOption(loadingContent, "empty-loading") : null}
-                {statusOption(noResultsContent, "no-results")}
-              </BaseCombobox.Empty>
+              {allItems.length === 0
+                ? statusOption(
+                  loading ? loadingContent : noResultsContent,
+                  loading ? "empty-loading" : "no-results",
+                )
+                : null}
               {dropdownFooter}
             </BaseCombobox.List>
           </div>
-        </BaseCombobox.Popup>
+        </div>
       </BaseCombobox.Positioner>
     </BaseCombobox.Portal>
   );
