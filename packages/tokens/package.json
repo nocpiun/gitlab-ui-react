@@ -1,8 +1,22 @@
 {
   "name": "@gitlab-ui-react/tokens",
-  "version": "0.1.0",
-  "description": "GitLab design tokens for gitlab-ui-react",
+  "version": "0.0.0",
+  "description": "Design tokens for GitLab UI React",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nocpiun/gitlab-ui-react.git",
+    "directory": "packages/tokens"
+  },
+  "homepage": "https://glui.nocp.space",
+  "bugs": "https://github.com/nocpiun/gitlab-ui-react/issues",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "node ./scripts/build_tokens.mjs"
   },

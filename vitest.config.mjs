@@ -20,6 +20,7 @@ export default mergeConfig(
               "packages/**/*.{test,spec}.{js,jsx,mjs,cjs,ts,tsx,mts,cts}",
               "apps/**/*.{test,spec}.{js,jsx,mjs,cjs,ts,tsx,mts,cts}",
               "oxlint-plugins/**/*.{test,spec}.{js,jsx,mjs,cjs,ts,tsx,mts,cts}",
+              "scripts/**/*.{test,spec}.{js,jsx,mjs,cjs,ts,tsx,mts,cts}",
             ],
           },
         },

@@ -1,8 +1,19 @@
 {
   "name": "@gitlab-ui-react/styles",
-  "version": "0.1.0",
-  "description": "",
+  "version": "0.0.0",
+  "description": "Styles for GitLab UI React",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nocpiun/gitlab-ui-react.git",
+    "directory": "packages/styles"
+  },
+  "homepage": "https://glui.nocp.space",
+  "bugs": "https://github.com/nocpiun/gitlab-ui-react/issues",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "style": "./dist/gitlab-ui.css",
   "exports": {
     ".": "./dist/gitlab-ui.css",

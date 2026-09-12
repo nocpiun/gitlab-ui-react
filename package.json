@@ -21,13 +21,19 @@
     "storybook:build": "storybook build --config-dir apps/storybook -o apps/storybook/build",
     "scaffold": "node scripts/scaffold-component.mjs",
     "scaffold:validate": "node scripts/validate-component.mjs",
-    "upstream": "node scripts/upstream-baseline.mjs"
+    "upstream": "node scripts/upstream-baseline.mjs",
+    "changeset": "changeset",
+    "release:changeset": "node scripts/create-changeset.mts",
+    "release:version": "node scripts/version.mts",
+    "release:prepare": "node scripts/publish.mts --prepare-only",
+    "release:publish": "node scripts/publish.mts"
   },
   "keywords": [],
   "author": "NriotHrreion",
   "license": "MIT",
   "packageManager": "pnpm@10.33.0",
   "devDependencies": {
+    "@changesets/cli": "2.31.0",
     "@gitlab/ui": "^137.0.1",
     "@storybook/addon-a11y": "10.6.0",
     "@storybook/addon-docs": "10.6.0",
