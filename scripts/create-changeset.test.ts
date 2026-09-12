@@ -37,8 +37,11 @@ describe("automatic release classification", () => {
     ["fix(ui): correct focus", "", "patch"],
     ["perf(styles): reduce output", "", "patch"],
     ["revert: remove the regression", "", "patch"],
+    ["chore(tokens): sync upstream design tokens", "", "patch"],
+    ["chore(deps): update package dependencies", "", "patch"],
     ["feat(ui)!: replace the API", "", "minor"],
     ["fix(ui): replace the API", "BREAKING CHANGE: old props were removed", "minor"],
+    ["chore(tooling): update development tooling", "", null],
     ["refactor(ui): rename internals", "", null],
     ["docs: update the guide", "", null],
     ["not conventional", "", null],
@@ -197,5 +200,42 @@ describe("automatic changeset generation", () => {
     writeFileSync(join(root, "README.md"), "Documentation only.\n");
     commit(root, "docs: update the readme");
     expect(run(root)).toEqual({ bumps: {}, written: null });
+
+    writeFileSync(join(root, "packages/tokens/synced.tokens.json"), "{}\n");
+    commit(root, "chore(tokens): sync upstream design tokens");
+    const tokenSync = run(root);
+    expect(tokenSync.bumps).toEqual({ "@gitlab-ui-react/tokens": "patch" });
+    expect(readFileSync(tokenSync.written!, "utf8")).toContain(
+      "chore(tokens): sync upstream design tokens",
+    );
+
+    for(const [directory, name] of packages) {
+      writeFileSync(
+        join(root, directory, "package.json"),
+        `${JSON.stringify({ name, version: "0.2.1" }, null, 2)}\n`,
+      );
+    }
+    commit(root, "chore: version packages");
+    expect(run(root)).toEqual({ bumps: {}, written: null });
+    for(const [, name] of packages) {
+      execFileSync(
+        "git",
+        ["-c", "tag.gpgSign=false", "tag", `${name}@0.2.1`],
+        { cwd: root },
+      );
+    }
+
+    writeFileSync(
+      join(root, "package.json"),
+      "{\"devDependencies\":{\"vite\":\"latest\"}}\n",
+    );
+    writeFileSync(join(root, "pnpm-lock.yaml"), "lockfileVersion: '9.0'\n");
+    commit(root, "chore(deps): update development dependencies");
+    const dependencyUpdate = run(root);
+    expect(dependencyUpdate.bumps).toEqual({
+      "gitlab-ui-react": "patch",
+      "@gitlab-ui-react/styles": "patch",
+      "@gitlab-ui-react/tokens": "patch",
+    });
   });
 });

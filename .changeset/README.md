@@ -19,6 +19,8 @@ The public packages form a fixed group and always share one version:
 | --- | --- |
 | `feat` | minor |
 | `fix`, `perf`, `revert` | patch |
+| `chore(tokens)` | patch, for published upstream token syncs |
+| `chore(deps)` | patch, including repository-level dependency updates |
 | `type!` or a `BREAKING CHANGE` footer | minor, shown as a breaking change |
 | all other types | none |
 

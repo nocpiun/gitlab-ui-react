@@ -26,12 +26,24 @@ describe("release changelogs", () => {
       commit({ subject: "feat(button)!: replace the composition API (#3)" }),
       commit({ sha: "def456", subject: "feat(form): add a selector (#2)" }),
       commit({ sha: "ghi789" }),
+      commit({
+        sha: "jkl012",
+        subject: "chore(tokens): sync upstream design tokens (#4)",
+      }),
+      commit({
+        sha: "mno345",
+        subject: "chore(deps): update package dependencies (#5)",
+      }),
     ]);
 
     expect(body).toContain("### Breaking Changes");
     expect(body).toContain("**button:** replace the composition API (#3)");
     expect(body).toContain("### Features");
     expect(body).toContain("### Bug Fixes");
+    expect(body).toContain("### Upstream Syncs");
+    expect(body).toContain("**tokens:** sync upstream design tokens (#4)");
+    expect(body).toContain("### Dependency Updates");
+    expect(body).toContain("**deps:** update package dependencies (#5)");
     expect(body).toContain("### Contributors\n\n- @octocat");
   });
 

@@ -27,12 +27,18 @@ export type ManualChangeset = {
 const SCRIPT_DIRECTORY = dirname(fileURLToPath(import.meta.url));
 const REPOSITORY_ROOT = resolve(SCRIPT_DIRECTORY, "..");
 
-const CHANGELOG_GROUPS = [
+const CHANGELOG_GROUPS: ReadonlyArray<{
+  heading: string;
+  scope?: string;
+  type: string;
+}> = [
   { heading: "Features", type: "feat" },
   { heading: "Bug Fixes", type: "fix" },
   { heading: "Performance", type: "perf" },
   { heading: "Reverts", type: "revert" },
-] as const;
+  { heading: "Upstream Syncs", type: "chore", scope: "tokens" },
+  { heading: "Dependency Updates", type: "chore", scope: "deps" },
+];
 
 function pnpmCommand(): string {
   return process.platform === "win32" ? "pnpm.cmd" : "pnpm";
@@ -143,7 +149,11 @@ export function groupedChangelogBody(
   for(const group of CHANGELOG_GROUPS) {
     const matching = commits.filter((commit) => {
       const parts = conventionalParts(commit.subject, commit.body);
-      return parts?.type === group.type && !parts.breaking;
+      return (
+        parts?.type === group.type &&
+        (!group.scope || parts.scope === group.scope) &&
+        !parts.breaking
+      );
     });
     if(matching.length > 0) {
       sections.push(`### ${group.heading}\n\n${matching.map(itemLine).join("\n")}`);

@@ -51,6 +51,11 @@ export const PUBLISHABLE_PACKAGES: PackageDefinition[] = [
 
 const AUTO_CHANGESET_PATTERN = /^auto-[a-zA-Z0-9._-]+\.md$/;
 const RELEASE_BUMP_ORDER: Bump[] = ["major", "minor", "patch"];
+const ROOT_DEPENDENCY_FILES = new Set([
+  "package.json",
+  "pnpm-lock.yaml",
+  "pnpm-workspace.yaml",
+]);
 const SCRIPT_DIRECTORY = dirname(fileURLToPath(import.meta.url));
 const REPOSITORY_ROOT = resolve(SCRIPT_DIRECTORY, "..");
 
@@ -84,6 +89,12 @@ export function automaticBump(subject: string, body = ""): Bump | null {
   const parts = conventionalParts(subject, body);
   if(!parts) return null;
   if(parts.breaking) return "minor";
+
+  // Keep ordinary maintenance chores release-neutral while publishing scoped
+  // chores that change package output or dependency versions.
+  if(parts.type === "chore" && ["deps", "tokens"].includes(parts.scope ?? "")) {
+    return "patch";
+  }
 
   switch(parts.type) {
     case "feat":
@@ -339,9 +350,18 @@ export function collectReleaseStates(
 
 export function releaseCommitsForPackage(state: PackageReleaseState): Commit[] {
   return state.commits.filter(
-    (commit) =>
-      automaticBump(commit.subject, commit.body) !== null &&
-      affectedPackageNames(commit.files).includes(state.name),
+    (commit) => {
+      if(automaticBump(commit.subject, commit.body) === null) return false;
+
+      const directlyAffected = affectedPackageNames(commit.files).includes(state.name);
+      const parts = conventionalParts(commit.subject, commit.body);
+      const rootDependencyUpdate =
+        parts?.type === "chore" &&
+        parts.scope === "deps" &&
+        commit.files.some((file) => ROOT_DEPENDENCY_FILES.has(file.replace(/\\/g, "/")));
+
+      return directlyAffected || rootDependencyUpdate;
+    },
   );
 }
 
