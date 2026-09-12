@@ -91,7 +91,6 @@ export const Default: Story = {
     await expect(canvas.getAllByRole("menuitem")).toHaveLength(3);
     const editItem = canvas.getByRole("menuitem", { name: "Edit project" });
     await expect(editItem).toHaveClass("gl-new-dropdown-item");
-    await expect(editItem).toHaveAttribute("tabindex", "0");
     await expect(editItem).not.toHaveClass("gl-new-dropdown-item-content");
     await expect(editItem.firstElementChild).toHaveClass("gl-new-dropdown-item-content");
     await expect(canvas.getByRole("menuitem", { name: "Archive project" }))
@@ -134,9 +133,15 @@ export const KeyboardNavigation: Story = {
     const clone = canvas.getByRole("menuitem", { name: "Clone project" });
     const rename = canvas.getByRole("menuitem", { name: "Rename project" });
     await expect(add).toHaveFocus();
+    await expect(add).toHaveAttribute("tabindex", "0");
+    await expect(clone).toHaveAttribute("tabindex", "-1");
+    await expect(rename).toHaveAttribute("tabindex", "-1");
 
     await userEvent.keyboard("{ArrowDown}");
     await expect(clone).toHaveFocus();
+    await expect(add).toHaveAttribute("tabindex", "-1");
+    await expect(clone).toHaveAttribute("tabindex", "0");
+    await expect(rename).toHaveAttribute("tabindex", "-1");
     await userEvent.keyboard("{End}{ArrowDown}");
     await expect(rename).toHaveFocus();
     await userEvent.keyboard("{Home}");
@@ -589,7 +594,9 @@ export const FixedFluidAndScrolling: Story = {
     </GlDisclosureDropdown>
   ),
   play: async ({ canvas, canvasElement }) => {
-    await userEvent.click(canvas.getByRole("button", { name: "Many actions" }));
+    const trigger = canvas.getByRole("button", { name: "Many actions" });
+    trigger.focus();
+    await userEvent.keyboard("{ArrowDown}");
     const body = within(canvasElement.ownerDocument.body);
     const menu = await body.findByRole("menu");
     const inner = menu.querySelector<HTMLElement>(".gl-new-dropdown-inner")!;
