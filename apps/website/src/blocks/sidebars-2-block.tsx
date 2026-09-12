@@ -1,7 +1,7 @@
+import { GlAvatar } from "gitlab-ui-react/avatar";
+import { GlBadge } from "gitlab-ui-react/badge";
+import { GlIcon } from "gitlab-ui-react/icon";
 import {
-  GlAvatar,
-  GlBadge,
-  GlIcon,
   GlNav,
   GlNavButton,
   GlNavItem,
@@ -9,7 +9,7 @@ import {
   GlSubNav,
   GlSubNavButton,
   GlSubNavItem,
-} from "gitlab-ui-react";
+} from "gitlab-ui-react/nav";
 import { ShowcaseCard } from "../components/showcase-card";
 import { type Locale } from "../i18n/config";
 import { showcaseContent } from "../i18n/showcase-content";

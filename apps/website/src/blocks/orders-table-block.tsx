@@ -1,13 +1,13 @@
 import { useState } from "react";
+import { GlAlert, GlAlertDescription } from "gitlab-ui-react/alert";
+import { GlBadge } from "gitlab-ui-react/badge";
 import {
-  GlAlert,
-  GlAlertDescription,
-  GlBadge,
   GlBreadcrumb,
   GlBreadcrumbItem,
-  GlFormInput,
-  GlPagination,
-  GlTab,
+} from "gitlab-ui-react/breadcrumb";
+import { GlFormInput } from "gitlab-ui-react/form-input";
+import { GlPagination } from "gitlab-ui-react/pagination";
+import {
   GlTable,
   GlTableBody,
   GlTableCaption,
@@ -15,8 +15,8 @@ import {
   GlTableHead,
   GlTableHeader,
   GlTableRow,
-  GlTabs,
-} from "gitlab-ui-react";
+} from "gitlab-ui-react/table";
+import { GlTab, GlTabs } from "gitlab-ui-react/tabs";
 import { ShowcaseCard } from "../components/showcase-card";
 import { formatTemplate, languageTags, type Locale } from "../i18n/config";
 import {

@@ -1,10 +1,8 @@
 import { useState } from "react";
-import {
-  GlBadge,
-  GlButton,
-  GlButtonGroup,
-  GlIcon,
-} from "gitlab-ui-react";
+import { GlBadge } from "gitlab-ui-react/badge";
+import { GlButton } from "gitlab-ui-react/button";
+import { GlButtonGroup } from "gitlab-ui-react/button-group";
+import { GlIcon } from "gitlab-ui-react/icon";
 import { ShowcaseCard } from "../components/showcase-card";
 import { type Locale } from "../i18n/config";
 import {

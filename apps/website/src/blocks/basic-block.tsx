@@ -1,16 +1,18 @@
+import { GlBadge } from "gitlab-ui-react/badge";
+import { GlButton } from "gitlab-ui-react/button";
+import { GlButtonGroup } from "gitlab-ui-react/button-group";
 import {
-  GlBadge,
-  GlButton,
-  GlButtonGroup,
   GlDisclosureDropdown,
   GlDisclosureDropdownContent,
   GlDisclosureDropdownGroup,
   GlDisclosureDropdownItem,
   GlDisclosureDropdownTrigger,
-  GlFormCheckbox,
-  GlFormInput,
-  GlFormRadio,
-  GlFormTextarea,
+} from "gitlab-ui-react/disclosure-dropdown";
+import { GlFormCheckbox } from "gitlab-ui-react/form-checkbox";
+import { GlFormInput } from "gitlab-ui-react/form-input";
+import { GlFormRadio } from "gitlab-ui-react/form-radio";
+import { GlFormTextarea } from "gitlab-ui-react/form-textarea";
+import {
   GlModal,
   GlModalClose,
   GlModalContent,
@@ -18,8 +20,8 @@ import {
   GlModalHeader,
   GlModalTitle,
   GlModalTrigger,
-  GlToggle
-} from "gitlab-ui-react";
+} from "gitlab-ui-react/modal";
+import { GlToggle } from "gitlab-ui-react/toggle";
 import { ShowcaseCard } from "../components/showcase-card";
 import { type Locale } from "../i18n/config";
 import { formatTemplate } from "../i18n/config";

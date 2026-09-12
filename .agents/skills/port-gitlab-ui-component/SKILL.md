@@ -55,7 +55,7 @@ node scripts/scaffold-component.mjs <component-name> \
   --types GlComponentNameProps,GlComponentNameVariant
 ```
 
-The helper creates missing component files, registers the public exports, and imports the component CSS. It never overwrites existing files and is safe to rerun. Use `--dry-run` to inspect its plan. Use `--types none` when the component exposes no public types.
+The helper creates missing component files, registers the public exports in the component directory's `index.ts`, and imports the component CSS. That directory barrel becomes the `gitlab-ui-react/<component-name>` public entry. The helper never overwrites existing files and is safe to rerun. Use `--dry-run` to inspect its plan. Use `--types none` when the component exposes no public types.
 
 Read [references/react-porting.md](references/react-porting.md) before implementing. Use an outline tool only for large dependency files; directly read small target files.
 

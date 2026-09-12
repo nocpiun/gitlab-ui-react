@@ -3,7 +3,7 @@ import {
   GlAlert,
   GlAlertDescription,
   type GlAlertVariant,
-} from "gitlab-ui-react";
+} from "gitlab-ui-react/alert";
 import { type Locale } from "../i18n/config";
 import { siteMessages, type CalloutKind } from "../i18n/messages";
 

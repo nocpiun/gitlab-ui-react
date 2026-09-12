@@ -1,14 +1,16 @@
+import { GlBadge } from "gitlab-ui-react/badge";
 import {
-  GlBadge,
   GlBreadcrumb,
   GlBreadcrumbItem,
+} from "gitlab-ui-react/breadcrumb";
+import {
   GlCard,
   GlCardContent,
   GlCardFooter,
   GlCardHeader,
-  GlIcon,
-  GlProgressBar,
-} from "gitlab-ui-react";
+} from "gitlab-ui-react/card";
+import { GlIcon } from "gitlab-ui-react/icon";
+import { GlProgressBar } from "gitlab-ui-react/progress-bar";
 import { ShowcaseCard } from "../components/showcase-card";
 import { type Locale } from "../i18n/config";
 import { showcaseContent } from "../i18n/showcase-content";

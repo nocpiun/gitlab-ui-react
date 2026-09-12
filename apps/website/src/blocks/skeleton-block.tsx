@@ -1,4 +1,4 @@
-import { GlSkeletonLoader } from "gitlab-ui-react";
+import { GlSkeletonLoader } from "gitlab-ui-react/skeleton-loader";
 import { ShowcaseCard } from "../components/showcase-card";
 import { type Locale } from "../i18n/config";
 import { showcaseContent } from "../i18n/showcase-content";
