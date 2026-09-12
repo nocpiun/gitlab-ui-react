@@ -1,7 +1,6 @@
 import type { SVGProps } from "react";
 import { type VariantProps, cva } from "class-variance-authority";
-import iconsInfo from "@gitlab/svgs/dist/icons.json";
-import iconsPath from "@gitlab/svgs/dist/icons.svg";
+import iconsSprite from "@gitlab/svgs/dist/icons.svg?raw";
 
 const iconVariants = cva("gl-icon", {
   variants: {
@@ -39,13 +38,16 @@ type IconVariantProps = VariantProps<typeof iconVariants>;
 export type GlIconSize = NonNullable<IconVariantProps["size"]>;
 export type GlIconVariant = NonNullable<IconVariantProps["variant"]>;
 
-export type GlIconProps = Omit<SVGProps<SVGSVGElement>, "children" | "name"> & {
+export type GlIconProps = Omit<
+  SVGProps<SVGSVGElement>,
+  "children" | "dangerouslySetInnerHTML" | "name"
+> & {
   /**
    * Accessible icon name used by screen readers and other assistive technologies.
    * Provide this, or `aria-label`, when the icon is not merely decorative.
    */
   ariaLabel?: string;
-  /** One of the icons in the GitLab SVG sprite. */
+  /** One of the bundled GitLab icons. */
   name: string;
   /** Icon size in pixels. */
   size?: GlIconSize;
@@ -53,7 +55,36 @@ export type GlIconProps = Omit<SVGProps<SVGSVGElement>, "children" | "name"> & {
   variant?: GlIconVariant;
 };
 
-const knownIcons = new Set(iconsInfo.icons);
+type IconDefinition = {
+  content: string;
+  viewBox: string;
+};
+
+const symbolPattern = /<symbol\b([^>]*)>([\s\S]*?)<\/symbol>/gi;
+const namePattern = /(?:^|\s)id\s*=\s*(["'])(.*?)\1/i;
+const viewBoxPattern = /(?:^|\s)viewBox\s*=\s*(["'])(.*?)\1/i;
+
+function parseIcons(sprite: string) {
+  const icons = new Map<string, IconDefinition>();
+
+  for(const match of sprite.matchAll(symbolPattern)) {
+    const [, attributes, content] = match;
+    const name = namePattern.exec(attributes)?.[2];
+    const viewBox = viewBoxPattern.exec(attributes)?.[2];
+
+    if(name && viewBox) {
+      icons.set(name, { content, viewBox });
+    }
+  }
+
+  if(icons.size === 0) {
+    throw new Error("[GlIcon] The bundled GitLab icon set is empty or invalid");
+  }
+
+  return icons;
+}
+
+const icons = parseIcons(iconsSprite);
 
 export default function GlIcon({
   "aria-label": nativeAriaLabel,
@@ -62,27 +93,29 @@ export default function GlIcon({
   name,
   size,
   variant,
+  viewBox,
   ...svgProps
 }: GlIconProps) {
   const environment = typeof process === "undefined" ? undefined : process.env.NODE_ENV;
+  const icon = icons.get(name);
 
-  if(!["production", "test"].includes(environment ?? "") && !knownIcons.has(name)) {
+  if(!["production", "test"].includes(environment ?? "") && !icon) {
     console.warn(`[GlIcon] Icon '${name}' is not a known icon of @gitlab/svgs`);
   }
 
   const accessibleLabel = ariaLabel ?? nativeAriaLabel;
-  const spriteHref = `${iconsPath}#${name}`;
 
   return (
     <svg
       {...svgProps}
-      key={spriteHref}
+      key={name}
+      viewBox={viewBox ?? icon?.viewBox}
       className={iconVariants({ className, size, variant })}
       data-testid={`${name}-icon`}
       role="img"
       aria-hidden={accessibleLabel ? undefined : true}
-      aria-label={accessibleLabel}>
-      <use href={spriteHref} />
-    </svg>
+      aria-label={accessibleLabel}
+      // The markup comes from the pinned @gitlab/svgs build-time dependency.
+      dangerouslySetInnerHTML={icon ? { __html: icon.content } : undefined} />
   );
 }

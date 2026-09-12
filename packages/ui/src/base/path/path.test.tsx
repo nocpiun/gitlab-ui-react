@@ -8,14 +8,12 @@
 
 import { Fragment, createRef, type ComponentProps, type ReactNode } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import GlPath, {
   GlPathItem,
   GlPathItemMetric,
   GlPathItemTitle,
 } from "./path";
-
-vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
 
 const renderPath = (
   children: ReactNode = (

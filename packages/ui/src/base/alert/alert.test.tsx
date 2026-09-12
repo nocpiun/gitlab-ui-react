@@ -13,15 +13,13 @@ import {
   type ReactNode,
 } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import GlButton from "../button/button";
 import GlAlert, {
   GlAlertActions,
   GlAlertDescription,
   type GlAlertVariant,
 } from "./alert";
-
-vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
 
 const defaultContent = <GlAlertDescription>Alert message</GlAlertDescription>;
 

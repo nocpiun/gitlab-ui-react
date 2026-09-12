@@ -9,9 +9,6 @@ import { calloutsPlugin } from "./src/markdown/callouts.mjs";
 import { codeBlocksPlugin } from "./src/markdown/code-blocks.mjs";
 
 const examplesDirectory = fileURLToPath(new URL("../../examples", import.meta.url));
-const iconsSpriteUrl = `${fileURLToPath(
-  new URL("../../packages/ui/node_modules/@gitlab/svgs/dist/icons.svg", import.meta.url),
-)}?url`;
 const uiEntry = fileURLToPath(new URL("../../packages/ui/src/index.ts", import.meta.url));
 
 export default defineConfig({
@@ -42,7 +39,6 @@ export default defineConfig({
     resolve: {
       alias: {
         "@examples": examplesDirectory,
-        "@gitlab/svgs/dist/icons.svg": iconsSpriteUrl,
         "gitlab-ui-react": uiEntry,
       },
     },

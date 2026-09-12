@@ -1,9 +1,7 @@
 import { createRef, type ComponentProps } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, expectTypeOf, it, vi } from "vitest";
+import { describe, expect, expectTypeOf, it } from "vitest";
 import GlToken, { type GlTokenProps, type GlTokenVariant } from "./token";
-
-vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
 
 const renderToken = (props: Partial<ComponentProps<typeof GlToken>> = {}) => (
   renderToStaticMarkup(<GlToken {...props}>Token content</GlToken>)
@@ -18,7 +16,8 @@ describe("GlToken", () => {
     expect(markup).toContain("Token content");
     expect(markup).toContain("aria-label=\"Remove\"");
     expect(markup).toContain("gl-token-close");
-    expect(markup).toContain("/path/to/icons.svg#close");
+    expect(markup).toContain("data-testid=\"close-icon\"");
+    expect(markup).toContain("<path");
   });
 
   it.each([

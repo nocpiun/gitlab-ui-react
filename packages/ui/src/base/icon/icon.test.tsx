@@ -3,10 +3,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import GlIcon from "./icon";
 
-const ICONS_PATH = "/path/to/icons.svg";
 const TEST_NAME = "check-circle";
-
-vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
 
 describe("GlIcon", () => {
   const renderIcon = (props: Omit<ComponentProps<typeof GlIcon>, "name"> = {}) => renderToStaticMarkup(<GlIcon name={TEST_NAME} {...props} />);
@@ -16,13 +13,30 @@ describe("GlIcon", () => {
     vi.unstubAllEnvs();
   });
 
-  it("renders the requested sprite icon with the default size and variant", () => {
+  it("renders the requested icon inline with its default viewBox, size, and variant", () => {
     const markup = renderIcon();
 
     expect(markup).toContain("class=\"gl-icon s16 gl-fill-current\"");
     expect(markup).toContain(`data-testid="${TEST_NAME}-icon"`);
     expect(markup).toContain("role=\"img\"");
-    expect(markup).toContain(`href="${ICONS_PATH}#${TEST_NAME}"`);
+    expect(markup).toContain("viewBox=\"0 0 16 16\"");
+    expect(markup).toContain("<path");
+    expect(markup).not.toContain("<use");
+    expect(markup).not.toMatch(/<path[^>]*\sfill=/);
+  });
+
+  it.each([
+    ["check-sm", "0 0 12 12"],
+    ["double-headed-arrow", "0 0 105 26"],
+  ])("uses the bundled viewBox for %s", (name, expectedViewBox) => {
+    const markup = renderToStaticMarkup(<GlIcon name={name} />);
+
+    expect(markup).toContain(`viewBox="${expectedViewBox}"`);
+    expect(markup).toContain("<path");
+  });
+
+  it("allows the native viewBox prop to override the bundled viewBox", () => {
+    expect(renderIcon({ viewBox: "0 0 20 10" })).toContain("viewBox=\"0 0 20 10\"");
   });
 
   it("is hidden from assistive technologies when it is decorative", () => {
@@ -55,10 +69,11 @@ describe("GlIcon", () => {
     vi.stubEnv("NODE_ENV", "development");
     const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
 
-    renderToStaticMarkup(<GlIcon name="unknown-icon" />);
+    const markup = renderToStaticMarkup(<GlIcon name="unknown-icon" />);
 
     expect(warn).toHaveBeenCalledWith(
       "[GlIcon] Icon 'unknown-icon' is not a known icon of @gitlab/svgs",
     );
+    expect(markup).not.toContain("<path");
   });
 });

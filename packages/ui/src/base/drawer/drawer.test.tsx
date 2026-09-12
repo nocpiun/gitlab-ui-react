@@ -13,7 +13,7 @@ import {
   type ReactNode,
 } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, expectTypeOf, it, vi } from "vitest";
+import { describe, expect, expectTypeOf, it } from "vitest";
 import GlDrawer, {
   GlDrawerActions,
   GlDrawerContent,
@@ -27,8 +27,6 @@ import GlDrawer, {
   type GlDrawerContentProps,
   type GlDrawerVariant,
 } from "./drawer";
-
-vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
 
 const defaultContent = (
   <>

@@ -16,7 +16,7 @@ import {
   type ReactNode,
 } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, expectTypeOf, it, vi } from "vitest";
+import { describe, expect, expectTypeOf, it } from "vitest";
 import GlBreadcrumb, {
   GlBreadcrumbItem,
   calculateBreadcrumbLayout,
@@ -24,8 +24,6 @@ import GlBreadcrumb, {
   type GlBreadcrumbItemProps,
   type GlBreadcrumbSize,
 } from "./breadcrumb";
-
-vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
 
 type RouterLinkProps = Omit<ComponentPropsWithoutRef<"a">, "href"> & {
   to: string;

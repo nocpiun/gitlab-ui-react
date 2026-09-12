@@ -10,8 +10,6 @@ import GlTabs, {
   GlTabsBefore,
 } from "./tabs";
 
-vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
-
 const defaultTabs = (
   <>
     <GlTab title="First">First panel</GlTab>

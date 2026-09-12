@@ -71,9 +71,9 @@ export const Default: Story = {
     await expect(icon).toBeVisible();
     await expect(icon).toHaveClass("gl-icon", "s16", "gl-fill-current");
     await expect(icon).toHaveAttribute("data-testid", "check-circle-icon");
-    await expect(icon.querySelector("use")?.getAttribute("href")).toMatch(
-      /icons\.svg#check-circle$/,
-    );
+    await expect(icon).toHaveAttribute("viewBox", "0 0 16 16");
+    await expect(icon.querySelector("path")).toBeInTheDocument();
+    await expect(icon.querySelector("use")).not.toBeInTheDocument();
   },
 };
 

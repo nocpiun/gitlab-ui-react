@@ -1,6 +1,6 @@
 import { Fragment, createRef, type ReactNode } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, expectTypeOf, it, vi } from "vitest";
+import { describe, expect, expectTypeOf, it } from "vitest";
 import GlPopover, {
   GlPopoverContent,
   GlPopoverTitle,
@@ -10,8 +10,6 @@ import GlPopover, {
   type GlPopoverProps,
   type GlPopoverTriggerMode,
 } from "./popover";
-
-vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
 
 function renderPopover(children: ReactNode = "Popover body", rootProps: GlPopoverProps = {}) {
   return renderToStaticMarkup(

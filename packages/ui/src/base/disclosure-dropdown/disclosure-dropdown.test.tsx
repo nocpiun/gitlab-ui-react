@@ -17,8 +17,6 @@ import {
   GlDisclosureDropdownGroupLabel,
 } from "./disclosure-dropdown-group";
 
-vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
-
 function renderDropdown(children: ReactNode, rootProps = {}) {
   return renderToStaticMarkup(
     <GlDisclosureDropdown defaultOpen {...rootProps}>

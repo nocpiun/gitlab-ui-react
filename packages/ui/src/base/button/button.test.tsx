@@ -1,9 +1,7 @@
 import type { ComponentProps, ReactNode } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import GlButton from "./button";
-
-vi.mock("@gitlab/svgs/dist/icons.svg", () => ({ default: "/path/to/icons.svg" }));
 
 const renderButton = (
   props: ComponentProps<typeof GlButton> = {},
@@ -59,7 +57,8 @@ describe("GlButton", () => {
     expect(markup).toContain("btn-icon");
     expect(markup).toContain("button-ellipsis-horizontal");
     expect(markup).toContain("aria-label=\"More actions\"");
-    expect(markup).toContain("href=\"/path/to/icons.svg#ellipsis_h\"");
+    expect(markup).toContain("data-testid=\"ellipsis_h-icon\"");
+    expect(markup).toContain("<path");
     expect(markup).not.toContain("gl-button-text");
   });
 
@@ -117,7 +116,7 @@ describe("GlButton", () => {
 
     expect(markup).toContain("btn-icon");
     expect(markup).toContain("gl-button-loading-indicator");
-    expect(markup).not.toContain("icons.svg#retry");
+    expect(markup).not.toContain("data-testid=\"retry-icon\"");
     expect(markup).not.toContain("gl-button-text");
   });
 
@@ -125,7 +124,7 @@ describe("GlButton", () => {
     const markup = renderButton({ icon: "star-o", loading: true });
 
     expect(markup).toContain("gl-button-loading-indicator");
-    expect(markup).toContain("icons.svg#star-o");
+    expect(markup).toContain("data-testid=\"star-o-icon\"");
     expect(markup).toContain("gl-button-text");
   });
 
