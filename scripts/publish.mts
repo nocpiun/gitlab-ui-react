@@ -240,13 +240,17 @@ function isPrereleaseMode(root: string): boolean {
 }
 
 export function run(root = REPOSITORY_ROOT, prepareOnly = false): void {
-  const npmVersionCommand = commandInvocation(npmCommand(), ["--version"]);
-  const npmVersion = execFileSync(npmVersionCommand.command, npmVersionCommand.args, {
-    cwd: root,
-    encoding: "utf8",
-  }).trim();
-  if(!supportsTrustedPublishing(npmVersion)) {
-    throw new Error(`npm ${npmVersion} is too old; trusted publishing requires npm >= 11.5.1.`);
+  if(!prepareOnly) {
+    const npmVersionCommand = commandInvocation(npmCommand(), ["--version"]);
+    const npmVersion = execFileSync(npmVersionCommand.command, npmVersionCommand.args, {
+      cwd: root,
+      encoding: "utf8",
+    }).trim();
+    if(!supportsTrustedPublishing(npmVersion)) {
+      throw new Error(
+        `npm ${npmVersion} is too old; trusted publishing requires npm >= 11.5.1.`,
+      );
+    }
   }
 
   preparePackages(root);

@@ -24,6 +24,7 @@ describe("npm publishing", () => {
   it("requires an npm version with OIDC trusted publishing support", () => {
     expect(supportsTrustedPublishing("11.5.0")).toBe(false);
     expect(supportsTrustedPublishing("11.5.1")).toBe(true);
+    expect(supportsTrustedPublishing("11.19.0")).toBe(true);
     expect(supportsTrustedPublishing("12.0.0")).toBe(true);
   });
 
