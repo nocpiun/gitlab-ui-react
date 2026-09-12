@@ -32,9 +32,9 @@
 
 import { forwardRef, useState, type CSSProperties } from "react";
 import { clsx } from "cn";
-import GlButton from "../button/button";
-import GlFormInput, { type GlFormInputProps, widthClasses } from "../form-input/form-input";
-import GlTooltip, { GlTooltipContent, GlTooltipTrigger } from "../tooltip/tooltip";
+import GlButton from "../button/button.js";
+import GlFormInput, { type GlFormInputProps, widthClasses } from "../form-input/form-input.js";
+import GlTooltip, { GlTooltipContent, GlTooltipTrigger } from "../tooltip/tooltip.js";
 
 export type GlFormPasswordInputProps = Omit<
   GlFormInputProps,

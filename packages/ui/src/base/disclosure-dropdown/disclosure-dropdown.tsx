@@ -14,7 +14,7 @@ import type {
   GlDropdownOpenChangeDetails,
   GlDropdownPlacement,
   GlDropdownPositioningStrategy,
-} from "../../internal/dropdown/dropdown-types";
+} from "../../internal/dropdown/dropdown-types.js";
 import {
   Children,
   Fragment,
@@ -42,22 +42,22 @@ import {
 import { Menu as BaseMenu } from "@base-ui/react/menu";
 import { cva } from "class-variance-authority";
 import { clsx } from "cn";
-import GlIcon from "../icon/icon";
-import GlLink from "../link/link";
+import GlIcon from "../icon/icon.js";
+import GlLink from "../link/link.js";
 import {
   isDropdownItemVisible,
   mapDropdownChangeReason,
   resolveDropdownOffset,
   resolveDropdownPlacement,
   shouldRestoreDropdownFocus,
-} from "../../internal/dropdown/dropdown-utils";
-import { useMergedRefs } from "../../internal/utils/merge-refs";
+} from "../../internal/dropdown/dropdown-utils.js";
+import { useMergedRefs } from "../../internal/utils/merge-refs.js";
 import {
   resolveTriggerContent,
   resolveTriggerRender,
   type GlTriggerAsChildProps,
   type GlTriggerDefaultProps,
-} from "../../internal/trigger/trigger-composition";
+} from "../../internal/trigger/trigger-composition.js";
 
 export type GlDisclosureDropdownActionDetails = {
   /** The original React click event, including keyboard-generated clicks. */

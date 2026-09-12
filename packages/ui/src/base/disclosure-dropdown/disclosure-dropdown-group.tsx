@@ -16,7 +16,7 @@ import { cva } from "class-variance-authority";
 import {
   DisclosureDropdownIconSpacingContext,
   hasDirectDisclosureDropdownItemIcon,
-} from "./disclosure-dropdown";
+} from "./disclosure-dropdown.js";
 
 export type GlDisclosureDropdownGroupBorderPosition = "top" | "bottom";
 

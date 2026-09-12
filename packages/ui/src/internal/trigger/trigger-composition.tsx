@@ -9,7 +9,7 @@ import GlButton, {
   type GlButtonCategory,
   type GlButtonSize,
   type GlButtonVariant,
-} from "../../base/button/button";
+} from "../../base/button/button.js";
 
 export type GlTriggerDefaultProps = {
   /** Renders the trigger content inside a GitLab-styled button. */

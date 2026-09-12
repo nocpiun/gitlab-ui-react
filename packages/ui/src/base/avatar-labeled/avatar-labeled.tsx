@@ -10,8 +10,8 @@ import {
   type ReactNode,
 } from "react";
 import { cva } from "class-variance-authority";
-import GlAvatar, { type GlAvatarProps } from "../avatar/avatar";
-import GlAvatarLink, { type GlAvatarLinkProps } from "../avatar-link/avatar-link";
+import GlAvatar, { type GlAvatarProps } from "../avatar/avatar.js";
+import GlAvatarLink, { type GlAvatarLinkProps } from "../avatar-link/avatar-link.js";
 
 type AvatarLabeledAvatarProps = Omit<GlAvatarProps, "alt" | "className">;
 type LabelLinkAttrs = Omit<GlAvatarLinkProps, "children" | "href">;

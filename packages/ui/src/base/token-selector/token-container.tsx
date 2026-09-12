@@ -3,7 +3,7 @@
  * packages/gitlab-ui/src/components/base/token_selector/token_container.vue
  */
 
-import type { GlTokenSelectorItem } from "./token-selector";
+import type { GlTokenSelectorItem } from "./token-selector.js";
 import {
   useLayoutEffect,
   useRef,
@@ -11,9 +11,9 @@ import {
   type ReactNode,
 } from "react";
 import { clsx } from "cn";
-import GlButton from "../button/button";
-import GlToken from "../token/token";
-import { tokenSelectorItemKey } from "./token-selector-helpers";
+import GlButton from "../button/button.js";
+import GlToken from "../token/token.js";
+import { tokenSelectorItemKey } from "./token-selector-helpers.js";
 
 type TokenContainerProps = {
   emptyPlaceholder?: ReactNode;

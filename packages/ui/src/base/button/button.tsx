@@ -17,8 +17,8 @@ import {
 } from "react";
 import { Button as BaseButton } from "@base-ui/react/button";
 import { cva } from "class-variance-authority";
-import GlIcon from "../icon/icon";
-import GlLoadingIcon from "../loading-icon/loading-icon";
+import GlIcon from "../icon/icon.js";
+import GlLoadingIcon from "../loading-icon/loading-icon.js";
 
 export type GlButtonCategory = "primary" | "secondary" | "tertiary";
 export type GlButtonVariant = "default" | "confirm" | "danger" | "link" | "reset";

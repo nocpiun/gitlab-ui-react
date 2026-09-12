@@ -3,7 +3,7 @@
  */
 
 import type { HTMLAttributes } from "react";
-import type { GlOverlayOpenChangeDetails } from "../overlay/overlay-types";
+import type { GlOverlayOpenChangeDetails } from "../overlay/overlay-types.js";
 
 export type GlDropdownCloseReason =
   | "trigger"

@@ -6,7 +6,7 @@ import type {
   GlDropdownCloseReason,
   GlDropdownOffset,
   GlDropdownPlacement,
-} from "./dropdown-types";
+} from "./dropdown-types.js";
 import type { Menu as BaseMenu } from "@base-ui/react/menu";
 
 export type ResolvedDropdownPlacement = {

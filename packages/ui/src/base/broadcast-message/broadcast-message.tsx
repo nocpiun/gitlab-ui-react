@@ -16,8 +16,8 @@ import {
   type ReactNode,
 } from "react";
 import { cva } from "class-variance-authority";
-import GlButton from "../button/button";
-import GlIcon from "../icon/icon";
+import GlButton from "../button/button.js";
+import GlIcon from "../icon/icon.js";
 
 export type GlBroadcastMessageTheme =
   | "indigo"

@@ -15,10 +15,10 @@ import {
   type ReactNode,
 } from "react";
 import { cva } from "class-variance-authority";
-import { mergeAriaIds } from "../../internal/utils/merge-aria-ids";
-import { useMergedRefs } from "../../internal/utils/merge-refs";
-import GlIcon from "../icon/icon";
-import GlLoadingIcon from "../loading-icon/loading-icon";
+import { mergeAriaIds } from "../../internal/utils/merge-aria-ids.js";
+import { useMergedRefs } from "../../internal/utils/merge-refs.js";
+import GlIcon from "../icon/icon.js";
+import GlLoadingIcon from "../loading-icon/loading-icon.js";
 
 export type GlToggleLabelPosition = "top" | "left" | "hidden";
 

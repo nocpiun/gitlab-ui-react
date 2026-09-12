@@ -32,8 +32,8 @@ import {
 } from "react";
 import { Button as BaseButton } from "@base-ui/react/button";
 import { cva } from "class-variance-authority";
-import { useMergedRefs } from "../../internal/utils/merge-refs";
-import GlIcon from "../icon/icon";
+import { useMergedRefs } from "../../internal/utils/merge-refs.js";
+import GlIcon from "../icon/icon.js";
 
 const BOUNDARY_WIDTH = 40;
 const DEFAULT_BACKGROUND_COLOR = "rgba(0,0,0,0)";

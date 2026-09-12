@@ -40,15 +40,15 @@ import {
   type ReactNode,
 } from "react";
 import { clsx } from "cn";
-import GlFormCheckbox from "./form-checkbox";
-import SafeHtml from "../../internal/safe-html/safe-html";
-import { normalizeAriaInvalid } from "../../internal/form/aria-invalid-utils";
-import { looseEqual } from "../../internal/form/equality-utils";
-import { normalizeFormOptions } from "../../internal/form/form-options-utils";
+import GlFormCheckbox from "./form-checkbox.js";
+import SafeHtml from "../../internal/safe-html/safe-html.js";
+import { normalizeAriaInvalid } from "../../internal/form/aria-invalid-utils.js";
+import { looseEqual } from "../../internal/form/equality-utils.js";
+import { normalizeFormOptions } from "../../internal/form/form-options-utils.js";
 import {
   GlFormCheckboxGroupContext,
   type GlFormCheckboxGroupContextValue,
-} from "./form-checkbox-group-context";
+} from "./form-checkbox-group-context.js";
 
 export type GlFormCheckboxGroupOption = string | number | {
   /** Value added to the model when this option is checked. Defaults to `text`. */

@@ -9,7 +9,7 @@
  * - Overlay lifecycle callbacks use the shared React API.
  */
 
-import type { GlOverlayOpenChangeDetails } from "../../internal/overlay/overlay-types";
+import type { GlOverlayOpenChangeDetails } from "../../internal/overlay/overlay-types.js";
 import {
   Children,
   Fragment,
@@ -29,10 +29,10 @@ import {
   resolveTriggerRender,
   type GlTriggerAsChildProps,
   type GlTriggerDefaultProps,
-} from "../../internal/trigger/trigger-composition";
-import { mapOverlayOpenChangeDetails } from "../../internal/overlay/overlay-utils";
-import { useMergedRefs } from "../../internal/utils/merge-refs";
-import GlButton from "../button/button";
+} from "../../internal/trigger/trigger-composition.js";
+import { mapOverlayOpenChangeDetails } from "../../internal/overlay/overlay-utils.js";
+import { useMergedRefs } from "../../internal/utils/merge-refs.js";
+import GlButton from "../button/button.js";
 
 export type GlDrawerVariant = "default" | "sidebar";
 

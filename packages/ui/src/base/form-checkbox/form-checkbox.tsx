@@ -42,9 +42,9 @@ import {
 } from "react";
 import { cva } from "class-variance-authority";
 import { clsx } from "cn";
-import { looseIndexOf } from "../../internal/form/equality-utils";
-import { mergeRefs } from "../../internal/utils/merge-refs";
-import { GlFormCheckboxGroupContext } from "./form-checkbox-group-context";
+import { looseIndexOf } from "../../internal/form/equality-utils.js";
+import { mergeRefs } from "../../internal/utils/merge-refs.js";
+import { GlFormCheckboxGroupContext } from "./form-checkbox-group-context.js";
 
 type CheckboxElementProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,

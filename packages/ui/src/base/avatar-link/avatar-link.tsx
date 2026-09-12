@@ -5,7 +5,7 @@
 
 import { forwardRef } from "react";
 import { cva } from "class-variance-authority";
-import GlLink, { type GlLinkProps } from "../link/link";
+import GlLink, { type GlLinkProps } from "../link/link.js";
 
 export type GlAvatarLinkProps = Omit<GlLinkProps, "variant">;
 

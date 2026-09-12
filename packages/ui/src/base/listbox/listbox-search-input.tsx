@@ -15,10 +15,10 @@ import {
   type MouseEventHandler,
 } from "react";
 import { clsx } from "cn";
-import GlButton from "../button/button";
-import GlIcon from "../icon/icon";
-import { useMergedRefs } from "../../internal/utils/merge-refs";
-import { ListboxContentContext } from "./listbox-contexts";
+import GlButton from "../button/button.js";
+import GlIcon from "../icon/icon.js";
+import { useMergedRefs } from "../../internal/utils/merge-refs.js";
+import { ListboxContentContext } from "./listbox-contexts.js";
 
 export type GlListboxSearchInputProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,

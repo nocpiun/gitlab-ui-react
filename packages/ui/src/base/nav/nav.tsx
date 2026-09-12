@@ -31,11 +31,11 @@ import {
 import { Button as BaseButton } from "@base-ui/react/button";
 import { Collapsible as BaseCollapsible } from "@base-ui/react/collapsible";
 import { cva } from "class-variance-authority";
-import { useMergedRefs } from "../../internal/utils/merge-refs";
-import GlAvatar from "../avatar/avatar";
-import GlIcon from "../icon/icon";
-import GlLink, { type GlLinkProps } from "../link/link";
-import GlTooltip, { GlTooltipContent, GlTooltipTrigger } from "../tooltip/tooltip";
+import { useMergedRefs } from "../../internal/utils/merge-refs.js";
+import GlAvatar from "../avatar/avatar.js";
+import GlIcon from "../icon/icon.js";
+import GlLink, { type GlLinkProps } from "../link/link.js";
+import GlTooltip, { GlTooltipContent, GlTooltipTrigger } from "../tooltip/tooltip.js";
 import {
   AddonContext,
   ButtonOwnerContext,
@@ -50,7 +50,7 @@ import {
   withoutChildren,
   withoutChildrenAndId,
   type ButtonOwner,
-} from "./nav-contexts";
+} from "./nav-contexts.js";
 
 export type GlNavItemIndicatorPosition = "bottom" | "left" | "right";
 

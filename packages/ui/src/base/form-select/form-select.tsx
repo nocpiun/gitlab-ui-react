@@ -27,7 +27,7 @@ import {
 } from "react";
 import { cva } from "class-variance-authority";
 import { clsx } from "cn";
-import { normalizeAriaInvalid } from "../../internal/form/aria-invalid-utils";
+import { normalizeAriaInvalid } from "../../internal/form/aria-invalid-utils.js";
 
 export type GlFormSelectValue = string | readonly string[];
 

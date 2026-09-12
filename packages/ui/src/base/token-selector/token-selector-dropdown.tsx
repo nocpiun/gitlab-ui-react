@@ -6,11 +6,11 @@
 import type {
   GlTokenSelectorItem,
   GlTokenSelectorRenderState,
-} from "./token-selector";
+} from "./token-selector.js";
 import type { MouseEvent, ReactNode, RefObject } from "react";
 import { Combobox as BaseCombobox } from "@base-ui/react/combobox";
 import { clsx } from "cn";
-import { itemLabel, tokenSelectorItemKey } from "./token-selector-helpers";
+import { itemLabel, tokenSelectorItemKey } from "./token-selector-helpers.js";
 
 type TokenSelectorDropdownProps = {
   activeIndex: number;

@@ -17,8 +17,8 @@ import {
   type ReactNode,
 } from "react";
 import { cva } from "class-variance-authority";
-import GlIcon from "../icon/icon";
-import GlLink from "../link/link";
+import GlIcon from "../icon/icon.js";
+import GlLink from "../link/link.js";
 
 export type GlPaginationAlign = "left" | "center" | "right" | "fill";
 

@@ -30,8 +30,8 @@ import {
 import { Accordion as BaseAccordion } from "@base-ui/react/accordion";
 import { cva } from "class-variance-authority";
 import { clsx, type ClassValue } from "cn";
-import GlButton from "../button/button";
-import GlIcon from "../icon/icon";
+import GlButton from "../button/button.js";
+import GlIcon from "../icon/icon.js";
 
 export type GlAccordionHeaderLevel = 1 | 2 | 3 | 4 | 5 | 6;
 

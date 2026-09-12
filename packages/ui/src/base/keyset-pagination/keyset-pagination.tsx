@@ -9,9 +9,9 @@
 
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { cva } from "class-variance-authority";
-import GlButton from "../button/button";
-import GlButtonGroup from "../button-group/button-group";
-import GlIcon from "../icon/icon";
+import GlButton from "../button/button.js";
+import GlButtonGroup from "../button-group/button-group.js";
+import GlIcon from "../icon/icon.js";
 
 type KeysetPaginationElementProps = Omit<
   HTMLAttributes<HTMLElement>,

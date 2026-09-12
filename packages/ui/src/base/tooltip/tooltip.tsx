@@ -7,7 +7,7 @@
  * The upstream `show` model maps to open/defaultOpen/onOpenChange.
  */
 
-import type { GlOverlayOpenChangeDetails } from "../../internal/overlay/overlay-types";
+import type { GlOverlayOpenChangeDetails } from "../../internal/overlay/overlay-types.js";
 import {
   cloneElement,
   createContext,
@@ -29,11 +29,11 @@ import {
   resolveTriggerContent,
   resolveTriggerRender,
   type GlTriggerAsChildProps,
-} from "../../internal/trigger/trigger-composition";
-import { mapOverlayOpenChangeDetails } from "../../internal/overlay/overlay-utils";
-import { mergeAriaIds } from "../../internal/utils/merge-aria-ids";
-import { useMergedRefs } from "../../internal/utils/merge-refs";
-import { getGlTooltipDefaultContainer } from "./container";
+} from "../../internal/trigger/trigger-composition.js";
+import { mapOverlayOpenChangeDetails } from "../../internal/overlay/overlay-utils.js";
+import { mergeAriaIds } from "../../internal/utils/merge-aria-ids.js";
+import { useMergedRefs } from "../../internal/utils/merge-refs.js";
+import { getGlTooltipDefaultContainer } from "./container.js";
 
 export type GlTooltipPlacement = "top" | "right" | "bottom" | "left";
 

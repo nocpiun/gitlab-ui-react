@@ -37,11 +37,11 @@ import {
 } from "react";
 import { cva } from "class-variance-authority";
 import { clsx, type ClassValue } from "cn";
-import GlFormCharacterCount from "../form-character-count/form-character-count";
-import { normalizeAriaInvalid } from "../../internal/form/aria-invalid-utils";
-import { mergeAriaIds } from "../../internal/utils/merge-aria-ids";
-import { mergeRefs } from "../../internal/utils/merge-refs";
-import { observeVisibility } from "./visible";
+import GlFormCharacterCount from "../form-character-count/form-character-count.js";
+import { normalizeAriaInvalid } from "../../internal/form/aria-invalid-utils.js";
+import { mergeAriaIds } from "../../internal/utils/merge-aria-ids.js";
+import { mergeRefs } from "../../internal/utils/merge-refs.js";
+import { observeVisibility } from "./visible.js";
 
 export type GlFormTextareaSize = "lg" | "sm";
 

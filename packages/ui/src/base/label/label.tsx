@@ -10,14 +10,14 @@ import {
   type MouseEventHandler,
 } from "react";
 import { cva } from "class-variance-authority";
-import GlButton from "../button/button";
-import GlIcon from "../icon/icon";
-import GlLink from "../link/link";
+import GlButton from "../button/button.js";
+import GlIcon from "../icon/icon.js";
+import GlLink from "../link/link.js";
 import GlTooltip, {
   GlTooltipContent,
   GlTooltipTrigger,
   type GlTooltipPlacement,
-} from "../tooltip/tooltip";
+} from "../tooltip/tooltip.js";
 
 type LabelElementProps = Omit<
   HTMLAttributes<HTMLSpanElement>,

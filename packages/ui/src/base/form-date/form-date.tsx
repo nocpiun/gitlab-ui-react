@@ -29,9 +29,9 @@ import {
 import GlFormInput, {
   type GlFormInputProps,
   type GlFormInputValue,
-} from "../form-input/form-input";
-import { mergeAriaIds } from "../../internal/utils/merge-aria-ids";
-import { mergeRefs } from "../../internal/utils/merge-refs";
+} from "../form-input/form-input.js";
+import { mergeAriaIds } from "../../internal/utils/merge-aria-ids.js";
+import { mergeRefs } from "../../internal/utils/merge-refs.js";
 
 type FormInputPassthroughProps = Omit<
   GlFormInputProps,

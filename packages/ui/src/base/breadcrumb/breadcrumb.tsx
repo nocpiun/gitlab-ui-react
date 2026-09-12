@@ -27,22 +27,22 @@ import {
   type ReactElement,
 } from "react";
 import { cva } from "class-variance-authority";
-import { useMergedRefs } from "../../internal/utils/merge-refs";
-import GlAvatar from "../avatar/avatar";
-import GlButton, { type GlButtonSize } from "../button/button";
+import { useMergedRefs } from "../../internal/utils/merge-refs.js";
+import GlAvatar from "../avatar/avatar.js";
+import GlButton, { type GlButtonSize } from "../button/button.js";
 import GlDisclosureDropdown, {
   GlDisclosureDropdownContent,
   GlDisclosureDropdownItem,
   GlDisclosureDropdownTrigger,
-} from "../disclosure-dropdown/disclosure-dropdown";
+} from "../disclosure-dropdown/disclosure-dropdown.js";
 import {
   GlDisclosureDropdownGroup,
-} from "../disclosure-dropdown/disclosure-dropdown-group";
-import GlLink, { type GlLinkProps } from "../link/link";
+} from "../disclosure-dropdown/disclosure-dropdown-group.js";
+import GlLink, { type GlLinkProps } from "../link/link.js";
 import GlTooltip, {
   GlTooltipContent,
   GlTooltipTrigger,
-} from "../tooltip/tooltip";
+} from "../tooltip/tooltip.js";
 
 const RESIZE_DEBOUNCE_MS = 25;
 const COPY_FEEDBACK_DURATION_MS = 1000;
