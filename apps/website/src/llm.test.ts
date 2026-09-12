@@ -102,6 +102,21 @@ describe("renderDocsMarkdown", () => {
     expect(withoutStorybook).not.toContain("Storybook");
   });
 
+  it("preserves DocsExample syntax inside inline code", () => {
+    const getExampleSource = vi.fn();
+    const body = [
+      "Use `<DocsExample filename=\"button/ButtonExample.tsx\" title=\"Example\" />` here.",
+      "",
+      "Use ``<DocsExample filename=\"button/`Example.tsx\" title=\"Example\" />`` too.",
+    ].join("\n");
+
+    expect(renderDocsMarkdown(
+      docsEntry("en/components/button", "Button", body),
+      getExampleSource,
+    )).toContain(body);
+    expect(getExampleSource).not.toHaveBeenCalled();
+  });
+
   it("fails when source content or a referenced example is missing", () => {
     expect(() => renderDocsMarkdown({ data: { title: "Missing" }, id: "en/missing" }))
       .toThrow("Documentation entry \"en/missing\" has no source body");

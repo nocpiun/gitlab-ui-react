@@ -34,6 +34,72 @@ function normalizeLineEndings(value: string) {
   return value.replaceAll("\r\n", "\n").replaceAll("\r", "\n");
 }
 
+function backtickRunLength(value: string, index: number) {
+  let end = index;
+
+  while(value[end] === "`") end++;
+  return end - index;
+}
+
+function isEscaped(value: string, index: number) {
+  let backslashCount = 0;
+
+  for(let cursor = index - 1; cursor >= 0 && value[cursor] === "\\"; cursor -= 1) {
+    backslashCount++;
+  }
+
+  return backslashCount % 2 === 1;
+}
+
+function maskInlineCodeSpans(line: string) {
+  let maskedLine = line;
+  let cursor = 0;
+
+  while(cursor < line.length) {
+    const openingIndex = line.indexOf("`", cursor);
+
+    if(openingIndex === -1) break;
+
+    const delimiterLength = backtickRunLength(line, openingIndex);
+
+    if(isEscaped(line, openingIndex)) {
+      cursor = openingIndex + delimiterLength;
+      continue;
+    }
+
+    let closingIndex = -1;
+    let searchIndex = openingIndex + delimiterLength;
+
+    while(searchIndex < line.length) {
+      const candidateIndex = line.indexOf("`", searchIndex);
+
+      if(candidateIndex === -1) break;
+
+      const candidateLength = backtickRunLength(line, candidateIndex);
+
+      if(candidateLength === delimiterLength) {
+        closingIndex = candidateIndex;
+        break;
+      }
+
+      searchIndex = candidateIndex + candidateLength;
+    }
+
+    if(closingIndex === -1) {
+      cursor = openingIndex + delimiterLength;
+      continue;
+    }
+
+    const endIndex = closingIndex + delimiterLength;
+    maskedLine = maskedLine.slice(0, openingIndex)
+      + " ".repeat(endIndex - openingIndex)
+      + maskedLine.slice(endIndex);
+    cursor = endIndex;
+  }
+
+  return maskedLine;
+}
+
 function relativeExamplePath(path: string) {
   const normalizedPath = path.replaceAll("\\", "/");
   const examplesDirectory = "examples/";
@@ -162,19 +228,21 @@ function expandDocsExamples(
       continue;
     }
 
-    if(fence || !line.includes("<DocsExample")) {
+    const lineWithoutInlineCode = maskInlineCodeSpans(line);
+
+    if(fence || !lineWithoutInlineCode.includes("<DocsExample")) {
       output.push(line);
       continue;
     }
 
-    if(!/^\s*<DocsExample\b/.test(line)) {
+    if(!/^\s*<DocsExample\b/.test(lineWithoutInlineCode)) {
       throw new Error("[LLM] DocsExample must be a standalone block.");
     }
 
     const tagLines = [line];
 
     while(!tagLines.at(-1)?.includes("/>") && index + 1 < lines.length) {
-      index += 1;
+      index++;
       tagLines.push(lines[index]);
     }
 
