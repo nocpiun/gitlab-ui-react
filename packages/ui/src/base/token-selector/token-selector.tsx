@@ -483,6 +483,7 @@ const GlTokenSelector = forwardRef<HTMLInputElement, GlTokenSelectorProps>(funct
           loadingContent={loadingContent}
           menuClassName={menuClassName}
           noResultsContent={noResultsContent}
+          open={open}
           onSelect={addToken}
           portalContainer={portalContainerRef}
           renderDropdownItem={renderDropdownItem}

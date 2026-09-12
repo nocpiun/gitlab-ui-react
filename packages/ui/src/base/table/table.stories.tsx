@@ -171,6 +171,12 @@ export const LightweightStyles: Story = {
 };
 
 export const StickyHeader: Story = {
+  // Upstream's sticky wrapper is likewise a non-tabbable scrolling region.
+  parameters: {
+    a11y: {
+      options: { rules: { "scrollable-region-focusable": { enabled: false } } },
+    },
+  },
   render: () => (
     <GlTable stickyHeader="14rem">
       <GlTableCaption>Scrollable pipeline history</GlTableCaption>

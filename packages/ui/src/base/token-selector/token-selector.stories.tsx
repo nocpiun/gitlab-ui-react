@@ -344,24 +344,37 @@ export const AsyncResultsAfterBlur: Story = {
     input.focus();
     await waitFor(() => expect(input).toHaveAttribute("aria-expanded", "true"));
     await expect(await canvas.findByRole("option", { name: "Runner" })).toBeVisible();
+    await expect(canvas.getByRole("button", { name: "Results loaded" }))
+      .not.toHaveAttribute("aria-hidden");
   },
 };
 
 export const NoResults: Story = {
   args: {
     defaultValue: [],
-    items: [],
     noResultsContent: "No projects found",
   },
   render: (args) => (
     <div style={{ maxWidth: 520 }}>
       <label htmlFor="empty-token-selector">Empty projects</label>
-      <GlTokenSelector {...args} id="empty-token-selector" />
+      <ControlledSelector {...args} id="empty-token-selector" sourceItems={projects} />
     </div>
   ),
   play: async ({ canvas }) => {
-    canvas.getByRole("combobox", { name: "Empty projects" }).focus();
-    await expect(await canvas.findByText("No projects found")).toBeVisible();
+    const input = canvas.getByRole("combobox", { name: "Empty projects" });
+    input.focus();
+    const listbox = await canvas.findByRole("listbox");
+    await expect(canvas.getByRole("option", { name: "GitLab" })).toBeVisible();
+    const status = canvas.getByRole("status");
+    await expect(status).toBeEmptyDOMElement();
+
+    await userEvent.type(input, "missing");
+    const emptyOption = await canvas.findByRole("option", { name: "No projects found" });
+    await expect(emptyOption).toBeVisible();
+    await expect(listbox).toContainElement(emptyOption);
+    await expect(status).toHaveTextContent("No projects found");
+    await expect(listbox).not.toContainElement(status);
+    await expect(input).not.toHaveAttribute("aria-activedescendant");
   },
 };
 

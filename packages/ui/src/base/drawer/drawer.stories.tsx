@@ -120,7 +120,7 @@ export const Default: Story = {
     const closeButton = drawer.getByRole("button", { name: "Close drawer" });
     const bodyAction = drawer.getByRole("button", { name: "Body action" });
 
-    await expect(dialog.tagName).toBe("ASIDE");
+    await expect(dialog.tagName).toBe("DIV");
     await expect(dialog).toHaveClass("gl-drawer", "gl-drawer-default");
     await expectDesktopWidthWithContainerQueries(dialog, "400px");
     await expect(dialog).toHaveAttribute("aria-modal", "true");

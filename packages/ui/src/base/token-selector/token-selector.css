@@ -41,9 +41,3 @@
 .gl-token-selector-input {
   padding: 0.375rem 0.5rem;
 }
-
-/* Base UI keeps this live region mounted; its contents are only present when
- * the externally supplied candidate list is empty. */
-.gl-token-selector-empty:empty {
-  display: none;
-}

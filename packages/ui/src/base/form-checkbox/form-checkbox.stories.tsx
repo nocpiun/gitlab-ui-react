@@ -310,6 +310,12 @@ export const GroupRequired: Story = {
   args: {
     children: undefined,
   },
+  // Upstream intentionally mirrors required state on both the group and its checkboxes.
+  parameters: {
+    a11y: {
+      options: { rules: { "aria-allowed-attr": { enabled: false } } },
+    },
+  },
   render: () => (
     <GlFormCheckboxGroup
       name="required-group"

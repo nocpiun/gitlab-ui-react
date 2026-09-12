@@ -152,7 +152,10 @@ export const AlignmentMatrix: Story = {
       {(["left", "center", "right", "fill"] as const).map((align) => (
         <div key={align}>
           <div className="gl-mb-2">{align}</div>
-          <GlPagination {...args} align={align} />
+          <GlPagination
+            {...args}
+            align={align}
+            labelNav={`Pagination aligned ${align}`} />
         </div>
       ))}
     </div>

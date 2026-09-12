@@ -133,9 +133,15 @@ export const KeyboardNavigation: Story = {
     const clone = canvas.getByRole("menuitem", { name: "Clone project" });
     const rename = canvas.getByRole("menuitem", { name: "Rename project" });
     await expect(add).toHaveFocus();
+    await expect(add).toHaveAttribute("tabindex", "0");
+    await expect(clone).toHaveAttribute("tabindex", "-1");
+    await expect(rename).toHaveAttribute("tabindex", "-1");
 
     await userEvent.keyboard("{ArrowDown}");
     await expect(clone).toHaveFocus();
+    await expect(add).toHaveAttribute("tabindex", "-1");
+    await expect(clone).toHaveAttribute("tabindex", "0");
+    await expect(rename).toHaveAttribute("tabindex", "-1");
     await userEvent.keyboard("{End}{ArrowDown}");
     await expect(rename).toHaveFocus();
     await userEvent.keyboard("{Home}");
@@ -495,7 +501,9 @@ export const NestedDropdowns: Story = {
         </GlDisclosureDropdownGroup>
         <div className="gl-p-2">
           <GlDisclosureDropdown>
-            <GlDisclosureDropdownTrigger size="small">Nested actions</GlDisclosureDropdownTrigger>
+            <GlDisclosureDropdownTrigger role="menuitem" size="small">
+              Nested actions
+            </GlDisclosureDropdownTrigger>
             <GlDisclosureDropdownContent placement="right-start">
               <GlDisclosureDropdownGroup>
                 <GlDisclosureDropdownItem value="nested">Nested item</GlDisclosureDropdownItem>
@@ -511,7 +519,7 @@ export const NestedDropdowns: Story = {
     await userEvent.click(outerTrigger);
     await canvas.findByRole("menuitem", { name: "Outer item" });
 
-    const nestedTrigger = await canvas.findByRole("button", { name: "Nested actions" });
+    const nestedTrigger = await canvas.findByRole("menuitem", { name: "Nested actions" });
     await userEvent.click(nestedTrigger);
     await waitFor(() => expect(canvas.getAllByRole("menu")).toHaveLength(2));
     await userEvent.click(canvas.getByRole("menuitem", { name: "Nested item" }));
@@ -586,7 +594,9 @@ export const FixedFluidAndScrolling: Story = {
     </GlDisclosureDropdown>
   ),
   play: async ({ canvas, canvasElement }) => {
-    await userEvent.click(canvas.getByRole("button", { name: "Many actions" }));
+    const trigger = canvas.getByRole("button", { name: "Many actions" });
+    trigger.focus();
+    await userEvent.keyboard("{ArrowDown}");
     const body = within(canvasElement.ownerDocument.body);
     const menu = await body.findByRole("menu");
     const inner = menu.querySelector<HTMLElement>(".gl-new-dropdown-inner")!;

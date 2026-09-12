@@ -421,7 +421,7 @@ export const GlDrawerTrigger = forwardRef<HTMLElement, GlDrawerTriggerProps>(
   },
 );
 
-export const GlDrawerContent = forwardRef<HTMLElement, GlDrawerContentProps>(
+export const GlDrawerContent = forwardRef<HTMLDivElement, GlDrawerContentProps>(
   function GlDrawerContent({
     children,
     className,
@@ -443,7 +443,7 @@ export const GlDrawerContent = forwardRef<HTMLElement, GlDrawerContentProps>(
           {...popupProps}
           aria-modal="true"
           className={drawerVariants({ className, variant })}
-          render={<aside ref={forwardedRef} />}
+          render={<div ref={forwardedRef} />}
           role="dialog"
           style={popupStyle}>
           <DrawerContentContext.Provider value={{ directChild: true, zIndex }}>

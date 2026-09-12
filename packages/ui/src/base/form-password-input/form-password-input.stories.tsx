@@ -27,6 +27,12 @@ lands on the wrapper), for hooks or styles that must target the input.`,
       },
     },
   },
+  render: (args) => (
+    <>
+      <label htmlFor={args.id}>Password</label>
+      <GlFormPasswordInput {...args} />
+    </>
+  ),
 } satisfies Meta<typeof GlFormPasswordInput>;
 
 export default meta;
@@ -75,6 +81,7 @@ export const NativeFormReset: Story = {
   },
   render: (args) => (
     <form>
+      <label htmlFor={args.id}>Password</label>
       <GlFormPasswordInput {...args} />
       <button type="reset">Reset form</button>
     </form>
