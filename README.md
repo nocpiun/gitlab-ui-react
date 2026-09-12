@@ -38,7 +38,6 @@ GitLab UI for React ports that component library to React. The project aims to m
 - Chart components
 - Package publishing workflows
 - Documents
-- Compatibility and API consistency checks
 
 ## Contributing
 
