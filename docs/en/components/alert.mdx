@@ -13,17 +13,25 @@ import {
 ```
 
 ```tsx
-<GlAlert>
+<GlAlert dismissible={false}>
   <GlAlertDescription>Your preferences were updated.</GlAlertDescription>
 </GlAlert>
 ```
 
 ## Default
 
-Use an alert for a dynamic system condition in the current context. The default information alert is polite and dismissible; the parent owns its visibility and must remove it when `onDismiss` runs.
+Use an alert for a dynamic system condition in the current context. Start with a non-dismissible alert when the message must remain available until its underlying condition is resolved.
 
 <DocsExample
   filename="alert/AlertExample.tsx"
+  title="Information alert"/>
+
+## Dismissible alerts
+
+Allow dismissal only when the message can safely be removed. `GlAlert` does not hide itself, so the parent must update its state and remove the alert when `onDismiss` runs.
+
+<DocsExample
+  filename="alert/AlertDismissibleExample.tsx"
   title="Dismissible information alert"/>
 
 ## Variants

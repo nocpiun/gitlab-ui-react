@@ -13,17 +13,25 @@ import {
 ```
 
 ```tsx
-<GlAlert>
+<GlAlert dismissible={false}>
   <GlAlertDescription>Your preferences were updated.</GlAlertDescription>
 </GlAlert>
 ```
 
 ## 默认
 
-当当前情境中出现动态系统状态时使用警报。默认的信息警报会礼貌播报并且可以关闭；其可见性由父组件管理，父组件必须在 `onDismiss` 触发时将其移除。
+当当前情境中出现动态系统状态时使用警报。如果消息必须保留到其对应的状态得到解决，请先使用不可关闭的警报。
 
 <DocsExample
   filename="alert/AlertExample.tsx"
+  title="信息警报"/>
+
+## 可关闭的警报
+
+只有消息可以安全移除时才允许用户关闭。`GlAlert` 不会自行隐藏，因此父组件必须在 `onDismiss` 触发时更新状态并移除警报。
+
+<DocsExample
+  filename="alert/AlertDismissibleExample.tsx"
   title="可关闭的信息警报"/>
 
 ## 变体
