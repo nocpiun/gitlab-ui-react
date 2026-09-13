@@ -22,30 +22,10 @@ GitLab UI for React ports that component library to React. The project aims to m
 - **Pajamas Design System**: <https://design.gitlab.com>
 - **Upstream Repo**: <https://gitlab.com/gitlab-org/gitlab-services/design.gitlab.com>
 
-## Project status
-
-### Available today
-
-- A distributable package of GitLab design tokens (`packages/tokens`). For the complete token reference, see the [official Design Token Directory](https://design.gitlab.com/product-foundations/design-tokens-directory).
-- Foundational styles (`packages/styles/src`) and a prebuilt stylesheet bundle (`packages/styles/dist/gitlab-ui.css`).
-- Basic components, including `GlButton`, `GlLink`, `GlBadge`, `GlCard`, etc.
-- Form components, including `GlFormInput`, `GlFormTextarea`, `GlFormCheckbox`, `GlFormRadio`, `GlFormSelect`, etc.
-
-### In progress
-
-- Advanced form components
-- Advanced composite components
-- Chart components
-- Documents
-
 ## Usage
 
 Read the [Installation Guide](https://glui.nocp.space/docs/installation) to get started.
 
-## Contributing
-
-Contributions to this project are welcomed. You can fork this project and start your contributing. If you don't know how to do, please follow the instruction [Creating a Pull Request from a Fork](https://docs.github.com/en/pull-requests/how-tos/create-pull-requests/creating-a-pull-request-from-a-fork).
-
 ## License
 
-[MIT](./LICENSE)
+[MIT](https://github.com/nocpiun/gitlab-ui-react/blob/main/LICENSE)
