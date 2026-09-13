@@ -1,0 +1,81 @@
+---
+title: Alert
+description: 用于传达需要用户注意、与当前情境相关且及时的系统消息。
+---
+
+## 用法
+
+```tsx
+import {
+  GlAlert,
+  GlAlertDescription,
+} from "gitlab-ui-react/alert";
+```
+
+```tsx
+<GlAlert>
+  <GlAlertDescription>Your preferences were updated.</GlAlertDescription>
+</GlAlert>
+```
+
+## 默认
+
+当当前情境中出现动态系统状态时使用警报。默认的信息警报会礼貌播报并且可以关闭；其可见性由父组件管理，父组件必须在 `onDismiss` 触发时将其移除。
+
+<DocsExample
+  filename="alert/AlertExample.tsx"
+  title="可关闭的信息警报"/>
+
+## 变体
+
+应根据消息含义选择变体，而不是只考虑视觉强调程度。严重问题使用 danger，潜在风险使用 warning，在其他位置完成的操作结果使用 success，动态状态使用 info，有用的产品指导使用 tip。
+
+<DocsExample
+  filename="alert/AlertVariantsExample.tsx"
+  title="警报变体"/>
+
+## 标题与操作
+
+当标题有助于用户识别触发警报的事件时，可以添加一个简短标题。在 `GlAlertActions` 中最多放置两个明确的恢复或继续操作；主要操作使用 confirm 变体，次要操作使用 default 变体。
+
+<DocsExample
+  filename="alert/AlertActionsExample.tsx"
+  title="带操作的警报"
+  storybookId="ui-base-alert--undismissible-danger-with-actions"/>
+
+## 无障碍
+
+- 警报用于动态通知，不应用来展示永久可见的说明或上下文帮助。
+- danger、warning 和 success 变体使用 `role="alert"`；info 和 tip 变体使用 `role="status"`。默认的 `aria-live="polite"` 不会打断屏幕阅读器当前的朗读。
+- 仅对关键且有时效性的消息设置 `politeness="assertive"`。对于需要用户操作的消息，应将其放在相关内容附近，并在合适时通过 ref 把焦点移动到警报上。
+- 选择 `headerLevel`，使标题符合页面的逻辑标题层级。
+- 提供本地化的 `dismissLabel`、处理 `onDismiss`，并且只在消息可以安全移除时提供关闭功能。
+- 更新后需要辅助技术朗读整条消息时，设置 `aria-atomic="true"`。
+
+## API
+
+下面列出组件专有的属性。`GlAlert`、`GlAlertDescription` 和 `GlAlertActions` 还会转发受支持的 `div` 属性与 ref。
+
+### `GlAlert`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `variant` | 将语义样式设置为 `danger`、`warning`、`success`、`info` 或 `tip`。 | `"info"` |
+| `title` | 在警报内容之前添加简短标题。 | — |
+| `headerLevel` | 将标题层级设置为 `1` 到 `6`。 | `2` |
+| `dismissible` | 显示关闭按钮；可见性仍由父组件控制。 | `true` |
+| `dismissLabel` | 设置关闭按钮的无障碍标签。 | `"Dismiss"` |
+| `onDismiss` | 关闭按钮被激活时调用。 | — |
+| `politeness` | 将 `aria-live` 设置为 `polite`、`assertive` 或 `off`。 | `"polite"` |
+| `sticky` | 将警报固定在滚动容器顶部；同一时间只应使用一个固定警报。 | `false` |
+| `children` | 警报内容，通常由描述和操作辅助组件组合而成。 | — |
+
+### 复合部分
+
+`GlAlertDescription` 提供标准的消息布局，`GlAlertActions` 用于排列自定义操作控件。两者都接受 React 子元素以及受支持的 `div` 属性，包括 `className`。
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Alert](https://design.gitlab.com/components/alert/)
+- [Storybook 中的 Alert stories](https://glui-story.nocp.space/?path=/docs/ui-base-alert--docs)
+- [Alert 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/alert/alert.tsx)

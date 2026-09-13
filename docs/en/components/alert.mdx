@@ -1,0 +1,81 @@
+---
+title: Alert
+description: Communicates a contextual, timely system message that needs a user's attention.
+---
+
+## Usage
+
+```tsx
+import {
+  GlAlert,
+  GlAlertDescription,
+} from "gitlab-ui-react/alert";
+```
+
+```tsx
+<GlAlert>
+  <GlAlertDescription>Your preferences were updated.</GlAlertDescription>
+</GlAlert>
+```
+
+## Default
+
+Use an alert for a dynamic system condition in the current context. The default information alert is polite and dismissible; the parent owns its visibility and must remove it when `onDismiss` runs.
+
+<DocsExample
+  filename="alert/AlertExample.tsx"
+  title="Dismissible information alert"/>
+
+## Variants
+
+Choose a variant for the message's meaning, not merely its visual emphasis. Use danger for critical problems, warning for risks, success for outcomes completed elsewhere, information for changing status, and tip for useful product guidance.
+
+<DocsExample
+  filename="alert/AlertVariantsExample.tsx"
+  title="Alert variants"/>
+
+## Titles and actions
+
+Add a short title when it helps users identify what triggered the alert. Put up to two explicit recovery or continuation controls in `GlAlertActions`; use a confirm primary action and a default secondary action.
+
+<DocsExample
+  filename="alert/AlertActionsExample.tsx"
+  title="Alert with actions"
+  storybookId="ui-base-alert--undismissible-danger-with-actions"/>
+
+## Accessibility
+
+- Use alerts for dynamic notifications, not permanently visible documentation or contextual help.
+- Danger, warning, and success variants use `role="alert"`; information and tip variants use `role="status"`. The default `aria-live="polite"` avoids interrupting current screen-reader speech.
+- Set `politeness="assertive"` only for critical, time-sensitive messages. For a message that requires action, place it near the related content and move focus to the alert through its ref when appropriate.
+- Choose `headerLevel` to keep the title in the page's logical heading hierarchy.
+- Provide a localized `dismissLabel`, handle `onDismiss`, and offer dismissal only when the message can safely be removed.
+- Set `aria-atomic="true"` when assistive technology should announce the entire message after an update.
+
+## API
+
+These are the component-specific props. `GlAlert`, `GlAlertDescription`, and `GlAlertActions` also forward supported `div` attributes and refs.
+
+### `GlAlert`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `variant` | Sets the semantic style to `danger`, `warning`, `success`, `info`, or `tip`. | `"info"` |
+| `title` | Adds a short heading before the alert content. | — |
+| `headerLevel` | Sets the title heading level from `1` through `6`. | `2` |
+| `dismissible` | Shows the dismiss button; visibility remains controlled by the parent. | `true` |
+| `dismissLabel` | Sets the dismiss button's accessible label. | `"Dismiss"` |
+| `onDismiss` | Runs when the dismiss button is activated. | — |
+| `politeness` | Sets `aria-live` to `polite`, `assertive`, or `off`. | `"polite"` |
+| `sticky` | Keeps the alert at the top of its scrolling container. Use only one sticky alert at a time. | `false` |
+| `children` | Alert content, normally composed with the description and actions helpers. | — |
+
+### Compound parts
+
+`GlAlertDescription` provides the standard message layout. `GlAlertActions` lays out custom action controls. Both accept React children and supported `div` attributes, including `className`.
+
+## Related resources
+
+- [Alert in the Pajamas Design System](https://design.gitlab.com/components/alert/)
+- [Alert stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-alert--docs)
+- [Alert source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/alert/alert.tsx)

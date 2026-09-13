@@ -73,6 +73,16 @@ function getNavigationItems(locale: Locale): DocsNavigationItem[] {
     title: messages.components,
     items: [
       {
+        href: localizedPath(locale, "/docs/components/accordion"),
+        id: "components/accordion",
+        title: "Accordion",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/alert"),
+        id: "components/alert",
+        title: "Alert",
+      },
+      {
         href: localizedPath(locale, "/docs/components/attribute-list"),
         id: "components/attribute-list",
         title: "Attribute list",
