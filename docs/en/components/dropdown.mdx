@@ -1,0 +1,126 @@
+---
+title: Dropdown
+description: Presents actions or selectable options in a panel opened from a trigger.
+---
+
+## Usage
+
+```tsx
+import {
+  GlDisclosureDropdown,
+  GlDisclosureDropdownContent,
+  GlDisclosureDropdownItem,
+  GlDisclosureDropdownTrigger,
+} from "gitlab-ui-react/disclosure-dropdown";
+import {
+  GlListbox,
+  GlListboxContent,
+  GlListboxItem,
+  GlListboxTrigger,
+} from "gitlab-ui-react/listbox";
+```
+
+```tsx
+<GlDisclosureDropdown>
+  <GlDisclosureDropdownTrigger>Actions</GlDisclosureDropdownTrigger>
+  <GlDisclosureDropdownContent>
+    <GlDisclosureDropdownItem value="edit">Edit</GlDisclosureDropdownItem>
+  </GlDisclosureDropdownContent>
+</GlDisclosureDropdown>
+```
+
+## Default
+
+Use a disclosure dropdown when each item performs an action or follows a link. Items can include icons, disabled states, groups, and a danger treatment.
+
+<DocsExample filename="dropdown/DropdownExample.tsx" title="Disclosure dropdown"/>
+
+## Listbox
+
+Use a listbox when the user chooses one option from a set. Keep the selected value in React state and show the current selection in the trigger.
+
+<DocsExample filename="dropdown/DropdownListboxExample.tsx" title="Single-select listbox"/>
+
+## Multiple selection
+
+Set `multiple` when more than one option can be selected. In this mode, `value` and `onValueChange` use an array.
+
+<DocsExample filename="dropdown/DropdownMultipleExample.tsx" title="Multi-select listbox"/>
+
+## Accessibility
+
+- Give every trigger a visible label or an accessible name. Icon-only triggers require `aria-label`, `aria-labelledby`, or screen-reader-only text.
+- Use disclosure dropdowns for actions and navigation, and listboxes for choosing values; their keyboard and screen reader semantics are different.
+- Give `GlListboxContent` an accessible name with `aria-label` or `aria-labelledby` when the trigger does not provide enough context.
+- Keep item labels concise and unique. Do not rely on an icon or color alone to communicate an action.
+- Let the components manage focus, arrow-key navigation, selection state, and returning focus when the panel closes.
+
+## API
+
+The dropdown APIs use compound parts. Trigger parts also accept the supported GitLab button presentation props, while content and item parts forward relevant Base UI and DOM attributes.
+
+### GlDisclosureDropdown
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `autoClose` | Closes the panel after an item is activated unless the item overrides it. | `true` |
+| `defaultOpen` | Sets the initial open state when uncontrolled. | `false` |
+| `open` | Controls whether the panel is open. | — |
+| `onOpenChange` | Reports requested open-state changes and their reason. | — |
+| `onAction` | Runs when any disclosure item is activated. | — |
+
+### GlDisclosureDropdownTrigger
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `children` | Provides the visible or screen-reader-only trigger text. | — |
+| `category` | Sets the button category. | `"primary"` |
+| `variant` | Sets the button variant. | `"default"` |
+| `size` | Sets the trigger size. | `"medium"` |
+| `icon` | Adds an icon from the GitLab SVG library. | — |
+| `noCaret` | Removes the dropdown caret. | `false` |
+| `textSrOnly` | Visually hides the trigger text while retaining its accessible name. | `false` |
+
+### GlDisclosureDropdownContent and item
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `placement` | Positions the panel relative to the trigger. | `"bottom-start"` |
+| `offset` | Sets the panel offset in pixels or by axis. | `8` |
+| `fluidWidth` | Lets the panel width follow its contents. | `false` |
+| `positioningStrategy` | Uses `absolute` or `fixed` positioning. | `"absolute"` |
+| `value` | Identifies an item in action callbacks. | — |
+| `variant` | Sets an item's appearance to `default` or `danger`. | `"default"` |
+| `closeOnClick` | Overrides the root `autoClose` behavior for an item. | Inherits `autoClose` |
+
+### GlListbox
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `multiple` | Enables selection of more than one item. | `false` |
+| `defaultValue` | Sets the initial uncontrolled selection. | `null` or `[]` |
+| `value` | Controls the selected value or values. | — |
+| `onValueChange` | Reports selection changes with item details. | — |
+| `disabled` | Disables the listbox and its items. | `false` |
+| `loading` | Shows loading state on the trigger and prevents selection. | `false` |
+| `state` | Sets the trigger validation appearance. | `null` |
+
+### GlListboxContent and item
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `aria-label` | Gives the listbox panel an accessible name. | — |
+| `placement` | Positions the panel relative to the trigger. | `"bottom-start"` |
+| `panelMatchTriggerWidth` | Makes the panel at least as wide as its trigger. | `false` |
+| `noResultsText` | Sets the empty search result content. | `"No results found"` |
+| `value` | Identifies a selectable item. | — |
+| `disabled` | Prevents an item from being selected. | `false` |
+
+## Related resources
+
+- [Dropdown overview in the Pajamas Design System](https://design.gitlab.com/components/dropdown-overview/)
+- [Disclosure in the Pajamas Design System](https://design.gitlab.com/components/dropdown-disclosure/)
+- [Disclosure dropdown stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-disclosure-dropdown--docs)
+- [Listbox stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-listbox--docs)
+- [Disclosure dropdown source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/disclosure-dropdown/disclosure-dropdown.tsx)
+- [Listbox source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/listbox/listbox.tsx)

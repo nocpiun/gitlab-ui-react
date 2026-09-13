@@ -1,0 +1,126 @@
+---
+title: Dropdown
+description: 通过触发器打开面板，展示操作或可选择的选项。
+---
+
+## 用法
+
+```tsx
+import {
+  GlDisclosureDropdown,
+  GlDisclosureDropdownContent,
+  GlDisclosureDropdownItem,
+  GlDisclosureDropdownTrigger,
+} from "gitlab-ui-react/disclosure-dropdown";
+import {
+  GlListbox,
+  GlListboxContent,
+  GlListboxItem,
+  GlListboxTrigger,
+} from "gitlab-ui-react/listbox";
+```
+
+```tsx
+<GlDisclosureDropdown>
+  <GlDisclosureDropdownTrigger>Actions</GlDisclosureDropdownTrigger>
+  <GlDisclosureDropdownContent>
+    <GlDisclosureDropdownItem value="edit">Edit</GlDisclosureDropdownItem>
+  </GlDisclosureDropdownContent>
+</GlDisclosureDropdown>
+```
+
+## 默认
+
+当每个项目用于执行操作或打开链接时，使用 Disclosure Dropdown。项目可以包含图标、禁用状态、分组和危险操作样式。
+
+<DocsExample filename="dropdown/DropdownExample.tsx" title="Disclosure Dropdown"/>
+
+## Listbox
+
+当用户需要从一组选项中选择一个值时，使用 Listbox。通过 React state 保存选中值，并在触发器中显示当前选择。
+
+<DocsExample filename="dropdown/DropdownListboxExample.tsx" title="单选 Listbox"/>
+
+## 多选
+
+需要选择多个选项时设置 `multiple`。在此模式下，`value` 和 `onValueChange` 使用数组。
+
+<DocsExample filename="dropdown/DropdownMultipleExample.tsx" title="多选 Listbox"/>
+
+## 无障碍
+
+- 为每个触发器提供可见标签或无障碍名称。纯图标触发器需要 `aria-label`、`aria-labelledby` 或仅供屏幕阅读器使用的文字。
+- Disclosure Dropdown 用于操作和导航，Listbox 用于选择值；两者的键盘和屏幕阅读器语义不同。
+- 当触发器无法提供足够上下文时，通过 `aria-label` 或 `aria-labelledby` 为 `GlListboxContent` 命名。
+- 项目标签应简洁且彼此可区分，不要仅通过图标或颜色表达操作。
+- 让组件管理焦点、方向键导航、选择状态及面板关闭后的焦点恢复。
+
+## API
+
+Dropdown API 由多个组合部件构成。触发器支持相应的 GitLab 按钮外观属性，内容和项目部件会传递相关的 Base UI 与 DOM 属性。
+
+### GlDisclosureDropdown
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `autoClose` | 激活项目后关闭面板，除非该项目覆盖此行为。 | `true` |
+| `defaultOpen` | 设置非受控模式下的初始打开状态。 | `false` |
+| `open` | 控制面板是否打开。 | — |
+| `onOpenChange` | 报告打开状态变更请求及其原因。 | — |
+| `onAction` | 激活任意 Disclosure 项目时调用。 | — |
+
+### GlDisclosureDropdownTrigger
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `children` | 提供可见或仅供屏幕阅读器使用的触发器文字。 | — |
+| `category` | 设置按钮类别。 | `"primary"` |
+| `variant` | 设置按钮变体。 | `"default"` |
+| `size` | 设置触发器尺寸。 | `"medium"` |
+| `icon` | 添加 GitLab SVG 库中的图标。 | — |
+| `noCaret` | 移除 Dropdown 箭头。 | `false` |
+| `textSrOnly` | 视觉隐藏触发器文字，同时保留无障碍名称。 | `false` |
+
+### GlDisclosureDropdownContent 与项目
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `placement` | 设置面板相对触发器的位置。 | `"bottom-start"` |
+| `offset` | 以像素或轴向值设置面板偏移。 | `8` |
+| `fluidWidth` | 让面板宽度跟随内容。 | `false` |
+| `positioningStrategy` | 使用 `absolute` 或 `fixed` 定位。 | `"absolute"` |
+| `value` | 在操作回调中标识项目。 | — |
+| `variant` | 将项目外观设置为 `default` 或 `danger`。 | `"default"` |
+| `closeOnClick` | 覆盖该项目继承的根级 `autoClose` 行为。 | 继承 `autoClose` |
+
+### GlListbox
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `multiple` | 允许选择多个项目。 | `false` |
+| `defaultValue` | 设置非受控模式下的初始选择。 | `null` 或 `[]` |
+| `value` | 控制选中的一个或多个值。 | — |
+| `onValueChange` | 报告选择变更及项目详情。 | — |
+| `disabled` | 禁用 Listbox 及其项目。 | `false` |
+| `loading` | 在触发器上显示加载状态并阻止选择。 | `false` |
+| `state` | 设置触发器的验证外观。 | `null` |
+
+### GlListboxContent 与项目
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `aria-label` | 为 Listbox 面板提供无障碍名称。 | — |
+| `placement` | 设置面板相对触发器的位置。 | `"bottom-start"` |
+| `panelMatchTriggerWidth` | 使面板宽度至少与触发器相同。 | `false` |
+| `noResultsText` | 设置搜索无结果时的内容。 | `"No results found"` |
+| `value` | 标识可选择的项目。 | — |
+| `disabled` | 阻止项目被选中。 | `false` |
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Dropdown 概览](https://design.gitlab.com/components/dropdown-overview/)
+- [Pajamas 设计系统中的 Disclosure](https://design.gitlab.com/components/dropdown-disclosure/)
+- [Storybook 中的 Disclosure Dropdown stories](https://glui-story.nocp.space/?path=/docs/ui-base-disclosure-dropdown--docs)
+- [Storybook 中的 Listbox stories](https://glui-story.nocp.space/?path=/docs/ui-base-listbox--docs)
+- [Disclosure Dropdown 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/disclosure-dropdown/disclosure-dropdown.tsx)
+- [Listbox 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/listbox/listbox.tsx)

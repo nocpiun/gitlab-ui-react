@@ -1,0 +1,78 @@
+---
+title: Pagination
+description: 将大型结果集拆分为多个页面，并提供页面导航控件。
+---
+
+## 用法
+
+```tsx
+import { GlPagination } from "gitlab-ui-react/pagination";
+import { GlKeysetPagination } from "gitlab-ui-react/keyset-pagination";
+```
+
+```tsx
+<GlPagination perPage={20} totalItems={100} value={1} />
+```
+
+## 默认
+
+当总数已知且用户需要跳转到指定页码时，使用 Offset Pagination。按钮式导航通过 `onValueChange` 更新 `value`；页面具有稳定 URL 时则提供 `linkGen`。
+
+<DocsExample
+  filename="pagination/PaginationExample.tsx"
+  title="Offset Pagination"
+  storybookId="ui-base-pagination--default"/>
+
+## Keyset Pagination
+
+对于用户浏览期间可能发生变化的游标数据，使用 Keyset Pagination。它仅提供 Previous 和 Next 控件，并将相应游标传给回调。
+
+<DocsExample filename="pagination/KeysetPaginationExample.tsx" title="Keyset Pagination"/>
+
+## 无障碍
+
+- 为每个 Pagination 地标提供本地化且明确的 `labelNav` 或 `navigationLabel`，尤其是页面中存在多个 Pagination 时。
+- 对页码和控件标签进行本地化。编号 Pagination 会自动通过 `aria-current="page"` 标记当前链接。
+- 加载新页面后，在适当情况下将焦点和滚动位置移到更新内容的起始位置。
+- 每个页面具有稳定 URL 时，优先使用包含真实目标地址的链接。
+
+## API
+
+两个组件都会将受支持的属性传递给渲染后的 `<nav>` 元素。
+
+### GlPagination
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `value` | 设置当前页码。 | `1` |
+| `perPage` | 设置每页项目数。 | `20` |
+| `totalItems` | 设置可用项目总数。 | `0` |
+| `onValueChange` | 未设置 `linkGen` 时报告页面变更请求。 | — |
+| `linkGen` | 为每一页生成 URL，并启用链接式导航。 | `null` |
+| `align` | 将控件对齐为 `left`、`center`、`right` 或 `fill`。 | `"left"` |
+| `limits` | 按视口断点设置最大可见页码链接数。 | `{ xs: 0, sm: 3, md: 9, default: 9 }` |
+| `labelNav` | 为 Pagination 导航地标提供标签。 | `"Pagination"` |
+| `labelPage` | 设置或生成每个页码链接的无障碍标签。 | `"Go to page %{page}"` |
+
+### GlKeysetPagination
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `hasPreviousPage` | 表示是否存在上一页。 | `false` |
+| `hasNextPage` | 表示是否存在下一页。 | `false` |
+| `startCursor` | 设置当前页第一项的游标，并传给 `onPrevious`。 | `null` |
+| `endCursor` | 设置当前页最后一项的游标，并传给 `onNext`。 | `null` |
+| `onPrevious` | 激活可用的 Previous 控件时调用。 | — |
+| `onNext` | 激活可用的 Next 控件时调用。 | — |
+| `prevText` | 设置 Previous 控件文字。 | `"Previous"` |
+| `nextText` | 设置 Next 控件文字。 | `"Next"` |
+| `navigationLabel` | 为 Pagination 导航地标提供标签。 | `"Pagination"` |
+| `disabled` | 禁用两个控件。 | `false` |
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Pagination](https://design.gitlab.com/components/pagination/)
+- [Storybook 中的 Pagination stories](https://glui-story.nocp.space/?path=/docs/ui-base-pagination--docs)
+- [Storybook 中的 Keyset Pagination stories](https://glui-story.nocp.space/?path=/docs/ui-base-keyset-pagination--docs)
+- [Pagination 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/pagination/pagination.tsx)
+- [Keyset Pagination 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/keyset-pagination/keyset-pagination.tsx)

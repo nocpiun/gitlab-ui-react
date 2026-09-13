@@ -1,0 +1,62 @@
+---
+title: Form textarea
+description: 获取多行文本，并支持字符计数与高度自动调整。
+---
+
+## 用法
+
+```tsx
+import { GlFormTextarea } from "gitlab-ui-react/form-textarea";
+```
+
+```tsx
+<GlFormTextarea id="description" />
+```
+
+## 默认
+
+对于多行文本输入使用 Textarea。默认显示四行，并阻止用户手动调整尺寸。
+
+<DocsExample filename="form-textarea/FormTextareaExample.tsx" title="Textarea"/>
+
+## 字符计数
+
+设置 `characterCountLimit` 以显示关联的字符计数。根据当前值提供剩余字符和超出限制的文字。
+
+<DocsExample
+  filename="form-textarea/FormTextareaCharacterCountExample.tsx"
+  title="带字符计数的 Textarea"/>
+
+## 无障碍
+
+- 使用相同的 `htmlFor` 与 `id` 将 Textarea 关联到可见 `<label>`。
+- Placeholder 不能替代标签。
+- 启用字符计数时提供本地化文字；组件会通过 `aria-describedby` 自动关联计数器。
+- 将无效状态与可见反馈配合使用，并保留用户提供的其他 `aria-describedby` ID。
+- 启用 `submitOnEnter` 时，应让用户知道 Ctrl/Cmd+Enter 快捷键。
+
+## API
+
+`GlFormTextarea` 会将受支持的原生属性传递给 `<textarea>`，其 ref 也指向该元素。
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `value` | 控制 Textarea 的值。 | — |
+| `defaultValue` | 设置非受控模式下的初始值。 | `""` |
+| `onValueChange` | 报告格式化后的值变更。 | — |
+| `rows` | 设置最少可见行数，最小为 `2`。 | `4` |
+| `maxRows` | 大于 `rows` 时启用高度自动调整。 | — |
+| `noResize` | 阻止用户手动调整尺寸。 | `true` |
+| `characterCountLimit` | 设置并显示字符限制。 | `null` |
+| `remainingCharacterCountText` | 提供未超出限制时显示的本地化文字。 | — |
+| `characterCountOverLimitText` | 提供超出限制时显示的本地化文字。 | — |
+| `state` | 设置有效、无效或中性外观。 | `null` |
+| `debounce` | 将 `onValueChange` 延迟指定毫秒数。 | `0` |
+| `formatter` | 格式化输入值；返回 `false` 可取消更新。 | — |
+| `submitOnEnter` | 按下 Ctrl/Cmd+Enter 时调用 `onSubmit`。 | `false` |
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Textarea](https://design.gitlab.com/components/textarea/)
+- [Storybook 中的 Form textarea stories](https://glui-story.nocp.space/?path=/docs/ui-base-form-textarea--docs)
+- [Form textarea 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/form-textarea/form-textarea.tsx)

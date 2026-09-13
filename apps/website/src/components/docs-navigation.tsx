@@ -127,6 +127,66 @@ function getNavigationItems(locale: Locale): DocsNavigationItem[] {
         id: "components/card",
         title: "Card",
       },
+      {
+        href: localizedPath(locale, "/docs/components/dropdown"),
+        id: "components/dropdown",
+        title: "Dropdown",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/drawer"),
+        id: "components/drawer",
+        title: "Drawer",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/form-character-count"),
+        id: "components/form-character-count",
+        title: "Form character count",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/form-checkbox"),
+        id: "components/form-checkbox",
+        title: "Form checkbox",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/form-date"),
+        id: "components/form-date",
+        title: "Form date",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/form-input"),
+        id: "components/form-input",
+        title: "Form input",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/form-password-input"),
+        id: "components/form-password-input",
+        title: "Form password input",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/form-radio"),
+        id: "components/form-radio",
+        title: "Form radio",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/form-select"),
+        id: "components/form-select",
+        title: "Form select",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/form-textarea"),
+        id: "components/form-textarea",
+        title: "Form textarea",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/icon"),
+        id: "components/icon",
+        title: "Icon",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/pagination"),
+        id: "components/pagination",
+        title: "Pagination",
+      },
     ],
   },
   ];

@@ -1,0 +1,66 @@
+---
+title: Form input
+description: Captures a single-line text, numeric, date, or other native input value.
+---
+
+## Usage
+
+```tsx
+import { GlFormInput } from "gitlab-ui-react/form-input";
+```
+
+```tsx
+<GlFormInput id="username" />
+```
+
+## Default
+
+The default component renders a native text input. Always pair it with a visible label that describes the value rather than its presentation.
+
+<DocsExample filename="form-input/FormInputExample.tsx" title="Text input"/>
+
+## Input types
+
+Set `type` for supported native inputs such as email, number, URL, telephone, search, date, time, range, and color. Browser behavior and appearance can vary by type.
+
+<DocsExample filename="form-input/FormInputTypesExample.tsx" title="Input types"/>
+
+## States
+
+Use `readOnly` when a value remains focusable, selectable, and submitted. Use `disabled` only when the input should be inert, and pair invalid state with explanatory feedback.
+
+<DocsExample filename="form-input/FormInputStatesExample.tsx" title="Input states"/>
+
+## Accessibility
+
+- Associate every input with a visible `<label>` using matching `htmlFor` and `id` values.
+- Placeholder text is a hint, not a replacement for a label.
+- Pair `state={false}` with visible feedback referenced by `aria-describedby`; `aria-invalid` is set automatically.
+- Use the native input type that best communicates the expected value and enables the appropriate browser keyboard.
+- Avoid autofocus unless moving focus is essential and will not surprise the user.
+
+## API
+
+`GlFormInput` accepts supported Base UI input and native attributes and forwards its ref to the `<input>` element.
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `type` | Sets a supported native input type; unsupported values fall back to `text`. | `"text"` |
+| `value` | Controls the input value as a string or number. | — |
+| `defaultValue` | Sets the initial uncontrolled value. | `""` |
+| `onValueChange` | Reports the value after formatting, debounce, and value modifiers. | — |
+| `state` | Sets valid, invalid, or neutral appearance. | `null` |
+| `readOnly` | Prevents editing while keeping the value focusable and submitted. | `false` |
+| `plaintext` | Renders a borderless, read-only value. | `false` |
+| `width` | Sets a fixed or responsive width from `xs` through `xl`. | `null` |
+| `debounce` | Delays `onValueChange` by the given milliseconds. | `0` |
+| `lazy` | Reports value changes on change or blur instead of each keystroke. | `false` |
+| `formatter` | Transforms input text or cancels an update by returning `false`. | — |
+| `number` | Converts a numeric value to a number when possible. | `false` |
+| `trim` | Removes leading and trailing whitespace from the reported value. | `false` |
+
+## Related resources
+
+- [Text input in the Pajamas Design System](https://design.gitlab.com/components/text-input/)
+- [Form input stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-form-input--docs)
+- [Form input source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/form-input/form-input.tsx)

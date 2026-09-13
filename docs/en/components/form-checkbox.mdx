@@ -1,0 +1,83 @@
+---
+title: Form checkbox
+description: Lets users select zero, one, or multiple independent options in a form.
+---
+
+## Usage
+
+```tsx
+import {
+  GlFormCheckbox,
+  GlFormCheckboxGroup,
+} from "gitlab-ui-react/form-checkbox";
+```
+
+```tsx
+<GlFormCheckbox value="notifications">Receive notifications</GlFormCheckbox>
+```
+
+## Default
+
+Use a checkbox for an independent boolean choice. Its visible text is rendered in a native label associated with the checkbox input.
+
+<DocsExample filename="form-checkbox/FormCheckboxExample.tsx" title="Single checkbox"/>
+
+## Checkbox group
+
+Use `GlFormCheckboxGroup` when users can select more than one option from a related set. A group shares its name, state, disabled state, and selected value array with child checkboxes.
+
+<DocsExample
+  filename="form-checkbox/FormCheckboxGroupExample.tsx"
+  title="Checkbox group"/>
+
+## States and help text
+
+Use `indeterminate` for a parent whose descendants have mixed values. Help text clarifies an option, while disabled state preserves a value that cannot currently be changed.
+
+<DocsExample
+  filename="form-checkbox/FormCheckboxStatesExample.tsx"
+  title="Checkbox states"/>
+
+## Accessibility
+
+- Give every checkbox a concise visible label. Use `ariaLabel` or `ariaLabelledby` only when visible label content is unavailable.
+- Wrap a related set in a `<fieldset>` with a `<legend>`, and pass the legend ID through `aria-labelledby` when using `GlFormCheckboxGroup`.
+- Use checkboxes only when zero, one, or multiple choices are valid. Use radio buttons when exactly one option is expected.
+- Pair `state={false}` with visible validation feedback and associate it through `aria-describedby`.
+
+## API
+
+Both components forward supported native attributes. A checkbox inside a group takes its selection, name, required, disabled, and validation state from the group.
+
+### GlFormCheckbox
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `checked` | Controls the checked state outside a group. | — |
+| `defaultChecked` | Sets the initial uncontrolled checked state. | `false` |
+| `onCheckedChange` | Reports the next checked state after user interaction. | — |
+| `value` | Sets the native value and the option value inside a group. | `true` |
+| `indeterminate` | Shows the mixed selection state outside a group. | `false` |
+| `disabled` | Disables the checkbox. | `false` |
+| `required` | Marks a named checkbox as required. | `false` |
+| `state` | Sets valid, invalid, or neutral appearance. | `null` |
+| `help` | Renders help content under the label. | — |
+
+### GlFormCheckboxGroup
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `value` | Controls the selected option values. | — |
+| `defaultValue` | Sets the initial uncontrolled selected values. | `[]` |
+| `onValueChange` | Reports the next selected value array. | — |
+| `options` | Generates checkboxes from strings, numbers, or option objects. | `[]` |
+| `name` | Sets the shared name for child checkboxes. | Generated group ID |
+| `disabled` | Disables every checkbox in the group. | `false` |
+| `required` | Marks grouped checkboxes as required. | `false` |
+| `state` | Sets group and child validation appearance. | `null` |
+
+## Related resources
+
+- [Checkbox in the Pajamas Design System](https://design.gitlab.com/components/checkbox/)
+- [Form checkbox stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-form-checkbox--docs)
+- [Form checkbox and group source](https://github.com/nocpiun/gitlab-ui-react/tree/main/packages/ui/src/base/form-checkbox)

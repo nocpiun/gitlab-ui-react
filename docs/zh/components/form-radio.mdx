@@ -1,0 +1,76 @@
+---
+title: Form radio
+description: 让用户从一组相关选项中选择且仅选择一个值。
+---
+
+## 用法
+
+```tsx
+import { GlFormRadio } from "gitlab-ui-react/form-radio";
+import { GlFormRadioGroup } from "gitlab-ui-react/form-radio-group";
+```
+
+```tsx
+<GlFormRadioGroup defaultValue="private" name="visibility">
+  <GlFormRadio value="private">Private</GlFormRadio>
+  <GlFormRadio value="public">Public</GlFormRadio>
+</GlFormRadioGroup>
+```
+
+## 默认
+
+当一组相关选项中只能选择一个值时，使用 `GlFormRadioGroup`。Group 会与子 Radio 共享值、名称、验证状态、必填状态和禁用状态。
+
+<DocsExample filename="form-radio/FormRadioExample.tsx" title="Radio Group"/>
+
+## 状态与帮助文字
+
+单个 Radio 支持初始选中、禁用、验证状态与帮助内容。在 Group 外使用但仍属于同一原生 Radio 集合时，需要提供共享 `name`。
+
+<DocsExample filename="form-radio/FormRadioStatesExample.tsx" title="Radio 状态"/>
+
+## 无障碍
+
+- 使用带简洁 `<legend>` 的 `<fieldset>` 包裹相关选项。
+- 使用 `GlFormRadioGroup` 时，通过 `aria-labelledby` 传入 legend ID，让每个选项保留 Group 上下文。
+- 保持选项集中并垂直排列，不要在 Group 中插入无关的交互内容。
+- 适当情况下预选常用或推荐选项，但不要仅为避免空状态而预选。
+- 当用户可以选择零个或多个选项时，改用 Checkbox。
+
+## API
+
+两个组件都会传递受支持的原生属性。Group 中的 Radio 会从 Group 获取选择与共享表单状态。
+
+### GlFormRadio
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `checked` | 在 Group 外控制选中状态。 | — |
+| `defaultChecked` | 设置非受控模式下的初始选中状态。 | `false` |
+| `onCheckedChange` | 报告下一个选中状态。 | — |
+| `value` | 设置原生值及 Group 中的选项值。 | `true` |
+| `disabled` | 禁用 Radio。 | `false` |
+| `required` | 将具有名称的 Radio 标记为必填。 | `false` |
+| `state` | 设置有效、无效或中性外观。 | `null` |
+| `help` | 在标签下方渲染帮助内容。 | — |
+
+### GlFormRadioGroup
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `value` | 控制选中的选项值。 | — |
+| `defaultValue` | 设置非受控模式下的初始选择。 | `null` |
+| `onValueChange` | 报告选中的选项值。 | — |
+| `options` | 从字符串、数字或选项对象生成 Radio。 | `[]` |
+| `name` | 设置子 Radio 的共享名称。 | 生成的 Group ID |
+| `disabled` | 禁用 Group 中的所有 Radio。 | `false` |
+| `required` | 将 Group 中的 Radio 标记为必填。 | `false` |
+| `state` | 设置 Group 与子项的验证外观。 | `null` |
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Radio button](https://design.gitlab.com/components/radio-button/)
+- [Storybook 中的 Form radio stories](https://glui-story.nocp.space/?path=/docs/ui-base-form-radio--docs)
+- [Storybook 中的 Form radio group stories](https://glui-story.nocp.space/?path=/docs/ui-base-form-radio-group--docs)
+- [Form radio 源码](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/form-radio/form-radio.tsx)
+- [Form radio group 源码](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/form-radio-group/form-radio-group.tsx)

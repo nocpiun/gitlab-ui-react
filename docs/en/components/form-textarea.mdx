@@ -1,0 +1,62 @@
+---
+title: Form textarea
+description: Captures multi-line text with optional automatic height and character counting.
+---
+
+## Usage
+
+```tsx
+import { GlFormTextarea } from "gitlab-ui-react/form-textarea";
+```
+
+```tsx
+<GlFormTextarea id="description" />
+```
+
+## Default
+
+Use a textarea for multi-line input. It starts at four rows and prevents manual resizing by default.
+
+<DocsExample filename="form-textarea/FormTextareaExample.tsx" title="Textarea"/>
+
+## Character count
+
+Set `characterCountLimit` to display an associated counter. Supply localized remaining and over-limit text based on the current value.
+
+<DocsExample
+  filename="form-textarea/FormTextareaCharacterCountExample.tsx"
+  title="Textarea with character count"/>
+
+## Accessibility
+
+- Associate the textarea with a visible `<label>` using matching `htmlFor` and `id` values.
+- Placeholder text is not a replacement for a label.
+- When character counting is enabled, provide localized count text; the component connects its polite live region through `aria-describedby`.
+- Pair invalid state with visible feedback and retain any existing `aria-describedby` references.
+- Use `submitOnEnter` only when Ctrl+Enter or Cmd+Enter is clearly communicated as a shortcut.
+
+## API
+
+`GlFormTextarea` forwards supported native textarea attributes and its ref to the `<textarea>` element.
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `value` | Controls the textarea value. | — |
+| `defaultValue` | Sets the initial uncontrolled value. | `""` |
+| `onValueChange` | Reports formatted value changes. | — |
+| `rows` | Sets the minimum visible row count, with a minimum of two. | `4` |
+| `maxRows` | Enables automatic height when greater than `rows`. | — |
+| `noResize` | Prevents manual resizing. | `true` |
+| `characterCountLimit` | Shows a character count for the given limit. | `null` |
+| `remainingCharacterCountText` | Provides localized at-or-under-limit text. | — |
+| `characterCountOverLimitText` | Provides localized over-limit text. | — |
+| `state` | Sets valid, invalid, or neutral appearance. | `null` |
+| `debounce` | Delays `onValueChange` by the given milliseconds. | `0` |
+| `formatter` | Transforms text or cancels an update by returning `false`. | — |
+| `submitOnEnter` | Calls `onSubmit` on Ctrl+Enter or Cmd+Enter. | `false` |
+
+## Related resources
+
+- [Textarea in the Pajamas Design System](https://design.gitlab.com/components/textarea/)
+- [Form textarea stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-form-textarea--docs)
+- [Form textarea source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/form-textarea/form-textarea.tsx)

@@ -1,0 +1,84 @@
+---
+title: Drawer
+description: 在不离开当前页面的情况下展示上下文信息或操作。
+---
+
+## 用法
+
+```tsx
+import {
+  GlDrawer,
+  GlDrawerContent,
+  GlDrawerHeader,
+  GlDrawerTitle,
+  GlDrawerTrigger,
+} from "gitlab-ui-react/drawer";
+```
+
+```tsx
+<GlDrawer>
+  <GlDrawerTrigger>Open drawer</GlDrawerTrigger>
+  <GlDrawerContent>
+    <GlDrawerHeader>
+      <GlDrawerTitle>Additional details</GlDrawerTitle>
+    </GlDrawerHeader>
+    <p>Lorem ipsum dolor sit amet.</p>
+  </GlDrawerContent>
+</GlDrawer>
+```
+
+## 默认
+
+当主要任务仍需保持可见，而用户需要查看次要、上下文相关或临时内容时使用 Drawer。Drawer 应始终由用户操作打开。
+
+<DocsExample filename="drawer/DrawerExample.tsx" title="默认 Drawer"/>
+
+## Sidebar 变体
+
+当 Drawer 需要在视觉上与侧栏内容对齐时使用 `sidebar` 变体。内容较长时，粘性标题会在正文滚动期间保持可见。
+
+<DocsExample filename="drawer/DrawerSidebarExample.tsx" title="Sidebar Drawer"/>
+
+## 无障碍
+
+- 在标题栏中提供一个 `GlDrawerTitle`。如果不适合显示标题，请改为给 `GlDrawerContent` 提供 `aria-label`。
+- 使用清晰的触发器文字，并且仅在用户操作后打开 Drawer。
+- 对自动关闭按钮的 `closeButtonLabel` 进行本地化。
+- Drawer 会将焦点移入对话框，在打开时限制焦点范围，支持 Escape 关闭，并在关闭后恢复焦点。
+- 内容应简短且可执行；无法安全中断的任务应使用 Modal 或独立页面。
+
+## API
+
+`GlDrawer` 由根、触发器、内容、标题栏、标题、操作和页脚部件组成。内容部件会传递受支持的 Base UI Dialog 属性。
+
+### GlDrawer
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `defaultOpen` | 设置非受控模式下的初始打开状态。 | `false` |
+| `open` | 控制 Drawer 是否打开。 | — |
+| `onOpenChange` | 报告打开状态变更请求及其原因。 | — |
+| `onOpenChangeComplete` | 打开或关闭过渡完成后调用。 | — |
+
+### GlDrawerContent
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `variant` | 将外观设置为 `default` 或 `sidebar`。 | `"default"` |
+| `headerHeight` | 将 Drawer 偏移到固定页面标题下方，例如 `64px`。 | `""` |
+| `zIndex` | 设置 Drawer 的堆叠层级。 | `10` |
+| `container` | 设置 Portal 容器。 | `document.body` |
+| `children` | 必须包含一个标题栏，可包含一个页脚，其余节点作为正文。 | — |
+
+### GlDrawerHeader
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `sticky` | 正文滚动时保持标题栏可见。 | `false` |
+| `closeButtonLabel` | 设置自动关闭按钮的无障碍名称。 | `"Close drawer"` |
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Drawer](https://design.gitlab.com/components/drawer/)
+- [Storybook 中的 Drawer stories](https://glui-story.nocp.space/?path=/docs/ui-base-drawer--docs)
+- [Drawer 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/drawer/drawer.tsx)

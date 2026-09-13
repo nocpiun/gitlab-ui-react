@@ -1,0 +1,76 @@
+---
+title: Form radio
+description: Lets users choose exactly one option from a related set.
+---
+
+## Usage
+
+```tsx
+import { GlFormRadio } from "gitlab-ui-react/form-radio";
+import { GlFormRadioGroup } from "gitlab-ui-react/form-radio-group";
+```
+
+```tsx
+<GlFormRadioGroup defaultValue="private" name="visibility">
+  <GlFormRadio value="private">Private</GlFormRadio>
+  <GlFormRadio value="public">Public</GlFormRadio>
+</GlFormRadioGroup>
+```
+
+## Default
+
+Use `GlFormRadioGroup` for related options when exactly one can be selected. The group shares its value, name, state, required state, and disabled state with child radios.
+
+<DocsExample filename="form-radio/FormRadioExample.tsx" title="Radio group"/>
+
+## States and help text
+
+Individual radios support initial selection, disabled state, validation state, and help content. A radio used outside a group needs a shared `name` when it belongs to other native radios.
+
+<DocsExample filename="form-radio/FormRadioStatesExample.tsx" title="Radio states"/>
+
+## Accessibility
+
+- Wrap a related set in a `<fieldset>` with a concise `<legend>`.
+- Pass the legend ID through `aria-labelledby` when using `GlFormRadioGroup` so each option retains the group context.
+- Keep options together and vertically stacked. Do not insert unrelated interactive content inside the group.
+- Preselect a common or recommended option when appropriate, but do not select one merely to avoid an empty state.
+- Use checkboxes instead when users may select zero or multiple options.
+
+## API
+
+Both components forward supported native attributes. A radio inside a group takes selection and shared form state from the group.
+
+### GlFormRadio
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `checked` | Controls the checked state outside a group. | — |
+| `defaultChecked` | Sets the initial uncontrolled checked state. | `false` |
+| `onCheckedChange` | Reports the next checked state. | — |
+| `value` | Sets the native value and the option value inside a group. | `true` |
+| `disabled` | Disables the radio. | `false` |
+| `required` | Marks a named radio as required. | `false` |
+| `state` | Sets valid, invalid, or neutral appearance. | `null` |
+| `help` | Renders help content under the label. | — |
+
+### GlFormRadioGroup
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `value` | Controls the selected option value. | — |
+| `defaultValue` | Sets the initial uncontrolled selection. | `null` |
+| `onValueChange` | Reports the selected option value. | — |
+| `options` | Generates radios from strings, numbers, or option objects. | `[]` |
+| `name` | Sets the shared name for child radios. | Generated group ID |
+| `disabled` | Disables every radio in the group. | `false` |
+| `required` | Marks grouped radios as required. | `false` |
+| `state` | Sets group and child validation appearance. | `null` |
+
+## Related resources
+
+- [Radio button in the Pajamas Design System](https://design.gitlab.com/components/radio-button/)
+- [Form radio stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-form-radio--docs)
+- [Form radio group stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-form-radio-group--docs)
+- [Form radio source](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/form-radio/form-radio.tsx)
+- [Form radio group source](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/form-radio-group/form-radio-group.tsx)

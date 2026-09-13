@@ -1,0 +1,84 @@
+---
+title: Drawer
+description: Presents contextual information or actions without leaving the current page.
+---
+
+## Usage
+
+```tsx
+import {
+  GlDrawer,
+  GlDrawerContent,
+  GlDrawerHeader,
+  GlDrawerTitle,
+  GlDrawerTrigger,
+} from "gitlab-ui-react/drawer";
+```
+
+```tsx
+<GlDrawer>
+  <GlDrawerTrigger>Open drawer</GlDrawerTrigger>
+  <GlDrawerContent>
+    <GlDrawerHeader>
+      <GlDrawerTitle>Additional details</GlDrawerTitle>
+    </GlDrawerHeader>
+    <p>Lorem ipsum dolor sit amet.</p>
+  </GlDrawerContent>
+</GlDrawer>
+```
+
+## Default
+
+Use a drawer for secondary, contextual, or temporary content while the primary task remains visible. A user action should always open it.
+
+<DocsExample filename="drawer/DrawerExample.tsx" title="Default drawer"/>
+
+## Sidebar variant
+
+Use the `sidebar` variant when the drawer should visually align with sidebar content. A sticky header remains visible while a long body scrolls.
+
+<DocsExample filename="drawer/DrawerSidebarExample.tsx" title="Sidebar drawer"/>
+
+## Accessibility
+
+- Provide one `GlDrawerTitle` in the header. If a visible title is inappropriate, give `GlDrawerContent` an `aria-label` instead.
+- Use clear trigger text and open the drawer only after a user action.
+- Keep the automatic close button's `closeButtonLabel` localized.
+- The drawer moves focus into its dialog, traps focus while open, closes with Escape, and restores focus when closed.
+- Keep content short and actionable. Use a modal or a separate page when the task cannot be safely interrupted.
+
+## API
+
+`GlDrawer` is composed from root, trigger, content, header, title, actions, and footer parts. The content part forwards supported Base UI dialog attributes.
+
+### GlDrawer
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `defaultOpen` | Sets the initial open state when uncontrolled. | `false` |
+| `open` | Controls whether the drawer is open. | — |
+| `onOpenChange` | Reports requested open-state changes and their reason. | — |
+| `onOpenChangeComplete` | Runs after the opening or closing transition completes. | — |
+
+### GlDrawerContent
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `variant` | Sets the visual treatment to `default` or `sidebar`. | `"default"` |
+| `headerHeight` | Offsets the drawer below a fixed page header, for example `64px`. | `""` |
+| `zIndex` | Sets the drawer stacking level. | `10` |
+| `container` | Sets the portal container. | `document.body` |
+| `children` | Requires one header, accepts an optional footer, and treats other nodes as body content. | — |
+
+### GlDrawerHeader
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `sticky` | Keeps the header visible while the body scrolls. | `false` |
+| `closeButtonLabel` | Sets the automatic close button's accessible name. | `"Close drawer"` |
+
+## Related resources
+
+- [Drawer in the Pajamas Design System](https://design.gitlab.com/components/drawer/)
+- [Drawer stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-drawer--docs)
+- [Drawer source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/drawer/drawer.tsx)
