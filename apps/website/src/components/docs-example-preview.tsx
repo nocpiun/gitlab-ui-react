@@ -1,4 +1,4 @@
-import { type ComponentType } from "react";
+import { lazy, Suspense, type ComponentType } from "react";
 
 type ExampleModule = {
   default: ComponentType;
@@ -8,9 +8,7 @@ export type DocsExamplePreviewProps = {
   filename: string;
 };
 
-const exampleModules = import.meta.glob<ExampleModule>("@examples/**/*.tsx", {
-  eager: true,
-});
+const exampleModules = import.meta.glob<ExampleModule>("@examples/**/*.tsx");
 function relativeExamplePath(path: string) {
   const normalizedPath = path.replaceAll("\\", "/");
   const examplesDirectory = "examples/";
@@ -24,9 +22,9 @@ function relativeExamplePath(path: string) {
 }
 
 const examplesByPath = new Map(
-  Object.entries(exampleModules).map(([path, module]) => [
+  Object.entries(exampleModules).map(([path, loadModule]) => [
     relativeExamplePath(path),
-    module.default,
+    lazy(loadModule),
   ]),
 );
 
@@ -40,5 +38,9 @@ export function DocsExamplePreview({ filename }: DocsExamplePreviewProps) {
     );
   }
 
-  return <Example />;
+  return (
+    <Suspense fallback={null}>
+      <Example />
+    </Suspense>
+  );
 }
