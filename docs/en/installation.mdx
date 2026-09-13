@@ -3,4 +3,66 @@ title: Installation
 description: How to install GitLab UI React in your app.
 ---
 
-todo.
+import { GlButton } from "gitlab-ui-react/button";
+import { PackageManagerTabs } from "../../apps/website/src/components/package-manager-tabs";
+
+> [!warning]
+> 🚧 **This project is under heavy development.** 🚧
+>
+> Most of the code and tests were written by AI (Codex and Kimi Code). Humans direct architecture, priorities, and design decisions, but have not reviewed most of the code line by line. Use it at your own risk.
+>
+> For more details, see [Introduction](./).
+
+GitLab UI React publishes its React components and styles as separate packages. Install both packages in your application:
+
+<PackageManagerTabs
+  client:load
+  dependencies="gitlab-ui-react @gitlab-ui-react/styles"/>
+
+## Requirements
+
+Your application must use React and React DOM 19.2.8 or later within the React 19 release line. If they are not already installed, add them with:
+
+<PackageManagerTabs
+  client:load
+  dependencies="react@^19.2.8 react-dom@^19.2.8"/>
+
+The component package includes its own TypeScript declarations. TypeScript applications still need the usual `@types/react` and `@types/react-dom` development dependencies.
+
+## Load the styles
+
+Import the stylesheet once from your application's global entry point. Load your own global styles after it when you want your rules to take precedence:
+
+```tsx
+import "@gitlab-ui-react/styles";
+import "./app.css";
+```
+
+The stylesheet contains the design tokens, global base styles, and component styles required by GitLab UI React. You do not need to install `@gitlab-ui-react/tokens` separately to render components.
+
+## Import a component
+
+Components are exposed through individual subpath entry points. Import each component from its documented path:
+
+```tsx
+import { GlButton } from "gitlab-ui-react/button";
+
+export function App() {
+  return <GlButton>Hello World</GlButton>;
+}
+```
+
+With the stylesheet loaded, the example above renders as follows:
+
+<div className="my-7">
+  <GlButton>Hello World</GlButton>
+</div>
+
+There is no package root entry point, so imports such as the following are not supported:
+
+```tsx
+// ❌ Not supported
+import { GlButton } from "gitlab-ui-react";
+```
+
+You are now ready to use GitLab UI React. See the [component documentation](/docs/components/button) for component-specific examples and API details.

@@ -117,6 +117,64 @@ describe("renderDocsMarkdown", () => {
     expect(getExampleSource).not.toHaveBeenCalled();
   });
 
+  it("removes leading MDX imports while preserving documented and rendered component code", () => {
+    const body = [
+      "import { GlButton } from \"gitlab-ui-react/button\";",
+      "import {",
+      "  PackageManagerTabs,",
+      "} from \"../../apps/website/src/components/package-manager-tabs\";",
+      "",
+      "```tsx",
+      "import { GlButton } from \"gitlab-ui-react/button\";",
+      "```",
+      "",
+      "<div className=\"my-7\">",
+      "  <GlButton>Hello World</GlButton>",
+      "</div>",
+    ].join("\n");
+
+    const markdown = renderDocsMarkdown(docsEntry("en/installation", "Installation", body));
+
+    expect(markdown).not.toContain("PackageManagerTabs,");
+    expect(markdown.match(/import \{ GlButton \}/g)).toHaveLength(1);
+    expect(markdown).toContain(
+      "```tsx\nimport { GlButton } from \"gitlab-ui-react/button\";\n```",
+    );
+    expect(markdown).toContain("<GlButton>Hello World</GlButton>");
+  });
+
+  it("expands package manager tabs outside code fences", () => {
+    const body = [
+      "Use `<PackageManagerTabs dependencies=\"inline\" />` literally.",
+      "",
+      "```mdx",
+      "<PackageManagerTabs dependencies=\"fenced\" />",
+      "```",
+      "",
+      "<PackageManagerTabs",
+      "  client:load",
+      "  dependencies=\"gitlab-ui-react @gitlab-ui-react/styles\"/>",
+    ].join("\n");
+
+    const markdown = renderDocsMarkdown(docsEntry("en/installation", "Installation", body));
+
+    expect(markdown).toContain(
+      "Use `<PackageManagerTabs dependencies=\"inline\" />` literally.",
+    );
+    expect(markdown).toContain(
+      "```mdx\n<PackageManagerTabs dependencies=\"fenced\" />\n```",
+    );
+    expect(markdown).toContain(
+      "**pnpm**\n\n```sh\npnpm add gitlab-ui-react @gitlab-ui-react/styles\n```",
+    );
+    expect(markdown).toContain(
+      "**npm**\n\n```sh\nnpm install gitlab-ui-react @gitlab-ui-react/styles\n```",
+    );
+    expect(markdown).toContain(
+      "**yarn**\n\n```sh\nyarn add gitlab-ui-react @gitlab-ui-react/styles\n```",
+    );
+  });
+
   it("fails when source content or a referenced example is missing", () => {
     expect(() => renderDocsMarkdown({ data: { title: "Missing" }, id: "en/missing" }))
       .toThrow("Documentation entry \"en/missing\" has no source body");
@@ -139,6 +197,16 @@ describe("renderDocsMarkdown", () => {
       ),
       () => "source",
     )).toThrow("DocsExample requires non-empty filename and title attributes");
+  });
+
+  it("fails when PackageManagerTabs is malformed", () => {
+    expect(() => renderDocsMarkdown(
+      docsEntry(
+        "en/installation",
+        "Installation",
+        "<PackageManagerTabs client:load />",
+      ),
+    )).toThrow("PackageManagerTabs requires a non-empty dependencies attribute");
   });
 });
 

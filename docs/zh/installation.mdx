@@ -3,4 +3,66 @@ title: 安装
 description: 在应用中安装 GitLab UI React。
 ---
 
-todo.
+import { GlButton } from "gitlab-ui-react/button";
+import { PackageManagerTabs } from "../../apps/website/src/components/package-manager-tabs";
+
+> [!warning]
+> 🚧 **本项目仍在密集开发中。** 🚧
+>
+> 大部分代码和测试由 AI（Codex 和 Kimi Code）编写。人类负责架构、优先级和设计决策，但尚未逐行审查大部分代码。使用时请自行评估风险。
+>
+> 详情请参见 [介绍](./).
+
+GitLab UI React 将 React 组件和样式分别发布为独立的软件包。请在应用中同时安装这两个包：
+
+<PackageManagerTabs
+  client:load
+  dependencies="gitlab-ui-react @gitlab-ui-react/styles"/>
+
+## 环境要求
+
+应用必须使用 React 与 React DOM 19.2.8 或 React 19 系列中的更高版本。如果尚未安装，请运行：
+
+<PackageManagerTabs
+  client:load
+  dependencies="react@^19.2.8 react-dom@^19.2.8"/>
+
+组件包已包含自身的 TypeScript 类型声明。TypeScript 应用仍需安装常规的 `@types/react` 和 `@types/react-dom` 开发依赖。
+
+## 加载样式
+
+在应用的全局入口中导入一次样式表。如果希望自定义全局样式覆盖组件库的规则，请在其后加载自定义样式：
+
+```tsx
+import "@gitlab-ui-react/styles";
+import "./app.css";
+```
+
+该样式表包含 GitLab UI React 所需的设计令牌、全局基础样式和组件样式。渲染组件时，无需单独安装 `@gitlab-ui-react/tokens`。
+
+## 导入组件
+
+组件通过各自的子路径入口导出。请从组件文档所示的路径导入：
+
+```tsx
+import { GlButton } from "gitlab-ui-react/button";
+
+export function App() {
+  return <GlButton>Hello World</GlButton>;
+}
+```
+
+加载样式后，上述示例会呈现如下效果：
+
+<div className="my-7">
+  <GlButton>Hello World</GlButton>
+</div>
+
+软件包没有根入口，因此不支持以下导入方式：
+
+```tsx
+// ❌ 不支持
+import { GlButton } from "gitlab-ui-react";
+```
+
+现在即可开始使用 GitLab UI React。有关各组件的示例和 API 详情，请参阅[组件文档](/zh/docs/components/button)。

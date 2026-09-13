@@ -6,6 +6,7 @@ import {
   normalizeDocId,
   type Locale,
 } from "./i18n/config";
+import { packageManagers } from "./package-managers";
 
 export type DocsContentEntry = {
   body?: string;
@@ -24,6 +25,10 @@ type DocsExampleAttributes = {
   title: string;
 };
 
+type PackageManagerTabsAttributes = {
+  dependencies: string;
+};
+
 const exampleSourceModules = import.meta.glob<string>("../../../examples/**/*.tsx", {
   eager: true,
   import: "default",
@@ -32,6 +37,40 @@ const exampleSourceModules = import.meta.glob<string>("../../../examples/**/*.ts
 
 function normalizeLineEndings(value: string) {
   return value.replaceAll("\r\n", "\n").replaceAll("\r", "\n");
+}
+
+function isCompleteImportStatement(source: string) {
+  return /^\s*import\s+["'][^"']+["'];?\s*$/.test(source)
+    || /\bfrom\s+["'][^"']+["'];?\s*$/.test(source);
+}
+
+function stripLeadingImports(body: string) {
+  const lines = normalizeLineEndings(body).split("\n");
+  let index = 0;
+
+  while(lines[index]?.trim() === "") index++;
+
+  while(/^\s*import\s/.test(lines[index] ?? "")) {
+    const importStart = index;
+    let importSource = "";
+
+    do {
+      importSource += (importSource ? "\n" : "") + lines[index];
+      index++;
+    } while(
+      index < lines.length
+      && !isCompleteImportStatement(importSource)
+    );
+
+    if(!isCompleteImportStatement(importSource)) {
+      index = importStart;
+      break;
+    }
+
+    while(lines[index]?.trim() === "") index++;
+  }
+
+  return lines.slice(index).join("\n");
 }
 
 function backtickRunLength(value: string, index: number) {
@@ -198,6 +237,62 @@ function renderDocsExample(
   return sections.join("\n\n");
 }
 
+function parsePackageManagerTabsAttributes(source: string): PackageManagerTabsAttributes {
+  const clientLoadPattern = /(?:^|\s)client:load(?=\s|$)/g;
+  const clientLoadMatches = source.match(clientLoadPattern) ?? [];
+
+  if(clientLoadMatches.length > 1) {
+    throw new Error("[LLM] Duplicate PackageManagerTabs attribute \"client:load\".");
+  }
+
+  const attributesSource = source.replace(clientLoadPattern, " ");
+  const attributes = new Map<string, string>();
+  const attributePattern = /([A-Za-z][\w-]*)\s*=\s*(?:"([^"]*)"|'([^']*)')/g;
+  let cursor = 0;
+
+  for(const match of attributesSource.matchAll(attributePattern)) {
+    const index = match.index;
+
+    if(attributesSource.slice(cursor, index).trim()) {
+      throw new Error(`[LLM] Invalid PackageManagerTabs attributes: ${source.trim()}`);
+    }
+
+    const name = match[1];
+    const value = match[2] ?? match[3] ?? "";
+
+    if(attributes.has(name)) {
+      throw new Error(`[LLM] Duplicate PackageManagerTabs attribute "${name}".`);
+    }
+
+    attributes.set(name, value);
+    cursor = index + match[0].length;
+  }
+
+  if(attributesSource.slice(cursor).trim()) {
+    throw new Error(`[LLM] Invalid PackageManagerTabs attributes: ${source.trim()}`);
+  }
+
+  for(const name of attributes.keys()) {
+    if(name !== "dependencies") {
+      throw new Error(`[LLM] Unsupported PackageManagerTabs attribute "${name}".`);
+    }
+  }
+
+  const dependencies = attributes.get("dependencies");
+
+  if(!dependencies) {
+    throw new Error("[LLM] PackageManagerTabs requires a non-empty dependencies attribute.");
+  }
+
+  return { dependencies };
+}
+
+function renderPackageManagerTabs({ dependencies }: PackageManagerTabsAttributes) {
+  return packageManagers.map(({ command, title }) => (
+    `**${title}**\n\n\`\`\`sh\n${command} ${dependencies}\n\`\`\``
+  )).join("\n\n");
+}
+
 function expandDocsExamples(
   body: string,
   locale: Locale,
@@ -265,6 +360,65 @@ function expandDocsExamples(
   return output.join("\n");
 }
 
+function expandPackageManagerTabs(body: string) {
+  const lines = normalizeLineEndings(body).split("\n");
+  const output: string[] = [];
+  let fence: { character: string; length: number } | undefined;
+
+  for(let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    const fenceMatch = line.match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
+
+    if(fenceMatch) {
+      const marker = fenceMatch[1];
+
+      if(!fence) {
+        fence = { character: marker[0], length: marker.length };
+      } else if(
+        marker[0] === fence.character
+        && marker.length >= fence.length
+        && fenceMatch[2].trim() === ""
+      ) {
+        fence = undefined;
+      }
+
+      output.push(line);
+      continue;
+    }
+
+    const lineWithoutInlineCode = maskInlineCodeSpans(line);
+
+    if(fence || !lineWithoutInlineCode.includes("<PackageManagerTabs")) {
+      output.push(line);
+      continue;
+    }
+
+    if(!/^\s*<PackageManagerTabs\b/.test(lineWithoutInlineCode)) {
+      throw new Error("[LLM] PackageManagerTabs must be a standalone block.");
+    }
+
+    const tagLines = [line];
+
+    while(!tagLines.at(-1)?.includes("/>") && index + 1 < lines.length) {
+      index++;
+      tagLines.push(lines[index]);
+    }
+
+    const tag = tagLines.join("\n");
+    const tagMatch = tag.match(/^\s*<PackageManagerTabs\b([\s\S]*?)\/>\s*$/);
+
+    if(!tagMatch) {
+      throw new Error(`[LLM] Invalid PackageManagerTabs block: ${tag.trim()}`);
+    }
+
+    output.push(
+      renderPackageManagerTabs(parsePackageManagerTabsAttributes(tagMatch[1])),
+    );
+  }
+
+  return output.join("\n");
+}
+
 export function docsMarkdownPath(locale: Locale, id: string) {
   return docPath(locale, id) + ".md";
 }
@@ -296,7 +450,10 @@ export function renderDocsMarkdown(
 
   if(entry.data.description) sections.push(`> ${entry.data.description}`);
 
-  const body = expandDocsExamples(entry.body, locale, getExampleSource).trim();
+  const content = stripLeadingImports(entry.body);
+  const body = expandPackageManagerTabs(
+    expandDocsExamples(content, locale, getExampleSource),
+  ).trim();
   if(body) sections.push(body);
 
   return sections.join("\n\n").trimEnd() + "\n";
