@@ -7,6 +7,10 @@ one rolling `chore: version packages` pull request up to date. Merging that pull
 request publishes all three public packages, creates package tags, and creates
 GitHub Releases.
 
+Contributor lists use a paginated GitHub comparison to map release commit SHAs
+to GitHub login IDs. Only valid, deduplicated logins such as `@octocat` are
+rendered; unlinked identities and bots are omitted.
+
 The public packages form a fixed group and always share one version:
 
 - `gitlab-ui-react`

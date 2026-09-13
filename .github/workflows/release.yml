@@ -75,6 +75,7 @@ jobs:
           commitMode: github-api
           createGithubReleases: true
         env:
+          # Used by both changesets/action and version.mts's GitHub contributor lookup.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
