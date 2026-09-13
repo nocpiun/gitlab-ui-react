@@ -47,3 +47,7 @@
   @apply my-0;
   border-radius: calc(var(--gl-card-border-radius) - 0.25rem);
 }
+
+.gl-markdown .gl-tabs {
+  @apply my-4;
+}
