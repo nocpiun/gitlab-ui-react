@@ -3,6 +3,8 @@ title: Alert
 description: Communicates a timely system-generated event or condition that needs the user's attention.
 ---
 
+import { DocsExample } from "../../../apps/website/src/components/docs-example";
+
 ## Usage
 
 ```tsx
@@ -20,7 +22,9 @@ import { GlAlert, GlAlertDescription } from "gitlab-ui-react/alert";
 The default information alert uses a polite live region. Alerts do not manage their own visibility, so the parent must remove a dismissible alert in response to `onDismiss`.
 
 <DocsExample
+  client:load
   filename="alert/AlertExample.tsx"
+  locale="en"
   title="Dismissible information alert"/>
 
 ## Variants
@@ -29,6 +33,7 @@ Choose the variant that matches the message rather than using color for emphasis
 
 <DocsExample
   filename="alert/AlertVariantsExample.tsx"
+  locale="en"
   title="Alert variants"
   storybookId="ui-base-alert--variants"/>
 
@@ -38,6 +43,7 @@ Add a short title when it helps explain what triggered the alert. Use `GlAlertAc
 
 <DocsExample
   filename="alert/AlertActionsExample.tsx"
+  locale="en"
   title="Alert with actions"
   storybookId="ui-base-alert--undismissible-danger-with-actions"/>
 

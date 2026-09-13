@@ -3,6 +3,8 @@ title: Alert
 description: 传达需要用户关注的、及时的系统事件或状态。
 ---
 
+import { DocsExample } from "../../../apps/website/src/components/docs-example";
+
 ## 用法
 
 ```tsx
@@ -20,7 +22,9 @@ import { GlAlert, GlAlertDescription } from "gitlab-ui-react/alert";
 默认的信息提示使用礼貌级别的实时区域。提示本身不会管理可见性，因此父组件必须在收到 `onDismiss` 后移除可关闭的提示。
 
 <DocsExample
+  client:load
   filename="alert/AlertExample.tsx"
+  locale="zh"
   title="可关闭的信息提示"/>
 
 ## 变体
@@ -29,6 +33,7 @@ import { GlAlert, GlAlertDescription } from "gitlab-ui-react/alert";
 
 <DocsExample
   filename="alert/AlertVariantsExample.tsx"
+  locale="zh"
   title="提示变体"
   storybookId="ui-base-alert--variants"/>
 
@@ -38,6 +43,7 @@ import { GlAlert, GlAlertDescription } from "gitlab-ui-react/alert";
 
 <DocsExample
   filename="alert/AlertActionsExample.tsx"
+  locale="zh"
   title="带操作的提示"
   storybookId="ui-base-alert--undismissible-danger-with-actions"/>
 
