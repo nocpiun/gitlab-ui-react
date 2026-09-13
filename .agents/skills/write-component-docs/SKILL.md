@@ -1,6 +1,6 @@
 ---
 name: write-component-docs
-description: Create or substantially update GitLab UI React component documentation under docs/components with live examples under examples/<component>. Use when adding a component docs page, expanding its examples, or standardizing its documentation structure. Do not use for component implementation ports or Storybook-only changes.
+description: Create or substantially update GitLab UI React component documentation under docs/components with live examples in the matching examples directory. Use when adding a component docs page, expanding its examples, or standardizing its documentation structure. Do not use for component implementation ports or Storybook-only changes.
 metadata:
   internal: true
 ---
