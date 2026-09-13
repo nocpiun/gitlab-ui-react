@@ -1,0 +1,125 @@
+---
+title: Avatar
+description: 使用图片、回退标识图、可选标签和链接来表示人员、群组或项目。
+---
+
+## 用法
+
+```tsx
+import { GlAvatar } from "gitlab-ui-react/avatar";
+import { GlAvatarLabeled } from "gitlab-ui-react/avatar-labeled";
+import { GlAvatarLink } from "gitlab-ui-react/avatar-link";
+```
+
+```tsx
+<GlAvatar
+  alt="Norcleeh"
+  src="https://glui-story.nocp.space/img/avatar.jpg" />
+```
+
+## 默认
+
+使用 `GlAvatar` 在相关内容附近表示单个人员、群组或项目。默认会渲染一个 32 像素的圆形头像；图片单独出现时，必须提供有意义的 `alt`。
+
+<DocsExample
+  filename="avatar/AvatarExample.tsx"
+  title="图片头像"/>
+
+## 形状与尺寸
+
+人员使用圆形，群组或项目使用圆角矩形。固定尺寸包括 `16`、`24`、`32`、`48`、`64` 和 `96` 像素；`size` 也接受包含 `default`、`sm`、`md` 和 `lg` 的响应式值。
+
+<DocsExample
+  filename="avatar/AvatarSizesExample.tsx"
+  title="头像形状与尺寸"/>
+
+## 回退标识图
+
+当 `src` 为空时，`GlAvatar` 会根据 `entityName` 的首字符或开头的 emoji 创建文字标识图。请提供稳定的 `entityId` 以保持颜色一致；图片加载失败后需要改用标识图时，请设置 `fallbackOnError`。
+
+<DocsExample
+  filename="avatar/AvatarFallbackExample.tsx"
+  title="回退标识图"/>
+
+## 带标签头像
+
+需要在头像旁持续显示实体名称时，请使用 `GlAvatarLabeled`。`label` 为必填项；`subLabel`、`inlineLabels`、`meta` 和子元素可用于补充身份或状态信息。由于可见标签已经提供名称，内部头像会自动使用空 `alt`。
+
+<DocsExample
+  filename="avatar/AvatarLabeledExample.tsx"
+  title="堆叠与行内标签"/>
+
+## 头像链接
+
+当整个头像或带标签头像都应导航到对应实体时，请使用 `GlAvatarLink` 包裹它。该组件在保留链接语义的同时提供头像专用的悬停和焦点样式。已经放入 `GlAvatarLink` 的带标签头像不要再设置 `labelLink` 或 `subLabelLink`，否则会产生嵌套链接。
+
+<DocsExample
+  filename="avatar/AvatarLinkExample.tsx"
+  title="头像链接"/>
+
+## 无障碍
+
+- 单独显示的图片头像应提供描述性 `alt`。相邻文字已经标识同一实体时使用 `alt=""`；`GlAvatarLabeled` 会自动处理这一点。
+- 标识图字符属于装饰性内容，会对辅助技术隐藏。标识图旁必须始终提供能够说明实体名称的文字。
+- 不要只依靠圆形或矩形来区分人员、群组或项目。
+- 每个 `GlAvatarLink` 都应具有有意义的目标和无障碍名称。被包裹图片的 `alt` 或带标签头像的文字通常可以提供名称。
+- 保留头像链接的可见键盘焦点样式。如果头像会打开 tooltip 或 popover，其触发器也必须支持键盘访问。
+
+## API
+
+以下表格列出最常用的组件专有属性。`GlAvatar` 渲染图片时会转发受支持的图片属性，渲染标识图时则使用 `div`。另外两个组件会转发下文所述的属性，并将 ref 暴露到各自的外层元素。
+
+### `GlAvatar`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `src` | 图片 URL；空值会渲染标识图。 | `""` |
+| `alt` | 图片头像的替代文本。旁边存在含义相同的可见文字时使用空字符串。 | `"avatar"` |
+| `size` | 设置为 `16`、`24`、`32`、`48`、`64` 或 `96`，也可以使用包含 `default`、`sm`、`md` 和 `lg` 的响应式对象。 | `32` |
+| `shape` | 设置为圆形 `circle` 或圆角矩形 `rect`。 | `"circle"` |
+| `entityName` | 为标识图提供首字符或开头的 emoji。 | `""` |
+| `entityId` | 根据稳定的数字 ID 选择七种标识图颜色之一。 | `0` |
+| `fallbackOnError` | 图片加载失败后将其替换为标识图。 | `false` |
+| `onLoadError` | 加载失败后使用原生图片错误事件调用。 | — |
+| `className` | 为图片或标识图元素添加类。 | — |
+
+### `GlAvatarLabeled`
+
+`GlAvatarLabeled` 接受除 `alt` 和 `className` 以外的 `GlAvatar` 属性；头像兼容属性会传递给内部头像，而不是外层容器。
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `label` | 必填，显示在头像旁的主要文字。 | — |
+| `subLabel` | 显示在标签下方或旁边的次要文字。 | `""` |
+| `size` | 使用与 `GlAvatar` 相同的值设置内部头像尺寸。 | `64` |
+| `inlineLabels` | 在同一行显示标签和次级标签。 | `false` |
+| `labelLink` | 使头像和主要标签激活此目标。 | `""` |
+| `labelLinkAttrs` | 为主要标签链接添加受支持的链接属性。 | `{}` |
+| `onLabelLinkClick` | 主要标签链接被激活时调用，包括通过头像激活。 | — |
+| `subLabelLink` | 将次级标签设为单独的链接。 | `""` |
+| `meta` | 在主要标签旁添加徽章、状态等元数据。 | — |
+| `children` | 在标签下方添加补充内容。 | — |
+| `avatarClassName` | 为内部头像添加类。 | — |
+| `className` | 为带标签头像的外层容器添加类。 | — |
+
+### `GlAvatarLink`
+
+`GlAvatarLink` 接受除 `variant` 以外的受支持 `GlLink` 属性；`variant` 始终设为 `meta`。
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `href` | 设置链接目标。 | `"#"` |
+| `disabled` | 阻止导航和点击，并将链接移出 Tab 顺序。 | `false` |
+| `render` | 将行为组合到最终渲染为链接的路由组件上。 | — |
+| `children` | 构成链接无障碍名称的头像或带标签头像内容。 | — |
+| `className` | 为链接添加类。 | — |
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Avatar](https://design.gitlab.com/components/avatar/)
+- [Storybook 中的 Avatar stories](https://glui-story.nocp.space/?path=/docs/ui-base-avatar--docs)
+- [Storybook 中的 Labeled avatar stories](https://glui-story.nocp.space/?path=/docs/ui-base-avatar-labeled--docs)
+- [Storybook 中的 Avatar link stories](https://glui-story.nocp.space/?path=/docs/ui-base-avatar-link--docs)
+- [Avatar 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/avatar/avatar.tsx)
+- [Labeled avatar 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/avatar-labeled/avatar-labeled.tsx)
+- [Avatar link 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/avatar-link/avatar-link.tsx)

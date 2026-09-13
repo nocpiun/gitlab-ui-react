@@ -72,6 +72,16 @@ Keep every example as small as the behavior allows:
 - Preserve semantic HTML and accessible names. Icon-only controls need an accessible label, and related ARIA state must match the visual state.
 - Keep each example focused on one topic so its expanded source remains easy to copy.
 
+When an example needs sample identity data, reuse these repository conventions instead of inventing new names:
+
+- Avatar image: `https://glui-story.nocp.space/img/avatar.jpg`
+- User display name: `Norcleeh`
+- User identifier: `NriotHrreion`; display it as `@NriotHrreion` where the interface uses handle notation.
+- Organization: `Nocpiun`
+- Project: `OPanel`
+
+Only include the entities an example actually needs.
+
 Minimal example:
 
 ```tsx

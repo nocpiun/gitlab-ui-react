@@ -88,6 +88,11 @@ function getNavigationItems(locale: Locale): DocsNavigationItem[] {
         title: "Attribute list",
       },
       {
+        href: localizedPath(locale, "/docs/components/avatar"),
+        id: "components/avatar",
+        title: "Avatar",
+      },
+      {
         href: localizedPath(locale, "/docs/components/button"),
         id: "components/button",
         title: "Button",
