@@ -1,0 +1,69 @@
+---
+title: Button group
+description: 在视觉和程序语义上将少量相关按钮归为一组。
+---
+
+## 用法
+
+```tsx
+import { GlButton } from "gitlab-ui-react/button";
+import { GlButtonGroup } from "gitlab-ui-react/button-group";
+```
+
+```tsx
+<GlButtonGroup>
+  <GlButton>Download</GlButton>
+  <GlButton>Browse</GlButton>
+</GlButtonGroup>
+```
+
+## 默认
+
+使用按钮组展示二至五个紧密相关的操作。各控件应保持视觉一致；当三个或更多操作占用过多空间时，可以考虑使用展开菜单。
+
+<DocsExample
+  filename="button-group/ButtonGroupExample.tsx"
+  title="相关操作"
+  storybookId="ui-base-button-group--default"/>
+
+## 相关选项
+
+按钮组可以在互斥视图之间切换，或就地更新内容。请在父组件中管理选中状态，并保持每个按钮的 `selected` 外观与 `aria-pressed` 同步。
+
+<DocsExample
+  filename="button-group/ButtonGroupSelectedExample.tsx"
+  title="可选择的视图"
+  storybookId="ui-base-button-group--interactive-selected"/>
+
+## 垂直布局
+
+设置 `vertical` 可以垂直堆叠相关控件。仅当水平按钮组不适合当前布局时使用此变体；垂直按钮组不支持拆分下拉菜单。
+
+<DocsExample
+  filename="button-group/ButtonGroupVerticalExample.tsx"
+  title="垂直按钮组"
+  storybookId="ui-base-button-group--vertical"/>
+
+## 无障碍
+
+- `GlButtonGroup` 会自动渲染 `role="group"`。请将它放在能够明确说明控件关系的上下文附近。
+- 对于可选择按钮，同一时间只将一个按钮的 `selected` 和 `aria-pressed` 设置为 `true`。
+- 当分组链接表示当前的局部选择时，使用 `aria-current="true"`。避免在同一组中混用按钮和链接，因为两者行为不同。
+- 保持键盘焦点顺序与视觉顺序一致，并根据激活后的变化决定焦点应留在控件上还是移至更新后的内容。
+- 表单中的选择项应使用单选按钮或复选框。
+
+## API
+
+下面列出组件专有属性。`GlButtonGroup` 还会转发受支持的 `div` 属性和 ref，并始终设置 `role="group"`。
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `vertical` | 垂直堆叠分组控件。 | `false` |
+| `children` | 提供相关按钮或类似按钮的控件。 | — |
+| `className` | 为按钮组容器添加类。 | — |
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Button group](https://design.gitlab.com/components/button-group/)
+- [Storybook 中的 Button group stories](https://glui-story.nocp.space/?path=/docs/ui-base-button-group--docs)
+- [Button group 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/button-group/button-group.tsx)

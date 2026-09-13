@@ -1,0 +1,87 @@
+---
+title: Breadcrumb
+description: Shows a page's location within the application hierarchy and provides links to each level.
+---
+
+## Usage
+
+```tsx
+import {
+  GlBreadcrumb,
+  GlBreadcrumbItem,
+} from "gitlab-ui-react/breadcrumb";
+```
+
+```tsx
+<GlBreadcrumb>
+  <GlBreadcrumbItem href="#apple">Apple</GlBreadcrumbItem>
+  <GlBreadcrumbItem href="#banana">Banana</GlBreadcrumbItem>
+</GlBreadcrumb>
+```
+
+## Default
+
+Use a breadcrumb to show the current page's hierarchy. Every item, including the current page, is a link; the final link automatically receives `aria-current="page"`.
+
+<DocsExample
+  filename="breadcrumb/BreadcrumbExample.tsx"
+  title="Project breadcrumb"
+  storybookId="ui-base-breadcrumb--default"/>
+
+## Responsive collapse
+
+By default, leading items collapse into a disclosure menu when the path no longer fits on one line. Keep `autoResize` enabled for page breadcrumbs; disable it only when the surrounding layout intentionally handles overflow.
+
+<DocsExample
+  filename="breadcrumb/BreadcrumbResponsiveExample.tsx"
+  title="Collapsed breadcrumb"
+  storybookId="ui-base-breadcrumb--collapsed"/>
+
+## Copying the path
+
+Set `showClipboardButton` to let users copy the slash-delimited path. Use `pathToCopy` when the copied value should differ from the visible labels, and localize `clipboardTooltipText`.
+
+<DocsExample
+  filename="breadcrumb/BreadcrumbClipboardExample.tsx"
+  title="Breadcrumb with copy button"
+  storybookId="ui-base-breadcrumb--with-clipboard-button"/>
+
+## Accessibility
+
+- `GlBreadcrumb` renders a `nav` landmark containing an ordered list. Give each breadcrumb on a page a distinct `aria-label` when more than one exists.
+- Keep every item as a meaningful link. The last item remains focusable and automatically receives `aria-current="page"`.
+- Pass canonical text directly to each `GlBreadcrumbItem`; that text is reused in the overflow menu and copied path.
+- Localize `showMoreLabel` and `clipboardTooltipText` so icon-only controls have useful accessible names.
+- Avatars are decorative and hidden from assistive technology. Do not rely on them instead of the item's text.
+
+## API
+
+These are the component-specific props. `GlBreadcrumb` and `GlBreadcrumbItem` also forward supported attributes and refs to their `nav` and `li` elements.
+
+### `GlBreadcrumb`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `children` | Accepts direct `GlBreadcrumbItem` children; arrays, fragments, and conditional items are supported. | — |
+| `aria-label` | Names the breadcrumb navigation landmark. | `"Breadcrumb"` |
+| `autoResize` | Collapses leading items into a disclosure menu when space is limited. | `true` |
+| `size` | Sets the items and controls to `sm` or `md`; use `sm` for page breadcrumbs. | `"sm"` |
+| `showMoreLabel` | Labels the collapsed-items trigger for assistive technology. | `"Show more breadcrumbs"` |
+| `showClipboardButton` | Adds a button that copies the breadcrumb path. | `false` |
+| `pathToCopy` | Overrides the copied path; otherwise item text is joined with `/`. | — |
+| `clipboardTooltipText` | Labels the copy button and its tooltip. | `"Copy to clipboard"` |
+
+### `GlBreadcrumbItem`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `children` | Required canonical text used by the link, overflow item, and copied path. | — |
+| `href` | Required unless `render` is provided; sets the link destination. | — |
+| `render` | Required unless `href` is provided; composes onto a router link. | — |
+| `avatarPath` | Adds a decorative group or project avatar before the text. | — |
+
+## Related resources
+
+- [Breadcrumb in the Pajamas Design System](https://design.gitlab.com/components/breadcrumb/)
+- [Breadcrumb stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-breadcrumb--docs)
+- [Breadcrumb source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/breadcrumb/breadcrumb.tsx)

@@ -1,0 +1,80 @@
+---
+title: Badge
+description: 突出显示与更大对象相关的系统生成元数据。
+---
+
+## 用法
+
+```tsx
+import { GlBadge } from "gitlab-ui-react/badge";
+```
+
+```tsx
+<GlBadge>Maintainer</GlBadge>
+```
+
+## 默认
+
+使用徽章强调状态、进度或产品层级等系统生成的元数据。请将其放在所描述的对象旁边；当元数据不需要强调时，应使用普通文字。
+
+<DocsExample
+  filename="badge/BadgeExample.tsx"
+  title="默认徽章"/>
+
+## 变体
+
+请根据元数据的含义选择变体。Neutral 是默认值，info 表示值得关注的信息或正在进行，success 表示期望的结果，warning 表示非关键问题，danger 表示关键问题，tier 表示产品层级。
+
+<DocsExample
+  filename="badge/BadgeVariantsExample.tsx"
+  title="徽章变体"
+  storybookId="ui-base-badge--variants"/>
+
+## 图标
+
+仅当图标可以强化或直接表达元数据时才添加图标。纯图标徽章需要通过 `aria-label` 描述其含义，而不是填写图标名称。
+
+<DocsExample
+  filename="badge/BadgeIconsExample.tsx"
+  title="带图标的徽章"/>
+
+## 链接
+
+当徽章应导航到其所描述的对象时设置 `href`。其他情况下，徽章是静态元素，不应将它用作按钮。
+
+<DocsExample
+  filename="badge/BadgeLinkExample.tsx"
+  title="徽章链接"/>
+
+## 无障碍
+
+- 将徽章放在它所描述的内容旁边。如果两者的关系不明确，请使用 `aria-describedby` 将内容与徽章关联。
+- 为纯图标徽章提供描述性的 `aria-label`。这类徽章会自动获得 `role="img"`；可见文字旁的图标会对辅助技术隐藏。
+- 当数值本身含义不明确时，添加仅屏幕阅读器可见的上下文，例如说明数字徽章所计算的对象。
+- 不要只依靠颜色传达徽章含义。
+- 仅将 `href` 用于导航，并提供有意义的目标。
+
+## API
+
+下面列出组件专有属性。`GlBadge` 还会转发受支持的 DOM 属性，并将 ref 暴露到渲染后的元素。
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `variant` | 将语义样式设置为 `neutral`、`info`、`success`、`warning`、`danger` 或 `tier`。 | `"neutral"` |
+| `icon` | 在文字前添加 GitLab SVG 库中的图标。 | — |
+| `iconSize` | 将图标设置为 `sm`（12px）或 `md`（16px）。 | `"md"` |
+| `iconOpticallyAligned` | 调整圆形图标的间距；已知的议题状态图标会自动调整。 | `false` |
+| `href` | 将徽章渲染为链接，并忽略 `tag`。 | — |
+| `active` | 设置 `href` 时应用链接激活外观。 | `false` |
+| `disabled` | 设置 `href` 时阻止链接激活，并将其移出 Tab 顺序。 | `false` |
+| `target` | 设置 `href` 时指定链接的浏览上下文。 | `"_self"` |
+| `rel` | 设置 `href` 时指定链接关系。 | — |
+| `tag` | 更改非链接元素。 | `"span"` |
+| `render` | 将徽章或徽章链接组合到自定义 React 元素上。 | — |
+| `children` | 提供徽章的可见文字或其他行内内容。 | — |
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Badge](https://design.gitlab.com/components/badge/)
+- [Storybook 中的 Badge stories](https://glui-story.nocp.space/?path=/docs/ui-base-badge--docs)
+- [Badge 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/badge/badge.tsx)

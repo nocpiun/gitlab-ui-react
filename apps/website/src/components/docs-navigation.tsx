@@ -93,9 +93,39 @@ function getNavigationItems(locale: Locale): DocsNavigationItem[] {
         title: "Avatar",
       },
       {
+        href: localizedPath(locale, "/docs/components/badge"),
+        id: "components/badge",
+        title: "Badge",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/banner"),
+        id: "components/banner",
+        title: "Banner",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/breadcrumb"),
+        id: "components/breadcrumb",
+        title: "Breadcrumb",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/broadcast-message"),
+        id: "components/broadcast-message",
+        title: "Broadcast message",
+      },
+      {
         href: localizedPath(locale, "/docs/components/button"),
         id: "components/button",
         title: "Button",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/button-group"),
+        id: "components/button-group",
+        title: "Button group",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/card"),
+        id: "components/card",
+        title: "Card",
       },
     ],
   },

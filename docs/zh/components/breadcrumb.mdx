@@ -1,0 +1,87 @@
+---
+title: Breadcrumb
+description: 显示页面在应用层级中的位置，并提供指向每一级的链接。
+---
+
+## 用法
+
+```tsx
+import {
+  GlBreadcrumb,
+  GlBreadcrumbItem,
+} from "gitlab-ui-react/breadcrumb";
+```
+
+```tsx
+<GlBreadcrumb>
+  <GlBreadcrumbItem href="#apple">Apple</GlBreadcrumbItem>
+  <GlBreadcrumbItem href="#banana">Banana</GlBreadcrumbItem>
+</GlBreadcrumb>
+```
+
+## 默认
+
+使用 Breadcrumb 显示当前页面的层级。每一项（包括当前页面）都是链接；最后一个链接会自动获得 `aria-current="page"`。
+
+<DocsExample
+  filename="breadcrumb/BreadcrumbExample.tsx"
+  title="项目 Breadcrumb"
+  storybookId="ui-base-breadcrumb--default"/>
+
+## 响应式折叠
+
+默认情况下，当路径无法在一行内显示时，前面的项目会折叠到展开菜单中。页面 Breadcrumb 应保持启用 `autoResize`；仅当外层布局有意处理溢出时才将其关闭。
+
+<DocsExample
+  filename="breadcrumb/BreadcrumbResponsiveExample.tsx"
+  title="折叠的 Breadcrumb"
+  storybookId="ui-base-breadcrumb--collapsed"/>
+
+## 复制路径
+
+设置 `showClipboardButton` 可以让用户复制由斜杠分隔的路径。当复制值应与可见标签不同时使用 `pathToCopy`，并对 `clipboardTooltipText` 进行本地化。
+
+<DocsExample
+  filename="breadcrumb/BreadcrumbClipboardExample.tsx"
+  title="带复制按钮的 Breadcrumb"
+  storybookId="ui-base-breadcrumb--with-clipboard-button"/>
+
+## 无障碍
+
+- `GlBreadcrumb` 渲染一个包含有序列表的 `nav` 地标。当页面中有多个 Breadcrumb 时，为每一个提供不同的 `aria-label`。
+- 每一项都应是有意义的链接。最后一项保持可聚焦，并自动获得 `aria-current="page"`。
+- 将规范文字直接传给每个 `GlBreadcrumbItem`；同一文字会复用于溢出菜单和复制路径。
+- 对 `showMoreLabel` 和 `clipboardTooltipText` 进行本地化，使纯图标控件具有有用的无障碍名称。
+- 头像属于装饰内容，会对辅助技术隐藏。不要用头像代替项目文字。
+
+## API
+
+下面列出组件专有属性。`GlBreadcrumb` 和 `GlBreadcrumbItem` 还会将受支持的属性与 ref 分别转发到 `nav` 和 `li` 元素。
+
+### `GlBreadcrumb`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `children` | 接受直接的 `GlBreadcrumbItem` 子元素；支持数组、Fragment 和条件项目。 | — |
+| `aria-label` | 命名 Breadcrumb 导航地标。 | `"Breadcrumb"` |
+| `autoResize` | 空间不足时，将前面的项目折叠到展开菜单中。 | `true` |
+| `size` | 将项目和控件设置为 `sm` 或 `md`；页面 Breadcrumb 应使用 `sm`。 | `"sm"` |
+| `showMoreLabel` | 为辅助技术标记折叠项目触发器。 | `"Show more breadcrumbs"` |
+| `showClipboardButton` | 添加复制 Breadcrumb 路径的按钮。 | `false` |
+| `pathToCopy` | 覆盖复制的路径；否则会用 `/` 连接项目文字。 | — |
+| `clipboardTooltipText` | 标记复制按钮及其 tooltip。 | `"Copy to clipboard"` |
+
+### `GlBreadcrumbItem`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `children` | 必填，供链接、溢出项目和复制路径共同使用的规范文字。 | — |
+| `href` | 未提供 `render` 时必填；设置链接目标。 | — |
+| `render` | 未提供 `href` 时必填；将行为组合到路由链接上。 | — |
+| `avatarPath` | 在文字前添加装饰性的群组或项目头像。 | — |
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Breadcrumb](https://design.gitlab.com/components/breadcrumb/)
+- [Storybook 中的 Breadcrumb stories](https://glui-story.nocp.space/?path=/docs/ui-base-breadcrumb--docs)
+- [Breadcrumb 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/breadcrumb/breadcrumb.tsx)

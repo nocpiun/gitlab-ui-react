@@ -1,0 +1,77 @@
+---
+title: Broadcast message
+description: Delivers an instance-level announcement from an administrator to all users.
+---
+
+## Usage
+
+```tsx
+import { GlBroadcastMessage } from "gitlab-ui-react/broadcast-message";
+```
+
+```tsx
+<GlBroadcastMessage dismissible={false}>
+  Scheduled maintenance begins at 02:00 UTC.
+</GlBroadcastMessage>
+```
+
+## Default
+
+Use a broadcast message only for an administrator-authored announcement that applies across an instance. The basic example is non-dismissible so the control is not shown without a visibility handler.
+
+<DocsExample
+  filename="broadcast-message/BroadcastMessageExample.tsx"
+  title="Broadcast message"/>
+
+## Dismissible messages
+
+Allow dismissal when the administrator has enabled it. `GlBroadcastMessage` reports the action through `onDismiss` but does not hide itself, so the parent must remove the message and persist the user's choice.
+
+<DocsExample
+  filename="broadcast-message/BroadcastMessageDismissibleExample.tsx"
+  title="Dismissible broadcast message"/>
+
+## Types
+
+Use the banner type for an instance-wide announcement at the top of the static panel. The notification type uses a compact layout and always includes a dismiss button, even when `dismissible` is `false`.
+
+<DocsExample
+  filename="broadcast-message/BroadcastMessageTypesExample.tsx"
+  title="Banner and notification types"/>
+
+## Themes
+
+The administrator can choose a background theme from the supported swatches. Theme is a visual choice rather than a severity scale, and notification messages do not use it visually.
+
+<DocsExample
+  filename="broadcast-message/BroadcastMessageThemesExample.tsx"
+  title="Broadcast message themes"/>
+
+## Accessibility
+
+- Insert broadcast messages in the natural DOM and reading order; place banners at the top of the static panel.
+- Keep content short and make links understandable from their visible text.
+- Provide a localized `dismissLabel` whenever a dismiss button is shown.
+- Handle `onDismiss` and remove the message. Do not present a close control that has no effect.
+- Do not use color alone to communicate the announcement's meaning.
+- Use an alert instead for a system-generated, contextual, and timely message.
+
+## API
+
+These are the component-specific props. `GlBroadcastMessage` also forwards supported `div` attributes and a ref.
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `type` | Sets the layout to `banner` or `notification`. Notifications always show a dismiss button. | `"banner"` |
+| `theme` | Sets `indigo`, `light-indigo`, `blue`, `light-blue`, `green`, `light-green`, `red`, `light-red`, `dark`, or `light`. | `"indigo"` |
+| `dismissible` | Shows the dismiss button for banner messages. | `true` |
+| `dismissLabel` | Sets the dismiss button's accessible label. | `"Dismiss"` |
+| `onDismiss` | Runs when dismissal is requested; the parent controls visibility. | — |
+| `iconName` | Sets the leading icon from the GitLab SVG library. | `"bullhorn"` |
+| `children` | Provides the announcement content. | — |
+
+## Related resources
+
+- [Broadcast message in the Pajamas Design System](https://design.gitlab.com/components/broadcast-message/)
+- [Broadcast message stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-broadcast-message--docs)
+- [Broadcast message source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/broadcast-message/broadcast-message.tsx)
