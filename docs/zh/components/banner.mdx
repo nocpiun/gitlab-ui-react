@@ -20,8 +20,13 @@ function FeatureBanner() {
 
   return visible ? (
     <GlBanner onClose={() => setVisible(false)}>
-      <GlBannerTitle>Explore OPanel</GlBannerTitle>
-      <GlBannerDescription>Review project operations in one place.</GlBannerDescription>
+      <GlBannerTitle>Plan work with issue boards</GlBannerTitle>
+      <GlBannerDescription>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.
+        </p>
+      </GlBannerDescription>
     </GlBanner>
   ) : null;
 }

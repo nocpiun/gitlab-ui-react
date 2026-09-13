@@ -11,7 +11,7 @@ export default function BroadcastMessageDismissibleExample() {
 
   return (
     <GlBroadcastMessage onDismiss={() => setVisible(false)}>
-      OPanel maintenance is scheduled for Sunday from 02:00 to 03:00 UTC.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     </GlBroadcastMessage>
   );
 }

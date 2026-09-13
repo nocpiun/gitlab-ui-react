@@ -72,7 +72,9 @@ Keep every example as small as the behavior allows:
 - Preserve semantic HTML and accessible names. Icon-only controls need an accessible label, and related ARIA state must match the visual state.
 - Keep each example focused on one topic so its expanded source remains easy to copy.
 
-When an example needs sample identity data, reuse these repository conventions instead of inventing new names:
+When an example naturally needs sample identity or project data, reuse the matching repository convention instead of inventing new names. Keep each value in its stated role; for example, use `OPanel` as a project name rather than as a product or feature name. Do not force these entities into examples where they do not fit.
+
+Reserve `OPanel` for UI values that explicitly represent a project name, such as a project field, breadcrumb item, or selector option. Never use `OPanel` in titles, descriptions, announcements, instructional sentences, or other body copy. Use Lorem ipsum for neutral passages that demonstrate text length or wrapping, and use generic component-appropriate sample text when the wording itself needs to be meaningful.
 
 - Avatar image: `https://glui-story.nocp.space/img/avatar.jpg`
 - User display name: `Norcleeh`
@@ -81,6 +83,8 @@ When an example needs sample identity data, reuse these repository conventions i
 - Project: `OPanel`
 
 Only include the entities an example actually needs.
+
+For longer body copy whose purpose is to demonstrate content length, wrapping, or layout—such as a card description—use standard Lorem ipsum text instead of inventing product or domain prose. Keep meaningful interface text such as labels, buttons, accessible names, and short instructional messages specific to the component rather than replacing it with Lorem ipsum; titles may use concise generic sample text but must not use `OPanel`.
 
 Minimal example:
 

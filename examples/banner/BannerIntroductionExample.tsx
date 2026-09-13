@@ -11,17 +11,20 @@ export default function BannerIntroductionExample() {
   const [visible, setVisible] = useState(true);
 
   if(!visible) {
-    return <GlButton onClick={() => setVisible(true)}>Show introduction again</GlButton>;
+    return <GlButton onClick={() => setVisible(true)}>Show introduction banner again</GlButton>;
   }
 
   return (
     <GlBanner onClose={() => setVisible(false)} variant="introduction">
-      <GlBannerTitle>Get started with OPanel</GlBannerTitle>
+      <GlBannerTitle>Set up Service Desk</GlBannerTitle>
       <GlBannerDescription>
-        Connect a project to see its environments, deployments, and alerts.
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.
+        </p>
       </GlBannerDescription>
       <GlBannerActions>
-        <GlButton href="#get-started" variant="confirm">Get started</GlButton>
+        <GlButton href="#service-desk" variant="confirm">Set up Service Desk</GlButton>
       </GlBannerActions>
     </GlBanner>
   );

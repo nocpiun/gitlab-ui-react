@@ -8,13 +8,13 @@ export default function BroadcastMessageTypesExample() {
   return (
     <div className="grid gap-3">
       <GlBroadcastMessage dismissible={false} type="banner">
-        This instance will be read-only during scheduled maintenance.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </GlBroadcastMessage>
       {notificationVisible ? (
         <GlBroadcastMessage
           onDismiss={() => setNotificationVisible(false)}
           type="notification">
-          A new version of OPanel is available.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </GlBroadcastMessage>
       ) : (
         <GlButton onClick={() => setNotificationVisible(true)}>
