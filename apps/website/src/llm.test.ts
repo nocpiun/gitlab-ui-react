@@ -117,6 +117,32 @@ describe("renderDocsMarkdown", () => {
     expect(getExampleSource).not.toHaveBeenCalled();
   });
 
+  it("removes leading MDX imports while preserving documented and rendered component code", () => {
+    const body = [
+      "import { GlButton } from \"gitlab-ui-react/button\";",
+      "import {",
+      "  PackageManagerTabs,",
+      "} from \"../../apps/website/src/components/package-manager-tabs\";",
+      "",
+      "```tsx",
+      "import { GlButton } from \"gitlab-ui-react/button\";",
+      "```",
+      "",
+      "<div className=\"my-7\">",
+      "  <GlButton>Hello World</GlButton>",
+      "</div>",
+    ].join("\n");
+
+    const markdown = renderDocsMarkdown(docsEntry("en/installation", "Installation", body));
+
+    expect(markdown).not.toContain("PackageManagerTabs,");
+    expect(markdown.match(/import \{ GlButton \}/g)).toHaveLength(1);
+    expect(markdown).toContain(
+      "```tsx\nimport { GlButton } from \"gitlab-ui-react/button\";\n```",
+    );
+    expect(markdown).toContain("<GlButton>Hello World</GlButton>");
+  });
+
   it("expands package manager tabs outside code fences", () => {
     const body = [
       "Use `<PackageManagerTabs dependencies=\"inline\" />` literally.",

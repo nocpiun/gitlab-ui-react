@@ -39,6 +39,40 @@ function normalizeLineEndings(value: string) {
   return value.replaceAll("\r\n", "\n").replaceAll("\r", "\n");
 }
 
+function isCompleteImportStatement(source: string) {
+  return /^\s*import\s+["'][^"']+["'];?\s*$/.test(source)
+    || /\bfrom\s+["'][^"']+["'];?\s*$/.test(source);
+}
+
+function stripLeadingImports(body: string) {
+  const lines = normalizeLineEndings(body).split("\n");
+  let index = 0;
+
+  while(lines[index]?.trim() === "") index++;
+
+  while(/^\s*import\s/.test(lines[index] ?? "")) {
+    const importStart = index;
+    let importSource = "";
+
+    do {
+      importSource += (importSource ? "\n" : "") + lines[index];
+      index++;
+    } while(
+      index < lines.length
+      && !isCompleteImportStatement(importSource)
+    );
+
+    if(!isCompleteImportStatement(importSource)) {
+      index = importStart;
+      break;
+    }
+
+    while(lines[index]?.trim() === "") index++;
+  }
+
+  return lines.slice(index).join("\n");
+}
+
 function backtickRunLength(value: string, index: number) {
   let end = index;
 
@@ -416,8 +450,9 @@ export function renderDocsMarkdown(
 
   if(entry.data.description) sections.push(`> ${entry.data.description}`);
 
+  const content = stripLeadingImports(entry.body);
   const body = expandPackageManagerTabs(
-    expandDocsExamples(entry.body, locale, getExampleSource),
+    expandDocsExamples(content, locale, getExampleSource),
   ).trim();
   if(body) sections.push(body);
 
