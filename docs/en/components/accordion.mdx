@@ -1,0 +1,84 @@
+---
+title: Accordion
+description: Organizes related supporting content into sections that users can expand and collapse.
+---
+
+## Usage
+
+```tsx
+import { GlAccordion, GlAccordionItem } from "gitlab-ui-react/accordion";
+```
+
+```tsx
+<GlAccordion headerLevel={3}>
+  <GlAccordionItem title="Deployment details">
+    The deployment completed successfully.
+  </GlAccordionItem>
+</GlAccordion>
+```
+
+## Default
+
+Use an accordion to group supporting information and reduce scrolling. Items expand independently by default, and `headerLevel` keeps their trigger headings consistent with the surrounding page hierarchy.
+
+<DocsExample
+  filename="accordion/AccordionExample.tsx"
+  title="Example accordion"
+  storybookId="ui-base-accordion--default"/>
+
+## Automatic collapse
+
+Set `autoCollapse` when opening one item should close the other open item. Leave it off when users benefit from comparing content across multiple sections.
+
+<DocsExample
+  filename="accordion/AccordionAutoCollapseExample.tsx"
+  title="Single expanded item"
+  storybookId="ui-base-accordion--auto-collapse"/>
+
+## Expansion state
+
+Use `defaultVisible` for an initially expanded uncontrolled item. Use `visible` with `onVisibleChange` when application state controls expansion; a stable `value` helps the parent coordinate automatic collapse.
+
+<DocsExample
+  filename="accordion/AccordionControlledExample.tsx"
+  title="Controlled expansion"/>
+
+## Accessibility
+
+- Choose a `headerLevel` that preserves the page's heading hierarchy. An item can override the inherited level when its context requires it.
+- `GlAccordionItem` connects its trigger and panel with `aria-controls` and reports expansion through `aria-expanded`.
+- Keep each trigger label concise and descriptive. `titleVisible` may clarify that activating an expanded item will hide its content.
+- Do not place critical information or primary actions only inside a collapsed panel.
+- Avoid nested accordions; use a tree when the content requires multiple hierarchy levels.
+
+## API
+
+These are the props used most often. Both components forward supported DOM attributes and refs to their outer `div` elements.
+
+### `GlAccordion`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `headerLevel` | Required heading level from `1` to `6`, inherited by child items. | — |
+| `autoCollapse` | Closes another expanded item when a new item opens. | `false` |
+| `children` | Accordion items and any supporting React content. | — |
+
+### `GlAccordionItem`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `title` | Required text displayed by the trigger while the item is collapsed. | — |
+| `titleVisible` | Replaces `title` while the item is expanded. | `null` |
+| `defaultVisible` | Sets the initial expansion state for an uncontrolled item. | `false` |
+| `visible` | Controls the expansion state. | — |
+| `onVisibleChange` | Runs when the trigger or automatic collapse requests a state change. | — |
+| `value` | Provides a stable value used to coordinate items; one is generated when omitted. | Generated |
+| `headerLevel` | Overrides the heading level inherited from `GlAccordion`. | Inherited |
+| `headerClass` | Adds any class value supported by `clsx` to the item heading. | — |
+| `children` | Content rendered in the item's collapsible panel. | — |
+
+## Related resources
+
+- [Accordion in the Pajamas Design System](https://design.gitlab.com/components/accordion/)
+- [Accordion stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-accordion--docs)
+- [Accordion source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/accordion/accordion.tsx)

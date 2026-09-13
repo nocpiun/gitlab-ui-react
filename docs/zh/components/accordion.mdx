@@ -1,0 +1,84 @@
+---
+title: Accordion
+description: 将相关的辅助内容整理为用户可以展开和收起的区段。
+---
+
+## 用法
+
+```tsx
+import { GlAccordion, GlAccordionItem } from "gitlab-ui-react/accordion";
+```
+
+```tsx
+<GlAccordion headerLevel={3}>
+  <GlAccordionItem title="Deployment details">
+    The deployment completed successfully.
+  </GlAccordionItem>
+</GlAccordion>
+```
+
+## 默认
+
+手风琴适合对辅助信息分组并减少页面滚动。默认情况下，各项目可以独立展开；`headerLevel` 用于让触发器标题与页面周围的标题层级保持一致。
+
+<DocsExample
+  filename="accordion/AccordionExample.tsx"
+  title="手风琴示例"
+  storybookId="ui-base-accordion--default"/>
+
+## 自动收起
+
+当展开一个项目应同时收起其他已展开项目时，设置 `autoCollapse`。如果用户需要比较多个区段中的内容，请保持关闭。
+
+<DocsExample
+  filename="accordion/AccordionAutoCollapseExample.tsx"
+  title="只展开一个项目"
+  storybookId="ui-base-accordion--auto-collapse"/>
+
+## 展开状态
+
+使用 `defaultVisible` 让非受控项目初始展开。当应用状态控制展开状态时，应同时使用 `visible` 和 `onVisibleChange`；稳定的 `value` 可帮助父组件协调自动收起行为。
+
+<DocsExample
+  filename="accordion/AccordionControlledExample.tsx"
+  title="受控展开状态"/>
+
+## 无障碍
+
+- 选择能够维持页面标题层级的 `headerLevel`。如果上下文需要，项目可以覆盖继承的标题级别。
+- `GlAccordionItem` 通过 `aria-controls` 关联触发器和面板，并通过 `aria-expanded` 表示展开状态。
+- 触发器标签应简洁且具有描述性。`titleVisible` 可以说明再次激活已展开项目会隐藏其内容。
+- 不要将关键信息或主要操作仅放在收起的面板中。
+- 避免嵌套手风琴；当内容需要多级层次结构时，请使用树形组件。
+
+## API
+
+下面列出最常用的属性。两个组件都会将受支持的 DOM 属性和 ref 传递给各自最外层的 `div` 元素。
+
+### `GlAccordion`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `headerLevel` | 必填，取值为 `1` 至 `6` 的标题级别，由子项目继承。 | — |
+| `autoCollapse` | 展开新项目时收起另一个已展开项目。 | `false` |
+| `children` | 手风琴项目和其他辅助 React 内容。 | — |
+
+### `GlAccordionItem`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `title` | 必填，项目收起时由触发器显示的文字。 | — |
+| `titleVisible` | 项目展开时替换 `title`。 | `null` |
+| `defaultVisible` | 设置非受控项目的初始展开状态。 | `false` |
+| `visible` | 控制展开状态。 | — |
+| `onVisibleChange` | 触发器或自动收起行为请求状态变化时调用。 | — |
+| `value` | 提供用于协调项目的稳定值；省略时自动生成。 | 自动生成 |
+| `headerLevel` | 覆盖从 `GlAccordion` 继承的标题级别。 | 继承 |
+| `headerClass` | 将 `clsx` 支持的任意类值添加到项目标题。 | — |
+| `children` | 渲染在项目可折叠面板中的内容。 | — |
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Accordion](https://design.gitlab.com/components/accordion/)
+- [Storybook 中的 Accordion stories](https://glui-story.nocp.space/?path=/docs/ui-base-accordion--docs)
+- [Accordion 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/accordion/accordion.tsx)
