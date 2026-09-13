@@ -1,0 +1,85 @@
+---
+title: Attribute list
+description: Displays read-only attributes for a single entity in a responsive, scannable grid.
+---
+
+## Usage
+
+```tsx
+import {
+  GlAttributeList,
+  GlAttributeListItem,
+} from "gitlab-ui-react/attribute-list";
+```
+
+```tsx
+<GlAttributeList>
+  <GlAttributeListItem label="Status">Active</GlAttributeListItem>
+  <GlAttributeListItem label="Owner">Alex Morgan</GlAttributeListItem>
+</GlAttributeList>
+```
+
+## Default
+
+Use an attribute list for read-only metadata about one entity. The default horizontal layout places concise labels beside their values when space allows and adapts to a single column in a narrow container.
+
+<DocsExample
+  filename="attribute-list/AttributeListExample.tsx"
+  title="Example attribute list"
+  storybookId="ui-base-attribute-list--default"/>
+
+## Layout
+
+Use the vertical layout for longer labels or when each label-value pair should be read as a distinct block. Both layouts respond to their container width.
+
+<DocsExample
+  filename="attribute-list/AttributeListVerticalExample.tsx"
+  title="Vertical attribute list"
+  storybookId="ui-base-attribute-list--vertical-layout"/>
+
+## Rich content
+
+Values can contain links, badges, code, and other inline components. Keep values concise; truncate long identifiers when they would disrupt the grid.
+
+<DocsExample
+  filename="attribute-list/AttributeListRichContentExample.tsx"
+  title="Attributes with rich values"
+  storybookId="ui-base-attribute-list--rich-content"/>
+
+## Accessibility
+
+- `GlAttributeList` uses a semantic `dl`, with each item represented by a related `dt` label and `dd` value.
+- Keep labels concise, use sentence case, and apply the same labels to comparable entities.
+- Item icons are decorative and hidden from assistive technology. Use them consistently across a list and never rely on an icon alone to identify an attribute.
+- Preserve meaningful text alternatives in custom label and value content.
+- Order attributes by importance or reading sequence. In a two-column layout, focus and reading order run down the first column before the second.
+- Use separate lists for separate entities and a table when users need to compare the same attributes across multiple entities.
+
+## API
+
+These are the props used most often. The list forwards supported `dl` attributes and a ref; each item forwards supported `div` attributes and a ref.
+
+### `GlAttributeList`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `layout` | Places labels beside values with `horizontal` or above values with `vertical` when space allows. | `"horizontal"` |
+| `labelClassName` | Adds classes to every item label. | — |
+| `descriptionClassName` | Adds classes to every item value. | — |
+| `children` | Direct `GlAttributeListItem` elements; arrays, fragments, and conditional children are supported, but opaque wrapper components are not. | — |
+
+### `GlAttributeListItem`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `label` | Required attribute term rendered inside a `dt`. Accepts React content. | — |
+| `icon` | Adds a decorative GitLab SVG icon before the label. | — |
+| `labelClassName` | Adds classes to this item's label after list-wide label classes. | — |
+| `descriptionClassName` | Adds classes to this item's value after list-wide value classes. | — |
+| `children` | Attribute value rendered inside a `dd`. Accepts React content. | — |
+
+## Related resources
+
+- [Attribute list in the Pajamas Design System](https://design.gitlab.com/components/attribute-list/)
+- [Attribute list stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-attribute-list--docs)
+- [Attribute list source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/attribute-list/attribute-list.tsx)

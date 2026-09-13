@@ -1,0 +1,85 @@
+---
+title: Attribute list
+description: 以响应式、易浏览的网格展示单个实体的只读属性。
+---
+
+## 用法
+
+```tsx
+import {
+  GlAttributeList,
+  GlAttributeListItem,
+} from "gitlab-ui-react/attribute-list";
+```
+
+```tsx
+<GlAttributeList>
+  <GlAttributeListItem label="Status">Active</GlAttributeListItem>
+  <GlAttributeListItem label="Owner">Alex Morgan</GlAttributeListItem>
+</GlAttributeList>
+```
+
+## 默认
+
+属性列表适合展示单个实体的只读元数据。当空间足够时，默认的水平布局会将简短标签放在值旁边；在较窄的容器中则会适配为单列。
+
+<DocsExample
+  filename="attribute-list/AttributeListExample.tsx"
+  title="属性列表示例"
+  storybookId="ui-base-attribute-list--default"/>
+
+## 布局
+
+标签较长，或每组标签和值需要作为独立区块阅读时，请使用垂直布局。两种布局都会响应容器宽度。
+
+<DocsExample
+  filename="attribute-list/AttributeListVerticalExample.tsx"
+  title="垂直属性列表"
+  storybookId="ui-base-attribute-list--vertical-layout"/>
+
+## 富内容
+
+值可以包含链接、徽章、代码和其他行内组件。值应保持简洁；过长的标识符可能破坏网格布局，因此应进行截断。
+
+<DocsExample
+  filename="attribute-list/AttributeListRichContentExample.tsx"
+  title="包含富内容值的属性"
+  storybookId="ui-base-attribute-list--rich-content"/>
+
+## 无障碍
+
+- `GlAttributeList` 使用语义化的 `dl`，每个项目由相互关联的 `dt` 标签和 `dd` 值表示。
+- 标签应简短、使用句首大写，并对可比较的实体采用相同标签。
+- 项目图标为装饰性内容，会对辅助技术隐藏。一个列表中的图标应保持一致，且不能仅依靠图标识别属性。
+- 自定义标签和值内容应保留有意义的替代文本。
+- 按重要性或阅读顺序排列属性。在双列布局中，焦点和阅读顺序会先沿第一列向下，再进入第二列。
+- 不同实体应使用不同的列表；当用户需要比较多个实体的相同属性时，请使用表格。
+
+## API
+
+下面列出最常用的属性。列表会转发受支持的 `dl` 属性和 ref；每个项目会转发受支持的 `div` 属性和 ref。
+
+### `GlAttributeList`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `layout` | 空间允许时，通过 `horizontal` 将标签放在值旁边，或通过 `vertical` 将标签放在值上方。 | `"horizontal"` |
+| `labelClassName` | 为所有项目的标签添加类。 | — |
+| `descriptionClassName` | 为所有项目的值添加类。 | — |
+| `children` | 直接放置的 `GlAttributeListItem` 元素；支持数组、Fragment 和条件子元素，但不支持不透明的包装组件。 | — |
+
+### `GlAttributeListItem`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `label` | 必填，渲染在 `dt` 中的属性术语。接受 React 内容。 | — |
+| `icon` | 在标签前添加装饰性的 GitLab SVG 图标。 | — |
+| `labelClassName` | 在列表级标签类之后，为当前项目的标签添加类。 | — |
+| `descriptionClassName` | 在列表级值类之后，为当前项目的值添加类。 | — |
+| `children` | 渲染在 `dd` 中的属性值。接受 React 内容。 | — |
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Attribute list](https://design.gitlab.com/components/attribute-list/)
+- [Storybook 中的 Attribute list stories](https://glui-story.nocp.space/?path=/docs/ui-base-attribute-list--docs)
+- [Attribute list 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/attribute-list/attribute-list.tsx)
