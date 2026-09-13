@@ -163,14 +163,22 @@ function resolveExampleSource(filename: string) {
 }
 
 function parseDocsExampleAttributes(source: string): DocsExampleAttributes {
+  const clientLoadPattern = /(?:^|\s)client:load(?=\s|$)/g;
+  const clientLoadMatches = source.match(clientLoadPattern) ?? [];
+
+  if(clientLoadMatches.length > 1) {
+    throw new Error("[LLM] Duplicate DocsExample attribute \"client:load\".");
+  }
+
+  const attributesSource = source.replace(clientLoadPattern, " ");
   const attributes = new Map<string, string>();
   const attributePattern = /([A-Za-z][\w-]*)\s*=\s*(?:"([^"]*)"|'([^']*)')/g;
   let cursor = 0;
 
-  for(const match of source.matchAll(attributePattern)) {
+  for(const match of attributesSource.matchAll(attributePattern)) {
     const index = match.index;
 
-    if(source.slice(cursor, index).trim()) {
+    if(attributesSource.slice(cursor, index).trim()) {
       throw new Error(`[LLM] Invalid DocsExample attributes: ${source.trim()}`);
     }
 
@@ -185,11 +193,11 @@ function parseDocsExampleAttributes(source: string): DocsExampleAttributes {
     cursor = index + match[0].length;
   }
 
-  if(source.slice(cursor).trim()) {
+  if(attributesSource.slice(cursor).trim()) {
     throw new Error(`[LLM] Invalid DocsExample attributes: ${source.trim()}`);
   }
 
-  const supportedAttributes = new Set(["filename", "storybookId", "title"]);
+  const supportedAttributes = new Set(["filename", "locale", "storybookId", "title"]);
 
   for(const name of attributes.keys()) {
     if(!supportedAttributes.has(name)) {

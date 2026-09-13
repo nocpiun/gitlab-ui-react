@@ -3,6 +3,8 @@ title: Accordion
 description: 将相关的辅助内容整理为用户可以展开和收起的区段。
 ---
 
+import { DocsExample } from "../../../apps/website/src/components/docs-example";
+
 ## 用法
 
 ```tsx
@@ -22,7 +24,9 @@ import { GlAccordion, GlAccordionItem } from "gitlab-ui-react/accordion";
 手风琴适合对辅助信息分组并减少页面滚动。默认情况下，各项目可以独立展开；`headerLevel` 用于让触发器标题与页面周围的标题层级保持一致。
 
 <DocsExample
+  client:load
   filename="accordion/AccordionExample.tsx"
+  locale="zh"
   title="手风琴示例"
   storybookId="ui-base-accordion--default"/>
 
@@ -31,7 +35,9 @@ import { GlAccordion, GlAccordionItem } from "gitlab-ui-react/accordion";
 当展开一个项目应同时收起其他已展开项目时，设置 `autoCollapse`。如果用户需要比较多个区段中的内容，请保持关闭。
 
 <DocsExample
+  client:load
   filename="accordion/AccordionAutoCollapseExample.tsx"
+  locale="zh"
   title="只展开一个项目"
   storybookId="ui-base-accordion--auto-collapse"/>
 
@@ -40,7 +46,9 @@ import { GlAccordion, GlAccordionItem } from "gitlab-ui-react/accordion";
 使用 `defaultVisible` 让非受控项目初始展开。当应用状态控制展开状态时，应同时使用 `visible` 和 `onVisibleChange`；稳定的 `value` 可帮助父组件协调自动收起行为。
 
 <DocsExample
+  client:load
   filename="accordion/AccordionControlledExample.tsx"
+  locale="zh"
   title="受控展开状态"/>
 
 ## 无障碍

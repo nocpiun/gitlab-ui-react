@@ -3,6 +3,8 @@ title: Accordion
 description: Organizes related supporting content into sections that users can expand and collapse.
 ---
 
+import { DocsExample } from "../../../apps/website/src/components/docs-example";
+
 ## Usage
 
 ```tsx
@@ -22,7 +24,9 @@ import { GlAccordion, GlAccordionItem } from "gitlab-ui-react/accordion";
 Use an accordion to group supporting information and reduce scrolling. Items expand independently by default, and `headerLevel` keeps their trigger headings consistent with the surrounding page hierarchy.
 
 <DocsExample
+  client:load
   filename="accordion/AccordionExample.tsx"
+  locale="en"
   title="Example accordion"
   storybookId="ui-base-accordion--default"/>
 
@@ -31,7 +35,9 @@ Use an accordion to group supporting information and reduce scrolling. Items exp
 Set `autoCollapse` when opening one item should close the other open item. Leave it off when users benefit from comparing content across multiple sections.
 
 <DocsExample
+  client:load
   filename="accordion/AccordionAutoCollapseExample.tsx"
+  locale="en"
   title="Single expanded item"
   storybookId="ui-base-accordion--auto-collapse"/>
 
@@ -40,7 +46,9 @@ Set `autoCollapse` when opening one item should close the other open item. Leave
 Use `defaultVisible` for an initially expanded uncontrolled item. Use `visible` with `onVisibleChange` when application state controls expansion; a stable `value` helps the parent coordinate automatic collapse.
 
 <DocsExample
+  client:load
   filename="accordion/AccordionControlledExample.tsx"
+  locale="en"
   title="Controlled expansion"/>
 
 ## Accessibility
