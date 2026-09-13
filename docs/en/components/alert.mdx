@@ -1,0 +1,73 @@
+---
+title: Alert
+description: Communicates a timely system-generated event or condition that needs the user's attention.
+---
+
+## Usage
+
+```tsx
+import { GlAlert, GlAlertDescription } from "gitlab-ui-react/alert";
+```
+
+```tsx
+<GlAlert dismissible={false}>
+  <GlAlertDescription>The project settings were updated.</GlAlertDescription>
+</GlAlert>
+```
+
+## Default
+
+The default information alert uses a polite live region. Alerts do not manage their own visibility, so the parent must remove a dismissible alert in response to `onDismiss`.
+
+<DocsExample
+  filename="alert/AlertExample.tsx"
+  title="Dismissible information alert"/>
+
+## Variants
+
+Choose the variant that matches the message rather than using color for emphasis alone. Danger, warning, and success alerts render with `role="alert"`; information and tip alerts use `role="status"`.
+
+<DocsExample
+  filename="alert/AlertVariantsExample.tsx"
+  title="Alert variants"
+  storybookId="ui-base-alert--variants"/>
+
+## Titles and actions
+
+Add a short title when it helps explain what triggered the alert. Use `GlAlertActions` for no more than two clear next steps, with the primary action first.
+
+<DocsExample
+  filename="alert/AlertActionsExample.tsx"
+  title="Alert with actions"
+  storybookId="ui-base-alert--undismissible-danger-with-actions"/>
+
+## Accessibility
+
+- Use an alert for dynamic system state, not for static documentation or a result already visible on the page.
+- Set `headerLevel` so an optional title fits the surrounding heading hierarchy; it renders as an `h2` by default.
+- Keep `politeness="polite"` for ordinary updates. Use `politeness="assertive"` only for critical or time-sensitive messages that require immediate attention.
+- For an error, explain what went wrong and provide a recovery path. Only show an alert to people affected by it or able to act.
+- Give the dismiss control a localized, descriptive `dismissLabel` when the default “Dismiss” label is not appropriate.
+- Move focus to the alert through its forwarded ref only when an important contextual announcement requires immediate interaction.
+
+## API
+
+These are the props used most often. `GlAlert` forwards supported `div` attributes and a ref. `GlAlertDescription` and `GlAlertActions` accept supported `div` attributes and provide the standard content layout.
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `variant` | Sets the message type to `danger`, `info`, `success`, `tip`, or `warning`. | `"info"` |
+| `title` | Adds a short heading before the alert content. | — |
+| `headerLevel` | Sets the title heading level from `1` to `6`. | `2` |
+| `dismissible` | Shows the dismiss button; the parent still controls visibility. | `true` |
+| `dismissLabel` | Sets the dismiss button's accessible name. | `"Dismiss"` |
+| `onDismiss` | Runs when the dismiss button is activated. | — |
+| `politeness` | Sets `aria-live` to `polite`, `assertive`, or `off`. | `"polite"` |
+| `sticky` | Keeps the alert at the top of its scrolling container. Reserve it for critical contextual alerts. | `false` |
+| `children` | Alert content, usually `GlAlertDescription` followed by optional `GlAlertActions`. | — |
+
+## Related resources
+
+- [Alert in the Pajamas Design System](https://design.gitlab.com/components/alert/)
+- [Alert stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-alert--docs)
+- [Alert source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/alert/alert.tsx)

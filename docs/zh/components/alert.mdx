@@ -1,0 +1,73 @@
+---
+title: Alert
+description: 传达需要用户关注的、及时的系统事件或状态。
+---
+
+## 用法
+
+```tsx
+import { GlAlert, GlAlertDescription } from "gitlab-ui-react/alert";
+```
+
+```tsx
+<GlAlert dismissible={false}>
+  <GlAlertDescription>The project settings were updated.</GlAlertDescription>
+</GlAlert>
+```
+
+## 默认
+
+默认的信息提示使用礼貌级别的实时区域。提示本身不会管理可见性，因此父组件必须在收到 `onDismiss` 后移除可关闭的提示。
+
+<DocsExample
+  filename="alert/AlertExample.tsx"
+  title="可关闭的信息提示"/>
+
+## 变体
+
+应根据消息含义选择变体，而不是仅使用颜色来强调。危险、警告和成功提示渲染 `role="alert"`；信息和技巧提示使用 `role="status"`。
+
+<DocsExample
+  filename="alert/AlertVariantsExample.tsx"
+  title="提示变体"
+  storybookId="ui-base-alert--variants"/>
+
+## 标题与操作
+
+当标题有助于说明触发提示的事件时，可以添加简短标题。使用 `GlAlertActions` 提供不超过两个明确的后续操作，并将主要操作放在前面。
+
+<DocsExample
+  filename="alert/AlertActionsExample.tsx"
+  title="带操作的提示"
+  storybookId="ui-base-alert--undismissible-danger-with-actions"/>
+
+## 无障碍
+
+- 提示应用于动态系统状态，而不是静态文档或页面上已经可见的操作结果。
+- 设置 `headerLevel`，使可选标题符合周围的标题层级；默认渲染为 `h2`。
+- 普通更新保持 `politeness="polite"`。仅对需要立即关注的关键或时效性消息使用 `politeness="assertive"`。
+- 对于错误，应说明问题并提供恢复路径。仅向受影响或能够采取行动的用户显示提示。
+- 当默认的“Dismiss”不合适时，通过 `dismissLabel` 为关闭控件提供本地化且具有描述性的名称。
+- 只有重要的上下文通知需要用户立即交互时，才通过转发的 ref 将焦点移动到提示上。
+
+## API
+
+下面列出最常用的属性。`GlAlert` 会转发受支持的 `div` 属性和 ref。`GlAlertDescription` 与 `GlAlertActions` 接受受支持的 `div` 属性，并提供标准内容布局。
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `variant` | 将消息类型设置为 `danger`、`info`、`success`、`tip` 或 `warning`。 | `"info"` |
+| `title` | 在提示内容前添加简短标题。 | — |
+| `headerLevel` | 将标题级别设置为 `1` 至 `6`。 | `2` |
+| `dismissible` | 显示关闭按钮；可见性仍由父组件控制。 | `true` |
+| `dismissLabel` | 设置关闭按钮的无障碍名称。 | `"Dismiss"` |
+| `onDismiss` | 关闭按钮激活时调用。 | — |
+| `politeness` | 将 `aria-live` 设置为 `polite`、`assertive` 或 `off`。 | `"polite"` |
+| `sticky` | 让提示保持在滚动容器顶部。仅用于关键的上下文提示。 | `false` |
+| `children` | 提示内容，通常为 `GlAlertDescription`，后面可选跟随 `GlAlertActions`。 | — |
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Alert](https://design.gitlab.com/components/alert/)
+- [Storybook 中的 Alert stories](https://glui-story.nocp.space/?path=/docs/ui-base-alert--docs)
+- [Alert 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/alert/alert.tsx)
