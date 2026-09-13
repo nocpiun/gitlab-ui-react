@@ -42,13 +42,15 @@ const markdownPath = docsMarkdownPath(locale, currentId);
     <div class="mx-6 sm:mx-8 lg:mx-12 xl:mx-16 2xl:mx-28">
       <div class="mx-auto w-full max-w-[96rem]">
         <div class="docs-layout-grid grid min-[1200px]:grid-cols-[15.75rem_minmax(0,1fr)]">
-          <aside class="min-[1200px]:sticky min-[1200px]:top-0 min-[1200px]:max-h-[100dvh] min-[1200px]:self-start min-[1200px]:overflow-x-hidden min-[1200px]:overflow-y-auto min-[1200px]:py-8 min-[1200px]:ps-3">
-            <DocsNavigation
-              client:load
-              transition:persist="docs-navigation"
-              currentId={currentId}
-              locale={locale}
-            />
+          <aside class="min-[1200px]:sticky min-[1200px]:top-0 min-[1200px]:max-h-[100dvh] min-[1200px]:self-start min-[1200px]:py-8">
+            <div class="docs-navigation-scroll min-[1200px]:max-h-[calc(100dvh-4rem)] min-[1200px]:overflow-x-hidden min-[1200px]:overflow-y-auto min-[1200px]:ps-3">
+              <DocsNavigation
+                client:load
+                transition:persist="docs-navigation"
+                currentId={currentId}
+                locale={locale}
+              />
+            </div>
           </aside>
 
           <article class="min-w-0 py-8 max-md:pt-6 sm:px-6 sm:py-8 md:px-8 lg:px-10 lg:py-10 xl:px-12" data-pagefind-body>
@@ -112,6 +114,15 @@ const markdownPath = docsMarkdownPath(locale, currentId);
   .docs-content {
     min-width: 0;
     overflow-wrap: anywhere;
+  }
+
+  .docs-navigation-scroll {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .docs-navigation-scroll::-webkit-scrollbar {
+    display: none;
   }
 
   .docs-content :is(h2, h3) {
