@@ -1,6 +1,5 @@
 import type { ComponentProps } from "react";
 import { DocsCallout } from "./docs-callout";
-import DocsExample from "./docs-example.astro";
 import { type Locale } from "../i18n/config";
 
 export function localizedDocsComponents(locale: Locale) {
@@ -10,6 +9,5 @@ export function localizedDocsComponents(locale: Locale) {
 
   return {
     DocsCallout: LocalizedDocsCallout,
-    DocsExample,
   };
 }

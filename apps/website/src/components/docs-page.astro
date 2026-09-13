@@ -4,6 +4,7 @@ import { render } from "astro:content";
 import { GlIcon } from "gitlab-ui-react/icon";
 import { GlMarkdown } from "gitlab-ui-react/markdown";
 import { DocsCodeBlockCopyButtons } from "./docs-code-block-copy-buttons";
+import DocsExample from "./docs-example.astro";
 import LlmFriendlyCard from "./llm-friendly-card.astro";
 import { DocsNavigation } from "./docs-navigation";
 import { DocsTableOfContents } from "./docs-table-of-contents";
@@ -24,7 +25,10 @@ const { alternatePaths, currentId, entry, locale } = Astro.props;
 const { Content, headings } = await render(entry);
 const messages = siteMessages[locale];
 const tableOfContents = headings.filter(({ depth }) => depth >= 2 && depth <= 3);
-const mdxComponents = localizedDocsComponents(locale);
+const mdxComponents = {
+  ...localizedDocsComponents(locale),
+  DocsExample,
+};
 const markdownPath = docsMarkdownPath(locale, currentId);
 ---
 
