@@ -120,25 +120,79 @@ function itemLine(commit: Commit): string {
     : `- ${parts.description}`;
 }
 
-export function contributorNames(commits: Commit[]): string[] {
+export function dedupeSortLogins(logins: string[]): string[] {
   const contributors = new Map<string, string>();
-  for(const commit of commits) {
-    const noreplyMatch = commit.authorEmail.match(
-      /^(?:\d+\+)?([^@]+)@users\.noreply\.github\.com$/i,
-    );
-    const name = noreplyMatch ? `@${noreplyMatch[1]}` : commit.authorName.trim();
-    if(!name || /\[bot\]$|github-actions/i.test(name)) continue;
-    const key = name.toLowerCase();
-    if(!contributors.has(key)) contributors.set(key, name);
+  for(const rawLogin of logins) {
+    const login = rawLogin.trim().replace(/^@+/, "");
+    if(!/^[a-zA-Z0-9-]+$/.test(login)) continue;
+    const key = login.toLowerCase();
+    if(!contributors.has(key)) contributors.set(key, login);
   }
   return [...contributors.values()].sort((left, right) =>
     left.toLowerCase().localeCompare(right.toLowerCase()),
   );
 }
 
+export function contributorsForCommits(
+  shaToLogin: ReadonlyMap<string, string>,
+  commits: Commit[],
+): string[] {
+  return dedupeSortLogins(
+    commits
+      .map((commit) => shaToLogin.get(commit.sha))
+      .filter((login): login is string => Boolean(login)),
+  );
+}
+
+function revisionSha(root: string, revision: string | null): string | null {
+  if(!revision) return null;
+  return execFileSync("git", ["rev-parse", revision], {
+    cwd: root,
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "pipe"],
+  }).trim();
+}
+
+function githubLoginsForRange(
+  root: string,
+  repository: string,
+  fromSha: string | null,
+): Map<string, string> {
+  try {
+    const endpoint = fromSha
+      ? `repos/${repository}/compare/${fromSha}...HEAD?per_page=100`
+      : `repos/${repository}/commits?sha=HEAD&per_page=100`;
+    const jq = fromSha
+      ? '.commits[] | [.sha, (.author.login // "")] | @tsv'
+      : '.[] | [.sha, (.author.login // "")] | @tsv';
+    const output = execFileSync(
+      "gh",
+      ["api", "--paginate", endpoint, "--jq", jq],
+      {
+        cwd: root,
+        encoding: "utf8",
+        stdio: ["ignore", "pipe", "pipe"],
+      },
+    );
+    const shaToLogin = new Map<string, string>();
+    for(const line of output.split("\n")) {
+      if(!line) continue;
+      const [sha, login = ""] = line.split("\t");
+      if(sha && login) shaToLogin.set(sha, login);
+    }
+    return shaToLogin;
+  } catch {
+    console.warn(
+      `[release] Could not resolve GitHub contributors for ${fromSha ?? "all history"}..HEAD; omitting the Contributors section.`,
+    );
+    return new Map();
+  }
+}
+
 export function groupedChangelogBody(
   commits: Commit[],
   manualNotes: string[] = [],
+  contributorLogins: string[] = [],
 ): string {
   const sections: string[] = [];
 
@@ -173,10 +227,10 @@ export function groupedChangelogBody(
     );
   }
 
-  const contributors = contributorNames(commits);
+  const contributors = dedupeSortLogins(contributorLogins);
   if(contributors.length > 0) {
     sections.push(
-      `### Contributors\n\n${contributors.map((name) => `- ${name}`).join("\n")}`,
+      `### Contributors\n\n${contributors.map((login) => `- @${login}`).join("\n")}`,
     );
   }
 
@@ -288,6 +342,8 @@ export function run(root = REPOSITORY_ROOT, options: VersionRunOptions = {}): vo
     stableRange: preState?.mode === "exit",
   });
   const manualNotes = loadManualNotes(root, preState);
+  const repository = process.env.GITHUB_REPOSITORY?.trim() ?? "";
+  const loginMaps = new Map<string, Map<string, string>>();
   const before = readVersions(root);
   const coveredThrough = execFileSync("git", ["rev-parse", "HEAD"], {
     cwd: root,
@@ -337,7 +393,23 @@ export function run(root = REPOSITORY_ROOT, options: VersionRunOptions = {}): vo
       snapshotManualNotes[state.name] = combinedManualNotes;
     }
 
-    const body = groupedChangelogBody(commits, combinedManualNotes);
+    let contributorLogins: string[] = [];
+    if(repository) {
+      const fromSha = revisionSha(root, state.fromRevision);
+      const rangeKey = fromSha ?? "<all-history>";
+      let shaToLogin = loginMaps.get(rangeKey);
+      if(!shaToLogin) {
+        shaToLogin = githubLoginsForRange(root, repository, fromSha);
+        loginMaps.set(rangeKey, shaToLogin);
+      }
+      contributorLogins = contributorsForCommits(shaToLogin, commits);
+    }
+
+    const body = groupedChangelogBody(
+      commits,
+      combinedManualNotes,
+      contributorLogins,
+    );
     const original = readFileSync(changelogPath, "utf8");
     let updated = rewriteReleaseSection(original, nextVersion, body);
     if(updated === original) {

@@ -2,7 +2,8 @@ import type { Commit } from "./create-changeset.mts";
 import { describe, expect, it } from "vitest";
 
 import {
-  contributorNames,
+  contributorsForCommits,
+  dedupeSortLogins,
   groupedChangelogBody,
   parseManualChangeset,
   removeReleaseSection,
@@ -11,8 +12,6 @@ import {
 
 function commit(overrides: Partial<Commit>): Commit {
   return {
-    authorEmail: "123+octocat@users.noreply.github.com",
-    authorName: "The Octocat",
     body: "",
     files: ["packages/ui/index.ts"],
     sha: "abc123",
@@ -23,19 +22,23 @@ function commit(overrides: Partial<Commit>): Commit {
 
 describe("release changelogs", () => {
   it("separates breaking changes while keeping them out of the automatic major bump", () => {
-    const body = groupedChangelogBody([
-      commit({ subject: "feat(button)!: replace the composition API (#3)" }),
-      commit({ sha: "def456", subject: "feat(form): add a selector (#2)" }),
-      commit({ sha: "ghi789" }),
-      commit({
-        sha: "jkl012",
-        subject: "chore(tokens): sync upstream design tokens (#4)",
-      }),
-      commit({
-        sha: "mno345",
-        subject: "chore(deps): update package dependencies (#5)",
-      }),
-    ]);
+    const body = groupedChangelogBody(
+      [
+        commit({ subject: "feat(button)!: replace the composition API (#3)" }),
+        commit({ sha: "def456", subject: "feat(form): add a selector (#2)" }),
+        commit({ sha: "ghi789" }),
+        commit({
+          sha: "jkl012",
+          subject: "chore(tokens): sync upstream design tokens (#4)",
+        }),
+        commit({
+          sha: "mno345",
+          subject: "chore(deps): update package dependencies (#5)",
+        }),
+      ],
+      [],
+      ["octocat"],
+    );
 
     expect(body).toContain("### Breaking Changes");
     expect(body).toContain("**button:** replace the composition API (#3)");
@@ -119,22 +122,32 @@ Prepare the first alpha release.
 });
 
 describe("contributors", () => {
-  it("deduplicates people and ignores bots", () => {
+  it("keeps valid GitHub logins, deduplicates them, and ignores bots", () => {
     expect(
-      contributorNames([
-        commit({}),
-        commit({ sha: "2", authorEmail: "octocat@users.noreply.github.com" }),
-        commit({
-          sha: "3",
-          authorEmail: "person@example.com",
-          authorName: "Human Contributor",
-        }),
-        commit({
-          sha: "4",
-          authorEmail: "bot@example.com",
-          authorName: "github-actions[bot]",
-        }),
+      dedupeSortLogins([
+        "@Bob",
+        "alice",
+        "bob",
+        "dependabot[bot]",
+        "Human Contributor",
+        "",
       ]),
-    ).toEqual(["@octocat", "Human Contributor"]);
+    ).toEqual(["alice", "Bob"]);
+  });
+
+  it("selects only contributors for the package's release commits", () => {
+    const shaToLogin = new Map([
+      ["abc123", "alice"],
+      ["def456", "bob"],
+      ["unrelated", "carol"],
+    ]);
+
+    expect(
+      contributorsForCommits(shaToLogin, [
+        commit({}),
+        commit({ sha: "def456" }),
+        commit({ sha: "missing" }),
+      ]),
+    ).toEqual(["alice", "bob"]);
   });
 });

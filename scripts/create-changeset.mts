@@ -19,8 +19,6 @@ export type PackageDefinition = {
 };
 
 export type Commit = {
-  authorEmail: string;
-  authorName: string;
   body: string;
   files: string[];
   sha: string;
@@ -346,7 +344,7 @@ export function assertFixedVersions(versions: Record<string, string>): string {
 
 function readCommit(root: string, sha: string): Commit {
   const metadata = git(
-    ["show", "-s", "--format=%s%x00%b%x00%aN%x00%aE", sha],
+    ["show", "-s", "--format=%s%x00%b", sha],
     root,
   ).split("\0");
   const filesOutput = git(
@@ -358,8 +356,6 @@ function readCommit(root: string, sha: string): Commit {
     sha,
     subject: metadata[0] ?? "",
     body: metadata[1] ?? "",
-    authorName: metadata[2] ?? "",
-    authorEmail: metadata[3] ?? "",
     files: [...new Set(filesOutput.split("\n").filter(Boolean))],
   };
 }
