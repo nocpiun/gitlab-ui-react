@@ -1,0 +1,66 @@
+---
+import { randomUUID } from "node:crypto";
+import { GlButton } from "gitlab-ui-react/button";
+import { GlCard, GlCardContent, GlCardHeader } from "gitlab-ui-react/card";
+import { GlLink } from "gitlab-ui-react/link";
+import { DocsExamplePreview } from "./docs-example-preview";
+import { getHighlightedExampleSource } from "./docs-example-source";
+import { formatTemplate, isLocale } from "../i18n/config";
+import { siteMessages } from "../i18n/messages";
+
+interface Props {
+  filename: string;
+  title: string;
+  storybookId?: string;
+}
+
+const { filename, title, storybookId } = Astro.props;
+const locale = Astro.currentLocale;
+
+if(!isLocale(locale)) {
+  throw new Error(`[DocsExample] Unsupported locale "${String(locale)}".`);
+}
+
+const messages = siteMessages[locale].docs.example;
+const hideSourceLabel = formatTemplate(messages.hideSource, { title });
+const showSourceLabel = formatTemplate(messages.showSource, { title });
+const sourceId = `docs-example-source-${randomUUID()}`;
+const highlightedSource = getHighlightedExampleSource(filename);
+---
+
+<GlCard className="my-7" data-docs-example>
+  <GlCardHeader className="flex items-center justify-between gap-3 pr-1 pt-1 pb-2">
+    <span class="text-300 font-bold">{title}</span>
+    <div class="flex items-center gap-3">
+      {storybookId && (
+        <GlLink
+          aria-label={messages.storybookLinkLabel}
+          showExternalIcon
+          href={"https://glui-story.nocp.space/?path=/story/" + storybookId}
+          target="_blank">
+          Storybook
+        </GlLink>
+      )}
+      <GlButton
+        aria-controls={sourceId}
+        aria-label={showSourceLabel}
+        aria-pressed="false"
+        category="tertiary"
+        data-docs-example-toggle
+        data-docs-example-hide-label={hideSourceLabel}
+        data-docs-example-show-label={showSourceLabel}
+        data-docs-example-title={title}
+        size="small"
+        icon="code" />
+    </div>
+  </GlCardHeader>
+  <GlCardContent data-docs-example-component data-pagefind-ignore="index">
+    <DocsExamplePreview client:load filename={filename} />
+  </GlCardContent>
+  <div
+    id={sourceId}
+    class="docs-example-source mt-3"
+    data-docs-example-source
+    set:html={highlightedSource}
+    hidden />
+</GlCard>
