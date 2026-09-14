@@ -152,6 +152,35 @@ test("input groups adapt their layout to the GlFormSelect wrapper", async () => 
   ))).toBe(true);
 }, 30000);
 
+test("grouped ranges use the standard focus ring and forced-colors outline", async () => {
+  const root = await compile();
+  const selector = ".gl-form-input-group.input-group > .gl-form-input.custom-range:focus-visible";
+  const standardFocusShadow = [
+    "inset 0 0 0 1px var(--gl-control-border-color-focus)",
+    "0 0 0 1px var(--gl-focus-ring-inner-color)",
+    "0 0 0 3px var(--gl-focus-ring-outer-color)",
+  ].join(", ");
+  const focusRule = collectRules(root).find((rule) => rule.selector === selector);
+  let forcedColorsRule;
+
+  root.walkAtRules("media", (atRule) => {
+    if(atRule.params.includes("forced-colors: active")) {
+      atRule.walkRules((rule) => {
+        if(rule.selector === selector) forcedColorsRule = rule;
+      });
+    }
+  });
+
+  expect(focusRule).toBeDefined();
+  expect(forcedColorsRule).toBeDefined();
+  expect(normalizedDeclarations(focusRule)).toEqual(expect.arrayContaining([
+    "border-color: var(--gl-control-border-color-focus)",
+    "outline: none",
+    `box-shadow: ${standardFocusShadow}`,
+  ]));
+  expect(normalizedDeclarations(forcedColorsRule)).toContain("outline: 2px solid LinkText");
+}, 30000);
+
 test("grouped range validation colors its outer border and focused shadow", async () => {
   const root = await compile();
   const rules = collectRules(root);

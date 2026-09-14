@@ -73,10 +73,17 @@
       background-color: var(--gl-control-background-color-default);
       border-color: var(--gl-control-border-color-focus);
       outline: none;
+      /* Upstream's later `gl-focus` mixin overrides its legacy grouped-range
+       * focus shadow. This scoped React rule has higher specificity, so keep
+       * the final upstream control-border / inner / outer sequence here. */
       box-shadow:
-        inset 0 0 0 1px var(--gl-focus-ring-inner-color),
-        0 0 0 1px var(--gl-focus-ring-outer-color),
-        0 0 0 3px var(--gl-focus-ring-inner-color);
+        inset 0 0 0 1px var(--gl-control-border-color-focus),
+        0 0 0 1px var(--gl-focus-ring-inner-color),
+        0 0 0 3px var(--gl-focus-ring-outer-color);
+
+      @media (forced-colors: active) {
+        outline: 2px solid LinkText;
+      }
     }
 
     &:not(:last-child) {
