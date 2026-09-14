@@ -102,6 +102,74 @@ export const RangeInput: Story = {
   },
 };
 
+const rangeValidationStates = [
+  { label: "Default", state: null },
+  { label: "Valid", state: true },
+  { label: "Invalid", state: false },
+] as const;
+
+export const RangeValidationStates: Story = {
+  render: () => (
+    <div style={{ display: "grid", gap: "1rem", maxWidth: "32rem" }}>
+      {rangeValidationStates.map(({ label, state }) => {
+        const id = `grouped-range-${label.toLowerCase()}`;
+        const labelId = `${id}-label`;
+
+        return (
+          <div key={label}>
+            <label id={labelId} htmlFor={id}>{label}</label>
+            <GlFormInputGroup aria-labelledby={labelId}>
+              <GlFormInputGroupAddon position="prepend">
+                <GlInputGroupText>0</GlInputGroupText>
+              </GlFormInputGroupAddon>
+              <GlFormInput
+                id={id}
+                defaultValue={50}
+                max={100}
+                min={0}
+                state={state}
+                type="range" />
+              <GlFormInputGroupAddon position="append">
+                <GlInputGroupText>100</GlInputGroupText>
+              </GlFormInputGroupAddon>
+            </GlFormInputGroup>
+          </div>
+        );
+      })}
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Compares grouped range validation styling. The interaction leaves the invalid range focused so its outer border and focus ring can be inspected.",
+      },
+    },
+  },
+  play: async ({ canvas }) => {
+    const defaultRange = canvas.getByRole("slider", { name: "Default" });
+    const validRange = canvas.getByRole("slider", { name: "Valid" });
+    const invalidRange = canvas.getByRole("slider", { name: "Invalid" });
+
+    await expect(defaultRange).not.toHaveClass("is-valid", "is-invalid");
+    await expect(validRange).toHaveClass("is-valid");
+    await expect(invalidRange).toHaveClass("is-invalid");
+    await expect(invalidRange).toHaveAttribute("aria-invalid", "true");
+    await expect(getComputedStyle(validRange).borderTopColor).toBe("rgb(47, 117, 73)");
+    await expect(getComputedStyle(invalidRange).borderTopColor).toBe("rgb(192, 47, 18)");
+
+    validRange.focus();
+    await waitFor(() => expect(getComputedStyle(validRange).boxShadow).toContain(
+      "rgba(47, 117, 73, 0.25)",
+    ));
+
+    invalidRange.focus();
+    await expect(invalidRange).toHaveFocus();
+    await waitFor(() => expect(getComputedStyle(invalidRange).boxShadow).toContain(
+      "rgba(192, 47, 18, 0.25)",
+    ));
+  },
+};
+
 const options = [
   { name: "Embed", value: "https://embed.example" },
   { name: "Share", value: "https://share.example" },

@@ -104,6 +104,35 @@ test("key compatibility selectors exist", async () => {
   expect(selectors).toContain(".gl-form-select.custom-select");
 }, 30000);
 
+test("grouped range validation colors its outer border and focused shadow", async () => {
+  const root = await compile();
+  const rules = collectRules(root);
+  const expectedStates = [
+    {
+      borderColor: "#2f7549",
+      focusShadow: "0 0 0 0.2rem rgba(47, 117, 73, 0.25)",
+      state: "is-valid",
+    },
+    {
+      borderColor: "#c02f12",
+      focusShadow: "0 0 0 0.2rem rgba(192, 47, 18, 0.25)",
+      state: "is-invalid",
+    },
+  ];
+
+  for(const { borderColor, focusShadow, state } of expectedStates) {
+    const selector = `.gl-form-input-group.input-group > .gl-form-input.custom-range.${state}`;
+    const stateRule = rules.find((rule) => rule.selector === selector);
+    const focusRule = rules.find((rule) => rule.selector === `${selector}:focus-visible`);
+
+    expect(stateRule).toBeDefined();
+    expect(focusRule).toBeDefined();
+    expect(normalizedDeclarations(stateRule)).toContain(`border-color: ${borderColor}`);
+    expect(normalizedDeclarations(focusRule)).toContain(`border-color: ${borderColor}`);
+    expect(normalizedDeclarations(focusRule)).toContain(`box-shadow: ${focusShadow}`);
+  }
+}, 30000);
+
 test("shared blocks are emitted exactly once", async () => {
   const root = await compile();
   const rules = collectRules(root);

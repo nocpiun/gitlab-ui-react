@@ -108,6 +108,26 @@
   }
 }
 
+.gl-form-input-group.input-group {
+  > .gl-form-input.custom-range.is-valid {
+    border-color: #2f7549;
+
+    &:focus-visible {
+      border-color: #2f7549;
+      box-shadow: 0 0 0 0.2rem rgba(47, 117, 73, 0.25);
+    }
+  }
+
+  > .gl-form-input.custom-range.is-invalid {
+    border-color: #c02f12;
+
+    &:focus-visible {
+      border-color: #c02f12;
+      box-shadow: 0 0 0 0.2rem rgba(192, 47, 18, 0.25);
+    }
+  }
+}
+
 .gl-input-group-text.input-group-text {
   background-color: var(--gl-control-background-color-concatenation);
   border-color: var(--gl-control-border-color-default);
