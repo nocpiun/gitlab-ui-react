@@ -9,6 +9,14 @@ import { createPostcssPlugins } from "../postcss.config.mjs";
 const packageDirectory = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const inputPath = path.join(packageDirectory, "src/index.css");
 const fixtureDirectory = path.join(packageDirectory, "scripts/fixtures");
+const formInputCssPath = path.join(
+  packageDirectory,
+  "../ui/src/base/form-input/form-input.css",
+);
+const formInputGroupCssPath = path.join(
+  packageDirectory,
+  "../ui/src/base/form-input-group/form-input-group.css",
+);
 
 async function compile() {
   const input = await readFile(inputPath, "utf8");
@@ -151,6 +159,17 @@ test("input groups adapt their layout to the GlFormSelect wrapper", async () => 
     && normalizedDeclarations(rule).includes("margin-left: -1px")
   ))).toBe(true);
 }, 30000);
+
+test("grouped range integration remains owned by the form-input stylesheet", async () => {
+  const [formInputCss, formInputGroupCss] = await Promise.all([
+    readFile(formInputCssPath, "utf8"),
+    readFile(formInputGroupCssPath, "utf8"),
+  ]);
+
+  expect(formInputCss).toContain(".gl-form-input-group.input-group");
+  expect(formInputCss).toContain("> .gl-form-input.custom-range");
+  expect(formInputGroupCss).not.toContain("> .gl-form-input.custom-range");
+});
 
 test("grouped ranges use the standard focus ring and forced-colors outline", async () => {
   const root = await compile();
