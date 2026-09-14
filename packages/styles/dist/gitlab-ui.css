@@ -3171,6 +3171,87 @@
   .gl-form-input.custom-range:disabled::-moz-range-track {
     cursor: default;
   }
+  .gl-form-input-group.input-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+  }
+  .gl-form-input-group.input-group > .form-control, .gl-form-input-group.input-group > .form-control-plaintext, .gl-form-input-group.input-group > .custom-select, .gl-form-input-group.input-group > .gl-form-select-wrapper {
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+    margin-bottom: 0;
+  }
+  .gl-form-input-group.input-group > .form-control + .form-control, .gl-form-input-group.input-group > .form-control + .custom-select, .gl-form-input-group.input-group > .form-control + .gl-form-select-wrapper, .gl-form-input-group.input-group > .form-control-plaintext + .form-control, .gl-form-input-group.input-group > .form-control-plaintext + .custom-select, .gl-form-input-group.input-group > .form-control-plaintext + .gl-form-select-wrapper, .gl-form-input-group.input-group > .custom-select + .form-control, .gl-form-input-group.input-group > .custom-select + .custom-select, .gl-form-input-group.input-group > .custom-select + .gl-form-select-wrapper, .gl-form-input-group.input-group > .gl-form-select-wrapper + .form-control, .gl-form-input-group.input-group > .gl-form-select-wrapper + .custom-select, .gl-form-input-group.input-group > .gl-form-select-wrapper + .gl-form-select-wrapper {
+    margin-left: -1px;
+  }
+  .gl-form-input-group.input-group > .form-control:focus-visible, .gl-form-input-group.input-group > .custom-select:focus-visible, .gl-form-input-group.input-group > .gl-form-select-wrapper:focus-within {
+    z-index: 3;
+  }
+  .gl-form-input-group.input-group > .form-control:not(:first-child), .gl-form-input-group.input-group > .custom-select:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .gl-form-input-group.input-group > .gl-form-select-wrapper:not(:first-child) > .custom-select {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .gl-form-input-group.input-group > .form-control:not(:last-child), .gl-form-input-group.input-group > .custom-select:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .gl-form-input-group.input-group > .gl-form-select-wrapper:not(:last-child) > .custom-select {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .gl-form-input-group-addon.input-group-prepend, .gl-form-input-group-addon.input-group-append {
+    display: flex;
+  }
+  .gl-form-input-group-addon.input-group-prepend .btn, .gl-form-input-group-addon.input-group-append .btn {
+    position: relative;
+    z-index: 2;
+  }
+  .gl-form-input-group-addon.input-group-prepend .btn:focus-visible, .gl-form-input-group-addon.input-group-append .btn:focus-visible {
+    z-index: 3;
+  }
+  .gl-form-input-group-addon.input-group-prepend .btn + .btn, .gl-form-input-group-addon.input-group-prepend .btn + .gl-input-group-text, .gl-form-input-group-addon.input-group-prepend .gl-input-group-text + .gl-input-group-text, .gl-form-input-group-addon.input-group-prepend .gl-input-group-text + .btn, .gl-form-input-group-addon.input-group-append .btn + .btn, .gl-form-input-group-addon.input-group-append .btn + .gl-input-group-text, .gl-form-input-group-addon.input-group-append .gl-input-group-text + .gl-input-group-text, .gl-form-input-group-addon.input-group-append .gl-input-group-text + .btn {
+    margin-left: -1px;
+  }
+  .gl-form-input-group-addon.input-group-prepend {
+    margin-right: -1px;
+  }
+  .gl-form-input-group-addon.input-group-append {
+    margin-left: -1px;
+  }
+  .gl-input-group-text.gl-input-group-text {
+    display: flex;
+    align-items: center;
+    padding: 0.375rem 0.75rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #4c4b51;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #bfbfc3;
+    border: 1px solid #89888d;
+    border-radius: 0.25rem;
+  }
+  .gl-input-group-text.gl-input-group-text input[type="radio"], .gl-input-group-text.gl-input-group-text input[type="checkbox"] {
+    margin-top: 0;
+  }
+  .gl-form-input-group.input-group > .input-group-prepend > .btn, .gl-form-input-group.input-group > .input-group-prepend > .gl-input-group-text, .gl-form-input-group.input-group > .input-group-append:not(:last-child) > .btn, .gl-form-input-group.input-group > .input-group-append:not(:last-child) > .gl-input-group-text, .gl-form-input-group.input-group > .input-group-append:last-child > .btn:not(:last-child):not(.dropdown-toggle), .gl-form-input-group.input-group > .input-group-append:last-child > .gl-input-group-text:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .gl-form-input-group.input-group > .input-group-append > .btn, .gl-form-input-group.input-group > .input-group-append > .gl-input-group-text, .gl-form-input-group.input-group > .input-group-prepend:not(:first-child) > .btn, .gl-form-input-group.input-group > .input-group-prepend:not(:first-child) > .gl-input-group-text, .gl-form-input-group.input-group > .input-group-prepend:first-child > .btn:not(:first-child), .gl-form-input-group.input-group > .input-group-prepend:first-child > .gl-input-group-text:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
   .gl-form-input, .gl-form-input.form-control {
     appearance: none;
     box-sizing: border-box;
@@ -6121,6 +6202,67 @@
     background-color: #737278;
     opacity: 0.65;
   }
+  .gl-form-input-group.input-group > .gl-form-input.custom-range {
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0 0.75rem;
+    margin-bottom: 0;
+    background-color: var(--gl-control-background-color-default);
+    background-clip: padding-box;
+    border: 1px solid var(--gl-control-border-color-default);
+    border-radius: var(--gl-control-border-radius);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  .gl-form-input-group.input-group > .gl-form-input.custom-range + .form-control, .gl-form-input-group.input-group > .gl-form-input.custom-range + .form-control-plaintext, .gl-form-input-group.input-group > .gl-form-input.custom-range + .custom-select, .gl-form-input-group.input-group > .gl-form-input.custom-range + .gl-form-select-wrapper, .gl-form-input-group.input-group > .gl-form-input.custom-range + .custom-range {
+    margin-left: -1px;
+  }
+  .gl-form-input-group.input-group > .gl-form-input.custom-range:focus-visible {
+    z-index: 3;
+    background-color: var(--gl-control-background-color-default);
+    border-color: var(--gl-control-border-color-focus);
+    outline: none;
+    box-shadow: inset 0 0 0 1px var(--gl-control-border-color-focus), 0 0 0 1px var(--gl-focus-ring-inner-color), 0 0 0 3px var(--gl-focus-ring-outer-color);
+  }
+  @media (forced-colors: active) {
+    .gl-form-input-group.input-group > .gl-form-input.custom-range:focus-visible {
+      outline: 2px solid LinkText;
+    }
+  }
+  .gl-form-input-group.input-group > .gl-form-input.custom-range:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .gl-form-input-group.input-group > .gl-form-input.custom-range:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .gl-form-input-group.input-group > .gl-form-input.custom-range:disabled, .gl-form-input-group.input-group > .gl-form-input.custom-range[readonly] {
+    background-color: var(--gl-control-background-color-disabled);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .gl-form-input-group.input-group > .gl-form-input.custom-range {
+      transition: none;
+    }
+  }
+  .gl-form-input-group.input-group > .form-control + .custom-range, .gl-form-input-group.input-group > .form-control-plaintext + .custom-range, .gl-form-input-group.input-group > .custom-select + .custom-range, .gl-form-input-group.input-group > .gl-form-select-wrapper + .custom-range, .gl-form-input-group.input-group > .custom-range + .custom-range {
+    margin-left: -1px;
+  }
+  .gl-form-input-group.input-group > .gl-form-input.custom-range.is-valid {
+    border-color: #2f7549;
+  }
+  .gl-form-input-group.input-group > .gl-form-input.custom-range.is-valid:focus-visible {
+    border-color: #2f7549;
+    box-shadow: 0 0 0 0.2rem rgba(47, 117, 73, 0.25);
+  }
+  .gl-form-input-group.input-group > .gl-form-input.custom-range.is-invalid {
+    border-color: #c02f12;
+  }
+  .gl-form-input-group.input-group > .gl-form-input.custom-range.is-invalid:focus-visible {
+    border-color: #c02f12;
+    box-shadow: 0 0 0 0.2rem rgba(192, 47, 18, 0.25);
+  }
   .gl-form-input.custom-range.is-valid:focus::-webkit-slider-thumb, .gl-form-input.custom-range.is-invalid:focus::-webkit-slider-thumb {
     box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem var(--_range-focus-color);
   }
@@ -6241,6 +6383,31 @@
     .gl-xl-form-input-xl {
       max-width: 35rem;
     }
+  }
+  .gl-form-input-group.input-group > .input-group-prepend > .btn-group > .btn, .gl-form-input-group.input-group > .input-group-append:not(:last-child) > .btn-group > .btn, .gl-form-input-group.input-group > .input-group-append:last-child > .btn-group:not(:last-child):not(.dropdown-toggle) > .btn {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .gl-form-input-group.input-group > .input-group-append > .btn-group > .btn, .gl-form-input-group.input-group > .input-group-prepend:not(:first-child) > .btn-group > .btn, .gl-form-input-group.input-group > .input-group-prepend:first-child > .btn-group:not(:first-child) > .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .gl-form-input-group.input-group > .input-group-prepend > .gl-listbox > .gl-new-dropdown-toggle, .gl-form-input-group.input-group > .input-group-append:not(:last-child) > .gl-listbox > .gl-new-dropdown-toggle, .gl-form-input-group.input-group > .input-group-append:last-child > .gl-listbox:not(:last-child) > .gl-new-dropdown-toggle {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .gl-form-input-group.input-group > .input-group-append > .gl-listbox > .gl-new-dropdown-toggle, .gl-form-input-group.input-group > .input-group-prepend:not(:first-child) > .gl-listbox > .gl-new-dropdown-toggle, .gl-form-input-group.input-group > .input-group-prepend:first-child > .gl-listbox:not(:first-child) > .gl-new-dropdown-toggle {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .gl-input-group-text.gl-input-group-text {
+    background-color: var(--gl-control-background-color-concatenation);
+    border-color: var(--gl-control-border-color-default);
+    color: var(--gl-text-color-default);
+    font-size: var(--gl-font-size-base);
+    --tw-leading: 1rem;
+    line-height: 1rem;
+    border-radius: var(--gl-control-border-radius);
   }
   .gl-form-password-input {
     position: relative;

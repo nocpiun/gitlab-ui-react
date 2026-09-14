@@ -1,0 +1,58 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/form/form_input_group/form_input_group.scss
+ * packages/gitlab-ui/src/components/base/form/input_group_text/input_group_text.scss
+ *
+ * Bootstrap input-group foundations live in
+ * packages/styles/src/forms/bootstrap-input-groups.css, and grouped range
+ * integration lives with its upstream owner in form-input/form-input.css.
+ * The additional GlListbox selectors below adapt upstream's nested
+ * `.btn-group` dropdown shape to this repository's React dropdown structure.
+ */
+
+.gl-form-input-group.input-group {
+  > .input-group-prepend > .btn-group,
+  > .input-group-append:not(:last-child) > .btn-group,
+  > .input-group-append:last-child > .btn-group:not(:last-child):not(.dropdown-toggle) {
+    > .btn {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  > .input-group-append > .btn-group,
+  > .input-group-prepend:not(:first-child) > .btn-group,
+  > .input-group-prepend:first-child > .btn-group:not(:first-child) {
+    > .btn {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  > .input-group-prepend > .gl-listbox,
+  > .input-group-append:not(:last-child) > .gl-listbox,
+  > .input-group-append:last-child > .gl-listbox:not(:last-child) {
+    > .gl-new-dropdown-toggle {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  > .input-group-append > .gl-listbox,
+  > .input-group-prepend:not(:first-child) > .gl-listbox,
+  > .input-group-prepend:first-child > .gl-listbox:not(:first-child) {
+    > .gl-new-dropdown-toggle {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+}
+
+.gl-input-group-text.input-group-text {
+  background-color: var(--gl-control-background-color-concatenation);
+  border-color: var(--gl-control-border-color-default);
+  @apply gl-text-default;
+  @apply gl-text-base;
+  @apply gl-leading-normal;
+  @apply gl-rounded-control;
+}
