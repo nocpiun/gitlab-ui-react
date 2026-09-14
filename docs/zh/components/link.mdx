@@ -1,0 +1,68 @@
+---
+title: Link
+description: 导航到其他页面、资源或当前页面中的某个位置。
+---
+
+## 用法
+
+```tsx
+import { GlLink } from "gitlab-ui-react/link";
+```
+
+```tsx
+<GlLink href="#documentation">Read the documentation</GlLink>
+```
+
+## 默认
+
+使用 Link 表示导航。如果交互只会改变数据或执行操作而不会跳转，应使用 Button。
+
+<DocsExample
+  filename="link/LinkExample.tsx"
+  title="默认 Link"
+  storybookId="ui-base-link--default"/>
+
+## 变体
+
+在正文中使用 `inline`，在次要元数据中使用 `meta`，用户引用使用 mention 变体。`unstyled` 会移除组件样式，只应在其他组件已提供完整 Link 样式时使用。
+
+<DocsExample
+  filename="link/LinkVariantsExample.tsx"
+  title="Link 变体"
+  storybookId="ui-base-link--variants"/>
+
+## 外部 Link
+
+外部目标确实需要在新标签页打开时，将 `target="_blank"` 与 `showExternalIcon` 配合使用，让用户在激活前就能识别这一行为。
+
+<DocsExample
+  filename="link/LinkExternalExample.tsx"
+  title="外部 Link"
+  storybookId="ui-base-link--external"/>
+
+## 无障碍
+
+- Link 文字应脱离周围内容也能说明目标位置。
+- 如果可以隐藏目标或解释不可用原因，应避免使用禁用的 Link。
+- 仅在确实需要新标签页时使用 `target="_blank"`。对于符合条件的外部 Link，设置 `showExternalIcon` 以显示这一行为。
+- `GlLink` 默认校验 URL 协议，并自动为 `_blank` Link 添加 `noopener noreferrer`。
+
+## API
+
+`GlLink` 会传递受支持的锚点属性，也支持使用 Base UI 的 `render` prop 组合路由 Link。
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `href` | 设置目标地址。 | `"#"` |
+| `variant` | 设置 `inline`、`meta`、`mention`、`mentionCurrent` 或 `unstyled` 样式；省略时使用默认外观。 | 未设置 |
+| `active` | 应用激活视觉状态。 | `false` |
+| `disabled` | 阻止导航并从 Tab 顺序中移除 Link。 | `false` |
+| `showExternalIcon` | 为符合条件的 `_blank` 外部 URL 显示外链标记。 | `false` |
+| `isUnsafeLink` | 对可信 URL 跳过协议校验。 | `false` |
+| `render` | 与最终渲染锚点元素的路由组件进行组合。 | — |
+
+## 相关资源
+
+- [Pajamas Design System 中的 Link](https://design.gitlab.com/components/link/)
+- [Storybook 中的 Link stories](https://glui-story.nocp.space/?path=/docs/ui-base-link--docs)
+- [Link 源码与完整 TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/link/link.tsx)

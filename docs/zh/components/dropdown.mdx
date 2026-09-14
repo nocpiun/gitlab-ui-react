@@ -9,24 +9,53 @@ description: 通过触发器打开面板，展示操作或可选择的选项。
 import {
   GlDisclosureDropdown,
   GlDisclosureDropdownContent,
+  GlDisclosureDropdownFooter,
+  GlDisclosureDropdownGroup,
+  GlDisclosureDropdownGroupLabel,
+  GlDisclosureDropdownHeader,
   GlDisclosureDropdownItem,
   GlDisclosureDropdownTrigger,
 } from "gitlab-ui-react/disclosure-dropdown";
 import {
   GlListbox,
   GlListboxContent,
+  GlListboxFooter,
+  GlListboxGroup,
+  GlListboxGroupLabel,
+  GlListboxHeader,
   GlListboxItem,
+  GlListboxSearchInput,
   GlListboxTrigger,
 } from "gitlab-ui-react/listbox";
 ```
 
 ```tsx
-<GlDisclosureDropdown>
-  <GlDisclosureDropdownTrigger>Actions</GlDisclosureDropdownTrigger>
-  <GlDisclosureDropdownContent>
-    <GlDisclosureDropdownItem value="edit">Edit</GlDisclosureDropdownItem>
-  </GlDisclosureDropdownContent>
-</GlDisclosureDropdown>
+<>
+  <GlDisclosureDropdown>
+    <GlDisclosureDropdownTrigger>Actions</GlDisclosureDropdownTrigger>
+    <GlDisclosureDropdownContent>
+      <GlDisclosureDropdownHeader>Issue actions</GlDisclosureDropdownHeader>
+      <GlDisclosureDropdownGroup bordered>
+        <GlDisclosureDropdownGroupLabel>Manage</GlDisclosureDropdownGroupLabel>
+        <GlDisclosureDropdownItem value="edit">Edit</GlDisclosureDropdownItem>
+      </GlDisclosureDropdownGroup>
+      <GlDisclosureDropdownFooter>More actions</GlDisclosureDropdownFooter>
+    </GlDisclosureDropdownContent>
+  </GlDisclosureDropdown>
+
+  <GlListbox defaultValue="private">
+    <GlListboxTrigger>Visibility</GlListboxTrigger>
+    <GlListboxContent aria-label="Visibility">
+      <GlListboxHeader>Select visibility</GlListboxHeader>
+      <GlListboxSearchInput aria-label="Search visibility" />
+      <GlListboxGroup>
+        <GlListboxGroupLabel>Access level</GlListboxGroupLabel>
+        <GlListboxItem value="private">Private</GlListboxItem>
+      </GlListboxGroup>
+      <GlListboxFooter>Choose one option</GlListboxFooter>
+    </GlListboxContent>
+  </GlListbox>
+</>
 ```
 
 ## 默认
@@ -59,7 +88,7 @@ import {
 
 Dropdown API 由多个组合部件构成。触发器支持相应的 GitLab 按钮外观属性，内容和项目部件会传递相关的 Base UI 与 DOM 属性。
 
-### GlDisclosureDropdown
+### `GlDisclosureDropdown`
 
 | 属性 | 说明 | 默认值 |
 | --- | --- | --- |
@@ -67,21 +96,27 @@ Dropdown API 由多个组合部件构成。触发器支持相应的 GitLab 按�
 | `defaultOpen` | 设置非受控模式下的初始打开状态。 | `false` |
 | `open` | 控制面板是否打开。 | — |
 | `onOpenChange` | 报告打开状态变更请求及其原因。 | — |
+| `onOpenChangeComplete` | 打开或关闭过渡完成后调用。 | — |
+| `onBeforeClose` | 关闭前调用，并可阻止此次关闭操作。 | — |
 | `onAction` | 激活任意 Disclosure 项目时调用。 | — |
 
-### GlDisclosureDropdownTrigger
+### `GlDisclosureDropdownTrigger`
 
 | 属性 | 说明 | 默认值 |
 | --- | --- | --- |
-| `children` | 提供可见或仅供屏幕阅读器使用的触发器文字。 | — |
+| `asChild` | 将 Trigger 行为组合到单个子元素上，而不是渲染 Button。 | `false` |
+| `block` | 让渲染出的 Button 占满容器宽度。 | `false` |
 | `category` | 设置按钮类别。 | `"primary"` |
 | `variant` | 设置按钮变体。 | `"default"` |
 | `size` | 设置触发器尺寸。 | `"medium"` |
 | `icon` | 添加 GitLab SVG 库中的图标。 | — |
+| `loading` | 显示加载状态并阻止激活。 | `false` |
+| `disabled` | 阻止 Trigger 打开 Dropdown。 | `false` |
 | `noCaret` | 移除 Dropdown 箭头。 | `false` |
 | `textSrOnly` | 视觉隐藏触发器文字，同时保留无障碍名称。 | `false` |
+| `nativeButton` | 声明 `asChild` Trigger 最终是否渲染原生 Button。 | — |
 
-### GlDisclosureDropdownContent 与项目
+### `GlDisclosureDropdownContent`
 
 | 属性 | 说明 | 默认值 |
 | --- | --- | --- |
@@ -89,11 +124,43 @@ Dropdown API 由多个组合部件构成。触发器支持相应的 GitLab 按�
 | `offset` | 以像素或轴向值设置面板偏移。 | `8` |
 | `fluidWidth` | 让面板宽度跟随内容。 | `false` |
 | `positioningStrategy` | 使用 `absolute` 或 `fixed` 定位。 | `"absolute"` |
-| `value` | 在操作回调中标识项目。 | — |
-| `variant` | 将项目外观设置为 `default` 或 `danger`。 | `"default"` |
-| `closeOnClick` | 覆盖该项目继承的根级 `autoClose` 行为。 | 继承 `autoClose` |
 
-### GlListbox
+### `GlDisclosureDropdownHeader`
+
+接受 `children` 和受支持的 `div` 属性。
+
+### `GlDisclosureDropdownFooter`
+
+接受 `children` 和受支持的 `div` 属性。
+
+### `GlDisclosureDropdownGroup`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `bordered` | 为 Group 添加分隔线。 | `false` |
+| `borderPosition` | 将分隔线放在 `top` 或 `bottom`。 | `"top"` |
+| `reserveIconSpace` | 包装组件妨碍自动检测时，保留 Icon 列。 | 自动检测 |
+
+### `GlDisclosureDropdownGroupLabel`
+
+接受 `children` 和受支持的 Base UI Group Label 属性。
+
+### `GlDisclosureDropdownItem`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `value` | 在 Action 回调中标识 Item。 | 必填 |
+| `variant` | 将外观设置为 `default` 或 `danger`。 | `"default"` |
+| `closeOnClick` | 覆盖根组件的 `autoClose` 行为。 | 继承 `autoClose` |
+| `disabled` | 阻止 Item 激活。 | `false` |
+| `href` | 将 Item 渲染为指向该目标的 Link。 | — |
+| `icon` | 在 Item 文本前添加 GitLab Icon。 | — |
+| `label` | 覆盖预输入导航所使用的文本。 | 文本子元素 |
+| `onAction` | 此 Item 激活时调用。 | — |
+| `render` | 将 Item 行为组合到自定义元素上。 | — |
+| `nativeButton` | 声明自定义渲染的 Item 是否为原生 Button。 | — |
+
+### `GlListbox`
 
 | 属性 | 说明 | 默认值 |
 | --- | --- | --- |
@@ -104,17 +171,88 @@ Dropdown API 由多个组合部件构成。触发器支持相应的 GitLab 按�
 | `disabled` | 禁用 Listbox 及其项目。 | `false` |
 | `loading` | 在触发器上显示加载状态并阻止选择。 | `false` |
 | `state` | 设置触发器的验证外观。 | `null` |
+| `defaultOpen` | 设置非受控模式下的初始打开状态。 | `false` |
+| `open` | 控制面板是否打开。 | — |
+| `onOpenChange` | 报告打开状态变更请求及其原因。 | — |
+| `onOpenChangeComplete` | 打开或关闭过渡完成后调用。 | — |
+| `onBeforeClose` | 关闭前调用，并可阻止此次关闭操作。 | — |
 
-### GlListboxContent 与项目
+### `GlListboxTrigger`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `asChild` | 将 Trigger 行为组合到单个子元素上，而不是渲染 Button。 | `false` |
+| `block` | 让渲染出的 Button 占满容器宽度。 | `false` |
+| `category` | 设置渲染出的 Button category。 | `"primary"` |
+| `variant` | 设置渲染出的 Button variant。 | `"default"` |
+| `size` | 将渲染出的 Button 设为 `small` 或 `medium`。 | `"medium"` |
+| `icon` | 为渲染出的 Button 添加 GitLab Icon。 | — |
+| `loading` | 显示加载状态并阻止选择。 | `false` |
+| `disabled` | 阻止 Trigger 打开 Listbox。 | `false` |
+| `noCaret` | 隐藏 Dropdown 插入符号。 | `false` |
+| `textSrOnly` | 在保留无障碍名称的同时隐藏 Trigger 文本。 | `false` |
+| `nativeButton` | 声明 `asChild` Trigger 最终是否渲染原生 Button。 | — |
+
+### `GlListboxContent`
 
 | 属性 | 说明 | 默认值 |
 | --- | --- | --- |
 | `aria-label` | 为 Listbox 面板提供无障碍名称。 | — |
+| `aria-labelledby` | 将面板关联到现有标签。 | — |
 | `placement` | 设置面板相对触发器的位置。 | `"bottom-start"` |
+| `offset` | 以像素或轴向值设置面板偏移。 | `8` |
+| `fluidWidth` | 让面板宽度跟随内容。 | `false` |
 | `panelMatchTriggerWidth` | 使面板宽度至少与触发器相同。 | `false` |
 | `noResultsText` | 设置搜索无结果时的内容。 | `"No results found"` |
-| `value` | 标识可选择的项目。 | — |
-| `disabled` | 阻止项目被选中。 | `false` |
+| `positioningStrategy` | 使用 `absolute` 或 `fixed` 定位。 | `"absolute"` |
+| `searching` | 标记由父组件控制的搜索正在进行。 | `false` |
+| `searchingAnnouncement` | 设置搜索时的辅助技术通知。 | `"Searching"` |
+| `infiniteScrollLoading` | 标记增量加载正在进行。 | `false` |
+| `loadingAnnouncement` | 设置首次加载时的辅助技术通知。 | `"Loading items"` |
+| `loadingMoreAnnouncement` | 设置增量加载时的辅助技术通知。 | `"Loading more items"` |
+| `resultsAnnouncement` | 生成结果数量的辅助技术通知。 | 基于数量的文本 |
+| `totalItems` | 提供用于位置元数据的结果总数。 | — |
+| `onBottomReached` | 滚动到最后一个 Item 时调用一次。 | — |
+
+### `GlListboxHeader`
+
+接受 `children` 和受支持的 `div` 属性。
+
+### `GlListboxFooter`
+
+接受 `children` 和受支持的 `div` 属性。
+
+### `GlListboxSearchInput`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `defaultValue` | 设置非受控模式下的初始搜索文本。 | `""` |
+| `value` | 控制搜索文本。 | — |
+| `onValueChange` | 报告当前搜索文本。 | — |
+| `onChange` | 接收原生 Input change 事件。 | — |
+| `clearLabel` | 命名清除搜索按钮。 | `"Clear search"` |
+
+### `GlListboxGroup`
+
+接受 `children` 和受支持的 Base UI Group 属性。
+
+### `GlListboxGroupLabel`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `textSrOnly` | 在保留辅助技术可读性的同时隐藏 Group Label。 | `false` |
+
+### `GlListboxItem`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `value` | 标识可选 Item。 | 必填 |
+| `disabled` | 阻止 Item 被选中。 | `false` |
+| `label` | 覆盖预输入导航所使用的文本。 | 文本子元素 |
+| `checkCentered` | 垂直居中选择勾选标记。 | `false` |
+| `onSelect` | 报告此 Item 被选择。 | — |
+| `render` | 将 Item 行为组合到自定义元素上。 | — |
+| `nativeButton` | 声明自定义渲染的 Item 是否为原生 Button。 | — |
 
 ## 相关资源
 

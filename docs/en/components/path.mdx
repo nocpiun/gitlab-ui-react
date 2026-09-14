@@ -1,0 +1,85 @@
+---
+title: Path
+description: Shows progress through an ordered workflow and lets users select a stage.
+---
+
+## Usage
+
+```tsx
+import {
+  GlPath,
+  GlPathItem,
+  GlPathItemMetric,
+  GlPathItemTitle,
+} from "gitlab-ui-react/path";
+```
+
+```tsx
+<GlPath>
+  <GlPathItem value="plan">
+    <GlPathItemTitle>Plan</GlPathItemTitle>
+    <GlPathItemMetric>2 days</GlPathItemMetric>
+  </GlPathItem>
+</GlPath>
+```
+
+## Default
+
+Use a path for a small set of ordered stages. Each item requires a unique `value` and one title; an optional metric can communicate age, duration, or another compact value.
+
+<DocsExample
+  filename="path/PathExample.tsx"
+  title="Workflow path"
+  storybookId="ui-base-path--default"/>
+
+## Overflow
+
+When the stages exceed the available width, Path keeps every item on one line and provides controls for horizontal scrolling.
+
+<DocsExample
+  filename="path/PathOverflowExample.tsx"
+  title="Overflowing path"
+  storybookId="ui-base-path--overflow"/>
+
+## Accessibility
+
+- Keep stage titles short and preserve their logical order.
+- The selected stage is marked with `aria-current`; update controlled state through `onValueChange`.
+- Do not use a path as a generic breadcrumb or stepper when stages are not selectable workflow states.
+- Localize `scrollLeftLabel` and `scrollRightLabel` when the path can overflow.
+
+## API
+
+### `GlPath`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `defaultValue` | Sets the initially selected item when uncontrolled. | First item |
+| `value` | Controls the selected item value. | — |
+| `onValueChange` | Reports selection requests. | — |
+| `backgroundColor` | Sets the color beneath overflow fades. | `"rgba(0,0,0,0)"` |
+| `scrollLeftLabel` | Labels the left overflow control. | `"Scroll left"` |
+| `scrollRightLabel` | Labels the right overflow control. | `"Scroll right"` |
+
+### `GlPathItem`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `value` | Provides a stable, unique selection value. | Required |
+| `icon` | Adds a decorative GitLab icon before the title. | — |
+| `disabled` | Prevents the item from being selected. | `false` |
+| `children` | Requires one `GlPathItemTitle` and accepts one `GlPathItemMetric`. | Required |
+
+### `GlPathItemTitle`
+
+Accepts `children` and supported `span` attributes.
+
+### `GlPathItemMetric`
+
+Accepts `children` and supported `span` attributes.
+
+## Related resources
+
+- [Path in the Pajamas Design System](https://design.gitlab.com/components/path/)
+- [Path stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-path--docs)
+- [Path source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/path/path.tsx)

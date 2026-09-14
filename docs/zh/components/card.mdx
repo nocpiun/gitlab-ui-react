@@ -9,12 +9,16 @@ description: 在一致的视觉容器中组织相关内容与操作。
 import {
   GlCard,
   GlCardContent,
+  GlCardFooter,
+  GlCardHeader,
 } from "gitlab-ui-react/card";
 ```
 
 ```tsx
 <GlCard>
-  <GlCardContent>Hello World</GlCardContent>
+  <GlCardHeader><h3>Card title</h3></GlCardHeader>
+  <GlCardContent>Lorem ipsum dolor sit amet.</GlCardContent>
+  <GlCardFooter>Footer content</GlCardFooter>
 </GlCard>
 ```
 
@@ -46,12 +50,23 @@ Card 由可选页头、必需的主要内容和可选页脚组合而成。它适
 
 ## API
 
-`GlCard`、`GlCardHeader`、`GlCardContent` 和 `GlCardFooter` 没有组件专有属性。每个组件都会渲染 `div`、转发 ref，并接受受支持的 `div` 属性。
+每个 Card 部件都会渲染 `div`、转发 ref，并接受 `children` 与受支持的 `div` 属性。它们都没有其他组件专有属性。
 
-| 属性 | 说明 | 默认值 |
-| --- | --- | --- |
-| `children` | 提供 Card 或组合部件的内容。 | — |
-| `className` | 在保留组件必需类名的同时添加类。 | — |
+### `GlCard`
+
+提供 Card 的外层容器。
+
+### `GlCardHeader`
+
+提供可选的页头区域。
+
+### `GlCardContent`
+
+提供 Card 的主要内容区域。
+
+### `GlCardFooter`
+
+提供可选的页脚区域。
 
 ## 相关资源
 

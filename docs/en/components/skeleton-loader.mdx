@@ -1,0 +1,58 @@
+---
+title: Skeleton loader
+description: Reserves content layout while predictable data is loading.
+---
+
+## Usage
+
+```tsx
+import { GlSkeletonLoader } from "gitlab-ui-react/skeleton-loader";
+```
+
+```tsx
+<GlSkeletonLoader />
+```
+
+## Default
+
+Use the default line skeleton for text-like content. Match the approximate size of the final content to reduce layout shift.
+
+<DocsExample
+  filename="skeleton-loader/SkeletonLoaderExample.tsx"
+  title="Text skeleton"
+  storybookId="ui-base-skeleton-loader--default"/>
+
+## Custom shapes
+
+Pass SVG shapes as children when the loading layout contains avatars, controls, or other predictable geometry.
+
+<DocsExample
+  filename="skeleton-loader/SkeletonLoaderCustomExample.tsx"
+  title="Custom skeleton"
+  storybookId="ui-base-skeleton-loader--with-custom-shapes"/>
+
+## Accessibility
+
+- Keep a visible page or section heading outside the skeleton so users know what is loading.
+- Avoid placing interactive controls inside a loading skeleton.
+- The built-in SVG title announces loading, and animation is removed when the user prefers reduced motion.
+- Replace the skeleton with real content as soon as it is available.
+
+## API
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `lines` | Sets the number of generated text lines. | `3` |
+| `equalWidthLines` | Makes every generated line span the full width. | `false` |
+| `width` | Sets the SVG viewBox width and default wrapper width. | Automatic |
+| `height` | Sets the SVG viewBox height and default wrapper height. | Automatic |
+| `children` | Supplies SVG shapes instead of generated lines. | — |
+| `preserveAspectRatio` | Sets the SVG `preserveAspectRatio` value. | `"xMidYMid meet"` |
+| `uniqueKey` | Sets a stable prefix for internal SVG IDs. | Generated |
+| `baseUrl` | Prefixes SVG fragment references when the page uses a base URL. | `""` |
+
+## Related resources
+
+- [Skeleton loader in the Pajamas Design System](https://design.gitlab.com/components/skeleton-loader/)
+- [Skeleton loader stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-skeleton-loader--docs)
+- [Skeleton loader source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/skeleton-loader/skeleton-loader.tsx)

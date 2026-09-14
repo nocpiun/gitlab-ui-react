@@ -13,7 +13,10 @@ import {
 ```
 
 ```tsx
-<GlFormCheckbox value="notifications">Receive notifications</GlFormCheckbox>
+<GlFormCheckboxGroup defaultValue={["email"]} name="notifications">
+  <GlFormCheckbox value="email">Email notifications</GlFormCheckbox>
+  <GlFormCheckbox value="browser">Browser notifications</GlFormCheckbox>
+</GlFormCheckboxGroup>
 ```
 
 ## Default
@@ -49,7 +52,7 @@ Use `indeterminate` for a parent whose descendants have mixed values. Help text 
 
 Both components forward supported native attributes. A checkbox inside a group takes its selection, name, required, disabled, and validation state from the group.
 
-### GlFormCheckbox
+### `GlFormCheckbox`
 
 | Prop | Description | Default |
 | --- | --- | --- |
@@ -63,7 +66,7 @@ Both components forward supported native attributes. A checkbox inside a group t
 | `state` | Sets valid, invalid, or neutral appearance. | `null` |
 | `help` | Renders help content under the label. | — |
 
-### GlFormCheckboxGroup
+### `GlFormCheckboxGroup`
 
 | Prop | Description | Default |
 | --- | --- | --- |

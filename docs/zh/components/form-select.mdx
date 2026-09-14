@@ -8,13 +8,16 @@ description: 使用原生 Select 元素在表单中选择值。
 ```tsx
 import {
   GlFormSelect,
+  GlFormSelectGroup,
   GlFormSelectItem,
 } from "gitlab-ui-react/form-select";
 ```
 
 ```tsx
 <GlFormSelect>
-  <GlFormSelectItem value="first">First option</GlFormSelectItem>
+  <GlFormSelectGroup label="Visibility">
+    <GlFormSelectItem value="private">Private</GlFormSelectItem>
+  </GlFormSelectGroup>
 </GlFormSelect>
 ```
 
@@ -41,7 +44,7 @@ import {
 
 `GlFormSelect` 会传递受支持的原生 Select 属性；项目与 Group 部件分别传递 `<option>` 和 `<optgroup>` 属性。
 
-### GlFormSelect
+### `GlFormSelect`
 
 | 属性 | 说明 | 默认值 |
 | --- | --- | --- |
@@ -51,14 +54,24 @@ import {
 | `state` | 设置有效、无效或中性外观。 | `null` |
 | `width` | 设置从 `xs` 到 `xl` 的固定或响应式宽度。 | `null` |
 | `wrapperClassName` | 为绘制箭头的外层容器添加 class。 | — |
+| `ariaInvalid` | 设置 `aria-invalid`；省略时，`state={false}` 会隐含 `true`。 | — |
+| `onChange` | 通过原生 Select change 事件调用。 | — |
 
-### GlFormSelectItem 与 GlFormSelectGroup
+### `GlFormSelectItem`
 
 | 属性 | 说明 | 默认值 |
 | --- | --- | --- |
 | `value` | 设置项目提交和报告的字符串。 | — |
-| `disabled` | 阻止项目被选中。 | `false` |
+
+Item 还接受受支持的原生 `option` 属性，包括 `disabled`。
+
+### `GlFormSelectGroup`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
 | `label` | 为选项 Group 提供可见且可访问的标签。 | — |
+
+Group 还接受受支持的原生 `optgroup` 属性，包括 `disabled`。
 
 ## 相关资源
 

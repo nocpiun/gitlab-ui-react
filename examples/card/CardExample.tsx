@@ -10,7 +10,7 @@ export default function CardExample() {
   return (
     <GlCard>
       <GlCardHeader>
-        <h3 className="gl-heading-scale-300 gl-mb-0">Example Card</h3>
+        <h3>Example Card</h3>
       </GlCardHeader>
       <GlCardContent>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod

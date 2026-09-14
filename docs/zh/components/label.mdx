@@ -1,0 +1,83 @@
+---
+title: Label
+description: 使用紧凑且易识别的元数据对条目进行分类。
+---
+
+## 用法
+
+```tsx
+import { GlLabel } from "gitlab-ui-react/label";
+```
+
+```tsx
+<GlLabel
+  backgroundColor="#D9C2EE"
+  title="Documentation"
+  target="#documentation" />
+```
+
+## 默认
+
+Label 适合对 Issue、Merge Request 和项目等条目进行分类。标题应简短，并确保文字之外仍可通过其他信息理解分类含义。
+
+<DocsExample
+  filename="label/LabelExample.tsx"
+  title="默认 Label"
+  storybookId="ui-base-label--default"/>
+
+## Scoped label
+
+设置 `scoped` 后，组件会在最后一个 `::` 处分隔键和值。
+
+<DocsExample
+  filename="label/LabelScopedExample.tsx"
+  title="Scoped label"
+  storybookId="ui-base-label--scoped"/>
+
+## Tooltip
+
+Label 需要补充上下文时添加 `description`。可选的 `footer` 可在同一个 Tooltip 中提供次要元数据。
+
+<DocsExample
+  filename="label/LabelTooltipExample.tsx"
+  title="带 Tooltip 的 Label"
+  storybookId="ui-base-label--with-tooltip"/>
+
+## 可移除 Label
+
+设置 `showCloseButton`，并在 `onClose` 中从父组件状态里移除 Label。仅当用户确实可以移除该分类时使用。
+
+<DocsExample
+  filename="label/LabelDismissibleExample.tsx"
+  title="可移除 Label"
+  storybookId="ui-base-label--with-close-button"/>
+
+## 无障碍
+
+- 可见标题应能独立表达含义，不能仅依赖颜色区分类别。
+- 设置 `target` 后，标题会成为 Link；用于导航时应提供真实目标地址。
+- 启用 `showCloseButton` 时必须提供 `onClose`，并在按钮触发后从状态中移除 Label。
+- 移除按钮会根据 `title` 生成无障碍名称；周围说明文字仍需按需本地化。
+
+## API
+
+`GlLabel` 还会将受支持的 `<span>` 属性传递给根元素。
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `backgroundColor` | 设置背景颜色，并自动选择有对比度的文字颜色。 | 必填 |
+| `title` | 设置可见文字和 Link 名称。 | 必填 |
+| `target` | 将标题变成指向该 URL 的 Link。 | `""` |
+| `scoped` | 在最后一个 `::` 处分隔标题。 | `false` |
+| `description` | 添加 Tooltip 描述。 | `""` |
+| `footer` | 添加 Tooltip 的弱化页脚文字。 | `""` |
+| `showCloseButton` | 显示移除按钮。 | `false` |
+| `disabled` | 禁用移除按钮。 | `false` |
+| `onClose` | 在移除按钮被触发时调用。 | — |
+| `tooltipPlacement` | 将 Tooltip 放在 `top`、`right`、`bottom` 或 `left`。 | `"top"` |
+
+## 相关资源
+
+- [Pajamas Design System 中的 Label](https://design.gitlab.com/components/label/)
+- [Storybook 中的 Label stories](https://glui-story.nocp.space/?path=/docs/ui-base-label--docs)
+- [Label 源码与完整 TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/label/label.tsx)

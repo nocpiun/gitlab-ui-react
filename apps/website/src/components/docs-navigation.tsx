@@ -183,9 +183,79 @@ function getNavigationItems(locale: Locale): DocsNavigationItem[] {
         title: "Icon",
       },
       {
+        href: localizedPath(locale, "/docs/components/label"),
+        id: "components/label",
+        title: "Label",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/link"),
+        id: "components/link",
+        title: "Link",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/loading-icon"),
+        id: "components/loading-icon",
+        title: "Loading icon",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/modal"),
+        id: "components/modal",
+        title: "Modal",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/nav"),
+        id: "components/nav",
+        title: "Nav",
+      },
+      {
         href: localizedPath(locale, "/docs/components/pagination"),
         id: "components/pagination",
         title: "Pagination",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/path"),
+        id: "components/path",
+        title: "Path",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/popover"),
+        id: "components/popover",
+        title: "Popover",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/progress-bar"),
+        id: "components/progress-bar",
+        title: "Progress bar",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/skeleton-loader"),
+        id: "components/skeleton-loader",
+        title: "Skeleton loader",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/table"),
+        id: "components/table",
+        title: "Table",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/tabs"),
+        id: "components/tabs",
+        title: "Tabs",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/toggle"),
+        id: "components/toggle",
+        title: "Toggle",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/token"),
+        id: "components/token",
+        title: "Token",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/tooltip"),
+        id: "components/tooltip",
+        title: "Tooltip",
       },
     ],
   },

@@ -1,0 +1,102 @@
+---
+title: Popover
+description: 在 Trigger 旁显示补充信息或轻量操作。
+---
+
+## 用法
+
+```tsx
+import {
+  GlPopover,
+  GlPopoverContent,
+  GlPopoverTitle,
+  GlPopoverTrigger,
+} from "gitlab-ui-react/popover";
+```
+
+```tsx
+<GlPopover triggers={["click"]}>
+  <GlPopoverTrigger>Show details</GlPopoverTrigger>
+  <GlPopoverContent>
+    <GlPopoverTitle>Details</GlPopoverTitle>
+    Content
+  </GlPopoverContent>
+</GlPopover>
+```
+
+## 默认
+
+Popover 用于包含结构化文字或操作的补充内容。简短且非必要的文字提示应使用 Tooltip，需要用户专注完成的任务应使用 Modal。
+
+<DocsExample
+  filename="popover/PopoverExample.tsx"
+  title="Hover 与 Focus 触发的 Popover"
+  storybookId="ui-base-popover--default"/>
+
+## 点击触发与关闭按钮
+
+内容需要在用户阅读或操作期间保持可见时，使用点击 Trigger。添加关闭按钮，让关闭操作清晰可见。
+
+<DocsExample
+  filename="popover/PopoverClickExample.tsx"
+  title="点击触发的 Popover"
+  storybookId="ui-base-popover--with-close-button"/>
+
+## 无障碍
+
+- 提供 `GlPopoverTitle`，或在 `GlPopoverContent` 上显式提供无障碍名称。
+- 如果点击打开的 Popover 包含操作或需要持续显示的信息，应使用 `showCloseButton` 让它可以关闭。
+- 不要将关键信息只放在 Hover 后才出现的内容中。
+- 组件会管理定位、Escape 关闭和焦点行为；Trigger 与 Content 必须放在同一个 Root 下。
+
+## API
+
+### `GlPopover`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `triggers` | 启用 `hover`、`focus` 和 `click` 的任意组合。 | `["hover", "focus"]` |
+| `delay` | 设置 Hover 或 Focus 打开的延迟毫秒数。 | `50` |
+| `closeDelay` | 设置 Hover 打开的 Popover 关闭延迟。 | `150` |
+| `disabled` | 阻止 Popover 打开。 | `false` |
+| `defaultOpen` | 设置初始非受控状态。 | `false` |
+| `open` | 控制打开状态。 | — |
+| `onOpenChange` | 返回请求的打开状态及原因。 | — |
+| `onOpenChangeComplete` | 在打开或关闭过渡完成后调用。 | — |
+
+### `GlPopoverTrigger`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `asChild` | 将 Trigger 行为组合到单个子元素上，而不是渲染 Button。 | `false` |
+| `block` | 让渲染出的 Button 占满容器宽度。 | `false` |
+| `category` | 设置渲染出的 Button category。 | `"primary"` |
+| `variant` | 设置渲染出的 Button variant。 | `"default"` |
+| `size` | 将渲染出的 Button 设为 `small` 或 `medium`。 | `"medium"` |
+| `icon` | 为渲染出的 Button 添加 GitLab Icon。 | — |
+| `loading` | 显示加载状态并阻止激活。 | `false` |
+| `disabled` | 阻止此 Trigger 打开 Popover。 | `false` |
+| `nativeButton` | 声明 `asChild` Trigger 最终是否渲染原生 Button。 | — |
+
+### `GlPopoverContent`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `placement` | 优先放置在 `top`、`right`、`bottom` 或 `left`。 | `"top"` |
+| `showCloseButton` | 显示关闭控件。 | `false` |
+| `closeButtonLabel` | 设置关闭控件的无障碍名称。 | `"Close"` |
+| `onCloseButtonClick` | 可选关闭按钮激活时调用。 | — |
+| `boundary` | 将碰撞检测边界设为视口、裁剪祖先或指定元素。 | 裁剪祖先 |
+| `boundaryPadding` | 设置与碰撞边界的间距，单位为像素。 | `5` |
+| `noFade` | 禁用淡入淡出过渡。 | `false` |
+| `container` | 设置 Portal 容器。 | 最近的 Modal，然后是 `document.body` |
+
+### `GlPopoverTitle`
+
+接受 `children` 和受支持的 Base UI Popover Title 属性。
+
+## 相关资源
+
+- [Pajamas Design System 中的 Popover](https://design.gitlab.com/components/popover/)
+- [Storybook 中的 Popover stories](https://glui-story.nocp.space/?path=/docs/ui-base-popover--docs)
+- [Popover 源码与完整 TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/popover/popover.tsx)

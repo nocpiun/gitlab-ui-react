@@ -1,0 +1,137 @@
+---
+title: Tabs
+description: Switches between related sections of content in the same context.
+---
+
+## Usage
+
+```tsx
+import {
+  GlScrollableTabs,
+  GlTab,
+  GlTabActions,
+  GlTabs,
+  GlTabsAfter,
+  GlTabsBefore,
+} from "gitlab-ui-react/tabs";
+```
+
+```tsx
+<>
+  <GlTabs>
+    <GlTabsBefore>Before the tab list</GlTabsBefore>
+    <GlTab title="Overview">Overview content</GlTab>
+    <GlTab title="Activity">Activity content</GlTab>
+    <GlTabActions>Tab actions</GlTabActions>
+    <GlTabsAfter>After the tab list</GlTabsAfter>
+  </GlTabs>
+
+  <GlScrollableTabs>
+    <GlTab title="Scrollable tab">Scrollable content</GlTab>
+  </GlScrollableTabs>
+</>
+```
+
+## Default
+
+Use tabs for peer sections that users can switch between without leaving the current context. Each `GlTab` supplies both its title and panel content.
+
+<DocsExample
+  filename="tabs/TabsExample.tsx"
+  title="Default tabs"
+  storybookId="ui-base-tabs--default"/>
+
+## Justified tabs
+
+Use justified tabs when two or three short tabs should share the available width equally. Make sure they still fit horizontally without wrapping.
+
+<DocsExample
+  filename="tabs/TabsJustifiedExample.tsx"
+  title="Justified tabs"
+  storybookId="ui-base-tabs--justified"/>
+
+## Counts and disabled tabs
+
+Use `tabCount` for a compact quantity and `tabCountSrText` to give that number context. Disable a tab only when its content exists but is temporarily unavailable.
+
+<DocsExample
+  filename="tabs/TabsCountsExample.tsx"
+  title="Tabs with counts and a disabled tab"
+  storybookId="ui-base-tabs--counts-and-disabled"/>
+
+## Scrollable tabs
+
+Use `GlScrollableTabs` when the tab list may exceed the available width. It adds overflow controls while retaining the same `GlTab` API.
+
+<DocsExample
+  filename="tabs/TabsScrollableExample.tsx"
+  title="Scrollable tabs"
+  storybookId="ui-base-tabs--scrollable"/>
+
+## Accessibility
+
+- Use short, unique tab titles that describe their panels.
+- The component manages tab, tablist, and tabpanel relationships as well as arrow-key, Home, and End navigation.
+- When `tabCount` is visible, provide `tabCountSrText` with its context for screen readers.
+- Avoid tabs when users need to compare panels simultaneously or when sections have an important sequential order.
+
+## API
+
+### `GlTabs`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `defaultValue` | Sets the initial selected tab index when uncontrolled. | `0` |
+| `value` | Controls the selected tab index. | — |
+| `onValueChange` | Reports selection changes. | — |
+| `justified` | Gives every tab an equal share of the navigation width. | `false` |
+| `lazy` | Mounts panels only while active. | `false` |
+| `empty` | Renders content when there are no `GlTab` children. | — |
+| `syncActiveTabWithQueryParams` | Synchronizes the active tab with the URL query string. | `false` |
+| `queryParamName` | Sets the query parameter used for synchronization. | `"tab"` |
+| `contentClassName` | Adds classes to the panel container. | — |
+| `navClassName` | Adds classes to the tab list. | — |
+
+### `GlScrollableTabs`
+
+Accepts every `GlTabs` prop plus the following overflow-control labels.
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `scrollLeftLabel` | Labels the left overflow control. | `"Scroll left"` |
+| `scrollRightLabel` | Labels the right overflow control. | `"Scroll right"` |
+
+### `GlTabsBefore`
+
+Accepts `children` and supported `div` attributes for content before the tab list.
+
+### `GlTabsAfter`
+
+Accepts `children` and supported `div` attributes for content after the tab list.
+
+### `GlTabActions`
+
+Accepts `children` and supported `div` attributes for actions aligned with the tab list.
+
+### `GlTab`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `title` | Sets the visible and accessible tab title. | Required |
+| `children` | Supplies the tab panel content. | — |
+| `disabled` | Prevents the tab from being selected. | `false` |
+| `lazy` | Overrides the root lazy-mounting behavior for this panel. | Inherits root |
+| `tabCount` | Adds a numeric badge after the title. | — |
+| `tabCountSrText` | Adds screen-reader context for the count. | — |
+| `queryParamValue` | Sets this tab's URL value during query synchronization. | Index-derived |
+| `tabProps` | Adds supported attributes to the tab button. | — |
+| `titleClassName` | Adds classes to the tab button. | — |
+| `titleItemClassName` | Adds classes to the tab list item. | — |
+| `panelProps` | Adds supported attributes to the tab panel. | — |
+| `panelClassName` | Adds classes to the tab panel. | — |
+
+## Related resources
+
+- [Tabs in the Pajamas Design System](https://design.gitlab.com/components/tabs/)
+- [Tabs stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-tabs--docs)
+- [Tabs source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/tabs/tabs.tsx)

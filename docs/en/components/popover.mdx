@@ -1,0 +1,102 @@
+---
+title: Popover
+description: Displays supplemental information or lightweight actions beside a trigger.
+---
+
+## Usage
+
+```tsx
+import {
+  GlPopover,
+  GlPopoverContent,
+  GlPopoverTitle,
+  GlPopoverTrigger,
+} from "gitlab-ui-react/popover";
+```
+
+```tsx
+<GlPopover triggers={["click"]}>
+  <GlPopoverTrigger>Show details</GlPopoverTrigger>
+  <GlPopoverContent>
+    <GlPopoverTitle>Details</GlPopoverTitle>
+    Content
+  </GlPopoverContent>
+</GlPopover>
+```
+
+## Default
+
+Use a popover for supplemental content that can include structured text or actions. Use a tooltip for a short, nonessential text label and a modal for a task that requires focus.
+
+<DocsExample
+  filename="popover/PopoverExample.tsx"
+  title="Hover and focus popover"
+  storybookId="ui-base-popover--default"/>
+
+## Click trigger and close button
+
+Use a click trigger when the content must remain visible while the user reads or interacts with it. Add a close button to make dismissal explicit.
+
+<DocsExample
+  filename="popover/PopoverClickExample.tsx"
+  title="Click-triggered popover"
+  storybookId="ui-base-popover--with-close-button"/>
+
+## Accessibility
+
+- Provide a `GlPopoverTitle` or an explicit accessible name on `GlPopoverContent`.
+- Make click-triggered popovers dismissible with `showCloseButton` when they contain actions or persistent information.
+- Avoid putting critical information exclusively behind hover.
+- The component manages placement, Escape dismissal, and focus behavior; keep the trigger and content under the same root.
+
+## API
+
+### `GlPopover`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `triggers` | Enables any combination of `hover`, `focus`, and `click`. | `["hover", "focus"]` |
+| `delay` | Delays opening for hover or focus, in milliseconds. | `50` |
+| `closeDelay` | Delays closing a hover-opened popover. | `150` |
+| `disabled` | Prevents the popover from opening. | `false` |
+| `defaultOpen` | Sets the initial uncontrolled state. | `false` |
+| `open` | Controls the open state. | — |
+| `onOpenChange` | Reports requested open-state changes and their reason. | — |
+| `onOpenChangeComplete` | Runs after the opening or closing transition completes. | — |
+
+### `GlPopoverTrigger`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `asChild` | Composes trigger behavior onto one child element instead of rendering a button. | `false` |
+| `block` | Expands the rendered button to its container width. | `false` |
+| `category` | Sets the rendered button category. | `"primary"` |
+| `variant` | Sets the rendered button variant. | `"default"` |
+| `size` | Sets the rendered button to `small` or `medium`. | `"medium"` |
+| `icon` | Adds a GitLab icon to the rendered button. | — |
+| `loading` | Shows loading state and prevents activation. | `false` |
+| `disabled` | Prevents this trigger from opening the popover. | `false` |
+| `nativeButton` | Declares whether an `asChild` trigger ultimately renders a native button. | — |
+
+### `GlPopoverContent`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `placement` | Prefers `top`, `right`, `bottom`, or `left`. | `"top"` |
+| `showCloseButton` | Displays a close control. | `false` |
+| `closeButtonLabel` | Sets the close control's accessible name. | `"Close"` |
+| `onCloseButtonClick` | Runs when the optional close button is activated. | — |
+| `boundary` | Sets collision detection to the viewport, clipping ancestors, or an element. | Clipping ancestors |
+| `boundaryPadding` | Adds collision padding in pixels. | `5` |
+| `noFade` | Disables the fade transition. | `false` |
+| `container` | Sets the portal container. | Nearest modal, then `document.body` |
+
+### `GlPopoverTitle`
+
+Accepts `children` and supported Base UI popover title attributes.
+
+## Related resources
+
+- [Popover in the Pajamas Design System](https://design.gitlab.com/components/popover/)
+- [Popover stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-popover--docs)
+- [Popover source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/popover/popover.tsx)

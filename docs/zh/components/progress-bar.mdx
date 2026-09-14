@@ -1,0 +1,57 @@
+---
+title: Progress bar
+description: 显示一个可度量操作的完成进度。
+---
+
+## 用法
+
+```tsx
+import { GlProgressBar } from "gitlab-ui-react/progress-bar";
+```
+
+```tsx
+<GlProgressBar aria-label="Upload progress" value={64} />
+```
+
+## 默认
+
+当操作具有已知完成比例时使用 Progress bar。如果进度无法度量，应使用 Loading icon。
+
+<DocsExample
+  filename="progress-bar/ProgressBarExample.tsx"
+  title="默认 Progress bar"
+  storybookId="ui-base-progressbar--default"/>
+
+## 变体
+
+只有在周围文字也能清楚表达含义时才使用语义变体。`value` 表示 `max` 中已完成的比例。
+
+<DocsExample
+  filename="progress-bar/ProgressBarVariantsExample.tsx"
+  title="Progress bar 变体"
+  storybookId="ui-base-progressbar--variants"/>
+
+## 无障碍
+
+- 为每个 Progress bar 提供具体的 `aria-label`，尤其是页面同时出现多个进度指示器时。
+- 保持 `value` 在 `0` 和 `max` 之间，并随操作进度更新。
+- 不要只依赖颜色表达成功、警告或失败。
+- 当用户需要准确百分比或当前状态时，在附近添加可见文字。
+
+## API
+
+`GlProgressBar` 会将受支持的属性传递给外层 `<div>`。
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `value` | 设置当前进度值。 | `0` |
+| `max` | 设置最大值；非正数会回退到 `100`。 | `100` |
+| `variant` | 设置 `primary`、`success`、`warning` 或 `danger`。 | `"primary"` |
+| `height` | 设置 `8px` 或 `1rem` 等自定义 CSS 高度。 | `"1rem"` |
+| `aria-label` | 设置进度指示器的无障碍名称。 | `"Progress bar"` |
+
+## 相关资源
+
+- [Pajamas Design System 中的 Progress bar](https://design.gitlab.com/components/progress-bar/)
+- [Storybook 中的 Progress bar stories](https://glui-story.nocp.space/?path=/docs/ui-base-progressbar--docs)
+- [Progress bar 源码与完整 TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/progress-bar/progress-bar.tsx)

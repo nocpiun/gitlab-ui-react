@@ -8,13 +8,16 @@ description: Uses a native select element for choosing values in a form.
 ```tsx
 import {
   GlFormSelect,
+  GlFormSelectGroup,
   GlFormSelectItem,
 } from "gitlab-ui-react/form-select";
 ```
 
 ```tsx
 <GlFormSelect>
-  <GlFormSelectItem value="first">First option</GlFormSelectItem>
+  <GlFormSelectGroup label="Visibility">
+    <GlFormSelectItem value="private">Private</GlFormSelectItem>
+  </GlFormSelectGroup>
 </GlFormSelect>
 ```
 
@@ -41,7 +44,7 @@ Use `GlFormSelectGroup` to organize a longer option list under visible native gr
 
 `GlFormSelect` forwards supported native select attributes; item and group parts forward `<option>` and `<optgroup>` attributes.
 
-### GlFormSelect
+### `GlFormSelect`
 
 | Prop | Description | Default |
 | --- | --- | --- |
@@ -51,14 +54,24 @@ Use `GlFormSelectGroup` to organize a longer option list under visible native gr
 | `state` | Sets valid, invalid, or neutral appearance. | `null` |
 | `width` | Sets a fixed or responsive width from `xs` through `xl`. | `null` |
 | `wrapperClassName` | Adds a class to the wrapper that draws the chevron. | — |
+| `ariaInvalid` | Sets `aria-invalid`; `state={false}` implies `true` when omitted. | — |
+| `onChange` | Runs with the native select change event. | — |
 
-### GlFormSelectItem and GlFormSelectGroup
+### `GlFormSelectItem`
 
 | Prop | Description | Default |
 | --- | --- | --- |
 | `value` | Sets the string submitted and reported for an item. | — |
-| `disabled` | Prevents an item from being selected. | `false` |
+
+The item also accepts supported native `option` attributes, including `disabled`.
+
+### `GlFormSelectGroup`
+
+| Prop | Description | Default |
+| --- | --- | --- |
 | `label` | Gives an option group its visible and accessible label. | — |
+
+The group also accepts supported native `optgroup` attributes, including `disabled`.
 
 ## Related resources
 

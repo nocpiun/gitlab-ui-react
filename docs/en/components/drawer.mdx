@@ -8,11 +8,14 @@ description: Presents contextual information or actions without leaving the curr
 ```tsx
 import {
   GlDrawer,
+  GlDrawerActions,
   GlDrawerContent,
+  GlDrawerFooter,
   GlDrawerHeader,
   GlDrawerTitle,
   GlDrawerTrigger,
 } from "gitlab-ui-react/drawer";
+import { GlButton } from "gitlab-ui-react/button";
 ```
 
 ```tsx
@@ -21,8 +24,14 @@ import {
   <GlDrawerContent>
     <GlDrawerHeader>
       <GlDrawerTitle>Additional details</GlDrawerTitle>
+      <GlDrawerActions>
+        <GlButton>Action</GlButton>
+      </GlDrawerActions>
     </GlDrawerHeader>
     <p>Lorem ipsum dolor sit amet.</p>
+    <GlDrawerFooter>
+      <GlButton>Done</GlButton>
+    </GlDrawerFooter>
   </GlDrawerContent>
 </GlDrawer>
 ```
@@ -51,7 +60,7 @@ Use the `sidebar` variant when the drawer should visually align with sidebar con
 
 `GlDrawer` is composed from root, trigger, content, header, title, actions, and footer parts. The content part forwards supported Base UI dialog attributes.
 
-### GlDrawer
+### `GlDrawer`
 
 | Prop | Description | Default |
 | --- | --- | --- |
@@ -60,7 +69,21 @@ Use the `sidebar` variant when the drawer should visually align with sidebar con
 | `onOpenChange` | Reports requested open-state changes and their reason. | — |
 | `onOpenChangeComplete` | Runs after the opening or closing transition completes. | — |
 
-### GlDrawerContent
+### `GlDrawerTrigger`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `asChild` | Composes trigger behavior onto one child element instead of rendering a button. | `false` |
+| `block` | Expands the rendered button to its container width. | `false` |
+| `category` | Sets the rendered button category. | `"primary"` |
+| `variant` | Sets the rendered button variant. | `"default"` |
+| `size` | Sets the rendered button to `small` or `medium`. | `"medium"` |
+| `icon` | Adds a GitLab icon to the rendered button. | — |
+| `loading` | Shows loading state and prevents activation. | `false` |
+| `disabled` | Prevents the trigger from opening the drawer. | `false` |
+| `nativeButton` | Declares whether an `asChild` trigger ultimately renders a native button. | — |
+
+### `GlDrawerContent`
 
 | Prop | Description | Default |
 | --- | --- | --- |
@@ -70,12 +93,24 @@ Use the `sidebar` variant when the drawer should visually align with sidebar con
 | `container` | Sets the portal container. | `document.body` |
 | `children` | Requires one header, accepts an optional footer, and treats other nodes as body content. | — |
 
-### GlDrawerHeader
+### `GlDrawerHeader`
 
 | Prop | Description | Default |
 | --- | --- | --- |
 | `sticky` | Keeps the header visible while the body scrolls. | `false` |
 | `closeButtonLabel` | Sets the automatic close button's accessible name. | `"Close drawer"` |
+
+### `GlDrawerTitle`
+
+Accepts `children` and supported Base UI dialog title attributes.
+
+### `GlDrawerActions`
+
+Accepts `children` and supported `div` attributes for the header action region.
+
+### `GlDrawerFooter`
+
+Accepts `children` and supported `div` attributes for the footer region.
 
 ## Related resources
 

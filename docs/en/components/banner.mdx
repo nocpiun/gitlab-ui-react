@@ -9,9 +9,11 @@ description: Promotes awareness of a feature or a high-priority initiative that 
 import { useState } from "react";
 import {
   GlBanner,
+  GlBannerActions,
   GlBannerDescription,
   GlBannerTitle,
 } from "gitlab-ui-react/banner";
+import { GlButton } from "gitlab-ui-react/button";
 ```
 
 ```tsx
@@ -23,10 +25,13 @@ function FeatureBanner() {
       <GlBannerTitle>Plan work with issue boards</GlBannerTitle>
       <GlBannerDescription>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
       </GlBannerDescription>
+      <GlBannerActions>
+        <GlButton>Learn more</GlButton>
+      </GlBannerActions>
     </GlBanner>
   ) : null;
 }
@@ -69,9 +74,17 @@ These are the component-specific props. `GlBanner` forwards supported `div` attr
 | `onClose` | Runs when the close button is activated; the parent controls visibility. | — |
 | `children` | Provides banner content, normally composed from the helpers below. | — |
 
-### Compound parts
+### `GlBannerTitle`
 
-`GlBannerTitle` renders an `h2`. `GlBannerDescription` provides the standard description layout, and `GlBannerActions` lays out custom action controls. All three accept React children, supported attributes for their rendered element, `className`, and refs.
+Renders an `h2` and accepts `children` plus supported heading attributes.
+
+### `GlBannerDescription`
+
+Provides the standard description layout and accepts `children` plus supported `div` attributes.
+
+### `GlBannerActions`
+
+Lays out custom action controls and accepts `children` plus supported `div` attributes.
 
 ## Related resources
 

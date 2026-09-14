@@ -13,7 +13,10 @@ import {
 ```
 
 ```tsx
-<GlFormCheckbox value="notifications">Receive notifications</GlFormCheckbox>
+<GlFormCheckboxGroup defaultValue={["email"]} name="notifications">
+  <GlFormCheckbox value="email">Email notifications</GlFormCheckbox>
+  <GlFormCheckbox value="browser">Browser notifications</GlFormCheckbox>
+</GlFormCheckboxGroup>
 ```
 
 ## 默认
@@ -49,7 +52,7 @@ import {
 
 两个组件都会传递受支持的原生属性。Group 中的 Checkbox 会从 Group 获取选择、名称、必填、禁用和验证状态。
 
-### GlFormCheckbox
+### `GlFormCheckbox`
 
 | 属性 | 说明 | 默认值 |
 | --- | --- | --- |
@@ -63,7 +66,7 @@ import {
 | `state` | 设置有效、无效或中性外观。 | `null` |
 | `help` | 在标签下方渲染帮助内容。 | — |
 
-### GlFormCheckboxGroup
+### `GlFormCheckboxGroup`
 
 | 属性 | 说明 | 默认值 |
 | --- | --- | --- |

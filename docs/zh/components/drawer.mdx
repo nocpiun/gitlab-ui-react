@@ -8,11 +8,14 @@ description: 在不离开当前页面的情况下展示上下文信息或操作�
 ```tsx
 import {
   GlDrawer,
+  GlDrawerActions,
   GlDrawerContent,
+  GlDrawerFooter,
   GlDrawerHeader,
   GlDrawerTitle,
   GlDrawerTrigger,
 } from "gitlab-ui-react/drawer";
+import { GlButton } from "gitlab-ui-react/button";
 ```
 
 ```tsx
@@ -21,8 +24,14 @@ import {
   <GlDrawerContent>
     <GlDrawerHeader>
       <GlDrawerTitle>Additional details</GlDrawerTitle>
+      <GlDrawerActions>
+        <GlButton>Action</GlButton>
+      </GlDrawerActions>
     </GlDrawerHeader>
     <p>Lorem ipsum dolor sit amet.</p>
+    <GlDrawerFooter>
+      <GlButton>Done</GlButton>
+    </GlDrawerFooter>
   </GlDrawerContent>
 </GlDrawer>
 ```
@@ -51,7 +60,7 @@ import {
 
 `GlDrawer` 由根、触发器、内容、标题栏、标题、操作和页脚部件组成。内容部件会传递受支持的 Base UI Dialog 属性。
 
-### GlDrawer
+### `GlDrawer`
 
 | 属性 | 说明 | 默认值 |
 | --- | --- | --- |
@@ -60,7 +69,21 @@ import {
 | `onOpenChange` | 报告打开状态变更请求及其原因。 | — |
 | `onOpenChangeComplete` | 打开或关闭过渡完成后调用。 | — |
 
-### GlDrawerContent
+### `GlDrawerTrigger`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `asChild` | 将 Trigger 行为组合到单个子元素上，而不是渲染 Button。 | `false` |
+| `block` | 让渲染出的 Button 占满容器宽度。 | `false` |
+| `category` | 设置渲染出的 Button category。 | `"primary"` |
+| `variant` | 设置渲染出的 Button variant。 | `"default"` |
+| `size` | 将渲染出的 Button 设为 `small` 或 `medium`。 | `"medium"` |
+| `icon` | 为渲染出的 Button 添加 GitLab Icon。 | — |
+| `loading` | 显示加载状态并阻止激活。 | `false` |
+| `disabled` | 阻止 Trigger 打开 Drawer。 | `false` |
+| `nativeButton` | 声明 `asChild` Trigger 最终是否渲染原生 Button。 | — |
+
+### `GlDrawerContent`
 
 | 属性 | 说明 | 默认值 |
 | --- | --- | --- |
@@ -70,12 +93,24 @@ import {
 | `container` | 设置 Portal 容器。 | `document.body` |
 | `children` | 必须包含一个标题栏，可包含一个页脚，其余节点作为正文。 | — |
 
-### GlDrawerHeader
+### `GlDrawerHeader`
 
 | 属性 | 说明 | 默认值 |
 | --- | --- | --- |
 | `sticky` | 正文滚动时保持标题栏可见。 | `false` |
 | `closeButtonLabel` | 设置自动关闭按钮的无障碍名称。 | `"Close drawer"` |
+
+### `GlDrawerTitle`
+
+接受 `children` 和受支持的 Base UI Dialog Title 属性。
+
+### `GlDrawerActions`
+
+接受 `children` 和受支持的 `div` 属性，用于 Header 操作区域。
+
+### `GlDrawerFooter`
+
+接受 `children` 和受支持的 `div` 属性，用于 Footer 区域。
 
 ## 相关资源
 

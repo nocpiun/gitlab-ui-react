@@ -9,12 +9,16 @@ description: Groups related content and actions in a consistent visual container
 import {
   GlCard,
   GlCardContent,
+  GlCardFooter,
+  GlCardHeader,
 } from "gitlab-ui-react/card";
 ```
 
 ```tsx
 <GlCard>
-  <GlCardContent>Hello World</GlCardContent>
+  <GlCardHeader><h3>Card title</h3></GlCardHeader>
+  <GlCardContent>Lorem ipsum dolor sit amet.</GlCardContent>
+  <GlCardFooter>Footer content</GlCardFooter>
 </GlCard>
 ```
 
@@ -46,12 +50,23 @@ Render only `GlCardContent` when a topic needs the card treatment but has no dis
 
 ## API
 
-`GlCard`, `GlCardHeader`, `GlCardContent`, and `GlCardFooter` have no component-specific props. Each renders a `div`, forwards its ref, and accepts supported `div` attributes.
+Each card part renders a `div`, forwards its ref, and accepts `children` plus supported `div` attributes. None has additional component-specific props.
 
-| Prop | Description | Default |
-| --- | --- | --- |
-| `children` | Provides the content of the card or compound part. | — |
-| `className` | Adds classes while preserving the component's required class. | — |
+### `GlCard`
+
+Provides the outer card container.
+
+### `GlCardHeader`
+
+Provides the optional header region.
+
+### `GlCardContent`
+
+Provides the card's primary content region.
+
+### `GlCardFooter`
+
+Provides the optional footer region.
 
 ## Related resources
 

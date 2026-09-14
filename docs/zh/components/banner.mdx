@@ -9,9 +9,11 @@ description: 提升用户对可采取行动的功能或高优先级计划的关�
 import { useState } from "react";
 import {
   GlBanner,
+  GlBannerActions,
   GlBannerDescription,
   GlBannerTitle,
 } from "gitlab-ui-react/banner";
+import { GlButton } from "gitlab-ui-react/button";
 ```
 
 ```tsx
@@ -23,10 +25,13 @@ function FeatureBanner() {
       <GlBannerTitle>Plan work with issue boards</GlBannerTitle>
       <GlBannerDescription>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
       </GlBannerDescription>
+      <GlBannerActions>
+        <GlButton>Learn more</GlButton>
+      </GlBannerActions>
     </GlBanner>
   ) : null;
 }
@@ -69,9 +74,17 @@ function FeatureBanner() {
 | `onClose` | 关闭按钮激活时调用；可见性由父组件控制。 | — |
 | `children` | 提供 Banner 内容，通常由下方辅助组件组合而成。 | — |
 
-### 组合部件
+### `GlBannerTitle`
 
-`GlBannerTitle` 渲染 `h2`。`GlBannerDescription` 提供标准描述布局，`GlBannerActions` 用于排列自定义操作控件。三者都接受 React 子元素、其渲染元素支持的属性、`className` 和 ref。
+渲染 `h2`，并接受 `children` 与受支持的标题元素属性。
+
+### `GlBannerDescription`
+
+提供标准描述布局，并接受 `children` 与受支持的 `div` 属性。
+
+### `GlBannerActions`
+
+排列自定义操作控件，并接受 `children` 与受支持的 `div` 属性。
 
 ## 相关资源
 

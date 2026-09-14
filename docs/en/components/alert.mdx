@@ -8,13 +8,18 @@ description: Communicates a contextual, timely system message that needs a user'
 ```tsx
 import {
   GlAlert,
+  GlAlertActions,
   GlAlertDescription,
 } from "gitlab-ui-react/alert";
+import { GlButton } from "gitlab-ui-react/button";
 ```
 
 ```tsx
 <GlAlert dismissible={false}>
   <GlAlertDescription>Your preferences were updated.</GlAlertDescription>
+  <GlAlertActions>
+    <GlButton>Review changes</GlButton>
+  </GlAlertActions>
 </GlAlert>
 ```
 
@@ -78,9 +83,13 @@ These are the component-specific props. `GlAlert`, `GlAlertDescription`, and `Gl
 | `sticky` | Keeps the alert at the top of its scrolling container. Use only one sticky alert at a time. | `false` |
 | `children` | Alert content, normally composed with the description and actions helpers. | — |
 
-### Compound parts
+### `GlAlertDescription`
 
-`GlAlertDescription` provides the standard message layout. `GlAlertActions` lays out custom action controls. Both accept React children and supported `div` attributes, including `className`.
+Provides the standard message layout and accepts `children` plus supported `div` attributes.
+
+### `GlAlertActions`
+
+Lays out custom action controls and accepts `children` plus supported `div` attributes.
 
 ## Related resources
 

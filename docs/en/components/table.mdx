@@ -1,0 +1,155 @@
+---
+title: Table
+description: Presents related data in semantic rows and columns.
+---
+
+## Usage
+
+```tsx
+import {
+  GlTable,
+  GlTableBody,
+  GlTableCaption,
+  GlTableCell,
+  GlTableFooter,
+  GlTableHead,
+  GlTableHeader,
+  GlTableRow,
+} from "gitlab-ui-react/table";
+```
+
+```tsx
+<GlTable>
+  <GlTableCaption>Project members</GlTableCaption>
+  <GlTableHeader>
+    <GlTableRow>
+      <GlTableHead>Name</GlTableHead>
+    </GlTableRow>
+  </GlTableHeader>
+  <GlTableBody>
+    <GlTableRow>
+      <GlTableCell>Norcleeh</GlTableCell>
+    </GlTableRow>
+  </GlTableBody>
+  <GlTableFooter>
+    <GlTableRow>
+      <GlTableCell>1 member</GlTableCell>
+    </GlTableRow>
+  </GlTableFooter>
+</GlTable>
+```
+
+## Default
+
+Use semantic table parts to preserve the relationship between headers and cells. Data processing such as sorting, filtering, and pagination remains the responsibility of the parent.
+
+<DocsExample
+  filename="table/TableExample.tsx"
+  title="Example data table"
+  storybookId="ui-base-table--default"/>
+
+## Striped
+
+Use `striped` to add alternating backgrounds when they help users distinguish adjacent rows.
+
+<DocsExample
+  filename="table/TableStripedExample.tsx"
+  title="Striped table"/>
+
+## Bordered
+
+Use `bordered` when every cell needs a visible boundary.
+
+<DocsExample
+  filename="table/TableBorderedExample.tsx"
+  title="Bordered table"/>
+
+## Compact
+
+Use `small` to reduce cell padding in dense, text-focused data sets.
+
+<DocsExample
+  filename="table/TableCompactExample.tsx"
+  title="Compact table"/>
+
+## Responsive tables
+
+Set `stacked` to `true` or a breakpoint when rows should become labeled blocks at smaller widths. Supply `stackedHeading` on each cell so its column label remains visible in stacked mode.
+
+<DocsExample
+  filename="table/TableResponsiveExample.tsx"
+  title="Stacked table"
+  storybookId="ui-base-table--stacked"/>
+
+## Sticky header
+
+Set `stickyHeader` when users need column headings to remain visible while a long table scrolls. A CSS length also limits the scrolling region's height.
+
+<DocsExample
+  filename="table/TableStickyExample.tsx"
+  title="Table with sticky header"
+  storybookId="ui-base-table--sticky-header"/>
+
+## Accessibility
+
+- Add `GlTableCaption` to describe the table. A visually hidden caption is preferable to omitting one.
+- Use `GlTableHead` with `scope="col"` for column headers and `scope="row"` for row headers.
+- Keep table structure for genuinely tabular data; use a list for unrelated items.
+- When sorting is implemented by the parent, expose the sort state with `aria-sort` and use a keyboard-accessible control in the header.
+
+## API
+
+### `GlTable`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `bordered` | Adds borders around every cell. | `false` |
+| `borderless` | Removes table borders and takes visual precedence over `bordered`. | `false` |
+| `captionTop` | Places the caption above the table. | `false` |
+| `fixed` | Uses a fixed table layout. | `false` |
+| `hover` | Highlights body rows on hover. | `false` |
+| `noBorderCollapse` | Separates cell borders instead of collapsing them. | `false` |
+| `outlined` | Adds an outer border. | `false` |
+| `small` | Uses compact cell padding. | `false` |
+| `stacked` | Stacks rows at every width or below `sm`, `md`, `lg`, or `xl`. | `false` |
+| `stickyHeader` | Makes the header sticky; a string also sets the wrapper's maximum height. | `false` |
+| `striped` | Adds alternating row backgrounds. | `false` |
+
+### `GlTableCaption`
+
+Accepts `children` and supported `caption` attributes.
+
+### `GlTableHeader`
+
+Accepts `children` and supported `thead` attributes.
+
+### `GlTableBody`
+
+Accepts `children` and supported `tbody` attributes.
+
+### `GlTableFooter`
+
+Accepts `children` and supported `tfoot` attributes.
+
+### `GlTableRow`
+
+Accepts `children` and supported `tr` attributes.
+
+### `GlTableHead`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `scope` | Defines whether `GlTableHead` labels a row or column. | `"col"` |
+| `stackedHeading` | Supplies the visible header-cell label in stacked mode. | — |
+
+### `GlTableCell`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `stackedHeading` | Supplies the visible data-cell label in stacked mode. | — |
+
+## Related resources
+
+- [Table in the Pajamas Design System](https://design.gitlab.com/components/table/)
+- [Table stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-table--docs)
+- [Table source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/table/table.tsx)

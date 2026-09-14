@@ -1,0 +1,156 @@
+---
+title: Nav
+description: Organizes primary and nested destinations in an application navigation area.
+---
+
+## Usage
+
+```tsx
+import { GlIcon } from "gitlab-ui-react/icon";
+import {
+  GlCollapsibleNav,
+  GlCollapsibleNavToggle,
+  GlNav,
+  GlNavButton,
+  GlNavItem,
+  GlNavItemAddon,
+  GlNavProvider,
+  GlSubNav,
+  GlSubNavButton,
+  GlSubNavItem,
+} from "gitlab-ui-react/nav";
+```
+
+```tsx
+<>
+  <GlNav aria-label="Project navigation">
+    <GlNavItem selected>
+      <GlNavButton href="#overview">
+        <GlIcon name="repository" />
+        Repository
+        <GlNavItemAddon>4</GlNavItemAddon>
+      </GlNavButton>
+      <GlSubNav defaultOpen>
+        <GlSubNavItem>
+          <GlSubNavButton href="#issues">Issues</GlSubNavButton>
+        </GlSubNavItem>
+      </GlSubNav>
+    </GlNavItem>
+  </GlNav>
+
+  <GlNavProvider defaultOpen>
+    <GlCollapsibleNavToggle />
+    <GlCollapsibleNav aria-label="Collapsible project navigation">
+      <GlNavItem>
+        <GlNavButton href="#activity">Activity</GlNavButton>
+      </GlNavItem>
+    </GlCollapsibleNav>
+  </GlNavProvider>
+</>
+```
+
+## Default
+
+Use `GlNavItem` with one `GlNavButton`. Add a `GlSubNav` after the button when an item expands a second level of navigation.
+
+<DocsExample filename="nav/NavExample.tsx" title="Navigation with nested items"/>
+
+## Icons and addons
+
+Place a leading `GlIcon` and trailing `GlNavItemAddon` inside the same `GlNavButton`. Addons can show concise metadata such as a count, but must not contain a separate interactive control.
+
+<DocsExample
+  filename="nav/NavSlotsExample.tsx"
+  title="Navigation items with icons and addons"
+  storybookId="ui-base-nav--with-slots"/>
+
+## Responsive navigation
+
+Wrap `GlCollapsibleNav` in `GlNavProvider` when the navigation must collapse to a rail on desktop and an overlay on smaller viewports. `GlCollapsibleNavToggle` can be placed inside the navigation or elsewhere under the same provider.
+
+## Accessibility
+
+- Give every `GlNav` or `GlCollapsibleNav` a descriptive `aria-label` when the page has more than one navigation landmark.
+- Mark only the current destination as `selected`; linked selected items receive `aria-current="page"`.
+- Use links for destinations and buttons only for expansion or actions.
+- Keep labels short. Icon-only items require `isIconOnly` and an `aria-label`.
+- Nested items are exposed through an expandable button and a list; do not add custom keyboard behavior that conflicts with the component.
+
+## API
+
+### `GlNav`
+
+Accepts `children` and supported `nav` attributes.
+
+### `GlNavItem`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `selected` | Marks the item as the current destination. | `false` |
+| `disabled` | Prevents its button or link from being activated. | `false` |
+| `indicatorPosition` | Places the selected indicator at `left`, `right`, or `bottom`. | `"left"` |
+
+### `GlNavButton`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `href` | Renders a safe link; an empty string keeps button semantics. | — |
+| `render` | Composes behavior onto a router link that renders an anchor. | — |
+| `isIconOnly` | Shows only the leading icon or avatar and requires `aria-label`. | `false` |
+| `type` | Sets the native button type when no link is rendered. | `"button"` |
+
+### `GlNavItemAddon`
+
+Accepts non-interactive `children` and supported `span` attributes.
+
+### `GlSubNav`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `defaultOpen` | Sets the initial uncontrolled state of `GlSubNav`. | `false` |
+| `open` | Controls the expansion state of `GlSubNav`. | — |
+| `onOpenChange` | Reports sub-navigation expansion changes. | — |
+
+### `GlSubNavItem`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `selected` | Marks the item as the current destination. | `false` |
+| `disabled` | Prevents its button or link from being activated. | `false` |
+| `indicatorPosition` | Places the selected indicator at `left`, `right`, or `bottom`. | `"left"` |
+
+### `GlSubNavButton`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `href` | Renders a safe link; an empty string keeps button semantics. | — |
+| `render` | Composes behavior onto a router link that renders an anchor. | — |
+| `isIconOnly` | Shows only the leading icon or avatar and requires `aria-label`. | `false` |
+| `type` | Sets the native button type when no link is rendered. | `"button"` |
+
+### `GlNavProvider`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `defaultOpen` | Sets the provider's initial state; when omitted, it follows the desktop breakpoint. | Responsive |
+| `open` | Controls the provider's expanded state. | — |
+| `onOpenChange` | Reports toggle, backdrop, or Escape requests. | — |
+| `navId` | Sets the shared navigation ID used by toggles. | Generated |
+
+### `GlCollapsibleNav`
+
+Accepts the same `children` and supported `nav` attributes as `GlNav`. Its ID is owned by `GlNavProvider`.
+
+### `GlCollapsibleNavToggle`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `collapseLabel` | Sets a toggle's expanded-state label. | `"Collapse sidebar"` |
+| `expandLabel` | Sets a toggle's collapsed-state label. | `"Expand sidebar"` |
+
+## Related resources
+
+- [Nav item in the Pajamas Design System](https://design.gitlab.com/components/nav-item/)
+- [Navigation sidebar pattern](https://design.gitlab.com/patterns/navigation-sidebar/)
+- [Nav stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-nav--docs)
+- [Nav source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/nav/nav.tsx)

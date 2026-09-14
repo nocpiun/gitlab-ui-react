@@ -8,13 +8,18 @@ description: 用于传达需要用户注意、与当前情境相关且及时的�
 ```tsx
 import {
   GlAlert,
+  GlAlertActions,
   GlAlertDescription,
 } from "gitlab-ui-react/alert";
+import { GlButton } from "gitlab-ui-react/button";
 ```
 
 ```tsx
 <GlAlert dismissible={false}>
   <GlAlertDescription>Your preferences were updated.</GlAlertDescription>
+  <GlAlertActions>
+    <GlButton>Review changes</GlButton>
+  </GlAlertActions>
 </GlAlert>
 ```
 
@@ -78,9 +83,13 @@ import {
 | `sticky` | 将警报固定在滚动容器顶部；同一时间只应使用一个固定警报。 | `false` |
 | `children` | 警报内容，通常由描述和操作辅助组件组合而成。 | — |
 
-### 复合部分
+### `GlAlertDescription`
 
-`GlAlertDescription` 提供标准的消息布局，`GlAlertActions` 用于排列自定义操作控件。两者都接受 React 子元素以及受支持的 `div` 属性，包括 `className`。
+提供标准的消息布局，并接受 `children` 与受支持的 `div` 属性。
+
+### `GlAlertActions`
+
+排列自定义操作控件，并接受 `children` 与受支持的 `div` 属性。
 
 ## 相关资源
 

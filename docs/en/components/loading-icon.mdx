@@ -1,0 +1,54 @@
+---
+title: Loading icon
+description: Communicates that an indeterminate operation is in progress.
+---
+
+## Usage
+
+```tsx
+import { GlLoadingIcon } from "gitlab-ui-react/loading-icon";
+```
+
+```tsx
+<GlLoadingIcon label="Loading results" />
+```
+
+## Default
+
+Use a loading icon when the duration or completion percentage is unknown. Prefer a skeleton loader when the layout of incoming content is predictable.
+
+<DocsExample
+  filename="loading-icon/LoadingIconExample.tsx"
+  title="Loading icon"
+  storybookId="ui-base-loading-icon--default"/>
+
+## Variants, sizes, and color
+
+Use `spinner` for most loading states and `dots` where a compact animated treatment fits better. Choose a size that matches the surrounding content. The `light` color is intended for persistently dark backgrounds.
+
+<DocsExample
+  filename="loading-icon/LoadingIconVariantsExample.tsx"
+  title="Variants, sizes, and color"
+  storybookId="ui-base-loading-icon--variants-and-sizes"/>
+
+## Accessibility
+
+- Set `label` or `aria-label` to describe what is loading rather than repeating a generic message when context is available.
+- The component uses `role="status"` by default so its label is announced without interrupting the current task.
+- Do not use animation as the only indication that content is unavailable; keep nearby controls disabled or provide explanatory text when needed.
+
+## API
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `variant` | Sets the indicator shape to `spinner` or `dots`. | `"spinner"` |
+| `size` | Sets `sm`, `md`, `lg`, or `xl`. | `"sm"` |
+| `color` | Uses the `dark` or `light` color treatment. | `"dark"` |
+| `inline` | Renders a `<span>` root instead of a `<div>`. | `false` |
+| `label` | Sets the status's accessible name. | `"Loading"` |
+
+## Related resources
+
+- [Spinner in the Pajamas Design System](https://design.gitlab.com/components/spinner/)
+- [Loading icon stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-loading-icon--docs)
+- [Loading icon source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/loading-icon/loading-icon.tsx)
