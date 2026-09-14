@@ -49,6 +49,8 @@ export type SiteMessages = {
       hint: string;
       link: string;
       prompt: string;
+      webMcpHint: string;
+      webMcpLink: string;
     };
     navigation: {
       collapse: string;
@@ -126,6 +128,9 @@ export const siteMessages = {
         link: "View as Markdown",
         prompt:
           "I'm looking at this GitLab UI React documentation: {url}.\nHelp me understand how to use it. Read the page first, then be ready to explain concepts, give examples, or help debug based on it.",
+        webMcpHint:
+          "Supported browser agents can also use WebMCP to search, read, and open these docs.",
+        webMcpLink: "Learn more",
       },
       navigation: {
         collapse: "Collapse",
@@ -201,6 +206,8 @@ export const siteMessages = {
         link: "查看 Markdown",
         prompt:
           "我正在查看这份 GitLab UI React 文档：{url}。\n请先阅读该页面并帮助我理解如何使用它，然后根据文档解释概念、提供示例或协助调试。",
+        webMcpHint: "受支持的浏览器 Agent 还可通过 WebMCP 搜索、读取和打开这些文档。",
+        webMcpLink: "了解更多",
       },
       navigation: {
         collapse: "收起",
