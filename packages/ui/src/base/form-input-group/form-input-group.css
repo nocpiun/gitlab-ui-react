@@ -1,0 +1,118 @@
+/**
+ * Ported from GitLab UI:
+ * packages/gitlab-ui/src/components/base/form/form_input_group/form_input_group.scss
+ * packages/gitlab-ui/src/components/base/form/input_group_text/input_group_text.scss
+ * packages/gitlab-ui/src/components/base/form/form_input/form_input.scss
+ *
+ * Bootstrap input-group foundations live in
+ * packages/styles/src/forms/bootstrap-input-groups.css. The additional
+ * GlListbox selectors below adapt upstream's nested `.btn-group` dropdown
+ * shape to this repository's React dropdown structure.
+ */
+
+.gl-form-input-group.input-group {
+  > .input-group-prepend > .btn-group,
+  > .input-group-append:not(:last-child) > .btn-group,
+  > .input-group-append:last-child > .btn-group:not(:last-child):not(.dropdown-toggle) {
+    > .btn {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  > .input-group-append > .btn-group,
+  > .input-group-prepend:not(:first-child) > .btn-group,
+  > .input-group-prepend:first-child > .btn-group:not(:first-child) {
+    > .btn {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  > .input-group-prepend > .gl-listbox,
+  > .input-group-append:not(:last-child) > .gl-listbox,
+  > .input-group-append:last-child > .gl-listbox:not(:last-child) {
+    > .gl-new-dropdown-toggle {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  > .input-group-append > .gl-listbox,
+  > .input-group-prepend:not(:first-child) > .gl-listbox,
+  > .input-group-prepend:first-child > .gl-listbox:not(:first-child) {
+    > .gl-new-dropdown-toggle {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  > .gl-form-input.custom-range {
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0 0.75rem;
+    margin-bottom: 0;
+    background-color: var(--gl-control-background-color-default);
+    background-clip: padding-box;
+    border: 1px solid var(--gl-control-border-color-default);
+    border-radius: var(--gl-control-border-radius);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+    + .form-control,
+    + .form-control-plaintext,
+    + .custom-select,
+    + .custom-range {
+      margin-left: -1px;
+    }
+
+    &:focus-visible {
+      z-index: 3;
+      background-color: var(--gl-control-background-color-default);
+      border-color: var(--gl-control-border-color-focus);
+      outline: none;
+      box-shadow:
+        inset 0 0 0 1px var(--gl-focus-ring-inner-color),
+        0 0 0 1px var(--gl-focus-ring-outer-color),
+        0 0 0 3px var(--gl-focus-ring-inner-color);
+    }
+
+    &:not(:last-child) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &:not(:first-child) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &:disabled,
+    &[readonly] {
+      background-color: var(--gl-control-background-color-disabled);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+
+  > .form-control,
+  > .form-control-plaintext,
+  > .custom-select,
+  > .custom-range {
+    + .custom-range {
+      margin-left: -1px;
+    }
+  }
+}
+
+.gl-input-group-text.input-group-text {
+  background-color: var(--gl-control-background-color-concatenation);
+  border-color: var(--gl-control-border-color-default);
+  @apply gl-text-default;
+  @apply gl-text-base;
+  @apply gl-leading-normal;
+  @apply gl-rounded-control;
+}

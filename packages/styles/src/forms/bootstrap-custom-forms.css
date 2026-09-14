@@ -27,8 +27,9 @@
  * `$form-feedback-valid-color`/`$form-feedback-invalid-color` overrides.
  *
  * Deliberately omitted (no current consumer):
- * - `.custom-control-inline`, `.custom-switch`, `.custom-file` and all
- *   `.input-group` rules;
+ * - `.custom-control-inline`, `.custom-switch`, `.custom-file`, and the
+ *   custom-file input-group interactions; the input-group rules consumed by
+ *   GlFormInputGroup live in bootstrap-input-groups.css;
  * - the `.was-validated :valid`/`:invalid` native validation selectors (only
  *   the component-controlled `.is-valid`/`.is-invalid` classes are ported);
  * - the legacy `::-ms-*` pseudo-element rules;

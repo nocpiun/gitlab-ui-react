@@ -11,8 +11,8 @@
  * packages/styles/src/forms/gitlab-text-controls.css.
  *
  * Adaptations:
- * - The `.input-group > .custom-range` rules belong to the form-input-group
- *   composition and are deferred to that component's port. The same applies
+ * - The `.input-group > .custom-range` rules live with the GlFormInputGroup
+ *   component that consumes them. The same deferral applies
  *   to the `.form-control-sm`/`.form-control-lg` color-input sizing (no
  *   component exposes a size prop).
  * - The custom-range validation states only cover the component-controlled

@@ -1,0 +1,144 @@
+/**
+ * Bootstrap compatibility: input groups.
+ *
+ * Upstream source:
+ * packages/gitlab-ui/src/vendor/bootstrap/scss/_input-group.scss
+ * (Bootstrap v4.6 semantics with GitLab's variable overrides).
+ *
+ * Subset rationale: GlFormInputGroup supports GlFormInput, GlButton,
+ * GlInputGroupText, Bootstrap-compatible select elements, and selection
+ * dropdown triggers. Custom-file controls, group sizing helpers, and native
+ * validation layout are omitted because no public React input-group API
+ * exposes them.
+ *
+ * React scoping adaptation: every Bootstrap selector is anchored to a
+ * GitLab React marker so consumer-owned `.input-group*` classes are untouched.
+ */
+
+.gl-form-input-group.input-group {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+}
+
+.gl-form-input-group.input-group > .form-control,
+.gl-form-input-group.input-group > .form-control-plaintext,
+.gl-form-input-group.input-group > .custom-select {
+  position: relative;
+  flex: 1 1 auto;
+  width: 1%;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+.gl-form-input-group.input-group > .form-control + .form-control,
+.gl-form-input-group.input-group > .form-control-plaintext + .form-control,
+.gl-form-input-group.input-group > .custom-select + .form-control,
+.gl-form-input-group.input-group > .form-control + .custom-select,
+.gl-form-input-group.input-group > .form-control-plaintext + .custom-select,
+.gl-form-input-group.input-group > .custom-select + .custom-select {
+  margin-left: -1px;
+}
+
+.gl-form-input-group.input-group > .form-control:focus-visible,
+.gl-form-input-group.input-group > .custom-select:focus-visible {
+  z-index: 3;
+}
+
+.gl-form-input-group.input-group > .form-control:not(:first-child),
+.gl-form-input-group.input-group > .custom-select:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.gl-form-input-group.input-group > .form-control:not(:last-child),
+.gl-form-input-group.input-group > .custom-select:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.gl-form-input-group-addon.input-group-prepend,
+.gl-form-input-group-addon.input-group-append {
+  display: flex;
+}
+
+.gl-form-input-group-addon.input-group-prepend .btn,
+.gl-form-input-group-addon.input-group-append .btn {
+  position: relative;
+  z-index: 2;
+}
+
+.gl-form-input-group-addon.input-group-prepend .btn:focus-visible,
+.gl-form-input-group-addon.input-group-append .btn:focus-visible {
+  z-index: 3;
+}
+
+.gl-form-input-group-addon.input-group-prepend .btn + .btn,
+.gl-form-input-group-addon.input-group-prepend .btn + .input-group-text,
+.gl-form-input-group-addon.input-group-prepend .input-group-text + .input-group-text,
+.gl-form-input-group-addon.input-group-prepend .input-group-text + .btn,
+.gl-form-input-group-addon.input-group-append .btn + .btn,
+.gl-form-input-group-addon.input-group-append .btn + .input-group-text,
+.gl-form-input-group-addon.input-group-append .input-group-text + .input-group-text,
+.gl-form-input-group-addon.input-group-append .input-group-text + .btn {
+  margin-left: -1px;
+}
+
+.gl-form-input-group-addon.input-group-prepend {
+  margin-right: -1px;
+}
+
+.gl-form-input-group-addon.input-group-append {
+  margin-left: -1px;
+}
+
+.gl-input-group-text.input-group-text {
+  display: flex;
+  align-items: center;
+  padding: 0.375rem 0.75rem;
+  margin-bottom: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #4c4b51;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #bfbfc3;
+  border: 1px solid #89888d;
+  border-radius: 0.25rem;
+}
+
+.gl-input-group-text.input-group-text input[type="radio"],
+.gl-input-group-text.input-group-text input[type="checkbox"] {
+  margin-top: 0;
+}
+
+.gl-form-input-group.input-group > .input-group-prepend > .btn,
+.gl-form-input-group.input-group > .input-group-prepend > .input-group-text,
+.gl-form-input-group.input-group > .input-group-append:not(:last-child) > .btn,
+.gl-form-input-group.input-group > .input-group-append:not(:last-child) > .input-group-text,
+.gl-form-input-group.input-group
+  > .input-group-append:last-child
+  > .btn:not(:last-child):not(.dropdown-toggle),
+.gl-form-input-group.input-group
+  > .input-group-append:last-child
+  > .input-group-text:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.gl-form-input-group.input-group > .input-group-append > .btn,
+.gl-form-input-group.input-group > .input-group-append > .input-group-text,
+.gl-form-input-group.input-group > .input-group-prepend:not(:first-child) > .btn,
+.gl-form-input-group.input-group > .input-group-prepend:not(:first-child) > .input-group-text,
+.gl-form-input-group.input-group
+  > .input-group-prepend:first-child
+  > .btn:not(:first-child),
+.gl-form-input-group.input-group
+  > .input-group-prepend:first-child
+  > .input-group-text:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
