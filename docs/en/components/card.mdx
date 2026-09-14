@@ -1,0 +1,75 @@
+---
+title: Card
+description: Groups related content and actions in a consistent visual container.
+---
+
+## Usage
+
+```tsx
+import {
+  GlCard,
+  GlCardContent,
+  GlCardFooter,
+  GlCardHeader,
+} from "gitlab-ui-react/card";
+```
+
+```tsx
+<GlCard>
+  <GlCardHeader><h3>Card title</h3></GlCardHeader>
+  <GlCardContent>Lorem ipsum dolor sit amet.</GlCardContent>
+  <GlCardFooter>Footer content</GlCardFooter>
+</GlCard>
+```
+
+## Default
+
+Compose a card from an optional header, required primary content, and optional footer. Use it for a self-contained topic that benefits from visual separation and a repeatable structure.
+
+<DocsExample
+  filename="card/CardExample.tsx"
+  title="Card with header and footer"
+  storybookId="ui-base-card--default"/>
+
+## Content only
+
+Render only `GlCardContent` when a topic needs the card treatment but has no distinct header or footer. For simple visual separation without a meaningful content group, prefer ordinary HTML and spacing or border utilities.
+
+<DocsExample
+  filename="card/CardContentExample.tsx"
+  title="Content-only card"
+  storybookId="ui-base-card--content-only"/>
+
+## Accessibility
+
+- A card is a visually styled `div`, not a landmark. Add semantic structure only when the card's role in the page requires it.
+- Put an appropriately leveled heading in `GlCardHeader`; keep heading levels consistent with the surrounding page hierarchy.
+- Use semantic links and buttons for actions. Do not make a container behave like one large control when it also contains nested interactive elements.
+- When displaying a collection of related cards, use a parent `ul` and place each card in an `li`.
+- Keep the internal structure consistent across comparable cards so the collection remains easy to scan.
+
+## API
+
+Each card part renders a `div`, forwards its ref, and accepts `children` plus supported `div` attributes. None has additional component-specific props.
+
+### `GlCard`
+
+Provides the outer card container.
+
+### `GlCardHeader`
+
+Provides the optional header region.
+
+### `GlCardContent`
+
+Provides the card's primary content region.
+
+### `GlCardFooter`
+
+Provides the optional footer region.
+
+## Related resources
+
+- [Card in the Pajamas Design System](https://design.gitlab.com/components/card/)
+- [Card stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-card--docs)
+- [Card source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/card/card.tsx)

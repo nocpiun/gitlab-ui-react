@@ -1,0 +1,58 @@
+---
+title: Skeleton loader
+description: 在结构可预测的数据加载时预留内容布局。
+---
+
+## 用法
+
+```tsx
+import { GlSkeletonLoader } from "gitlab-ui-react/skeleton-loader";
+```
+
+```tsx
+<GlSkeletonLoader />
+```
+
+## 默认
+
+文字类内容可以使用默认行 Skeleton。其大致尺寸应与最终内容相符，以减少布局偏移。
+
+<DocsExample
+  filename="skeleton-loader/SkeletonLoaderExample.tsx"
+  title="文字 Skeleton"
+  storybookId="ui-base-skeleton-loader--default"/>
+
+## 自定义形状
+
+当加载布局中包含 Avatar、控件或其他可预测的几何形状时，可以将 SVG Shape 作为子节点传入。
+
+<DocsExample
+  filename="skeleton-loader/SkeletonLoaderCustomExample.tsx"
+  title="自定义 Skeleton"
+  storybookId="ui-base-skeleton-loader--with-custom-shapes"/>
+
+## 无障碍
+
+- 在 Skeleton 外保留可见的页面或区块标题，让用户知道正在加载什么。
+- 不要在加载 Skeleton 中放置可交互控件。
+- 内置 SVG Title 会提示正在加载；用户偏好减少动态效果时，动画会自动移除。
+- 真实内容可用后应立即替换 Skeleton。
+
+## API
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `lines` | 设置自动生成的文字行数。 | `3` |
+| `equalWidthLines` | 让所有自动生成的行占满宽度。 | `false` |
+| `width` | 设置 SVG viewBox 宽度和默认 Wrapper 宽度。 | 自动 |
+| `height` | 设置 SVG viewBox 高度和默认 Wrapper 高度。 | 自动 |
+| `children` | 使用自定义 SVG Shape 替代自动生成的行。 | — |
+| `preserveAspectRatio` | 设置 SVG `preserveAspectRatio`。 | `"xMidYMid meet"` |
+| `uniqueKey` | 设置内部 SVG ID 的稳定前缀。 | 自动生成 |
+| `baseUrl` | 页面使用 Base URL 时，为 SVG Fragment 引用添加前缀。 | `""` |
+
+## 相关资源
+
+- [Pajamas Design System 中的 Skeleton loader](https://design.gitlab.com/components/skeleton-loader/)
+- [Storybook 中的 Skeleton loader stories](https://glui-story.nocp.space/?path=/docs/ui-base-skeleton-loader--docs)
+- [Skeleton loader 源码与完整 TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/skeleton-loader/skeleton-loader.tsx)

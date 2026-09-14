@@ -1,0 +1,137 @@
+---
+title: Tabs
+description: 在相同上下文中的相关内容区块之间切换。
+---
+
+## 用法
+
+```tsx
+import {
+  GlScrollableTabs,
+  GlTab,
+  GlTabActions,
+  GlTabs,
+  GlTabsAfter,
+  GlTabsBefore,
+} from "gitlab-ui-react/tabs";
+```
+
+```tsx
+<>
+  <GlTabs>
+    <GlTabsBefore>Before the tab list</GlTabsBefore>
+    <GlTab title="Overview">Overview content</GlTab>
+    <GlTab title="Activity">Activity content</GlTab>
+    <GlTabActions>Tab actions</GlTabActions>
+    <GlTabsAfter>After the tab list</GlTabsAfter>
+  </GlTabs>
+
+  <GlScrollableTabs>
+    <GlTab title="Scrollable tab">Scrollable content</GlTab>
+  </GlScrollableTabs>
+</>
+```
+
+## 默认
+
+Tabs 适合在不离开当前上下文的情况下切换同级内容区块。每个 `GlTab` 同时提供 Title 和 Panel 内容。
+
+<DocsExample
+  filename="tabs/TabsExample.tsx"
+  title="默认 Tabs"
+  storybookId="ui-base-tabs--default"/>
+
+## 等宽 Tabs
+
+当两到三个短 Tab 需要平分可用宽度时，使用等宽 Tabs，并确保它们能在水平方向完整显示且不会换行。
+
+<DocsExample
+  filename="tabs/TabsJustifiedExample.tsx"
+  title="等宽 Tabs"
+  storybookId="ui-base-tabs--justified"/>
+
+## 数量与禁用 Tab
+
+使用 `tabCount` 显示紧凑数量，并通过 `tabCountSrText` 为数字补充上下文。仅当内容存在但暂时不可用时禁用 Tab。
+
+<DocsExample
+  filename="tabs/TabsCountsExample.tsx"
+  title="带数量与禁用项的 Tabs"
+  storybookId="ui-base-tabs--counts-and-disabled"/>
+
+## 可滚动 Tabs
+
+Tab 列表可能超过可用宽度时，使用 `GlScrollableTabs`。它会添加溢出控制，同时沿用相同的 `GlTab` API。
+
+<DocsExample
+  filename="tabs/TabsScrollableExample.tsx"
+  title="可滚动 Tabs"
+  storybookId="ui-base-tabs--scrollable"/>
+
+## 无障碍
+
+- 使用简短且唯一的 Tab Title 描述对应 Panel。
+- 组件会管理 Tab、Tablist 与 Tabpanel 的关系，以及方向键、Home 和 End 键导航。
+- 显示 `tabCount` 时，应通过 `tabCountSrText` 为屏幕阅读器提供数量上下文。
+- 如果用户需要同时比较多个 Panel，或者区块具有重要的先后顺序，不应使用 Tabs。
+
+## API
+
+### `GlTabs`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `defaultValue` | 设置非受控模式下初始选中的 Tab 索引。 | `0` |
+| `value` | 控制选中的 Tab 索引。 | — |
+| `onValueChange` | 返回选择变化。 | — |
+| `justified` | 让每个 Tab 平分导航宽度。 | `false` |
+| `lazy` | 仅在 Panel 激活时挂载。 | `false` |
+| `empty` | 没有 `GlTab` 子节点时显示的内容。 | — |
+| `syncActiveTabWithQueryParams` | 将激活 Tab 与 URL Query String 同步。 | `false` |
+| `queryParamName` | 设置同步所用的 Query Parameter。 | `"tab"` |
+| `contentClassName` | 为 Panel 容器添加类名。 | — |
+| `navClassName` | 为 Tab List 添加类名。 | — |
+
+### `GlScrollableTabs`
+
+接受所有 `GlTabs` 属性，以及下列溢出控件标签。
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `scrollLeftLabel` | 命名向左滚动控件。 | `"Scroll left"` |
+| `scrollRightLabel` | 命名向右滚动控件。 | `"Scroll right"` |
+
+### `GlTabsBefore`
+
+接受 `children` 和受支持的 `div` 属性，用于 Tab List 前方的内容。
+
+### `GlTabsAfter`
+
+接受 `children` 和受支持的 `div` 属性，用于 Tab List 后方的内容。
+
+### `GlTabActions`
+
+接受 `children` 和受支持的 `div` 属性，用于与 Tab List 对齐的操作。
+
+### `GlTab`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `title` | 设置可见且可访问的 Tab Title。 | 必填 |
+| `children` | 提供 Tab Panel 内容。 | — |
+| `disabled` | 阻止 Tab 被选择。 | `false` |
+| `lazy` | 覆盖 Root 对当前 Panel 的延迟挂载行为。 | 继承 Root |
+| `tabCount` | 在 Title 后添加数字 Badge。 | — |
+| `tabCountSrText` | 为数量添加屏幕阅读器上下文。 | — |
+| `queryParamValue` | 设置 URL 同步时当前 Tab 的值。 | 根据索引生成 |
+| `tabProps` | 为 Tab Button 添加受支持的属性。 | — |
+| `titleClassName` | 为 Tab Button 添加类名。 | — |
+| `titleItemClassName` | 为 Tab List Item 添加类名。 | — |
+| `panelProps` | 为 Tab Panel 添加受支持的属性。 | — |
+| `panelClassName` | 为 Tab Panel 添加类名。 | — |
+
+## 相关资源
+
+- [Pajamas Design System 中的 Tabs](https://design.gitlab.com/components/tabs/)
+- [Storybook 中的 Tabs stories](https://glui-story.nocp.space/?path=/docs/ui-base-tabs--docs)
+- [Tabs 源码与完整 TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/tabs/tabs.tsx)

@@ -1,0 +1,86 @@
+---
+title: Form select
+description: Uses a native select element for choosing values in a form.
+---
+
+## Usage
+
+```tsx
+import {
+  GlFormSelect,
+  GlFormSelectGroup,
+  GlFormSelectItem,
+} from "gitlab-ui-react/form-select";
+```
+
+```tsx
+<GlFormSelect>
+  <GlFormSelectGroup label="Visibility">
+    <GlFormSelectItem value="private">Private</GlFormSelectItem>
+  </GlFormSelectGroup>
+</GlFormSelect>
+```
+
+## Default
+
+Use a native select for choosing one option from a form list, especially when browser and mobile platform behavior is useful. Consider radio buttons when five or fewer choices should remain visible.
+
+<DocsExample
+  filename="form-select/FormSelectExample.tsx"
+  title="Select"
+  storybookId="ui-base-form-select--default"/>
+
+## Option groups
+
+Use `GlFormSelectGroup` to organize a longer option list under visible native group labels. Each item requires a string value.
+
+<DocsExample
+  filename="form-select/FormSelectGroupsExample.tsx"
+  title="Grouped select options"
+  storybookId="ui-base-form-select--grouped-items"/>
+
+## Accessibility
+
+- Associate the select with a visible `<label>` using matching `htmlFor` and `id` values.
+- Do not rely on a disabled placeholder option as the only label.
+- Use concise option and group labels that remain understandable when announced without surrounding content.
+- For custom searchable or multi-select behavior outside a form, use a listbox instead of recreating it with a native select.
+
+## API
+
+`GlFormSelect` forwards supported native select attributes; item and group parts forward `<option>` and `<optgroup>` attributes.
+
+### `GlFormSelect`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `value` | Controls a string value, or a string array in multiple mode. | — |
+| `defaultValue` | Sets the initial uncontrolled selection. | — |
+| `onValueChange` | Reports the selected string or string array. | — |
+| `state` | Sets valid, invalid, or neutral appearance. | `null` |
+| `width` | Sets a fixed or responsive width from `xs` through `xl`. | `null` |
+| `wrapperClassName` | Adds a class to the wrapper that draws the chevron. | — |
+| `ariaInvalid` | Sets `aria-invalid`; `state={false}` implies `true` when omitted. | — |
+| `onChange` | Runs with the native select change event. | — |
+
+### `GlFormSelectItem`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `value` | Sets the string submitted and reported for an item. | — |
+
+The item also accepts supported native `option` attributes, including `disabled`.
+
+### `GlFormSelectGroup`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `label` | Gives an option group its visible and accessible label. | — |
+
+The group also accepts supported native `optgroup` attributes, including `disabled`.
+
+## Related resources
+
+- [Select in the Pajamas Design System](https://design.gitlab.com/components/select/)
+- [Form select stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-form-select--docs)
+- [Form select source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/form-select/form-select.tsx)

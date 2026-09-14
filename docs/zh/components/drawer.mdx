@@ -1,0 +1,125 @@
+---
+title: Drawer
+description: 在不离开当前页面的情况下展示上下文信息或操作。
+---
+
+## 用法
+
+```tsx
+import {
+  GlDrawer,
+  GlDrawerActions,
+  GlDrawerContent,
+  GlDrawerFooter,
+  GlDrawerHeader,
+  GlDrawerTitle,
+  GlDrawerTrigger,
+} from "gitlab-ui-react/drawer";
+import { GlButton } from "gitlab-ui-react/button";
+```
+
+```tsx
+<GlDrawer>
+  <GlDrawerTrigger>Open drawer</GlDrawerTrigger>
+  <GlDrawerContent>
+    <GlDrawerHeader>
+      <GlDrawerTitle>Additional details</GlDrawerTitle>
+      <GlDrawerActions>
+        <GlButton>Action</GlButton>
+      </GlDrawerActions>
+    </GlDrawerHeader>
+    <p>Lorem ipsum dolor sit amet.</p>
+    <GlDrawerFooter>
+      <GlButton>Done</GlButton>
+    </GlDrawerFooter>
+  </GlDrawerContent>
+</GlDrawer>
+```
+
+## 默认
+
+当主要任务仍需保持可见，而用户需要查看次要、上下文相关或临时内容时使用 Drawer。Drawer 应始终由用户操作打开。
+
+<DocsExample
+  filename="drawer/DrawerExample.tsx"
+  title="默认 Drawer"
+  storybookId="ui-base-drawer--default"/>
+
+## Sidebar 变体
+
+当 Drawer 需要在视觉上与侧栏内容对齐时使用 `sidebar` 变体。内容较长时，粘性标题会在正文滚动期间保持可见。
+
+<DocsExample
+  filename="drawer/DrawerSidebarExample.tsx"
+  title="Sidebar Drawer"
+  storybookId="ui-base-drawer--sidebar"/>
+
+## 无障碍
+
+- 在标题栏中提供一个 `GlDrawerTitle`。如果不适合显示标题，请改为给 `GlDrawerContent` 提供 `aria-label`。
+- 使用清晰的触发器文字，并且仅在用户操作后打开 Drawer。
+- 对自动关闭按钮的 `closeButtonLabel` 进行本地化。
+- Drawer 会将焦点移入对话框，在打开时限制焦点范围，支持 Escape 关闭，并在关闭后恢复焦点。
+- 内容应简短且可执行；无法安全中断的任务应使用 Modal 或独立页面。
+
+## API
+
+`GlDrawer` 由根、触发器、内容、标题栏、标题、操作和页脚部件组成。内容部件会传递受支持的 Base UI Dialog 属性。
+
+### `GlDrawer`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `defaultOpen` | 设置非受控模式下的初始打开状态。 | `false` |
+| `open` | 控制 Drawer 是否打开。 | — |
+| `onOpenChange` | 报告打开状态变更请求及其原因。 | — |
+| `onOpenChangeComplete` | 打开或关闭过渡完成后调用。 | — |
+
+### `GlDrawerTrigger`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `asChild` | 将 Trigger 行为组合到单个子元素上，而不是渲染 Button。 | `false` |
+| `block` | 让渲染出的 Button 占满容器宽度。 | `false` |
+| `category` | 设置渲染出的 Button category。 | `"primary"` |
+| `variant` | 设置渲染出的 Button variant。 | `"default"` |
+| `size` | 将渲染出的 Button 设为 `small` 或 `medium`。 | `"medium"` |
+| `icon` | 为渲染出的 Button 添加 GitLab Icon。 | — |
+| `loading` | 显示加载状态并阻止激活。 | `false` |
+| `disabled` | 阻止 Trigger 打开 Drawer。 | `false` |
+| `nativeButton` | 声明 `asChild` Trigger 最终是否渲染原生 Button。 | — |
+
+### `GlDrawerContent`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `variant` | 将外观设置为 `default` 或 `sidebar`。 | `"default"` |
+| `headerHeight` | 将 Drawer 偏移到固定页面标题下方，例如 `64px`。 | `""` |
+| `zIndex` | 设置 Drawer 的堆叠层级。 | `10` |
+| `container` | 设置 Portal 容器。 | `document.body` |
+| `children` | 必须包含一个标题栏，可包含一个页脚，其余节点作为正文。 | — |
+
+### `GlDrawerHeader`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `sticky` | 正文滚动时保持标题栏可见。 | `false` |
+| `closeButtonLabel` | 设置自动关闭按钮的无障碍名称。 | `"Close drawer"` |
+
+### `GlDrawerTitle`
+
+接受 `children` 和受支持的 Base UI Dialog Title 属性。
+
+### `GlDrawerActions`
+
+接受 `children` 和受支持的 `div` 属性，用于 Header 操作区域。
+
+### `GlDrawerFooter`
+
+接受 `children` 和受支持的 `div` 属性，用于 Footer 区域。
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Drawer](https://design.gitlab.com/components/drawer/)
+- [Storybook 中的 Drawer stories](https://glui-story.nocp.space/?path=/docs/ui-base-drawer--docs)
+- [Drawer 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/drawer/drawer.tsx)

@@ -18,6 +18,14 @@
   @apply leading-24;
 }
 
+.gl-markdown .gl-banner-description {
+  margin-bottom: var(--gl-spacing-scale-5);
+}
+
+.gl-markdown .gl-breadcrumbs .breadcrumb {
+  list-style: none;
+}
+
 .gl-markdown pre, .gl-markdown pre code {
   @apply bg-subtle!;
 }

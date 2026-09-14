@@ -1,0 +1,75 @@
+---
+title: Card
+description: 在一致的视觉容器中组织相关内容与操作。
+---
+
+## 用法
+
+```tsx
+import {
+  GlCard,
+  GlCardContent,
+  GlCardFooter,
+  GlCardHeader,
+} from "gitlab-ui-react/card";
+```
+
+```tsx
+<GlCard>
+  <GlCardHeader><h3>Card title</h3></GlCardHeader>
+  <GlCardContent>Lorem ipsum dolor sit amet.</GlCardContent>
+  <GlCardFooter>Footer content</GlCardFooter>
+</GlCard>
+```
+
+## 默认
+
+Card 由可选页头、必需的主要内容和可选页脚组合而成。它适合承载从视觉分隔和可重复结构中获益的独立主题。
+
+<DocsExample
+  filename="card/CardExample.tsx"
+  title="带页头和页脚的 Card"
+  storybookId="ui-base-card--default"/>
+
+## 仅内容
+
+当一个主题需要 Card 外观但没有独立页头或页脚时，只渲染 `GlCardContent`。如果只是进行简单的视觉分隔，并不存在有意义的内容分组，应优先使用普通 HTML 以及间距或边框工具类。
+
+<DocsExample
+  filename="card/CardContentExample.tsx"
+  title="仅含内容的 Card"
+  storybookId="ui-base-card--content-only"/>
+
+## 无障碍
+
+- Card 是带视觉样式的 `div`，不是地标。仅当 Card 在页面中的角色确实需要时，才添加语义结构。
+- 在 `GlCardHeader` 中放置层级恰当的标题，并确保标题层级与周围页面结构一致。
+- 操作应使用语义化链接和按钮。当容器中还包含嵌套交互元素时，不要让整个容器表现为一个大型控件。
+- 展示一组相关 Card 时，使用父级 `ul`，并将每个 Card 放入一个 `li`。
+- 同一组可比较 Card 的内部结构应保持一致，以便快速浏览。
+
+## API
+
+每个 Card 部件都会渲染 `div`、转发 ref，并接受 `children` 与受支持的 `div` 属性。它们都没有其他组件专有属性。
+
+### `GlCard`
+
+提供 Card 的外层容器。
+
+### `GlCardHeader`
+
+提供可选的页头区域。
+
+### `GlCardContent`
+
+提供 Card 的主要内容区域。
+
+### `GlCardFooter`
+
+提供可选的页脚区域。
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Card](https://design.gitlab.com/components/card/)
+- [Storybook 中的 Card stories](https://glui-story.nocp.space/?path=/docs/ui-base-card--docs)
+- [Card 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/card/card.tsx)

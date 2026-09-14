@@ -1,0 +1,273 @@
+---
+title: Dropdown
+description: Presents actions or selectable options in a panel opened from a trigger.
+---
+
+## Usage
+
+```tsx
+import {
+  GlDisclosureDropdown,
+  GlDisclosureDropdownContent,
+  GlDisclosureDropdownFooter,
+  GlDisclosureDropdownGroup,
+  GlDisclosureDropdownGroupLabel,
+  GlDisclosureDropdownHeader,
+  GlDisclosureDropdownItem,
+  GlDisclosureDropdownTrigger,
+} from "gitlab-ui-react/disclosure-dropdown";
+import {
+  GlListbox,
+  GlListboxContent,
+  GlListboxFooter,
+  GlListboxGroup,
+  GlListboxGroupLabel,
+  GlListboxHeader,
+  GlListboxItem,
+  GlListboxSearchInput,
+  GlListboxTrigger,
+} from "gitlab-ui-react/listbox";
+```
+
+```tsx
+<>
+  <GlDisclosureDropdown>
+    <GlDisclosureDropdownTrigger>Actions</GlDisclosureDropdownTrigger>
+    <GlDisclosureDropdownContent>
+      <GlDisclosureDropdownHeader>Issue actions</GlDisclosureDropdownHeader>
+      <GlDisclosureDropdownGroup bordered>
+        <GlDisclosureDropdownGroupLabel>Manage</GlDisclosureDropdownGroupLabel>
+        <GlDisclosureDropdownItem value="edit">Edit</GlDisclosureDropdownItem>
+      </GlDisclosureDropdownGroup>
+      <GlDisclosureDropdownFooter>More actions</GlDisclosureDropdownFooter>
+    </GlDisclosureDropdownContent>
+  </GlDisclosureDropdown>
+
+  <GlListbox defaultValue="private">
+    <GlListboxTrigger>Visibility</GlListboxTrigger>
+    <GlListboxContent aria-label="Visibility">
+      <GlListboxHeader>Select visibility</GlListboxHeader>
+      <GlListboxSearchInput aria-label="Search visibility" />
+      <GlListboxGroup>
+        <GlListboxGroupLabel>Access level</GlListboxGroupLabel>
+        <GlListboxItem value="private">Private</GlListboxItem>
+      </GlListboxGroup>
+      <GlListboxFooter>Choose one option</GlListboxFooter>
+    </GlListboxContent>
+  </GlListbox>
+</>
+```
+
+## Default
+
+Use a disclosure dropdown when each item performs an action or follows a link. Items can include icons, disabled states, groups, and a danger treatment.
+
+<DocsExample
+  filename="dropdown/DropdownExample.tsx"
+  title="Disclosure dropdown"
+  storybookId="ui-base-disclosure-dropdown--default"/>
+
+## Listbox
+
+Use a listbox when the user chooses one option from a set. Keep the selected value in React state and show the current selection in the trigger.
+
+<DocsExample
+  filename="dropdown/DropdownListboxExample.tsx"
+  title="Single-select listbox"
+  storybookId="ui-base-listbox--default"/>
+
+## Multiple selection
+
+Set `multiple` when more than one option can be selected. In this mode, `value` and `onValueChange` use an array.
+
+<DocsExample
+  filename="dropdown/DropdownMultipleExample.tsx"
+  title="Multi-select listbox"
+  storybookId="ui-base-listbox--multiple-selection"/>
+
+## Accessibility
+
+- Give every trigger a visible label or an accessible name. Icon-only triggers require `aria-label`, `aria-labelledby`, or screen-reader-only text.
+- Use disclosure dropdowns for actions and navigation, and listboxes for choosing values; their keyboard and screen reader semantics are different.
+- Give `GlListboxContent` an accessible name with `aria-label` or `aria-labelledby` when the trigger does not provide enough context.
+- Keep item labels concise and unique. Do not rely on an icon or color alone to communicate an action.
+- Let the components manage focus, arrow-key navigation, selection state, and returning focus when the panel closes.
+
+## API
+
+The dropdown APIs use compound parts. Trigger parts also accept the supported GitLab button presentation props, while content and item parts forward relevant Base UI and DOM attributes.
+
+### `GlDisclosureDropdown`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `autoClose` | Closes the panel after an item is activated unless the item overrides it. | `true` |
+| `defaultOpen` | Sets the initial open state when uncontrolled. | `false` |
+| `open` | Controls whether the panel is open. | — |
+| `onOpenChange` | Reports requested open-state changes and their reason. | — |
+| `onOpenChangeComplete` | Runs after the opening or closing transition completes. | — |
+| `onBeforeClose` | Runs before closing and can prevent the close operation. | — |
+| `onAction` | Runs when any disclosure item is activated. | — |
+
+### `GlDisclosureDropdownTrigger`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `asChild` | Composes trigger behavior onto one child element instead of rendering a button. | `false` |
+| `block` | Expands the rendered button to its container width. | `false` |
+| `category` | Sets the button category. | `"primary"` |
+| `variant` | Sets the button variant. | `"default"` |
+| `size` | Sets the trigger size. | `"medium"` |
+| `icon` | Adds an icon from the GitLab SVG library. | — |
+| `loading` | Shows loading state and prevents activation. | `false` |
+| `disabled` | Prevents the trigger from opening the dropdown. | `false` |
+| `noCaret` | Removes the dropdown caret. | `false` |
+| `textSrOnly` | Visually hides the trigger text while retaining its accessible name. | `false` |
+| `nativeButton` | Declares whether an `asChild` trigger ultimately renders a native button. | — |
+
+### `GlDisclosureDropdownContent`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `placement` | Positions the panel relative to the trigger. | `"bottom-start"` |
+| `offset` | Sets the panel offset in pixels or by axis. | `8` |
+| `fluidWidth` | Lets the panel width follow its contents. | `false` |
+| `positioningStrategy` | Uses `absolute` or `fixed` positioning. | `"absolute"` |
+
+### `GlDisclosureDropdownHeader`
+
+Accepts `children` and supported `div` attributes.
+
+### `GlDisclosureDropdownFooter`
+
+Accepts `children` and supported `div` attributes.
+
+### `GlDisclosureDropdownGroup`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `bordered` | Adds a divider to the group. | `false` |
+| `borderPosition` | Places the divider at the `top` or `bottom`. | `"top"` |
+| `reserveIconSpace` | Reserves an icon column when wrapped items prevent automatic detection. | Automatic |
+
+### `GlDisclosureDropdownGroupLabel`
+
+Accepts `children` and supported Base UI group-label attributes.
+
+### `GlDisclosureDropdownItem`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `value` | Identifies the item in action callbacks. | Required |
+| `variant` | Sets the appearance to `default` or `danger`. | `"default"` |
+| `closeOnClick` | Overrides the root `autoClose` behavior. | Inherits `autoClose` |
+| `disabled` | Prevents the item from being activated. | `false` |
+| `href` | Renders the item as a link to this destination. | — |
+| `icon` | Adds a GitLab icon before the item text. | — |
+| `label` | Overrides the text used by typeahead navigation. | Text children |
+| `onAction` | Runs when this item is activated. | — |
+| `render` | Composes item behavior onto a custom element. | — |
+| `nativeButton` | Declares whether a custom rendered item is a native button. | — |
+
+### `GlListbox`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `multiple` | Enables selection of more than one item. | `false` |
+| `defaultValue` | Sets the initial uncontrolled selection. | `null` or `[]` |
+| `value` | Controls the selected value or values. | — |
+| `onValueChange` | Reports selection changes with item details. | — |
+| `disabled` | Disables the listbox and its items. | `false` |
+| `loading` | Shows loading state on the trigger and prevents selection. | `false` |
+| `state` | Sets the trigger validation appearance. | `null` |
+| `defaultOpen` | Sets the initial open state when uncontrolled. | `false` |
+| `open` | Controls whether the panel is open. | — |
+| `onOpenChange` | Reports requested open-state changes and their reason. | — |
+| `onOpenChangeComplete` | Runs after the opening or closing transition completes. | — |
+| `onBeforeClose` | Runs before closing and can prevent the close operation. | — |
+
+### `GlListboxTrigger`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `asChild` | Composes trigger behavior onto one child element instead of rendering a button. | `false` |
+| `block` | Expands the rendered button to its container width. | `false` |
+| `category` | Sets the rendered button category. | `"primary"` |
+| `variant` | Sets the rendered button variant. | `"default"` |
+| `size` | Sets the rendered button to `small` or `medium`. | `"medium"` |
+| `icon` | Adds a GitLab icon to the rendered button. | — |
+| `loading` | Shows loading state and prevents selection. | `false` |
+| `disabled` | Prevents the trigger from opening the listbox. | `false` |
+| `noCaret` | Hides the dropdown caret. | `false` |
+| `textSrOnly` | Visually hides the trigger text while preserving its accessible name. | `false` |
+| `nativeButton` | Declares whether an `asChild` trigger ultimately renders a native button. | — |
+
+### `GlListboxContent`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `aria-label` | Gives the listbox panel an accessible name. | — |
+| `aria-labelledby` | Associates the panel with an existing label. | — |
+| `placement` | Positions the panel relative to the trigger. | `"bottom-start"` |
+| `offset` | Sets the panel offset in pixels or by axis. | `8` |
+| `fluidWidth` | Lets the panel width follow its contents. | `false` |
+| `panelMatchTriggerWidth` | Makes the panel at least as wide as its trigger. | `false` |
+| `noResultsText` | Sets the empty search result content. | `"No results found"` |
+| `positioningStrategy` | Uses `absolute` or `fixed` positioning. | `"absolute"` |
+| `searching` | Marks a parent-controlled search as in progress. | `false` |
+| `searchingAnnouncement` | Sets the assistive announcement while searching. | `"Searching"` |
+| `infiniteScrollLoading` | Marks an incremental load as in progress. | `false` |
+| `loadingAnnouncement` | Sets the assistive announcement for initial loading. | `"Loading items"` |
+| `loadingMoreAnnouncement` | Sets the assistive announcement for incremental loading. | `"Loading more items"` |
+| `resultsAnnouncement` | Generates the assistive announcement for the result count. | Count-based text |
+| `totalItems` | Supplies the total result count for position metadata. | — |
+| `onBottomReached` | Runs once when scrolling reaches the final item. | — |
+
+### `GlListboxHeader`
+
+Accepts `children` and supported `div` attributes.
+
+### `GlListboxFooter`
+
+Accepts `children` and supported `div` attributes.
+
+### `GlListboxSearchInput`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `defaultValue` | Sets the initial uncontrolled search text. | `""` |
+| `value` | Controls the search text. | — |
+| `onValueChange` | Reports the current search text. | — |
+| `onChange` | Receives the native input change event. | — |
+| `clearLabel` | Labels the clear-search button. | `"Clear search"` |
+
+### `GlListboxGroup`
+
+Accepts `children` and supported Base UI group attributes.
+
+### `GlListboxGroupLabel`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `textSrOnly` | Visually hides the group label while keeping it available to assistive technology. | `false` |
+
+### `GlListboxItem`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `value` | Identifies the selectable item. | Required |
+| `disabled` | Prevents the item from being selected. | `false` |
+| `label` | Overrides the text used by typeahead navigation. | Text children |
+| `checkCentered` | Vertically centers the selection checkmark. | `false` |
+| `onSelect` | Reports selection of this item. | — |
+| `render` | Composes item behavior onto a custom element. | — |
+| `nativeButton` | Declares whether a custom rendered item is a native button. | — |
+
+## Related resources
+
+- [Dropdown overview in the Pajamas Design System](https://design.gitlab.com/components/dropdown-overview/)
+- [Disclosure in the Pajamas Design System](https://design.gitlab.com/components/dropdown-disclosure/)
+- [Disclosure dropdown stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-disclosure-dropdown--docs)
+- [Listbox stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-listbox--docs)
+- [Disclosure dropdown source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/disclosure-dropdown/disclosure-dropdown.tsx)
+- [Listbox source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/listbox/listbox.tsx)

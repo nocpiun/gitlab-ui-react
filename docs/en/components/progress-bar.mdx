@@ -1,0 +1,66 @@
+---
+title: Progress bar
+description: Shows how much of a measurable operation has completed.
+---
+
+## Usage
+
+```tsx
+import { GlProgressBar } from "gitlab-ui-react/progress-bar";
+```
+
+```tsx
+<GlProgressBar aria-label="Upload progress" value={64} />
+```
+
+## Default
+
+Use a progress bar when an operation has a known completion amount. Use a loading icon when progress cannot be measured.
+
+<DocsExample
+  filename="progress-bar/ProgressBarExample.tsx"
+  title="Default progress bar"
+  storybookId="ui-base-progressbar--default"/>
+
+## Variants
+
+Choose a semantic variant only when its meaning is also clear from nearby text. The value is expressed as a fraction of `max`.
+
+<DocsExample
+  filename="progress-bar/ProgressBarVariantsExample.tsx"
+  title="Progress variants"
+  storybookId="ui-base-progressbar--variants"/>
+
+## Height
+
+Set `height` to a CSS length when the progress track needs to fit a compact or prominent layout. Keep the same height for progress bars that belong to one group.
+
+<DocsExample
+  filename="progress-bar/ProgressBarHeightsExample.tsx"
+  title="Progress bar heights"
+  storybookId="ui-base-progressbar--custom-height"/>
+
+## Accessibility
+
+- Give each bar a specific `aria-label`, especially when multiple progress indicators appear together.
+- Keep `value` between `0` and `max`, and update it as the operation progresses.
+- Do not rely on color alone to communicate success, warning, or failure.
+- Add nearby visible text when users need the exact percentage or current operation status.
+
+## API
+
+`GlProgressBar` forwards supported attributes to its outer `<div>`.
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `value` | Sets the current progress value. | `0` |
+| `max` | Sets the maximum value; non-positive values fall back to `100`. | `100` |
+| `variant` | Sets `primary`, `success`, `warning`, or `danger`. | `"primary"` |
+| `height` | Sets a custom CSS height such as `8px` or `1rem`. | `"1rem"` |
+| `aria-label` | Sets the progress indicator's accessible name. | `"Progress bar"` |
+
+## Related resources
+
+- [Progress bar in the Pajamas Design System](https://design.gitlab.com/components/progress-bar/)
+- [Progress bar stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-progressbar--docs)
+- [Progress bar source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/progress-bar/progress-bar.tsx)

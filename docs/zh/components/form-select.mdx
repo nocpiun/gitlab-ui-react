@@ -1,0 +1,86 @@
+---
+title: Form select
+description: 使用原生 Select 元素在表单中选择值。
+---
+
+## 用法
+
+```tsx
+import {
+  GlFormSelect,
+  GlFormSelectGroup,
+  GlFormSelectItem,
+} from "gitlab-ui-react/form-select";
+```
+
+```tsx
+<GlFormSelect>
+  <GlFormSelectGroup label="Visibility">
+    <GlFormSelectItem value="private">Private</GlFormSelectItem>
+  </GlFormSelectGroup>
+</GlFormSelect>
+```
+
+## 默认
+
+在表单列表中选择单个选项时使用原生 Select，尤其适合需要浏览器和移动平台原生行为的场景。当五个或更少的选项需要始终可见时，可以考虑使用 Radio。
+
+<DocsExample
+  filename="form-select/FormSelectExample.tsx"
+  title="Select"
+  storybookId="ui-base-form-select--default"/>
+
+## 选项分组
+
+使用 `GlFormSelectGroup` 将较长的选项列表组织在可见的原生 Group 标签下。每个项目都需要字符串值。
+
+<DocsExample
+  filename="form-select/FormSelectGroupsExample.tsx"
+  title="分组的 Select 选项"
+  storybookId="ui-base-form-select--grouped-items"/>
+
+## 无障碍
+
+- 使用相同的 `htmlFor` 与 `id` 将 Select 关联到可见 `<label>`。
+- 不要把禁用的 Placeholder 选项作为唯一标签。
+- 选项与 Group 标签应简洁，并且脱离周围内容播报时仍可理解。
+- 对于表单外的自定义搜索或多选行为，使用 Listbox，而不要通过原生 Select 重新实现。
+
+## API
+
+`GlFormSelect` 会传递受支持的原生 Select 属性；项目与 Group 部件分别传递 `<option>` 和 `<optgroup>` 属性。
+
+### `GlFormSelect`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `value` | 控制字符串值，多选模式下为字符串数组。 | — |
+| `defaultValue` | 设置非受控模式下的初始选择。 | — |
+| `onValueChange` | 报告选中的字符串或字符串数组。 | — |
+| `state` | 设置有效、无效或中性外观。 | `null` |
+| `width` | 设置从 `xs` 到 `xl` 的固定或响应式宽度。 | `null` |
+| `wrapperClassName` | 为绘制箭头的外层容器添加 class。 | — |
+| `ariaInvalid` | 设置 `aria-invalid`；省略时，`state={false}` 会隐含 `true`。 | — |
+| `onChange` | 通过原生 Select change 事件调用。 | — |
+
+### `GlFormSelectItem`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `value` | 设置项目提交和报告的字符串。 | — |
+
+Item 还接受受支持的原生 `option` 属性，包括 `disabled`。
+
+### `GlFormSelectGroup`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `label` | 为选项 Group 提供可见且可访问的标签。 | — |
+
+Group 还接受受支持的原生 `optgroup` 属性，包括 `disabled`。
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Select](https://design.gitlab.com/components/select/)
+- [Storybook 中的 Form select stories](https://glui-story.nocp.space/?path=/docs/ui-base-form-select--docs)
+- [Form select 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/form-select/form-select.tsx)

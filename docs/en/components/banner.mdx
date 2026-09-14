@@ -1,0 +1,95 @@
+---
+title: Banner
+description: Promotes awareness of a feature or a high-priority initiative that a user can act on.
+---
+
+## Usage
+
+```tsx
+import { useState } from "react";
+import {
+  GlBanner,
+  GlBannerActions,
+  GlBannerDescription,
+  GlBannerTitle,
+} from "gitlab-ui-react/banner";
+import { GlButton } from "gitlab-ui-react/button";
+```
+
+```tsx
+function FeatureBanner() {
+  const [visible, setVisible] = useState(true);
+
+  return visible ? (
+    <GlBanner onClose={() => setVisible(false)}>
+      <GlBannerTitle>Plan work with issue boards</GlBannerTitle>
+      <GlBannerDescription>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+      </GlBannerDescription>
+      <GlBannerActions>
+        <GlButton>Learn more</GlButton>
+      </GlBannerActions>
+    </GlBanner>
+  ) : null;
+}
+```
+
+## Default
+
+The default promotion variant draws attention to a feature a user can act on. A banner is always dismissible: `onClose` reports the action, and the parent must remove the banner and persist the dismissal when appropriate.
+
+<DocsExample
+  filename="banner/BannerExample.tsx"
+  title="Promotion banner"
+  storybookId="ui-base-banner--default"/>
+
+## Introduction
+
+Use the introduction variant to help users get started with an existing feature. Keep the title concise, explain the next step, and provide one clear action.
+
+<DocsExample
+  filename="banner/BannerIntroductionExample.tsx"
+  title="Introduction banner"
+  storybookId="ui-base-banner--variants"/>
+
+## Accessibility
+
+- Keep `GlBannerTitle` at a logical place in the page heading hierarchy. It renders an `h2`; use a semantic heading outside the helper if another level is required.
+- Provide concise visible content that explains the benefit and the next action.
+- Supply a localized `dismissLabel`, handle `onClose`, and persist dismissal according to the product's requirements.
+- Use links for navigation and buttons for actions. Avoid multiple competing primary actions.
+- The React component does not currently render illustrations. If custom decorative artwork is composed nearby, hide it from assistive technology.
+
+## API
+
+These are the component-specific props. `GlBanner` forwards supported `div` attributes and a ref. The React port intentionally omits the upstream illustration props.
+
+### `GlBanner`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `variant` | Sets the treatment to `promotion` or `introduction`. | `"promotion"` |
+| `dismissLabel` | Sets the close button's accessible label. | `"Dismiss"` |
+| `onClose` | Runs when the close button is activated; the parent controls visibility. | — |
+| `children` | Provides banner content, normally composed from the helpers below. | — |
+
+### `GlBannerTitle`
+
+Renders an `h2` and accepts `children` plus supported heading attributes.
+
+### `GlBannerDescription`
+
+Provides the standard description layout and accepts `children` plus supported `div` attributes.
+
+### `GlBannerActions`
+
+Lays out custom action controls and accepts `children` plus supported `div` attributes.
+
+## Related resources
+
+- [Banner in the Pajamas Design System](https://design.gitlab.com/components/banner/)
+- [Banner stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-banner--docs)
+- [Banner source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/banner/banner.tsx)

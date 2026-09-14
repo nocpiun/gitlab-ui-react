@@ -1,0 +1,144 @@
+---
+title: Modal
+description: 在当前页面上方聚焦展示一个简短且独立的任务。
+---
+
+## 用法
+
+```tsx
+import {
+  GlModal,
+  GlModalClose,
+  GlModalContent,
+  GlModalFooter,
+  GlModalHeader,
+  GlModalTitle,
+  GlModalTrigger,
+} from "gitlab-ui-react/modal";
+```
+
+```tsx
+<GlModal>
+  <GlModalTrigger>Open modal</GlModalTrigger>
+  <GlModalContent>
+    <GlModalHeader>
+      <GlModalTitle>
+        Modal title
+      </GlModalTitle>
+    </GlModalHeader>
+    <p>Lorem ipsum dolor sit amet.</p>
+    <GlModalFooter>
+      <GlModalClose>Close</GlModalClose>
+    </GlModalFooter>
+  </GlModalContent>
+</GlModal>
+```
+
+## 默认
+
+当用户必须完成或关闭一个聚焦的决定或任务后才能返回页面时，使用 Modal。内容应简短，Footer 中会关闭 Modal 的操作应使用 `GlModalClose`。
+
+<DocsExample
+  filename="modal/ModalExample.tsx"
+  title="默认 Modal"
+  storybookId="ui-base-modal--default"/>
+
+## 可滚动内容
+
+当内容必须限制在视口内时设置 `scrollable`。Header 和 Footer 会保持可见，Body 则独立滚动。
+
+<DocsExample
+  filename="modal/ModalScrollableExample.tsx"
+  title="可滚动 Modal"
+  storybookId="ui-base-modal--with-scrolling-content"/>
+
+## 尺寸
+
+大多数任务使用默认的中等尺寸。简短确认可使用 `sm`，仅在内容需要额外水平空间时使用 `lg`。
+
+<DocsExample filename="modal/ModalSizesExample.tsx" title="小型与大型 Modal"/>
+
+## 无障碍
+
+- 必须包含一个 `GlModalHeader`，通常还应包含一个 `GlModalTitle`。如果不适合显示标题，请通过 `aria-label` 命名 `GlModalContent`。
+- 将破坏性最小的操作放在前面，并清晰标注破坏性操作。
+- Modal 打开时会限制焦点范围，可通过 Escape 或 Backdrop 关闭，关闭后会将焦点还给 Trigger。
+- 避免嵌套 Modal，也不要放入冗长的多步骤流程。
+
+## API
+
+### `GlModal`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `defaultOpen` | 设置非受控模式下的初始打开状态。 | `false` |
+| `open` | 控制 Modal 是否打开。 | — |
+| `onOpenChange` | 返回请求的开关状态及原因。 | — |
+| `onOpenChangeComplete` | 在打开或关闭过渡完成后调用。 | — |
+
+### `GlModalTrigger`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `asChild` | 将 Trigger 行为组合到单个子元素上，而不是渲染 Button。 | `false` |
+| `block` | 让渲染出的 Button 占满容器宽度。 | `false` |
+| `category` | 设置渲染出的 Button category。 | `"primary"` |
+| `variant` | 设置渲染出的 Button variant。 | `"default"` |
+| `size` | 将渲染出的 Button 设为 `small` 或 `medium`。 | `"medium"` |
+| `icon` | 为渲染出的 Button 添加 GitLab Icon。 | — |
+| `loading` | 显示加载状态并阻止激活。 | `false` |
+| `disabled` | 阻止 Trigger 打开 Modal。 | `false` |
+| `nativeButton` | 声明 `asChild` Trigger 最终是否渲染原生 Button。 | — |
+
+### `GlModalContent`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `size` | 将 Modal 宽度设为 `sm`、`md` 或 `lg`。 | `"md"` |
+| `scrollable` | 让 Modal Body 独立滚动。 | `false` |
+| `container` | 设置 Portal 容器。 | `document.body` |
+| `children` | 需要一个 Header，可包含一个 Footer，其余子节点作为 Body。 | — |
+
+Content 还会转发受支持的 Base UI Dialog Popup 属性，包括焦点管理属性。
+
+### `GlModalHeader`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `closeButtonLabel` | 设置自动关闭按钮的无障碍名称。 | `"Close"` |
+
+### `GlModalTitle`
+
+接受 `children` 和受支持的 Base UI Dialog Title 属性。
+
+### `GlModalFooter`
+
+接受 `children` 和受支持的 `div` 属性。
+
+### `GlModalClose`
+
+激活时关闭 Modal，并接受受支持的 Button 属性及下列 `GlButton` 展示与状态属性。链接和自定义渲染属性不可用。
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `active` | 应用激活视觉状态。 | `false` |
+| `block` | 让 Button 占满容器宽度。 | `false` |
+| `buttonTextClasses` | 为 Button 文本包装器添加类名。 | — |
+| `category` | 设置 Button category。 | `"primary"` |
+| `variant` | 设置 Button variant。 | `"default"` |
+| `size` | 将 Button 设为 `small` 或 `medium`。 | `"medium"` |
+| `icon` | 添加 GitLab Icon。 | — |
+| `emoji` | 在 Button 文本前添加内容。 | — |
+| `count` | 在文本后添加非负数值。 | `null` |
+| `countSrText` | 为数值添加屏幕阅读器上下文。 | — |
+| `loading` | 显示加载指示器并阻止激活。 | `false` |
+| `disabled` | 阻止激活，同时保持控件可聚焦。 | `false` |
+| `selected` | 应用选中视觉状态。 | `false` |
+| `type` | 设置原生 Button type。 | `"button"` |
+| `onClick` | 关闭按钮激活时调用。 | — |
+
+## 相关资源
+
+- [Pajamas Design System 中的 Modal](https://design.gitlab.com/components/modal/)
+- [Storybook 中的 Modal stories](https://glui-story.nocp.space/?path=/docs/ui-base-modal--docs)
+- [Modal 源码与完整 TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/modal/modal.tsx)

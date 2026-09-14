@@ -1,0 +1,79 @@
+---
+title: Broadcast message
+description: 向所有用户传递由管理员发布的实例级公告。
+---
+
+## 用法
+
+```tsx
+import { GlBroadcastMessage } from "gitlab-ui-react/broadcast-message";
+```
+
+```tsx
+<GlBroadcastMessage dismissible={false}>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+</GlBroadcastMessage>
+```
+
+## 默认
+
+仅将广播消息用于由管理员撰写、适用于整个实例的公告。基础示例不可关闭，因此不会出现缺少可见性处理逻辑的关闭控件。
+
+<DocsExample
+  filename="broadcast-message/BroadcastMessageExample.tsx"
+  title="广播消息"/>
+
+## 可关闭消息
+
+当管理员启用关闭功能时允许用户关闭消息。`GlBroadcastMessage` 会通过 `onDismiss` 报告操作，但不会自行隐藏，因此父组件必须移除消息并持久保存用户的选择。
+
+<DocsExample
+  filename="broadcast-message/BroadcastMessageDismissibleExample.tsx"
+  title="可关闭的广播消息"
+  storybookId="ui-base-broadcast-message--default"/>
+
+## 类型
+
+使用 banner 类型在静态面板顶部显示实例级公告。notification 类型使用紧凑布局，并且即使 `dismissible` 为 `false` 也始终包含关闭按钮。
+
+<DocsExample
+  filename="broadcast-message/BroadcastMessageTypesExample.tsx"
+  title="Banner 与 notification 类型"/>
+
+## 主题
+
+管理员可以从支持的色板中选择背景主题。主题是视觉选择，而不是严重性等级；notification 消息在视觉上不会使用主题。
+
+<DocsExample
+  filename="broadcast-message/BroadcastMessageThemesExample.tsx"
+  title="广播消息主题"
+  storybookId="ui-base-broadcast-message--themes"/>
+
+## 无障碍
+
+- 按自然的 DOM 和阅读顺序插入广播消息；将 banner 放在静态面板顶部。
+- 内容应简短，并确保链接文字本身可以说明其用途。
+- 只要显示关闭按钮，就提供本地化的 `dismissLabel`。
+- 处理 `onDismiss` 并移除消息。不要呈现点击后没有效果的关闭控件。
+- 不要只依靠颜色传达公告含义。
+- 对于系统生成、与当前上下文相关且及时的消息，请改用 Alert。
+
+## API
+
+下面列出组件专有属性。`GlBroadcastMessage` 还会转发受支持的 `div` 属性和 ref。
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `type` | 将布局设置为 `banner` 或 `notification`。Notification 始终显示关闭按钮。 | `"banner"` |
+| `theme` | 设置为 `indigo`、`light-indigo`、`blue`、`light-blue`、`green`、`light-green`、`red`、`light-red`、`dark` 或 `light`。 | `"indigo"` |
+| `dismissible` | 为 banner 消息显示关闭按钮。 | `true` |
+| `dismissLabel` | 设置关闭按钮的无障碍名称。 | `"Dismiss"` |
+| `onDismiss` | 请求关闭时调用；可见性由父组件控制。 | — |
+| `iconName` | 设置 GitLab SVG 库中的前置图标。 | `"bullhorn"` |
+| `children` | 提供公告内容。 | — |
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Broadcast message](https://design.gitlab.com/components/broadcast-message/)
+- [Storybook 中的 Broadcast message stories](https://glui-story.nocp.space/?path=/docs/ui-base-broadcast-message--docs)
+- [Broadcast message 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/broadcast-message/broadcast-message.tsx)

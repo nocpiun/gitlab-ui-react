@@ -1,0 +1,54 @@
+---
+title: Loading icon
+description: 表示一个无法确定完成时间的操作正在进行。
+---
+
+## 用法
+
+```tsx
+import { GlLoadingIcon } from "gitlab-ui-react/loading-icon";
+```
+
+```tsx
+<GlLoadingIcon label="Loading results" />
+```
+
+## 默认
+
+当操作的持续时间或完成比例未知时使用 Loading icon。如果即将出现的内容布局可以预测，应优先使用 Skeleton loader。
+
+<DocsExample
+  filename="loading-icon/LoadingIconExample.tsx"
+  title="Loading icon"
+  storybookId="ui-base-loading-icon--default"/>
+
+## 变体、尺寸与颜色
+
+大多数加载状态使用 `spinner`，紧凑区域可以使用 `dots`。选择与周围内容匹配的尺寸。`light` 颜色用于始终保持深色的背景。
+
+<DocsExample
+  filename="loading-icon/LoadingIconVariantsExample.tsx"
+  title="变体、尺寸与颜色"
+  storybookId="ui-base-loading-icon--variants-and-sizes"/>
+
+## 无障碍
+
+- 使用 `label` 或 `aria-label` 描述正在加载的内容；有明确上下文时不要只使用通用提示。
+- 组件默认使用 `role="status"`，因此其名称会在不中断当前任务的情况下被朗读。
+- 不要仅用动画表示内容不可用；必要时禁用附近控件或提供说明文字。
+
+## API
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `variant` | 将形状设为 `spinner` 或 `dots`。 | `"spinner"` |
+| `size` | 设置 `sm`、`md`、`lg` 或 `xl`。 | `"sm"` |
+| `color` | 使用 `dark` 或 `light` 颜色。 | `"dark"` |
+| `inline` | 使用 `<span>` 根元素而不是 `<div>`。 | `false` |
+| `label` | 设置 Status 的无障碍名称。 | `"Loading"` |
+
+## 相关资源
+
+- [Pajamas Design System 中的 Spinner](https://design.gitlab.com/components/spinner/)
+- [Storybook 中的 Loading icon stories](https://glui-story.nocp.space/?path=/docs/ui-base-loading-icon--docs)
+- [Loading icon 源码与完整 TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/loading-icon/loading-icon.tsx)

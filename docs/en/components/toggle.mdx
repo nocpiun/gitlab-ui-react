@@ -1,0 +1,64 @@
+---
+title: Toggle
+description: Turns a setting on or off with an immediately applied change.
+---
+
+## Usage
+
+```tsx
+import { GlToggle } from "gitlab-ui-react/toggle";
+```
+
+```tsx
+<GlToggle label="Email notifications" />
+```
+
+## Default
+
+Use a toggle for a binary setting that takes effect immediately. Use a checkbox when the value is submitted with other form fields as one grouped action.
+
+<DocsExample filename="toggle/ToggleExample.tsx" title="Toggle with supporting text"/>
+
+## States
+
+The component supports controlled and uncontrolled values, disabled presentation, and a loading state that prevents activation while an update is pending.
+
+<DocsExample
+  filename="toggle/ToggleStatesExample.tsx"
+  title="Toggle states"
+  storybookId="ui-base-toggle--all-variants"/>
+
+## Label positions
+
+Use the default top position when description or help text is needed. The left position creates a compact inline layout, while `hidden` keeps the accessible label available to assistive technology.
+
+<DocsExample filename="toggle/ToggleLabelPositionsExample.tsx" title="Toggle label positions"/>
+
+## Accessibility
+
+- Always provide a concise `label`, even when `labelPosition="hidden"`.
+- Write the label as the setting being controlled, not as an instruction such as “Turn on”.
+- Use `description` for context and `help` for supporting guidance. Both are shown only in vertical layouts.
+- Do not switch the controlled value until an asynchronous update succeeds; use `loading` while waiting.
+
+## API
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `label` | Sets the visible and accessible switch label. | — |
+| `defaultValue` | Sets the initial uncontrolled value. | `false` |
+| `value` | Controls the current value. | — |
+| `onValueChange` | Reports the next value after activation. | — |
+| `labelPosition` | Places the label at `top`, `left`, or visually `hidden`. | `"top"` |
+| `description` | Adds description text in vertical layouts. | — |
+| `help` | Adds help text linked through `aria-describedby`. | — |
+| `disabled` | Disables the switch. | `false` |
+| `loading` | Shows a spinner and prevents activation. | `false` |
+| `name` | Adds a hidden input carrying the current boolean value. | — |
+| `wrapperProps` | Applies attributes to the outer layout element. | — |
+
+## Related resources
+
+- [Toggle in the Pajamas Design System](https://design.gitlab.com/components/toggle/)
+- [Toggle stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-toggle--docs)
+- [Toggle source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/toggle/toggle.tsx)

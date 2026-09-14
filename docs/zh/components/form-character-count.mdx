@@ -1,0 +1,52 @@
+---
+title: Form character count
+description: 显示输入内容距离字符限制还剩多少字符，或已超出多少字符。
+---
+
+## 用法
+
+```tsx
+import { GlFormCharacterCount } from "gitlab-ui-react/form-character-count";
+```
+
+```tsx
+<GlFormCharacterCount
+  countTextId="summary-count"
+  limit={100}
+  overLimitText="1 character over limit."
+  remainingCountText="25 characters remaining."
+  value="Lorem ipsum" />
+```
+
+## 默认
+
+当文本字段具有明确长度限制时使用字符计数。可见计数会立即更新，而礼貌型 live region 会延迟更新，避免过于频繁地播报。
+
+<DocsExample
+  filename="form-character-count/FormCharacterCountExample.tsx"
+  title="输入字符计数"
+  storybookId="ui-base-form-character-count--default"/>
+
+## 无障碍
+
+- 通过 `aria-describedby` 将输入控件关联到 `countTextId`。
+- 为 `remainingCountText` 和 `overLimitText` 提供本地化内容，并在两者中包含当前计数。
+- 如果超出限制会阻止提交，不要仅将计数器作为验证反馈。
+
+## API
+
+`GlFormCharacterCount` 会将受支持的属性传递给根 `<div>`，且不接受未命名的 children。
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `countTextId` | 设置由输入控件引用的礼貌型 live region ID。 | — |
+| `limit` | 设置字符限制。 | — |
+| `value` | 提供当前输入值。 | `""` |
+| `remainingCountText` | 提供未超出限制时显示的本地化文字。 | — |
+| `overLimitText` | 提供超出限制时显示的本地化文字。 | — |
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Character count](https://design.gitlab.com/components/character-count/)
+- [Storybook 中的 Form character count stories](https://glui-story.nocp.space/?path=/docs/ui-base-form-character-count--docs)
+- [Form character count 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/form-character-count/form-character-count.tsx)

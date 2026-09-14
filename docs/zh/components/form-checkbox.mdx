@@ -1,0 +1,91 @@
+---
+title: Form checkbox
+description: 让用户在表单中选择零个、一个或多个相互独立的选项。
+---
+
+## 用法
+
+```tsx
+import {
+  GlFormCheckbox,
+  GlFormCheckboxGroup,
+} from "gitlab-ui-react/form-checkbox";
+```
+
+```tsx
+<GlFormCheckboxGroup defaultValue={["email"]} name="notifications">
+  <GlFormCheckbox value="email">Email notifications</GlFormCheckbox>
+  <GlFormCheckbox value="browser">Browser notifications</GlFormCheckbox>
+</GlFormCheckboxGroup>
+```
+
+## 默认
+
+对于独立的布尔选择使用 Checkbox。可见文字会渲染在与 Checkbox 输入关联的原生 label 中。
+
+<DocsExample
+  filename="form-checkbox/FormCheckboxExample.tsx"
+  title="单个 Checkbox"
+  storybookId="ui-base-form-checkbox--single-checkbox"/>
+
+## Checkbox Group
+
+当用户可以从一组相关选项中选择多个值时，使用 `GlFormCheckboxGroup`。Group 会与子 Checkbox 共享名称、状态、禁用状态和选中值数组。
+
+<DocsExample
+  filename="form-checkbox/FormCheckboxGroupExample.tsx"
+  title="Checkbox Group"
+  storybookId="ui-base-form-checkbox--checkbox-group"/>
+
+## 状态与帮助文字
+
+当父项下的子项处于混合选中状态时使用 `indeterminate`。帮助文字用于说明选项，禁用状态用于保留当前无法更改的值。
+
+<DocsExample
+  filename="form-checkbox/FormCheckboxStatesExample.tsx"
+  title="Checkbox 状态"
+  storybookId="ui-base-form-checkbox--default"/>
+
+## 无障碍
+
+- 为每个 Checkbox 提供简洁的可见标签。仅在无法提供可见标签时使用 `ariaLabel` 或 `ariaLabelledby`。
+- 使用带 `<legend>` 的 `<fieldset>` 包裹相关选项；使用 `GlFormCheckboxGroup` 时，通过 `aria-labelledby` 传入 legend ID。
+- 仅当允许选择零个、一个或多个值时使用 Checkbox；只允许一个选项时使用 Radio。
+- 将 `state={false}` 与可见验证反馈配合使用，并通过 `aria-describedby` 建立关联。
+
+## API
+
+两个组件都会传递受支持的原生属性。Group 中的 Checkbox 会从 Group 获取选择、名称、必填、禁用和验证状态。
+
+### `GlFormCheckbox`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `checked` | 在 Group 外控制选中状态。 | — |
+| `defaultChecked` | 设置非受控模式下的初始选中状态。 | `false` |
+| `onCheckedChange` | 用户操作后报告下一个选中状态。 | — |
+| `value` | 设置原生值及 Group 中的选项值。 | `true` |
+| `indeterminate` | 在 Group 外显示混合选中状态。 | `false` |
+| `disabled` | 禁用 Checkbox。 | `false` |
+| `required` | 将具有名称的 Checkbox 标记为必填。 | `false` |
+| `state` | 设置有效、无效或中性外观。 | `null` |
+| `help` | 在标签下方渲染帮助内容。 | — |
+
+### `GlFormCheckboxGroup`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `value` | 控制选中的选项值。 | — |
+| `defaultValue` | 设置非受控模式下的初始选中值。 | `[]` |
+| `onValueChange` | 报告下一个选中值数组。 | — |
+| `options` | 从字符串、数字或选项对象生成 Checkbox。 | `[]` |
+| `name` | 设置子 Checkbox 的共享名称。 | 生成的 Group ID |
+| `disabled` | 禁用 Group 中的所有 Checkbox。 | `false` |
+| `required` | 将 Group 中的 Checkbox 标记为必填。 | `false` |
+| `state` | 设置 Group 与子项的验证外观。 | `null` |
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Checkbox](https://design.gitlab.com/components/checkbox/)
+- [Storybook 中的 Form checkbox stories](https://glui-story.nocp.space/?path=/docs/ui-base-form-checkbox--docs)
+- [Form checkbox 与 Group 源码](https://github.com/nocpiun/gitlab-ui-react/tree/main/packages/ui/src/base/form-checkbox)

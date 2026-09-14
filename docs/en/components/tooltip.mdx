@@ -1,0 +1,79 @@
+---
+title: Tooltip
+description: Provides a short text label or explanation when a user hovers or focuses a trigger.
+---
+
+## Usage
+
+```tsx
+import {
+  GlTooltip,
+  GlTooltipContent,
+  GlTooltipTrigger,
+} from "gitlab-ui-react/tooltip";
+```
+
+```tsx
+<GlTooltip>
+  <GlTooltipTrigger>Hover or focus</GlTooltipTrigger>
+  <GlTooltipContent>Additional context</GlTooltipContent>
+</GlTooltip>
+```
+
+## Default
+
+Use a tooltip for short, supplemental text such as the name of an icon-only control. Use a popover when the content needs structure, interaction, or persistent visibility.
+
+<DocsExample filename="tooltip/TooltipExample.tsx" title="Icon button tooltip"/>
+
+## Placement
+
+Tooltips support the four cardinal placements. Treat the selected value as a preference because collision detection can move the tooltip to keep it visible.
+
+<DocsExample filename="tooltip/TooltipPlacementsExample.tsx" title="Tooltip placements"/>
+
+## Accessibility
+
+- Tooltips must repeat or supplement an operable trigger; never put essential information only inside a tooltip.
+- Use `asChild` when an existing button or link is the trigger so the page keeps one interactive element.
+- The tooltip opens on hover and keyboard focus, and the trigger is associated through `aria-describedby` while it is open.
+- Keep content concise and noninteractive. Use a popover for links, buttons, or rich content.
+
+## API
+
+### `GlTooltip`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `delay` | Delays opening on hover, in milliseconds. | `500` |
+| `closeDelay` | Delays closing, in milliseconds. | `0` |
+| `disabled` | Prevents the tooltip from opening. | `false` |
+| `noninteractive` | Prevents hovering the tooltip content from keeping it open. | `false` |
+| `defaultOpen` | Sets the initial uncontrolled state. | `false` |
+| `open` | Controls the open state. | — |
+| `onOpenChange` | Reports requested open-state changes and their reason. | — |
+| `onOpenChangeComplete` | Runs after the opening or closing transition completes. | — |
+| `id` | Sets the ID shared with the trigger's `aria-describedby`. | Generated |
+
+### `GlTooltipTrigger`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `asChild` | Composes trigger behavior onto one child element instead of rendering an inline `span`. | `false` |
+| `disabled` | Prevents this trigger from opening the tooltip. | `false` |
+
+### `GlTooltipContent`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `placement` | Prefers `top`, `right`, `bottom`, or `left`. | `"top"` |
+| `boundary` | Sets collision detection to the viewport, clipping ancestors, or an element. | Clipping ancestors |
+| `boundaryPadding` | Adds collision padding in pixels. | `5` |
+| `noFade` | Disables the fade transition. | `false` |
+| `container` | Sets the portal container. | Configured default or `document.body` |
+
+## Related resources
+
+- [Tooltip in the Pajamas Design System](https://design.gitlab.com/components/tooltip/)
+- [Tooltip stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-tooltip--docs)
+- [Tooltip source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/tooltip/tooltip.tsx)

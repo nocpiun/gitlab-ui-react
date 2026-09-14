@@ -1,0 +1,155 @@
+---
+title: Table
+description: 使用语义化的行与列展示相关数据。
+---
+
+## 用法
+
+```tsx
+import {
+  GlTable,
+  GlTableBody,
+  GlTableCaption,
+  GlTableCell,
+  GlTableFooter,
+  GlTableHead,
+  GlTableHeader,
+  GlTableRow,
+} from "gitlab-ui-react/table";
+```
+
+```tsx
+<GlTable>
+  <GlTableCaption>Project members</GlTableCaption>
+  <GlTableHeader>
+    <GlTableRow>
+      <GlTableHead>Name</GlTableHead>
+    </GlTableRow>
+  </GlTableHeader>
+  <GlTableBody>
+    <GlTableRow>
+      <GlTableCell>Norcleeh</GlTableCell>
+    </GlTableRow>
+  </GlTableBody>
+  <GlTableFooter>
+    <GlTableRow>
+      <GlTableCell>1 member</GlTableCell>
+    </GlTableRow>
+  </GlTableFooter>
+</GlTable>
+```
+
+## 默认
+
+使用语义化 Table 组成部分保留 Header 与 Cell 之间的关系。排序、筛选和分页等数据处理由父组件负责。
+
+<DocsExample
+  filename="table/TableExample.tsx"
+  title="示例数据 Table"
+  storybookId="ui-base-table--default"/>
+
+## 条纹
+
+当交替背景有助于区分相邻 Row 时，使用 `striped`。
+
+<DocsExample
+  filename="table/TableStripedExample.tsx"
+  title="条纹 Table"/>
+
+## 边框
+
+当每个 Cell 都需要清晰的边界时，使用 `bordered`。
+
+<DocsExample
+  filename="table/TableBorderedExample.tsx"
+  title="带边框的 Table"/>
+
+## 紧凑
+
+对于数据密集且以文字为主的 Table，使用 `small` 减少 Cell Padding。
+
+<DocsExample
+  filename="table/TableCompactExample.tsx"
+  title="紧凑 Table"/>
+
+## 响应式 Table
+
+设置 `stacked` 为 `true` 或某个断点，可在较小宽度下将每行转换为带 Label 的 Block。为每个 Cell 提供 `stackedHeading`，确保堆叠模式下仍显示其列名。
+
+<DocsExample
+  filename="table/TableResponsiveExample.tsx"
+  title="堆叠 Table"
+  storybookId="ui-base-table--stacked"/>
+
+## 固定 Header
+
+长 Table 滚动时需要保持列 Header 可见，可设置 `stickyHeader`。传入 CSS 长度还会限制滚动区域高度。
+
+<DocsExample
+  filename="table/TableStickyExample.tsx"
+  title="带固定 Header 的 Table"
+  storybookId="ui-base-table--sticky-header"/>
+
+## 无障碍
+
+- 使用 `GlTableCaption` 描述 Table。即使 Caption 只对屏幕阅读器可见，也比省略更好。
+- 列 Header 使用带 `scope="col"` 的 `GlTableHead`，行 Header 使用 `scope="row"`。
+- 只有真正的表格数据才使用 Table；无关条目的集合应使用列表。
+- 父组件实现排序时，应通过 `aria-sort` 暴露状态，并在 Header 中使用键盘可操作的控件。
+
+## API
+
+### `GlTable`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `bordered` | 为每个 Cell 添加边框。 | `false` |
+| `borderless` | 移除 Table 边框，并在视觉上优先于 `bordered`。 | `false` |
+| `captionTop` | 将 Caption 放在 Table 上方。 | `false` |
+| `fixed` | 使用固定 Table 布局。 | `false` |
+| `hover` | Hover 时高亮 Body Row。 | `false` |
+| `noBorderCollapse` | 分隔 Cell 边框，而不是折叠边框。 | `false` |
+| `outlined` | 添加外边框。 | `false` |
+| `small` | 使用紧凑的 Cell Padding。 | `false` |
+| `stacked` | 在所有宽度或 `sm`、`md`、`lg`、`xl` 以下堆叠 Row。 | `false` |
+| `stickyHeader` | 固定 Header；字符串值还会设置 Wrapper 的最大高度。 | `false` |
+| `striped` | 为 Row 添加交替背景。 | `false` |
+
+### `GlTableCaption`
+
+接受 `children` 和受支持的 `caption` 属性。
+
+### `GlTableHeader`
+
+接受 `children` 和受支持的 `thead` 属性。
+
+### `GlTableBody`
+
+接受 `children` 和受支持的 `tbody` 属性。
+
+### `GlTableFooter`
+
+接受 `children` 和受支持的 `tfoot` 属性。
+
+### `GlTableRow`
+
+接受 `children` 和受支持的 `tr` 属性。
+
+### `GlTableHead`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `scope` | 定义 `GlTableHead` 标注 Row 还是 Column。 | `"col"` |
+| `stackedHeading` | 提供堆叠模式下显示的 Header Cell Label。 | — |
+
+### `GlTableCell`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `stackedHeading` | 提供堆叠模式下显示的 Data Cell Label。 | — |
+
+## 相关资源
+
+- [Pajamas Design System 中的 Table](https://design.gitlab.com/components/table/)
+- [Storybook 中的 Table stories](https://glui-story.nocp.space/?path=/docs/ui-base-table--docs)
+- [Table 源码与完整 TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/table/table.tsx)

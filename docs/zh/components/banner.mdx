@@ -1,0 +1,95 @@
+---
+title: Banner
+description: 提升用户对可采取行动的功能或高优先级计划的关注。
+---
+
+## 用法
+
+```tsx
+import { useState } from "react";
+import {
+  GlBanner,
+  GlBannerActions,
+  GlBannerDescription,
+  GlBannerTitle,
+} from "gitlab-ui-react/banner";
+import { GlButton } from "gitlab-ui-react/button";
+```
+
+```tsx
+function FeatureBanner() {
+  const [visible, setVisible] = useState(true);
+
+  return visible ? (
+    <GlBanner onClose={() => setVisible(false)}>
+      <GlBannerTitle>Plan work with issue boards</GlBannerTitle>
+      <GlBannerDescription>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+      </GlBannerDescription>
+      <GlBannerActions>
+        <GlButton>Learn more</GlButton>
+      </GlBannerActions>
+    </GlBanner>
+  ) : null;
+}
+```
+
+## 默认
+
+默认的 promotion 变体用于引导用户关注可以立即采取行动的功能。Banner 始终可以关闭：`onClose` 负责报告操作，父组件必须移除 Banner，并在适用时持久保存关闭状态。
+
+<DocsExample
+  filename="banner/BannerExample.tsx"
+  title="推广 Banner"
+  storybookId="ui-base-banner--default"/>
+
+## 功能介绍
+
+使用 introduction 变体帮助用户开始使用已有功能。标题应保持简洁，说明下一步，并提供一个清晰的操作。
+
+<DocsExample
+  filename="banner/BannerIntroductionExample.tsx"
+  title="功能介绍 Banner"
+  storybookId="ui-base-banner--variants"/>
+
+## 无障碍
+
+- 确保 `GlBannerTitle` 在页面标题层级中的位置合理。它会渲染 `h2`；如需其他层级，请在辅助组件之外使用语义化标题。
+- 使用简洁的可见内容说明收益和下一步操作。
+- 提供本地化的 `dismissLabel`，处理 `onClose`，并根据产品要求持久保存关闭状态。
+- 导航使用链接，执行操作使用按钮。避免出现多个相互竞争的主要操作。
+- React 组件目前不渲染插图。如果在附近组合了自定义装饰图，请对辅助技术隐藏。
+
+## API
+
+下面列出组件专有属性。`GlBanner` 会转发受支持的 `div` 属性和 ref。React 移植版有意省略了上游的插图属性。
+
+### `GlBanner`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `variant` | 将样式设置为 `promotion` 或 `introduction`。 | `"promotion"` |
+| `dismissLabel` | 设置关闭按钮的无障碍名称。 | `"Dismiss"` |
+| `onClose` | 关闭按钮激活时调用；可见性由父组件控制。 | — |
+| `children` | 提供 Banner 内容，通常由下方辅助组件组合而成。 | — |
+
+### `GlBannerTitle`
+
+渲染 `h2`，并接受 `children` 与受支持的标题元素属性。
+
+### `GlBannerDescription`
+
+提供标准描述布局，并接受 `children` 与受支持的 `div` 属性。
+
+### `GlBannerActions`
+
+排列自定义操作控件，并接受 `children` 与受支持的 `div` 属性。
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Banner](https://design.gitlab.com/components/banner/)
+- [Storybook 中的 Banner stories](https://glui-story.nocp.space/?path=/docs/ui-base-banner--docs)
+- [Banner 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/banner/banner.tsx)

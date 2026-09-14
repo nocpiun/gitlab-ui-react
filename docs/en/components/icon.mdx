@@ -1,0 +1,65 @@
+---
+title: Icon
+description: Renders a bundled GitLab SVG icon with consistent sizing and semantic color.
+---
+
+## Usage
+
+```tsx
+import { GlIcon } from "gitlab-ui-react/icon";
+```
+
+```tsx
+<GlIcon name="information-o" />
+```
+
+## Default
+
+Icons are decorative by default and inherit the current text color. Pair an icon with visible text whenever the symbol alone may be ambiguous.
+
+<DocsExample
+  filename="icon/IconExample.tsx"
+  title="Icon with text"
+  storybookId="ui-base-icon--decorative"/>
+
+## Sizes
+
+Choose a supported size that matches the surrounding control or content. Avoid resizing icons with arbitrary CSS dimensions.
+
+<DocsExample
+  filename="icon/IconSizesExample.tsx"
+  title="Icon sizes"
+  storybookId="ui-base-icon--sizes"/>
+
+## Semantic variants
+
+Use a semantic color only when the icon must differ from its parent's text color. Do not rely on color alone to communicate meaning.
+
+<DocsExample
+  filename="icon/IconVariantsExample.tsx"
+  title="Semantic icon variants"
+  storybookId="ui-base-icon--variants"/>
+
+## Accessibility
+
+- Decorative icons are automatically hidden from assistive technology.
+- For a standalone informational icon, provide `ariaLabel` or native `aria-label` with the meaning conveyed by the icon.
+- Do not make `GlIcon` itself clickable. Put interactive icons inside a semantic button or link with an accessible name.
+- Use the same icon consistently for the same concept or action.
+
+## API
+
+`GlIcon` also forwards supported SVG attributes to the rendered `<svg>` element.
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `name` | Selects an icon bundled from `@gitlab/svgs`. | — |
+| `size` | Sets the icon to `8`, `12`, `14`, `16`, `24`, `32`, `48`, or `72` pixels. | `16` |
+| `variant` | Sets `current`, `default`, `subtle`, `strong`, `disabled`, `link`, `info`, `warning`, `danger`, or `success` color. | `"current"` |
+| `ariaLabel` | Gives a non-decorative icon an accessible name. | — |
+
+## Related resources
+
+- [Iconography in the Pajamas Design System](https://design.gitlab.com/product-foundations/iconography/)
+- [Icon stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-icon--docs)
+- [Icon source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/icon/icon.tsx)

@@ -1,0 +1,125 @@
+---
+title: Drawer
+description: Presents contextual information or actions without leaving the current page.
+---
+
+## Usage
+
+```tsx
+import {
+  GlDrawer,
+  GlDrawerActions,
+  GlDrawerContent,
+  GlDrawerFooter,
+  GlDrawerHeader,
+  GlDrawerTitle,
+  GlDrawerTrigger,
+} from "gitlab-ui-react/drawer";
+import { GlButton } from "gitlab-ui-react/button";
+```
+
+```tsx
+<GlDrawer>
+  <GlDrawerTrigger>Open drawer</GlDrawerTrigger>
+  <GlDrawerContent>
+    <GlDrawerHeader>
+      <GlDrawerTitle>Additional details</GlDrawerTitle>
+      <GlDrawerActions>
+        <GlButton>Action</GlButton>
+      </GlDrawerActions>
+    </GlDrawerHeader>
+    <p>Lorem ipsum dolor sit amet.</p>
+    <GlDrawerFooter>
+      <GlButton>Done</GlButton>
+    </GlDrawerFooter>
+  </GlDrawerContent>
+</GlDrawer>
+```
+
+## Default
+
+Use a drawer for secondary, contextual, or temporary content while the primary task remains visible. A user action should always open it.
+
+<DocsExample
+  filename="drawer/DrawerExample.tsx"
+  title="Default drawer"
+  storybookId="ui-base-drawer--default"/>
+
+## Sidebar variant
+
+Use the `sidebar` variant when the drawer should visually align with sidebar content. A sticky header remains visible while a long body scrolls.
+
+<DocsExample
+  filename="drawer/DrawerSidebarExample.tsx"
+  title="Sidebar drawer"
+  storybookId="ui-base-drawer--sidebar"/>
+
+## Accessibility
+
+- Provide one `GlDrawerTitle` in the header. If a visible title is inappropriate, give `GlDrawerContent` an `aria-label` instead.
+- Use clear trigger text and open the drawer only after a user action.
+- Keep the automatic close button's `closeButtonLabel` localized.
+- The drawer moves focus into its dialog, traps focus while open, closes with Escape, and restores focus when closed.
+- Keep content short and actionable. Use a modal or a separate page when the task cannot be safely interrupted.
+
+## API
+
+`GlDrawer` is composed from root, trigger, content, header, title, actions, and footer parts. The content part forwards supported Base UI dialog attributes.
+
+### `GlDrawer`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `defaultOpen` | Sets the initial open state when uncontrolled. | `false` |
+| `open` | Controls whether the drawer is open. | — |
+| `onOpenChange` | Reports requested open-state changes and their reason. | — |
+| `onOpenChangeComplete` | Runs after the opening or closing transition completes. | — |
+
+### `GlDrawerTrigger`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `asChild` | Composes trigger behavior onto one child element instead of rendering a button. | `false` |
+| `block` | Expands the rendered button to its container width. | `false` |
+| `category` | Sets the rendered button category. | `"primary"` |
+| `variant` | Sets the rendered button variant. | `"default"` |
+| `size` | Sets the rendered button to `small` or `medium`. | `"medium"` |
+| `icon` | Adds a GitLab icon to the rendered button. | — |
+| `loading` | Shows loading state and prevents activation. | `false` |
+| `disabled` | Prevents the trigger from opening the drawer. | `false` |
+| `nativeButton` | Declares whether an `asChild` trigger ultimately renders a native button. | — |
+
+### `GlDrawerContent`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `variant` | Sets the visual treatment to `default` or `sidebar`. | `"default"` |
+| `headerHeight` | Offsets the drawer below a fixed page header, for example `64px`. | `""` |
+| `zIndex` | Sets the drawer stacking level. | `10` |
+| `container` | Sets the portal container. | `document.body` |
+| `children` | Requires one header, accepts an optional footer, and treats other nodes as body content. | — |
+
+### `GlDrawerHeader`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `sticky` | Keeps the header visible while the body scrolls. | `false` |
+| `closeButtonLabel` | Sets the automatic close button's accessible name. | `"Close drawer"` |
+
+### `GlDrawerTitle`
+
+Accepts `children` and supported Base UI dialog title attributes.
+
+### `GlDrawerActions`
+
+Accepts `children` and supported `div` attributes for the header action region.
+
+### `GlDrawerFooter`
+
+Accepts `children` and supported `div` attributes for the footer region.
+
+## Related resources
+
+- [Drawer in the Pajamas Design System](https://design.gitlab.com/components/drawer/)
+- [Drawer stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-drawer--docs)
+- [Drawer source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/drawer/drawer.tsx)

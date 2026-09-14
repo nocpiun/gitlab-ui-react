@@ -1,0 +1,52 @@
+---
+title: Form character count
+description: Shows how many characters remain before, or exceed, an input limit.
+---
+
+## Usage
+
+```tsx
+import { GlFormCharacterCount } from "gitlab-ui-react/form-character-count";
+```
+
+```tsx
+<GlFormCharacterCount
+  countTextId="summary-count"
+  limit={100}
+  overLimitText="1 character over limit."
+  remainingCountText="25 characters remaining."
+  value="Lorem ipsum" />
+```
+
+## Default
+
+Use a character count when a text field has a meaningful limit. The visible count updates immediately, while its polite live region is debounced to avoid excessive announcements.
+
+<DocsExample
+  filename="form-character-count/FormCharacterCountExample.tsx"
+  title="Input character count"
+  storybookId="ui-base-form-character-count--default"/>
+
+## Accessibility
+
+- Connect the input to `countTextId` with `aria-describedby`.
+- Provide localized `remainingCountText` and `overLimitText`; include the current count in each value.
+- Do not use the counter as the only validation feedback when exceeding the limit prevents submission.
+
+## API
+
+`GlFormCharacterCount` forwards supported attributes to its root `<div>` and does not accept unnamed children.
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `countTextId` | Sets the polite live region ID referenced by the input. | — |
+| `limit` | Sets the character limit. | — |
+| `value` | Supplies the current input value. | `""` |
+| `remainingCountText` | Provides localized text shown at or below the limit. | — |
+| `overLimitText` | Provides localized text shown above the limit. | — |
+
+## Related resources
+
+- [Character count in the Pajamas Design System](https://design.gitlab.com/components/character-count/)
+- [Form character count stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-form-character-count--docs)
+- [Form character count source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/form-character-count/form-character-count.tsx)

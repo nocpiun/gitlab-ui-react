@@ -1,0 +1,128 @@
+---
+title: Avatar
+description: Represents a person, group, or project with an image, fallback identicon, optional labels, and links.
+---
+
+## Usage
+
+```tsx
+import { GlAvatar } from "gitlab-ui-react/avatar";
+import { GlAvatarLabeled } from "gitlab-ui-react/avatar-labeled";
+import { GlAvatarLink } from "gitlab-ui-react/avatar-link";
+```
+
+```tsx
+<GlAvatar
+  alt="Norcleeh"
+  src="https://glui-story.nocp.space/img/avatar.jpg" />
+```
+
+## Default
+
+Use `GlAvatar` to represent one person, group, or project near related content. It renders a 32-pixel circular avatar by default; provide a meaningful `alt` whenever the image stands alone.
+
+<DocsExample
+  filename="avatar/AvatarExample.tsx"
+  title="Image avatar"
+  storybookId="ui-base-avatar--image"/>
+
+## Shapes and sizes
+
+Use a circle for a person and a rounded rectangle for a group or project. Fixed sizes are `16`, `24`, `32`, `48`, `64`, and `96` pixels; `size` also accepts responsive `default`, `sm`, `md`, and `lg` values.
+
+<DocsExample
+  filename="avatar/AvatarSizesExample.tsx"
+  title="Avatar shapes and sizes"
+  storybookId="ui-base-avatar--all-sizes"/>
+
+## Fallback identicons
+
+When `src` is empty, `GlAvatar` creates a text identicon from the first character or leading emoji in `entityName`. Supply a stable `entityId` for a consistent color, and use `fallbackOnError` when a failed image should be replaced by the identicon.
+
+<DocsExample
+  filename="avatar/AvatarFallbackExample.tsx"
+  title="Fallback identicons"
+  storybookId="ui-base-avatar--all-identicons"/>
+
+## Labeled avatars
+
+Use `GlAvatarLabeled` when the entity name should remain visible beside the avatar. `label` is required, while `subLabel`, `inlineLabels`, `meta`, and children can add supporting identity or status information. The nested avatar automatically uses an empty `alt` because the visible label supplies its name.
+
+<DocsExample
+  filename="avatar/AvatarLabeledExample.tsx"
+  title="Stacked and inline labels"/>
+
+## Linked avatars
+
+Wrap an avatar or labeled avatar in `GlAvatarLink` when the whole presentation navigates to the entity. It adds avatar-specific hover and focus treatments while preserving link semantics. Do not add `labelLink` or `subLabelLink` to a labeled avatar that is already inside `GlAvatarLink`, because that would create nested links.
+
+<DocsExample
+  filename="avatar/AvatarLinkExample.tsx"
+  title="Linked avatars"/>
+
+## Accessibility
+
+- Give a standalone image avatar descriptive `alt` text. Use `alt=""` when adjacent text already identifies the same entity; `GlAvatarLabeled` does this automatically.
+- Identicon characters are decorative and hidden from assistive technology. Always pair an identicon with nearby text that names the entity.
+- Do not rely on a circle or rectangle alone to distinguish a person from a group or project.
+- Give every `GlAvatarLink` a meaningful destination and accessible name. The wrapped image `alt` or labeled-avatar text usually provides the name.
+- Preserve the visible keyboard focus treatment on linked avatars. If an avatar opens a tooltip or popover, make that trigger keyboard accessible as well.
+
+## API
+
+The tables list the component-specific props used most often. `GlAvatar` forwards supported image attributes when it renders an image and uses a `div` for an identicon. The other components forward the attributes described below and expose refs to their outer elements.
+
+### `GlAvatar`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `src` | Image URL. An empty value renders an identicon. | `""` |
+| `alt` | Alternative text for an image avatar. Use an empty string beside equivalent visible text. | `"avatar"` |
+| `size` | Sets `16`, `24`, `32`, `48`, `64`, or `96`, or a responsive object with `default`, `sm`, `md`, and `lg` values. | `32` |
+| `shape` | Sets a `circle` or rounded `rect` avatar. | `"circle"` |
+| `entityName` | Supplies the first character or leading emoji for an identicon. | `""` |
+| `entityId` | Selects one of seven identicon colors from a stable numeric ID. | `0` |
+| `fallbackOnError` | Replaces an image with its identicon after the image fails to load. | `false` |
+| `onLoadError` | Runs with the native image error event after a load failure. | — |
+| `className` | Adds classes to the image or identicon element. | — |
+
+### `GlAvatarLabeled`
+
+`GlAvatarLabeled` accepts `GlAvatar` props except `alt` and `className`; avatar-compatible attributes are passed to the nested avatar rather than the outer container.
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `label` | Required primary text displayed beside the avatar. | — |
+| `subLabel` | Secondary text displayed below or beside the label. | `""` |
+| `size` | Sets the nested avatar size using the same values as `GlAvatar`. | `64` |
+| `inlineLabels` | Displays the label and sub-label in one row. | `false` |
+| `labelLink` | Makes the avatar and primary label activate this destination. | `""` |
+| `labelLinkAttrs` | Adds supported link props to the primary label link. | `{}` |
+| `onLabelLinkClick` | Runs when the primary label link is activated, including through the avatar. | — |
+| `subLabelLink` | Makes the sub-label a separate link. | `""` |
+| `meta` | Adds metadata, such as badges or status, beside the primary label. | — |
+| `children` | Adds supporting content below the labels. | — |
+| `avatarClassName` | Adds classes to the nested avatar. | — |
+| `className` | Adds classes to the outer labeled-avatar container. | — |
+
+### `GlAvatarLink`
+
+`GlAvatarLink` accepts supported `GlLink` props except `variant`, which is always set to `meta`.
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `href` | Sets the anchor destination. | `"#"` |
+| `disabled` | Prevents navigation, suppresses clicks, and removes the link from the tab sequence. | `false` |
+| `render` | Composes the behavior onto a router link that ultimately renders an anchor. | — |
+| `children` | Avatar or labeled-avatar content that forms the link's accessible name. | — |
+| `className` | Adds classes to the link. | — |
+
+## Related resources
+
+- [Avatar in the Pajamas Design System](https://design.gitlab.com/components/avatar/)
+- [Avatar stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-avatar--docs)
+- [Labeled avatar stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-avatar-labeled--docs)
+- [Avatar link stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-avatar-link--docs)
+- [Avatar source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/avatar/avatar.tsx)
+- [Labeled avatar source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/avatar-labeled/avatar-labeled.tsx)
+- [Avatar link source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/avatar-link/avatar-link.tsx)

@@ -1,0 +1,79 @@
+---
+title: Tooltip
+description: 用户 Hover 或 Focus Trigger 时，提供简短的文字标签或说明。
+---
+
+## 用法
+
+```tsx
+import {
+  GlTooltip,
+  GlTooltipContent,
+  GlTooltipTrigger,
+} from "gitlab-ui-react/tooltip";
+```
+
+```tsx
+<GlTooltip>
+  <GlTooltipTrigger>Hover or focus</GlTooltipTrigger>
+  <GlTooltipContent>Additional context</GlTooltipContent>
+</GlTooltip>
+```
+
+## 默认
+
+Tooltip 适合显示简短的补充文字，例如仅含 Icon 的控件名称。内容需要结构、交互或持续显示时，应使用 Popover。
+
+<DocsExample filename="tooltip/TooltipExample.tsx" title="Icon Button Tooltip"/>
+
+## 位置
+
+Tooltip 支持四个基本方向。所选值只是优先位置；碰撞检测可能移动 Tooltip，确保它保持可见。
+
+<DocsExample filename="tooltip/TooltipPlacementsExample.tsx" title="Tooltip 位置"/>
+
+## 无障碍
+
+- Tooltip 应重复或补充可操作 Trigger 的信息，不能将必要信息只放在 Tooltip 中。
+- 已有 Button 或 Link 作为 Trigger 时使用 `asChild`，避免产生嵌套交互元素。
+- Tooltip 会在 Hover 和键盘 Focus 时打开，并在打开期间通过 `aria-describedby` 与 Trigger 关联。
+- 内容应简短且不可交互；包含 Link、Button 或富内容时使用 Popover。
+
+## API
+
+### `GlTooltip`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `delay` | 设置 Hover 打开的延迟毫秒数。 | `500` |
+| `closeDelay` | 设置关闭延迟毫秒数。 | `0` |
+| `disabled` | 阻止 Tooltip 打开。 | `false` |
+| `noninteractive` | Hover Tooltip 内容时不再保持打开。 | `false` |
+| `defaultOpen` | 设置初始非受控状态。 | `false` |
+| `open` | 控制打开状态。 | — |
+| `onOpenChange` | 返回请求的打开状态及原因。 | — |
+| `onOpenChangeComplete` | 在打开或关闭过渡完成后调用。 | — |
+| `id` | 设置与 Trigger 的 `aria-describedby` 共享的 ID。 | 自动生成 |
+
+### `GlTooltipTrigger`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `asChild` | 将 Trigger 行为组合到单个子元素上，而不是渲染行内 `span`。 | `false` |
+| `disabled` | 阻止此 Trigger 打开 Tooltip。 | `false` |
+
+### `GlTooltipContent`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `placement` | 优先放置在 `top`、`right`、`bottom` 或 `left`。 | `"top"` |
+| `boundary` | 将碰撞检测边界设为视口、裁剪祖先或指定元素。 | 裁剪祖先 |
+| `boundaryPadding` | 设置碰撞边距像素数。 | `5` |
+| `noFade` | 禁用淡入淡出过渡。 | `false` |
+| `container` | 设置 Portal 容器。 | 已配置的默认值或 `document.body` |
+
+## 相关资源
+
+- [Pajamas Design System 中的 Tooltip](https://design.gitlab.com/components/tooltip/)
+- [Storybook 中的 Tooltip stories](https://glui-story.nocp.space/?path=/docs/ui-base-tooltip--docs)
+- [Tooltip 源码与完整 TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/tooltip/tooltip.tsx)

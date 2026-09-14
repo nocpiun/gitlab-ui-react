@@ -73,14 +73,189 @@ function getNavigationItems(locale: Locale): DocsNavigationItem[] {
     title: messages.components,
     items: [
       {
+        href: localizedPath(locale, "/docs/components/accordion"),
+        id: "components/accordion",
+        title: "Accordion",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/alert"),
+        id: "components/alert",
+        title: "Alert",
+      },
+      {
         href: localizedPath(locale, "/docs/components/attribute-list"),
         id: "components/attribute-list",
         title: "Attribute list",
       },
       {
+        href: localizedPath(locale, "/docs/components/avatar"),
+        id: "components/avatar",
+        title: "Avatar",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/badge"),
+        id: "components/badge",
+        title: "Badge",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/banner"),
+        id: "components/banner",
+        title: "Banner",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/breadcrumb"),
+        id: "components/breadcrumb",
+        title: "Breadcrumb",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/broadcast-message"),
+        id: "components/broadcast-message",
+        title: "Broadcast message",
+      },
+      {
         href: localizedPath(locale, "/docs/components/button"),
         id: "components/button",
         title: "Button",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/button-group"),
+        id: "components/button-group",
+        title: "Button group",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/card"),
+        id: "components/card",
+        title: "Card",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/dropdown"),
+        id: "components/dropdown",
+        title: "Dropdown",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/drawer"),
+        id: "components/drawer",
+        title: "Drawer",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/form-character-count"),
+        id: "components/form-character-count",
+        title: "Form character count",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/form-checkbox"),
+        id: "components/form-checkbox",
+        title: "Form checkbox",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/form-date"),
+        id: "components/form-date",
+        title: "Form date",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/form-input"),
+        id: "components/form-input",
+        title: "Form input",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/form-password-input"),
+        id: "components/form-password-input",
+        title: "Form password input",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/form-radio"),
+        id: "components/form-radio",
+        title: "Form radio",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/form-select"),
+        id: "components/form-select",
+        title: "Form select",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/form-textarea"),
+        id: "components/form-textarea",
+        title: "Form textarea",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/icon"),
+        id: "components/icon",
+        title: "Icon",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/label"),
+        id: "components/label",
+        title: "Label",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/link"),
+        id: "components/link",
+        title: "Link",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/loading-icon"),
+        id: "components/loading-icon",
+        title: "Loading icon",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/modal"),
+        id: "components/modal",
+        title: "Modal",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/nav"),
+        id: "components/nav",
+        title: "Nav",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/pagination"),
+        id: "components/pagination",
+        title: "Pagination",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/path"),
+        id: "components/path",
+        title: "Path",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/popover"),
+        id: "components/popover",
+        title: "Popover",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/progress-bar"),
+        id: "components/progress-bar",
+        title: "Progress bar",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/skeleton-loader"),
+        id: "components/skeleton-loader",
+        title: "Skeleton loader",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/table"),
+        id: "components/table",
+        title: "Table",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/tabs"),
+        id: "components/tabs",
+        title: "Tabs",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/toggle"),
+        id: "components/toggle",
+        title: "Toggle",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/token"),
+        id: "components/token",
+        title: "Token",
+      },
+      {
+        href: localizedPath(locale, "/docs/components/tooltip"),
+        id: "components/tooltip",
+        title: "Tooltip",
       },
     ],
   },

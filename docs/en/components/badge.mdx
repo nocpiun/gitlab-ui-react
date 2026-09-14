@@ -1,0 +1,83 @@
+---
+title: Badge
+description: Highlights system-generated metadata associated with a larger object.
+---
+
+## Usage
+
+```tsx
+import { GlBadge } from "gitlab-ui-react/badge";
+```
+
+```tsx
+<GlBadge>Maintainer</GlBadge>
+```
+
+## Default
+
+Use a badge to emphasize system-generated metadata such as status, progress, or product tier. Keep it next to the object it describes; use plain text when the metadata does not need emphasis.
+
+<DocsExample
+  filename="badge/BadgeExample.tsx"
+  title="Default badge"
+  storybookId="ui-base-badge--default"/>
+
+## Variants
+
+Choose a variant for the metadata's meaning. Neutral is the default, info indicates noteworthy or active progress, success indicates a desired result, warning signals a non-critical problem, danger identifies a critical problem, and tier identifies a product tier.
+
+<DocsExample
+  filename="badge/BadgeVariantsExample.tsx"
+  title="Badge variants"
+  storybookId="ui-base-badge--variants"/>
+
+## Icons
+
+Add an icon only when it reinforces or directly communicates the metadata. An icon-only badge requires an `aria-label` that describes its meaning rather than the icon's name.
+
+<DocsExample
+  filename="badge/BadgeIconsExample.tsx"
+  title="Badges with icons"
+  storybookId="ui-base-badge--badge-icon"/>
+
+## Links
+
+Set `href` when the badge should navigate to the object it describes. Otherwise, badges are static and should not be used as buttons.
+
+<DocsExample
+  filename="badge/BadgeLinkExample.tsx"
+  title="Badge link"
+  storybookId="ui-base-badge--actionable"/>
+
+## Accessibility
+
+- Keep the badge beside the content it describes. If that relationship is not clear, associate the content with the badge using `aria-describedby`.
+- Give icon-only badges a descriptive `aria-label`. They automatically receive `role="img"`; icons next to visible text are hidden from assistive technology.
+- Add visually hidden context when a value is ambiguous on its own, such as explaining what a numeric badge counts.
+- Do not rely on color alone to communicate a badge's meaning.
+- Use `href` only for navigation and provide a meaningful destination.
+
+## API
+
+These are the component-specific props. `GlBadge` also forwards supported DOM attributes and exposes a ref to the rendered element.
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `variant` | Sets the semantic style to `neutral`, `info`, `success`, `warning`, `danger`, or `tier`. | `"neutral"` |
+| `icon` | Adds an icon from the GitLab SVG library before the text. | — |
+| `iconSize` | Sets the icon to `sm` (12px) or `md` (16px). | `"md"` |
+| `iconOpticallyAligned` | Adjusts the spacing of circular icons. Known issue status icons are adjusted automatically. | `false` |
+| `href` | Renders the badge as a link and ignores `tag`. | — |
+| `active` | Applies the active link appearance when `href` is set. | `false` |
+| `disabled` | Prevents link activation and removes it from the Tab order when `href` is set. | `false` |
+| `target` | Sets the link browsing context when `href` is set. | `"_self"` |
+| `rel` | Sets the link relationship when `href` is set. | — |
+| `tag` | Changes the non-link element. | `"span"` |
+| `render` | Composes the badge or badge link onto a custom React element. | — |
+| `children` | Provides the badge's visible text or other inline content. | — |
+
+## Related resources
+
+- [Badge in the Pajamas Design System](https://design.gitlab.com/components/badge/)
+- [Badge stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-badge--docs)
+- [Badge source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/badge/badge.tsx)

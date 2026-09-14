@@ -1,0 +1,69 @@
+---
+title: Form input
+description: 获取单行文字、数字、日期或其他原生输入值。
+---
+
+## 用法
+
+```tsx
+import { GlFormInput } from "gitlab-ui-react/form-input";
+```
+
+```tsx
+<GlFormInput id="username" />
+```
+
+## 默认
+
+默认组件渲染原生文本输入。始终为其提供描述输入值而非外观的可见标签。
+
+<DocsExample
+  filename="form-input/FormInputExample.tsx"
+  title="文本输入"
+  storybookId="ui-base-form-input--default"/>
+
+## 输入类型
+
+通过 `type` 使用 email、number、URL、telephone、search、date、time、range 和 color 等受支持的原生输入。不同浏览器的行为和外观可能不同。
+
+<DocsExample filename="form-input/FormInputTypesExample.tsx" title="输入类型"/>
+
+## 状态
+
+当值需要保持可聚焦、可选择和可提交时使用 `readOnly`。仅在输入应完全不可操作时使用 `disabled`，并为无效状态提供解释性反馈。
+
+<DocsExample filename="form-input/FormInputStatesExample.tsx" title="输入状态"/>
+
+## 无障碍
+
+- 使用相同的 `htmlFor` 与 `id` 将输入关联到可见 `<label>`。
+- Placeholder 只能提供非必要提示，不能替代标签。
+- 仅在整个控件都不应被操作时使用 `disabled`；需要查看和复制的值应使用 `readOnly`。
+- 将 `state={false}` 与可见反馈配合使用，并通过 `aria-describedby` 建立关联。
+- 选择能表达数据用途的原生 `type`，以获得合适的键盘和浏览器验证行为。
+
+## API
+
+`GlFormInput` 会将受支持的 Base UI Input 与原生属性传递给 `<input>`，其 ref 也指向该元素。
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `value` | 控制输入值。使用 `number` 时可以是数字。 | — |
+| `defaultValue` | 设置非受控模式下的初始值。 | `""` |
+| `onValueChange` | 根据 debounce、lazy 与格式化规则报告修改后的值。 | — |
+| `type` | 设置受支持的原生输入类型。 | `"text"` |
+| `width` | 设置从 `xs` 到 `xl` 的固定或响应式宽度。 | `null` |
+| `state` | 设置有效、无效或中性外观。 | `null` |
+| `plaintext` | 以无边框只读文字形式渲染。 | `false` |
+| `readOnly` | 阻止编辑，同时保持值可聚焦和可提交。 | `false` |
+| `debounce` | 将 `onValueChange` 延迟指定毫秒数。 | `0` |
+| `lazy` | 在 change 或 blur 时更新值，而非每次输入时更新。 | `false` |
+| `formatter` | 格式化输入值；返回 `false` 可取消更新。 | — |
+| `trim` | 从报告的值中移除首尾空白。 | `false` |
+| `number` | 在可转换时将报告的值转换为数字。 | `false` |
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Text input](https://design.gitlab.com/components/text-input/)
+- [Storybook 中的 Form input stories](https://glui-story.nocp.space/?path=/docs/ui-base-form-input--docs)
+- [Form input 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/form-input/form-input.tsx)

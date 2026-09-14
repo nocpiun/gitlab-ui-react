@@ -1,0 +1,92 @@
+---
+title: Token
+description: Represents compact selected values and supports choosing multiple values.
+---
+
+## Usage
+
+```tsx
+import { GlToken } from "gitlab-ui-react/token";
+import { GlTokenSelector } from "gitlab-ui-react/token-selector";
+```
+
+```tsx
+<GlToken viewOnly>Documentation</GlToken>
+```
+
+## Token
+
+Use `GlToken` to display a compact value. When it is removable, update the parent state through `onRemove`; otherwise set `viewOnly` to hide the remove control.
+
+<DocsExample
+  filename="token/TokenExample.tsx"
+  title="Removable tokens"
+  storybookId="ui-base-token--default"/>
+
+## Token variants and view-only state
+
+Use search variants to distinguish a filter type from its value. Set `viewOnly` when a token communicates a value that cannot be removed in the current context.
+
+<DocsExample filename="token/TokenVariantsExample.tsx" title="Token variants and view-only token"/>
+
+## Token selector
+
+Use `GlTokenSelector` to choose multiple values from a searchable list. Candidate filtering is controlled by the parent through `onInputValueChange`, while selected items can be controlled with `value` and `onValueChange`.
+
+<DocsExample
+  filename="token/TokenSelectorExample.tsx"
+  title="Token selector"
+  storybookId="ui-base-token-selector--default"/>
+
+## User-defined tokens
+
+Enable `allowUserDefinedTokens` when users may add a value that is not present in the available items. Use `renderUserDefinedToken` to make the create action distinct from existing options.
+
+<DocsExample
+  filename="token/TokenSelectorCustomExample.tsx"
+  title="User-defined token"
+  storybookId="ui-base-token-selector--user-defined-tokens"/>
+
+## Accessibility
+
+- Give every token selector a native `<label>` connected by `htmlFor` and `id`, or provide `aria-label` or `aria-labelledby`.
+- Keep item names unique and meaningful. Do not rely on token color alone.
+- Give standalone token remove buttons a specific `removeLabel` when several tokens appear together.
+- The selector supports arrow-key navigation, Enter to select, and Backspace or Delete to move to and remove tokens.
+
+## API
+
+### `GlToken`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `children` | Supplies the token content. | — |
+| `variant` | Sets `default`, `search-type`, or `search-value` styling. | `"default"` |
+| `viewOnly` | Hides the remove button. | `false` |
+| `removeLabel` | Sets the remove button's accessible name. | `"Remove"` |
+| `onRemove` | Runs when the remove button is activated. | — |
+
+### `GlTokenSelector`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `items` | Supplies available items with unique string or number IDs. | `[]` |
+| `defaultValue` | Sets the initial uncontrolled selected items. | `[]` |
+| `value` | Controls the selected items. | — |
+| `onValueChange` | Reports the complete selected-item array. | — |
+| `onInputValueChange` | Reports input changes so the parent can filter or fetch items. | — |
+| `allowClearAll` | Shows a button that clears all selected items. | `false` |
+| `allowUserDefinedTokens` | Allows a non-empty input to become a new token. | `false` |
+| `showAddNewAlways` | Offers the user-defined option while candidates remain. | `false` |
+| `loading` | Shows loading content in the dropdown. | `false` |
+| `hideDropdownWithNoItems` | Hides the dropdown when no candidate is available. | `false` |
+| `state` | Sets valid (`true`), invalid (`false`), or neutral (`null`) styling. | `null` |
+| `viewOnly` | Disables editing and token removal. | `false` |
+
+## Related resources
+
+- [Token in the Pajamas Design System](https://design.gitlab.com/components/token/)
+- [Token selector in the Pajamas Design System](https://design.gitlab.com/components/token-selector/)
+- [Token stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-token--docs)
+- [Token selector stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-token-selector--docs)
+- [Token selector source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/token-selector/token-selector.tsx)

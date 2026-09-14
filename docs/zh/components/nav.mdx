@@ -1,0 +1,156 @@
+---
+title: Nav
+description: 在应用导航区域中组织主要目标和嵌套目标。
+---
+
+## 用法
+
+```tsx
+import { GlIcon } from "gitlab-ui-react/icon";
+import {
+  GlCollapsibleNav,
+  GlCollapsibleNavToggle,
+  GlNav,
+  GlNavButton,
+  GlNavItem,
+  GlNavItemAddon,
+  GlNavProvider,
+  GlSubNav,
+  GlSubNavButton,
+  GlSubNavItem,
+} from "gitlab-ui-react/nav";
+```
+
+```tsx
+<>
+  <GlNav aria-label="Project navigation">
+    <GlNavItem selected>
+      <GlNavButton href="#overview">
+        <GlIcon name="repository" />
+        Repository
+        <GlNavItemAddon>4</GlNavItemAddon>
+      </GlNavButton>
+      <GlSubNav defaultOpen>
+        <GlSubNavItem>
+          <GlSubNavButton href="#issues">Issues</GlSubNavButton>
+        </GlSubNavItem>
+      </GlSubNav>
+    </GlNavItem>
+  </GlNav>
+
+  <GlNavProvider defaultOpen>
+    <GlCollapsibleNavToggle />
+    <GlCollapsibleNav aria-label="Collapsible project navigation">
+      <GlNavItem>
+        <GlNavButton href="#activity">Activity</GlNavButton>
+      </GlNavItem>
+    </GlCollapsibleNav>
+  </GlNavProvider>
+</>
+```
+
+## 默认
+
+在每个 `GlNavItem` 中放置一个 `GlNavButton`。需要第二级导航时，在 Button 后添加 `GlSubNav`。
+
+<DocsExample filename="nav/NavExample.tsx" title="包含嵌套条目的 Nav"/>
+
+## Icon 与 addon
+
+将前置 `GlIcon` 和后置 `GlNavItemAddon` 放在同一个 `GlNavButton` 中。Addon 可展示数量等简短元数据，但不能包含另一个交互控件。
+
+<DocsExample
+  filename="nav/NavSlotsExample.tsx"
+  title="带 Icon 与 addon 的导航条目"
+  storybookId="ui-base-nav--with-slots"/>
+
+## 响应式 Nav
+
+当导航需要在桌面端折叠成窄栏、在较小视口中显示为 Overlay 时，将 `GlCollapsibleNav` 放入 `GlNavProvider`。`GlCollapsibleNavToggle` 可以位于 Nav 内部，也可以放在同一 Provider 下的其他位置。
+
+## 无障碍
+
+- 页面有多个导航 Landmark 时，为每个 `GlNav` 或 `GlCollapsibleNav` 提供说明性的 `aria-label`。
+- 只将当前目标标记为 `selected`；选中的 Link 会获得 `aria-current="page"`。
+- 目标位置使用 Link，展开操作或其他操作才使用 Button。
+- 标题应简短。仅显示 Icon 的条目需要设置 `isIconOnly` 和 `aria-label`。
+- 嵌套条目使用可展开 Button 和列表语义；不要添加与组件冲突的键盘行为。
+
+## API
+
+### `GlNav`
+
+接受 `children` 和受支持的 `nav` 属性。
+
+### `GlNavItem`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `selected` | 将 Item 标记为当前目标。 | `false` |
+| `disabled` | 阻止其 Button 或 Link 被触发。 | `false` |
+| `indicatorPosition` | 将选中指示器放在 `left`、`right` 或 `bottom`。 | `"left"` |
+
+### `GlNavButton`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `href` | 渲染安全 Link；空字符串会保留 Button 语义。 | — |
+| `render` | 将行为组合到最终渲染 Anchor 的 Router Link。 | — |
+| `isIconOnly` | 只显示前置 Icon 或 Avatar，并要求提供 `aria-label`。 | `false` |
+| `type` | 未渲染 Link 时设置原生 Button type。 | `"button"` |
+
+### `GlNavItemAddon`
+
+接受非交互式 `children` 和受支持的 `span` 属性。
+
+### `GlSubNav`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `defaultOpen` | 设置 `GlSubNav` 的初始非受控状态。 | `false` |
+| `open` | 控制 `GlSubNav` 的展开状态。 | — |
+| `onOpenChange` | 返回子导航展开状态变化。 | — |
+
+### `GlSubNavItem`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `selected` | 将 Item 标记为当前目标。 | `false` |
+| `disabled` | 阻止其 Button 或 Link 被触发。 | `false` |
+| `indicatorPosition` | 将选中指示器放在 `left`、`right` 或 `bottom`。 | `"left"` |
+
+### `GlSubNavButton`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `href` | 渲染安全 Link；空字符串会保留 Button 语义。 | — |
+| `render` | 将行为组合到最终渲染 Anchor 的 Router Link。 | — |
+| `isIconOnly` | 只显示前置 Icon 或 Avatar，并要求提供 `aria-label`。 | `false` |
+| `type` | 未渲染 Link 时设置原生 Button type。 | `"button"` |
+
+### `GlNavProvider`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `defaultOpen` | 设置 Provider 初始状态；省略时跟随桌面断点。 | 响应式 |
+| `open` | 控制 Provider 展开状态。 | — |
+| `onOpenChange` | 返回 Toggle、Backdrop 或 Escape 触发的状态请求。 | — |
+| `navId` | 设置 Nav 与 Toggle 共享的 ID。 | 自动生成 |
+
+### `GlCollapsibleNav`
+
+接受与 `GlNav` 相同的 `children` 和受支持的 `nav` 属性。其 ID 由 `GlNavProvider` 管理。
+
+### `GlCollapsibleNavToggle`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `collapseLabel` | 设置展开状态下 Toggle 的名称。 | `"Collapse sidebar"` |
+| `expandLabel` | 设置折叠状态下 Toggle 的名称。 | `"Expand sidebar"` |
+
+## 相关资源
+
+- [Pajamas Design System 中的 Nav item](https://design.gitlab.com/components/nav-item/)
+- [Navigation sidebar pattern](https://design.gitlab.com/patterns/navigation-sidebar/)
+- [Storybook 中的 Nav stories](https://glui-story.nocp.space/?path=/docs/ui-base-nav--docs)
+- [Nav 源码与完整 TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/nav/nav.tsx)

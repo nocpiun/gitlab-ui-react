@@ -1,0 +1,68 @@
+---
+title: Link
+description: Navigates to another page, resource, or location in the current page.
+---
+
+## Usage
+
+```tsx
+import { GlLink } from "gitlab-ui-react/link";
+```
+
+```tsx
+<GlLink href="#documentation">Read the documentation</GlLink>
+```
+
+## Default
+
+Use a link for navigation. Use a button when the interaction changes data or performs an action without navigating.
+
+<DocsExample
+  filename="link/LinkExample.tsx"
+  title="Default link"
+  storybookId="ui-base-link--default"/>
+
+## Variants
+
+Use `inline` inside prose, `meta` for secondary metadata, and mention variants for user references. The `unstyled` variant removes the component's visual treatment and should be used only when another component supplies complete link styling.
+
+<DocsExample
+  filename="link/LinkVariantsExample.tsx"
+  title="Link variants"
+  storybookId="ui-base-link--variants"/>
+
+## External links
+
+When an external destination must open in a new tab, combine `target="_blank"` with `showExternalIcon` so the behavior is visible before activation.
+
+<DocsExample
+  filename="link/LinkExternalExample.tsx"
+  title="External link"
+  storybookId="ui-base-link--external"/>
+
+## Accessibility
+
+- Write link text that describes the destination without relying on nearby content.
+- Avoid disabled links when the destination can instead be omitted or explained.
+- Use `target="_blank"` only when opening a new tab is necessary. Set `showExternalIcon` for eligible external links so the behavior is visible.
+- `GlLink` sanitizes URL protocols by default and adds `noopener noreferrer` to `_blank` links.
+
+## API
+
+`GlLink` forwards supported anchor attributes and supports Base UI's `render` prop for router-link composition.
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `href` | Sets the destination. | `"#"` |
+| `variant` | Sets `inline`, `meta`, `mention`, `mentionCurrent`, or `unstyled` styling; omit it for the default presentation. | Omitted |
+| `active` | Applies the active visual state. | `false` |
+| `disabled` | Prevents navigation and removes the link from the tab sequence. | `false` |
+| `showExternalIcon` | Shows an external-link indicator for eligible `_blank` URLs. | `false` |
+| `isUnsafeLink` | Skips URL protocol validation for a trusted URL. | `false` |
+| `render` | Composes the link with a router element that ultimately renders an anchor. | — |
+
+## Related resources
+
+- [Link in the Pajamas Design System](https://design.gitlab.com/components/link/)
+- [Link stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-link--docs)
+- [Link source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/link/link.tsx)

@@ -1,0 +1,69 @@
+---
+title: Button group
+description: Visually and programmatically groups a small collection of related buttons.
+---
+
+## Usage
+
+```tsx
+import { GlButton } from "gitlab-ui-react/button";
+import { GlButtonGroup } from "gitlab-ui-react/button-group";
+```
+
+```tsx
+<GlButtonGroup>
+  <GlButton>Download</GlButton>
+  <GlButton>Browse</GlButton>
+</GlButtonGroup>
+```
+
+## Default
+
+Use a button group for two to five closely related actions. Keep the controls visually consistent, and consider a disclosure dropdown when three or more actions would consume too much space.
+
+<DocsExample
+  filename="button-group/ButtonGroupExample.tsx"
+  title="Related actions"
+  storybookId="ui-base-button-group--default"/>
+
+## Related options
+
+A group can switch between mutually exclusive views or update content in place. Manage the selection in the parent and keep each button's `selected` appearance synchronized with `aria-pressed`.
+
+<DocsExample
+  filename="button-group/ButtonGroupSelectedExample.tsx"
+  title="Selectable views"
+  storybookId="ui-base-button-group--interactive-selected"/>
+
+## Vertical layout
+
+Set `vertical` to stack related controls. Use this variation only when a horizontal group does not fit the layout; split dropdowns are not supported in a vertical group.
+
+<DocsExample
+  filename="button-group/ButtonGroupVerticalExample.tsx"
+  title="Vertical button group"
+  storybookId="ui-base-button-group--vertical"/>
+
+## Accessibility
+
+- `GlButtonGroup` automatically renders `role="group"`. Keep it near context that makes the relationship between controls clear.
+- For selectable buttons, set exactly one button's `selected` and `aria-pressed` values to `true` at a time.
+- When grouped links represent a current local selection, use `aria-current="true"`. Avoid mixing buttons and links in one group because their behavior differs.
+- Keep keyboard focus order the same as visual order and decide whether focus should remain on the control or move to updated content after activation.
+- Use radio buttons or checkboxes for choices within a form.
+
+## API
+
+These are the component-specific props. `GlButtonGroup` also forwards supported `div` attributes and a ref. It always sets `role="group"`.
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `vertical` | Stacks the grouped controls vertically. | `false` |
+| `children` | Provides the related buttons or button-like controls. | — |
+| `className` | Adds classes to the group container. | — |
+
+## Related resources
+
+- [Button group in the Pajamas Design System](https://design.gitlab.com/components/button-group/)
+- [Button group stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-button-group--docs)
+- [Button group source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/button-group/button-group.tsx)

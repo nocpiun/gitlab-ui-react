@@ -1,0 +1,83 @@
+---
+title: Pagination
+description: Splits a large result set into pages and provides controls for navigating them.
+---
+
+## Usage
+
+```tsx
+import { GlPagination } from "gitlab-ui-react/pagination";
+import { GlKeysetPagination } from "gitlab-ui-react/keyset-pagination";
+```
+
+```tsx
+<GlPagination perPage={20} totalItems={100} value={1} />
+```
+
+## Default
+
+Use offset pagination when the total size is known and users benefit from jumping to a numbered page. Update `value` through `onValueChange` for button-like navigation, or provide `linkGen` for real page URLs.
+
+<DocsExample
+  filename="pagination/PaginationExample.tsx"
+  title="Offset pagination"
+  storybookId="ui-base-pagination--default"/>
+
+## Keyset pagination
+
+Use keyset pagination for cursor-based data that can change while the user moves through it. It provides only Previous and Next controls and passes the relevant cursor to each callback.
+
+<DocsExample
+  filename="pagination/KeysetPaginationExample.tsx"
+  title="Keyset pagination"
+  storybookId="ui-base-keysetpagination--cursor-events"/>
+
+## Accessibility
+
+- Give each pagination landmark a localized and descriptive `labelNav` or `navigationLabel`, especially when more than one appears on a page.
+- Keep page and control labels localized. Numbered pagination marks the active link with `aria-current="page"` automatically.
+- After loading a new page, move focus and scroll position to the start of the updated content when appropriate.
+- Prefer links with real destinations when each page has a stable URL.
+
+## API
+
+Both components forward supported attributes to the rendered `<nav>` element.
+
+### `GlPagination`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `value` | Sets the current page number. | `1` |
+| `perPage` | Sets the number of items per page. | `20` |
+| `totalItems` | Sets the total number of available items. | `0` |
+| `onValueChange` | Reports a requested page change when `linkGen` is not set. | — |
+| `linkGen` | Generates a URL for each page and enables link-based navigation. | `null` |
+| `align` | Aligns controls to `left`, `center`, `right`, or `fill`. | `"left"` |
+| `limits` | Sets the maximum visible page links by viewport breakpoint. | `{ xs: 0, sm: 3, md: 9, default: 9 }` |
+| `labelNav` | Labels the pagination navigation landmark. | `"Pagination"` |
+| `labelPage` | Sets or generates each numbered page link's accessible label. | `"Go to page %{page}"` |
+| `prevPage` | Enables compact pagination with a previous page marker. | `null` |
+| `nextPage` | Enables compact pagination with a next page marker. | `null` |
+
+### `GlKeysetPagination`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `hasPreviousPage` | Enables the Previous control. | `false` |
+| `hasNextPage` | Enables the Next control. | `false` |
+| `startCursor` | Passes the first-item cursor to `onPrevious`. | `null` |
+| `endCursor` | Passes the last-item cursor to `onNext`. | `null` |
+| `onPrevious` | Runs when the enabled Previous control is activated. | — |
+| `onNext` | Runs when the enabled Next control is activated. | — |
+| `prevText` | Sets the Previous control text. | `"Previous"` |
+| `nextText` | Sets the Next control text. | `"Next"` |
+| `navigationLabel` | Labels the pagination navigation landmark. | `"Pagination"` |
+| `disabled` | Disables both controls. | `false` |
+
+## Related resources
+
+- [Pagination in the Pajamas Design System](https://design.gitlab.com/components/pagination/)
+- [Pagination stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-pagination--docs)
+- [Keyset pagination stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-keyset-pagination--docs)
+- [Pagination source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/pagination/pagination.tsx)
+- [Keyset pagination source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/keyset-pagination/keyset-pagination.tsx)

@@ -1,0 +1,83 @@
+---
+title: Label
+description: Categorizes an item with compact, recognizable metadata.
+---
+
+## Usage
+
+```tsx
+import { GlLabel } from "gitlab-ui-react/label";
+```
+
+```tsx
+<GlLabel
+  backgroundColor="#D9C2EE"
+  title="Documentation"
+  target="#documentation" />
+```
+
+## Default
+
+Use labels to classify items such as issues, merge requests, and projects. Choose concise titles and colors that remain distinguishable alongside the text.
+
+<DocsExample
+  filename="label/LabelExample.tsx"
+  title="Default label"
+  storybookId="ui-base-label--default"/>
+
+## Scoped labels
+
+Set `scoped` to visually separate the key and value at the final `::`.
+
+<DocsExample
+  filename="label/LabelScopedExample.tsx"
+  title="Scoped labels"
+  storybookId="ui-base-label--scoped"/>
+
+## Tooltip
+
+Add `description` when a label needs supplemental context. The optional `footer` provides secondary metadata in the same tooltip.
+
+<DocsExample
+  filename="label/LabelTooltipExample.tsx"
+  title="Label with tooltip"
+  storybookId="ui-base-label--with-tooltip"/>
+
+## Removable labels
+
+Set `showCloseButton` and remove the label from parent state in `onClose`. Use this only when removing the classification is an available action.
+
+<DocsExample
+  filename="label/LabelDismissibleExample.tsx"
+  title="Removable labels"
+  storybookId="ui-base-label--with-close-button"/>
+
+## Accessibility
+
+- Keep the visible title meaningful because color alone must not communicate the category.
+- When `target` is present, the title becomes a link. Use a real destination when the label navigates.
+- If `showCloseButton` is enabled, provide `onClose` and remove the label from state when the button is activated.
+- The remove button receives an accessible name derived from `title`; localize surrounding instructions as needed.
+
+## API
+
+`GlLabel` also forwards supported `<span>` attributes.
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `backgroundColor` | Sets the label background and determines a contrasting text color. | Required |
+| `title` | Sets the visible label text and link name. | Required |
+| `target` | Turns the title into a link to this URL. | `""` |
+| `scoped` | Splits the title at its final `::`. | `false` |
+| `description` | Adds descriptive tooltip content. | `""` |
+| `footer` | Adds muted footer text to the tooltip. | `""` |
+| `showCloseButton` | Shows a remove button. | `false` |
+| `disabled` | Disables the remove button. | `false` |
+| `onClose` | Runs when the remove button is activated. | — |
+| `tooltipPlacement` | Places the tooltip on `top`, `right`, `bottom`, or `left`. | `"top"` |
+
+## Related resources
+
+- [Label in the Pajamas Design System](https://design.gitlab.com/components/label/)
+- [Label stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-label--docs)
+- [Label source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/label/label.tsx)

@@ -1,0 +1,60 @@
+---
+title: Form date
+description: 使用浏览器原生日期输入行为获取 ISO 格式的日期。
+---
+
+## 用法
+
+```tsx
+import { GlFormDate } from "gitlab-ui-react/form-date";
+```
+
+```tsx
+<GlFormDate id="due-date" />
+```
+
+## 默认
+
+对于需要随表单提交的日期使用 `GlFormDate`。它使用原生日期输入，并以 `yyyy-mm-dd` 字符串提供值。
+
+<DocsExample
+  filename="form-date/FormDateExample.tsx"
+  title="日期输入"
+  storybookId="ui-base-form-date--default"/>
+
+## 日期限制
+
+通过 `min` 和 `max` 限制可接受的日期范围。当前值超出范围时，组件会显示对应反馈并将其与输入控件关联。
+
+<DocsExample
+  filename="form-date/FormDateLimitsExample.tsx"
+  title="带限制的日期"
+  storybookId="ui-base-form-date--min-max-dates"/>
+
+## 无障碍
+
+- 使用相同的 `htmlFor` 与 `id` 将日期输入关联到可见 `<label>`。
+- 即使浏览器显示本地化日期选择器，也应确保用户能理解 `yyyy-mm-dd` 格式。
+- 对 `minInvalidFeedback` 和 `maxInvalidFeedback` 进行本地化，并通过 `aria-describedby` 加入其他说明。
+- 随表单提交日期时使用 `GlFormDate`；选择日期会立即执行操作时使用 Date Picker。
+
+## API
+
+`GlFormDate` 会将受支持的 Form Input 属性传递给原生日期输入。
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `value` | 以 `yyyy-mm-dd` 字符串控制日期。 | — |
+| `defaultValue` | 设置非受控模式下的初始日期。 | `""` |
+| `onValueChange` | 用户操作后报告日期字符串。 | — |
+| `min` | 设置最早可接受日期。 | `null` |
+| `max` | 设置最晚可接受日期。 | `null` |
+| `minInvalidFeedback` | 设置早于 `min` 时的反馈。 | `"Must be after minimum date."` |
+| `maxInvalidFeedback` | 设置晚于 `max` 时的反馈。 | `"Must be before maximum date."` |
+| `id` | 设置输入 ID；省略时自动生成。 | 生成的 ID |
+
+## 相关资源
+
+- [Pajamas 设计系统中的日期输入指南](https://design.gitlab.com/components/date-picker/)
+- [Storybook 中的 Form date stories](https://glui-story.nocp.space/?path=/docs/ui-base-form-date--docs)
+- [Form date 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/form-date/form-date.tsx)

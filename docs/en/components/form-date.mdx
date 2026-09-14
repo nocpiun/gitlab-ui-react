@@ -1,0 +1,60 @@
+---
+title: Form date
+description: Captures an ISO-formatted date with native browser date input behavior.
+---
+
+## Usage
+
+```tsx
+import { GlFormDate } from "gitlab-ui-react/form-date";
+```
+
+```tsx
+<GlFormDate id="due-date" />
+```
+
+## Default
+
+Use `GlFormDate` for a date that belongs to a submitted form. It uses a native date input and exposes the value as a `yyyy-mm-dd` string.
+
+<DocsExample
+  filename="form-date/FormDateExample.tsx"
+  title="Date input"
+  storybookId="ui-base-form-date--default"/>
+
+## Date limits
+
+Set `min` and `max` to constrain the accepted range. The component shows its matching feedback and associates it with the input when the current value is outside the range.
+
+<DocsExample
+  filename="form-date/FormDateLimitsExample.tsx"
+  title="Date with limits"
+  storybookId="ui-base-form-date--min-max-dates"/>
+
+## Accessibility
+
+- Associate the date input with a visible `<label>` by using matching `htmlFor` and `id` values.
+- Keep the expected `yyyy-mm-dd` format understandable even when the browser presents a localized picker.
+- Localize `minInvalidFeedback` and `maxInvalidFeedback`, and include any extra instructions through `aria-describedby`.
+- Use `GlFormDate` for dates submitted with a form; use a date picker when choosing a date performs an immediate action.
+
+## API
+
+`GlFormDate` forwards supported form input attributes to its native date input.
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `value` | Controls the date as a `yyyy-mm-dd` string. | — |
+| `defaultValue` | Sets the initial uncontrolled date. | `""` |
+| `onValueChange` | Reports the date string after user interaction. | — |
+| `min` | Sets the earliest accepted date. | `null` |
+| `max` | Sets the latest accepted date. | `null` |
+| `minInvalidFeedback` | Sets feedback for values earlier than `min`. | `"Must be after minimum date."` |
+| `maxInvalidFeedback` | Sets feedback for values later than `max`. | `"Must be before maximum date."` |
+| `id` | Sets the input ID; a fallback is generated when omitted. | Generated ID |
+
+## Related resources
+
+- [Date input guidance in the Pajamas Design System](https://design.gitlab.com/components/date-picker/)
+- [Form date stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-form-date--docs)
+- [Form date source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/form-date/form-date.tsx)

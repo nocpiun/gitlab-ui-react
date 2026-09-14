@@ -1,0 +1,64 @@
+---
+title: Toggle
+description: 打开或关闭一个会立即生效的设置。
+---
+
+## 用法
+
+```tsx
+import { GlToggle } from "gitlab-ui-react/toggle";
+```
+
+```tsx
+<GlToggle label="Email notifications" />
+```
+
+## 默认
+
+Toggle 适合会立即生效的二元设置。如果值会与其他字段一起提交，应使用 Checkbox。
+
+<DocsExample filename="toggle/ToggleExample.tsx" title="包含说明文字的 Toggle"/>
+
+## 状态
+
+组件支持受控和非受控值、禁用状态，以及在更新等待期间阻止操作的加载状态。
+
+<DocsExample
+  filename="toggle/ToggleStatesExample.tsx"
+  title="Toggle 状态"
+  storybookId="ui-base-toggle--all-variants"/>
+
+## Label 位置
+
+需要 Description 或 Help 文字时使用默认的顶部位置。左侧位置可形成紧凑的行内布局，`hidden` 则在视觉上隐藏 Label，同时保留供辅助技术使用的名称。
+
+<DocsExample filename="toggle/ToggleLabelPositionsExample.tsx" title="Toggle Label 位置"/>
+
+## 无障碍
+
+- 始终提供简短的 `label`，即使 `labelPosition="hidden"`。
+- Label 应描述所控制的设置，而不是写成“打开”一类操作指令。
+- 使用 `description` 提供上下文，使用 `help` 提供辅助说明。两者只显示在垂直布局中。
+- 异步更新成功前不要切换受控值；等待期间使用 `loading`。
+
+## API
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `label` | 设置可见且可访问的 Switch Label。 | — |
+| `defaultValue` | 设置初始非受控值。 | `false` |
+| `value` | 控制当前值。 | — |
+| `onValueChange` | 激活后返回下一个值。 | — |
+| `labelPosition` | 将 Label 放在 `top`、`left` 或视觉隐藏的 `hidden` 位置。 | `"top"` |
+| `description` | 在垂直布局中添加描述文字。 | — |
+| `help` | 添加通过 `aria-describedby` 关联的帮助文字。 | — |
+| `disabled` | 禁用 Switch。 | `false` |
+| `loading` | 显示 Spinner 并阻止操作。 | `false` |
+| `name` | 添加承载当前布尔值的 Hidden Input。 | — |
+| `wrapperProps` | 将属性应用到外层布局元素。 | — |
+
+## 相关资源
+
+- [Pajamas Design System 中的 Toggle](https://design.gitlab.com/components/toggle/)
+- [Storybook 中的 Toggle stories](https://glui-story.nocp.space/?path=/docs/ui-base-toggle--docs)
+- [Toggle 源码与完整 TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/toggle/toggle.tsx)

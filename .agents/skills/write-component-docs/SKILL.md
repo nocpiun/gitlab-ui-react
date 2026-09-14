@@ -1,6 +1,6 @@
 ---
 name: write-component-docs
-description: Create or substantially update GitLab UI React component documentation under docs/components with live examples under examples/<component>. Use when adding a component docs page, expanding its examples, or standardizing its documentation structure. Do not use for component implementation ports or Storybook-only changes.
+description: Create or substantially update GitLab UI React component documentation under docs/components with live examples in the matching examples directory. Use when adding a component docs page, expanding its examples, or standardizing its documentation structure. Do not use for component implementation ports or Storybook-only changes.
 metadata:
   internal: true
 ---
@@ -31,6 +31,10 @@ Write component documentation in English unless the user requests another langua
 
 Do not add separate Import or Examples sections. Keep the import inside Usage and make each example topic a level-two section so it appears directly in the page table of contents.
 
+For a compound component, the Usage import and JSX must include every public composition part so readers can see the complete supported structure. When two related components share one page but do not compose together, keep their Usage examples separate rather than forcing them into one tree.
+
+Format Usage snippets for the documentation code viewport, not only for source-file width. Keep lines at or below 80 characters, wrap long imports and JSX prop lists, and expand nested compound parts onto separate indented lines instead of placing parent and child tags on one line. Break long JSX text at natural word boundaries when needed.
+
 Use this `DocsExample` shape:
 
 ```mdx
@@ -45,6 +49,8 @@ The filename is relative to `examples/`. The `storybookId` prop is optional. Set
 ## API table
 
 - Document the component-specific props a reader is likely to need. Do not reproduce every inherited DOM or Base UI prop.
+- Give every public component on the page its own level-three API heading, formatted with inline code, for example `### \`GlModalContent\``. Do not combine several components under a generic heading such as "Compound parts" or "Cells".
+- For compound APIs, include every public composition part. Add a prop table whenever a part has component-specific props beyond `children`; when it only accepts `children` and inherited element attributes, state that briefly below its heading instead of inventing a redundant table.
 - Put allowed values and important type constraints in Description rather than adding a Type column.
 - Derive defaults from the implementation, not from memory or upstream Vue defaults.
 - Use `—` when a prop has no default.
@@ -66,11 +72,25 @@ Keep every example as small as the behavior allows:
 - Import the public component directly from `gitlab-ui-react`.
 - Default-export a zero-prop function and render only the elements needed to demonstrate the concept.
 - Prefer explicit JSX for a small fixed set of states. Do not introduce arrays, mapping, helper components, or layout constants merely to shorten a few repeated lines.
-- Use Tailwind utility classes for example layout, typically `flex`, `grid`, wrapping, alignment, gap, and width. Do not use inline styles.
+- Use unprefixed Tailwind utility classes for example layout, typically `flex`, `grid`, wrapping, alignment, gap, and width. Never use `gl-*` utility class names in example components; write `flex`, `gap-3`, or `max-w-md` instead of `gl-flex`, `gl-gap-3`, or `gl-max-w-md`. Do not use inline styles.
 - Do not add local CSS, dependencies, explanatory comments, headings, or prose inside an example unless the behavior cannot be understood without them.
 - Avoid state, effects, event handlers, and timers for static visual states. Add interaction only when it is the behavior being documented.
 - Preserve semantic HTML and accessible names. Icon-only controls need an accessible label, and related ARIA state must match the visual state.
 - Keep each example focused on one topic so its expanded source remains easy to copy.
+
+When an example naturally needs sample identity or project data, reuse the matching repository convention instead of inventing new names. Keep each value in its stated role; for example, use `OPanel` as a project name rather than as a product or feature name. Do not force these entities into examples where they do not fit.
+
+Reserve `OPanel` for UI values that explicitly represent a project name, such as a project field, breadcrumb item, or selector option. Never use `OPanel` in titles, descriptions, announcements, instructional sentences, or other body copy. Use Lorem ipsum for neutral passages that demonstrate text length or wrapping, and use generic component-appropriate sample text when the wording itself needs to be meaningful.
+
+- Avatar image: `https://glui-story.nocp.space/img/avatar.jpg`
+- User display name: `Norcleeh`
+- User identifier: `NriotHrreion`; display it as `@NriotHrreion` where the interface uses handle notation.
+- Organization: `Nocpiun`
+- Project: `OPanel`
+
+Only include the entities an example actually needs.
+
+For longer body copy whose purpose is to demonstrate content length, wrapping, or layout—such as a card description—use standard Lorem ipsum text instead of inventing product or domain prose. Keep meaningful interface text such as labels, buttons, accessible names, and short instructional messages specific to the component rather than replacing it with Lorem ipsum; titles may use concise generic sample text but must not use `OPanel`.
 
 Minimal example:
 

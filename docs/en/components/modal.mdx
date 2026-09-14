@@ -1,0 +1,144 @@
+---
+title: Modal
+description: Focuses attention on a short, self-contained task above the current page.
+---
+
+## Usage
+
+```tsx
+import {
+  GlModal,
+  GlModalClose,
+  GlModalContent,
+  GlModalFooter,
+  GlModalHeader,
+  GlModalTitle,
+  GlModalTrigger,
+} from "gitlab-ui-react/modal";
+```
+
+```tsx
+<GlModal>
+  <GlModalTrigger>Open modal</GlModalTrigger>
+  <GlModalContent>
+    <GlModalHeader>
+      <GlModalTitle>
+        Modal title
+      </GlModalTitle>
+    </GlModalHeader>
+    <p>Lorem ipsum dolor sit amet.</p>
+    <GlModalFooter>
+      <GlModalClose>Close</GlModalClose>
+    </GlModalFooter>
+  </GlModalContent>
+</GlModal>
+```
+
+## Default
+
+Use a modal for a focused decision or task that must be completed or dismissed before returning to the page. Keep its content concise and use `GlModalClose` for footer actions that dismiss it.
+
+<DocsExample
+  filename="modal/ModalExample.tsx"
+  title="Default modal"
+  storybookId="ui-base-modal--default"/>
+
+## Scrollable content
+
+Set `scrollable` when content must stay within the viewport. The header and footer remain visible while the body scrolls independently.
+
+<DocsExample
+  filename="modal/ModalScrollableExample.tsx"
+  title="Scrollable modal"
+  storybookId="ui-base-modal--with-scrolling-content"/>
+
+## Sizes
+
+Use the default medium size for most tasks. Choose `sm` for short confirmations and `lg` only when the content needs additional horizontal space.
+
+<DocsExample filename="modal/ModalSizesExample.tsx" title="Small and large modals"/>
+
+## Accessibility
+
+- Include exactly one `GlModalHeader` and normally one `GlModalTitle`. If no visible title is appropriate, label `GlModalContent` with `aria-label`.
+- Put the least destructive action first and clearly label destructive actions.
+- The modal traps focus while open, closes with Escape or the backdrop, and restores focus to its trigger.
+- Avoid nesting modals or placing long, multi-step workflows inside one.
+
+## API
+
+### `GlModal`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `defaultOpen` | Sets the initial uncontrolled open state. | `false` |
+| `open` | Controls whether the modal is open. | — |
+| `onOpenChange` | Reports requested open-state changes and their reason. | — |
+| `onOpenChangeComplete` | Runs after the opening or closing transition completes. | — |
+
+### `GlModalTrigger`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `asChild` | Composes trigger behavior onto one child element instead of rendering a button. | `false` |
+| `block` | Expands the rendered button to its container width. | `false` |
+| `category` | Sets the rendered button category. | `"primary"` |
+| `variant` | Sets the rendered button variant. | `"default"` |
+| `size` | Sets the rendered button to `small` or `medium`. | `"medium"` |
+| `icon` | Adds a GitLab icon to the rendered button. | — |
+| `loading` | Shows loading state and prevents activation. | `false` |
+| `disabled` | Prevents the trigger from opening the modal. | `false` |
+| `nativeButton` | Declares whether an `asChild` trigger ultimately renders a native button. | — |
+
+### `GlModalContent`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `size` | Sets the modal width to `sm`, `md`, or `lg`. | `"md"` |
+| `scrollable` | Makes the modal body scroll independently. | `false` |
+| `container` | Sets the portal container. | `document.body` |
+| `children` | Requires one header, accepts one footer, and treats other children as body content. | — |
+
+The content also forwards supported Base UI dialog popup attributes, including focus-management attributes.
+
+### `GlModalHeader`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `closeButtonLabel` | Sets the automatic close button's accessible name. | `"Close"` |
+
+### `GlModalTitle`
+
+Accepts `children` and supported Base UI dialog title attributes.
+
+### `GlModalFooter`
+
+Accepts `children` and supported `div` attributes.
+
+### `GlModalClose`
+
+Closes the modal when activated and accepts supported button attributes plus these `GlButton` presentation and state props. Link and custom-rendering props are intentionally unavailable.
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `active` | Applies the active visual state. | `false` |
+| `block` | Expands the button to its container width. | `false` |
+| `buttonTextClasses` | Adds classes to the button text wrapper. | — |
+| `category` | Sets the button category. | `"primary"` |
+| `variant` | Sets the button variant. | `"default"` |
+| `size` | Sets the button to `small` or `medium`. | `"medium"` |
+| `icon` | Adds a GitLab icon. | — |
+| `emoji` | Adds content before the button text. | — |
+| `count` | Adds a non-negative numeric count after the text. | `null` |
+| `countSrText` | Adds screen-reader context for the count. | — |
+| `loading` | Shows a loading indicator and prevents activation. | `false` |
+| `disabled` | Prevents activation while keeping the control focusable. | `false` |
+| `selected` | Applies the selected visual state. | `false` |
+| `type` | Sets the native button type. | `"button"` |
+| `onClick` | Runs when the close button is activated. | — |
+
+## Related resources
+
+- [Modal in the Pajamas Design System](https://design.gitlab.com/components/modal/)
+- [Modal stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-modal--docs)
+- [Modal source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/modal/modal.tsx)
