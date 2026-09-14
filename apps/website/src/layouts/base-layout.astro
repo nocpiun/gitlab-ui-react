@@ -25,6 +25,7 @@ const {
 } = Astro.props;
 const switchPath = localeSwitchPath(locale, alternatePaths);
 const searchInstance = docsSearchInstance(locale);
+const webMcpOriginTrialToken = import.meta.env.PUBLIC_WEBMCP_ORIGIN_TRIAL_TOKEN?.trim();
 ---
 
 <!doctype html>
@@ -33,6 +34,9 @@ const searchInstance = docsSearchInstance(locale);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
+    {webMcpOriginTrialToken && (
+      <meta http-equiv="origin-trial" content={webMcpOriginTrialToken} />
+    )}
     <title>{title}</title>
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
     <link rel="describedby" type="text/markdown" href={new URL("/llms.txt", Astro.site)} />
@@ -109,6 +113,7 @@ const searchInstance = docsSearchInstance(locale);
 <script>
   import { locales } from "../i18n/config";
   import { docsSearchInstance } from "../search";
+  import { installWebMcpTools } from "../webmcp";
 
   type PagefindComponentsWindow = Window & {
     PagefindComponents?: {
@@ -117,6 +122,10 @@ const searchInstance = docsSearchInstance(locale);
       };
     };
   };
+
+  void installWebMcpTools().catch((error) => {
+    console.warn("[WebMCP] Unable to register documentation tools.", error);
+  });
 
   document.addEventListener("astro:before-swap", () => {
     const manager = (window as PagefindComponentsWindow).PagefindComponents?.getInstanceManager();

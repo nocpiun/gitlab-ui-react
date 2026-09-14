@@ -30,7 +30,7 @@ const links = [
 
 <div class:list={["rounded-lg border border-section bg-subtle p-4", className]}>
   <p class="m-0 text-sm text-subtle">{messages.hint}</p>
-  <ul class="mt-3 mb-0 space-y-1 ps-5 text-sm">
+  <ul class="llm-friendly-links my-3 space-y-0 ps-0 text-sm leading-20 min-[1360px]:ps-5">
     {
       links.map((link) => (
         <li>
@@ -52,7 +52,21 @@ const links = [
       </button>
     </li>
   </ul>
+  <p class="mt-2 mb-0 text-sm text-subtle">
+    {messages.webMcpHint}{" "}
+    <GlLink href="https://developer.chrome.com/docs/ai/webmcp" showExternalIcon target="_blank">
+      {messages.webMcpLink}
+    </GlLink>
+  </p>
 </div>
+
+<style>
+  @media (max-width: 1359px) {
+    .llm-friendly-links {
+      list-style: none;
+    }
+  }
+</style>
 
 <script>
   document.addEventListener("click", async (event) => {
