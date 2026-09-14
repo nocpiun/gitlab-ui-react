@@ -63,6 +63,7 @@
     + .form-control,
     + .form-control-plaintext,
     + .custom-select,
+    + .gl-form-select-wrapper,
     + .custom-range {
       margin-left: -1px;
     }
@@ -101,6 +102,7 @@
   > .form-control,
   > .form-control-plaintext,
   > .custom-select,
+  > .gl-form-select-wrapper,
   > .custom-range {
     + .custom-range {
       margin-left: -1px;

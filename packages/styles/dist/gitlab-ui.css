@@ -3178,24 +3178,32 @@
     align-items: stretch;
     width: 100%;
   }
-  .gl-form-input-group.input-group > .form-control, .gl-form-input-group.input-group > .form-control-plaintext, .gl-form-input-group.input-group > .custom-select {
+  .gl-form-input-group.input-group > .form-control, .gl-form-input-group.input-group > .form-control-plaintext, .gl-form-input-group.input-group > .custom-select, .gl-form-input-group.input-group > .gl-form-select-wrapper {
     position: relative;
     flex: 1 1 auto;
     width: 1%;
     min-width: 0;
     margin-bottom: 0;
   }
-  .gl-form-input-group.input-group > .form-control + .form-control, .gl-form-input-group.input-group > .form-control-plaintext + .form-control, .gl-form-input-group.input-group > .custom-select + .form-control, .gl-form-input-group.input-group > .form-control + .custom-select, .gl-form-input-group.input-group > .form-control-plaintext + .custom-select, .gl-form-input-group.input-group > .custom-select + .custom-select {
+  .gl-form-input-group.input-group > .form-control + .form-control, .gl-form-input-group.input-group > .form-control + .custom-select, .gl-form-input-group.input-group > .form-control + .gl-form-select-wrapper, .gl-form-input-group.input-group > .form-control-plaintext + .form-control, .gl-form-input-group.input-group > .form-control-plaintext + .custom-select, .gl-form-input-group.input-group > .form-control-plaintext + .gl-form-select-wrapper, .gl-form-input-group.input-group > .custom-select + .form-control, .gl-form-input-group.input-group > .custom-select + .custom-select, .gl-form-input-group.input-group > .custom-select + .gl-form-select-wrapper, .gl-form-input-group.input-group > .gl-form-select-wrapper + .form-control, .gl-form-input-group.input-group > .gl-form-select-wrapper + .custom-select, .gl-form-input-group.input-group > .gl-form-select-wrapper + .gl-form-select-wrapper {
     margin-left: -1px;
   }
-  .gl-form-input-group.input-group > .form-control:focus-visible, .gl-form-input-group.input-group > .custom-select:focus-visible {
+  .gl-form-input-group.input-group > .form-control:focus-visible, .gl-form-input-group.input-group > .custom-select:focus-visible, .gl-form-input-group.input-group > .gl-form-select-wrapper:focus-within {
     z-index: 3;
   }
   .gl-form-input-group.input-group > .form-control:not(:first-child), .gl-form-input-group.input-group > .custom-select:not(:first-child) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
+  .gl-form-input-group.input-group > .gl-form-select-wrapper:not(:first-child) > .custom-select {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
   .gl-form-input-group.input-group > .form-control:not(:last-child), .gl-form-input-group.input-group > .custom-select:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .gl-form-input-group.input-group > .gl-form-select-wrapper:not(:last-child) > .custom-select {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
@@ -6344,7 +6352,7 @@
     border-radius: var(--gl-control-border-radius);
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }
-  .gl-form-input-group.input-group > .gl-form-input.custom-range + .form-control, .gl-form-input-group.input-group > .gl-form-input.custom-range + .form-control-plaintext, .gl-form-input-group.input-group > .gl-form-input.custom-range + .custom-select, .gl-form-input-group.input-group > .gl-form-input.custom-range + .custom-range {
+  .gl-form-input-group.input-group > .gl-form-input.custom-range + .form-control, .gl-form-input-group.input-group > .gl-form-input.custom-range + .form-control-plaintext, .gl-form-input-group.input-group > .gl-form-input.custom-range + .custom-select, .gl-form-input-group.input-group > .gl-form-input.custom-range + .gl-form-select-wrapper, .gl-form-input-group.input-group > .gl-form-input.custom-range + .custom-range {
     margin-left: -1px;
   }
   .gl-form-input-group.input-group > .gl-form-input.custom-range:focus-visible {
@@ -6370,7 +6378,7 @@
       transition: none;
     }
   }
-  .gl-form-input-group.input-group > .form-control + .custom-range, .gl-form-input-group.input-group > .form-control-plaintext + .custom-range, .gl-form-input-group.input-group > .custom-select + .custom-range, .gl-form-input-group.input-group > .custom-range + .custom-range {
+  .gl-form-input-group.input-group > .form-control + .custom-range, .gl-form-input-group.input-group > .form-control-plaintext + .custom-range, .gl-form-input-group.input-group > .custom-select + .custom-range, .gl-form-input-group.input-group > .gl-form-select-wrapper + .custom-range, .gl-form-input-group.input-group > .custom-range + .custom-range {
     margin-left: -1px;
   }
   .gl-form-input-group.input-group > .gl-form-input.custom-range.is-valid {

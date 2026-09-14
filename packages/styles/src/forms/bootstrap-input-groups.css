@@ -5,14 +5,17 @@
  * packages/gitlab-ui/src/vendor/bootstrap/scss/_input-group.scss
  * (Bootstrap v4.6 semantics with GitLab's variable overrides).
  *
- * Subset rationale: GlFormInputGroup supports GlFormInput, GlButton,
- * GlInputGroupText, Bootstrap-compatible select elements, and selection
- * dropdown triggers. Custom-file controls, group sizing helpers, and native
- * validation layout are omitted because no public React input-group API
- * exposes them.
+ * Subset rationale: GlFormInputGroup supports GlFormInput, GlFormSelect,
+ * GlButton, GlInputGroupText, Bootstrap-compatible select elements, and
+ * selection dropdown triggers. Custom-file controls, group sizing helpers,
+ * and native validation layout are omitted because no public React
+ * input-group API exposes them.
  *
- * React scoping adaptation: every Bootstrap selector is anchored to a
- * GitLab React marker so consumer-owned `.input-group*` classes are untouched.
+ * React adaptations: every Bootstrap selector is anchored to a GitLab React
+ * marker so consumer-owned `.input-group*` classes are untouched. GlFormSelect
+ * renders its native select inside `.gl-form-select-wrapper`, so the wrapper
+ * receives the direct-child layout and stacking rules while the nested select
+ * receives the joined border radii.
  */
 
 .gl-form-input-group.input-group {
@@ -21,69 +24,74 @@
   flex-wrap: wrap;
   align-items: stretch;
   width: 100%;
-}
 
-.gl-form-input-group.input-group > .form-control,
-.gl-form-input-group.input-group > .form-control-plaintext,
-.gl-form-input-group.input-group > .custom-select {
-  position: relative;
-  flex: 1 1 auto;
-  width: 1%;
-  min-width: 0;
-  margin-bottom: 0;
-}
+  > .form-control,
+  > .form-control-plaintext,
+  > .custom-select,
+  > .gl-form-select-wrapper {
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+    margin-bottom: 0;
 
-.gl-form-input-group.input-group > .form-control + .form-control,
-.gl-form-input-group.input-group > .form-control-plaintext + .form-control,
-.gl-form-input-group.input-group > .custom-select + .form-control,
-.gl-form-input-group.input-group > .form-control + .custom-select,
-.gl-form-input-group.input-group > .form-control-plaintext + .custom-select,
-.gl-form-input-group.input-group > .custom-select + .custom-select {
-  margin-left: -1px;
-}
+    + .form-control,
+    + .custom-select,
+    + .gl-form-select-wrapper {
+      margin-left: -1px;
+    }
+  }
 
-.gl-form-input-group.input-group > .form-control:focus-visible,
-.gl-form-input-group.input-group > .custom-select:focus-visible {
-  z-index: 3;
-}
+  > .form-control:focus-visible,
+  > .custom-select:focus-visible,
+  > .gl-form-select-wrapper:focus-within {
+    z-index: 3;
+  }
 
-.gl-form-input-group.input-group > .form-control:not(:first-child),
-.gl-form-input-group.input-group > .custom-select:not(:first-child) {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
+  > .form-control,
+  > .custom-select {
+    &:not(:first-child) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
 
-.gl-form-input-group.input-group > .form-control:not(:last-child),
-.gl-form-input-group.input-group > .custom-select:not(:last-child) {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  > .gl-form-select-wrapper:not(:first-child) > .custom-select {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  > .form-control:not(:last-child),
+  > .custom-select:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  > .gl-form-select-wrapper:not(:last-child) > .custom-select {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 }
 
 .gl-form-input-group-addon.input-group-prepend,
 .gl-form-input-group-addon.input-group-append {
   display: flex;
-}
 
-.gl-form-input-group-addon.input-group-prepend .btn,
-.gl-form-input-group-addon.input-group-append .btn {
-  position: relative;
-  z-index: 2;
-}
+  .btn {
+    position: relative;
+    z-index: 2;
 
-.gl-form-input-group-addon.input-group-prepend .btn:focus-visible,
-.gl-form-input-group-addon.input-group-append .btn:focus-visible {
-  z-index: 3;
-}
+    &:focus-visible {
+      z-index: 3;
+    }
+  }
 
-.gl-form-input-group-addon.input-group-prepend .btn + .btn,
-.gl-form-input-group-addon.input-group-prepend .btn + .input-group-text,
-.gl-form-input-group-addon.input-group-prepend .input-group-text + .input-group-text,
-.gl-form-input-group-addon.input-group-prepend .input-group-text + .btn,
-.gl-form-input-group-addon.input-group-append .btn + .btn,
-.gl-form-input-group-addon.input-group-append .btn + .input-group-text,
-.gl-form-input-group-addon.input-group-append .input-group-text + .input-group-text,
-.gl-form-input-group-addon.input-group-append .input-group-text + .btn {
-  margin-left: -1px;
+  .btn + .btn,
+  .btn + .input-group-text,
+  .input-group-text + .input-group-text,
+  .input-group-text + .btn {
+    margin-left: -1px;
+  }
 }
 
 .gl-form-input-group-addon.input-group-prepend {
@@ -108,11 +116,11 @@
   background-color: #bfbfc3;
   border: 1px solid #89888d;
   border-radius: 0.25rem;
-}
 
-.gl-input-group-text.input-group-text input[type="radio"],
-.gl-input-group-text.input-group-text input[type="checkbox"] {
-  margin-top: 0;
+  input[type="radio"],
+  input[type="checkbox"] {
+    margin-top: 0;
+  }
 }
 
 .gl-form-input-group.input-group > .input-group-prepend > .btn,

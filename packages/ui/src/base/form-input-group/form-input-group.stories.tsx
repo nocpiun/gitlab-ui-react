@@ -3,6 +3,7 @@ import { useState } from "react";
 import { expect, userEvent, waitFor, within } from "storybook/test";
 import GlButton from "../button/button";
 import GlFormInput from "../form-input/form-input";
+import GlFormSelect, { GlFormSelectItem } from "../form-select/form-select";
 import GlListbox, {
   GlListboxContent,
   GlListboxItem,
@@ -78,6 +79,43 @@ export const BothAddons: Story = {
     await expect(getComputedStyle(text).borderTopRightRadius).toBe("0px");
     await expect(getComputedStyle(input).borderTopLeftRadius).toBe("0px");
     await expect(getComputedStyle(button).borderTopLeftRadius).toBe("0px");
+  },
+};
+
+export const SelectControl: Story = {
+  render: () => (
+    <GlFormInputGroup aria-label="Visibility field">
+      <GlFormInputGroupAddon position="prepend">
+        <GlInputGroupText>Visibility</GlInputGroupText>
+      </GlFormInputGroupAddon>
+      <GlFormSelect aria-label="Visibility" defaultValue="private">
+        <GlFormSelectItem value="private">Private</GlFormSelectItem>
+        <GlFormSelectItem value="public">Public</GlFormSelectItem>
+      </GlFormSelect>
+      <GlFormInputGroupAddon position="append">
+        <GlButton>Apply</GlButton>
+      </GlFormInputGroupAddon>
+    </GlFormInputGroup>
+  ),
+  play: async ({ canvas }) => {
+    const group = canvas.getByRole("group", { name: "Visibility field" });
+    const select = canvas.getByRole("combobox", { name: "Visibility" });
+    const wrapper = select.parentElement;
+
+    if(!(wrapper instanceof HTMLElement)) {
+      throw new Error("GlFormSelect must render inside its structural wrapper");
+    }
+
+    await expect(wrapper).toHaveClass("gl-form-select-wrapper");
+    await expect(group.children[1]).toBe(wrapper);
+    await expect(getComputedStyle(wrapper).flexGrow).toBe("1");
+    await expect(getComputedStyle(wrapper).minWidth).toBe("0px");
+    await expect(getComputedStyle(select).borderTopLeftRadius).toBe("0px");
+    await expect(getComputedStyle(select).borderTopRightRadius).toBe("0px");
+
+    select.focus();
+    await expect(select).toHaveFocus();
+    await waitFor(() => expect(getComputedStyle(wrapper).zIndex).toBe("3"));
   },
 };
 

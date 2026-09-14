@@ -104,6 +104,54 @@ test("key compatibility selectors exist", async () => {
   expect(selectors).toContain(".gl-form-select.custom-select");
 }, 30000);
 
+test("input groups adapt their layout to the GlFormSelect wrapper", async () => {
+  const root = await compile();
+  const rules = collectRules(root);
+  const layoutSelector = ".gl-form-input-group.input-group > .gl-form-select-wrapper";
+  const focusSelector = `${layoutSelector}:focus-within`;
+  const leftRadiusSelector = [
+    ".gl-form-input-group.input-group",
+    "> .gl-form-select-wrapper:not(:first-child)",
+    "> .custom-select",
+  ].join(" ");
+  const rightRadiusSelector = [
+    ".gl-form-input-group.input-group",
+    "> .gl-form-select-wrapper:not(:last-child)",
+    "> .custom-select",
+  ].join(" ");
+  const findRule = (selector) => rules.find((rule) => rule.selectors.includes(selector));
+  const layoutRule = findRule(layoutSelector);
+  const focusRule = findRule(focusSelector);
+  const leftRadiusRule = findRule(leftRadiusSelector);
+  const rightRadiusRule = findRule(rightRadiusSelector);
+
+  expect(layoutRule).toBeDefined();
+  expect(focusRule).toBeDefined();
+  expect(leftRadiusRule).toBeDefined();
+  expect(rightRadiusRule).toBeDefined();
+  expect(normalizedDeclarations(layoutRule)).toEqual(expect.arrayContaining([
+    "position: relative",
+    "flex: 1 1 auto",
+    "width: 1%",
+    "min-width: 0",
+  ]));
+  expect(normalizedDeclarations(focusRule)).toContain("z-index: 3");
+  expect(normalizedDeclarations(leftRadiusRule)).toEqual(expect.arrayContaining([
+    "border-top-left-radius: 0",
+    "border-bottom-left-radius: 0",
+  ]));
+  expect(normalizedDeclarations(rightRadiusRule)).toEqual(expect.arrayContaining([
+    "border-top-right-radius: 0",
+    "border-bottom-right-radius: 0",
+  ]));
+  expect(rules.some((rule) => (
+    rule.selectors.includes(
+      ".gl-form-input-group.input-group > .gl-form-select-wrapper + .form-control",
+    )
+    && normalizedDeclarations(rule).includes("margin-left: -1px")
+  ))).toBe(true);
+}, 30000);
+
 test("grouped range validation colors its outer border and focused shadow", async () => {
   const root = await compile();
   const rules = collectRules(root);
