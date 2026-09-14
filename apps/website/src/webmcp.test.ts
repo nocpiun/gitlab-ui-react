@@ -53,6 +53,19 @@ function execute(
   return selectedTool.execute(input, { signal });
 }
 
+function executeWithBridgeOptions(
+  selectedTool: WebMCP.ModelContextTool,
+  input: Record<string, unknown>,
+  options?: Partial<WebMCP.ToolExecuteCallbackOptions>,
+) {
+  const callback = selectedTool.execute as (
+    input: Record<string, unknown>,
+    options?: Partial<WebMCP.ToolExecuteCallbackOptions>,
+  ) => WebMCP.MaybePromise<unknown>;
+
+  return Promise.resolve(callback(input, options));
+}
+
 describe("normalizeDocsUrl", () => {
   it.each([
     ["/docs", "https://glui.nocp.space/docs", "https://glui.nocp.space/docs.md"],
@@ -130,6 +143,34 @@ describe("createWebMcpTools", () => {
       { readOnlyHint: true, untrustedContentHint: false, consequentialHint: false },
       { readOnlyHint: false, untrustedContentHint: false, consequentialHint: false },
     ]);
+  });
+
+  it("supports browser bridges that omit the execution signal", async () => {
+    const searchDocs = vi.fn(async () => pagefindResponse([]));
+    const fetchMarkdown = vi.fn(async () => new Response("# Button\n"));
+    const navigateTo = vi.fn(async () => undefined);
+    const dependencies = createDependencies({ fetchMarkdown, navigateTo, searchDocs });
+
+    await expect(executeWithBridgeOptions(tool("search_docs", dependencies), {
+      query: "button",
+    })).resolves.toMatchObject({ query: "button", results: [] });
+    await expect(executeWithBridgeOptions(tool("read_docs", dependencies), {
+      url: "/docs/components/button",
+    }, {})).resolves.toMatchObject({ content: "# Button\n" });
+    await expect(executeWithBridgeOptions(tool("open_docs", dependencies), {
+      url: "/docs/components/button",
+    })).resolves.toEqual({
+      url: "https://glui.nocp.space/docs/components/button",
+    });
+
+    expect(searchDocs).toHaveBeenCalledWith("button", "en", expect.any(AbortSignal));
+    expect(fetchMarkdown).toHaveBeenCalledWith(
+      "https://glui.nocp.space/docs/components/button.md",
+      expect.any(AbortSignal),
+    );
+    expect(navigateTo).toHaveBeenCalledWith(
+      "https://glui.nocp.space/docs/components/button",
+    );
   });
 
   it("searches the active locale and returns only normalized docs results", async () => {

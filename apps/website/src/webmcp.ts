@@ -156,7 +156,8 @@ export function createWebMcpTools(dependencies: WebMcpDependencies) {
       untrustedContentHint: false,
       consequentialHint: false,
     },
-    async execute(input, { signal }) {
+    async execute(input, options) {
+      const signal = executionSignal(options);
       assertAllowedProperties(input, ["query", "limit"]);
       const query = requiredString(input.query, "query", MAX_QUERY_LENGTH).trim();
       if(query.length === 0) throw new TypeError("query must contain a non-whitespace character.");
@@ -237,7 +238,8 @@ export function createWebMcpTools(dependencies: WebMcpDependencies) {
       untrustedContentHint: false,
       consequentialHint: false,
     },
-    async execute(input, { signal }) {
+    async execute(input, options) {
+      const signal = executionSignal(options);
       assertAllowedProperties(input, ["url", "cursor"]);
       const url = requiredString(input.url, "url", MAX_URL_LENGTH).trim();
       const cursor = optionalInteger(input.cursor, "cursor", 0, 0, Number.MAX_SAFE_INTEGER);
@@ -298,7 +300,8 @@ export function createWebMcpTools(dependencies: WebMcpDependencies) {
       untrustedContentHint: false,
       consequentialHint: false,
     },
-    async execute(input, { signal }) {
+    async execute(input, options) {
+      const signal = executionSignal(options);
       assertAllowedProperties(input, ["url"]);
       const url = requiredString(input.url, "url", MAX_URL_LENGTH).trim();
       const { pageUrl } = normalizeDocsUrl(url, dependencies.getCurrentUrl());
@@ -411,6 +414,15 @@ function truncateText(value: string, maximumLength: number) {
   const normalized = value.replace(/\s+/g, " ").trim();
   if(normalized.length <= maximumLength) return normalized;
   return `${normalized.slice(0, maximumLength - 1).trimEnd()}…`;
+}
+
+/**
+ * Some WebMCP browser bridges omit the execute options even though the current
+ * type definition requires a signal. Preserve host cancellation when available,
+ * otherwise use a never-aborted signal so the tools remain callable.
+ */
+function executionSignal(options?: Partial<WebMCP.ToolExecuteCallbackOptions>) {
+  return options?.signal ?? new AbortController().signal;
 }
 
 function throwIfAborted(signal: AbortSignal) {
