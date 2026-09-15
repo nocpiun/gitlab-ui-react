@@ -61,6 +61,7 @@ export type SiteMessages = {
       documentationLabel: string;
       expand: string;
       expandNavigation: string;
+      fonts: string;
       icons: string;
       installation: string;
       introduction: string;
@@ -141,6 +142,7 @@ export const siteMessages = {
         documentationLabel: "Documentation navigation",
         expand: "Expand",
         expandNavigation: "Expand navigation",
+        fonts: "Fonts",
         icons: "Icons",
         installation: "Installation",
         introduction: "Introduction",
@@ -218,6 +220,7 @@ export const siteMessages = {
         documentationLabel: "文档导航",
         expand: "展开",
         expandNavigation: "展开导航",
+        fonts: "字体",
         icons: "图标",
         installation: "安装",
         introduction: "介绍",

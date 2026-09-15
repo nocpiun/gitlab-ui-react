@@ -1,0 +1,87 @@
+---
+title: 字体
+description: 从 GitLab 官方的 @gitlab/fonts 包加载 GitLab Sans 和 GitLab Mono。
+---
+
+import { PackageManagerTabs } from "../../apps/website/src/components/package-manager-tabs";
+
+GitLab UI React 使用 GitLab Sans 显示界面文本，使用 GitLab Mono 显示代码。样式包定义了字体栈，但不包含字体文件。请在应用中安装 GitLab 官方字体包：
+
+<PackageManagerTabs
+  client:load
+  dependencies="@gitlab/fonts"/>
+
+## 注册字体
+
+在由构建工具处理的全局样式表中添加字体声明：
+
+```css
+@font-face {
+  font-family: "GitLab Sans";
+  src: url("@gitlab/fonts/gitlab-sans/GitLabSans.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GitLab Sans";
+  src: url("@gitlab/fonts/gitlab-sans/GitLabSans-Italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GitLab Mono";
+  src: url("@gitlab/fonts/gitlab-mono/GitLabMono.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GitLab Mono";
+  src: url("@gitlab/fonts/gitlab-mono/GitLabMono-Italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+}
+```
+
+这两款字体都是可变字体。每个文件都覆盖从 `100` 到 `900` 的完整字重范围，不需要为每种字重分别加载字体文件。
+
+> [!tip]
+> 如果应用不显示代码等需要等宽字体的内容，可以省略两条 GitLab Mono 声明。
+
+## 加载样式表
+
+在应用的全局入口中导入一次 GitLab UI React 样式和字体声明：
+
+```tsx
+import "@gitlab-ui-react/styles";
+import "./fonts.css";
+```
+
+无需再编写额外的 `font-family` 规则。GitLab UI React 为页面使用 `var(--gl-font-family-regular)`，为代码元素使用 `var(--gl-font-family-monospace)`。这些字体栈会选中已注册的 GitLab 字体；如果字体文件加载失败，则回退到系统字体。
+
+对于不受组件库基础样式控制的内容，可以使用相同的排版令牌：
+
+```css
+.application-content {
+  font-family: var(--gl-font-family-regular);
+}
+
+.application-code {
+  font-family: var(--gl-font-family-monospace);
+}
+```
+
+## 框架说明
+
+上面的 `url()` 使用相对于 npm 包的资源路径，适用于 Vite 等能够在 CSS 中解析 npm 包资源的构建工具。如果框架不支持这种路径，请将 WOFF2 文件复制到框架的公共资源目录并更新各个 `src` URL，同时保持字体族名称不变。
+
+## 相关资源
+
+- [npm 上的 @gitlab/fonts](https://www.npmjs.com/package/@gitlab/fonts)
+- [Pajamas 设计系统中的 Typography](https://design.gitlab.com/product-foundations/type-fundamentals/)
