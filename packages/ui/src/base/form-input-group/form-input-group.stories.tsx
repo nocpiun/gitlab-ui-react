@@ -2,6 +2,10 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { expect, userEvent, waitFor, within } from "storybook/test";
 import GlButton from "../button/button";
+import GlFormField, {
+  GlFormFieldGroup,
+  GlFormFieldLabel,
+} from "../form-field/form-field";
 import GlFormInput from "../form-input/form-input";
 import GlFormSelect, { GlFormSelectItem } from "../form-select/form-select";
 import GlListbox, {
@@ -148,14 +152,14 @@ const rangeValidationStates = [
 
 export const RangeValidationStates: Story = {
   render: () => (
-    <div style={{ display: "grid", gap: "1rem", maxWidth: "32rem" }}>
+    <GlFormFieldGroup style={{ maxWidth: "32rem" }}>
       {rangeValidationStates.map(({ label, state }) => {
         const id = `grouped-range-${label.toLowerCase()}`;
         const labelId = `${id}-label`;
 
         return (
-          <div key={label}>
-            <label id={labelId} htmlFor={id}>{label}</label>
+          <GlFormField key={label} aria-labelledby={labelId}>
+            <GlFormFieldLabel id={labelId} htmlFor={id}>{label}</GlFormFieldLabel>
             <GlFormInputGroup aria-labelledby={labelId}>
               <GlFormInputGroupAddon position="prepend">
                 <GlInputGroupText>0</GlInputGroupText>
@@ -171,10 +175,10 @@ export const RangeValidationStates: Story = {
                 <GlInputGroupText>100</GlInputGroupText>
               </GlFormInputGroupAddon>
             </GlFormInputGroup>
-          </div>
+          </GlFormField>
         );
       })}
-    </div>
+    </GlFormFieldGroup>
   ),
   parameters: {
     docs: {

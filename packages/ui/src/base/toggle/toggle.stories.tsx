@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState, type CSSProperties } from "react";
 import { expect, fn, userEvent, waitFor } from "storybook/test";
+import GlFormField from "../form-field/form-field";
 import GlToggle, { type GlToggleLabelPosition, type GlToggleProps } from "./toggle";
 
 const labelPositions = [
@@ -187,11 +188,13 @@ function NativeToggleResetExample() {
 
   return (
     <>
-      <GlToggle
-        defaultValue
-        form="toggle-reset-form"
-        label="Resettable toggle"
-        name="feature" />
+      <GlFormField aria-label="Resettable toggle">
+        <GlToggle
+          defaultValue
+          form="toggle-reset-form"
+          label="Resettable toggle"
+          name="feature" />
+      </GlFormField>
       <form id="toggle-reset-form">
         <button type="reset">Reset toggle</button>
         <button onClick={() => rerender((count) => count + 1)} type="button">

@@ -1,5 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn, userEvent } from "storybook/test";
+import GlFormField, {
+  GlFormFieldGroup,
+  GlFormFieldLabel,
+} from "../form-field/form-field";
 import GlFormPasswordInput from "./form-password-input";
 
 const meta = {
@@ -28,10 +32,10 @@ lands on the wrapper), for hooks or styles that must target the input.`,
     },
   },
   render: (args) => (
-    <>
-      <label htmlFor={args.id}>Password</label>
+    <GlFormField aria-labelledby="password-input-label">
+      <GlFormFieldLabel id="password-input-label" htmlFor={args.id}>Password</GlFormFieldLabel>
       <GlFormPasswordInput {...args} />
-    </>
+    </GlFormField>
   ),
 } satisfies Meta<typeof GlFormPasswordInput>;
 
@@ -81,8 +85,12 @@ export const NativeFormReset: Story = {
   },
   render: (args) => (
     <form>
-      <label htmlFor={args.id}>Password</label>
-      <GlFormPasswordInput {...args} />
+      <GlFormField aria-labelledby="reset-password-input-label">
+        <GlFormFieldLabel id="reset-password-input-label" htmlFor={args.id}>
+          Password
+        </GlFormFieldLabel>
+        <GlFormPasswordInput {...args} />
+      </GlFormField>
       <button type="reset">Reset form</button>
     </form>
   ),
@@ -200,17 +208,21 @@ export const Widths: Story = {
     },
   },
   render: (args) => (
-    <div>
+    <GlFormFieldGroup>
       {widthCases.map(({ width }) => (
-        <div className="gl-mb-4" key={width}>
-          <label htmlFor={`password-input-${width}`}>{width}</label>
+        <GlFormField key={width} aria-labelledby={`password-input-${width}-label`}>
+          <GlFormFieldLabel
+            id={`password-input-${width}-label`}
+            htmlFor={`password-input-${width}`}>
+            {width}
+          </GlFormFieldLabel>
           <GlFormPasswordInput
             {...args}
             id={`password-input-${width}`}
             width={width} />
-        </div>
+        </GlFormField>
       ))}
-    </div>
+    </GlFormFieldGroup>
   ),
   play: async ({ canvas }) => {
     const inputs = canvas.getAllByDisplayValue("super-secret-token");

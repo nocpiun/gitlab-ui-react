@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState, type ComponentProps } from "react";
 import { expect, fireEvent, fn, userEvent, waitFor } from "storybook/test";
+import GlFormField, {
+  GlFormFieldGroup,
+  GlFormFieldLabel,
+} from "../form-field/form-field";
 import GlFormInput from "./form-input";
 
 function ControlledInput(args: ComponentProps<typeof GlFormInput>) {
@@ -106,7 +110,12 @@ export const NativeFormReset: Story = {
   },
   render: (args) => (
     <form>
-      <GlFormInput {...args} />
+      <GlFormField aria-labelledby="reset-form-input-label">
+        <GlFormFieldLabel id="reset-form-input-label" htmlFor={args.id}>
+          Text
+        </GlFormFieldLabel>
+        <GlFormInput {...args} />
+      </GlFormField>
       <button type="reset" onMouseDown={(event) => event.preventDefault()}>
         Reset form
       </button>
@@ -253,14 +262,16 @@ export const Widths: Story = {
     value: "",
   },
   render: (args) => (
-    <div>
+    <GlFormFieldGroup>
       {(["xs", "sm", "md", "lg", "xl"] as const).map((width) => (
-        <div key={width} className="gl-mb-4">
-          <label htmlFor={`width-${width}`}>{width}</label>
+        <GlFormField key={width} aria-labelledby={`width-${width}-label`}>
+          <GlFormFieldLabel id={`width-${width}-label`} htmlFor={`width-${width}`}>
+            {width}
+          </GlFormFieldLabel>
           <GlFormInput {...args} id={`width-${width}`} value={width} width={width} />
-        </div>
+        </GlFormField>
       ))}
-    </div>
+    </GlFormFieldGroup>
   ),
   play: async ({ canvas }) => {
     await expect(canvas.getByDisplayValue("xs")).toHaveClass("gl-form-input-xs");
@@ -275,24 +286,28 @@ export const ResponsiveWidths: Story = {
     width: undefined,
   },
   render: (args) => (
-    <div>
-      <div className="gl-mb-4">
-        <label htmlFor="responsive-widths-1">With default key</label>
+    <GlFormFieldGroup>
+      <GlFormField aria-labelledby="responsive-widths-1-label">
+        <GlFormFieldLabel id="responsive-widths-1-label" htmlFor="responsive-widths-1">
+          With default key
+        </GlFormFieldLabel>
         <GlFormInput
           {...args}
           id="responsive-widths-1"
           value="With `default` key"
           width={{ default: "md", md: "lg", lg: "xl" }} />
-      </div>
-      <div>
-        <label htmlFor="responsive-widths-2">Without default</label>
+      </GlFormField>
+      <GlFormField aria-labelledby="responsive-widths-2-label">
+        <GlFormFieldLabel id="responsive-widths-2-label" htmlFor="responsive-widths-2">
+          Without default
+        </GlFormFieldLabel>
         <GlFormInput
           {...args}
           id="responsive-widths-2"
           value="Without `default` key"
           width={{ md: "lg", lg: "xl" }} />
-      </div>
-    </div>
+      </GlFormField>
+    </GlFormFieldGroup>
   ),
   play: async ({ canvas }) => {
     const withDefault = canvas.getByDisplayValue("With `default` key");

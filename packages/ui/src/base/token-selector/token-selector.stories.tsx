@@ -3,6 +3,7 @@ import { useState } from "react";
 import { expect, fn, userEvent, waitFor, within } from "storybook/test";
 import GlAvatar from "../avatar/avatar";
 import GlButton from "../button/button";
+import GlFormField, { GlFormFieldLabel } from "../form-field/form-field";
 import GlTokenSelector, {
   type GlTokenSelectorItem,
   type GlTokenSelectorProps,
@@ -90,10 +91,12 @@ const meta = {
     },
   },
   render: (args) => (
-    <div style={{ maxWidth: 520 }}>
-      <label htmlFor={args.id}>Projects</label>
+    <GlFormField aria-labelledby="projects-token-selector-label" style={{ maxWidth: 520 }}>
+      <GlFormFieldLabel id="projects-token-selector-label" htmlFor={args.id}>
+        Projects
+      </GlFormFieldLabel>
       <ControlledSelector {...args} sourceItems={projects} />
-    </div>
+    </GlFormField>
   ),
 } satisfies Meta<typeof GlTokenSelector>;
 
@@ -160,10 +163,16 @@ export const Uncontrolled: Story = {
     defaultValue: [projects[0]],
   },
   render: (args) => (
-    <div style={{ maxWidth: 520 }}>
-      <label htmlFor="uncontrolled-token-selector">Uncontrolled projects</label>
+    <GlFormField
+      aria-labelledby="uncontrolled-token-selector-label"
+      style={{ maxWidth: 520 }}>
+      <GlFormFieldLabel
+        id="uncontrolled-token-selector-label"
+        htmlFor="uncontrolled-token-selector">
+        Uncontrolled projects
+      </GlFormFieldLabel>
       <GlTokenSelector {...args} id="uncontrolled-token-selector" items={projects} />
-    </div>
+    </GlFormField>
   ),
   play: async ({ canvas }) => {
     const input = canvas.getByRole("combobox", { name: "Uncontrolled projects" });
@@ -180,8 +189,10 @@ export const Uncontrolled: Story = {
 
 function KeyboardExample() {
   return (
-    <div style={{ maxWidth: 520 }}>
-      <label htmlFor="keyboard-token-selector">Keyboard tokens</label>
+    <GlFormField aria-labelledby="keyboard-token-selector-label" style={{ maxWidth: 520 }}>
+      <GlFormFieldLabel id="keyboard-token-selector-label" htmlFor="keyboard-token-selector">
+        Keyboard tokens
+      </GlFormFieldLabel>
       <ControlledSelector
         defaultValue={[
           { id: "alpha", name: "Alpha" },
@@ -192,7 +203,7 @@ function KeyboardExample() {
           { id: "gamma", name: "Gamma" },
           { id: "delta", name: "Delta" },
         ]} />
-    </div>
+    </GlFormField>
   );
 }
 
@@ -250,15 +261,17 @@ export const UserDefinedTokens: Story = {
     defaultValue: [],
   },
   render: (args) => (
-    <div style={{ maxWidth: 520 }}>
-      <label htmlFor="custom-token-selector">Custom projects</label>
+    <GlFormField aria-labelledby="custom-token-selector-label" style={{ maxWidth: 520 }}>
+      <GlFormFieldLabel id="custom-token-selector-label" htmlFor="custom-token-selector">
+        Custom projects
+      </GlFormFieldLabel>
       <GlTokenSelector
         {...args}
         id="custom-token-selector"
         items={[]}
         renderToken={(item) => <span>[{item.name}]</span>}
         renderUserDefinedToken={(inputValue) => <span>Add custom: [{inputValue}]</span>} />
-    </div>
+    </GlFormField>
   ),
   play: async ({ args, canvas }) => {
     args.onTokenAdd!.mockClear();
@@ -314,13 +327,15 @@ function AsyncResultsAfterBlurExample() {
   const [items, setItems] = useState<GlTokenSelectorItem[]>([]);
 
   return (
-    <div style={{ maxWidth: 520 }}>
-      <label htmlFor="async-token-selector">Async projects</label>
+    <GlFormField aria-labelledby="async-token-selector-label" style={{ maxWidth: 520 }}>
+      <GlFormFieldLabel id="async-token-selector-label" htmlFor="async-token-selector">
+        Async projects
+      </GlFormFieldLabel>
       <GlTokenSelector id="async-token-selector" items={items} />
       <GlButton onClick={() => setItems([{ id: "runner", name: "Runner" }])}>
         {items.length > 0 ? "Results loaded" : "Resolve search"}
       </GlButton>
-    </div>
+    </GlFormField>
   );
 }
 
@@ -355,10 +370,12 @@ export const NoResults: Story = {
     noResultsContent: "No projects found",
   },
   render: (args) => (
-    <div style={{ maxWidth: 520 }}>
-      <label htmlFor="empty-token-selector">Empty projects</label>
+    <GlFormField aria-labelledby="empty-token-selector-label" style={{ maxWidth: 520 }}>
+      <GlFormFieldLabel id="empty-token-selector-label" htmlFor="empty-token-selector">
+        Empty projects
+      </GlFormFieldLabel>
       <ControlledSelector {...args} id="empty-token-selector" sourceItems={projects} />
-    </div>
+    </GlFormField>
   ),
   play: async ({ canvas }) => {
     const input = canvas.getByRole("combobox", { name: "Empty projects" });
@@ -385,10 +402,16 @@ export const HiddenWithoutResults: Story = {
     items: [],
   },
   render: (args) => (
-    <div style={{ maxWidth: 520 }}>
-      <label htmlFor="hidden-empty-token-selector">Hidden empty projects</label>
+    <GlFormField
+      aria-labelledby="hidden-empty-token-selector-label"
+      style={{ maxWidth: 520 }}>
+      <GlFormFieldLabel
+        id="hidden-empty-token-selector-label"
+        htmlFor="hidden-empty-token-selector">
+        Hidden empty projects
+      </GlFormFieldLabel>
       <GlTokenSelector {...args} id="hidden-empty-token-selector" />
-    </div>
+    </GlFormField>
   ),
   play: async ({ canvas }) => {
     const input = canvas.getByRole("combobox", { name: "Hidden empty projects" });

@@ -3,6 +3,10 @@ import { useState } from "react";
 import { hydrateRoot } from "react-dom/client";
 import { expect, fn, userEvent, waitFor } from "storybook/test";
 import SafeHtml from "../../internal/safe-html/safe-html";
+import {
+  GlFormFieldLegend,
+  GlFormFieldSet,
+} from "../form-field/form-field";
 import GlFormRadio from "../form-radio/form-radio";
 import GlFormRadioGroup, { type GlFormRadioGroupProps } from "./form-radio-group";
 
@@ -326,11 +330,14 @@ function NativeRadioGroupResetExample({
 
   return (
     <form>
-      <GlFormRadioGroup
-        defaultValue="pizza"
-        name="native-radio-group"
-        onValueChange={onValueChange}
-        options={defaultOptions} />
+      <GlFormFieldSet>
+        <GlFormFieldLegend>Food</GlFormFieldLegend>
+        <GlFormRadioGroup
+          defaultValue="pizza"
+          name="native-radio-group"
+          onValueChange={onValueChange}
+          options={defaultOptions} />
+      </GlFormFieldSet>
       <button type="reset">Reset radio group</button>
       <button onClick={() => rerender((count) => count + 1)} type="button">
         Rerender radio group

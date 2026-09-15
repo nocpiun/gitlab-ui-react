@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fireEvent, fn, userEvent, waitFor } from "storybook/test";
+import GlFormField, { GlFormFieldLabel } from "../form-field/form-field";
 import GlFormDate from "./form-date";
 
 const meta = {
@@ -22,10 +23,10 @@ const meta = {
     },
   },
   render: (args) => (
-    <>
-      <label htmlFor={args.id}>Date</label>
+    <GlFormField aria-labelledby="form-date-label">
+      <GlFormFieldLabel id="form-date-label" htmlFor={args.id}>Date</GlFormFieldLabel>
       <GlFormDate {...args} />
-    </>
+    </GlFormField>
   ),
 } satisfies Meta<typeof GlFormDate>;
 
@@ -59,8 +60,10 @@ export const NativeFormReset: Story = {
   },
   render: (args) => (
     <form>
-      <label htmlFor={args.id}>Date</label>
-      <GlFormDate {...args} />
+      <GlFormField aria-labelledby="reset-form-date-label">
+        <GlFormFieldLabel id="reset-form-date-label" htmlFor={args.id}>Date</GlFormFieldLabel>
+        <GlFormDate {...args} />
+      </GlFormField>
       <button type="reset">Reset form</button>
     </form>
   ),

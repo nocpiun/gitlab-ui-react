@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState, type ComponentProps } from "react";
 import { expect, fireEvent, waitFor } from "storybook/test";
 
+import GlFormField, { GlFormFieldLabel } from "../form-field/form-field";
 import GlFormCharacterCount from "./form-character-count";
 import GlFormInput from "../form-input/form-input";
 
@@ -16,8 +17,10 @@ function CharacterCountExample(args: ComponentProps<typeof GlFormCharacterCount>
   const remainingCount = args.limit - value.length;
 
   return (
-    <div>
-      <label htmlFor={inputId}>Form input with character count</label>
+    <GlFormField aria-labelledby={`${inputId}-label`}>
+      <GlFormFieldLabel id={`${inputId}-label`} htmlFor={inputId}>
+        Form input with character count
+      </GlFormFieldLabel>
       <GlFormInput
         id={inputId}
         aria-describedby={args.countTextId}
@@ -28,7 +31,7 @@ function CharacterCountExample(args: ComponentProps<typeof GlFormCharacterCount>
         value={value}
         remainingCountText={characterText(Math.max(remainingCount, 0), "remaining")}
         overLimitText={characterText(Math.max(-remainingCount, 0), "over limit")} />
-    </div>
+    </GlFormField>
   );
 }
 

@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { expect, fn, userEvent, waitFor } from "storybook/test";
+import GlFormField, {
+  GlFormFieldLegend,
+  GlFormFieldSet,
+} from "../form-field/form-field";
 import GlFormCheckbox, { type GlFormCheckboxProps } from "./form-checkbox";
 import GlFormCheckboxGroup from "./form-checkbox-group";
 
@@ -340,13 +344,15 @@ function NativeCheckboxResetExample({
 
   return (
     <form>
-      <GlFormCheckbox
-        defaultChecked
-        name="standalone"
-        onCheckedChange={onCheckedChange}
-        value="yes">
-        Standalone checkbox
-      </GlFormCheckbox>
+      <GlFormField aria-label="Standalone checkbox">
+        <GlFormCheckbox
+          defaultChecked
+          name="standalone"
+          onCheckedChange={onCheckedChange}
+          value="yes">
+          Standalone checkbox
+        </GlFormCheckbox>
+      </GlFormField>
       <button type="reset">Reset checkbox</button>
       <button onClick={() => rerender((count) => count + 1)} type="button">
         Rerender checkbox
@@ -385,11 +391,14 @@ function NativeCheckboxGroupResetExample() {
 
   return (
     <form>
-      <GlFormCheckboxGroup
-        defaultValue={["pizza"]}
-        name="food"
-        onValueChange={nativeCheckboxGroupValueChange}
-        options={groupOptions} />
+      <GlFormFieldSet>
+        <GlFormFieldLegend>Food</GlFormFieldLegend>
+        <GlFormCheckboxGroup
+          defaultValue={["pizza"]}
+          name="food"
+          onValueChange={nativeCheckboxGroupValueChange}
+          options={groupOptions} />
+      </GlFormFieldSet>
       <button type="reset">Reset checkbox group</button>
       <button onClick={() => rerender((count) => count + 1)} type="button">
         Rerender checkbox group

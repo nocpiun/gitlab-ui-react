@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { expect, fn, userEvent, waitFor } from "storybook/test";
+import {
+  GlFormFieldLegend,
+  GlFormFieldSet,
+} from "../form-field/form-field";
 import GlFormRadio, { type GlFormRadioProps } from "./form-radio";
 
 const meta = {
@@ -202,16 +206,19 @@ function NativeRadioResetExample({
 
   return (
     <form>
-      <GlFormRadio
-        defaultChecked
-        name="native-radio"
-        onCheckedChange={onCheckedChange}
-        value="one">
-        One
-      </GlFormRadio>
-      <GlFormRadio name="native-radio" onCheckedChange={onCheckedChange} value="two">
-        Two
-      </GlFormRadio>
+      <GlFormFieldSet>
+        <GlFormFieldLegend>Options</GlFormFieldLegend>
+        <GlFormRadio
+          defaultChecked
+          name="native-radio"
+          onCheckedChange={onCheckedChange}
+          value="one">
+          One
+        </GlFormRadio>
+        <GlFormRadio name="native-radio" onCheckedChange={onCheckedChange} value="two">
+          Two
+        </GlFormRadio>
+      </GlFormFieldSet>
       <button type="reset">Reset radios</button>
       <button onClick={() => rerender((count) => count + 1)} type="button">
         Rerender radios
