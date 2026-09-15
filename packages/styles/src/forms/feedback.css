@@ -8,19 +8,21 @@
  * - the color override in
  *   packages/gitlab-ui/src/components/base/form/form_group/form_group.scss.
  *
- * Subset rationale: covers only what GlFormDate actually depends on — the
- * feedback display, spacing, typography and error color. The component
- * renders the feedback element itself and only when invalid, so the upstream
+ * Subset rationale: covers what GlFormDate and the presentational
+ * GlFormFieldError depend on — feedback display, spacing, typography and
+ * error color. Both components render the feedback element only when it
+ * should be visible, so the upstream
  * `display: none` default and the `.is-invalid ~ .invalid-feedback` reveal
  * rules are not needed. Deliberately omitted (no current consumer):
  * `.valid-feedback`, both tooltip variants and the `.was-validated` selectors.
  *
- * React scoping adaptation: scoped under the `.gl-form-date` marker (the only
- * current consumer) so consumer markup using Bootstrap class names is not
- * affected.
+ * React scoping adaptation: scoped under component markers so consumer markup
+ * using Bootstrap class names is not affected.
  */
 
-.gl-form-date .invalid-feedback {
+.gl-form-date .invalid-feedback,
+.gl-form-field .gl-form-field-error.invalid-feedback,
+.gl-form-field-set > .gl-form-field-error.invalid-feedback {
   @apply gl-mt-2 gl-text-base gl-leading-normal gl-block gl-w-full;
   color: var(--gl-control-text-color-error);
 }

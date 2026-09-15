@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { expect, fn, userEvent } from "storybook/test";
+import GlFormField, {
+  GlFormFieldGroup,
+  GlFormFieldLabel,
+} from "../form-field/form-field";
 import GlFormSelect, {
   GlFormSelectGroup,
   GlFormSelectItem,
@@ -45,12 +49,12 @@ const meta = {
     },
   },
   render: (args) => (
-    <div>
-      <label htmlFor="food-select">Food</label>
+    <GlFormField aria-labelledby="food-select-label">
+      <GlFormFieldLabel id="food-select-label" htmlFor="food-select">Food</GlFormFieldLabel>
       <GlFormSelect {...args} id="food-select">
         {foodItems}
       </GlFormSelect>
-    </div>
+    </GlFormField>
   ),
 } satisfies Meta<typeof GlFormSelect>;
 
@@ -114,14 +118,16 @@ export const WithTruncation: Story = {
     defaultValue: "long",
   },
   render: (args) => (
-    <div style={{ maxWidth: 300 }}>
-      <label htmlFor="truncated-select">Food</label>
+    <GlFormField aria-labelledby="truncated-select-label" style={{ maxWidth: 300 }}>
+      <GlFormFieldLabel id="truncated-select-label" htmlFor="truncated-select">
+        Food
+      </GlFormFieldLabel>
       <GlFormSelect {...args} id="truncated-select">
         <GlFormSelectItem value="long">
           A form select option with a very looooooooong label
         </GlFormSelectItem>
       </GlFormSelect>
-    </div>
+    </GlFormField>
   ),
 };
 
@@ -130,8 +136,10 @@ export const GroupedItems: Story = {
     defaultValue: "Pizza",
   },
   render: (args) => (
-    <div>
-      <label htmlFor="grouped-select">Food</label>
+    <GlFormField aria-labelledby="grouped-select-label">
+      <GlFormFieldLabel id="grouped-select-label" htmlFor="grouped-select">
+        Food
+      </GlFormFieldLabel>
       <GlFormSelect {...args} id="grouped-select">
         <GlFormSelectGroup label="Main dishes">
           <GlFormSelectItem value="Pizza">Pizza</GlFormSelectItem>
@@ -141,7 +149,7 @@ export const GroupedItems: Story = {
           <GlFormSelectItem value="Burger">Burger</GlFormSelectItem>
         </GlFormSelectGroup>
       </GlFormSelect>
-    </div>
+    </GlFormField>
   ),
   play: async ({ canvas }) => {
     const groups = canvas.getByRole("combobox", { name: "Food" }).querySelectorAll("optgroup");
@@ -174,8 +182,10 @@ function ControlledExample(args: GlFormSelectProps) {
   const [value, setValue] = useState("Tacos");
 
   return (
-    <div>
-      <label htmlFor="controlled-select">Food</label>
+    <GlFormField aria-labelledby="controlled-select-label">
+      <GlFormFieldLabel id="controlled-select-label" htmlFor="controlled-select">
+        Food
+      </GlFormFieldLabel>
       <GlFormSelect {...args} id="controlled-select" onValueChange={(nextValue) => {
         setValue(nextValue as string);
         args.onValueChange?.(nextValue);
@@ -183,7 +193,7 @@ function ControlledExample(args: GlFormSelectProps) {
         {foodItems}
       </GlFormSelect>
       <p>Selected: {value}</p>
-    </div>
+    </GlFormField>
   );
 }
 
@@ -207,10 +217,14 @@ export const Widths: Story = {
     defaultValue: undefined,
   },
   render: (args) => (
-    <div>
+    <GlFormFieldGroup>
       {(["xs", "sm", "md", "lg", "xl"] as const).map((width) => (
-        <div className="gl-mb-4" key={width}>
-          <label htmlFor={`select-width-${width}`}>{width}</label>
+        <GlFormField key={width} aria-labelledby={`select-width-${width}-label`}>
+          <GlFormFieldLabel
+            id={`select-width-${width}-label`}
+            htmlFor={`select-width-${width}`}>
+            {width}
+          </GlFormFieldLabel>
           <GlFormSelect
             {...args}
             defaultValue={width}
@@ -218,9 +232,9 @@ export const Widths: Story = {
             width={width}>
             <GlFormSelectItem value={width}>{width}</GlFormSelectItem>
           </GlFormSelect>
-        </div>
+        </GlFormField>
       ))}
-    </div>
+    </GlFormFieldGroup>
   ),
   play: async ({ canvas }) => {
     await expect(canvas.getByRole("combobox", { name: "xs" }).parentElement)
@@ -236,8 +250,10 @@ export const ResponsiveWidths: Story = {
     width: undefined,
   },
   render: (args) => (
-    <div>
-      <label htmlFor="responsive-select">Responsive width</label>
+    <GlFormField aria-labelledby="responsive-select-label">
+      <GlFormFieldLabel id="responsive-select-label" htmlFor="responsive-select">
+        Responsive width
+      </GlFormFieldLabel>
       <GlFormSelect
         {...args}
         defaultValue="Responsive"
@@ -245,7 +261,7 @@ export const ResponsiveWidths: Story = {
         width={{ default: "md", md: "lg", lg: "xl" }}>
         <GlFormSelectItem value="Responsive">Responsive</GlFormSelectItem>
       </GlFormSelect>
-    </div>
+    </GlFormField>
   ),
   play: async ({ canvas }) => {
     await expect(canvas.getByRole("combobox", { name: "Responsive width" }).parentElement)

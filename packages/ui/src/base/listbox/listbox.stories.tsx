@@ -17,6 +17,7 @@ import {
   within,
 } from "storybook/test";
 import GlButton from "../button/button";
+import GlFormField from "../form-field/form-field";
 import GlListbox, {
   GlListboxContent,
   GlListboxFooter,
@@ -705,24 +706,26 @@ function NativeSearchResetExample() {
   return (
     <>
       <form id={formId} />
-      <GlListbox defaultOpen>
-        <GlListboxTrigger>Search reset example</GlListboxTrigger>
-        <GlListboxContent>
-          <GlListboxSearchInput
-            defaultValue="back"
-            form={formId}
-            placeholder="Resettable search" />
-          <GlListboxGroup>
-            <GlListboxItem value="backend">Backend</GlListboxItem>
-          </GlListboxGroup>
-          <GlListboxFooter>
-            <button form={formId} type="reset">Reset search</button>
-            <button onClick={() => rerender((count) => count + 1)} type="button">
-              Rerender search
-            </button>
-          </GlListboxFooter>
-        </GlListboxContent>
-      </GlListbox>
+      <GlFormField aria-label="Resettable search">
+        <GlListbox defaultOpen>
+          <GlListboxTrigger>Search reset example</GlListboxTrigger>
+          <GlListboxContent>
+            <GlListboxSearchInput
+              defaultValue="back"
+              form={formId}
+              placeholder="Resettable search" />
+            <GlListboxGroup>
+              <GlListboxItem value="backend">Backend</GlListboxItem>
+            </GlListboxGroup>
+            <GlListboxFooter>
+              <button form={formId} type="reset">Reset search</button>
+              <button onClick={() => rerender((count) => count + 1)} type="button">
+                Rerender search
+              </button>
+            </GlListboxFooter>
+          </GlListboxContent>
+        </GlListbox>
+      </GlFormField>
     </>
   );
 }

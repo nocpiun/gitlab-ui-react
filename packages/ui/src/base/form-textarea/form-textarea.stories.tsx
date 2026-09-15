@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useRef, useState, type ComponentProps } from "react";
 import { expect, fn, userEvent, waitFor } from "storybook/test";
 
+import GlFormField from "../form-field/form-field";
 import GlFormTextarea from "./form-textarea";
 
 function ControlledTextarea(args: ComponentProps<typeof GlFormTextarea>) {
@@ -145,7 +146,9 @@ export const NativeFormReset: Story = {
   },
   render: (args) => (
     <form>
-      <GlFormTextarea {...args} />
+      <GlFormField aria-label="Description">
+        <GlFormTextarea {...args} />
+      </GlFormField>
       <button type="reset">Reset form</button>
     </form>
   ),
