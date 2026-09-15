@@ -1,5 +1,16 @@
 # gitlab-ui-react
 
+## 0.2.0
+
+### Features
+
+- **ui:** form input group components (#119)
+- **ui:** form fields components (#122)
+
+### Contributors
+
+- @NriotHrreion
+
 ## 0.1.0
 
 ### Features
