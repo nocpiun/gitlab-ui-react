@@ -54,6 +54,11 @@ function getNavigationItems(locale: Locale): DocsNavigationItem[] {
     title: messages.installation,
   },
   {
+    href: localizedPath(locale, "/docs/fonts"),
+    id: "fonts",
+    title: messages.fonts,
+  },
+  {
     href: "https://design.gitlab.com/product-foundations/design-tokens-directory",
     title: messages.designTokens,
     external: true,

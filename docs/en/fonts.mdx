@@ -1,0 +1,87 @@
+---
+title: Fonts
+description: Load GitLab Sans and GitLab Mono from the official @gitlab/fonts package.
+---
+
+import { PackageManagerTabs } from "../../apps/website/src/components/package-manager-tabs";
+
+GitLab UI React uses GitLab Sans for interface text and GitLab Mono for code. The style package defines the font stacks, but it does not bundle the font files. Install GitLab's official font package in your application:
+
+<PackageManagerTabs
+  client:load
+  dependencies="@gitlab/fonts"/>
+
+## Register the fonts
+
+Add the font faces to a global stylesheet processed by your bundler:
+
+```css
+@font-face {
+  font-family: "GitLab Sans";
+  src: url("@gitlab/fonts/gitlab-sans/GitLabSans.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GitLab Sans";
+  src: url("@gitlab/fonts/gitlab-sans/GitLabSans-Italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GitLab Mono";
+  src: url("@gitlab/fonts/gitlab-mono/GitLabMono.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GitLab Mono";
+  src: url("@gitlab/fonts/gitlab-mono/GitLabMono-Italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+}
+```
+
+Both typefaces are variable fonts. Each file covers the complete `100` through `900` weight range, so you do not need a separate font file for each weight.
+
+> [!tip]
+> If your application does not display code or other monospaced content, you can omit the two GitLab Mono declarations.
+
+## Load the stylesheet
+
+Import the GitLab UI React stylesheet and your font declarations once from your application's global entry point:
+
+```tsx
+import "@gitlab-ui-react/styles";
+import "./fonts.css";
+```
+
+No additional `font-family` rule is required. GitLab UI React applies `var(--gl-font-family-regular)` to the page and `var(--gl-font-family-monospace)` to code elements. These stacks select the registered GitLab fonts and fall back to system fonts if a font file cannot be loaded.
+
+For content outside the library's base styles, use the same typography tokens:
+
+```css
+.application-content {
+  font-family: var(--gl-font-family-regular);
+}
+
+.application-code {
+  font-family: var(--gl-font-family-monospace);
+}
+```
+
+## Framework notes
+
+The `url()` paths above are package-relative asset imports. They work when the CSS is handled by a bundler that resolves npm packages, such as Vite. If your framework does not resolve package URLs in CSS, copy the WOFF2 files into its public asset directory and update each `src` URL while keeping the font-family names unchanged.
+
+## Related resources
+
+- [@gitlab/fonts on npm](https://www.npmjs.com/package/@gitlab/fonts)
+- [Typography in the Pajamas Design System](https://design.gitlab.com/product-foundations/type-fundamentals/)
