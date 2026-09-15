@@ -53,6 +53,8 @@ const MARKER_CLASSES = new Set([
   "gl-form-input-group",
   "gl-form-input-group-addon",
   "gl-form-date",
+  "gl-form-field",
+  "gl-form-field-set",
   "gl-form-select",
   "gl-input-group-text",
 ]);
@@ -109,6 +111,10 @@ test("key compatibility selectors exist", async () => {
     && normalizedDeclarations(rule).includes("display: flex")
   ))).toBe(true);
   expect(selectors).toContain(".gl-form-date .invalid-feedback");
+  expect(selectors).toContain(".gl-form-field .gl-form-field-error.invalid-feedback");
+  expect(selectors).toContain(".gl-form-field-description.form-text");
+  expect(selectors).toContain(".gl-form-field-group > .gl-form-field");
+  expect(selectors).toContain(".gl-form-field-group > .gl-form-field-set");
   expect(selectors).toContain(".gl-form-select.custom-select");
 }, 30000);
 

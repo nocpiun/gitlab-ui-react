@@ -1,7 +1,8 @@
 /**
  * Form style foundations for the form components on `main`
  * (GlFormCheckbox, GlFormRadio, GlFormRadioGroup, GlFormInput, GlFormDate,
- * GlFormCharacterCount, GlFormSelect, GlFormTextarea, GlFormInputGroup).
+ * GlFormCharacterCount, GlFormSelect, GlFormTextarea, GlFormInputGroup,
+ * GlFormField, and GlFormFieldSet).
  *
  * Load order contract: Bootstrap compatibility first, then GitLab shared
  * overrides; `components.css` imports this entry before any

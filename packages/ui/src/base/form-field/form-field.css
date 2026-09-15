@@ -1,0 +1,57 @@
+/**
+ * Adapted from GitLab UI:
+ * packages/gitlab-ui/src/components/base/form/form_group/form_group.scss
+ *
+ * Bootstrap form, fieldset, and feedback foundations live in
+ * packages/styles/src/forms/. GlFormFieldGroup's layout rules are the React
+ * replacement for GlFormFields' otherwise unstyled loop wrapper.
+ */
+
+.gl-form-field,
+.gl-form-field-set {
+  @apply gl-mb-5;
+}
+
+.gl-form-field-group {
+  > .gl-form-field,
+  > .gl-form-field-set {
+    @apply gl-mb-0;
+  }
+}
+
+.gl-form-field-label,
+.gl-form-field-legend {
+  @apply gl-block gl-text-base gl-font-bold gl-leading-normal gl-pt-0 gl-pb-3 gl-text-strong;
+
+  > .label-description {
+    @apply gl-block gl-mt-2 gl-text-subtle;
+  }
+
+  > .optional-label,
+  > .label-description {
+    @apply gl-font-normal;
+  }
+}
+
+.gl-form-field-description {
+  @apply gl-text-base gl-leading-normal gl-text-subtle;
+}
+
+.gl-form-field-error {
+  @apply gl-text-base gl-leading-normal;
+  color: var(--gl-control-text-color-error);
+}
+
+.gl-form-field,
+.gl-form-field-set {
+  .form-control {
+    + .gl-form-field-error,
+    + .gl-form-field-description {
+      @apply gl-mt-3;
+    }
+  }
+}
+
+.gl-form-field-legend {
+  border-bottom: 0;
+}
