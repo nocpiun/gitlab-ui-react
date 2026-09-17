@@ -13,7 +13,10 @@ import {
 ```
 
 ```tsx
-<GlFormCheckboxGroup defaultValue={["email"]} name="notifications">
+<GlFormCheckboxGroup
+  aria-label="Notifications"
+  defaultValue={["email"]}
+  name="notifications">
   <GlFormCheckbox value="email">Email notifications</GlFormCheckbox>
   <GlFormCheckbox value="browser">Browser notifications</GlFormCheckbox>
 </GlFormCheckboxGroup>
@@ -49,7 +52,7 @@ import {
 ## 无障碍
 
 - 为每个 Checkbox 提供简洁的可见标签。仅在无法提供可见标签时使用 `ariaLabel` 或 `ariaLabelledby`。
-- 使用带 `<legend>` 的 `<fieldset>` 包裹相关选项；使用 `GlFormCheckboxGroup` 时，通过 `aria-labelledby` 传入 legend ID。
+- 使用带 `GlFormFieldLegend` 的 `GlFormFieldSet` 包裹相关选项，并通过 `aria-label` 为 `GlFormCheckboxGroup` 提供独立的无障碍名称。
 - 仅当允许选择零个、一个或多个值时使用 Checkbox；只允许一个选项时使用 Radio。
 - 将 `state={false}` 与可见验证反馈配合使用，并通过 `aria-describedby` 建立关联。
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { GlFormField, GlFormFieldLabel } from "gitlab-ui-react/form-field";
 import { GlFormTextarea } from "gitlab-ui-react/form-textarea";
 
 const limit = 100;
@@ -8,10 +9,10 @@ export default function FormTextareaCharacterCountExample() {
   const remaining = limit - value.length;
 
   return (
-    <div className="max-w-lg">
-      <label className="mb-2 block font-bold" htmlFor="summary">
+    <GlFormField className="max-w-lg">
+      <GlFormFieldLabel htmlFor="summary">
         Summary
-      </label>
+      </GlFormFieldLabel>
       <GlFormTextarea
         characterCountLimit={limit}
         characterCountOverLimitText={`${Math.abs(remaining)} characters over limit.`}
@@ -19,6 +20,6 @@ export default function FormTextareaCharacterCountExample() {
         remainingCharacterCountText={`${Math.max(remaining, 0)} characters remaining.`}
         value={value}
         onValueChange={setValue} />
-    </div>
+    </GlFormField>
   );
 }

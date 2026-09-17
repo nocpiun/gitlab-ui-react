@@ -1,14 +1,15 @@
+import { GlFormField, GlFormFieldLabel } from "gitlab-ui-react/form-field";
 import { GlFormTextarea } from "gitlab-ui-react/form-textarea";
 
 export default function FormTextareaExample() {
   return (
-    <div className="max-w-lg">
-      <label className="mb-2 block font-bold" htmlFor="description">
+    <GlFormField className="max-w-lg">
+      <GlFormFieldLabel htmlFor="description">
         Description
-      </label>
+      </GlFormFieldLabel>
       <GlFormTextarea
         defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         id="description" />
-    </div>
+    </GlFormField>
   );
 }

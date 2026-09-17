@@ -1,12 +1,13 @@
+import { GlFormField, GlFormFieldLabel } from "gitlab-ui-react/form-field";
 import { GlFormInput } from "gitlab-ui-react/form-input";
 
 export default function FormInputExample() {
   return (
-    <div className="max-w-md">
-      <label className="mb-2 block font-bold" htmlFor="username">
+    <GlFormField className="max-w-md">
+      <GlFormFieldLabel htmlFor="username">
         Username
-      </label>
+      </GlFormFieldLabel>
       <GlFormInput defaultValue="Norcleeh" id="username" />
-    </div>
+    </GlFormField>
   );
 }

@@ -1,3 +1,4 @@
+import { GlFormField, GlFormFieldLabel } from "gitlab-ui-react/form-field";
 import {
   GlFormSelect,
   GlFormSelectGroup,
@@ -6,10 +7,10 @@ import {
 
 export default function FormSelectGroupsExample() {
   return (
-    <div className="max-w-sm">
-      <label className="mb-2 block font-bold" htmlFor="destination">
+    <GlFormField className="max-w-sm">
+      <GlFormFieldLabel htmlFor="destination">
         Destination
-      </label>
+      </GlFormFieldLabel>
       <GlFormSelect id="destination">
         <GlFormSelectGroup label="Recent projects">
           <GlFormSelectItem value="opanel">OPanel</GlFormSelectItem>
@@ -19,6 +20,6 @@ export default function FormSelectGroupsExample() {
           <GlFormSelectItem value="nocpiun">Nocpiun</GlFormSelectItem>
         </GlFormSelectGroup>
       </GlFormSelect>
-    </div>
+    </GlFormField>
   );
 }

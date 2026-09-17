@@ -1,3 +1,4 @@
+import { GlFormField, GlFormFieldLabel } from "gitlab-ui-react/form-field";
 import { GlFormInput } from "gitlab-ui-react/form-input";
 import {
   GlFormInputGroup,
@@ -7,13 +8,12 @@ import {
 
 export default function FormInputGroupTextExample() {
   return (
-    <div className="max-w-md">
-      <label
-        className="mb-2 block font-bold"
+    <GlFormField className="max-w-md">
+      <GlFormFieldLabel
         htmlFor="grouped-repository-path"
         id="grouped-repository-path-label">
         Repository path
-      </label>
+      </GlFormFieldLabel>
       <GlFormInputGroup aria-labelledby="grouped-repository-path-label">
         <GlFormInputGroupAddon position="prepend">
           <GlInputGroupText id="grouped-repository-prefix">
@@ -30,6 +30,6 @@ export default function FormInputGroupTextExample() {
           </GlInputGroupText>
         </GlFormInputGroupAddon>
       </GlFormInputGroup>
-    </div>
+    </GlFormField>
   );
 }

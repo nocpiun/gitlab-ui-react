@@ -1,3 +1,9 @@
+import {
+  GlFormField,
+  GlFormFieldError,
+  GlFormFieldGroup,
+  GlFormFieldLabel,
+} from "gitlab-ui-react/form-field";
 import { GlButton } from "gitlab-ui-react/button";
 import { GlFormInput } from "gitlab-ui-react/form-input";
 import {
@@ -8,14 +14,13 @@ import {
 
 export default function FormInputGroupStatesExample() {
   return (
-    <div className="grid max-w-md gap-4">
-      <div>
-        <label
-          className="mb-2 block font-bold"
+    <GlFormFieldGroup className="max-w-md">
+      <GlFormField>
+        <GlFormFieldLabel
           htmlFor="grouped-readonly-path"
           id="grouped-readonly-path-label">
           Repository path (read-only)
-        </label>
+        </GlFormFieldLabel>
         <GlFormInputGroup aria-labelledby="grouped-readonly-path-label">
           <GlFormInputGroupAddon position="prepend">
             <GlInputGroupText id="grouped-readonly-prefix">
@@ -28,14 +33,13 @@ export default function FormInputGroupStatesExample() {
             id="grouped-readonly-path"
             readOnly />
         </GlFormInputGroup>
-      </div>
-      <div>
-        <label
-          className="mb-2 block font-bold"
+      </GlFormField>
+      <GlFormField>
+        <GlFormFieldLabel
           htmlFor="grouped-timeout"
           id="grouped-timeout-label">
           Timeout
-        </label>
+        </GlFormFieldLabel>
         <GlFormInputGroup aria-labelledby="grouped-timeout-label">
           <GlFormInput
             aria-describedby="grouped-timeout-unit grouped-timeout-error"
@@ -50,24 +54,23 @@ export default function FormInputGroupStatesExample() {
             </GlInputGroupText>
           </GlFormInputGroupAddon>
         </GlFormInputGroup>
-        <p className="mb-0 mt-2" id="grouped-timeout-error">
+        <GlFormFieldError id="grouped-timeout-error">
           Enter a timeout of at least 1 second.
-        </p>
-      </div>
-      <div>
-        <label
-          className="mb-2 block font-bold"
+        </GlFormFieldError>
+      </GlFormField>
+      <GlFormField>
+        <GlFormFieldLabel
           htmlFor="grouped-disabled-search"
           id="grouped-disabled-search-label">
           Search projects (disabled)
-        </label>
+        </GlFormFieldLabel>
         <GlFormInputGroup aria-labelledby="grouped-disabled-search-label">
           <GlFormInput disabled id="grouped-disabled-search" type="search" />
           <GlFormInputGroupAddon position="append">
             <GlButton disabled>Search</GlButton>
           </GlFormInputGroupAddon>
         </GlFormInputGroup>
-      </div>
-    </div>
+      </GlFormField>
+    </GlFormFieldGroup>
   );
 }

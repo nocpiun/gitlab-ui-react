@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { GlFormField, GlFormFieldLabel } from "gitlab-ui-react/form-field";
 import {
   GlTokenSelector,
   type GlTokenSelectorItem,
@@ -18,8 +19,8 @@ export default function TokenSelectorExample() {
   ));
 
   return (
-    <div className="max-w-lg">
-      <label htmlFor="reviewers">Reviewers</label>
+    <GlFormField className="max-w-lg">
+      <GlFormFieldLabel htmlFor="reviewers">Reviewers</GlFormFieldLabel>
       <GlTokenSelector
         allowClearAll
         id="reviewers"
@@ -28,6 +29,6 @@ export default function TokenSelectorExample() {
         onValueChange={setValue}
         placeholder="Search users"
         value={value} />
-    </div>
+    </GlFormField>
   );
 }

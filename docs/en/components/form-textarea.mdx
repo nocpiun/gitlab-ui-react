@@ -10,7 +10,7 @@ import { GlFormTextarea } from "gitlab-ui-react/form-textarea";
 ```
 
 ```tsx
-<GlFormTextarea id="description" />
+<GlFormTextarea aria-label="Description" />
 ```
 
 ## Default
@@ -33,7 +33,7 @@ Set `characterCountLimit` to display an associated counter. Supply localized rem
 
 ## Accessibility
 
-- Associate the textarea with a visible `<label>` using matching `htmlFor` and `id` values.
+- Associate the textarea with a visible `GlFormFieldLabel` using matching `htmlFor` and `id` values.
 - Placeholder text is not a replacement for a label.
 - When character counting is enabled, provide localized count text; the component connects its polite live region through `aria-describedby`.
 - Pair invalid state with visible feedback and retain any existing `aria-describedby` references.

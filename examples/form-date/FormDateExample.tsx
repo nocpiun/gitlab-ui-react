@@ -1,12 +1,13 @@
+import { GlFormField, GlFormFieldLabel } from "gitlab-ui-react/form-field";
 import { GlFormDate } from "gitlab-ui-react/form-date";
 
 export default function FormDateExample() {
   return (
-    <div className="max-w-xs">
-      <label className="mb-2 block font-bold" htmlFor="due-date">
+    <GlFormField className="max-w-xs">
+      <GlFormFieldLabel htmlFor="due-date">
         Due date
-      </label>
+      </GlFormFieldLabel>
       <GlFormDate id="due-date" />
-    </div>
+    </GlFormField>
   );
 }

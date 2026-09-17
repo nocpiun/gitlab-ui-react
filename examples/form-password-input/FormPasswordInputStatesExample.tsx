@@ -1,12 +1,17 @@
+import {
+  GlFormField,
+  GlFormFieldGroup,
+  GlFormFieldLabel,
+} from "gitlab-ui-react/form-field";
 import { GlFormPasswordInput } from "gitlab-ui-react/form-password-input";
 
 export default function FormPasswordInputStatesExample() {
   return (
-    <div className="grid max-w-md gap-4">
-      <div>
-        <label className="mb-2 block font-bold" htmlFor="read-only-token">
+    <GlFormFieldGroup className="max-w-md">
+      <GlFormField>
+        <GlFormFieldLabel htmlFor="read-only-token">
           Read-only access token
-        </label>
+        </GlFormFieldLabel>
         <GlFormPasswordInput
           defaultValue="example-access-token"
           id="read-only-token"
@@ -14,16 +19,16 @@ export default function FormPasswordInputStatesExample() {
           readOnly
           revealLabel="Reveal access token"
           hideLabel="Hide access token" />
-      </div>
-      <div>
-        <label className="mb-2 block font-bold" htmlFor="disabled-password">
+      </GlFormField>
+      <GlFormField>
+        <GlFormFieldLabel htmlFor="disabled-password">
           Disabled password
-        </label>
+        </GlFormFieldLabel>
         <GlFormPasswordInput
           defaultValue="example-password"
           disabled
           id="disabled-password" />
-      </div>
-    </div>
+      </GlFormField>
+    </GlFormFieldGroup>
   );
 }

@@ -14,7 +14,7 @@ import {
 ```
 
 ```tsx
-<GlFormSelect>
+<GlFormSelect aria-label="Visibility">
   <GlFormSelectGroup label="Visibility">
     <GlFormSelectItem value="private">Private</GlFormSelectItem>
   </GlFormSelectGroup>
@@ -41,7 +41,7 @@ import {
 
 ## 无障碍
 
-- 使用相同的 `htmlFor` 与 `id` 将 Select 关联到可见 `<label>`。
+- 使用相同的 `htmlFor` 与 `id` 将 Select 关联到可见 `GlFormFieldLabel`。
 - 不要把禁用的 Placeholder 选项作为唯一标签。
 - 选项与 Group 标签应简洁，并且脱离周围内容播报时仍可理解。
 - 对于表单外的自定义搜索或多选行为，使用 Listbox，而不要通过原生 Select 重新实现。

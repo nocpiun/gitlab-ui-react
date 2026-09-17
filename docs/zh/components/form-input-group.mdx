@@ -15,12 +15,13 @@ import {
 ```
 
 ```tsx
-<label id="username-label" htmlFor="username">Username</label>
-<GlFormInputGroup aria-labelledby="username-label">
+<GlFormInputGroup aria-label="Username">
   <GlFormInputGroupAddon position="prepend">
     <GlInputGroupText id="username-prefix">@</GlInputGroupText>
   </GlFormInputGroupAddon>
-  <GlFormInput id="username" aria-describedby="username-prefix" />
+  <GlFormInput
+    aria-label="Username"
+    aria-describedby="username-prefix" />
 </GlFormInputGroup>
 ```
 
@@ -85,7 +86,7 @@ import {
 
 ## 无障碍
 
-- 使用相同的 `htmlFor` 与 `id` 将每个输入框或选择控件关联到可见 `<label>`。`GlInputGroupText` 渲染为 `div`，其中的文字不会自动成为控件标签。
+- 使用相同的 `htmlFor` 与 `id` 将每个输入框或选择控件关联到可见 `GlFormFieldLabel`。`GlInputGroupText` 渲染为 `div`，其中的文字不会自动成为控件标签。
 - 根元素始终渲染 `role="group"`。使用 `aria-labelledby` 或 `aria-label` 为分组命名；分组名称不会为其中的各个控件提供标签。
 - 通过控件的 `aria-describedby` 关联有意义的前缀、后缀、单位和反馈。
 - 为每个交互式附加内容提供独立的无障碍名称。仅含图标的按钮需要 `aria-label`。

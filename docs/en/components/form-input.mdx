@@ -10,7 +10,7 @@ import { GlFormInput } from "gitlab-ui-react/form-input";
 ```
 
 ```tsx
-<GlFormInput id="username" />
+<GlFormInput aria-label="Username" />
 ```
 
 ## Default
@@ -36,7 +36,7 @@ Use `readOnly` when a value remains focusable, selectable, and submitted. Use `d
 
 ## Accessibility
 
-- Associate every input with a visible `<label>` using matching `htmlFor` and `id` values.
+- Associate every input with a visible `GlFormFieldLabel` using matching `htmlFor` and `id` values.
 - Placeholder text is a hint, not a replacement for a label.
 - Pair `state={false}` with visible feedback referenced by `aria-describedby`; `aria-invalid` is set automatically.
 - Use the native input type that best communicates the expected value and enables the appropriate browser keyboard.

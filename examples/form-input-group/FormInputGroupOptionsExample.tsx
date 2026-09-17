@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { GlFormField, GlFormFieldLabel } from "gitlab-ui-react/form-field";
 import { GlFormInput } from "gitlab-ui-react/form-input";
 import {
   GlFormInputGroup,
@@ -16,13 +17,12 @@ export default function FormInputGroupOptionsExample() {
   const [value, setValue] = useState<GlListboxValue>("https://embed.example");
 
   return (
-    <div className="max-w-md">
-      <label
-        className="mb-2 block font-bold"
+    <GlFormField className="max-w-md">
+      <GlFormFieldLabel
         htmlFor="grouped-selected-url"
         id="grouped-selected-url-label">
         Selected URL
-      </label>
+      </GlFormFieldLabel>
       <GlFormInputGroup aria-labelledby="grouped-selected-url-label">
         <GlFormInputGroupAddon position="prepend">
           <GlListbox value={value} onValueChange={setValue}>
@@ -41,6 +41,6 @@ export default function FormInputGroupOptionsExample() {
           readOnly
           value={value ?? ""} />
       </GlFormInputGroup>
-    </div>
+    </GlFormField>
   );
 }

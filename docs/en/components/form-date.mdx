@@ -10,7 +10,7 @@ import { GlFormDate } from "gitlab-ui-react/form-date";
 ```
 
 ```tsx
-<GlFormDate id="due-date" />
+<GlFormDate aria-label="Due date" />
 ```
 
 ## Default
@@ -33,7 +33,7 @@ Set `min` and `max` to constrain the accepted range. The component shows its mat
 
 ## Accessibility
 
-- Associate the date input with a visible `<label>` by using matching `htmlFor` and `id` values.
+- Associate the date input with a visible `GlFormFieldLabel` by using matching `htmlFor` and `id` values.
 - Keep the expected `yyyy-mm-dd` format understandable even when the browser presents a localized picker.
 - Localize `minInvalidFeedback` and `maxInvalidFeedback`, and include any extra instructions through `aria-describedby`.
 - Use `GlFormDate` for dates submitted with a form; use a date picker when choosing a date performs an immediate action.

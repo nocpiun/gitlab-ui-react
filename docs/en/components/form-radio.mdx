@@ -11,7 +11,10 @@ import { GlFormRadioGroup } from "gitlab-ui-react/form-radio-group";
 ```
 
 ```tsx
-<GlFormRadioGroup defaultValue="private" name="visibility">
+<GlFormRadioGroup
+  aria-label="Visibility"
+  defaultValue="private"
+  name="visibility">
   <GlFormRadio value="private">Private</GlFormRadio>
   <GlFormRadio value="public">Public</GlFormRadio>
 </GlFormRadioGroup>
@@ -37,8 +40,8 @@ Individual radios support initial selection, disabled state, validation state, a
 
 ## Accessibility
 
-- Wrap a related set in a `<fieldset>` with a concise `<legend>`.
-- Pass the legend ID through `aria-labelledby` when using `GlFormRadioGroup` so each option retains the group context.
+- Wrap a related set in `GlFormFieldSet` with a concise `GlFormFieldLegend`.
+- Give `GlFormRadioGroup` its own accessible name with `aria-label`, and retain each option's visible label.
 - Keep options together and vertically stacked. Do not insert unrelated interactive content inside the group.
 - Preselect a common or recommended option when appropriate, but do not select one merely to avoid an empty state.
 - Use checkboxes instead when users may select zero or multiple options.

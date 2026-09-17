@@ -1,24 +1,54 @@
+import {
+  GlFormField,
+  GlFormFieldError,
+  GlFormFieldGroup,
+  GlFormFieldLabel,
+} from "gitlab-ui-react/form-field";
 import { GlFormInput } from "gitlab-ui-react/form-input";
 
 export default function FormInputStatesExample() {
   return (
-    <div className="grid max-w-md gap-4">
-      <GlFormInput aria-label="Read-only value" defaultValue="Read-only value" readOnly />
-      <GlFormInput aria-label="Plain text value" defaultValue="Plain text value" plaintext />
-      <div className="grid gap-2">
+    <GlFormFieldGroup className="max-w-md">
+      <GlFormField>
+        <GlFormFieldLabel htmlFor="readonly-value">
+          Read-only value
+        </GlFormFieldLabel>
+        <GlFormInput
+          defaultValue="Read-only value"
+          id="readonly-value"
+          readOnly />
+      </GlFormField>
+      <GlFormField>
+        <GlFormFieldLabel htmlFor="plaintext-value">
+          Plain text value
+        </GlFormFieldLabel>
+        <GlFormInput
+          defaultValue="Plain text value"
+          id="plaintext-value"
+          plaintext />
+      </GlFormField>
+      <GlFormField>
+        <GlFormFieldLabel htmlFor="invalid-value">
+          Invalid value
+        </GlFormFieldLabel>
         <GlFormInput
           aria-describedby="invalid-value-message"
-          aria-label="Invalid value"
           defaultValue="Invalid value"
+          id="invalid-value"
           state={false} />
-        <p
-          id="invalid-value-message"
-          className="m-0"
-          style={{ color: "var(--gl-control-text-color-error)" }}>
+        <GlFormFieldError id="invalid-value-message">
           Enter a supported value.
-        </p>
-      </div>
-      <GlFormInput aria-label="Disabled value" defaultValue="Disabled value" disabled />
-    </div>
+        </GlFormFieldError>
+      </GlFormField>
+      <GlFormField>
+        <GlFormFieldLabel htmlFor="disabled-value">
+          Disabled value
+        </GlFormFieldLabel>
+        <GlFormInput
+          defaultValue="Disabled value"
+          disabled
+          id="disabled-value" />
+      </GlFormField>
+    </GlFormFieldGroup>
   );
 }

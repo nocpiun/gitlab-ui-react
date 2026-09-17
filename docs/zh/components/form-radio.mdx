@@ -11,7 +11,10 @@ import { GlFormRadioGroup } from "gitlab-ui-react/form-radio-group";
 ```
 
 ```tsx
-<GlFormRadioGroup defaultValue="private" name="visibility">
+<GlFormRadioGroup
+  aria-label="Visibility"
+  defaultValue="private"
+  name="visibility">
   <GlFormRadio value="private">Private</GlFormRadio>
   <GlFormRadio value="public">Public</GlFormRadio>
 </GlFormRadioGroup>
@@ -37,8 +40,8 @@ import { GlFormRadioGroup } from "gitlab-ui-react/form-radio-group";
 
 ## 无障碍
 
-- 使用带简洁 `<legend>` 的 `<fieldset>` 包裹相关选项。
-- 使用 `GlFormRadioGroup` 时，通过 `aria-labelledby` 传入 legend ID，让每个选项保留 Group 上下文。
+- 使用带简洁 `GlFormFieldLegend` 的 `GlFormFieldSet` 包裹相关选项。
+- 通过 `aria-label` 为 `GlFormRadioGroup` 提供独立的无障碍名称，并保留每个选项的可见标签。
 - 保持选项集中并垂直排列，不要在 Group 中插入无关的交互内容。
 - 适当情况下预选常用或推荐选项，但不要仅为避免空状态而预选。
 - 当用户可以选择零个或多个选项时，改用 Checkbox。

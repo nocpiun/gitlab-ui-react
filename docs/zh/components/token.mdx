@@ -49,7 +49,7 @@ import { GlTokenSelector } from "gitlab-ui-react/token-selector";
 
 ## 无障碍
 
-- 每个 Token selector 都需要原生 `<label>` 通过 `htmlFor` 与 `id` 关联，或者提供 `aria-label` 或 `aria-labelledby`。
+- 每个 Token selector 都需要 `GlFormFieldLabel` 通过 `htmlFor` 与 `id` 关联，或者提供 `aria-label` 或 `aria-labelledby`。
 - Item 名称应唯一且含义清楚，不能只依赖 Token 颜色。
 - 同时出现多个独立 Token 时，为移除按钮提供具体的 `removeLabel`。
 - Selector 支持方向键导航、Enter 选择，以及通过 Backspace 或 Delete 移动到并移除 Token。

@@ -14,7 +14,7 @@ import {
 ```
 
 ```tsx
-<GlFormSelect>
+<GlFormSelect aria-label="Visibility">
   <GlFormSelectGroup label="Visibility">
     <GlFormSelectItem value="private">Private</GlFormSelectItem>
   </GlFormSelectGroup>
@@ -41,7 +41,7 @@ Use `GlFormSelectGroup` to organize a longer option list under visible native gr
 
 ## Accessibility
 
-- Associate the select with a visible `<label>` using matching `htmlFor` and `id` values.
+- Associate the select with a visible `GlFormFieldLabel` using matching `htmlFor` and `id` values.
 - Do not rely on a disabled placeholder option as the only label.
 - Use concise option and group labels that remain understandable when announced without surrounding content.
 - For custom searchable or multi-select behavior outside a form, use a listbox instead of recreating it with a native select.

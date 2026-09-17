@@ -13,7 +13,10 @@ import {
 ```
 
 ```tsx
-<GlFormCheckboxGroup defaultValue={["email"]} name="notifications">
+<GlFormCheckboxGroup
+  aria-label="Notifications"
+  defaultValue={["email"]}
+  name="notifications">
   <GlFormCheckbox value="email">Email notifications</GlFormCheckbox>
   <GlFormCheckbox value="browser">Browser notifications</GlFormCheckbox>
 </GlFormCheckboxGroup>
@@ -49,7 +52,7 @@ Use `indeterminate` for a parent whose descendants have mixed values. Help text 
 ## Accessibility
 
 - Give every checkbox a concise visible label. Use `ariaLabel` or `ariaLabelledby` only when visible label content is unavailable.
-- Wrap a related set in a `<fieldset>` with a `<legend>`, and pass the legend ID through `aria-labelledby` when using `GlFormCheckboxGroup`.
+- Wrap a related set in `GlFormFieldSet` with `GlFormFieldLegend`, and give `GlFormCheckboxGroup` its own accessible name with `aria-label`.
 - Use checkboxes only when zero, one, or multiple choices are valid. Use radio buttons when exactly one option is expected.
 - Pair `state={false}` with visible validation feedback and associate it through `aria-describedby`.
 

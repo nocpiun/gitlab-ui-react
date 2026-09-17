@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { GlFormField, GlFormFieldLabel } from "gitlab-ui-react/form-field";
 import { GlFormCharacterCount } from "gitlab-ui-react/form-character-count";
 import { GlFormInput } from "gitlab-ui-react/form-input";
 
@@ -9,10 +10,10 @@ export default function FormCharacterCountExample() {
   const remaining = limit - value.length;
 
   return (
-    <div className="max-w-md">
-      <label className="mb-2 block font-bold" htmlFor="summary">
+    <GlFormField className="max-w-md">
+      <GlFormFieldLabel htmlFor="summary">
         Summary
-      </label>
+      </GlFormFieldLabel>
       <GlFormInput
         aria-describedby="summary-count"
         id="summary"
@@ -24,6 +25,6 @@ export default function FormCharacterCountExample() {
         overLimitText={`${Math.abs(remaining)} characters over limit.`}
         remainingCountText={`${Math.max(remaining, 0)} characters remaining.`}
         value={value} />
-    </div>
+    </GlFormField>
   );
 }

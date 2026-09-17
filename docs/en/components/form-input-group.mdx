@@ -15,12 +15,13 @@ import {
 ```
 
 ```tsx
-<label id="username-label" htmlFor="username">Username</label>
-<GlFormInputGroup aria-labelledby="username-label">
+<GlFormInputGroup aria-label="Username">
   <GlFormInputGroupAddon position="prepend">
     <GlInputGroupText id="username-prefix">@</GlInputGroupText>
   </GlFormInputGroupAddon>
-  <GlFormInput id="username" aria-describedby="username-prefix" />
+  <GlFormInput
+    aria-label="Username"
+    aria-describedby="username-prefix" />
 </GlFormInputGroup>
 ```
 
@@ -85,7 +86,7 @@ Compose a `GlListbox` inside an addon and control the input value in React to po
 
 ## Accessibility
 
-- Associate each input or select with a visible `<label>` using matching `htmlFor` and `id` values. `GlInputGroupText` renders a `div`, so its text does not label a control automatically.
+- Associate each input or select with a visible `GlFormFieldLabel` using matching `htmlFor` and `id` values. `GlInputGroupText` renders a `div`, so its text does not label a control automatically.
 - The root always renders `role="group"`. Use `aria-labelledby` or `aria-label` to name the group; that name does not label its individual controls.
 - Reference meaningful prefixes, suffixes, units, and feedback from the control with `aria-describedby`.
 - Give every interactive addon its own accessible name. Icon-only buttons need `aria-label`.

@@ -10,7 +10,7 @@ import { GlFormInput } from "gitlab-ui-react/form-input";
 ```
 
 ```tsx
-<GlFormInput id="username" />
+<GlFormInput aria-label="Username" />
 ```
 
 ## 默认
@@ -36,7 +36,7 @@ import { GlFormInput } from "gitlab-ui-react/form-input";
 
 ## 无障碍
 
-- 使用相同的 `htmlFor` 与 `id` 将输入关联到可见 `<label>`。
+- 使用相同的 `htmlFor` 与 `id` 将输入关联到可见 `GlFormFieldLabel`。
 - Placeholder 只能提供非必要提示，不能替代标签。
 - 仅在整个控件都不应被操作时使用 `disabled`；需要查看和复制的值应使用 `readOnly`。
 - 将 `state={false}` 与可见反馈配合使用，并通过 `aria-describedby` 建立关联。

@@ -1,15 +1,16 @@
+import { GlFormField, GlFormFieldLabel } from "gitlab-ui-react/form-field";
 import { GlFormPasswordInput } from "gitlab-ui-react/form-password-input";
 
 export default function FormPasswordInputExample() {
   return (
-    <div className="max-w-md">
-      <label className="mb-2 block font-bold" htmlFor="password">
+    <GlFormField className="max-w-md">
+      <GlFormFieldLabel htmlFor="password">
         Password
-      </label>
+      </GlFormFieldLabel>
       <GlFormPasswordInput
         autoComplete="current-password"
         defaultValue="example-password"
         id="password" />
-    </div>
+    </GlFormField>
   );
 }

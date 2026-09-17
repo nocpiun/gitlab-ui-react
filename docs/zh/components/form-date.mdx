@@ -10,7 +10,7 @@ import { GlFormDate } from "gitlab-ui-react/form-date";
 ```
 
 ```tsx
-<GlFormDate id="due-date" />
+<GlFormDate aria-label="Due date" />
 ```
 
 ## 默认
@@ -33,7 +33,7 @@ import { GlFormDate } from "gitlab-ui-react/form-date";
 
 ## 无障碍
 
-- 使用相同的 `htmlFor` 与 `id` 将日期输入关联到可见 `<label>`。
+- 使用相同的 `htmlFor` 与 `id` 将日期输入关联到可见 `GlFormFieldLabel`。
 - 即使浏览器显示本地化日期选择器，也应确保用户能理解 `yyyy-mm-dd` 格式。
 - 对 `minInvalidFeedback` 和 `maxInvalidFeedback` 进行本地化，并通过 `aria-describedby` 加入其他说明。
 - 随表单提交日期时使用 `GlFormDate`；选择日期会立即执行操作时使用 Date Picker。

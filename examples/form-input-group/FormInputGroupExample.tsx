@@ -1,3 +1,4 @@
+import { GlFormField, GlFormFieldLabel } from "gitlab-ui-react/form-field";
 import { GlFormInput } from "gitlab-ui-react/form-input";
 import {
   GlFormInputGroup,
@@ -7,13 +8,12 @@ import {
 
 export default function FormInputGroupExample() {
   return (
-    <div className="max-w-md">
-      <label
-        className="mb-2 block font-bold"
+    <GlFormField className="max-w-md">
+      <GlFormFieldLabel
         htmlFor="grouped-username"
         id="grouped-username-label">
         Username
-      </label>
+      </GlFormFieldLabel>
       <GlFormInputGroup aria-labelledby="grouped-username-label">
         <GlFormInputGroupAddon position="prepend">
           <GlInputGroupText id="grouped-username-prefix">@</GlInputGroupText>
@@ -23,6 +23,6 @@ export default function FormInputGroupExample() {
           defaultValue="NriotHrreion"
           id="grouped-username" />
       </GlFormInputGroup>
-    </div>
+    </GlFormField>
   );
 }

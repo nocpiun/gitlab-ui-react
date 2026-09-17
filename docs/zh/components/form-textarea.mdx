@@ -10,7 +10,7 @@ import { GlFormTextarea } from "gitlab-ui-react/form-textarea";
 ```
 
 ```tsx
-<GlFormTextarea id="description" />
+<GlFormTextarea aria-label="Description" />
 ```
 
 ## 默认
@@ -33,7 +33,7 @@ import { GlFormTextarea } from "gitlab-ui-react/form-textarea";
 
 ## 无障碍
 
-- 使用相同的 `htmlFor` 与 `id` 将 Textarea 关联到可见 `<label>`。
+- 使用相同的 `htmlFor` 与 `id` 将 Textarea 关联到可见 `GlFormFieldLabel`。
 - Placeholder 不能替代标签。
 - 启用字符计数时提供本地化文字；组件会通过 `aria-describedby` 自动关联计数器。
 - 将无效状态与可见反馈配合使用，并保留用户提供的其他 `aria-describedby` ID。

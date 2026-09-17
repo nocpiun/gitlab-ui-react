@@ -1,3 +1,4 @@
+import { GlFormField, GlFormFieldLabel } from "gitlab-ui-react/form-field";
 import { GlFormInput } from "gitlab-ui-react/form-input";
 import {
   GlFormInputGroup,
@@ -7,13 +8,12 @@ import {
 
 export default function FormInputGroupRangeExample() {
   return (
-    <div className="max-w-md">
-      <label
-        className="mb-2 block font-bold"
+    <GlFormField className="max-w-md">
+      <GlFormFieldLabel
         htmlFor="grouped-progress"
         id="grouped-progress-label">
         Progress
-      </label>
+      </GlFormFieldLabel>
       <GlFormInputGroup aria-labelledby="grouped-progress-label">
         <GlFormInputGroupAddon position="prepend">
           <GlInputGroupText>0</GlInputGroupText>
@@ -28,6 +28,6 @@ export default function FormInputGroupRangeExample() {
           <GlInputGroupText>100</GlInputGroupText>
         </GlFormInputGroupAddon>
       </GlFormInputGroup>
-    </div>
+    </GlFormField>
   );
 }

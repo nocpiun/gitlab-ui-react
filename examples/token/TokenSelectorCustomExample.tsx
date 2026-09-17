@@ -1,9 +1,10 @@
+import { GlFormField, GlFormFieldLabel } from "gitlab-ui-react/form-field";
 import { GlTokenSelector } from "gitlab-ui-react/token-selector";
 
 export default function TokenSelectorCustomExample() {
   return (
-    <div className="max-w-lg">
-      <label htmlFor="custom-topics">Custom topics</label>
+    <GlFormField className="max-w-lg">
+      <GlFormFieldLabel htmlFor="custom-topics">Custom topics</GlFormFieldLabel>
       <GlTokenSelector
         allowUserDefinedTokens
         id="custom-topics"
@@ -11,6 +12,6 @@ export default function TokenSelectorCustomExample() {
         placeholder="Enter a topic"
         renderToken={(item) => <span>{item.name}</span>}
         renderUserDefinedToken={(inputValue) => <span>Add “{inputValue}”</span>} />
-    </div>
+    </GlFormField>
   );
 }
