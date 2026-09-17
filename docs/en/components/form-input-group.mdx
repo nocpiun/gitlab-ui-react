@@ -1,0 +1,119 @@
+---
+title: Form input group
+description: Combines a form control with related text, buttons, or a dropdown.
+---
+
+## Usage
+
+```tsx
+import { GlFormInput } from "gitlab-ui-react/form-input";
+import {
+  GlFormInputGroup,
+  GlFormInputGroupAddon,
+  GlInputGroupText,
+} from "gitlab-ui-react/form-input-group";
+```
+
+```tsx
+<label id="username-label" htmlFor="username">Username</label>
+<GlFormInputGroup aria-labelledby="username-label">
+  <GlFormInputGroupAddon position="prepend">
+    <GlInputGroupText id="username-prefix">@</GlInputGroupText>
+  </GlFormInputGroupAddon>
+  <GlFormInput id="username" aria-describedby="username-prefix" />
+</GlFormInputGroup>
+```
+
+## Default
+
+Compose a control explicitly inside `GlFormInputGroup`; the group does not create an input. Wrap a text prefix in `GlFormInputGroupAddon` and `GlInputGroupText`, and give the input a visible label.
+
+<DocsExample
+  filename="form-input-group/FormInputGroupExample.tsx"
+  title="Input with a text prefix"
+  storybookId="ui-base-form-input-group--prepend-text"/>
+
+## Text addons
+
+Add text before or after an input to communicate a fixed prefix, suffix, or unit. Place a `prepend` addon before the control and an `append` addon after it in JSX: `position` selects the styling, and the group preserves child order. Keep controls and addon wrappers directly inside the group so their borders join correctly.
+
+<DocsExample
+  filename="form-input-group/FormInputGroupTextExample.tsx"
+  title="Text prefix and suffix"/>
+
+## Button addons
+
+Place a related action inside an addon without wrapping the button in `GlInputGroupText`. Set its `type` when it should submit or reset a form; `GlButton` defaults to `type="button"`. This example uses the native form reset behavior to clear the search input.
+
+<DocsExample
+  filename="form-input-group/FormInputGroupButtonExample.tsx"
+  title="Input with a clear button"/>
+
+## Select control
+
+Compose `GlFormSelect` when the value comes from a fixed list. Render it directly inside the group; its built-in wrapper handles the joined borders and flexible width.
+
+<DocsExample
+  filename="form-input-group/FormInputGroupSelectExample.tsx"
+  title="Select with a text addon"/>
+
+## Range input
+
+A range input can use text addons to show its bounds. Set `type`, `min`, and `max` on `GlFormInput`, and keep a visible label that describes the value being adjusted.
+
+<DocsExample
+  filename="form-input-group/FormInputGroupRangeExample.tsx"
+  title="Range with visible bounds"
+  storybookId="ui-base-form-input-group--range-input"/>
+
+## States
+
+Set `readOnly`, `disabled`, and validation `state` on the composed control. Set `disabled` separately on related actions when they should also be unavailable. A read-only input remains focusable and selectable; an invalid input needs visible feedback associated with `aria-describedby`.
+
+<DocsExample
+  filename="form-input-group/FormInputGroupStatesExample.tsx"
+  title="Read-only, invalid, and disabled controls"/>
+
+## Predefined options
+
+Compose a `GlListbox` inside an addon and control the input value in React to populate it from predefined options. Apply `readOnly` to the input when editing is unavailable, and call `event.currentTarget.select()` in its `onClick` handler to select the text. These behaviors are supplied by the composed components and event handler.
+
+<DocsExample
+  filename="form-input-group/FormInputGroupOptionsExample.tsx"
+  title="Predefined URLs and selection on click"
+  storybookId="ui-base-form-input-group--predefined-options-with-listbox"/>
+
+## Accessibility
+
+- Associate each input or select with a visible `<label>` using matching `htmlFor` and `id` values. `GlInputGroupText` renders a `div`, so its text does not label a control automatically.
+- The root always renders `role="group"`. Use `aria-labelledby` or `aria-label` to name the group; that name does not label its individual controls.
+- Reference meaningful prefixes, suffixes, units, and feedback from the control with `aria-describedby`.
+- Give every interactive addon its own accessible name. Icon-only buttons need `aria-label`.
+- Keep JSX order consistent with visual and keyboard focus order, and preserve visible focus indicators.
+- Pair `state={false}` on the input with an explanation of how to fix the value; the input sets `aria-invalid` automatically.
+
+## API
+
+All three components forward supported `div` attributes and a ref to their rendered `div`. Input values, input events, validation, and disabled state belong to the composed controls.
+
+### `GlFormInputGroup`
+
+Accepts `children` and native `div` attributes, except `role`. It renders children in the supplied order and always sets `role="group"`.
+
+### `GlFormInputGroupAddon`
+
+| Prop | Description | Default |
+| --- | --- | --- |
+| `position` | Required. Selects `prepend` or `append` styling; it does not reorder children. | — |
+
+Accepts `children` for text, buttons, or a dropdown, plus native `div` attributes.
+
+### `GlInputGroupText`
+
+Accepts `children` and native `div` attributes. Renders non-interactive text with the addon appearance; place it inside `GlFormInputGroupAddon`.
+
+## Related resources
+
+- [Form input group in the Pajamas Design System](https://design.gitlab.com/components/form-input-group/)
+- [Form input group stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-form-input-group--docs)
+- [Form input group source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/form-input-group/form-input-group.tsx)

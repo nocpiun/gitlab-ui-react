@@ -1,0 +1,119 @@
+---
+title: Form input group
+description: 将表单控件与相关文字、按钮或下拉菜单组合在一起。
+---
+
+## 用法
+
+```tsx
+import { GlFormInput } from "gitlab-ui-react/form-input";
+import {
+  GlFormInputGroup,
+  GlFormInputGroupAddon,
+  GlInputGroupText,
+} from "gitlab-ui-react/form-input-group";
+```
+
+```tsx
+<label id="username-label" htmlFor="username">Username</label>
+<GlFormInputGroup aria-labelledby="username-label">
+  <GlFormInputGroupAddon position="prepend">
+    <GlInputGroupText id="username-prefix">@</GlInputGroupText>
+  </GlFormInputGroupAddon>
+  <GlFormInput id="username" aria-describedby="username-prefix" />
+</GlFormInputGroup>
+```
+
+## 默认
+
+显式将控件放入 `GlFormInputGroup`，分组本身不会创建输入框。使用 `GlFormInputGroupAddon` 和 `GlInputGroupText` 包裹文字前缀，并为输入框提供可见标签。
+
+<DocsExample
+  filename="form-input-group/FormInputGroupExample.tsx"
+  title="带文字前缀的输入框"
+  storybookId="ui-base-form-input-group--prepend-text"/>
+
+## 文字附加内容
+
+在输入框前后添加文字，表示固定前缀、后缀或单位。在 JSX 中将 `prepend` 附加内容放在控件前，将 `append` 附加内容放在控件后：`position` 选择样式，分组保留子元素顺序。将控件和附加内容容器直接放在分组内，以正确拼接边框。
+
+<DocsExample
+  filename="form-input-group/FormInputGroupTextExample.tsx"
+  title="文字前缀与后缀"/>
+
+## 按钮附加内容
+
+将相关操作放入附加内容容器，无需用 `GlInputGroupText` 包裹按钮。需要提交或重置表单时设置按钮的 `type`；`GlButton` 默认为 `type="button"`。此示例通过原生表单重置行为清空搜索输入框。
+
+<DocsExample
+  filename="form-input-group/FormInputGroupButtonExample.tsx"
+  title="带清空按钮的输入框"/>
+
+## 选择控件
+
+当值来自固定列表时组合使用 `GlFormSelect`。将其直接放在分组内，组件自带的容器会处理边框拼接和弹性宽度。
+
+<DocsExample
+  filename="form-input-group/FormInputGroupSelectExample.tsx"
+  title="带文字附加内容的选择控件"/>
+
+## 范围输入
+
+范围输入可以通过文字附加内容显示上下限。在 `GlFormInput` 上设置 `type`、`min` 和 `max`，并提供描述所调整数值的可见标签。
+
+<DocsExample
+  filename="form-input-group/FormInputGroupRangeExample.tsx"
+  title="显示上下限的范围输入"
+  storybookId="ui-base-form-input-group--range-input"/>
+
+## 状态
+
+在组合的控件上设置 `readOnly`、`disabled` 和验证 `state`。相关操作也应不可用时，单独为其设置 `disabled`。只读输入框仍可聚焦和选择文字；无效输入需要通过 `aria-describedby` 关联可见反馈。
+
+<DocsExample
+  filename="form-input-group/FormInputGroupStatesExample.tsx"
+  title="只读、无效和禁用控件"/>
+
+## 预设选项
+
+在附加内容容器中组合 `GlListbox`，并在 React 中控制输入值，从预设选项填充输入框。不允许编辑时为输入框设置 `readOnly`，在其 `onClick` 回调中调用 `event.currentTarget.select()` 可选中文字。这些行为由组合的组件和事件回调提供。
+
+<DocsExample
+  filename="form-input-group/FormInputGroupOptionsExample.tsx"
+  title="预设 URL 与点击选中文字"
+  storybookId="ui-base-form-input-group--predefined-options-with-listbox"/>
+
+## 无障碍
+
+- 使用相同的 `htmlFor` 与 `id` 将每个输入框或选择控件关联到可见 `<label>`。`GlInputGroupText` 渲染为 `div`，其中的文字不会自动成为控件标签。
+- 根元素始终渲染 `role="group"`。使用 `aria-labelledby` 或 `aria-label` 为分组命名；分组名称不会为其中的各个控件提供标签。
+- 通过控件的 `aria-describedby` 关联有意义的前缀、后缀、单位和反馈。
+- 为每个交互式附加内容提供独立的无障碍名称。仅含图标的按钮需要 `aria-label`。
+- 保持 JSX 顺序、视觉顺序与键盘焦点顺序一致，并保留可见焦点指示。
+- 为输入框的 `state={false}` 提供说明如何修正值的反馈；输入框会自动设置 `aria-invalid`。
+
+## API
+
+这三个组件都将受支持的 `div` 属性和 ref 传递给渲染的 `div`。输入值、输入事件、验证和禁用状态由组合的控件管理。
+
+### `GlFormInputGroup`
+
+接受 `children` 和除 `role` 之外的原生 `div` 属性。按传入顺序渲染子元素，并始终设置 `role="group"`。
+
+### `GlFormInputGroupAddon`
+
+| 属性 | 说明 | 默认值 |
+| --- | --- | --- |
+| `position` | 必填。选择 `prepend` 或 `append` 样式，不会重排子元素。 | — |
+
+接受包含文字、按钮或下拉菜单的 `children`，以及原生 `div` 属性。
+
+### `GlInputGroupText`
+
+接受 `children` 和原生 `div` 属性。以附加内容外观渲染非交互文字，应放入 `GlFormInputGroupAddon`。
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Form input group](https://design.gitlab.com/components/form-input-group/)
+- [Storybook 中的 Form input group stories](https://glui-story.nocp.space/?path=/docs/ui-base-form-input-group--docs)
+- [Form input group 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/form-input-group/form-input-group.tsx)
