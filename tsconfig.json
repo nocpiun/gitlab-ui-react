@@ -14,6 +14,12 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "paths": {
+      "@tanstack/react-form": [
+        "./apps/website/node_modules/@tanstack/react-form"
+      ],
+      "react-hook-form": [
+        "./apps/website/node_modules/react-hook-form"
+      ],
       "gitlab-ui-react/*": [
         "./packages/ui/src/base/*/index.ts"
       ]
