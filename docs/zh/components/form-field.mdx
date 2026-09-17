@@ -1,0 +1,145 @@
+---
+title: Form field
+description: 通过标签、帮助文字、错误反馈和语义分组组织表单控件。
+---
+
+## 用法
+
+```tsx
+import {
+  GlFormField,
+  GlFormFieldDescription,
+  GlFormFieldError,
+  GlFormFieldGroup,
+  GlFormFieldLabel,
+  GlFormFieldLegend,
+  GlFormFieldSet,
+} from "gitlab-ui-react/form-field";
+import { GlFormInput } from "gitlab-ui-react/form-input";
+```
+
+```tsx
+<GlFormFieldSet>
+  <GlFormFieldLegend>Profile</GlFormFieldLegend>
+  <GlFormFieldGroup>
+    <GlFormField aria-labelledby="username-label">
+      <GlFormFieldLabel htmlFor="username" id="username-label">
+        Username
+      </GlFormFieldLabel>
+      <GlFormInput
+        aria-describedby="username-description username-error"
+        defaultValue="NriotHrreion"
+        id="username"
+        name="username"
+        state={false} />
+      <GlFormFieldDescription id="username-description">
+        Used in your profile URL.
+      </GlFormFieldDescription>
+      <GlFormFieldError id="username-error">
+        This username is already taken.
+      </GlFormFieldError>
+    </GlFormField>
+  </GlFormFieldGroup>
+</GlFormFieldSet>
+```
+
+## 默认
+
+使用 `GlFormField` 将控件、可见标签和帮助文字放在一起。通过 `htmlFor` 与 `id` 关联标签，并通过控件的 `aria-describedby` 引用帮助文字。字段组件提供结构与样式，ID、ARIA 关联、值和验证由使用方管理。
+
+<DocsExample
+  filename="form-field/FormFieldExample.tsx"
+  title="带标签和帮助文字的输入框"/>
+
+## 多个字段
+
+使用 `GlFormFieldGroup` 包裹相邻字段，以统一间距纵向排列。它提供布局并保留子元素顺序。在 `GlFormFieldLabel` 内显式添加可选标记和补充标签文字；`optional-label` 与 `label-description` 类提供对应样式。
+
+<DocsExample
+  filename="form-field/FormFieldGroupExample.tsx"
+  title="多个字段与可选标签"
+  storybookId="ui-base-form-field--multiple-fields"/>
+
+## Fieldset 分组
+
+使用 `GlFormFieldSet` 和 `GlFormFieldLegend` 为相关控件提供共同的语义标题。将 legend 放在首位，并为每个文字输入框或选择控件保留独立标签。可以通过 `aria-describedby` 为 fieldset 关联描述。
+
+<DocsExample
+  filename="form-field/FormFieldSetExample.tsx"
+  title="带共同分组标题的地址字段"
+  storybookId="ui-base-form-field--field-set-with-fields"/>
+
+## 多个 fieldset
+
+`GlFormFieldGroup` 也可以纵向排列 fieldset，每个 fieldset 又可以包含自己的字段组。使用此结构将较长的表单划分为易于理解的部分。
+
+<DocsExample
+  filename="form-field/FormFieldSetsExample.tsx"
+  title="账户与通知部分"
+  storybookId="ui-base-form-field--multiple-field-sets"/>
+
+## 选项与验证
+
+在同一布局中组合独立字段与 fieldset。为相关单选项使用 legend 提供分组上下文，保留每个选项的标签，并通过每个单选控件的 `aria-describedby` 引用共同的帮助文字。在控件上设置无效状态，并通过 `aria-describedby` 关联 `GlFormFieldError`。仅在需要时渲染错误；错误组件一旦渲染就会显示内容，不会自动验证或播报变化。
+
+<DocsExample
+  filename="form-field/FormFieldValidationExample.tsx"
+  title="混合字段、单选项与错误反馈"
+  storybookId="ui-base-form-field--mixed-fields-and-field-sets"/>
+
+## 禁用 fieldset
+
+在 `GlFormFieldSet` 上设置原生 `disabled` 属性，禁用其后代原生表单控件。使用明确的 legend，确保仍能理解该部分的用途。
+
+<DocsExample
+  filename="form-field/FormFieldDisabledExample.tsx"
+  title="禁用的偏好设置"
+  storybookId="ui-base-form-field--disabled-field-set"/>
+
+## 无障碍
+
+- 使用相同的 `htmlFor` 与 `id` 将 `GlFormFieldLabel` 关联到控件。为外层字段命名不会为控件提供标签。
+- `GlFormField` 始终渲染 `role="group"`。需要播报其上下文时，通过 `aria-labelledby` 或 `aria-label` 命名。`GlFormFieldGroup` 只是布局 `div`，没有默认 role。
+- 将 `GlFormFieldLegend` 作为 `GlFormFieldSet` 的第一个子元素，为相关控件命名。每个输入框或选项仍需独立的无障碍名称。
+- 为描述和错误分配唯一 ID，并通过相关控件的 `aria-describedby` 引用。帮助文字和错误同时适用时，应引用两者的 ID。
+- 保持控件的无效状态与可见错误反馈同步。需要播报新错误时，选择适当的 live region，例如 `aria-live="polite"`。
+- 在可见标签中提供可选和必填信息，需要时为控件设置 `required`。仅添加标记不会执行验证。
+
+## API
+
+这些组件接受 `children`、渲染元素所支持的原生属性，以及指向该元素的 ref。它们不会生成控件、ID、ARIA 关联或验证状态。将表单库的值、change、blur 和 ref 绑定到控件，再使用这些组件渲染反馈。
+
+### `GlFormField`
+
+渲染带 `role="group"` 的 `div`。接受除固定 `role` 之外的原生 `div` 属性。使用 `aria-labelledby` 引用字段标签。
+
+### `GlFormFieldGroup`
+
+渲染 `div`，以统一间距纵向排列直接子字段和 fieldset。接受原生 `div` 属性，并保留子元素顺序。
+
+### `GlFormFieldSet`
+
+渲染原生 `fieldset`。接受 `disabled`、`name`、`form` 等原生 fieldset 属性。将 `GlFormFieldLegend` 放在首位，为分组命名。
+
+### `GlFormFieldLegend`
+
+以字段标题外观渲染原生 `legend`。接受原生 legend 属性，为其所在的 fieldset 提供标签。
+
+### `GlFormFieldLabel`
+
+渲染原生 `label`。接受 `htmlFor` 等原生 label 属性，将其设为控件的 `id`。通过子元素提供可选标记和补充文字。
+
+### `GlFormFieldDescription`
+
+以帮助文字样式渲染 `small` 元素。接受原生 HTML 属性；设置 `id` 后，可通过 `aria-describedby` 引用。
+
+### `GlFormFieldError`
+
+以错误反馈样式渲染 `div`。接受 `id`、`aria-live` 等原生 `div` 属性。一旦渲染就会显示，由父组件管理是否渲染及如何播报。
+
+## 相关资源
+
+- [Pajamas 设计系统中的 Form group](https://design.gitlab.com/components/form-group/)
+- [Pajamas 设计系统中的 Form fields](https://design.gitlab.com/components/form-fields/)
+- [Storybook 中的 Form field stories](https://glui-story.nocp.space/?path=/docs/ui-base-form-field--docs)
+- [Form field 源码和完整 TypeScript 属性](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/form-field/form-field.tsx)

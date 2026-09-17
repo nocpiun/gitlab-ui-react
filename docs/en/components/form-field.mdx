@@ -1,0 +1,145 @@
+---
+title: Form field
+description: Organizes form controls with labels, help text, error feedback, and semantic groups.
+---
+
+## Usage
+
+```tsx
+import {
+  GlFormField,
+  GlFormFieldDescription,
+  GlFormFieldError,
+  GlFormFieldGroup,
+  GlFormFieldLabel,
+  GlFormFieldLegend,
+  GlFormFieldSet,
+} from "gitlab-ui-react/form-field";
+import { GlFormInput } from "gitlab-ui-react/form-input";
+```
+
+```tsx
+<GlFormFieldSet>
+  <GlFormFieldLegend>Profile</GlFormFieldLegend>
+  <GlFormFieldGroup>
+    <GlFormField aria-labelledby="username-label">
+      <GlFormFieldLabel htmlFor="username" id="username-label">
+        Username
+      </GlFormFieldLabel>
+      <GlFormInput
+        aria-describedby="username-description username-error"
+        defaultValue="NriotHrreion"
+        id="username"
+        name="username"
+        state={false} />
+      <GlFormFieldDescription id="username-description">
+        Used in your profile URL.
+      </GlFormFieldDescription>
+      <GlFormFieldError id="username-error">
+        This username is already taken.
+      </GlFormFieldError>
+    </GlFormField>
+  </GlFormFieldGroup>
+</GlFormFieldSet>
+```
+
+## Default
+
+Use `GlFormField` to keep a control, its visible label, and help text together. Connect the label with `htmlFor` and `id`, and reference help text from the control with `aria-describedby`. The field supplies structure and styling; the consumer owns IDs, ARIA relationships, values, and validation.
+
+<DocsExample
+  filename="form-field/FormFieldExample.tsx"
+  title="Labeled input with help text"/>
+
+## Multiple fields
+
+Wrap adjacent fields in `GlFormFieldGroup` to stack them with consistent spacing. It provides layout and preserves child order. Add optional markers and supplementary label text explicitly inside `GlFormFieldLabel`; the `optional-label` and `label-description` classes provide their styling.
+
+<DocsExample
+  filename="form-field/FormFieldGroupExample.tsx"
+  title="Multiple fields and optional labels"
+  storybookId="ui-base-form-field--multiple-fields"/>
+
+## Fieldsets
+
+Use `GlFormFieldSet` and `GlFormFieldLegend` to give related controls a shared semantic heading. Place the legend first, and keep an individual label for each text input or select. A description can apply to the fieldset through `aria-describedby`.
+
+<DocsExample
+  filename="form-field/FormFieldSetExample.tsx"
+  title="Address fields with a shared legend"
+  storybookId="ui-base-form-field--field-set-with-fields"/>
+
+## Multiple fieldsets
+
+`GlFormFieldGroup` can also stack fieldsets, and each fieldset can contain its own field group. Use this structure to divide a longer form into understandable sections.
+
+<DocsExample
+  filename="form-field/FormFieldSetsExample.tsx"
+  title="Account and notification sections"
+  storybookId="ui-base-form-field--multiple-field-sets"/>
+
+## Choices and validation
+
+Combine individual fields and fieldsets in the same layout. For related radio choices, use a legend for group context, retain each option's label, and reference shared help text from each radio with `aria-describedby`. Apply invalid state to the control and associate `GlFormFieldError` through `aria-describedby`. Render errors only when needed; the error component displays its content whenever it is rendered and does not validate or announce changes automatically.
+
+<DocsExample
+  filename="form-field/FormFieldValidationExample.tsx"
+  title="Mixed fields, radio choices, and error feedback"
+  storybookId="ui-base-form-field--mixed-fields-and-field-sets"/>
+
+## Disabled fieldset
+
+Set the native `disabled` attribute on `GlFormFieldSet` to disable its descendant native form controls. Keep the legend descriptive so the section remains understandable.
+
+<DocsExample
+  filename="form-field/FormFieldDisabledExample.tsx"
+  title="Disabled preferences"
+  storybookId="ui-base-form-field--disabled-field-set"/>
+
+## Accessibility
+
+- Connect `GlFormFieldLabel` to its control with matching `htmlFor` and `id` values. Naming the surrounding field does not label the control.
+- `GlFormField` always renders `role="group"`. Name it with `aria-labelledby` or `aria-label` when its context needs to be announced. `GlFormFieldGroup` is a layout-only `div` with no default role.
+- Use `GlFormFieldLegend` as the first child of `GlFormFieldSet` to name related controls. Give each input or option its own accessible name.
+- Assign unique IDs to descriptions and errors, and reference the IDs from the relevant control using `aria-describedby`. Include both IDs when help text and an error apply together.
+- Keep the control's invalid state synchronized with visible error feedback. Choose an appropriate live region, such as `aria-live="polite"`, when new errors need to be announced.
+- Place optional and required information in visible label text, and set `required` on the control when appropriate. A marker alone does not enforce validation.
+
+## API
+
+These components accept `children`, supported native attributes for their rendered element, and a ref to that element. They do not generate controls, IDs, ARIA relationships, or validation state. Connect your form library's value, change, blur, and ref bindings to the control, and render its feedback with these components.
+
+### `GlFormField`
+
+Renders a `div` with `role="group"`. Accepts native `div` attributes except `role`, which is fixed. Use `aria-labelledby` to reference the field's label.
+
+### `GlFormFieldGroup`
+
+Renders a `div` that stacks direct child fields and fieldsets with consistent spacing. Accepts native `div` attributes and preserves child order.
+
+### `GlFormFieldSet`
+
+Renders a native `fieldset`. Accepts native fieldset attributes, including `disabled`, `name`, and `form`. Put a `GlFormFieldLegend` first to name the set.
+
+### `GlFormFieldLegend`
+
+Renders a native `legend` with the field heading appearance. Accepts native legend attributes and labels its containing fieldset.
+
+### `GlFormFieldLabel`
+
+Renders a native `label`. Accepts native label attributes, including `htmlFor`; set it to the control's `id`. Optional markers and supplementary text are supplied as children.
+
+### `GlFormFieldDescription`
+
+Renders a `small` element with help text styling. Accepts native HTML attributes; give it an `id` to reference from `aria-describedby`.
+
+### `GlFormFieldError`
+
+Renders a `div` with error feedback styling. Accepts native `div` attributes, including `id` and `aria-live`. It is visible whenever rendered; manage its presence and announcements in the parent.
+
+## Related resources
+
+- [Form group in the Pajamas Design System](https://design.gitlab.com/components/form-group/)
+- [Form fields in the Pajamas Design System](https://design.gitlab.com/components/form-fields/)
+- [Form field stories in Storybook](https://glui-story.nocp.space/?path=/docs/ui-base-form-field--docs)
+- [Form field source and complete TypeScript props](https://github.com/nocpiun/gitlab-ui-react/blob/main/packages/ui/src/base/form-field/form-field.tsx)

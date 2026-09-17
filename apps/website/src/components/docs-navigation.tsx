@@ -158,6 +158,11 @@ function getNavigationItems(locale: Locale): DocsNavigationItem[] {
         title: "Form date",
       },
       {
+        href: localizedPath(locale, "/docs/components/form-field"),
+        id: "components/form-field",
+        title: "Form field",
+      },
+      {
         href: localizedPath(locale, "/docs/components/form-input"),
         id: "components/form-input",
         title: "Form input",
