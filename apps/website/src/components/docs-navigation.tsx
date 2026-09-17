@@ -163,6 +163,11 @@ function getNavigationItems(locale: Locale): DocsNavigationItem[] {
         title: "Form input",
       },
       {
+        href: localizedPath(locale, "/docs/components/form-input-group"),
+        id: "components/form-input-group",
+        title: "Form input group",
+      },
+      {
         href: localizedPath(locale, "/docs/components/form-password-input"),
         id: "components/form-password-input",
         title: "Form password input",
