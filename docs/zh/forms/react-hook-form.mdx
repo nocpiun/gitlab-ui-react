@@ -1,0 +1,132 @@
+---
+title: React Hook Form
+description: 使用 React Hook Form 和 Form Field 构建表单。
+---
+
+import { PackageManagerTabs } from "../../../apps/website/src/components/package-manager-tabs";
+
+使用 [Form Field](/zh/docs/components/form-field) 展示标签与反馈，由 React Hook Form 管理字段值、校验和提交。
+
+## 示例
+
+这个表单只有一个用户名字段。提交少于三个字符的内容可查看错误提示，修改为有效值后再次提交。成功提交的数据会输出到浏览器控制台。
+
+<DocsExample
+  filename="forms/ReactHookFormExample.tsx"
+  title="用户名表单"/>
+
+## 实现思路
+
+- `useForm` 定义默认值并处理提交。
+- `Controller` 将控件接入表单。
+- `GlFormField`、`GlFormFieldLabel` 和 `GlFormFieldError` 提供字段布局与反馈。
+
+## 组件结构
+
+在 `Controller` 内渲染 Form Field 组件。`GlFormInput` 支持原生 change、blur 事件，并将 ref 转发到输入元素，因此可以直接展开 `field`。
+
+```tsx
+<Controller
+  name="username"
+  control={form.control}
+  render={({ field, fieldState }) => (
+    <GlFormField aria-labelledby={`${id}-label`}>
+      <GlFormFieldLabel htmlFor={id} id={`${id}-label`}>
+        Username
+      </GlFormFieldLabel>
+      <GlFormInput
+        {...field}
+        id={id}
+        state={fieldState.invalid ? false : null}
+        aria-describedby={fieldState.invalid ? `${id}-error` : undefined} />
+      {fieldState.invalid && (
+        <GlFormFieldError id={`${id}-error`} role="alert">
+          {fieldState.error?.message}
+        </GlFormFieldError>
+      )}
+    </GlFormField>
+  )} />
+```
+
+## 安装
+
+按照[安装指南](/zh/docs/installation) 配置 GitLab UI React 及其样式，再安装 React Hook Form：
+
+<PackageManagerTabs
+  client:load
+  dependencies="react-hook-form"/>
+
+## 构建表单
+
+### 初始化表单
+
+在组件内生成关联标签和控件的 ID，然后调用 `useForm` 并定义带类型的默认值。
+
+```tsx
+import { useId } from "react";
+import { Controller, useForm } from "react-hook-form";
+
+const id = useId();
+const form = useForm<{ username: string }>({
+  defaultValues: { username: "" },
+});
+```
+
+### 添加校验
+
+在上面的 `Controller` 上添加 `rules`。校验函数在值有效时返回 `true`，无效时返回错误信息。
+
+```tsx
+rules={{
+  validate: (value) => value.trim().length >= 3
+    || "Username must be at least 3 characters.",
+}}
+```
+
+### 提交表单
+
+使用原生 `form` 包裹字段，并将提交处理函数传给 `handleSubmit`。只有校验通过后才会调用该函数。设置 `noValidate`，让表单引擎展示校验反馈。
+
+```tsx
+<form noValidate onSubmit={form.handleSubmit(onSubmit)}>
+  {/* 在此渲染 Controller 字段。 */}
+  <GlButton type="submit" variant="confirm">Submit</GlButton>
+</form>
+```
+
+示例的源码将这些步骤组合成完整表单。在应用中，将 `console.log` 替换为自己的提交逻辑即可。
+
+## 校验
+
+默认在提交时校验，提交失败后在值变化时重新校验。通过 `useForm` 的 `mode` 修改开始校验的时机。
+
+| Mode | 校验时机 |
+| --- | --- |
+| `onSubmit` | 提交时，默认值。 |
+| `onBlur` | 字段失焦时。 |
+| `onChange` | 每次值变化时。 |
+| `onTouched` | 首次失焦时，之后在值变化时。 |
+| `all` | 失焦和值变化时。 |
+
+## 显示错误
+
+根据 `fieldState.invalid` 在 `GlFormInput` 上设置 `state={false}`，同时标记 `aria-invalid`。将 `fieldState.error?.message` 作为 `GlFormFieldError` 的子内容。
+
+通过 `aria-describedby` 将错误提示关联到控件，并添加 `role="alert"` 播报错误。Form Field 负责展示，需要显式传入引擎的校验状态。
+
+## 重置表单
+
+调用 `form.reset()` 恢复 `defaultValues` 并清除错误。
+
+```tsx
+<GlButton type="button" onClick={() => form.reset()}>
+  Reset
+</GlButton>
+```
+
+## 相关资源
+
+- [React Hook Form Controller](https://react-hook-form.com/docs/usecontroller/controller)
+- [React Hook Form useForm](https://react-hook-form.com/docs/useform)
+- [Form Field](/zh/docs/components/form-field)
+- [TanStack Form 接入指南](/zh/docs/forms/tanstack-form)

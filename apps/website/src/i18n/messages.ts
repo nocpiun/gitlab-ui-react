@@ -62,6 +62,7 @@ export type SiteMessages = {
       expand: string;
       expandNavigation: string;
       fonts: string;
+      forms: string;
       icons: string;
       installation: string;
       introduction: string;
@@ -143,6 +144,7 @@ export const siteMessages = {
         expand: "Expand",
         expandNavigation: "Expand navigation",
         fonts: "Fonts",
+        forms: "Forms",
         icons: "Icons",
         installation: "Installation",
         introduction: "Introduction",
@@ -221,6 +223,7 @@ export const siteMessages = {
         expand: "展开",
         expandNavigation: "展开导航",
         fonts: "字体",
+        forms: "表单",
         icons: "图标",
         installation: "安装",
         introduction: "介绍",

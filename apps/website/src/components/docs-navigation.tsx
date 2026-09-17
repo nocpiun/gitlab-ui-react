@@ -74,6 +74,22 @@ function getNavigationItems(locale: Locale): DocsNavigationItem[] {
     external: true,
   },
   {
+    id: "forms",
+    title: messages.forms,
+    items: [
+      {
+        href: localizedPath(locale, "/docs/forms/react-hook-form"),
+        id: "forms/react-hook-form",
+        title: "React Hook Form",
+      },
+      {
+        href: localizedPath(locale, "/docs/forms/tanstack-form"),
+        id: "forms/tanstack-form",
+        title: "TanStack Form",
+      },
+    ],
+  },
+  {
     id: "components",
     title: messages.components,
     items: [

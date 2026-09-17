@@ -1,0 +1,142 @@
+---
+title: TanStack Form
+description: 使用 TanStack Form 和 Form Field 构建表单。
+---
+
+import { PackageManagerTabs } from "../../../apps/website/src/components/package-manager-tabs";
+
+使用 [Form Field](/zh/docs/components/form-field) 展示标签与反馈，由 TanStack Form 管理字段值、校验和提交。
+
+## 示例
+
+这个表单只有一个用户名字段。提交少于三个字符的内容可查看错误提示，修改为有效值后再次提交。成功提交的数据会输出到浏览器控制台。
+
+<DocsExample
+  filename="forms/TanStackFormExample.tsx"
+  title="用户名表单"/>
+
+## 实现思路
+
+- `useForm` 定义默认值并处理提交。
+- `form.Field` 提供字段值、回调和校验状态。
+- `GlFormField`、`GlFormFieldLabel` 和 `GlFormFieldError` 提供字段布局与反馈。
+
+## 组件结构
+
+在 `form.Field` 内渲染 Form Field 组件，将输入控件的值、change 事件和 blur 事件接到字段 API。
+
+```tsx
+<form.Field name="username">
+  {(field) => {
+    const invalid = field.state.meta.isTouched && !field.state.meta.isValid;
+    return (
+      <GlFormField aria-labelledby={`${id}-label`}>
+        <GlFormFieldLabel htmlFor={id} id={`${id}-label`}>
+          Username
+        </GlFormFieldLabel>
+        <GlFormInput
+          id={id}
+          name={field.name}
+          value={field.state.value}
+          onBlur={field.handleBlur}
+          onChange={(event) => field.handleChange(event.target.value)}
+          state={invalid ? false : null}
+          aria-describedby={invalid ? `${id}-error` : undefined} />
+        {invalid && (
+          <GlFormFieldError id={`${id}-error`} role="alert">
+            {field.state.meta.errors.join(" ")}
+          </GlFormFieldError>
+        )}
+      </GlFormField>
+    );
+  }}
+</form.Field>
+```
+
+## 安装
+
+按照[安装指南](/zh/docs/installation) 配置 GitLab UI React 及其样式，再安装 TanStack Form：
+
+<PackageManagerTabs
+  client:load
+  dependencies="@tanstack/react-form"/>
+
+## 构建表单
+
+### 初始化表单
+
+在组件内生成关联标签和控件的 ID，然后调用 `useForm`。默认值决定字段的类型。
+
+```tsx
+import { useId } from "react";
+import { useForm } from "@tanstack/react-form";
+
+const id = useId();
+const form = useForm({
+  defaultValues: { username: "" },
+  onSubmit: ({ value }) => console.log(value),
+});
+```
+
+### 添加校验
+
+在上面的 `form.Field` 上添加 `validators`。校验函数在值无效时返回错误信息，有效时返回 `undefined`。
+
+```tsx
+validators={{
+  onChange: ({ value }) => value.trim().length < 3
+    ? "Username must be at least 3 characters."
+    : undefined,
+}}
+```
+
+### 提交表单
+
+使用原生 `form` 包裹字段。调用 `form.handleSubmit()` 前阻止浏览器默认提交，并设置 `noValidate`，让引擎展示校验反馈。
+
+```tsx
+<form
+  noValidate
+  onSubmit={(event) => {
+    event.preventDefault();
+    void form.handleSubmit();
+  }}>
+  {/* 在此渲染 form.Field。 */}
+  <GlButton type="submit" variant="confirm">Submit</GlButton>
+</form>
+```
+
+示例的源码将这些步骤组合成完整表单。在应用中，将 `console.log` 替换为自己的提交逻辑即可。
+
+## 校验
+
+通过 `validators` 的回调指定校验时机。值变化和失焦校验也会在提交时执行。
+
+| Validator | 校验时机 |
+| --- | --- |
+| `onChange` | 每次值变化时。 |
+| `onBlur` | 字段失焦时。 |
+| `onSubmit` | 提交时。 |
+
+## 显示错误
+
+当 `field.state.meta.isTouched` 为 true 且 `field.state.meta.isValid` 为 false 时显示反馈。在 `GlFormInput` 上设置 `state={false}` 标记无效状态，同时设置 `aria-invalid`。
+
+示例的校验函数返回字符串，因此可用 `meta.errors.join(" ")` 作为 `GlFormFieldError` 的子内容。使用 schema 校验时，应读取每个 issue 的 `message`。通过 `aria-describedby` 关联错误提示，并添加 `role="alert"` 播报错误。
+
+## 重置表单
+
+调用 `form.reset()` 恢复默认值，并清除错误等字段元数据。
+
+```tsx
+<GlButton type="button" onClick={() => form.reset()}>
+  Reset
+</GlButton>
+```
+
+## 相关资源
+
+- [TanStack Form 基础概念](https://tanstack.com/form/latest/docs/framework/react/guides/basic-concepts)
+- [TanStack Form 校验](https://tanstack.com/form/latest/docs/framework/react/guides/validation)
+- [Form Field](/zh/docs/components/form-field)
+- [React Hook Form 接入指南](/zh/docs/forms/react-hook-form)

@@ -1,0 +1,142 @@
+---
+title: TanStack Form
+description: Build a form with TanStack Form and Form Field.
+---
+
+import { PackageManagerTabs } from "../../../apps/website/src/components/package-manager-tabs";
+
+Use [Form Field](/docs/components/form-field) for labels and feedback, and TanStack Form for field values, validation, and submission.
+
+## Demo
+
+This form has one username field. Submit fewer than three characters to see an error, then correct the value and submit again. Valid submissions are logged to the browser console.
+
+<DocsExample
+  filename="forms/TanStackFormExample.tsx"
+  title="Username form"/>
+
+## Approach
+
+- `useForm` defines default values and handles submission.
+- `form.Field` provides each field's value, callbacks, and validation state.
+- `GlFormField`, `GlFormFieldLabel`, and `GlFormFieldError` provide the field layout and feedback.
+
+## Anatomy
+
+Render the Form Field components inside `form.Field`. Bind the input's value, change event, and blur event to the field API.
+
+```tsx
+<form.Field name="username">
+  {(field) => {
+    const invalid = field.state.meta.isTouched && !field.state.meta.isValid;
+    return (
+      <GlFormField aria-labelledby={`${id}-label`}>
+        <GlFormFieldLabel htmlFor={id} id={`${id}-label`}>
+          Username
+        </GlFormFieldLabel>
+        <GlFormInput
+          id={id}
+          name={field.name}
+          value={field.state.value}
+          onBlur={field.handleBlur}
+          onChange={(event) => field.handleChange(event.target.value)}
+          state={invalid ? false : null}
+          aria-describedby={invalid ? `${id}-error` : undefined} />
+        {invalid && (
+          <GlFormFieldError id={`${id}-error`} role="alert">
+            {field.state.meta.errors.join(" ")}
+          </GlFormFieldError>
+        )}
+      </GlFormField>
+    );
+  }}
+</form.Field>
+```
+
+## Installation
+
+Follow the [installation guide](/docs/installation) to set up GitLab UI React and its styles, then install TanStack Form:
+
+<PackageManagerTabs
+  client:load
+  dependencies="@tanstack/react-form"/>
+
+## Form
+
+### Set up the form
+
+Inside your component, create an ID for the label and control, then call `useForm`. Default values determine the field types.
+
+```tsx
+import { useId } from "react";
+import { useForm } from "@tanstack/react-form";
+
+const id = useId();
+const form = useForm({
+  defaultValues: { username: "" },
+  onSubmit: ({ value }) => console.log(value),
+});
+```
+
+### Add validation
+
+Add `validators` to the `form.Field` above. A validator returns an error message or `undefined` when the value is valid.
+
+```tsx
+validators={{
+  onChange: ({ value }) => value.trim().length < 3
+    ? "Username must be at least 3 characters."
+    : undefined,
+}}
+```
+
+### Submit the form
+
+Wrap the field in a native `form`. Prevent the browser's default submission before calling `form.handleSubmit()`, and use `noValidate` to let the engine display feedback.
+
+```tsx
+<form
+  noValidate
+  onSubmit={(event) => {
+    event.preventDefault();
+    void form.handleSubmit();
+  }}>
+  {/* The form.Field goes here. */}
+  <GlButton type="submit" variant="confirm">Submit</GlButton>
+</form>
+```
+
+The demo's source combines these steps into a complete form. Replace its `console.log` handler with your application's submission logic.
+
+## Validation
+
+Choose when validation runs by adding callbacks to `validators`. Change and blur validators also run on submission.
+
+| Validator | Validate |
+| --- | --- |
+| `onChange` | On each value change. |
+| `onBlur` | When a field loses focus. |
+| `onSubmit` | On submission. |
+
+## Displaying errors
+
+Show feedback when `field.state.meta.isTouched` is true and `field.state.meta.isValid` is false. Set `state={false}` on `GlFormInput` to mark it invalid, including `aria-invalid`.
+
+The demo's validator returns strings, so `meta.errors.join(" ")` supplies the children of `GlFormFieldError`. For schema validators, read each issue's `message` instead. Link the error with `aria-describedby` and add `role="alert"` to announce it.
+
+## Resetting the form
+
+Call `form.reset()` to restore default values and clear field metadata, including errors.
+
+```tsx
+<GlButton type="button" onClick={() => form.reset()}>
+  Reset
+</GlButton>
+```
+
+## Related resources
+
+- [TanStack Form basic concepts](https://tanstack.com/form/latest/docs/framework/react/guides/basic-concepts)
+- [TanStack Form validation](https://tanstack.com/form/latest/docs/framework/react/guides/validation)
+- [Form Field](/docs/components/form-field)
+- [React Hook Form integration](/docs/forms/react-hook-form)

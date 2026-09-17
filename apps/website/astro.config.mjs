@@ -37,6 +37,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     resolve: {
+      dedupe: ["@tanstack/react-form", "react-hook-form"],
       alias: [
         { find: "@examples", replacement: examplesDirectory },
         {

@@ -4,6 +4,12 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "paths": {
+      "@tanstack/react-form": [
+        "./node_modules/@tanstack/react-form"
+      ],
+      "react-hook-form": [
+        "./node_modules/react-hook-form"
+      ],
       "@examples/*": [
         "../../examples/*"
       ],

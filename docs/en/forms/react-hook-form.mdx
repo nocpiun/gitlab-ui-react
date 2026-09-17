@@ -1,0 +1,132 @@
+---
+title: React Hook Form
+description: Build a form with React Hook Form and Form Field.
+---
+
+import { PackageManagerTabs } from "../../../apps/website/src/components/package-manager-tabs";
+
+Use [Form Field](/docs/components/form-field) for labels and feedback, and React Hook Form for field values, validation, and submission.
+
+## Demo
+
+This form has one username field. Submit fewer than three characters to see an error, then correct the value and submit again. Valid submissions are logged to the browser console.
+
+<DocsExample
+  filename="forms/ReactHookFormExample.tsx"
+  title="Username form"/>
+
+## Approach
+
+- `useForm` defines default values and handles submission.
+- `Controller` connects a control to the form.
+- `GlFormField`, `GlFormFieldLabel`, and `GlFormFieldError` provide the field layout and feedback.
+
+## Anatomy
+
+Render the Form Field components inside `Controller`. `GlFormInput` accepts the native change and blur handlers and forwards its input ref, so you can spread `field` directly onto it.
+
+```tsx
+<Controller
+  name="username"
+  control={form.control}
+  render={({ field, fieldState }) => (
+    <GlFormField aria-labelledby={`${id}-label`}>
+      <GlFormFieldLabel htmlFor={id} id={`${id}-label`}>
+        Username
+      </GlFormFieldLabel>
+      <GlFormInput
+        {...field}
+        id={id}
+        state={fieldState.invalid ? false : null}
+        aria-describedby={fieldState.invalid ? `${id}-error` : undefined} />
+      {fieldState.invalid && (
+        <GlFormFieldError id={`${id}-error`} role="alert">
+          {fieldState.error?.message}
+        </GlFormFieldError>
+      )}
+    </GlFormField>
+  )} />
+```
+
+## Installation
+
+Follow the [installation guide](/docs/installation) to set up GitLab UI React and its styles, then install React Hook Form:
+
+<PackageManagerTabs
+  client:load
+  dependencies="react-hook-form"/>
+
+## Form
+
+### Set up the form
+
+Inside your component, create an ID for the label and control, then call `useForm` with typed default values.
+
+```tsx
+import { useId } from "react";
+import { Controller, useForm } from "react-hook-form";
+
+const id = useId();
+const form = useForm<{ username: string }>({
+  defaultValues: { username: "" },
+});
+```
+
+### Add validation
+
+Add `rules` to the `Controller` above. A validator returns `true` for a valid value or a message for an invalid value.
+
+```tsx
+rules={{
+  validate: (value) => value.trim().length >= 3
+    || "Username must be at least 3 characters.",
+}}
+```
+
+### Submit the form
+
+Wrap the field in a native `form` and pass your submit handler to `handleSubmit`. It calls the handler only when validation succeeds. Use `noValidate` to let the engine display validation feedback.
+
+```tsx
+<form noValidate onSubmit={form.handleSubmit(onSubmit)}>
+  {/* The Controller field goes here. */}
+  <GlButton type="submit" variant="confirm">Submit</GlButton>
+</form>
+```
+
+The demo's source combines these steps into a complete form. Replace its `console.log` handler with your application's submission logic.
+
+## Validation
+
+By default, validation runs on submit and revalidation runs on change after a failed submission. Set `mode` in `useForm` to change when validation starts.
+
+| Mode | Validate |
+| --- | --- |
+| `onSubmit` | On submission; the default. |
+| `onBlur` | When a field loses focus. |
+| `onChange` | On each value change. |
+| `onTouched` | On the first blur, then on change. |
+| `all` | On blur and change. |
+
+## Displaying errors
+
+Use `fieldState.invalid` to set `state={false}` on `GlFormInput`, which also sets `aria-invalid`. Render `fieldState.error?.message` as the children of `GlFormFieldError`.
+
+Link the error to the input with `aria-describedby` and add `role="alert"` to announce it. Form Field provides presentation; it does not read validation state from the engine.
+
+## Resetting the form
+
+Call `form.reset()` to restore `defaultValues` and clear errors.
+
+```tsx
+<GlButton type="button" onClick={() => form.reset()}>
+  Reset
+</GlButton>
+```
+
+## Related resources
+
+- [React Hook Form Controller](https://react-hook-form.com/docs/usecontroller/controller)
+- [React Hook Form useForm](https://react-hook-form.com/docs/useform)
+- [Form Field](/docs/components/form-field)
+- [TanStack Form integration](/docs/forms/tanstack-form)
