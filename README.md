@@ -9,7 +9,7 @@
 **Storybook:** <https://glui-story.nocp.space>
 
 > [!warning]
-> 🚧 **This project is under heavy development.** 🚧 The vast majority of the code and tests were written by AI (Codex and Kimi Code). Humans direct architecture, priorities, and design decisions, but have not reviewed most of the code line-by-line. Use at your own risk.
+> 🚧 **This project is under active development.** 🚧 The vast majority of the code and tests were written by AI (Codex and Kimi Code). Humans direct architecture, priorities, and design decisions, but have not reviewed most of the code line-by-line. Use at your own risk.
 
 ## Description
 
@@ -29,14 +29,12 @@ GitLab UI for React ports that component library to React. The project aims to m
 - A distributable package of GitLab design tokens (`packages/tokens`). For the complete token reference, see the [official Design Token Directory](https://design.gitlab.com/product-foundations/design-tokens-directory).
 - Foundational styles (`packages/styles/src`) and a prebuilt stylesheet bundle (`packages/styles/dist/gitlab-ui.css`).
 - Basic components, including `GlButton`, `GlLink`, `GlBadge`, `GlCard`, etc.
-- Form components, including `GlFormInput`, `GlFormTextarea`, `GlFormCheckbox`, `GlFormRadio`, `GlFormSelect`, etc.
+- Form components, including `GlFormInput`, `GlFormCheckbox`, `GlFormRadio`, `GlFormSelect`, `GlFormField`, etc.
 
 ### In progress
 
-- Advanced form components
 - Advanced composite components
 - Chart components
-- Documents
 
 ## Usage
 
