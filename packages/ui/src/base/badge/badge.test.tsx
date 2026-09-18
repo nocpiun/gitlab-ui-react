@@ -73,12 +73,29 @@ describe("GlBadge", () => {
     it.each([
       [{ icon: "issue-open-m" }, true],
       [{ icon: "issue-close" }, true],
+      [{ icon: "status_failed", iconOpticallyAligned: true }, true],
       [{ icon: "license", iconOpticallyAligned: true }, true],
       [{ icon: "license" }, false],
     ] as const)("aligns circular icons for %s", (props, expected) => {
       const markup = renderBadge(props);
 
       expect(markup.includes("-gl-ml-2")).toBe(expected);
+    });
+
+    it.each([
+      ["issue-open-m", false],
+      ["issue-close", false],
+      ["status_failed", true],
+    ] as const)("keeps the icon-only %s badge centered", (icon, iconOpticallyAligned) => {
+      const markup = renderToStaticMarkup(
+        <GlBadge aria-label="Status" icon={icon} iconOpticallyAligned={iconOpticallyAligned} />,
+      );
+
+      expect(markup).not.toContain("-gl-ml-2");
+      expect(markup).toContain("role=\"img\"");
+      expect(markup).toContain("aria-label=\"Status\"");
+      expect(markup).toContain("!gl-px-2");
+      expect(markup).not.toContain("gl-badge-content");
     });
 
     it("warns when an icon-only badge has no aria-label", () => {
@@ -132,11 +149,12 @@ describe("GlBadge", () => {
 
     it("keeps the img role for icon-only link badges", () => {
       const markup = renderBadge(
-        { "aria-label": "Scheduled", href: "https://www.gitlab.com", icon: "calendar" },
+        { "aria-label": "Closed", href: "https://www.gitlab.com", icon: "issue-close" },
         null,
       );
 
       expect(markup).toContain("role=\"img\"");
+      expect(markup).not.toContain("-gl-ml-2");
     });
   });
 });
