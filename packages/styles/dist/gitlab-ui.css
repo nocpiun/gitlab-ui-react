@@ -9012,6 +9012,9 @@
   .gl-border-b-dropdown-divider {
     border-bottom-color: var(--gl-dropdown-divider-color);
   }
+  .gl-bg-default {
+    background-color: var(--gl-background-color-default);
+  }
   .gl-bg-transparent {
     background-color: transparent;
   }
@@ -9056,6 +9059,9 @@
   }
   .gl-p-2 {
     padding: var(--gl-spacing-scale-2);
+  }
+  .gl-p-4 {
+    padding: var(--gl-spacing-scale-4);
   }
   .gl-p-5 {
     padding: var(--gl-spacing-scale-5);
