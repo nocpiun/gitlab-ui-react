@@ -45,7 +45,7 @@ export type GlBadgeProps = BaseBadgeProps & {
   href?: string;
   /** Name of an icon from `@gitlab/svgs` shown before the text. */
   icon?: string;
-  /** Optically aligns circular icons with the badge. */
+  /** Optically aligns circular icons when the badge also has content. */
   iconOpticallyAligned?: boolean;
   /** Icon size: `sm` (12px) or `md` (16px). */
   iconSize?: GlBadgeIconSize;
@@ -147,7 +147,7 @@ const GlBadge = forwardRef<HTMLElement, GlBadgeProps>(function GlBadge({
       {icon ? (
         <GlIcon
           className={badgeIconVariants({
-            circular: iconOpticallyAligned || circularIconNames.has(icon),
+            circular: hasContent && (iconOpticallyAligned || circularIconNames.has(icon)),
           })}
           name={icon}
           size={badgeIconSizes[iconSize]} />

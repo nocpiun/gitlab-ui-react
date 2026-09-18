@@ -209,6 +209,44 @@ export const IconOnly: Story = {
   },
 };
 
+export const IconOpticallyAlignedIconOnly: Story = {
+  argTypes: {
+    children: {
+      control: false,
+    },
+    icon: {
+      control: false,
+    },
+  },
+  args: {
+    children: undefined,
+  },
+  render: (args) => (
+    <div style={collectionStyle}>
+      <GlBadge {...args} variant="success" icon="issue-open-m" aria-label="Open" />
+      <GlBadge {...args} variant="info" icon="issue-close" aria-label="Closed" />
+      <GlBadge {...args} variant="danger" icon="status_failed" iconOpticallyAligned aria-label="Failed" />
+      <GlBadge {...args} variant="success" icon="status_success" iconOpticallyAligned aria-label="Passed" />
+      <GlBadge {...args} variant="warning" icon="status_pending" iconOpticallyAligned aria-label="Pending" />
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    for(const [icon, label] of [
+      ["issue-open-m", "Open"],
+      ["issue-close", "Closed"],
+      ["status_failed", "Failed"],
+      ["status_success", "Passed"],
+      ["status_pending", "Pending"],
+    ]) {
+      const badge = canvas.getByRole("img", { name: label });
+
+      await expect(canvas.getByTestId(`${icon}-icon`)).not.toHaveClass("-gl-ml-2");
+      await expect(badge).toHaveClass("!gl-px-2");
+      await expect(badge.querySelector(".gl-badge-content")).toBeNull();
+    }
+  },
+};
+
 export const Truncated: Story = {
   argTypes: {
     children: {
