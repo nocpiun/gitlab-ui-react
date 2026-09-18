@@ -523,6 +523,7 @@ export const GlListboxTrigger = forwardRef<HTMLElement, GlListboxTriggerProps>(
       children,
       {
         block,
+        buttonTextClasses: block ? "gl-w-full" : undefined,
         category,
         disabled: disabled || context.disabled,
         icon,

@@ -7,6 +7,7 @@ import {
 } from "react";
 import GlButton, {
   type GlButtonCategory,
+  type GlButtonProps,
   type GlButtonSize,
   type GlButtonVariant,
 } from "../../base/button/button.js";
@@ -44,7 +45,7 @@ export type GlTriggerAsChildProps = {
 export type GlTriggerButtonOptions = Pick<
   GlTriggerDefaultProps,
   "block" | "category" | "disabled" | "icon" | "loading" | "size" | "variant"
->;
+> & Pick<GlButtonProps, "buttonTextClasses">;
 
 function resolveAsChildElement(componentName: string, children: ReactNode): ReactElement {
   if(!isValidElement(children) || children.type === Fragment) {
