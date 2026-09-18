@@ -1,5 +1,19 @@
 # gitlab-ui-react
 
+## 0.3.0
+
+### Features
+
+- **ui:** sorting component (#130)
+
+### Bug Fixes
+
+- **badge:** keep icon-only badges centered (#127)
+
+### Contributors
+
+- @NriotHrreion
+
 ## 0.2.0
 
 ### Features
