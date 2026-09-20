@@ -6,6 +6,14 @@ import { defineConfig, mergeConfig } from "vitest/config";
 import storybookViteConfig from "./apps/storybook/vite.config.ts";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
+const gitlabUiComponentsDirectory = fileURLToPath(
+  new URL("./packages/ui/src/base", import.meta.url),
+);
+// Unit tests run before workspace packages are built, so resolve UI subpaths to source.
+const gitlabUiSourceAlias = {
+  find: /^gitlab-ui-react\/([^/]+)$/,
+  replacement: `${gitlabUiComponentsDirectory}/$1/index.ts`,
+};
 
 export default mergeConfig(
   storybookViteConfig,
@@ -13,6 +21,9 @@ export default mergeConfig(
     test: {
       projects: [
         {
+          resolve: {
+            alias: [gitlabUiSourceAlias],
+          },
           test: {
             name: "unit",
             environment: "node",
