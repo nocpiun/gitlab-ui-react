@@ -348,6 +348,65 @@ describe("gitlabComponents state and events", () => {
     await user.click(screen.getByRole("button", { name: "Update externally" }));
     expect(input.value).toBe("external");
   });
+
+  it("restores unbound field values when the containing form is reset", async () => {
+    const user = userEvent.setup();
+    const formEmit = vi.fn();
+    const Form = gitlabComponents.GlForm;
+    const Input = gitlabComponents.GlFormInput;
+    const Select = gitlabComponents.GlFormSelect;
+    const Toggle = gitlabComponents.GlToggle;
+    const Button = gitlabComponents.GlButton;
+
+    render(
+      <JSONUIProvider registry={{}}>
+        <Form emit={formEmit} on={noEvent} props={{}}>
+          <Input
+            emit={() => undefined}
+            on={noEvent}
+            props={{ label: "Project", name: "project", value: "Initial" }} />
+          <Select
+            emit={() => undefined}
+            on={noEvent}
+            props={{
+              label: "Role",
+              name: "role",
+              options: [
+                { label: "Developer", value: "developer" },
+                { label: "Maintainer", value: "maintainer" },
+              ],
+              value: "developer",
+            }} />
+          <Toggle
+            emit={() => undefined}
+            on={noEvent}
+            props={{ label: "Notifications", name: "notifications", value: false }} />
+          <Button
+            emit={() => undefined}
+            on={noEvent}
+            props={{ label: "Reset", type: "reset" }} />
+        </Form>
+      </JSONUIProvider>,
+    );
+    const input = screen.getByRole("textbox", { name: "Project" }) as HTMLInputElement;
+    const select = screen.getByRole("combobox", { name: "Role" }) as HTMLSelectElement;
+    const toggle = screen.getByRole("switch", { name: "Notifications" });
+
+    await user.clear(input);
+    await user.type(input, "Edited");
+    await user.selectOptions(select, "maintainer");
+    await user.click(toggle);
+    expect(input.value).toBe("Edited");
+    expect(select.value).toBe("maintainer");
+    expect(toggle.getAttribute("aria-checked")).toBe("true");
+
+    await user.click(screen.getByRole("button", { name: "Reset" }));
+
+    expect(input.value).toBe("Initial");
+    expect(select.value).toBe("developer");
+    expect(toggle.getAttribute("aria-checked")).toBe("false");
+    expect(formEmit).toHaveBeenCalledWith("reset");
+  });
 });
 
 describe("gitlabComponents validation", () => {

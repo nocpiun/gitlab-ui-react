@@ -92,6 +92,7 @@ type RegisteredFormField = {
   clear: () => void;
   disabled: boolean;
   inputId: string;
+  reset: () => void;
   validate: () => boolean;
 };
 
@@ -120,8 +121,11 @@ function useInteractiveValue<T>(
     if(bindingPath === undefined) setLocalValue(nextValue);
     else setBoundValue(nextValue);
   };
+  const resetValue = useCallback(() => {
+    if(bindingPath === undefined) setLocalValue(propValue ?? fallback);
+  }, [bindingPath, fallback, propValue]);
 
-  return [value, setValue] as const;
+  return [value, setValue, resetValue] as const;
 }
 
 function useRegistryValidation(
@@ -159,6 +163,7 @@ function useFormFieldRegistration(
   inputId: string,
   disabled: boolean | undefined,
   externalError: string | undefined,
+  resetValue: () => void,
 ) {
   const formScope = useContext(FormScopeContext);
   const registrationId = useId();
@@ -167,6 +172,7 @@ function useFormFieldRegistration(
     clear: validation.clear,
     disabled: Boolean(disabled),
     inputId,
+    reset: resetValue,
     validate: () => true,
   });
 
@@ -175,6 +181,7 @@ function useFormFieldRegistration(
     clear: validation.clear,
     disabled: Boolean(disabled),
     inputId,
+    reset: resetValue,
     validate: () => {
       if(externalError) return false;
       validation.touch();
@@ -194,11 +201,18 @@ function useFieldRuntime(
   bindingPath: string | undefined,
   props: ValidationProps,
   defaultValidateOn: ValidateOn,
+  resetValue: () => void,
 ) {
   const validation = useRegistryValidation(bindingPath, props, defaultValidateOn);
   const error = props.error ?? validation.error;
   const ids = useFieldIds(props.description, error);
-  const formScope = useFormFieldRegistration(validation, ids.inputId, props.disabled, props.error);
+  const formScope = useFormFieldRegistration(
+    validation,
+    ids.inputId,
+    props.disabled,
+    props.error,
+    resetValue,
+  );
 
   return {
     error,
@@ -489,7 +503,11 @@ function RenderGlForm({ children, emit, props, slots }: RendererProps<"GlForm">)
 
   const handleReset = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    for(const getField of registrationsRef.current.values()) getField().clear();
+    for(const getField of registrationsRef.current.values()) {
+      const field = getField();
+      field.reset();
+      field.clear();
+    }
     emit("reset");
   };
 
@@ -577,8 +595,13 @@ function RenderGlFormPasswordInput({
   emit,
   props,
 }: RendererProps<"GlFormPasswordInput">) {
-  const [value, setValue] = useInteractiveValue(props.value, bindings?.value, "");
-  const { error, ids, state, validation } = useFieldRuntime(bindings?.value, props, "blur");
+  const [value, setValue, resetValue] = useInteractiveValue(props.value, bindings?.value, "");
+  const { error, ids, state, validation } = useFieldRuntime(
+    bindings?.value,
+    props,
+    "blur",
+    resetValue,
+  );
 
   return (
     <GlFormField>
@@ -618,12 +641,17 @@ function RenderGlFormCheckboxGroup({
   emit,
   props,
 }: RendererProps<"GlFormCheckboxGroup">) {
-  const [value, setValue] = useInteractiveValue(
+  const [value, setValue, resetValue] = useInteractiveValue(
     props.value,
     bindings?.value,
     EMPTY_STRING_ARRAY,
   );
-  const { error, ids, state, validation } = useFieldRuntime(bindings?.value, props, "change");
+  const { error, ids, state, validation } = useFieldRuntime(
+    bindings?.value,
+    props,
+    "change",
+    resetValue,
+  );
 
   return (
     <GlFormFieldSet disabled={props.disabled}>
@@ -657,11 +685,12 @@ function RenderGlFormCheckboxGroup({
 }
 
 function RenderGlFormInput({ bindings, emit, props }: RendererProps<"GlFormInput">) {
-  const [value, setValue] = useInteractiveValue(props.value, bindings?.value, "");
+  const [value, setValue, resetValue] = useInteractiveValue(props.value, bindings?.value, "");
   const { error, formScope, ids, state, validation } = useFieldRuntime(
     bindings?.value,
     props,
     "blur",
+    resetValue,
   );
 
   const handleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -705,11 +734,12 @@ function RenderGlFormInput({ bindings, emit, props }: RendererProps<"GlFormInput
 }
 
 function RenderGlFormTextarea({ bindings, emit, props }: RendererProps<"GlFormTextarea">) {
-  const [value, setValue] = useInteractiveValue(props.value, bindings?.value, "");
+  const [value, setValue, resetValue] = useInteractiveValue(props.value, bindings?.value, "");
   const { error, formScope, ids, state, validation } = useFieldRuntime(
     bindings?.value,
     props,
     "blur",
+    resetValue,
   );
 
   return (
@@ -751,8 +781,13 @@ function RenderGlFormTextarea({ bindings, emit, props }: RendererProps<"GlFormTe
 }
 
 function RenderGlFormDate({ bindings, emit, props }: RendererProps<"GlFormDate">) {
-  const [value, setValue] = useInteractiveValue(props.value, bindings?.value, "");
-  const { error, ids, state, validation } = useFieldRuntime(bindings?.value, props, "blur");
+  const [value, setValue, resetValue] = useInteractiveValue(props.value, bindings?.value, "");
+  const { error, ids, state, validation } = useFieldRuntime(
+    bindings?.value,
+    props,
+    "blur",
+    resetValue,
+  );
 
   return (
     <GlFormField>
@@ -785,8 +820,13 @@ function RenderGlFormDate({ bindings, emit, props }: RendererProps<"GlFormDate">
 }
 
 function RenderGlFormSelect({ bindings, emit, props }: RendererProps<"GlFormSelect">) {
-  const [value, setValue] = useInteractiveValue(props.value, bindings?.value, "");
-  const { error, ids, state, validation } = useFieldRuntime(bindings?.value, props, "change");
+  const [value, setValue, resetValue] = useInteractiveValue(props.value, bindings?.value, "");
+  const { error, ids, state, validation } = useFieldRuntime(
+    bindings?.value,
+    props,
+    "change",
+    resetValue,
+  );
 
   return (
     <GlFormField>
@@ -825,8 +865,13 @@ function RenderGlFormSelect({ bindings, emit, props }: RendererProps<"GlFormSele
 }
 
 function RenderGlFormRadioGroup({ bindings, emit, props }: RendererProps<"GlFormRadioGroup">) {
-  const [value, setValue] = useInteractiveValue(props.value, bindings?.value, "");
-  const { error, ids, state, validation } = useFieldRuntime(bindings?.value, props, "change");
+  const [value, setValue, resetValue] = useInteractiveValue(props.value, bindings?.value, "");
+  const { error, ids, state, validation } = useFieldRuntime(
+    bindings?.value,
+    props,
+    "change",
+    resetValue,
+  );
 
   return (
     <GlFormFieldSet disabled={props.disabled}>
@@ -860,8 +905,17 @@ function RenderGlFormRadioGroup({ bindings, emit, props }: RendererProps<"GlForm
 }
 
 function RenderGlFormCheckbox({ bindings, emit, props }: RendererProps<"GlFormCheckbox">) {
-  const [checked, setChecked] = useInteractiveValue(props.checked, bindings?.checked, false);
-  const { error, ids, state, validation } = useFieldRuntime(bindings?.checked, props, "change");
+  const [checked, setChecked, resetChecked] = useInteractiveValue(
+    props.checked,
+    bindings?.checked,
+    false,
+  );
+  const { error, ids, state, validation } = useFieldRuntime(
+    bindings?.checked,
+    props,
+    "change",
+    resetChecked,
+  );
 
   return (
     <GlFormField>
@@ -892,8 +946,13 @@ function RenderGlFormCheckbox({ bindings, emit, props }: RendererProps<"GlFormCh
 }
 
 function RenderGlToggle({ bindings, emit, loading, props }: RendererProps<"GlToggle">) {
-  const [value, setValue] = useInteractiveValue(props.value, bindings?.value, false);
-  const { error, ids, state, validation } = useFieldRuntime(bindings?.value, props, "change");
+  const [value, setValue, resetValue] = useInteractiveValue(props.value, bindings?.value, false);
+  const { error, ids, state, validation } = useFieldRuntime(
+    bindings?.value,
+    props,
+    "change",
+    resetValue,
+  );
 
   return (
     <GlFormField>
