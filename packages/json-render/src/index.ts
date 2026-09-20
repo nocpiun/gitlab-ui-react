@@ -1,3 +1,5 @@
+"use client";
+
 export { gitlabComponents } from "./components.js";
 export {
   gitlabComponentDefinitions,
