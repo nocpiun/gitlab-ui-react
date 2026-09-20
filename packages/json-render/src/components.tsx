@@ -3,10 +3,15 @@
 import type { ValidationCheck, ValidationConfig } from "@json-render/core";
 import type { GitLabComponentName, GitLabProps } from "./catalog.js";
 import {
+  createContext,
+  useCallback,
+  useContext,
   useEffect,
   useId,
   useMemo,
+  useRef,
   useState,
+  type FormEvent,
   type KeyboardEvent,
   type ReactNode,
 } from "react";
@@ -28,17 +33,24 @@ import {
   GlCardFooter,
   GlCardHeader,
 } from "gitlab-ui-react/card";
-import { GlFormCheckbox } from "gitlab-ui-react/form-checkbox";
+import { GlFormCheckbox, GlFormCheckboxGroup } from "gitlab-ui-react/form-checkbox";
 import { GlFormDate } from "gitlab-ui-react/form-date";
 import {
   GlFormField,
   GlFormFieldDescription,
   GlFormFieldError,
+  GlFormFieldGroup,
   GlFormFieldLabel,
   GlFormFieldLegend,
   GlFormFieldSet,
 } from "gitlab-ui-react/form-field";
 import { GlFormInput } from "gitlab-ui-react/form-input";
+import {
+  GlFormInputGroup,
+  GlFormInputGroupAddon,
+  GlInputGroupText,
+} from "gitlab-ui-react/form-input-group";
+import { GlFormPasswordInput } from "gitlab-ui-react/form-password-input";
 import { GlFormRadioGroup } from "gitlab-ui-react/form-radio-group";
 import { GlFormSelect, GlFormSelectItem } from "gitlab-ui-react/form-select";
 import { GlFormTextarea } from "gitlab-ui-react/form-textarea";
@@ -68,8 +80,28 @@ type GitLabComponentRegistry = {
 type ValidateOn = "change" | "blur" | "submit";
 type ValidationProps = {
   checks?: Array<{ type: string; message: string; args?: Record<string, unknown> }>;
+  description?: string;
+  disabled?: boolean;
+  error?: string;
+  required?: boolean;
   validateOn?: ValidateOn;
 };
+
+type RegisteredFormField = {
+  active: boolean;
+  clear: () => void;
+  disabled: boolean;
+  inputId: string;
+  validate: () => boolean;
+};
+
+type FormScopeValue = {
+  register: (registrationId: string, getField: () => RegisteredFormField) => () => void;
+  requestSubmit: () => void;
+};
+
+const FormScopeContext = createContext<FormScopeValue | null>(null);
+const EMPTY_STRING_ARRAY: string[] = [];
 
 function useInteractiveValue<T>(
   propValue: T | undefined,
@@ -94,15 +126,22 @@ function useInteractiveValue<T>(
 
 function useRegistryValidation(
   bindingPath: string | undefined,
-  { checks, validateOn }: ValidationProps,
+  { checks, disabled, required, validateOn }: ValidationProps,
   defaultValidateOn: ValidateOn,
 ) {
-  const active = bindingPath !== undefined && Boolean(checks?.length);
+  const resolvedChecks = useMemo(() => {
+    const nextChecks = [...(checks ?? [])];
+    if(required && !nextChecks.some((check) => check.type === "required")) {
+      nextChecks.unshift({ message: "This field is required", type: "required" });
+    }
+    return nextChecks;
+  }, [checks, required]);
+  const active = bindingPath !== undefined && !disabled && resolvedChecks.length > 0;
   const resolvedValidateOn = validateOn ?? defaultValidateOn;
   const config = useMemo<ValidationConfig | undefined>(() => active ? {
-    checks: checks as ValidationCheck[],
+    checks: resolvedChecks as ValidationCheck[],
     validateOn: resolvedValidateOn,
-  } : undefined, [active, checks, resolvedValidateOn]);
+  } : undefined, [active, resolvedChecks, resolvedValidateOn]);
   const validation = useFieldValidation(bindingPath ?? "", config);
   const state = active && validation.state.validated ? validation.isValid : null;
 
@@ -112,6 +151,61 @@ function useRegistryValidation(
     state,
     validateOn: resolvedValidateOn,
     error: active && validation.state.validated ? validation.errors[0] : undefined,
+  };
+}
+
+function useFormFieldRegistration(
+  validation: ReturnType<typeof useRegistryValidation>,
+  inputId: string,
+  disabled: boolean | undefined,
+  externalError: string | undefined,
+) {
+  const formScope = useContext(FormScopeContext);
+  const registrationId = useId();
+  const fieldRef = useRef<RegisteredFormField>({
+    active: false,
+    clear: validation.clear,
+    disabled: Boolean(disabled),
+    inputId,
+    validate: () => true,
+  });
+
+  fieldRef.current = {
+    active: validation.active || Boolean(externalError),
+    clear: validation.clear,
+    disabled: Boolean(disabled),
+    inputId,
+    validate: () => {
+      if(externalError) return false;
+      validation.touch();
+      return validation.validate().valid;
+    },
+  };
+
+  useEffect(() => {
+    if(!formScope) return undefined;
+    return formScope.register(registrationId, () => fieldRef.current);
+  }, [formScope, registrationId]);
+
+  return formScope;
+}
+
+function useFieldRuntime(
+  bindingPath: string | undefined,
+  props: ValidationProps,
+  defaultValidateOn: ValidateOn,
+) {
+  const validation = useRegistryValidation(bindingPath, props, defaultValidateOn);
+  const error = props.error ?? validation.error;
+  const ids = useFieldIds(props.description, error);
+  const formScope = useFormFieldRegistration(validation, ids.inputId, props.disabled, props.error);
+
+  return {
+    error,
+    formScope,
+    ids,
+    state: error ? false : validation.state,
+    validation,
   };
 }
 
@@ -334,8 +428,11 @@ function RenderGlButton({ emit, loading, props }: RendererProps<"GlButton">) {
       disabled={props.disabled}
       icon={props.icon}
       loading={Boolean(loading || props.loading)}
-      onClick={() => emit("press")}
+      onClick={props.type === "submit" || props.type === "reset"
+        ? undefined
+        : () => emit("press")}
       size={props.size}
+      type={props.type}
       variant={props.variant}>
       {props.label}
     </GlButton>
@@ -361,13 +458,214 @@ function RenderGlLink({ on, props }: RendererProps<"GlLink">) {
   );
 }
 
+function RenderGlForm({ children, emit, props, slots }: RendererProps<"GlForm">) {
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const registrationsRef = useRef(new Map<string, () => RegisteredFormField>());
+  const register = useCallback((registrationId: string, getField: () => RegisteredFormField) => {
+    registrationsRef.current.set(registrationId, getField);
+    return () => registrationsRef.current.delete(registrationId);
+  }, []);
+  const requestSubmit = useCallback(() => formRef.current?.requestSubmit(), []);
+  const scope = useMemo<FormScopeValue>(() => ({ register, requestSubmit }), [register, requestSubmit]);
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    let firstInvalidId: string | undefined;
+
+    for(const getField of registrationsRef.current.values()) {
+      const field = getField();
+      if(!field.active || field.disabled) continue;
+      if(!field.validate() && !firstInvalidId) firstInvalidId = field.inputId;
+    }
+
+    if(firstInvalidId) {
+      document.getElementById(firstInvalidId)?.focus();
+      emit("invalid");
+      return;
+    }
+
+    emit("submit");
+  };
+
+  const handleReset = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    for(const getField of registrationsRef.current.values()) getField().clear();
+    emit("reset");
+  };
+
+  return (
+    <FormScopeContext.Provider value={scope}>
+      <form
+        ref={formRef}
+        autoComplete={props.autoComplete}
+        name={props.name}
+        noValidate
+        onReset={handleReset}
+        onSubmit={handleSubmit}>
+        {children}
+        {slots?.actions}
+      </form>
+    </FormScopeContext.Provider>
+  );
+}
+
+function OptionalLabel({ optional, text = "(optional)" }: { optional?: boolean; text?: string }) {
+  return optional ? <span className="optional-label"> {text}</span> : null;
+}
+
+function RenderGlFormField({ children, props }: RendererProps<"GlFormField">) {
+  const ids = useFieldIds(props.description, props.error);
+  const labelId = `${ids.inputId}-label`;
+
+  return (
+    <GlFormField
+      aria-describedby={ids.describedBy}
+      aria-invalid={props.error ? true : undefined}
+      aria-labelledby={labelId}>
+      <GlFormFieldLabel id={labelId}>
+        {props.label}<OptionalLabel optional={props.optional} text={props.optionalText} />
+      </GlFormFieldLabel>
+      {children}
+      <FieldMessages {...ids} description={props.description} error={props.error} />
+    </GlFormField>
+  );
+}
+
+function RenderGlFormFieldGroup({ children }: RendererProps<"GlFormFieldGroup">) {
+  return <GlFormFieldGroup>{children}</GlFormFieldGroup>;
+}
+
+function RenderGlFormFieldSet({ children, props }: RendererProps<"GlFormFieldSet">) {
+  const ids = useFieldIds(props.description, props.error);
+  const legendId = `${ids.inputId}-legend`;
+
+  return (
+    <GlFormFieldSet
+      aria-describedby={ids.describedBy}
+      aria-invalid={props.error ? true : undefined}
+      aria-labelledby={legendId}
+      disabled={props.disabled}>
+      <GlFormFieldLegend id={legendId}>
+        {props.label}<OptionalLabel optional={props.optional} text={props.optionalText} />
+      </GlFormFieldLegend>
+      {children}
+      <FieldMessages {...ids} description={props.description} error={props.error} />
+    </GlFormFieldSet>
+  );
+}
+
+function RenderGlFormInputGroup({ children, slots }: RendererProps<"GlFormInputGroup">) {
+  return (
+    <GlFormInputGroup>
+      {slots?.prepend ? (
+        <GlFormInputGroupAddon position="prepend">
+          <GlInputGroupText>{slots.prepend}</GlInputGroupText>
+        </GlFormInputGroupAddon>
+      ) : null}
+      {children}
+      {slots?.append ? (
+        <GlFormInputGroupAddon position="append">
+          <GlInputGroupText>{slots.append}</GlInputGroupText>
+        </GlFormInputGroupAddon>
+      ) : null}
+    </GlFormInputGroup>
+  );
+}
+
+function RenderGlFormPasswordInput({
+  bindings,
+  emit,
+  props,
+}: RendererProps<"GlFormPasswordInput">) {
+  const [value, setValue] = useInteractiveValue(props.value, bindings?.value, "");
+  const { error, ids, state, validation } = useFieldRuntime(bindings?.value, props, "blur");
+
+  return (
+    <GlFormField>
+      <GlFormFieldLabel htmlFor={ids.inputId}>{props.label}</GlFormFieldLabel>
+      <GlFormPasswordInput
+        aria-describedby={ids.describedBy}
+        disabled={props.disabled}
+        hideLabel={props.hideLabel}
+        id={ids.inputId}
+        initialVisibility={props.initialVisibility}
+        name={props.name}
+        onBlur={() => {
+          validateFor(validation, "blur");
+          emit("blur");
+        }}
+        onFocus={() => emit("focus")}
+        onValueChange={(nextValue) => {
+          setValue(String(nextValue));
+          validateFor(validation, "change");
+          emit("change");
+        }}
+        onVisibilityChange={() => emit("visibilityChange")}
+        placeholder={props.placeholder}
+        readOnly={props.readOnly}
+        required={props.required}
+        revealLabel={props.revealLabel}
+        state={state}
+        value={value}
+        width={props.width} />
+      <FieldMessages {...ids} description={props.description} error={error} />
+    </GlFormField>
+  );
+}
+
+function RenderGlFormCheckboxGroup({
+  bindings,
+  emit,
+  props,
+}: RendererProps<"GlFormCheckboxGroup">) {
+  const [value, setValue] = useInteractiveValue(
+    props.value,
+    bindings?.value,
+    EMPTY_STRING_ARRAY,
+  );
+  const { error, ids, state, validation } = useFieldRuntime(bindings?.value, props, "change");
+
+  return (
+    <GlFormFieldSet disabled={props.disabled}>
+      <GlFormFieldLegend id={`${ids.inputId}-legend`}>{props.label}</GlFormFieldLegend>
+      <GlFormCheckboxGroup
+        aria-describedby={ids.describedBy}
+        disabled={props.disabled}
+        id={ids.inputId}
+        name={props.name}
+        onBlur={() => {
+          validateFor(validation, "blur");
+          emit("blur");
+        }}
+        onFocus={() => emit("focus")}
+        onValueChange={(nextValue) => {
+          setValue(nextValue.map(String));
+          validateFor(validation, "change");
+          emit("change");
+        }}
+        options={props.options.map((option) => ({
+          disabled: option.disabled,
+          text: option.label,
+          value: option.value,
+        }))}
+        required={props.required}
+        state={state}
+        value={value} />
+      <FieldMessages {...ids} description={props.description} error={error} />
+    </GlFormFieldSet>
+  );
+}
+
 function RenderGlFormInput({ bindings, emit, props }: RendererProps<"GlFormInput">) {
   const [value, setValue] = useInteractiveValue(props.value, bindings?.value, "");
-  const validation = useRegistryValidation(bindings?.value, props, "blur");
-  const ids = useFieldIds(props.description, validation.error);
+  const { error, formScope, ids, state, validation } = useFieldRuntime(
+    bindings?.value,
+    props,
+    "blur",
+  );
 
   const handleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
-    if(event.key !== "Enter") return;
+    if(event.key !== "Enter" || formScope) return;
     validateFor(validation, "submit");
     emit("submit");
   };
@@ -397,19 +695,22 @@ function RenderGlFormInput({ bindings, emit, props }: RendererProps<"GlFormInput
         placeholder={props.placeholder}
         readOnly={props.readOnly}
         required={props.required}
-        state={validation.state}
+        state={state}
         type={props.type}
         value={value}
         width={props.width} />
-      <FieldMessages {...ids} description={props.description} error={validation.error} />
+      <FieldMessages {...ids} description={props.description} error={error} />
     </GlFormField>
   );
 }
 
 function RenderGlFormTextarea({ bindings, emit, props }: RendererProps<"GlFormTextarea">) {
   const [value, setValue] = useInteractiveValue(props.value, bindings?.value, "");
-  const validation = useRegistryValidation(bindings?.value, props, "blur");
-  const ids = useFieldIds(props.description, validation.error);
+  const { error, formScope, ids, state, validation } = useFieldRuntime(
+    bindings?.value,
+    props,
+    "blur",
+  );
 
   return (
     <GlFormField>
@@ -426,8 +727,11 @@ function RenderGlFormTextarea({ bindings, emit, props }: RendererProps<"GlFormTe
         }}
         onFocus={() => emit("focus")}
         onSubmit={() => {
-          validateFor(validation, "submit");
-          emit("submit");
+          if(formScope) formScope.requestSubmit();
+          else {
+            validateFor(validation, "submit");
+            emit("submit");
+          }
         }}
         onValueChange={(nextValue) => {
           setValue(nextValue);
@@ -438,18 +742,17 @@ function RenderGlFormTextarea({ bindings, emit, props }: RendererProps<"GlFormTe
         readOnly={props.readOnly}
         required={props.required}
         rows={props.rows}
-        state={validation.state}
+        state={state}
         submitOnEnter={props.submitOnEnter}
         value={value} />
-      <FieldMessages {...ids} description={props.description} error={validation.error} />
+      <FieldMessages {...ids} description={props.description} error={error} />
     </GlFormField>
   );
 }
 
 function RenderGlFormDate({ bindings, emit, props }: RendererProps<"GlFormDate">) {
   const [value, setValue] = useInteractiveValue(props.value, bindings?.value, "");
-  const validation = useRegistryValidation(bindings?.value, props, "blur");
-  const ids = useFieldIds(props.description, validation.error);
+  const { error, ids, state, validation } = useFieldRuntime(bindings?.value, props, "blur");
 
   return (
     <GlFormField>
@@ -474,17 +777,16 @@ function RenderGlFormDate({ bindings, emit, props }: RendererProps<"GlFormDate">
           emit("change");
         }}
         required={props.required}
-        state={validation.state}
+        state={state}
         value={value} />
-      <FieldMessages {...ids} description={props.description} error={validation.error} />
+      <FieldMessages {...ids} description={props.description} error={error} />
     </GlFormField>
   );
 }
 
 function RenderGlFormSelect({ bindings, emit, props }: RendererProps<"GlFormSelect">) {
   const [value, setValue] = useInteractiveValue(props.value, bindings?.value, "");
-  const validation = useRegistryValidation(bindings?.value, props, "change");
-  const ids = useFieldIds(props.description, validation.error);
+  const { error, ids, state, validation } = useFieldRuntime(bindings?.value, props, "change");
 
   return (
     <GlFormField>
@@ -505,7 +807,7 @@ function RenderGlFormSelect({ bindings, emit, props }: RendererProps<"GlFormSele
           emit("change");
         }}
         required={props.required}
-        state={validation.state}
+        state={state}
         value={value}
         width={props.width}>
         {props.placeholder ? (
@@ -517,15 +819,14 @@ function RenderGlFormSelect({ bindings, emit, props }: RendererProps<"GlFormSele
           </GlFormSelectItem>
         ))}
       </GlFormSelect>
-      <FieldMessages {...ids} description={props.description} error={validation.error} />
+      <FieldMessages {...ids} description={props.description} error={error} />
     </GlFormField>
   );
 }
 
 function RenderGlFormRadioGroup({ bindings, emit, props }: RendererProps<"GlFormRadioGroup">) {
   const [value, setValue] = useInteractiveValue(props.value, bindings?.value, "");
-  const validation = useRegistryValidation(bindings?.value, props, "change");
-  const ids = useFieldIds(props.description, validation.error);
+  const { error, ids, state, validation } = useFieldRuntime(bindings?.value, props, "change");
 
   return (
     <GlFormFieldSet disabled={props.disabled}>
@@ -551,17 +852,16 @@ function RenderGlFormRadioGroup({ bindings, emit, props }: RendererProps<"GlForm
           value: option.value,
         }))}
         required={props.required}
-        state={validation.state}
+        state={state}
         value={value} />
-      <FieldMessages {...ids} description={props.description} error={validation.error} />
+      <FieldMessages {...ids} description={props.description} error={error} />
     </GlFormFieldSet>
   );
 }
 
 function RenderGlFormCheckbox({ bindings, emit, props }: RendererProps<"GlFormCheckbox">) {
   const [checked, setChecked] = useInteractiveValue(props.checked, bindings?.checked, false);
-  const validation = useRegistryValidation(bindings?.checked, props, "change");
-  const ids = useFieldIds(props.description, validation.error);
+  const { error, ids, state, validation } = useFieldRuntime(bindings?.checked, props, "change");
 
   return (
     <GlFormField>
@@ -583,26 +883,27 @@ function RenderGlFormCheckbox({ bindings, emit, props }: RendererProps<"GlFormCh
         }}
         onFocus={() => emit("focus")}
         required={props.required}
-        state={validation.state}>
+        state={state}>
         {props.label}
       </GlFormCheckbox>
-      <FieldMessages {...ids} description={props.description} error={validation.error} />
+      <FieldMessages {...ids} description={props.description} error={error} />
     </GlFormField>
   );
 }
 
 function RenderGlToggle({ bindings, emit, loading, props }: RendererProps<"GlToggle">) {
   const [value, setValue] = useInteractiveValue(props.value, bindings?.value, false);
-  const validation = useRegistryValidation(bindings?.value, props, "change");
-  const ids = useFieldIds(props.description, validation.error);
+  const { error, ids, validation } = useFieldRuntime(bindings?.value, props, "change");
 
   return (
     <GlFormField>
       <GlToggle
+        aria-invalid={error ? true : undefined}
         aria-required={props.required || undefined}
         aria-describedby={ids.describedBy}
         disabled={props.disabled}
         help={props.help}
+        id={ids.inputId}
         label={props.label}
         labelPosition={props.labelPosition}
         loading={Boolean(loading || props.loading)}
@@ -618,7 +919,7 @@ function RenderGlToggle({ bindings, emit, loading, props }: RendererProps<"GlTog
           emit("change");
         }}
         value={value} />
-      <FieldMessages {...ids} description={props.description} error={validation.error} />
+      <FieldMessages {...ids} description={props.description} error={error} />
     </GlFormField>
   );
 }
@@ -632,9 +933,16 @@ export const gitlabComponents = {
   GlButton: RenderGlButton,
   GlButtonGroup: RenderGlButtonGroup,
   GlCard: RenderGlCard,
+  GlForm: RenderGlForm,
   GlFormCheckbox: RenderGlFormCheckbox,
+  GlFormCheckboxGroup: RenderGlFormCheckboxGroup,
   GlFormDate: RenderGlFormDate,
+  GlFormField: RenderGlFormField,
+  GlFormFieldGroup: RenderGlFormFieldGroup,
+  GlFormFieldSet: RenderGlFormFieldSet,
   GlFormInput: RenderGlFormInput,
+  GlFormInputGroup: RenderGlFormInputGroup,
+  GlFormPasswordInput: RenderGlFormPasswordInput,
   GlFormRadioGroup: RenderGlFormRadioGroup,
   GlFormSelect: RenderGlFormSelect,
   GlFormTextarea: RenderGlFormTextarea,

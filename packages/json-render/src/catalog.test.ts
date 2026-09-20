@@ -12,9 +12,16 @@ const componentNames = [
   "GlButton",
   "GlButtonGroup",
   "GlCard",
+  "GlForm",
   "GlFormCheckbox",
+  "GlFormCheckboxGroup",
   "GlFormDate",
+  "GlFormField",
+  "GlFormFieldGroup",
+  "GlFormFieldSet",
   "GlFormInput",
+  "GlFormInputGroup",
+  "GlFormPasswordInput",
   "GlFormRadioGroup",
   "GlFormSelect",
   "GlFormTextarea",
@@ -30,13 +37,17 @@ const componentNames = [
 ] as const;
 
 describe("gitlabComponentDefinitions", () => {
-  it("contains exactly the 23 supported GitLab UI components", () => {
+  it("contains exactly the 30 supported GitLab UI components", () => {
     expect(Object.keys(gitlabComponentDefinitions).sort()).toEqual(componentNames);
   });
 
   it("accepts valid props and rejects unsafe or invalid props", () => {
     expect(gitlabComponentDefinitions.GlButton.props.safeParse({ label: "Save" }).success)
       .toBe(true);
+    expect(gitlabComponentDefinitions.GlButton.props.safeParse({
+      label: "Save",
+      type: "submit",
+    }).success).toBe(true);
     expect(gitlabComponentDefinitions.GlButton.props.safeParse({
       className: "model-css-escape-hatch",
       label: "Save",
@@ -51,6 +62,11 @@ describe("gitlabComponentDefinitions", () => {
       entityName: "Jane",
       size: 40,
     }).success).toBe(false);
+    expect(gitlabComponentDefinitions.GlForm.props.safeParse({
+      action: "https://example.com/collect",
+      method: "post",
+      target: "_blank",
+    }).data).toEqual({});
   });
 
   it("keeps optional JSON fields optional instead of requiring null", () => {
@@ -68,6 +84,10 @@ describe("gitlabComponentDefinitions", () => {
       .toEqual(["change", "previous", "next"]);
     expect(gitlabComponentDefinitions.GlFormInput.events)
       .toEqual(["change", "focus", "blur", "submit"]);
+    expect(gitlabComponentDefinitions.GlForm.slots).toEqual(["default", "actions"]);
+    expect(gitlabComponentDefinitions.GlForm.events).toEqual(["submit", "invalid", "reset"]);
+    expect(gitlabComponentDefinitions.GlFormInputGroup.slots)
+      .toEqual(["default", "prepend", "append"]);
   });
 
   it("can be passed directly to defineCatalog for React specs", () => {

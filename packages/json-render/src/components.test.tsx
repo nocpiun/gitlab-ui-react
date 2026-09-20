@@ -127,6 +127,46 @@ describe("gitlabComponents display renderers", () => {
     expect(fireEvent.click(link)).toBe(false);
     expect(emit).toHaveBeenCalledOnce();
   });
+
+  it("renders the form composition components with semantic structure", () => {
+    const field = renderComponent("GlFormField", {
+      description: "Used in clone URLs.",
+      error: "Path is already taken.",
+      label: "Repository path",
+      optional: true,
+    }, {
+      children: <input />,
+    });
+    const fieldGroup = screen.getByRole("group", { name: /Repository path/ });
+    expect(fieldGroup.className).toContain("gl-form-field");
+    expect(fieldGroup.getAttribute("aria-describedby")).toContain(
+      screen.getByText("Used in clone URLs.").id,
+    );
+    expect(screen.getByText("Path is already taken.").className)
+      .toContain("invalid-feedback");
+    expect(screen.getByText("(optional)")).toBeTruthy();
+    field.unmount();
+
+    const fieldSet = renderComponent("GlFormFieldSet", {
+      disabled: true,
+      label: "Notifications",
+    }, {
+      children: <input type="checkbox" />,
+    });
+    const semanticFieldSet = fieldSet.container.querySelector("fieldset");
+    expect(semanticFieldSet?.disabled).toBe(true);
+    expect(semanticFieldSet?.querySelector("legend")?.textContent).toBe("Notifications");
+    fieldSet.unmount();
+
+    const inputGroup = renderComponent("GlFormInputGroup", {}, {
+      children: <input aria-label="Amount" />,
+      slots: { append: <span>USD</span>, prepend: <span>$</span> },
+    });
+    const group = inputGroup.container.querySelector(".gl-form-input-group");
+    expect(group?.textContent).toBe("$USD");
+    expect(group?.firstElementChild?.className).toContain("input-group-prepend");
+    expect(group?.lastElementChild?.className).toContain("input-group-append");
+  });
 });
 
 describe("gitlabComponents state and events", () => {
@@ -187,7 +227,7 @@ describe("gitlabComponents state and events", () => {
     expect(order.at(-1)).toBe("change");
   });
 
-  it("writes select, radio, checkbox, and toggle bindings", async () => {
+  it("writes select, radio, checkbox, checkbox-group, and toggle bindings", async () => {
     const user = userEvent.setup();
     const changes: Array<{ path: string; value: unknown }> = [];
     const onStateChange = (next: Array<{ path: string; value: unknown }>) => changes.push(...next);
@@ -233,6 +273,20 @@ describe("gitlabComponents state and events", () => {
     expect(changes).toContainEqual({ path: "/accepted", value: true });
     cleanup();
 
+    renderComponent("GlFormCheckboxGroup", {
+      label: "Channels",
+      name: "channels",
+      options: [{ label: "Email", value: "email" }],
+      value: [],
+    }, {
+      binding: { path: "/channels", prop: "value" },
+      initialState: { channels: [] },
+      onStateChange,
+    });
+    await user.click(screen.getByRole("checkbox", { name: "Email" }));
+    expect(changes).toContainEqual({ path: "/channels", value: ["email"] });
+    cleanup();
+
     renderComponent("GlToggle", {
       label: "Notifications",
       name: "notifications",
@@ -244,6 +298,29 @@ describe("gitlabComponents state and events", () => {
     });
     await user.click(screen.getByRole("switch", { name: "Notifications" }));
     expect(changes).toContainEqual({ path: "/notifications", value: true });
+  });
+
+  it("keeps password input interactive and emits visibility changes", async () => {
+    const user = userEvent.setup();
+    const emit = vi.fn();
+    const changes: Array<{ path: string; value: unknown }> = [];
+    renderComponent("GlFormPasswordInput", {
+      label: "Password",
+      name: "password",
+      value: "",
+    }, {
+      binding: { path: "/password", prop: "value" },
+      emit,
+      initialState: { password: "" },
+      onStateChange: (next) => changes.push(...next),
+    });
+    const input = screen.getByLabelText("Password") as HTMLInputElement;
+
+    fireEvent.change(input, { target: { value: "secret" } });
+    expect(changes.at(-1)).toEqual({ path: "/password", value: "secret" });
+    await user.click(screen.getByRole("button", { name: "Reveal password" }));
+    expect(input.type).toBe("text");
+    expect(emit).toHaveBeenCalledWith("visibilityChange");
   });
 
   it("syncs unbound local state when the external prop changes", async () => {
@@ -321,5 +398,167 @@ describe("gitlabComponents validation", () => {
     expect(screen.queryByText("This field is required")).toBeNull();
     expect(input.className).not.toContain("is-invalid");
     expect(input.className).not.toContain("is-valid");
+  });
+
+  it.each([
+    ["GlFormInput", "value", { label: "Input", name: "input", required: true, value: "" }],
+    ["GlFormPasswordInput", "value", {
+      label: "Password",
+      name: "password",
+      required: true,
+      value: "",
+    }],
+    ["GlFormTextarea", "value", {
+      label: "Textarea",
+      name: "textarea",
+      required: true,
+      value: "",
+    }],
+    ["GlFormDate", "value", { label: "Date", name: "date", required: true, value: "" }],
+    ["GlFormSelect", "value", {
+      label: "Select",
+      name: "select",
+      options: [{ label: "Option", value: "option" }],
+      required: true,
+      value: "",
+    }],
+    ["GlFormRadioGroup", "value", {
+      label: "Radio",
+      name: "radio",
+      options: [{ label: "Option", value: "option" }],
+      required: true,
+      value: "",
+    }],
+    ["GlFormCheckbox", "checked", {
+      checked: false,
+      label: "Checkbox",
+      name: "checkbox",
+      required: true,
+    }],
+    ["GlFormCheckboxGroup", "value", {
+      label: "Checkbox group",
+      name: "checkbox-group",
+      options: [{ label: "Option", value: "option" }],
+      required: true,
+      value: [],
+    }],
+    ["GlToggle", "value", {
+      label: "Toggle",
+      name: "toggle",
+      required: true,
+      value: false,
+    }],
+  ] as const)("validates %s through its containing form", async (
+    name,
+    bindingProp,
+    props,
+  ) => {
+    const user = userEvent.setup();
+    const formEmit = vi.fn();
+    const Form = gitlabComponents.GlForm;
+    const Field = gitlabComponents[name] as ComponentType<
+      BaseComponentProps<GitLabProps<typeof name>>
+    >;
+    const Button = gitlabComponents.GlButton;
+
+    render(
+      <JSONUIProvider registry={{}}>
+        <Form emit={formEmit} on={noEvent} props={{}} slots={{
+          actions: (
+            <Button
+              emit={() => undefined}
+              on={noEvent}
+              props={{ label: "Save", type: "submit" }} />
+          ),
+        }}>
+          <Field
+            bindings={{ [bindingProp]: "/field" }}
+            emit={() => undefined}
+            on={noEvent}
+            props={props} />
+        </Form>
+      </JSONUIProvider>,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Save" }));
+
+    await waitFor(() => expect(screen.getByText("This field is required")).toBeTruthy());
+    expect(formEmit.mock.calls).toEqual([["invalid"]]);
+  });
+
+  it("submits with the latest bound value and does not emit a button press", async () => {
+    const user = userEvent.setup();
+    const order: string[] = [];
+    const Form = gitlabComponents.GlForm;
+    const Input = gitlabComponents.GlFormInput;
+    const Button = gitlabComponents.GlButton;
+
+    render(
+      <JSONUIProvider
+        initialState={{ project: "" }}
+        onStateChange={() => order.push("write")}
+        registry={{}}>
+        <Form emit={(event) => order.push(`form:${event}`)} on={noEvent} props={{}}>
+          <Input
+            bindings={{ value: "/project" }}
+            emit={(event) => order.push(`field:${event}`)}
+            on={noEvent}
+            props={{ label: "Project", name: "project", required: true, value: "" }} />
+          <Button
+            emit={(event) => order.push(`button:${event}`)}
+            on={noEvent}
+            props={{ label: "Save", type: "submit" }} />
+        </Form>
+      </JSONUIProvider>,
+    );
+
+    fireEvent.change(screen.getByRole("textbox", { name: "Project" }), {
+      target: { value: "GitLab" },
+    });
+    expect(order.slice(-2)).toEqual(["write", "field:change"]);
+    await user.click(screen.getByRole("button", { name: "Save" }));
+
+    expect(order.at(-1)).toBe("form:submit");
+    expect(order).not.toContain("button:press");
+  });
+
+  it("isolates field validation between forms and clears it on reset", async () => {
+    const user = userEvent.setup();
+    const firstEmit = vi.fn();
+    const secondEmit = vi.fn();
+    const Form = gitlabComponents.GlForm;
+    const Input = gitlabComponents.GlFormInput;
+    const Button = gitlabComponents.GlButton;
+    const boundInput = (path: string, label: string) => (
+      <Input
+        bindings={{ value: path }}
+        emit={() => undefined}
+        on={noEvent}
+        props={{ label, name: label.toLowerCase(), required: true, value: "" }} />
+    );
+
+    render(
+      <JSONUIProvider registry={{}}>
+        <Form emit={firstEmit} on={noEvent} props={{}}>
+          {boundInput("/first", "First")}
+          <Button emit={() => undefined} on={noEvent} props={{ label: "Save first", type: "submit" }} />
+        </Form>
+        <Form emit={secondEmit} on={noEvent} props={{}}>
+          {boundInput("/second", "Second")}
+          <Button emit={() => undefined} on={noEvent} props={{ label: "Save second", type: "submit" }} />
+          <Button emit={() => undefined} on={noEvent} props={{ label: "Reset second", type: "reset" }} />
+        </Form>
+      </JSONUIProvider>,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Save second" }));
+    expect(firstEmit).not.toHaveBeenCalled();
+    expect(secondEmit).toHaveBeenCalledWith("invalid");
+    expect(screen.getAllByText("This field is required")).toHaveLength(1);
+    expect(document.activeElement).toBe(screen.getByRole("textbox", { name: "Second" }));
+
+    await user.click(screen.getByRole("button", { name: "Reset second" }));
+    await waitFor(() => expect(screen.queryByText("This field is required")).toBeNull());
+    expect(secondEmit).toHaveBeenLastCalledWith("reset");
   });
 });

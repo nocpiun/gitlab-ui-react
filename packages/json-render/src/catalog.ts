@@ -20,6 +20,7 @@ const commonFieldProps = {
   label: z.string(),
   name: z.string(),
   description: z.string().optional(),
+  error: z.string().optional(),
   disabled: z.boolean().optional(),
   required: z.boolean().optional(),
   checks: z.array(validationCheckSchema).optional(),
@@ -248,10 +249,12 @@ export const gitlabComponentDefinitions = {
       block: z.boolean().optional(),
       disabled: z.boolean().optional(),
       loading: z.boolean().optional(),
+      type: z.enum(["button", "submit", "reset"]).optional(),
     }),
     slots: [],
     events: ["press"],
-    description: "GitLab action button. Bind on.press to an action handler.",
+    description:
+      "GitLab action button. A button emits press; submit and reset types delegate to the containing GlForm.",
     example: { label: "Save changes", variant: "confirm", category: "primary" },
   },
   GlLink: {
@@ -268,6 +271,94 @@ export const gitlabComponentDefinitions = {
     description:
       "Safe GitLab link. Bind on.press for an action; action bindings that request preventDefault suppress navigation.",
     example: { label: "View project", href: "/projects/1", variant: "inline" },
+  },
+  GlForm: {
+    props: z.object({
+      name: z.string().optional(),
+      autoComplete: z.enum(["on", "off"]).optional(),
+    }),
+    slots: ["default", "actions"],
+    events: ["submit", "invalid", "reset"],
+    description:
+      "Semantic GitLab form. Submission validates only fields inside this form; submit fires only when valid and invalid fires otherwise.",
+    example: { name: "project", autoComplete: "off" },
+  },
+  GlFormField: {
+    props: z.object({
+      label: z.string(),
+      description: z.string().optional(),
+      error: z.string().optional(),
+      optional: z.boolean().optional(),
+      optionalText: z.string().optional(),
+    }),
+    slots: ["default"],
+    description:
+      "GitLab form field region for composing a custom control with a visible group label, description, and external error.",
+    example: { label: "Repository path", description: "Used in clone URLs." },
+  },
+  GlFormFieldGroup: {
+    props: z.object({}),
+    slots: ["default"],
+    description: "Vertically spaced group of GitLab form fields.",
+    example: {},
+  },
+  GlFormFieldSet: {
+    props: z.object({
+      label: z.string(),
+      description: z.string().optional(),
+      error: z.string().optional(),
+      disabled: z.boolean().optional(),
+      optional: z.boolean().optional(),
+      optionalText: z.string().optional(),
+    }),
+    slots: ["default"],
+    description:
+      "Semantic GitLab fieldset for a related group of controls, with a legend, description, and external error.",
+    example: { label: "Notifications" },
+  },
+  GlFormInputGroup: {
+    props: z.object({}),
+    slots: ["default", "prepend", "append"],
+    description:
+      "GitLab input group. Put the form control in children and short text adornments in prepend or append slots.",
+    example: {},
+  },
+  GlFormPasswordInput: {
+    props: z.object({
+      ...commonFieldProps,
+      value: z.string().optional(),
+      placeholder: z.string().optional(),
+      readOnly: z.boolean().optional(),
+      width: z.enum(["xs", "sm", "md", "lg", "xl"]).optional(),
+      initialVisibility: z.boolean().optional(),
+      revealLabel: z.string().optional(),
+      hideLabel: z.string().optional(),
+    }),
+    slots: [],
+    events: ["change", "focus", "blur", "visibilityChange"],
+    description:
+      "Labeled GitLab password input with an accessible reveal button. Bind value for two-way state.",
+    example: { label: "Password", name: "password", revealLabel: "Reveal password" },
+  },
+  GlFormCheckboxGroup: {
+    props: z.object({
+      ...commonFieldProps,
+      value: z.array(z.string()).optional(),
+      options: z.array(z.object({
+        label: z.string(),
+        value: z.string(),
+        disabled: z.boolean().optional(),
+      })),
+    }),
+    slots: [],
+    events: ["change", "focus", "blur"],
+    description:
+      "Labeled GitLab checkbox group. Bind value to the selected option values.",
+    example: {
+      label: "Notifications",
+      name: "notifications",
+      options: [{ label: "Email", value: "email" }],
+    },
   },
   GlFormInput: {
     props: z.object({

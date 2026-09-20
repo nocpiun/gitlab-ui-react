@@ -1,6 +1,6 @@
 # @gitlab-ui-react/json-render
 
-GitLab UI React components prepared for [`json-render`](https://github.com/vercel-labs/json-render). The package exposes 23 model-friendly Zod definitions and the matching React component functions.
+GitLab UI React components prepared for [`json-render`](https://github.com/vercel-labs/json-render). The package exposes model-friendly Zod definitions and the matching React component functions.
 
 This package is a GitLab UI integration. Its JSON contracts follow GitLab component semantics and do not reproduce the shadcn preset's component API, implementation, layout primitives, or Tailwind classes.
 
@@ -84,9 +84,9 @@ export const catalog = defineCatalog(schema, {
 - Containers and navigation: `GlCard`, `GlButtonGroup`, `GlAccordion`, `GlTabs`, `GlPagination`
 - Display and feedback: `GlAlert`, `GlAttributeList`, `GlAvatar`, `GlBadge`, `GlLoadingIcon`, `GlMarkdown`, `GlProgressBar`, `GlSkeletonLoader`, `GlTable`
 - Actions: `GlButton`, `GlLink`
-- Forms: `GlFormInput`, `GlFormTextarea`, `GlFormDate`, `GlFormSelect`, `GlFormRadioGroup`, `GlFormCheckbox`, `GlToggle`
+- Forms: `GlForm`, `GlFormField`, `GlFormFieldGroup`, `GlFormFieldSet`, `GlFormInputGroup`, `GlFormInput`, `GlFormPasswordInput`, `GlFormTextarea`, `GlFormDate`, `GlFormSelect`, `GlFormRadioGroup`, `GlFormCheckbox`, `GlFormCheckboxGroup`, `GlToggle`
 
-Form values, tab selection, and pagination support json-render `$bindState` and `$bindItem` expressions. Unbound controls retain interactive local state. Bound form fields can use json-render `checks` with `validateOn: "change" | "blur" | "submit"`; validation messages are connected to the control with stable ARIA IDs.
+Form values, tab selection, and pagination support json-render `$bindState` and `$bindItem` expressions. Unbound controls retain interactive local state. Bound form fields can use json-render `checks` with `validateOn: "change" | "blur" | "submit"`; validation messages are connected to the control with stable ARIA IDs. Put submit-validated controls inside `GlForm`: it validates only its descendant fields, emits `submit` only when they pass, emits `invalid` otherwise, and focuses the first invalid control. `GlForm` intentionally omits navigation props such as `action`, `method`, and `target`; submit behavior belongs to json-render actions.
 
 `GlMarkdown` applies GitLab's markdown typography but renders its `text` as ordinary React text. It does not parse model output as HTML. `GlLink` uses GitLab UI's safe protocol allowlist, and the catalog does not expose `isUnsafeLink`.
 
