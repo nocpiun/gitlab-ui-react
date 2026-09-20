@@ -400,6 +400,31 @@ describe("gitlabComponents validation", () => {
     expect(input.className).not.toContain("is-valid");
   });
 
+  it("marks a failed toggle validation on the switch and links its error", async () => {
+    const user = userEvent.setup();
+    renderComponent("GlToggle", {
+      checks: [{
+        args: { other: true },
+        message: "Notifications must be enabled",
+        type: "matches",
+      }],
+      label: "Notifications",
+      name: "notifications",
+      validateOn: "change",
+      value: true,
+    }, {
+      binding: { path: "/notifications", prop: "value" },
+      initialState: { notifications: true },
+    });
+    const toggle = screen.getByRole("switch", { name: "Notifications" });
+
+    await user.click(toggle);
+
+    const error = await screen.findByText("Notifications must be enabled");
+    expect(toggle.getAttribute("aria-invalid")).toBe("true");
+    expect(toggle.getAttribute("aria-describedby")).toContain(error.id);
+  });
+
   it.each([
     ["GlFormInput", "value", { label: "Input", name: "input", required: true, value: "" }],
     ["GlFormPasswordInput", "value", {

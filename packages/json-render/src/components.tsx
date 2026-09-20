@@ -893,12 +893,12 @@ function RenderGlFormCheckbox({ bindings, emit, props }: RendererProps<"GlFormCh
 
 function RenderGlToggle({ bindings, emit, loading, props }: RendererProps<"GlToggle">) {
   const [value, setValue] = useInteractiveValue(props.value, bindings?.value, false);
-  const { error, ids, validation } = useFieldRuntime(bindings?.value, props, "change");
+  const { error, ids, state, validation } = useFieldRuntime(bindings?.value, props, "change");
 
   return (
     <GlFormField>
       <GlToggle
-        aria-invalid={error ? true : undefined}
+        aria-invalid={state === false ? true : undefined}
         aria-required={props.required || undefined}
         aria-describedby={ids.describedBy}
         disabled={props.disabled}
