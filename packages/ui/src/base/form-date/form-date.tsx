@@ -84,6 +84,8 @@ export type GlFormDateProps = FormInputPassthroughProps & {
   onFocus?: FocusEventHandler<HTMLInputElement>;
   /** Called when the date input loses focus. */
   onBlur?: FocusEventHandler<HTMLInputElement>;
+  /** Validation appearance: valid, invalid, or neutral. Date range errors always take precedence. */
+  state?: boolean | null;
 };
 
 const GlFormDate = forwardRef<HTMLInputElement, GlFormDateProps>(function GlFormDate({
@@ -99,6 +101,7 @@ const GlFormDate = forwardRef<HTMLInputElement, GlFormDateProps>(function GlForm
   onFocus,
   onKeyDown,
   onValueChange,
+  state = true,
   value,
   ...inputProps
 }, forwardedRef) {
@@ -181,7 +184,7 @@ const GlFormDate = forwardRef<HTMLInputElement, GlFormDateProps>(function GlForm
         onValueChange={handleValueChange}
         pattern="\d{4}-\d{2}-\d{2}"
         placeholder="yyyy-mm-dd"
-        state={!isInvalid}
+        state={isInvalid ? false : state}
         type="date"
         value={isControlled ? currentValue ?? "" : undefined} />
       {outputValue ? (

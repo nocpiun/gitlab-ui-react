@@ -112,5 +112,24 @@ describe("npm publishing", () => {
         "dist/base/button/index.d.ts",
       ]);
     }).not.toThrow();
+    expect(() => {
+      validatePackFileList("@gitlab-ui-react/json-render", [
+        "package.json",
+        "dist/index.js",
+        "dist/index.cjs",
+        "dist/index.d.ts",
+        "dist/catalog.js",
+        "dist/catalog.cjs",
+        "dist/catalog.d.ts",
+      ]);
+    }).not.toThrow();
+    expect(() => {
+      validatePackFileList("@gitlab-ui-react/json-render", [
+        "package.json",
+        "dist/index.js",
+        "dist/index.cjs",
+        "dist/index.d.ts",
+      ]);
+    }).toThrow("missing required artifacts");
   });
 });

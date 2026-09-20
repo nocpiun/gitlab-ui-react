@@ -116,5 +116,18 @@ describe("GlFormDate", () => {
       expect(markup).not.toContain("invalid-feedback");
       expect(markup).not.toContain("aria-invalid");
     });
+
+    it("supports a neutral external validation state without changing range validation", () => {
+      const neutralMarkup = renderDate({ state: null, value: "2020-01-19" });
+      const rangeErrorMarkup = renderDate({
+        min: "2020-01-20",
+        state: true,
+        value: "2020-01-19",
+      });
+
+      expect(neutralMarkup).not.toContain("is-valid");
+      expect(neutralMarkup).not.toContain("is-invalid");
+      expect(rangeErrorMarkup).toContain("is-invalid");
+    });
   });
 });

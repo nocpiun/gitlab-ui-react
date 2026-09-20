@@ -1,0 +1,75 @@
+{
+  "name": "@gitlab-ui-react/json-render",
+  "version": "0.2.0",
+  "description": "Pre-built GitLab UI React components for vercel-labs/json-render",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nocpiun/gitlab-ui-react.git",
+    "directory": "packages/json-render"
+  },
+  "homepage": "https://glui.nocp.space",
+  "bugs": "https://github.com/nocpiun/gitlab-ui-react/issues",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.js"
+    },
+    "./catalog": {
+      "types": "./dist/catalog.d.ts",
+      "import": "./dist/catalog.js",
+      "require": "./dist/catalog.cjs",
+      "default": "./dist/catalog.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "vite build && tsc --project tsconfig.build.json"
+  },
+  "keywords": [
+    "json-render",
+    "generative-ui"
+  ],
+  "author": "NriotHrreion",
+  "license": "MIT",
+  "packageManager": "pnpm@10.33.0",
+  "dependencies": {
+    "gitlab-ui-react": "workspace:^"
+  },
+  "peerDependencies": {
+    "@gitlab-ui-react/styles": "workspace:^",
+    "@json-render/core": "^0.21.0",
+    "@json-render/react": "^0.21.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@gitlab-ui-react/styles": "workspace:^",
+    "@json-render/core": "0.21.0",
+    "@json-render/react": "0.21.0",
+    "@testing-library/react": "16.3.3",
+    "@testing-library/user-event": "14.6.7",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.5",
+    "jsdom": "30.0.1",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "typescript": "7.0.2",
+    "vite": "8.2.2",
+    "vitest": "4.1.11",
+    "zod": "4.6.5"
+  }
+}

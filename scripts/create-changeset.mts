@@ -52,6 +52,7 @@ export const RELEASE_SNAPSHOT_FILE = ".changeset/release-state.json";
 
 export const PUBLISHABLE_PACKAGES: PackageDefinition[] = [
   { directory: "packages/ui", name: "gitlab-ui-react" },
+  { directory: "packages/json-render", name: "@gitlab-ui-react/json-render" },
   { directory: "packages/styles", name: "@gitlab-ui-react/styles" },
   { directory: "packages/tokens", name: "@gitlab-ui-react/tokens" },
 ];

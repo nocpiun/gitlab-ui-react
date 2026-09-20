@@ -29,6 +29,7 @@ const CHANGESETS_BIN = join(
 );
 const PACKAGES = [
   ["packages/ui", "gitlab-ui-react"],
+  ["packages/json-render", "@gitlab-ui-react/json-render"],
   ["packages/styles", "@gitlab-ui-react/styles"],
   ["packages/tokens", "@gitlab-ui-react/tokens"],
 ] as const;
@@ -83,7 +84,9 @@ function createRepository(): string {
     mkdirSync(join(root, directory), { recursive: true });
     const dependencies = name === "@gitlab-ui-react/styles"
       ? { "@gitlab-ui-react/tokens": "workspace:^" }
-      : undefined;
+      : name === "@gitlab-ui-react/json-render"
+        ? { "gitlab-ui-react": "workspace:^" }
+        : undefined;
     writeFileSync(
       join(root, directory, "package.json"),
       `${JSON.stringify({

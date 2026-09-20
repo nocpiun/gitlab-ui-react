@@ -128,6 +128,7 @@ describe("automatic changeset generation", () => {
 
     const packages = [
       ["packages/ui", "gitlab-ui-react"],
+      ["packages/json-render", "@gitlab-ui-react/json-render"],
       ["packages/styles", "@gitlab-ui-react/styles"],
       ["packages/tokens", "@gitlab-ui-react/tokens"],
     ] as const;
@@ -148,6 +149,7 @@ describe("automatic changeset generation", () => {
     const initial = run(root);
     expect(initial.bumps).toEqual({
       "gitlab-ui-react": "minor",
+      "@gitlab-ui-react/json-render": "minor",
       "@gitlab-ui-react/styles": "minor",
       "@gitlab-ui-react/tokens": "minor",
     });
@@ -250,6 +252,7 @@ describe("automatic changeset generation", () => {
     const dependencyUpdate = run(root);
     expect(dependencyUpdate.bumps).toEqual({
       "gitlab-ui-react": "patch",
+      "@gitlab-ui-react/json-render": "patch",
       "@gitlab-ui-react/styles": "patch",
       "@gitlab-ui-react/tokens": "patch",
     });
