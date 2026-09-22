@@ -52,11 +52,13 @@ export const gitlabComponentDefinitions = {
   },
   GlButtonGroup: {
     props: z.object({
+      label: z.string().trim().min(1),
       vertical: z.boolean().optional(),
     }),
     slots: ["default"],
-    description: "Visually groups GitLab buttons. Children should normally be GlButton elements.",
-    example: { vertical: false },
+    description:
+      "Visually groups GitLab buttons. The required label names the group for assistive technology and is not displayed. Children should normally be GlButton elements.",
+    example: { label: "Project actions", vertical: false },
   },
   GlAccordion: {
     props: z.object({
@@ -317,11 +319,13 @@ export const gitlabComponentDefinitions = {
     example: { label: "Notifications" },
   },
   GlFormInputGroup: {
-    props: z.object({}),
+    props: z.object({
+      label: z.string().trim().min(1),
+    }),
     slots: ["default", "prepend", "append"],
     description:
-      "GitLab input group. Put the form control in children and short text adornments in prepend or append slots.",
-    example: {},
+      "GitLab input group. The required label names the group for assistive technology and is not displayed. Put the form control in children and short text adornments in prepend or append slots.",
+    example: { label: "Amount" },
   },
   GlFormPasswordInput: {
     props: z.object({

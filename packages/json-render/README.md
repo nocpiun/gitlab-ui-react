@@ -86,6 +86,8 @@ export const catalog = defineCatalog(schema, {
 - Actions: `GlButton`, `GlLink`
 - Forms: `GlForm`, `GlFormField`, `GlFormFieldGroup`, `GlFormFieldSet`, `GlFormInputGroup`, `GlFormInput`, `GlFormPasswordInput`, `GlFormTextarea`, `GlFormDate`, `GlFormSelect`, `GlFormRadioGroup`, `GlFormCheckbox`, `GlFormCheckboxGroup`, `GlToggle`
 
+`GlButtonGroup` and `GlFormInputGroup` require a non-empty `label` prop. It names the group for assistive technology but is not rendered as visible text; give their child controls their own labels as well.
+
 Form values, tab selection, and pagination support json-render `$bindState` and `$bindItem` expressions. Unbound controls retain interactive local state. Bound form fields can use json-render `checks` with `validateOn: "change" | "blur" | "submit"`; validation messages are connected to the control with stable ARIA IDs. Put submit-validated controls inside `GlForm`: it validates only its descendant fields, emits `submit` only when they pass, emits `invalid` otherwise, and focuses the first invalid control. `GlForm` intentionally omits navigation props such as `action`, `method`, and `target`; submit behavior belongs to json-render actions.
 
 `GlMarkdown` applies GitLab's markdown typography but renders its `text` as ordinary React text. It does not parse model output as HTML. `GlLink` uses GitLab UI's safe protocol allowlist, and the catalog does not expose `isUnsafeLink`.

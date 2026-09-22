@@ -67,6 +67,13 @@ describe("gitlabComponentDefinitions", () => {
       method: "post",
       target: "_blank",
     }).data).toEqual({});
+    for(const component of ["GlButtonGroup", "GlFormInputGroup"] as const) {
+      expect(gitlabComponentDefinitions[component].props.safeParse({}).success).toBe(false);
+      expect(gitlabComponentDefinitions[component].props.safeParse({ label: "  " }).success)
+        .toBe(false);
+      expect(gitlabComponentDefinitions[component].props.safeParse({ label: "Actions" }).success)
+        .toBe(true);
+    }
   });
 
   it("keeps optional JSON fields optional instead of requiring null", () => {

@@ -279,7 +279,7 @@ function RenderGlCard({ children, slots }: RendererProps<"GlCard">) {
 }
 
 function RenderGlButtonGroup({ children, props }: RendererProps<"GlButtonGroup">) {
-  return <GlButtonGroup vertical={props.vertical}>{children}</GlButtonGroup>;
+  return <GlButtonGroup aria-label={props.label} vertical={props.vertical}>{children}</GlButtonGroup>;
 }
 
 function RenderGlAccordion({ props }: RendererProps<"GlAccordion">) {
@@ -576,9 +576,9 @@ function RenderGlFormFieldSet({ children, props }: RendererProps<"GlFormFieldSet
   );
 }
 
-function RenderGlFormInputGroup({ children, slots }: RendererProps<"GlFormInputGroup">) {
+function RenderGlFormInputGroup({ children, props, slots }: RendererProps<"GlFormInputGroup">) {
   return (
-    <GlFormInputGroup>
+    <GlFormInputGroup aria-label={props.label}>
       {slots?.prepend ? (
         <GlFormInputGroupAddon position="prepend">
           <GlInputGroupText>{slots.prepend}</GlInputGroupText>
@@ -608,8 +608,8 @@ function RenderGlFormPasswordInput({
   );
 
   return (
-    <GlFormField>
-      <GlFormFieldLabel htmlFor={ids.inputId}>{props.label}</GlFormFieldLabel>
+    <GlFormField aria-labelledby={`${ids.inputId}-label`}>
+      <GlFormFieldLabel htmlFor={ids.inputId} id={`${ids.inputId}-label`}>{props.label}</GlFormFieldLabel>
       <GlFormPasswordInput
         aria-describedby={ids.describedBy}
         disabled={props.disabled}
@@ -662,6 +662,7 @@ function RenderGlFormCheckboxGroup({
       <GlFormFieldLegend id={`${ids.inputId}-legend`}>{props.label}</GlFormFieldLegend>
       <GlFormCheckboxGroup
         aria-describedby={ids.describedBy}
+        aria-label={props.label}
         disabled={props.disabled}
         id={ids.inputId}
         name={props.name}
@@ -704,8 +705,8 @@ function RenderGlFormInput({ bindings, emit, props }: RendererProps<"GlFormInput
   };
 
   return (
-    <GlFormField>
-      <GlFormFieldLabel htmlFor={ids.inputId}>{props.label}</GlFormFieldLabel>
+    <GlFormField aria-labelledby={`${ids.inputId}-label`}>
+      <GlFormFieldLabel htmlFor={ids.inputId} id={`${ids.inputId}-label`}>{props.label}</GlFormFieldLabel>
       <GlFormInput
         aria-describedby={ids.describedBy}
         disabled={props.disabled}
@@ -747,8 +748,8 @@ function RenderGlFormTextarea({ bindings, emit, props }: RendererProps<"GlFormTe
   );
 
   return (
-    <GlFormField>
-      <GlFormFieldLabel htmlFor={ids.inputId}>{props.label}</GlFormFieldLabel>
+    <GlFormField aria-labelledby={`${ids.inputId}-label`}>
+      <GlFormFieldLabel htmlFor={ids.inputId} id={`${ids.inputId}-label`}>{props.label}</GlFormFieldLabel>
       <GlFormTextarea
         aria-describedby={ids.describedBy}
         characterCountLimit={props.characterCountLimit}
@@ -799,8 +800,8 @@ function RenderGlFormDate({ bindings, emit, props }: RendererProps<"GlFormDate">
   );
 
   return (
-    <GlFormField>
-      <GlFormFieldLabel htmlFor={ids.inputId}>{props.label}</GlFormFieldLabel>
+    <GlFormField aria-labelledby={`${ids.inputId}-label`}>
+      <GlFormFieldLabel htmlFor={ids.inputId} id={`${ids.inputId}-label`}>{props.label}</GlFormFieldLabel>
       <GlFormDate
         aria-describedby={ids.describedBy}
         disabled={props.disabled}
@@ -838,8 +839,8 @@ function RenderGlFormSelect({ bindings, emit, props }: RendererProps<"GlFormSele
   );
 
   return (
-    <GlFormField>
-      <GlFormFieldLabel htmlFor={ids.inputId}>{props.label}</GlFormFieldLabel>
+    <GlFormField aria-labelledby={`${ids.inputId}-label`}>
+      <GlFormFieldLabel htmlFor={ids.inputId} id={`${ids.inputId}-label`}>{props.label}</GlFormFieldLabel>
       <GlFormSelect
         aria-describedby={ids.describedBy}
         disabled={props.disabled}
@@ -929,7 +930,7 @@ function RenderGlFormCheckbox({ bindings, emit, props }: RendererProps<"GlFormCh
   );
 
   return (
-    <GlFormField>
+    <GlFormField aria-label={props.label}>
       <GlFormCheckbox
         aria-describedby={ids.describedBy}
         checked={checked}
@@ -966,7 +967,7 @@ function RenderGlToggle({ bindings, emit, loading, props }: RendererProps<"GlTog
   );
 
   return (
-    <GlFormField>
+    <GlFormField aria-label={props.label}>
       <GlToggle
         aria-invalid={state === false ? true : undefined}
         aria-required={props.required || undefined}

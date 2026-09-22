@@ -63,6 +63,12 @@ function renderComponent<K extends GitLabComponentName>(
   );
 }
 
+function getInputInNamedGroup(label: string): HTMLInputElement {
+  const input = screen.getByRole("group", { name: label }).querySelector("input");
+  if(!(input instanceof HTMLInputElement)) throw new Error(`No input in ${label} group`);
+  return input;
+}
+
 describe("gitlabComponents display renderers", () => {
   it("renders card compound slots in their GitLab regions", () => {
     const { container } = renderComponent("GlCard", {}, {
@@ -76,6 +82,15 @@ describe("gitlabComponents display renderers", () => {
     expect(container.querySelector(".gl-card-header")?.textContent).toBe("Header");
     expect(container.querySelector(".gl-card-body")?.textContent).toBe("Body");
     expect(container.querySelector(".gl-card-footer")?.textContent).toBe("Footer");
+  });
+
+  it("names a button group without replacing its button names", () => {
+    renderComponent("GlButtonGroup", { label: "Project actions" }, {
+      children: <button type="button">Archive</button>,
+    });
+
+    expect(screen.getByRole("group", { name: "Project actions" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Archive" })).toBeTruthy();
   });
 
   it("renders semantic lists and tables with GitLab visual variants", () => {
@@ -158,14 +173,58 @@ describe("gitlabComponents display renderers", () => {
     expect(semanticFieldSet?.querySelector("legend")?.textContent).toBe("Notifications");
     fieldSet.unmount();
 
-    const inputGroup = renderComponent("GlFormInputGroup", {}, {
+    renderComponent("GlFormInputGroup", { label: "Amount field" }, {
       children: <input aria-label="Amount" />,
       slots: { append: <span>USD</span>, prepend: <span>$</span> },
     });
-    const group = inputGroup.container.querySelector(".gl-form-input-group");
+    const group = screen.getByRole("group", { name: "Amount field" });
     expect(group?.textContent).toBe("$USD");
     expect(group?.firstElementChild?.className).toContain("input-group-prepend");
     expect(group?.lastElementChild?.className).toContain("input-group-append");
+    expect(screen.getByRole("textbox", { name: "Amount" })).toBeTruthy();
+  });
+
+  it.each([
+    ["GlFormPasswordInput", { label: "Password", name: "password" }],
+    ["GlFormInput", { label: "Email", name: "email" }],
+    ["GlFormTextarea", { label: "Description", name: "description" }],
+    ["GlFormDate", { label: "Due date", name: "dueDate" }],
+    ["GlFormSelect", { label: "Role", name: "role", options: [] }],
+  ] as const)("names the %s field group from its visible label", (name, props) => {
+    renderComponent(name, props);
+
+    const group = screen.getByRole("group", { name: props.label });
+    expect(screen.getAllByLabelText(props.label).some(
+      (element) => element !== group && /^(INPUT|TEXTAREA|SELECT)$/u.test(element.tagName),
+    )).toBe(true);
+  });
+
+  it("names checkbox and toggle field groups without replacing control names", () => {
+    renderComponent("GlFormCheckbox", { label: "Accepted", name: "accepted" });
+    expect(screen.getByRole("group", { name: "Accepted" })).toBeTruthy();
+    expect(screen.getByRole("checkbox", { name: "Accepted" })).toBeTruthy();
+    cleanup();
+
+    renderComponent("GlToggle", { label: "Notifications", name: "notifications" });
+    expect(screen.getByRole("group", { name: "Notifications" })).toBeTruthy();
+    expect(screen.getByRole("switch", { name: "Notifications" })).toBeTruthy();
+  });
+
+  it("names a checkbox group without replacing its option names", () => {
+    renderComponent("GlFormCheckboxGroup", {
+      label: "Channels",
+      name: "channels",
+      options: [
+        { label: "Email", value: "email" },
+        { label: "SMS", value: "sms" },
+      ],
+    });
+
+    expect(screen.getAllByRole("group", { name: "Channels" }).some(
+      (group) => group.classList.contains("gl-form-checkbox-group"),
+    )).toBe(true);
+    expect(screen.getByRole("checkbox", { name: "Email" })).toBeTruthy();
+    expect(screen.getByRole("checkbox", { name: "SMS" })).toBeTruthy();
   });
 
   it("names a radio group without replacing its option names", () => {
@@ -232,7 +291,7 @@ describe("gitlabComponents state and events", () => {
       onStateChange: () => order.push("write"),
     });
     const control = name === "GlFormDate"
-      ? screen.getByLabelText(props.label)
+      ? getInputInNamedGroup(props.label)
       : screen.getByRole(role, { name: props.label });
 
     if(name === "GlFormDate") fireEvent.change(control, { target: { value: nextValue } });
@@ -329,7 +388,7 @@ describe("gitlabComponents state and events", () => {
       initialState: { password: "" },
       onStateChange: (next) => changes.push(...next),
     });
-    const input = screen.getByLabelText("Password") as HTMLInputElement;
+    const input = getInputInNamedGroup("Password");
 
     fireEvent.change(input, { target: { value: "secret" } });
     expect(changes.at(-1)).toEqual({ path: "/password", value: "secret" });
@@ -528,7 +587,7 @@ describe("gitlabComponents validation", () => {
         </Form>
       </JSONUIProvider>,
     );
-    const dateInput = screen.getByLabelText("Due date") as HTMLInputElement;
+    const dateInput = getInputInNamedGroup("Due date");
     expect(dateInput.className).toContain("is-invalid");
 
     await user.click(screen.getByRole("button", { name: "Save" }));
