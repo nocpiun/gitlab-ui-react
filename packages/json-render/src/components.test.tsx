@@ -485,6 +485,81 @@ describe("gitlabComponents validation", () => {
   });
 
   it.each([
+    ["min", "2026-09-10", "2026-09-11", "2026-09-12"],
+    ["max", "2026-09-12", "2026-09-11", "2026-09-10"],
+  ] as const)("blocks form submission when a date exceeds %s", async (
+    limitProp,
+    invalidValue,
+    limit,
+    validValue,
+  ) => {
+    const user = userEvent.setup();
+    const formEmit = vi.fn();
+    const Form = gitlabComponents.GlForm;
+    const DateField = gitlabComponents.GlFormDate;
+    const Button = gitlabComponents.GlButton;
+
+    render(
+      <JSONUIProvider registry={{}}>
+        <Form emit={formEmit} on={noEvent} props={{}}>
+          <DateField
+            emit={() => undefined}
+            on={noEvent}
+            props={{ label: "Due date", name: "dueDate", [limitProp]: limit, value: invalidValue }} />
+          <Button
+            emit={() => undefined}
+            on={noEvent}
+            props={{ label: "Save", type: "submit" }} />
+        </Form>
+      </JSONUIProvider>,
+    );
+    const dateInput = screen.getByLabelText("Due date") as HTMLInputElement;
+    expect(dateInput.className).toContain("is-invalid");
+
+    await user.click(screen.getByRole("button", { name: "Save" }));
+    expect(formEmit.mock.calls).toEqual([["invalid"]]);
+    expect(document.activeElement).toBe(dateInput);
+
+    fireEvent.change(dateInput, { target: { value: validValue } });
+    await user.click(screen.getByRole("button", { name: "Save" }));
+    expect(formEmit).toHaveBeenLastCalledWith("submit");
+  });
+
+  it("includes date range failures alongside bound JSON checks", async () => {
+    const user = userEvent.setup();
+    const formEmit = vi.fn();
+    const Form = gitlabComponents.GlForm;
+    const DateField = gitlabComponents.GlFormDate;
+    const Button = gitlabComponents.GlButton;
+
+    render(
+      <JSONUIProvider initialState={{ dueDate: "2026-09-10" }} registry={{}}>
+        <Form emit={formEmit} on={noEvent} props={{}}>
+          <DateField
+            bindings={{ value: "/dueDate" }}
+            emit={() => undefined}
+            on={noEvent}
+            props={{
+              checks: [{ message: "Required", type: "required" }],
+              label: "Due date",
+              min: "2026-09-11",
+              name: "dueDate",
+              value: "2026-09-10",
+            }} />
+          <Button
+            emit={() => undefined}
+            on={noEvent}
+            props={{ label: "Save", type: "submit" }} />
+        </Form>
+      </JSONUIProvider>,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Save" }));
+    expect(formEmit.mock.calls).toEqual([["invalid"]]);
+    expect(screen.queryByText("Required")).toBeNull();
+  });
+
+  it.each([
     ["GlFormInput", "value", { label: "Input", name: "input", required: true, value: "" }],
     ["GlFormPasswordInput", "value", {
       label: "Password",

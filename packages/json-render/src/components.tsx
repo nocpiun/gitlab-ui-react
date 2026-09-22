@@ -164,6 +164,7 @@ function useFormFieldRegistration(
   disabled: boolean | undefined,
   externalError: string | undefined,
   resetValue: () => void,
+  componentInvalid: boolean,
 ) {
   const formScope = useContext(FormScopeContext);
   const registrationId = useId();
@@ -177,15 +178,16 @@ function useFormFieldRegistration(
   });
 
   fieldRef.current = {
-    active: validation.active || Boolean(externalError),
+    active: validation.active || Boolean(externalError) || componentInvalid,
     clear: validation.clear,
     disabled: Boolean(disabled),
     inputId,
     reset: resetValue,
     validate: () => {
       if(externalError) return false;
+      if(!validation.active) return !componentInvalid;
       validation.touch();
-      return validation.validate().valid;
+      return validation.validate().valid && !componentInvalid;
     },
   };
 
@@ -202,6 +204,7 @@ function useFieldRuntime(
   props: ValidationProps,
   defaultValidateOn: ValidateOn,
   resetValue: () => void,
+  componentInvalid = false,
 ) {
   const validation = useRegistryValidation(bindingPath, props, defaultValidateOn);
   const error = props.error ?? validation.error;
@@ -212,6 +215,7 @@ function useFieldRuntime(
     props.disabled,
     props.error,
     resetValue,
+    componentInvalid,
   );
 
   return {
@@ -782,11 +786,16 @@ function RenderGlFormTextarea({ bindings, emit, props }: RendererProps<"GlFormTe
 
 function RenderGlFormDate({ bindings, emit, props }: RendererProps<"GlFormDate">) {
   const [value, setValue, resetValue] = useInteractiveValue(props.value, bindings?.value, "");
+  // Mirror GlFormDate's own range rule so a visibly invalid date blocks form submission.
+  const rangeInvalid = Boolean(value && (
+    (props.min && value < props.min) || (props.max && value > props.max)
+  ));
   const { error, ids, state, validation } = useFieldRuntime(
     bindings?.value,
     props,
     "blur",
     resetValue,
+    rangeInvalid,
   );
 
   return (
