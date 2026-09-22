@@ -393,11 +393,19 @@ function RenderGlMarkdown({ props }: RendererProps<"GlMarkdown">) {
 }
 
 function RenderGlProgressBar({ props }: RendererProps<"GlProgressBar">) {
+  // Also guard direct registry calls that bypass catalog validation.
+  const max = props.max !== undefined && Number.isFinite(props.max) && props.max > 0
+    ? props.max
+    : 100;
+  const value = Number.isFinite(props.value)
+    ? Math.min(max, Math.max(0, props.value))
+    : 0;
+
   return (
     <GlProgressBar
       aria-label={props.label}
-      max={props.max}
-      value={props.value}
+      max={max}
+      value={value}
       variant={props.variant} />
   );
 }

@@ -200,13 +200,16 @@ export const gitlabComponentDefinitions = {
   },
   GlProgressBar: {
     props: z.object({
-      value: z.number(),
+      value: z.number().nonnegative(),
       max: z.number().positive().optional(),
       variant: z.enum(["primary", "success", "warning", "danger"]).optional(),
       label: z.string().optional(),
+    }).refine(({ value, max }) => value <= (max ?? 100), {
+      message: "Progress value must not exceed max",
+      path: ["value"],
     }),
     slots: [],
-    description: "Accessible GitLab progress bar.",
+    description: "Accessible GitLab progress bar. Value must be between 0 and max (default 100).",
     example: { value: 65, max: 100, label: "Upload progress" },
   },
   GlSkeletonLoader: {

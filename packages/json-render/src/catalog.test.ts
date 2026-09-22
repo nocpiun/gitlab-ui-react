@@ -83,6 +83,24 @@ describe("gitlabComponentDefinitions", () => {
     expect(parsed.data).toEqual({});
   });
 
+  it("constrains progress values to zero through the declared or default maximum", () => {
+    const progressProps = gitlabComponentDefinitions.GlProgressBar.props;
+
+    for(const props of [{ value: 0 }, { value: 100 }, { value: 40, max: 40 }]) {
+      expect(progressProps.safeParse(props).success).toBe(true);
+    }
+    for(const props of [
+      { value: -1 },
+      { value: 101 },
+      { value: 41, max: 40 },
+      { value: 0, max: 0 },
+      { value: Number.POSITIVE_INFINITY },
+      { value: 0, max: Number.POSITIVE_INFINITY },
+    ]) {
+      expect(progressProps.safeParse(props).success).toBe(false);
+    }
+  });
+
   it("publishes slot and event metadata", () => {
     expect(gitlabComponentDefinitions.GlCard.slots).toEqual(["default", "header", "footer"]);
     expect(gitlabComponentDefinitions.GlAlert.slots).toEqual(["default", "actions"]);

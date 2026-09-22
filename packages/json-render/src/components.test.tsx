@@ -128,6 +128,21 @@ describe("gitlabComponents display renderers", () => {
     expect(container.textContent).toBe("<img src=x onerror=alert(1)>");
   });
 
+  it("keeps progress ARIA values and indicator within range for direct registry calls", () => {
+    renderComponent("GlProgressBar", { label: "Upload", max: 40, value: 60 });
+    const overMax = screen.getByRole("progressbar", { name: "Upload" });
+    expect(overMax.getAttribute("aria-valuemax")).toBe("40");
+    expect(overMax.getAttribute("aria-valuenow")).toBe("40");
+    expect(overMax.style.transform).toBe("scaleX(1)");
+    cleanup();
+
+    renderComponent("GlProgressBar", { value: -10 });
+    const belowMin = screen.getByRole("progressbar");
+    expect(belowMin.getAttribute("aria-valuemax")).toBe("100");
+    expect(belowMin.getAttribute("aria-valuenow")).toBe("0");
+    expect(belowMin.style.transform).toBe("scaleX(0)");
+  });
+
   it("uses GitLab's safe URL handling and honors preventDefault", () => {
     const emit = vi.fn();
     renderComponent("GlLink", {
