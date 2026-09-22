@@ -882,11 +882,13 @@ function RenderGlFormRadioGroup({ bindings, emit, props }: RendererProps<"GlForm
     resetValue,
   );
 
+  // The UI component forwards aria-labelledby to each radio, so name the group directly.
   return (
     <GlFormFieldSet disabled={props.disabled}>
       <GlFormFieldLegend id={`${ids.inputId}-legend`}>{props.label}</GlFormFieldLegend>
       <GlFormRadioGroup
         aria-describedby={ids.describedBy}
+        aria-label={props.label}
         disabled={props.disabled}
         id={ids.inputId}
         name={props.name}

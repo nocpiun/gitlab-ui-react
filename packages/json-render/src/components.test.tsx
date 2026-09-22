@@ -167,6 +167,21 @@ describe("gitlabComponents display renderers", () => {
     expect(group?.firstElementChild?.className).toContain("input-group-prepend");
     expect(group?.lastElementChild?.className).toContain("input-group-append");
   });
+
+  it("names a radio group without replacing its option names", () => {
+    renderComponent("GlFormRadioGroup", {
+      label: "Visibility",
+      name: "visibility",
+      options: [
+        { label: "Private", value: "private" },
+        { label: "Public", value: "public" },
+      ],
+    });
+
+    expect(screen.getByRole("radiogroup", { name: "Visibility" })).toBeTruthy();
+    expect(screen.getByRole("radio", { name: "Private" })).toBeTruthy();
+    expect(screen.getByRole("radio", { name: "Public" })).toBeTruthy();
+  });
 });
 
 describe("gitlabComponents state and events", () => {
