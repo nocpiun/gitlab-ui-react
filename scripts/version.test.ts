@@ -58,6 +58,7 @@ describe("release changelogs", () => {
   it("preserves manual major release notes", () => {
     const parsed = parseManualChangeset(`---
 "gitlab-ui-react": major
+"@gitlab-ui-react/json-render": major
 "@gitlab-ui-react/styles": major
 "@gitlab-ui-react/tokens": major
 ---
@@ -67,6 +68,7 @@ Prepare the first alpha release.
     expect(parsed).toEqual({
       packages: [
         "gitlab-ui-react",
+        "@gitlab-ui-react/json-render",
         "@gitlab-ui-react/styles",
         "@gitlab-ui-react/tokens",
       ],

@@ -5,6 +5,7 @@
   "fixed": [
     [
       "gitlab-ui-react",
+      "@gitlab-ui-react/json-render",
       "@gitlab-ui-react/styles",
       "@gitlab-ui-react/tokens"
     ]

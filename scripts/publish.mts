@@ -126,6 +126,24 @@ export function validatePackFileList(packageName: string, files: string[]): void
     return;
   }
 
+  if(packageName === "@gitlab-ui-react/json-render") {
+    const requiredFiles = [
+      "dist/index.js",
+      "dist/index.cjs",
+      "dist/index.d.ts",
+      "dist/catalog.js",
+      "dist/catalog.cjs",
+      "dist/catalog.d.ts",
+    ];
+    const missingFiles = requiredFiles.filter((file) => !files.includes(file));
+    if(missingFiles.length > 0) {
+      throw new Error(
+        `The json-render package is missing required artifacts: ${missingFiles.join(", ")}.`,
+      );
+    }
+    return;
+  }
+
   if(!files.some((file) => file.endsWith("/index.js"))) {
     throw new Error("The UI package does not contain ESM entry points.");
   }
@@ -226,6 +244,15 @@ export function preparePackages(root = REPOSITORY_ROOT): void {
     "build",
   ]);
   execFileSync(buildUi.command, buildUi.args, {
+    cwd: root,
+    stdio: "inherit",
+  });
+  const buildJsonRender = commandInvocation(pnpmCommand(), [
+    "--filter",
+    "@gitlab-ui-react/json-render",
+    "build",
+  ]);
+  execFileSync(buildJsonRender.command, buildJsonRender.args, {
     cwd: root,
     stdio: "inherit",
   });
