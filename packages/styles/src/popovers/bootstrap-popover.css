@@ -1,0 +1,72 @@
+/* Bootstrap's transitive popover base, scoped to the React component. */
+.gl-popover-positioner {
+  z-index: 1060;
+}
+
+.gl-popover {
+  display: block;
+  overflow-wrap: break-word;
+  background-clip: padding-box;
+  outline: 0;
+}
+
+.gl-popover .popover-header {
+  padding: 8px 12px;
+  margin-bottom: 0;
+}
+
+.gl-popover .popover-body {
+  padding: 8px 12px;
+}
+
+.gl-popover .arrow {
+  position: absolute;
+  width: 8px;
+  height: 4px;
+
+  &::before {
+    position: absolute;
+    display: block;
+    content: "";
+    border-style: solid;
+    border-color: transparent;
+  }
+}
+
+.gl-popover.bs-popover-left .arrow,
+.gl-popover.bs-popover-right .arrow {
+  width: 4px;
+  height: 8px;
+}
+
+.gl-popover.bs-popover-top .arrow {
+  bottom: -4px;
+
+  &::before {
+    border-width: 4px 4px 0;
+  }
+}
+
+.gl-popover.bs-popover-bottom .arrow {
+  top: -4px;
+
+  &::before {
+    border-width: 0 4px 4px;
+  }
+}
+
+.gl-popover.bs-popover-right .arrow {
+  left: -4px;
+
+  &::before {
+    border-width: 4px 4px 4px 0;
+  }
+}
+
+.gl-popover.bs-popover-left .arrow {
+  right: -4px;
+
+  &::before {
+    border-width: 4px 0 4px 4px;
+  }
+}

@@ -3323,6 +3323,62 @@ textarea.gl-form-textarea {
   line-height: 1rem;
   color: var(--gl-control-text-color-error);
 }
+.gl-popover-positioner {
+  z-index: 1060;
+}
+.gl-popover {
+  display: block;
+  overflow-wrap: break-word;
+  background-clip: padding-box;
+  outline: 0;
+}
+.gl-popover .popover-header {
+  padding: 8px 12px;
+  margin-bottom: 0;
+}
+.gl-popover .popover-body {
+  padding: 8px 12px;
+}
+.gl-popover .arrow {
+  position: absolute;
+  width: 8px;
+  height: 4px;
+}
+.gl-popover .arrow::before {
+  position: absolute;
+  display: block;
+  content: "";
+  border-style: solid;
+  border-color: transparent;
+}
+.gl-popover.bs-popover-left .arrow, .gl-popover.bs-popover-right .arrow {
+  width: 4px;
+  height: 8px;
+}
+.gl-popover.bs-popover-top .arrow {
+  bottom: -4px;
+}
+.gl-popover.bs-popover-top .arrow::before {
+  border-width: 4px 4px 0;
+}
+.gl-popover.bs-popover-bottom .arrow {
+  top: -4px;
+}
+.gl-popover.bs-popover-bottom .arrow::before {
+  border-width: 0 4px 4px;
+}
+.gl-popover.bs-popover-right .arrow {
+  left: -4px;
+}
+.gl-popover.bs-popover-right .arrow::before {
+  border-width: 4px 4px 4px 0;
+}
+.gl-popover.bs-popover-left .arrow {
+  right: -4px;
+}
+.gl-popover.bs-popover-left .arrow::before {
+  border-width: 4px 0 4px 4px;
+}
 .gl-new-dropdown {
   position: relative;
   display: inline-flex;
@@ -6414,6 +6470,68 @@ input[type="color"].gl-form-input.form-control:disabled {
   .gl-dots-loader::before, .gl-dots-loader > span, .gl-dots-loader::after {
     background-color: CanvasText;
   }
+}
+.gl-popover {
+  max-width: 280px;
+  background-color: var(--gl-background-color-overlap);
+  --tw-border-style: none;
+  border-style: none;
+  --tw-drop-shadow-size: drop-shadow(0 0 0.5px var(--tw-drop-shadow-color, var(--gl-shadow-color-default, #05050629))) drop-shadow(0 0.5px 1px var(--tw-drop-shadow-color, var(--gl-shadow-color-default, #05050629))) drop-shadow(0 1px 3px var(--tw-drop-shadow-color, var(--gl-shadow-color-default, #05050629)));
+  --tw-drop-shadow: drop-shadow(0 0 0.5px var(--gl-shadow-color-default, #05050629)) drop-shadow( 0 0.5px 1px var(--gl-shadow-color-default, #05050629)) drop-shadow( 0 1px 3px var(--gl-shadow-color-default, #05050629));
+  filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
+  font-size: var(--gl-font-size-sm);
+  border-radius: var(--gl-feedback-border-radius);
+}
+.gl-popover .popover-body {
+  color: var(--gl-text-color-default);
+}
+.gl-popover .popover-header {
+  font-weight: var(--gl-heading-scale-200-font-weight);
+  margin-top: var(--gl-heading-scale-200-margin-top);
+  font-size: var(--gl-heading-scale-200-font-size);
+  letter-spacing: var(--gl-heading-scale-200-letter-spacing);
+  line-height: var(--gl-heading-scale-200-line-height);
+  color: var(--gl-heading-scale-200-color);
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 0px;
+  padding-bottom: var(--gl-spacing-scale-0);
+}
+.gl-popover .popover-header:has(.gl-popover-title) {
+  overflow-wrap: anywhere;
+  word-break: normal;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.gl-popover .popover-header:not(:has(.gl-popover-title)) {
+  padding-top: 8px;
+  display: flex;
+  justify-content: flex-end;
+}
+.gl-popover .popover-body {
+  padding-block: var(--gl-spacing-scale-3);
+  padding-inline: var(--gl-spacing-scale-4);
+}
+.gl-popover .popover-body > .popover-hr {
+  margin-block: var(--gl-spacing-scale-5);
+  margin-inline: var(--gl-spacing-scale-0);
+}
+.gl-popover.bs-popover-top .arrow::before {
+  border-top-color: var(--gl-background-color-overlap);
+}
+.gl-popover.bs-popover-bottom .arrow::before {
+  border-bottom-color: var(--gl-background-color-overlap);
+}
+.gl-popover.bs-popover-right .arrow::before {
+  border-right-color: var(--gl-background-color-overlap);
+}
+.gl-popover.bs-popover-left .arrow::before {
+  border-left-color: var(--gl-background-color-overlap);
+}
+.gl-popover-close {
+  margin-left: auto;
 }
 .gl-progress-bar {
   display: flex;

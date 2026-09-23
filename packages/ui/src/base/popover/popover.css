@@ -1,0 +1,67 @@
+/**
+ * Ported from packages/gitlab-ui/src/components/base/popover/popover.scss in
+ * gitlab-org/gitlab-services/design.gitlab.com.
+ * Base UI supplies positioning; its arrow uses the upstream triangle colors.
+ */
+
+.gl-popover {
+  max-width: 280px;
+  @apply gl-bg-overlap;
+  @apply gl-border-none;
+  @apply gl-drop-shadow-md;
+  @apply gl-text-sm;
+  @apply gl-rounded-feedback;
+
+  .popover-body {
+    @apply gl-text-default;
+  }
+
+  .popover-header {
+    @apply gl-heading-scale-200;
+    @apply gl-border-b-0;
+    @apply gl-pb-0;
+  }
+
+  .popover-header:has(.gl-popover-title) {
+    @apply gl-hyphens-auto gl-break-anywhere;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .popover-header:not(:has(.gl-popover-title)) {
+    padding-top: 8px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .popover-body {
+    @apply gl-py-3;
+    @apply gl-px-4;
+
+    > .popover-hr {
+      @apply gl-my-5;
+      @apply gl-mx-0;
+    }
+  }
+}
+
+.gl-popover.bs-popover-top .arrow::before {
+  border-top-color: var(--gl-background-color-overlap);
+}
+
+.gl-popover.bs-popover-bottom .arrow::before {
+  border-bottom-color: var(--gl-background-color-overlap);
+}
+
+.gl-popover.bs-popover-right .arrow::before {
+  border-right-color: var(--gl-background-color-overlap);
+}
+
+.gl-popover.bs-popover-left .arrow::before {
+  border-left-color: var(--gl-background-color-overlap);
+}
+
+.gl-popover-close {
+  margin-left: auto;
+}
