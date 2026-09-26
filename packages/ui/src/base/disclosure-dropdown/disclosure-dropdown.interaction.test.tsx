@@ -17,6 +17,62 @@ afterEach(() => {
 });
 
 describe("GlDisclosureDropdown interactions", () => {
+  function renderDisabledItem() {
+    const onClick = vi.fn();
+    const onItemAction = vi.fn();
+    const onRootAction = vi.fn();
+
+    render(
+      <GlDisclosureDropdown defaultOpen onAction={onRootAction}>
+        <GlDisclosureDropdownTrigger>Actions</GlDisclosureDropdownTrigger>
+        <GlDisclosureDropdownContent>
+          <GlDisclosureDropdownItem
+            disabled
+            onAction={onItemAction}
+            onClick={onClick}
+            value="archive">
+            Archive project
+          </GlDisclosureDropdownItem>
+        </GlDisclosureDropdownContent>
+      </GlDisclosureDropdown>,
+    );
+
+    return { onClick, onItemAction, onRootAction };
+  }
+
+  it("exposes disabled item semantics and suppresses pointer activation", async () => {
+    const user = userEvent.setup();
+    const handlers = renderDisabledItem();
+    const item = await screen.findByRole("menuitem", { name: "Archive project" });
+
+    expect(item.getAttribute("aria-disabled")).toBe("true");
+    expect(item.hasAttribute("data-disabled")).toBe(true);
+    expect(item.classList.contains("disabled")).toBe(true);
+
+    await user.click(item);
+
+    expect(handlers.onClick).not.toHaveBeenCalled();
+    expect(handlers.onItemAction).not.toHaveBeenCalled();
+    expect(handlers.onRootAction).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    ["Enter", "{Enter}"],
+    ["Space", " "],
+  ])("suppresses %s activation for disabled items", async (_key, input) => {
+    const user = userEvent.setup();
+    const handlers = renderDisabledItem();
+    const item = await screen.findByRole("menuitem", { name: "Archive project" });
+
+    item.focus();
+    expect(document.activeElement).toBe(item);
+    await user.keyboard(input);
+
+    expect(handlers.onClick).not.toHaveBeenCalled();
+    expect(handlers.onItemAction).not.toHaveBeenCalled();
+    expect(handlers.onRootAction).not.toHaveBeenCalled();
+  });
+
   it("runs an item action that unmounts the dropdown before the click finishes", async () => {
     const user = userEvent.setup();
     const onAction = vi.fn();
