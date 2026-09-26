@@ -6,7 +6,9 @@
  * - Vue's title prop and body/action slots map to the title prop and optional
  *   compound description/action helpers.
  * - The `dismiss` event maps to `onDismiss`; action behavior belongs to the
- *   controls composed inside `GlAlertActions`.
+ *   controls composed inside `GlAlertActions`. Standard `GlButton` actions
+ *   use the upstream small size while arbitrary custom actions keep their
+ *   consumer-defined sizing.
  * - The exposed `focus()` method maps to the forwarded div ref; the
  *   `gl-focus` class is applied only when the alert itself is focused
  *   programmatically (e.g. `ref.current.focus()`), mirroring the upstream
@@ -17,7 +19,9 @@
  */
 
 import {
+  Children,
   forwardRef,
+  isValidElement,
   useRef,
   useState,
   type FocusEventHandler,
@@ -87,6 +91,10 @@ const alertVariants = cva("gl-alert", {
       false: null,
       true: "gl-alert-has-title",
     },
+    hasActions: {
+      false: null,
+      true: "gl-alert-has-actions",
+    },
     hasProgrammaticFocus: {
       false: null,
       true: "gl-focus",
@@ -131,6 +139,14 @@ export const GlAlertActions = forwardRef<HTMLDivElement, GlAlertActionsProps>(
   },
 );
 
+function hasAlertActions(children: ReactNode): boolean {
+  return Children.toArray(children).some((child) => {
+    if(!isValidElement<{ children?: ReactNode }>(child)) return false;
+    if(child.type === GlAlertActions) return true;
+    return hasAlertActions(child.props.children);
+  });
+}
+
 const GlAlert = forwardRef<HTMLDivElement, GlAlertProps>(function GlAlert({
   children,
   className,
@@ -150,6 +166,7 @@ const GlAlert = forwardRef<HTMLDivElement, GlAlertProps>(function GlAlert({
   const [hasProgrammaticFocus, setHasProgrammaticFocus] = useState(false);
   const pointerInteractionRef = useRef(false);
 
+  const hasActions = hasAlertActions(children);
   const hasTitle = Boolean(title);
   const TitleTag = headingTags[headerLevel];
 
@@ -188,6 +205,7 @@ const GlAlert = forwardRef<HTMLDivElement, GlAlertProps>(function GlAlert({
       className={alertVariants({
         className,
         dismissible,
+        hasActions,
         hasProgrammaticFocus,
         hasTitle,
         sticky,

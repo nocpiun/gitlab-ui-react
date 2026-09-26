@@ -49,7 +49,10 @@ describe("GlAlert", () => {
     });
 
     it("does not render any actions", () => {
-      expect(renderAlert()).not.toContain("gl-alert-actions");
+      const markup = renderAlert();
+
+      expect(markup).not.toContain("gl-alert-actions");
+      expect(markup).not.toContain("gl-alert-has-actions");
     });
 
     it("renders the description content", () => {
@@ -144,7 +147,9 @@ describe("GlAlert", () => {
         <>
           <GlAlertDescription><p>Alert message</p></GlAlertDescription>
           <GlAlertActions>
-            <GlButton category="primary" variant="confirm">Primary action</GlButton>
+            <GlButton category="primary" size="small" variant="confirm">
+              Primary action
+            </GlButton>
           </GlAlertActions>
         </>
       ));
@@ -153,15 +158,17 @@ describe("GlAlert", () => {
         "<div class=\"gl-alert-body\"><p>Alert message</p></div>",
       );
       expect(markup).toContain("<div class=\"gl-alert-actions\">");
+      expect(markup).toContain("gl-alert-has-actions");
       expect(markup).toContain("btn-confirm");
+      expect(markup).toContain("btn-sm");
       expect(markup).toContain("Primary action");
     });
 
     it("renders composed button and link actions", () => {
       const markup = renderAlert({}, (
         <GlAlertActions>
-          <GlButton category="primary" variant="confirm">Retry</GlButton>
-          <GlButton href="#cancel" variant="default">Cancel</GlButton>
+          <GlButton category="primary" size="small" variant="confirm">Retry</GlButton>
+          <GlButton href="#cancel" size="small" variant="default">Cancel</GlButton>
         </GlAlertActions>
       ));
 
@@ -196,6 +203,7 @@ describe("GlAlert", () => {
       expect(markup).toContain("Description");
       expect(markup).toContain("Actions");
       expect(markup).not.toContain("Hidden actions");
+      expect(markup).toContain("gl-alert-has-actions");
     });
 
     it("accepts ordinary, wrapped, and repeated content", () => {
@@ -246,7 +254,9 @@ describe("GlAlert", () => {
         </GlAlert>,
       );
 
-      expect(markup).toContain("gl-alert gl-alert-info custom-alert");
+      expect(markup).toContain(
+        "gl-alert gl-alert-info gl-alert-has-actions custom-alert",
+      );
       expect(markup).toContain("id=\"system-alert\"");
       expect(markup).toContain("lang=\"en\"");
       expect(markup).toContain("gl-alert-body custom-description");
