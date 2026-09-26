@@ -206,6 +206,29 @@ describe("GlAlert", () => {
       expect(markup).toContain("gl-alert-has-actions");
     });
 
+    it("supports an explicit hasActions override for wrapper components", () => {
+      function WrappedActions() {
+        return <GlAlertActions>Wrapped actions</GlAlertActions>;
+      }
+
+      const automaticMarkup = renderAlert({}, <WrappedActions />);
+      const declaredMarkup = renderAlert({ hasActions: true }, <WrappedActions />);
+
+      expect(automaticMarkup).toContain("gl-alert-actions");
+      expect(automaticMarkup).not.toContain("gl-alert-has-actions");
+      expect(declaredMarkup).toContain("gl-alert-has-actions");
+    });
+
+    it("lets an explicit false hasActions override automatic detection", () => {
+      const markup = renderAlert(
+        { hasActions: false },
+        <GlAlertActions>Actions</GlAlertActions>,
+      );
+
+      expect(markup).toContain("gl-alert-actions");
+      expect(markup).not.toContain("gl-alert-has-actions");
+    });
+
     it("accepts ordinary, wrapped, and repeated content", () => {
       function WrappedDescription() {
         return <GlAlertDescription>Wrapped description</GlAlertDescription>;

@@ -9,6 +9,8 @@
  *   controls composed inside `GlAlertActions`. Standard `GlButton` actions
  *   use the upstream small size while arbitrary custom actions keep their
  *   consumer-defined sizing.
+ * - Statically visible `GlAlertActions` children are detected automatically;
+ *   `hasActions` covers actions returned by opaque wrapper components.
  * - The exposed `focus()` method maps to the forwarded div ref; the
  *   `gl-focus` class is applied only when the alert itself is focused
  *   programmatically (e.g. `ref.current.focus()`), mirroring the upstream
@@ -47,6 +49,8 @@ export type GlAlertProps = Omit<HTMLAttributes<HTMLDivElement>, "children" | "ti
   dismissLabel?: string;
   /** The header level used for the title (h1–h6). Set an appropriate value for the context where the alert is used. */
   headerLevel?: GlAlertHeaderLevel;
+  /** Overrides automatic action detection. Set this when a wrapper component renders GlAlertActions internally. */
+  hasActions?: boolean;
   /** Emitted when the dismiss button is clicked. */
   onDismiss?: MouseEventHandler<HTMLElement>;
   /** The `aria-live` attribute on the alert. Only use `"assertive"` if the alert requires immediate user action. */
@@ -153,6 +157,7 @@ const GlAlert = forwardRef<HTMLDivElement, GlAlertProps>(function GlAlert({
   dismissible = true,
   dismissLabel = "Dismiss",
   headerLevel = 2,
+  hasActions: hasActionsProp,
   onBlur,
   onDismiss,
   onFocus,
@@ -166,7 +171,7 @@ const GlAlert = forwardRef<HTMLDivElement, GlAlertProps>(function GlAlert({
   const [hasProgrammaticFocus, setHasProgrammaticFocus] = useState(false);
   const pointerInteractionRef = useRef(false);
 
-  const hasActions = hasAlertActions(children);
+  const hasActions = hasActionsProp ?? hasAlertActions(children);
   const hasTitle = Boolean(title);
   const TitleTag = headingTags[headerLevel];
 

@@ -18,6 +18,14 @@ const variants = [
 const onPrimaryAction = fn();
 const onSecondaryAction = fn((event: MouseEvent<HTMLElement>) => event.preventDefault());
 
+function WrappedCustomActions() {
+  return (
+    <GlAlertActions>
+      <button type="button">Custom action</button>
+    </GlAlertActions>
+  );
+}
+
 const meta = {
   title: "UI/Base/Alert",
   component: GlAlert,
@@ -137,14 +145,13 @@ export const UndismissibleDangerWithActions: Story = {
 
 export const CustomActions: Story = {
   render: (args) => (
-    <GlAlert {...args}>
+    <GlAlert {...args} hasActions>
       <GlAlertDescription>Lorem ipsum dolor sit amet</GlAlertDescription>
-      <GlAlertActions>
-        <button type="button">Custom action</button>
-      </GlAlertActions>
+      <WrappedCustomActions />
     </GlAlert>
   ),
   play: async ({ canvas }) => {
+    await expect(canvas.getByRole("status")).toHaveClass("gl-alert-has-actions");
     await expect(canvas.getByRole("button", { name: "Custom action" })).toBeInTheDocument();
   },
 };
