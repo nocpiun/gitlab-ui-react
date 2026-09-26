@@ -1,5 +1,11 @@
 # @gitlab-ui-react/tokens
 
+## 1.0.0
+
+### Version Synchronization
+
+- Version synchronized with the GitLab UI React package set.
+
 ## 0.2.0
 
 ### Version Synchronization

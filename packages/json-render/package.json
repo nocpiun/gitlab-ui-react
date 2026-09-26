@@ -1,6 +1,6 @@
 {
   "name": "@gitlab-ui-react/json-render",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Pre-built GitLab UI React components for vercel-labs/json-render",
   "type": "module",
   "repository": {
