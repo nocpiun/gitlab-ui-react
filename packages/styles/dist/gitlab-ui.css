@@ -4441,43 +4441,44 @@
     }
   }
   .gl-alert {
-    padding-block: var(--gl-spacing-scale-5);
+    padding-block: var(--gl-spacing-scale-3);
     font-size: var(--gl-font-size-base);
     border-radius: var(--gl-alert-border-radius);
-    padding-inline: calc(3rem + var(--gl-alert-padding-x, 0px));
+    padding-inline: calc(2rem + var(--gl-alert-padding-x, 0px));
     position: relative;
     border: 1px solid;
   }
   .gl-alert-not-dismissible {
-    padding-right: calc(1rem + var(--gl-alert-padding-x, 0px));
+    padding-right: calc(0.75rem + var(--gl-alert-padding-x, 0px));
   }
   .gl-alert .gl-link:not(.gl-label-link) {
     text-decoration-line: underline;
+  }
+  .gl-alert.gl-alert-has-actions {
+    padding-bottom: var(--gl-spacing-scale-4);
   }
   .gl-alert-sticky {
     position: sticky;
     top: 0;
   }
   .gl-alert-title {
-    font-weight: var(--gl-heading-scale-400-font-weight);
-    margin-top: var(--gl-heading-scale-400-margin-top);
-    font-size: var(--gl-heading-scale-400-font-size);
-    letter-spacing: var(--gl-heading-scale-400-letter-spacing);
-    line-height: var(--gl-heading-scale-400-line-height);
-    color: var(--gl-heading-scale-400-color);
-    margin-top: calc(var(--gl-spacing-scale-1) * -1);
+    font-weight: var(--gl-heading-scale-300-font-weight);
+    margin-top: var(--gl-heading-scale-300-margin-top);
+    font-size: var(--gl-heading-scale-300-font-size);
+    letter-spacing: var(--gl-heading-scale-300-letter-spacing);
+    line-height: var(--gl-heading-scale-300-line-height);
+    color: var(--gl-heading-scale-300-color);
     margin-bottom: var(--gl-spacing-scale-2);
+    --tw-leading: var(--gl-line-height-20);
+    line-height: var(--gl-line-height-20);
   }
   .gl-alert-icon-container {
     position: absolute;
-    top: 1rem;
-    left: calc(1rem + var(--gl-alert-padding-x, 0px));
+    top: var(--gl-spacing-scale-3);
+    left: calc(0.5rem + var(--gl-alert-padding-x, 0px));
     display: flex;
     align-items: center;
-    height: 1.5rem;
-  }
-  .gl-alert-has-title .gl-alert-icon-container {
-    top: 0.75rem;
+    height: 1.25rem;
   }
   .gl-alert-body {
     --tw-leading: var(--gl-line-height-20);
@@ -4518,11 +4519,8 @@
   }
   .gl-dismiss-btn {
     position: absolute;
-    top: 0.75rem;
-    right: calc(0.75rem + var(--gl-alert-padding-x, 0px));
-  }
-  .gl-alert-has-title .gl-dismiss-btn {
-    top: 0.75rem;
+    top: calc(0.5rem - (1.5rem - 1.25rem) / 2);
+    right: calc(0.25rem + var(--gl-alert-padding-x, 0px));
   }
   .gl-alert-danger {
     background-color: var(--gl-alert-danger-background-color);

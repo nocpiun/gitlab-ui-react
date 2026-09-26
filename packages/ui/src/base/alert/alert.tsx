@@ -6,7 +6,11 @@
  * - Vue's title prop and body/action slots map to the title prop and optional
  *   compound description/action helpers.
  * - The `dismiss` event maps to `onDismiss`; action behavior belongs to the
- *   controls composed inside `GlAlertActions`.
+ *   controls composed inside `GlAlertActions`. Standard `GlButton` actions
+ *   use the upstream small size while arbitrary custom actions keep their
+ *   consumer-defined sizing.
+ * - Statically visible `GlAlertActions` children are detected automatically;
+ *   `hasActions` covers actions returned by opaque wrapper components.
  * - The exposed `focus()` method maps to the forwarded div ref; the
  *   `gl-focus` class is applied only when the alert itself is focused
  *   programmatically (e.g. `ref.current.focus()`), mirroring the upstream
@@ -17,7 +21,9 @@
  */
 
 import {
+  Children,
   forwardRef,
+  isValidElement,
   useRef,
   useState,
   type FocusEventHandler,
@@ -43,6 +49,8 @@ export type GlAlertProps = Omit<HTMLAttributes<HTMLDivElement>, "children" | "ti
   dismissLabel?: string;
   /** The header level used for the title (h1–h6). Set an appropriate value for the context where the alert is used. */
   headerLevel?: GlAlertHeaderLevel;
+  /** Overrides automatic action detection. Set this when a wrapper component renders GlAlertActions internally. */
+  hasActions?: boolean;
   /** Emitted when the dismiss button is clicked. */
   onDismiss?: MouseEventHandler<HTMLElement>;
   /** The `aria-live` attribute on the alert. Only use `"assertive"` if the alert requires immediate user action. */
@@ -86,6 +94,10 @@ const alertVariants = cva("gl-alert", {
     hasTitle: {
       false: null,
       true: "gl-alert-has-title",
+    },
+    hasActions: {
+      false: null,
+      true: "gl-alert-has-actions",
     },
     hasProgrammaticFocus: {
       false: null,
@@ -131,12 +143,21 @@ export const GlAlertActions = forwardRef<HTMLDivElement, GlAlertActionsProps>(
   },
 );
 
+function hasAlertActions(children: ReactNode): boolean {
+  return Children.toArray(children).some((child) => {
+    if(!isValidElement<{ children?: ReactNode }>(child)) return false;
+    if(child.type === GlAlertActions) return true;
+    return hasAlertActions(child.props.children);
+  });
+}
+
 const GlAlert = forwardRef<HTMLDivElement, GlAlertProps>(function GlAlert({
   children,
   className,
   dismissible = true,
   dismissLabel = "Dismiss",
   headerLevel = 2,
+  hasActions: hasActionsProp,
   onBlur,
   onDismiss,
   onFocus,
@@ -150,6 +171,7 @@ const GlAlert = forwardRef<HTMLDivElement, GlAlertProps>(function GlAlert({
   const [hasProgrammaticFocus, setHasProgrammaticFocus] = useState(false);
   const pointerInteractionRef = useRef(false);
 
+  const hasActions = hasActionsProp ?? hasAlertActions(children);
   const hasTitle = Boolean(title);
   const TitleTag = headingTags[headerLevel];
 
@@ -188,6 +210,7 @@ const GlAlert = forwardRef<HTMLDivElement, GlAlertProps>(function GlAlert({
       className={alertVariants({
         className,
         dismissible,
+        hasActions,
         hasProgrammaticFocus,
         hasTitle,
         sticky,

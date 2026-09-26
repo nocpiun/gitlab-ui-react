@@ -18,6 +18,14 @@ const variants = [
 const onPrimaryAction = fn();
 const onSecondaryAction = fn((event: MouseEvent<HTMLElement>) => event.preventDefault());
 
+function WrappedCustomActions() {
+  return (
+    <GlAlertActions>
+      <button type="button">Custom action</button>
+    </GlAlertActions>
+  );
+}
+
 const meta = {
   title: "UI/Base/Alert",
   component: GlAlert,
@@ -94,6 +102,7 @@ export const UndismissibleDangerWithActions: Story = {
         <GlButton
           category="primary"
           onClick={onPrimaryAction}
+          size="small"
           variant="confirm">
           Primary action
         </GlButton>
@@ -101,6 +110,7 @@ export const UndismissibleDangerWithActions: Story = {
           category="secondary"
           href="#"
           onClick={onSecondaryAction}
+          size="small"
           variant="default">
           Secondary action
         </GlButton>
@@ -113,13 +123,20 @@ export const UndismissibleDangerWithActions: Story = {
 
     const alert = canvas.getByRole("alert");
 
-    await expect(alert).toHaveClass("gl-alert-danger", "gl-alert-not-dismissible");
+    await expect(alert).toHaveClass(
+      "gl-alert-danger",
+      "gl-alert-has-actions",
+      "gl-alert-not-dismissible",
+    );
     await expect(within(alert).queryByRole("button", { name: "Dismiss" })).toBeNull();
 
-    await userEvent.click(canvas.getByRole("button", { name: "Primary action" }));
+    const primary = canvas.getByRole("button", { name: "Primary action" });
+    await expect(primary).toHaveClass("btn-sm");
+    await userEvent.click(primary);
     await expect(onPrimaryAction).toHaveBeenCalledTimes(1);
 
     const secondary = canvas.getByRole("button", { name: "Secondary action" });
+    await expect(secondary).toHaveClass("btn-sm");
     await expect(secondary).toHaveAttribute("href", "#");
     await userEvent.click(secondary);
     await expect(onSecondaryAction).toHaveBeenCalledTimes(1);
@@ -128,14 +145,13 @@ export const UndismissibleDangerWithActions: Story = {
 
 export const CustomActions: Story = {
   render: (args) => (
-    <GlAlert {...args}>
+    <GlAlert {...args} hasActions>
       <GlAlertDescription>Lorem ipsum dolor sit amet</GlAlertDescription>
-      <GlAlertActions>
-        <button type="button">Custom action</button>
-      </GlAlertActions>
+      <WrappedCustomActions />
     </GlAlert>
   ),
   play: async ({ canvas }) => {
+    await expect(canvas.getByRole("status")).toHaveClass("gl-alert-has-actions");
     await expect(canvas.getByRole("button", { name: "Custom action" })).toBeInTheDocument();
   },
 };
@@ -159,8 +175,8 @@ export const Variants: Story = {
             <span className="gl-capitalize">{variant}</span> lorem ipsum dolor sit amet
           </GlAlertDescription>
           <GlAlertActions>
-            <GlButton category="primary" variant="confirm">Primary</GlButton>
-            <GlButton category="secondary" variant="default">Secondary</GlButton>
+            <GlButton category="primary" size="small" variant="confirm">Primary</GlButton>
+            <GlButton category="secondary" size="small" variant="default">Secondary</GlButton>
           </GlAlertActions>
         </GlAlert>
       ))}

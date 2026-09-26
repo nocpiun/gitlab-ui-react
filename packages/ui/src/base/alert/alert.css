@@ -3,10 +3,11 @@
  * packages/gitlab-ui/src/components/base/alert/alert.scss
  *
  * Sass constants are expanded to match the upstream compiled output:
- * `$gl-spacing-scale-9` is `3rem`, `$gl-spacing-scale-5` is `1rem`,
- * `$gl-spacing-scale-4` is `.75rem`, `$gl-spacing-scale-1` is `.25rem`,
- * and `$gl-line-height-24` is `1.5rem`. The `gl-container-width-up(sm)`
- * mixin is written out as the established local `@container`/`@media` pair.
+ * `$gl-spacing-scale-7` is `2rem`, `$gl-spacing-scale-4` is `.75rem`,
+ * `$gl-spacing-scale-3` is `.5rem`, `$gl-spacing-scale-2` is `.25rem`,
+ * `$gl-line-height-20` is `1.25rem`, and `$gl-button-small-size` is `1.5rem`.
+ * The `gl-container-width-up(sm)` mixin is written out as the established
+ * local `@container`/`@media` pair.
  * Compound action controls receive the upstream `gl-alert-action` styles
  * through direct-child selectors instead of an internally applied class.
  */
@@ -19,19 +20,23 @@
  * in GitLab.
  */
 .gl-alert {
-  @apply gl-py-5;
+  @apply gl-py-3;
   @apply gl-text-base;
   border-radius: var(--gl-alert-border-radius);
-  padding-inline: calc(3rem + var(--gl-alert-padding-x, 0px));
+  padding-inline: calc(2rem + var(--gl-alert-padding-x, 0px));
   position: relative;
   border: 1px solid;
 
   &-not-dismissible {
-    padding-right: calc(1rem + var(--gl-alert-padding-x, 0px));
+    padding-right: calc(0.75rem + var(--gl-alert-padding-x, 0px));
   }
 
   .gl-link:not(.gl-label-link) {
     @apply gl-underline;
+  }
+
+  &.gl-alert-has-actions {
+    @apply gl-pb-4;
   }
 }
 
@@ -41,20 +46,19 @@
 }
 
 .gl-alert-title {
-  @apply gl-heading-scale-400 -gl-mt-1 gl-mb-2;
+  @apply gl-heading-scale-300;
+  @apply gl-mb-2;
+  @apply gl-leading-20;
 }
 
 .gl-alert-icon-container {
-  position: absolute;
-  top: 1rem;
-  left: calc(1rem + var(--gl-alert-padding-x, 0px));
+  @apply gl-absolute;
+  @apply gl-top-3;
+  left: calc(0.5rem + var(--gl-alert-padding-x, 0px));
   @apply gl-flex;
   @apply gl-items-center;
-  height: 1.5rem;
-
-  .gl-alert-has-title & {
-    top: 0.75rem;
-  }
+  /* Match line-height on first line of title or slot text content */
+  height: 1.25rem;
 }
 
 .gl-alert-body {
@@ -96,12 +100,9 @@
 /* This is the replacement for .gl-alert-dismiss */
 .gl-dismiss-btn {
   position: absolute;
-  top: 0.75rem;
-  right: calc(0.75rem + var(--gl-alert-padding-x, 0px));
-
-  .gl-alert-has-title & {
-    top: 0.75rem;
-  }
+  /* Pull the button up by half its overhang so it aligns with first line title or slot text content */
+  top: calc(0.5rem - (1.5rem - 1.25rem) / 2);
+  right: calc(0.25rem + var(--gl-alert-padding-x, 0px));
 }
 
 /* Variants */
