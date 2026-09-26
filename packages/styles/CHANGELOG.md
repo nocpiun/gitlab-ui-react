@@ -1,5 +1,19 @@
 # @gitlab-ui-react/styles
 
+## 1.0.0
+
+### Features
+
+- **ui:** sorting component (#130)
+
+### Bug Fixes
+
+- **alert:** sync condensed upstream layout (#137)
+
+### Contributors
+
+- @NriotHrreion
+
 ## 0.2.0
 
 ### Features

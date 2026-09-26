@@ -1,5 +1,21 @@
 # gitlab-ui-react
 
+## 1.0.0
+
+### Features
+
+- **ui:** sorting component (#130)
+- **json-render:** pre-built json-render component registry (#131)
+
+### Bug Fixes
+
+- **badge:** keep icon-only badges centered (#127)
+- **alert:** sync condensed upstream layout (#137)
+
+### Contributors
+
+- @NriotHrreion
+
 ## 0.2.0
 
 ### Features
