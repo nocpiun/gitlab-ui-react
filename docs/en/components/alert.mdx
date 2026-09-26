@@ -18,7 +18,7 @@ import { GlButton } from "gitlab-ui-react/button";
 <GlAlert dismissible={false}>
   <GlAlertDescription>Your preferences were updated.</GlAlertDescription>
   <GlAlertActions>
-    <GlButton>Review changes</GlButton>
+    <GlButton size="small">Review changes</GlButton>
   </GlAlertActions>
 </GlAlert>
 ```
@@ -51,7 +51,7 @@ Choose a variant for the message's meaning, not merely its visual emphasis. Use 
 
 ## Titles and actions
 
-Add a short title when it helps users identify what triggered the alert. Put up to two explicit recovery or continuation controls in `GlAlertActions`; use a confirm primary action and a default secondary action.
+Add a short title when it helps users identify what triggered the alert. Put up to two explicit recovery or continuation controls in `GlAlertActions`; use small buttons with a confirm primary action and a default secondary action. If a wrapper component renders `GlAlertActions`, set `hasActions` on `GlAlert` so the alert preserves the action spacing.
 
 <DocsExample
   filename="alert/AlertActionsExample.tsx"
@@ -78,6 +78,7 @@ These are the component-specific props. `GlAlert`, `GlAlertDescription`, and `Gl
 | `variant` | Sets the semantic style to `danger`, `warning`, `success`, `info`, or `tip`. | `"info"` |
 | `title` | Adds a short heading before the alert content. | — |
 | `headerLevel` | Sets the title heading level from `1` through `6`. | `2` |
+| `hasActions` | Overrides automatic action detection. Set it when a wrapper component renders `GlAlertActions`. | — |
 | `dismissible` | Shows the dismiss button; visibility remains controlled by the parent. | `true` |
 | `dismissLabel` | Sets the dismiss button's accessible label. | `"Dismiss"` |
 | `onDismiss` | Runs when the dismiss button is activated. | — |

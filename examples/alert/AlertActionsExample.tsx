@@ -12,8 +12,12 @@ export default function AlertActionsExample() {
         Check the pipeline configuration, then try again.
       </GlAlertDescription>
       <GlAlertActions>
-        <GlButton variant="confirm">Retry</GlButton>
-        <GlButton category="secondary">View details</GlButton>
+        <GlButton size="small" variant="confirm">
+          Retry
+        </GlButton>
+        <GlButton category="secondary" size="small">
+          View details
+        </GlButton>
       </GlAlertActions>
     </GlAlert>
   );

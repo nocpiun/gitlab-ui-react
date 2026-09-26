@@ -18,7 +18,7 @@ import { GlButton } from "gitlab-ui-react/button";
 <GlAlert dismissible={false}>
   <GlAlertDescription>Your preferences were updated.</GlAlertDescription>
   <GlAlertActions>
-    <GlButton>Review changes</GlButton>
+    <GlButton size="small">Review changes</GlButton>
   </GlAlertActions>
 </GlAlert>
 ```
@@ -51,7 +51,7 @@ import { GlButton } from "gitlab-ui-react/button";
 
 ## 标题与操作
 
-当标题有助于用户识别触发警报的事件时，可以添加一个简短标题。在 `GlAlertActions` 中最多放置两个明确的恢复或继续操作；主要操作使用 confirm 变体，次要操作使用 default 变体。
+当标题有助于用户识别触发警报的事件时，可以添加一个简短标题。在 `GlAlertActions` 中最多放置两个明确的恢复或继续操作；使用小尺寸按钮，主要操作使用 confirm 变体，次要操作使用 default 变体。如果由包装组件渲染 `GlAlertActions`，请在 `GlAlert` 上设置 `hasActions`，以保留操作区域的间距。
 
 <DocsExample
   filename="alert/AlertActionsExample.tsx"
@@ -78,6 +78,7 @@ import { GlButton } from "gitlab-ui-react/button";
 | `variant` | 将语义样式设置为 `danger`、`warning`、`success`、`info` 或 `tip`。 | `"info"` |
 | `title` | 在警报内容之前添加简短标题。 | — |
 | `headerLevel` | 将标题层级设置为 `1` 到 `6`。 | `2` |
+| `hasActions` | 覆盖自动操作检测。当包装组件内部渲染 `GlAlertActions` 时设置此属性。 | — |
 | `dismissible` | 显示关闭按钮；可见性仍由父组件控制。 | `true` |
 | `dismissLabel` | 设置关闭按钮的无障碍标签。 | `"Dismiss"` |
 | `onDismiss` | 关闭按钮被激活时调用。 | — |
