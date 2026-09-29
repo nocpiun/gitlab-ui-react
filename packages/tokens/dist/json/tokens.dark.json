@@ -879,7 +879,7 @@
     "blue": {
       "50": {
         "key": "{color.blue.50}",
-        "$value": "#e9f3fc",
+        "$value": "#e8f2fd",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -887,7 +887,7 @@
         "filePath": "src/constant/color.blue.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#e9f3fc",
+          "$value": "#e8f2fd",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -904,7 +904,7 @@
       },
       "100": {
         "key": "{color.blue.100}",
-        "$value": "#cbe2f9",
+        "$value": "#c8e0f9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -912,7 +912,7 @@
         "filePath": "src/constant/color.blue.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#cbe2f9",
+          "$value": "#c8e0f9",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -929,7 +929,7 @@
       },
       "200": {
         "key": "{color.blue.200}",
-        "$value": "#9dc7f1",
+        "$value": "#9dc8f2",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -937,7 +937,7 @@
         "filePath": "src/constant/color.blue.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#9dc7f1",
+          "$value": "#9dc8f2",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -954,7 +954,7 @@
       },
       "300": {
         "key": "{color.blue.300}",
-        "$value": "#63a6e9",
+        "$value": "#64a7e9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -962,7 +962,7 @@
         "filePath": "src/constant/color.blue.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#63a6e9",
+          "$value": "#64a7e9",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -979,7 +979,7 @@
       },
       "400": {
         "key": "{color.blue.400}",
-        "$value": "#428fdc",
+        "$value": "#3f8edd",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -987,7 +987,7 @@
         "filePath": "src/constant/color.blue.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#428fdc",
+          "$value": "#3f8edd",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -1004,7 +1004,7 @@
       },
       "500": {
         "key": "{color.blue.500}",
-        "$value": "#1f75cb",
+        "$value": "#1f73ca",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1012,7 +1012,7 @@
         "filePath": "src/constant/color.blue.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#1f75cb",
+          "$value": "#1f73ca",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -1029,7 +1029,7 @@
       },
       "600": {
         "key": "{color.blue.600}",
-        "$value": "#2f68b4",
+        "$value": "#2566b5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1037,7 +1037,7 @@
         "filePath": "src/constant/color.blue.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#2f68b4",
+          "$value": "#2566b5",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -1054,7 +1054,7 @@
       },
       "700": {
         "key": "{color.blue.700}",
-        "$value": "#2f5ca0",
+        "$value": "#27599f",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1062,7 +1062,7 @@
         "filePath": "src/constant/color.blue.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#2f5ca0",
+          "$value": "#27599f",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -1079,7 +1079,7 @@
       },
       "800": {
         "key": "{color.blue.800}",
-        "$value": "#284779",
+        "$value": "#254581",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1087,7 +1087,7 @@
         "filePath": "src/constant/color.blue.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#284779",
+          "$value": "#254581",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -1104,7 +1104,7 @@
       },
       "900": {
         "key": "{color.blue.900}",
-        "$value": "#213454",
+        "$value": "#1f3166",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1112,7 +1112,7 @@
         "filePath": "src/constant/color.blue.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#213454",
+          "$value": "#1f3166",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -1129,7 +1129,7 @@
       },
       "950": {
         "key": "{color.blue.950}",
-        "$value": "#1d283e",
+        "$value": "#1d2153",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1137,7 +1137,7 @@
         "filePath": "src/constant/color.blue.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#1d283e",
+          "$value": "#1d2153",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -2922,7 +2922,7 @@
     "green": {
       "50": {
         "key": "{color.green.50}",
-        "$value": "#ecf4ee",
+        "$value": "#e6f5ea",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -2930,7 +2930,7 @@
         "filePath": "src/constant/color.green.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#ecf4ee",
+          "$value": "#e6f5ea",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -2947,7 +2947,7 @@
       },
       "100": {
         "key": "{color.green.100}",
-        "$value": "#c3e6cd",
+        "$value": "#bee6d0",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -2955,7 +2955,7 @@
         "filePath": "src/constant/color.green.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#c3e6cd",
+          "$value": "#bee6d0",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -2972,7 +2972,7 @@
       },
       "200": {
         "key": "{color.green.200}",
-        "$value": "#91d4a8",
+        "$value": "#84d4b6",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -2980,7 +2980,7 @@
         "filePath": "src/constant/color.green.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#91d4a8",
+          "$value": "#84d4b6",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -2997,7 +2997,7 @@
       },
       "300": {
         "key": "{color.green.300}",
-        "$value": "#52b87a",
+        "$value": "#35b597",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3005,7 +3005,7 @@
         "filePath": "src/constant/color.green.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#52b87a",
+          "$value": "#35b597",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3022,7 +3022,7 @@
       },
       "400": {
         "key": "{color.green.400}",
-        "$value": "#2da160",
+        "$value": "#129c84",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3030,7 +3030,7 @@
         "filePath": "src/constant/color.green.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#2da160",
+          "$value": "#129c84",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3047,7 +3047,7 @@
       },
       "500": {
         "key": "{color.green.500}",
-        "$value": "#108548",
+        "$value": "#0d8070",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3055,7 +3055,7 @@
         "filePath": "src/constant/color.green.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#108548",
+          "$value": "#0d8070",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3072,7 +3072,7 @@
       },
       "600": {
         "key": "{color.green.600}",
-        "$value": "#2f7549",
+        "$value": "#0c7265",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3080,7 +3080,7 @@
         "filePath": "src/constant/color.green.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#2f7549",
+          "$value": "#0c7265",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3097,7 +3097,7 @@
       },
       "700": {
         "key": "{color.green.700}",
-        "$value": "#306440",
+        "$value": "#0b645a",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3105,7 +3105,7 @@
         "filePath": "src/constant/color.green.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#306440",
+          "$value": "#0b645a",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3122,7 +3122,7 @@
       },
       "800": {
         "key": "{color.green.800}",
-        "$value": "#225131",
+        "$value": "#075048",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3130,7 +3130,7 @@
         "filePath": "src/constant/color.green.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#225131",
+          "$value": "#075048",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3147,7 +3147,7 @@
       },
       "900": {
         "key": "{color.green.900}",
-        "$value": "#1e3e28",
+        "$value": "#003c36",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3155,7 +3155,7 @@
         "filePath": "src/constant/color.green.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#1e3e28",
+          "$value": "#003c36",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3172,7 +3172,7 @@
       },
       "950": {
         "key": "{color.green.950}",
-        "$value": "#17291c",
+        "$value": "#002c26",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3180,7 +3180,7 @@
         "filePath": "src/constant/color.green.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#17291c",
+          "$value": "#002c26",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3551,7 +3551,7 @@
     "orange": {
       "50": {
         "key": "{color.orange.50}",
-        "$value": "#fdf1dd",
+        "$value": "#fdf0d5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3559,7 +3559,7 @@
         "filePath": "src/constant/color.orange.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#fdf1dd",
+          "$value": "#fdf0d5",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3576,7 +3576,7 @@
       },
       "100": {
         "key": "{color.orange.100}",
-        "$value": "#f5d9a8",
+        "$value": "#fada9c",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3584,7 +3584,7 @@
         "filePath": "src/constant/color.orange.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#f5d9a8",
+          "$value": "#fada9c",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3601,7 +3601,7 @@
       },
       "200": {
         "key": "{color.orange.200}",
-        "$value": "#e9be74",
+        "$value": "#f7b951",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3609,7 +3609,7 @@
         "filePath": "src/constant/color.orange.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#e9be74",
+          "$value": "#f7b951",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3626,7 +3626,7 @@
       },
       "300": {
         "key": "{color.orange.300}",
-        "$value": "#d99530",
+        "$value": "#fb8017",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3634,7 +3634,7 @@
         "filePath": "src/constant/color.orange.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#d99530",
+          "$value": "#fb8017",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3651,7 +3651,7 @@
       },
       "400": {
         "key": "{color.orange.400}",
-        "$value": "#c17d10",
+        "$value": "#e95f21",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3659,7 +3659,7 @@
         "filePath": "src/constant/color.orange.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#c17d10",
+          "$value": "#e95f21",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3676,7 +3676,7 @@
       },
       "500": {
         "key": "{color.orange.500}",
-        "$value": "#ab6100",
+        "$value": "#c74816",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3684,7 +3684,7 @@
         "filePath": "src/constant/color.orange.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#ab6100",
+          "$value": "#c74816",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3701,7 +3701,7 @@
       },
       "600": {
         "key": "{color.orange.600}",
-        "$value": "#995715",
+        "$value": "#b34013",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3709,7 +3709,7 @@
         "filePath": "src/constant/color.orange.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#995715",
+          "$value": "#b34013",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3726,7 +3726,7 @@
       },
       "700": {
         "key": "{color.orange.700}",
-        "$value": "#894b16",
+        "$value": "#9e3811",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3734,7 +3734,7 @@
         "filePath": "src/constant/color.orange.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#894b16",
+          "$value": "#9e3811",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3751,7 +3751,7 @@
       },
       "800": {
         "key": "{color.orange.800}",
-        "$value": "#693c14",
+        "$value": "#7d2d0e",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3759,7 +3759,7 @@
         "filePath": "src/constant/color.orange.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#693c14",
+          "$value": "#7d2d0e",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3776,7 +3776,7 @@
       },
       "900": {
         "key": "{color.orange.900}",
-        "$value": "#532e16",
+        "$value": "#5d220d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3784,7 +3784,7 @@
         "filePath": "src/constant/color.orange.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#532e16",
+          "$value": "#5d220d",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3801,7 +3801,7 @@
       },
       "950": {
         "key": "{color.orange.950}",
-        "$value": "#382315",
+        "$value": "#461807",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3809,7 +3809,7 @@
         "filePath": "src/constant/color.orange.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#382315",
+          "$value": "#461807",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3828,7 +3828,7 @@
     "purple": {
       "50": {
         "key": "{color.purple.50}",
-        "$value": "#f4f0ff",
+        "$value": "#f4f0fc",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3836,7 +3836,7 @@
         "filePath": "src/constant/color.purple.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#f4f0ff",
+          "$value": "#f4f0fc",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3853,7 +3853,7 @@
       },
       "100": {
         "key": "{color.purple.100}",
-        "$value": "#e1d8f9",
+        "$value": "#e1daf7",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3861,7 +3861,7 @@
         "filePath": "src/constant/color.purple.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#e1d8f9",
+          "$value": "#e1daf7",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3878,7 +3878,7 @@
       },
       "200": {
         "key": "{color.purple.200}",
-        "$value": "#cbbbf2",
+        "$value": "#c9beef",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3886,7 +3886,7 @@
         "filePath": "src/constant/color.purple.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#cbbbf2",
+          "$value": "#c9beef",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3903,7 +3903,7 @@
       },
       "300": {
         "key": "{color.purple.300}",
-        "$value": "#ac93e6",
+        "$value": "#a997e1",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3911,7 +3911,7 @@
         "filePath": "src/constant/color.purple.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#ac93e6",
+          "$value": "#a997e1",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3928,7 +3928,7 @@
       },
       "400": {
         "key": "{color.purple.400}",
-        "$value": "#9475db",
+        "$value": "#927cd7",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3936,7 +3936,7 @@
         "filePath": "src/constant/color.purple.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#9475db",
+          "$value": "#927cd7",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3953,7 +3953,7 @@
       },
       "500": {
         "key": "{color.purple.500}",
-        "$value": "#7b58cf",
+        "$value": "#7862c8",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3961,7 +3961,7 @@
         "filePath": "src/constant/color.purple.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#7b58cf",
+          "$value": "#7862c8",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -3978,7 +3978,7 @@
       },
       "600": {
         "key": "{color.purple.600}",
-        "$value": "#6a4fb4",
+        "$value": "#6a54c0",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -3986,7 +3986,7 @@
         "filePath": "src/constant/color.purple.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#6a4fb4",
+          "$value": "#6a54c0",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4003,7 +4003,7 @@
       },
       "700": {
         "key": "{color.purple.700}",
-        "$value": "#5c47a6",
+        "$value": "#5b46b8",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4011,7 +4011,7 @@
         "filePath": "src/constant/color.purple.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#5c47a6",
+          "$value": "#5b46b8",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4028,7 +4028,7 @@
       },
       "800": {
         "key": "{color.purple.800}",
-        "$value": "#493c83",
+        "$value": "#483698",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4036,7 +4036,7 @@
         "filePath": "src/constant/color.purple.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#493c83",
+          "$value": "#483698",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4053,7 +4053,7 @@
       },
       "900": {
         "key": "{color.purple.900}",
-        "$value": "#342d59",
+        "$value": "#362676",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4061,7 +4061,7 @@
         "filePath": "src/constant/color.purple.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#342d59",
+          "$value": "#362676",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4078,7 +4078,7 @@
       },
       "950": {
         "key": "{color.purple.950}",
-        "$value": "#27243e",
+        "$value": "#291a5c",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4086,7 +4086,7 @@
         "filePath": "src/constant/color.purple.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#27243e",
+          "$value": "#291a5c",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4105,7 +4105,7 @@
     "red": {
       "50": {
         "key": "{color.red.50}",
-        "$value": "#fcf1ef",
+        "$value": "#feeef0",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4113,7 +4113,7 @@
         "filePath": "src/constant/color.red.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#fcf1ef",
+          "$value": "#feeef0",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4130,7 +4130,7 @@
       },
       "100": {
         "key": "{color.red.100}",
-        "$value": "#fdd4cd",
+        "$value": "#ffd3d7",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4138,7 +4138,7 @@
         "filePath": "src/constant/color.red.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#fdd4cd",
+          "$value": "#ffd3d7",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4155,7 +4155,7 @@
       },
       "200": {
         "key": "{color.red.200}",
-        "$value": "#fcb5aa",
+        "$value": "#ffafb8",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4163,7 +4163,7 @@
         "filePath": "src/constant/color.red.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#fcb5aa",
+          "$value": "#ffafb8",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4180,7 +4180,7 @@
       },
       "300": {
         "key": "{color.red.300}",
-        "$value": "#f6806d",
+        "$value": "#fc7988",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4188,7 +4188,7 @@
         "filePath": "src/constant/color.red.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#f6806d",
+          "$value": "#fc7988",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4205,7 +4205,7 @@
       },
       "400": {
         "key": "{color.red.400}",
-        "$value": "#ec5941",
+        "$value": "#f15168",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4213,7 +4213,7 @@
         "filePath": "src/constant/color.red.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#ec5941",
+          "$value": "#f15168",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4230,7 +4230,7 @@
       },
       "500": {
         "key": "{color.red.500}",
-        "$value": "#dd2b0e",
+        "$value": "#de1d4b",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4238,7 +4238,7 @@
         "filePath": "src/constant/color.red.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#dd2b0e",
+          "$value": "#de1d4b",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4255,7 +4255,7 @@
       },
       "600": {
         "key": "{color.red.600}",
-        "$value": "#c02f12",
+        "$value": "#c52042",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4263,7 +4263,7 @@
         "filePath": "src/constant/color.red.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#c02f12",
+          "$value": "#c52042",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4280,7 +4280,7 @@
       },
       "700": {
         "key": "{color.red.700}",
-        "$value": "#a32c12",
+        "$value": "#ac203a",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4288,7 +4288,7 @@
         "filePath": "src/constant/color.red.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#a32c12",
+          "$value": "#ac203a",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4305,7 +4305,7 @@
       },
       "800": {
         "key": "{color.red.800}",
-        "$value": "#812713",
+        "$value": "#891c2f",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4313,7 +4313,7 @@
         "filePath": "src/constant/color.red.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#812713",
+          "$value": "#891c2f",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4330,7 +4330,7 @@
       },
       "900": {
         "key": "{color.red.900}",
-        "$value": "#582014",
+        "$value": "#641925",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4338,7 +4338,7 @@
         "filePath": "src/constant/color.red.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#582014",
+          "$value": "#641925",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -4355,7 +4355,7 @@
       },
       "950": {
         "key": "{color.red.950}",
-        "$value": "#3e1a14",
+        "$value": "#48151d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -4363,7 +4363,7 @@
         "filePath": "src/constant/color.red.tokens.json",
         "isSource": true,
         "original": {
-          "$value": "#3e1a14",
+          "$value": "#48151d",
           "$type": "color",
           "$extensions": {
             "com.figma.scopes": []
@@ -8314,7 +8314,7 @@
       "title": {
         "color": {
           "key": "{alert.info.title.color}",
-          "$value": "#9dc7f1",
+          "$value": "#9dc8f2",
           "$type": "color",
           "$description": "Used for the title color of an info alert.",
           "$extensions": {
@@ -8348,7 +8348,7 @@
       "background": {
         "color": {
           "key": "{alert.info.background.color}",
-          "$value": "#1d283e",
+          "$value": "#1d2153",
           "$type": "color",
           "$description": "Used for the background color of an info alert.",
           "$extensions": {
@@ -8384,7 +8384,7 @@
       "border": {
         "color": {
           "key": "{alert.info.border.color}",
-          "$value": "#2f68b4",
+          "$value": "#2566b5",
           "$type": "color",
           "$description": "Used for the border color of an info alert.",
           "$extensions": {
@@ -8417,7 +8417,7 @@
         "top": {
           "color": {
             "key": "{alert.info.border.top.color}",
-            "$value": "#428fdc",
+            "$value": "#3f8edd",
             "$type": "color",
             "$description": "Used for the border color of an info alert.",
             "$extensions": {
@@ -8480,7 +8480,7 @@
       "title": {
         "color": {
           "key": "{alert.success.title.color}",
-          "$value": "#91d4a8",
+          "$value": "#84d4b6",
           "$type": "color",
           "$description": "Used for the title color of a success alert.",
           "$extensions": {
@@ -8514,7 +8514,7 @@
       "background": {
         "color": {
           "key": "{alert.success.background.color}",
-          "$value": "#1e3e28",
+          "$value": "#003c36",
           "$type": "color",
           "$description": "Used for the background color of a success alert.",
           "$extensions": {
@@ -8550,7 +8550,7 @@
       "border": {
         "color": {
           "key": "{alert.success.border.color}",
-          "$value": "#2f7549",
+          "$value": "#0c7265",
           "$type": "color",
           "$description": "Used for the border color of a success alert.",
           "$extensions": {
@@ -8583,7 +8583,7 @@
         "top": {
           "color": {
             "key": "{alert.success.border.top.color}",
-            "$value": "#2da160",
+            "$value": "#129c84",
             "$type": "color",
             "$description": "Used for the border color of a success alert.",
             "$extensions": {
@@ -8656,7 +8656,7 @@
       "title": {
         "color": {
           "key": "{alert.warning.title.color}",
-          "$value": "#e9be74",
+          "$value": "#f7b951",
           "$type": "color",
           "$description": "Used for the title color of a warning alert.",
           "$extensions": {
@@ -8690,7 +8690,7 @@
       "background": {
         "color": {
           "key": "{alert.warning.background.color}",
-          "$value": "#532e16",
+          "$value": "#5d220d",
           "$type": "color",
           "$description": "Used for the background color of a warning alert.",
           "$extensions": {
@@ -8726,7 +8726,7 @@
       "border": {
         "color": {
           "key": "{alert.warning.border.color}",
-          "$value": "#995715",
+          "$value": "#b34013",
           "$type": "color",
           "$description": "Used for the border color of a warning alert.",
           "$extensions": {
@@ -8759,7 +8759,7 @@
         "top": {
           "color": {
             "key": "{alert.warning.border.top.color}",
-            "$value": "#c17d10",
+            "$value": "#e95f21",
             "$type": "color",
             "$description": "Used for the border color of a warning alert.",
             "$extensions": {
@@ -8832,7 +8832,7 @@
       "title": {
         "color": {
           "key": "{alert.danger.title.color}",
-          "$value": "#fcb5aa",
+          "$value": "#ffafb8",
           "$type": "color",
           "$description": "Used for the title color of a danger alert.",
           "$extensions": {
@@ -8866,7 +8866,7 @@
       "background": {
         "color": {
           "key": "{alert.danger.background.color}",
-          "$value": "#582014",
+          "$value": "#641925",
           "$type": "color",
           "$description": "Used for the background color of a danger alert.",
           "$extensions": {
@@ -8902,7 +8902,7 @@
       "border": {
         "color": {
           "key": "{alert.danger.border.color}",
-          "$value": "#f6806d",
+          "$value": "#fc7988",
           "$type": "color",
           "$description": "Used for the border color of a danger alert.",
           "$extensions": {
@@ -8935,7 +8935,7 @@
         "top": {
           "color": {
             "key": "{alert.danger.border.top.color}",
-            "$value": "#ec5941",
+            "$value": "#f15168",
             "$type": "color",
             "$description": "Used for the border color of a danger alert.",
             "$extensions": {
@@ -9227,7 +9227,7 @@
         "color": {
           "red": {
             "key": "{avatar.fallback.text.color.red}",
-            "$value": "#fcb5aa",
+            "$value": "#ffafb8",
             "$type": "color",
             "$description": "Red text color for avatar fallback with no particular meaning.",
             "$extensions": {
@@ -9260,7 +9260,7 @@
           },
           "purple": {
             "key": "{avatar.fallback.text.color.purple}",
-            "$value": "#cbbbf2",
+            "$value": "#c9beef",
             "$type": "color",
             "$description": "Purple text color for avatar fallback with no particular meaning.",
             "$extensions": {
@@ -9293,7 +9293,7 @@
           },
           "blue": {
             "key": "{avatar.fallback.text.color.blue}",
-            "$value": "#9dc7f1",
+            "$value": "#9dc8f2",
             "$type": "color",
             "$description": "Blue text color for avatar fallback with no particular meaning.",
             "$extensions": {
@@ -9326,7 +9326,7 @@
           },
           "green": {
             "key": "{avatar.fallback.text.color.green}",
-            "$value": "#91d4a8",
+            "$value": "#84d4b6",
             "$type": "color",
             "$description": "Green text color for avatar fallback with no particular meaning.",
             "$extensions": {
@@ -9359,7 +9359,7 @@
           },
           "orange": {
             "key": "{avatar.fallback.text.color.orange}",
-            "$value": "#e9be74",
+            "$value": "#f7b951",
             "$type": "color",
             "$description": "Orange text color for avatar fallback with no particular meaning.",
             "$extensions": {
@@ -9429,7 +9429,7 @@
         "color": {
           "red": {
             "key": "{avatar.fallback.background.color.red}",
-            "$value": "rgba(252, 181, 170, 0.23921568627450981)",
+            "$value": "rgba(255, 175, 184, 0.23921568627450981)",
             "$type": "color",
             "$description": "Red background for avatar fallback with no particular meaning.",
             "$extensions": {
@@ -9441,7 +9441,7 @@
             "filePath": "src/contextual/avatar.tokens.json",
             "isSource": true,
             "original": {
-              "$value": "rgba(252, 181, 170, 0.23921568627450981)",
+              "$value": "rgba(255, 175, 184, 0.23921568627450981)",
               "$type": "color",
               "$description": "Red background for avatar fallback with no particular meaning.",
               "$extensions": {
@@ -9464,7 +9464,7 @@
           },
           "purple": {
             "key": "{avatar.fallback.background.color.purple}",
-            "$value": "rgba(203, 187, 242, 0.23921568627450981)",
+            "$value": "rgba(201, 190, 239, 0.23921568627450981)",
             "$type": "color",
             "$description": "Purple background for avatar fallback with no particular meaning.",
             "$extensions": {
@@ -9476,7 +9476,7 @@
             "filePath": "src/contextual/avatar.tokens.json",
             "isSource": true,
             "original": {
-              "$value": "rgba(203, 187, 242, 0.23921568627450981)",
+              "$value": "rgba(201, 190, 239, 0.23921568627450981)",
               "$type": "color",
               "$description": "Purple background for avatar fallback with no particular meaning.",
               "$extensions": {
@@ -9499,7 +9499,7 @@
           },
           "blue": {
             "key": "{avatar.fallback.background.color.blue}",
-            "$value": "rgba(157, 199, 241, 0.23921568627450981)",
+            "$value": "rgba(157, 200, 242, 0.23921568627450981)",
             "$type": "color",
             "$description": "Blue background for avatar fallback with no particular meaning.",
             "$extensions": {
@@ -9511,7 +9511,7 @@
             "filePath": "src/contextual/avatar.tokens.json",
             "isSource": true,
             "original": {
-              "$value": "rgba(157, 199, 241, 0.23921568627450981)",
+              "$value": "rgba(157, 200, 242, 0.23921568627450981)",
               "$type": "color",
               "$description": "Blue background for avatar fallback with no particular meaning.",
               "$extensions": {
@@ -9534,7 +9534,7 @@
           },
           "green": {
             "key": "{avatar.fallback.background.color.green}",
-            "$value": "rgba(145, 212, 168, 0.23921568627450981)",
+            "$value": "rgba(132, 212, 182, 0.23921568627450981)",
             "$type": "color",
             "$description": "Green background for avatar fallback with no particular meaning.",
             "$extensions": {
@@ -9546,7 +9546,7 @@
             "filePath": "src/contextual/avatar.tokens.json",
             "isSource": true,
             "original": {
-              "$value": "rgba(145, 212, 168, 0.23921568627450981)",
+              "$value": "rgba(132, 212, 182, 0.23921568627450981)",
               "$type": "color",
               "$description": "Green background for avatar fallback with no particular meaning.",
               "$extensions": {
@@ -9569,7 +9569,7 @@
           },
           "orange": {
             "key": "{avatar.fallback.background.color.orange}",
-            "$value": "rgba(233, 190, 116, 0.23921568627450981)",
+            "$value": "rgba(247, 185, 81, 0.23921568627450981)",
             "$type": "color",
             "$description": "Orange background for avatar fallback with no particular meaning.",
             "$extensions": {
@@ -9581,7 +9581,7 @@
             "filePath": "src/contextual/avatar.tokens.json",
             "isSource": true,
             "original": {
-              "$value": "rgba(233, 190, 116, 0.23921568627450981)",
+              "$value": "rgba(247, 185, 81, 0.23921568627450981)",
               "$type": "color",
               "$description": "Orange background for avatar fallback with no particular meaning.",
               "$extensions": {
@@ -10781,7 +10781,7 @@
         "color": {
           "default": {
             "key": "{badge.info.background.color.default}",
-            "$value": "#63a6e9",
+            "$value": "#64a7e9",
             "$type": "color",
             "$description": "Used for the background of an informational badge when static or the default state when linked.",
             "$extensions": {
@@ -10816,7 +10816,7 @@
           },
           "hover": {
             "key": "{badge.info.background.color.hover}",
-            "$value": "#63a6e9",
+            "$value": "#64a7e9",
             "$type": "color",
             "$description": "Used for the background of an informational badge in the hover state.",
             "$extensions": {
@@ -10851,7 +10851,7 @@
           },
           "focus": {
             "key": "{badge.info.background.color.focus}",
-            "$value": "#63a6e9",
+            "$value": "#64a7e9",
             "$type": "color",
             "$description": "Used for the background of an informational badge in the focus state.",
             "$extensions": {
@@ -10886,7 +10886,7 @@
           },
           "active": {
             "key": "{badge.info.background.color.active}",
-            "$value": "#9dc7f1",
+            "$value": "#9dc8f2",
             "$type": "color",
             "$description": "Used for the background of an informational badge in the active state.",
             "$extensions": {
@@ -10958,7 +10958,7 @@
           },
           "hover": {
             "key": "{badge.info.border.color.hover}",
-            "$value": "#9dc7f1",
+            "$value": "#9dc8f2",
             "$type": "color",
             "$description": "Used for the border of an informational badge in the hover state.",
             "$extensions": {
@@ -11061,7 +11061,7 @@
         "color": {
           "default": {
             "key": "{badge.info.text.color.default}",
-            "$value": "#1d283e",
+            "$value": "#1d2153",
             "$type": "color",
             "$description": "Used for the text of an informational badge when static or the default state when linked.",
             "$extensions": {
@@ -11094,7 +11094,7 @@
           },
           "hover": {
             "key": "{badge.info.text.color.hover}",
-            "$value": "#1d283e",
+            "$value": "#1d2153",
             "$type": "color",
             "$description": "Used for the text of an informational badge in the hover state.",
             "$extensions": {
@@ -11127,7 +11127,7 @@
           },
           "focus": {
             "key": "{badge.info.text.color.focus}",
-            "$value": "#1d283e",
+            "$value": "#1d2153",
             "$type": "color",
             "$description": "Used for the text of an informational badge in the focus state.",
             "$extensions": {
@@ -11160,7 +11160,7 @@
           },
           "active": {
             "key": "{badge.info.text.color.active}",
-            "$value": "#1d283e",
+            "$value": "#1d2153",
             "$type": "color",
             "$description": "Used for the text of an informational badge in the active state.",
             "$extensions": {
@@ -11197,7 +11197,7 @@
         "color": {
           "default": {
             "key": "{badge.info.icon.color.default}",
-            "$value": "#1d283e",
+            "$value": "#1d2153",
             "$type": "color",
             "$description": "Used for the icon of an informational badge when static or the default state when linked.",
             "$extensions": {
@@ -11232,7 +11232,7 @@
           },
           "hover": {
             "key": "{badge.info.icon.color.hover}",
-            "$value": "#1d283e",
+            "$value": "#1d2153",
             "$type": "color",
             "$description": "Used for the icon of an informational badge in the hover state.",
             "$extensions": {
@@ -11267,7 +11267,7 @@
           },
           "focus": {
             "key": "{badge.info.icon.color.focus}",
-            "$value": "#1d283e",
+            "$value": "#1d2153",
             "$type": "color",
             "$description": "Used for the icon of an informational badge in the focus state.",
             "$extensions": {
@@ -11302,7 +11302,7 @@
           },
           "active": {
             "key": "{badge.info.icon.color.active}",
-            "$value": "#1d283e",
+            "$value": "#1d2153",
             "$type": "color",
             "$description": "Used for the icon of an informational badge in the active state.",
             "$extensions": {
@@ -11343,7 +11343,7 @@
         "color": {
           "default": {
             "key": "{badge.success.background.color.default}",
-            "$value": "#52b87a",
+            "$value": "#35b597",
             "$type": "color",
             "$description": "Used for the background of a success badge when static or the default state when linked.",
             "$extensions": {
@@ -11378,7 +11378,7 @@
           },
           "hover": {
             "key": "{badge.success.background.color.hover}",
-            "$value": "#52b87a",
+            "$value": "#35b597",
             "$type": "color",
             "$description": "Used for the background of a success badge in the hover state.",
             "$extensions": {
@@ -11413,7 +11413,7 @@
           },
           "focus": {
             "key": "{badge.success.background.color.focus}",
-            "$value": "#52b87a",
+            "$value": "#35b597",
             "$type": "color",
             "$description": "Used for the background of a success badge in the focus state.",
             "$extensions": {
@@ -11448,7 +11448,7 @@
           },
           "active": {
             "key": "{badge.success.background.color.active}",
-            "$value": "#91d4a8",
+            "$value": "#84d4b6",
             "$type": "color",
             "$description": "Used for the background of a success badge in the active state.",
             "$extensions": {
@@ -11520,7 +11520,7 @@
           },
           "hover": {
             "key": "{badge.success.border.color.hover}",
-            "$value": "#91d4a8",
+            "$value": "#84d4b6",
             "$type": "color",
             "$description": "Used for the border of a success badge in the hover state.",
             "$extensions": {
@@ -11623,7 +11623,7 @@
         "color": {
           "default": {
             "key": "{badge.success.text.color.default}",
-            "$value": "#17291c",
+            "$value": "#002c26",
             "$type": "color",
             "$description": "Used for the text of a success badge when static or the default state when linked.",
             "$extensions": {
@@ -11656,7 +11656,7 @@
           },
           "hover": {
             "key": "{badge.success.text.color.hover}",
-            "$value": "#17291c",
+            "$value": "#002c26",
             "$type": "color",
             "$description": "Used for the text of a success badge in the hover state.",
             "$extensions": {
@@ -11689,7 +11689,7 @@
           },
           "focus": {
             "key": "{badge.success.text.color.focus}",
-            "$value": "#17291c",
+            "$value": "#002c26",
             "$type": "color",
             "$description": "Used for the text of a success badge in the focus state.",
             "$extensions": {
@@ -11722,7 +11722,7 @@
           },
           "active": {
             "key": "{badge.success.text.color.active}",
-            "$value": "#17291c",
+            "$value": "#002c26",
             "$type": "color",
             "$description": "Used for the text of a success badge in the active state.",
             "$extensions": {
@@ -11759,7 +11759,7 @@
         "color": {
           "default": {
             "key": "{badge.success.icon.color.default}",
-            "$value": "#17291c",
+            "$value": "#002c26",
             "$type": "color",
             "$description": "Used for the icon of a success badge when static or the default state when linked.",
             "$extensions": {
@@ -11794,7 +11794,7 @@
           },
           "hover": {
             "key": "{badge.success.icon.color.hover}",
-            "$value": "#17291c",
+            "$value": "#002c26",
             "$type": "color",
             "$description": "Used for the icon of a success badge in the hover state.",
             "$extensions": {
@@ -11829,7 +11829,7 @@
           },
           "focus": {
             "key": "{badge.success.icon.color.focus}",
-            "$value": "#17291c",
+            "$value": "#002c26",
             "$type": "color",
             "$description": "Used for the icon of a success badge in the focus state.",
             "$extensions": {
@@ -11864,7 +11864,7 @@
           },
           "active": {
             "key": "{badge.success.icon.color.active}",
-            "$value": "#17291c",
+            "$value": "#002c26",
             "$type": "color",
             "$description": "Used for the icon of a success badge in the active state.",
             "$extensions": {
@@ -11905,7 +11905,7 @@
         "color": {
           "default": {
             "key": "{badge.warning.background.color.default}",
-            "$value": "#d99530",
+            "$value": "#fb8017",
             "$type": "color",
             "$description": "Used for the background of a warning badge when static or the default state when linked.",
             "$extensions": {
@@ -11940,7 +11940,7 @@
           },
           "hover": {
             "key": "{badge.warning.background.color.hover}",
-            "$value": "#d99530",
+            "$value": "#fb8017",
             "$type": "color",
             "$description": "Used for the background of a warning badge in the hover state.",
             "$extensions": {
@@ -11975,7 +11975,7 @@
           },
           "focus": {
             "key": "{badge.warning.background.color.focus}",
-            "$value": "#d99530",
+            "$value": "#fb8017",
             "$type": "color",
             "$description": "Used for the background of a warning badge in the focus state.",
             "$extensions": {
@@ -12010,7 +12010,7 @@
           },
           "active": {
             "key": "{badge.warning.background.color.active}",
-            "$value": "#e9be74",
+            "$value": "#f7b951",
             "$type": "color",
             "$description": "Used for the background of a warning badge in the active state.",
             "$extensions": {
@@ -12082,7 +12082,7 @@
           },
           "hover": {
             "key": "{badge.warning.border.color.hover}",
-            "$value": "#e9be74",
+            "$value": "#f7b951",
             "$type": "color",
             "$description": "Used for the border of a warning badge in the hover state.",
             "$extensions": {
@@ -12185,7 +12185,7 @@
         "color": {
           "default": {
             "key": "{badge.warning.text.color.default}",
-            "$value": "#382315",
+            "$value": "#461807",
             "$type": "color",
             "$description": "Used for the text of a warning badge when static or the default state when linked.",
             "$extensions": {
@@ -12218,7 +12218,7 @@
           },
           "hover": {
             "key": "{badge.warning.text.color.hover}",
-            "$value": "#382315",
+            "$value": "#461807",
             "$type": "color",
             "$description": "Used for the text of a warning badge in the hover state.",
             "$extensions": {
@@ -12251,7 +12251,7 @@
           },
           "focus": {
             "key": "{badge.warning.text.color.focus}",
-            "$value": "#382315",
+            "$value": "#461807",
             "$type": "color",
             "$description": "Used for the text of a warning badge in the focus state.",
             "$extensions": {
@@ -12284,7 +12284,7 @@
           },
           "active": {
             "key": "{badge.warning.text.color.active}",
-            "$value": "#382315",
+            "$value": "#461807",
             "$type": "color",
             "$description": "Used for the text of a warning badge in the active state.",
             "$extensions": {
@@ -12321,7 +12321,7 @@
         "color": {
           "default": {
             "key": "{badge.warning.icon.color.default}",
-            "$value": "#382315",
+            "$value": "#461807",
             "$type": "color",
             "$description": "Used for the icon of a warning badge when static or the default state when linked.",
             "$extensions": {
@@ -12356,7 +12356,7 @@
           },
           "hover": {
             "key": "{badge.warning.icon.color.hover}",
-            "$value": "#382315",
+            "$value": "#461807",
             "$type": "color",
             "$description": "Used for the icon of a warning badge in the hover state.",
             "$extensions": {
@@ -12391,7 +12391,7 @@
           },
           "focus": {
             "key": "{badge.warning.icon.color.focus}",
-            "$value": "#382315",
+            "$value": "#461807",
             "$type": "color",
             "$description": "Used for the icon of a warning badge in the focus state.",
             "$extensions": {
@@ -12426,7 +12426,7 @@
           },
           "active": {
             "key": "{badge.warning.icon.color.active}",
-            "$value": "#382315",
+            "$value": "#461807",
             "$type": "color",
             "$description": "Used for the icon of a warning badge in the active state.",
             "$extensions": {
@@ -12467,7 +12467,7 @@
         "color": {
           "default": {
             "key": "{badge.danger.background.color.default}",
-            "$value": "#f6806d",
+            "$value": "#fc7988",
             "$type": "color",
             "$description": "Used for the background of a danger badge when static or the default state when linked.",
             "$extensions": {
@@ -12502,7 +12502,7 @@
           },
           "hover": {
             "key": "{badge.danger.background.color.hover}",
-            "$value": "#f6806d",
+            "$value": "#fc7988",
             "$type": "color",
             "$description": "Used for the background of a danger badge in the hover state.",
             "$extensions": {
@@ -12537,7 +12537,7 @@
           },
           "focus": {
             "key": "{badge.danger.background.color.focus}",
-            "$value": "#f6806d",
+            "$value": "#fc7988",
             "$type": "color",
             "$description": "Used for the background of a danger badge in the focus state.",
             "$extensions": {
@@ -12572,7 +12572,7 @@
           },
           "active": {
             "key": "{badge.danger.background.color.active}",
-            "$value": "#fcb5aa",
+            "$value": "#ffafb8",
             "$type": "color",
             "$description": "Used for the background of a danger badge in the active state.",
             "$extensions": {
@@ -12644,7 +12644,7 @@
           },
           "hover": {
             "key": "{badge.danger.border.color.hover}",
-            "$value": "#fcb5aa",
+            "$value": "#ffafb8",
             "$type": "color",
             "$description": "Used for the border of a danger badge in the hover state.",
             "$extensions": {
@@ -12747,7 +12747,7 @@
         "color": {
           "default": {
             "key": "{badge.danger.text.color.default}",
-            "$value": "#3e1a14",
+            "$value": "#48151d",
             "$type": "color",
             "$description": "Used for the text of a danger badge when static or the default state when linked.",
             "$extensions": {
@@ -12780,7 +12780,7 @@
           },
           "hover": {
             "key": "{badge.danger.text.color.hover}",
-            "$value": "#3e1a14",
+            "$value": "#48151d",
             "$type": "color",
             "$description": "Used for the text of a danger badge in the hover state.",
             "$extensions": {
@@ -12813,7 +12813,7 @@
           },
           "focus": {
             "key": "{badge.danger.text.color.focus}",
-            "$value": "#3e1a14",
+            "$value": "#48151d",
             "$type": "color",
             "$description": "Used for the text of a danger badge in the focus state.",
             "$extensions": {
@@ -12846,7 +12846,7 @@
           },
           "active": {
             "key": "{badge.danger.text.color.active}",
-            "$value": "#3e1a14",
+            "$value": "#48151d",
             "$type": "color",
             "$description": "Used for the text of a danger badge in the active state.",
             "$extensions": {
@@ -12883,7 +12883,7 @@
         "color": {
           "default": {
             "key": "{badge.danger.icon.color.default}",
-            "$value": "#3e1a14",
+            "$value": "#48151d",
             "$type": "color",
             "$description": "Used for the icon of a danger badge when static or the default state when linked.",
             "$extensions": {
@@ -12918,7 +12918,7 @@
           },
           "hover": {
             "key": "{badge.danger.icon.color.hover}",
-            "$value": "#3e1a14",
+            "$value": "#48151d",
             "$type": "color",
             "$description": "Used for the icon of a danger badge in the hover state.",
             "$extensions": {
@@ -12953,7 +12953,7 @@
           },
           "focus": {
             "key": "{badge.danger.icon.color.focus}",
-            "$value": "#3e1a14",
+            "$value": "#48151d",
             "$type": "color",
             "$description": "Used for the icon of a danger badge in the focus state.",
             "$extensions": {
@@ -12988,7 +12988,7 @@
           },
           "active": {
             "key": "{badge.danger.icon.color.active}",
-            "$value": "#3e1a14",
+            "$value": "#48151d",
             "$type": "color",
             "$description": "Used for the icon of a danger badge in the active state.",
             "$extensions": {
@@ -13029,7 +13029,7 @@
         "color": {
           "default": {
             "key": "{badge.tier.background.color.default}",
-            "$value": "#ac93e6",
+            "$value": "#a997e1",
             "$type": "color",
             "$description": "Used for the background of a tier related badge when static or the default state when linked.",
             "$extensions": {
@@ -13064,7 +13064,7 @@
           },
           "hover": {
             "key": "{badge.tier.background.color.hover}",
-            "$value": "#ac93e6",
+            "$value": "#a997e1",
             "$type": "color",
             "$description": "Used for the background of a tier related badge in the hover state.",
             "$extensions": {
@@ -13099,7 +13099,7 @@
           },
           "focus": {
             "key": "{badge.tier.background.color.focus}",
-            "$value": "#ac93e6",
+            "$value": "#a997e1",
             "$type": "color",
             "$description": "Used for the background of a tier related badge in the focus state.",
             "$extensions": {
@@ -13134,7 +13134,7 @@
           },
           "active": {
             "key": "{badge.tier.background.color.active}",
-            "$value": "#cbbbf2",
+            "$value": "#c9beef",
             "$type": "color",
             "$description": "Used for the background of a tier related badge in the active state.",
             "$extensions": {
@@ -13206,7 +13206,7 @@
           },
           "hover": {
             "key": "{badge.tier.border.color.hover}",
-            "$value": "#cbbbf2",
+            "$value": "#c9beef",
             "$type": "color",
             "$description": "Used for the border of a tier related badge in the hover state.",
             "$extensions": {
@@ -13309,7 +13309,7 @@
         "color": {
           "default": {
             "key": "{badge.tier.text.color.default}",
-            "$value": "#27243e",
+            "$value": "#291a5c",
             "$type": "color",
             "$description": "Used for the text of a tier related badge when static or the default state when linked.",
             "$extensions": {
@@ -13342,7 +13342,7 @@
           },
           "hover": {
             "key": "{badge.tier.text.color.hover}",
-            "$value": "#27243e",
+            "$value": "#291a5c",
             "$type": "color",
             "$description": "Used for the text of a tier related badge in the hover state.",
             "$extensions": {
@@ -13375,7 +13375,7 @@
           },
           "focus": {
             "key": "{badge.tier.text.color.focus}",
-            "$value": "#27243e",
+            "$value": "#291a5c",
             "$type": "color",
             "$description": "Used for the text of a tier related badge in the focus state.",
             "$extensions": {
@@ -13408,7 +13408,7 @@
           },
           "active": {
             "key": "{badge.tier.text.color.active}",
-            "$value": "#27243e",
+            "$value": "#291a5c",
             "$type": "color",
             "$description": "Used for the text of a tier related badge in the active state.",
             "$extensions": {
@@ -13445,7 +13445,7 @@
         "color": {
           "default": {
             "key": "{badge.tier.icon.color.default}",
-            "$value": "#27243e",
+            "$value": "#291a5c",
             "$type": "color",
             "$description": "Used for the icon of a tier related badge when static or the default state when linked.",
             "$extensions": {
@@ -13480,7 +13480,7 @@
           },
           "hover": {
             "key": "{badge.tier.icon.color.hover}",
-            "$value": "#27243e",
+            "$value": "#291a5c",
             "$type": "color",
             "$description": "Used for the icon of a tier related badge in the hover state.",
             "$extensions": {
@@ -13515,7 +13515,7 @@
           },
           "focus": {
             "key": "{badge.tier.icon.color.focus}",
-            "$value": "#27243e",
+            "$value": "#291a5c",
             "$type": "color",
             "$description": "Used for the icon of a tier related badge in the focus state.",
             "$extensions": {
@@ -13550,7 +13550,7 @@
           },
           "active": {
             "key": "{badge.tier.icon.color.active}",
-            "$value": "#27243e",
+            "$value": "#291a5c",
             "$type": "color",
             "$description": "Used for the icon of a tier related badge in the active state.",
             "$extensions": {
@@ -13592,7 +13592,7 @@
       "border": {
         "color": {
           "key": "{banner.intro.border.color}",
-          "$value": "#2f5ca0",
+          "$value": "#27599f",
           "$type": "color",
           "$description": "Used for the border of an info banner.",
           "$extensions": {
@@ -13628,7 +13628,7 @@
       "background": {
         "color": {
           "key": "{banner.promo.background.color}",
-          "$value": "#27243e",
+          "$value": "#291a5c",
           "$type": "color",
           "$description": "Used for the background of a promo banner.",
           "$extensions": {
@@ -13664,7 +13664,7 @@
       "border": {
         "color": {
           "key": "{banner.promo.border.color}",
-          "$value": "#5c47a6",
+          "$value": "#5b46b8",
           "$type": "color",
           "$description": "Used for the border of a promo banner.",
           "$extensions": {
@@ -17526,7 +17526,7 @@
           "color": {
             "default": {
               "key": "{button.danger.primary.background.color.default}",
-              "$value": "#f6806d",
+              "$value": "#f15168",
               "$type": "color",
               "$description": "Used for the background of a danger (destructive) primary button in the default state.",
               "$extensions": {
@@ -17538,7 +17538,7 @@
               "filePath": "src/contextual/button.tokens.json",
               "isSource": true,
               "original": {
-                "$value": "{color.red.300}",
+                "$value": "{color.red.400}",
                 "$type": "color",
                 "$description": "Used for the background of a danger (destructive) primary button in the default state.",
                 "$extensions": {
@@ -17562,7 +17562,7 @@
             },
             "hover": {
               "key": "{button.danger.primary.background.color.hover}",
-              "$value": "#fcb5aa",
+              "$value": "#fc7988",
               "$type": "color",
               "$description": "Used for the background of a danger (destructive) primary button in the hover state.",
               "$extensions": {
@@ -17574,7 +17574,7 @@
               "filePath": "src/contextual/button.tokens.json",
               "isSource": true,
               "original": {
-                "$value": "{color.red.200}",
+                "$value": "{color.red.300}",
                 "$type": "color",
                 "$description": "Used for the background of a danger (destructive) primary button in the hover state.",
                 "$extensions": {
@@ -17598,7 +17598,7 @@
             },
             "focus": {
               "key": "{button.danger.primary.background.color.focus}",
-              "$value": "#fcb5aa",
+              "$value": "#fc7988",
               "$type": "color",
               "$description": "Used for the background of a danger (destructive) primary button in the focus state.",
               "$extensions": {
@@ -17634,7 +17634,7 @@
             },
             "active": {
               "key": "{button.danger.primary.background.color.active}",
-              "$value": "#ec5941",
+              "$value": "#ffafb8",
               "$type": "color",
               "$description": "Used for the background of a danger (destructive) primary button in the active state.",
               "$extensions": {
@@ -17646,7 +17646,7 @@
               "filePath": "src/contextual/button.tokens.json",
               "isSource": true,
               "original": {
-                "$value": "{color.red.400}",
+                "$value": "{color.red.200}",
                 "$type": "color",
                 "$description": "Used for the background of a danger (destructive) primary button in the active state.",
                 "$extensions": {
@@ -17816,7 +17816,7 @@
           "color": {
             "default": {
               "key": "{button.danger.secondary.foreground.color.default}",
-              "$value": "#fdd4cd",
+              "$value": "#ffd3d7",
               "$type": "color",
               "$description": "Used for the foreground of a danger (destructive) button in the default state.",
               "$extensions": {
@@ -17852,7 +17852,7 @@
             },
             "hover": {
               "key": "{button.danger.secondary.foreground.color.hover}",
-              "$value": "#fcf1ef",
+              "$value": "#feeef0",
               "$type": "color",
               "$description": "Used for the foreground of a danger (destructive) button in the hover state.",
               "$extensions": {
@@ -17888,7 +17888,7 @@
             },
             "focus": {
               "key": "{button.danger.secondary.foreground.color.focus}",
-              "$value": "#fcf1ef",
+              "$value": "#feeef0",
               "$type": "color",
               "$description": "Used for the foreground of a danger (destructive) button in the focus state.",
               "$extensions": {
@@ -17924,7 +17924,7 @@
             },
             "active": {
               "key": "{button.danger.secondary.foreground.color.active}",
-              "$value": "#fcf1ef",
+              "$value": "#feeef0",
               "$type": "color",
               "$description": "Used for the foreground of a danger (destructive) button in the active state.",
               "$extensions": {
@@ -17964,7 +17964,7 @@
           "color": {
             "default": {
               "key": "{button.danger.secondary.background.color.default}",
-              "$value": "rgba(236, 89, 65, 0.4)",
+              "$value": "rgba(241, 81, 104, 0.4)",
               "$type": "color",
               "$description": "Used for the background of an outlined danger (destructive) button in the default state.",
               "$extensions": {
@@ -17976,7 +17976,7 @@
               "filePath": "src/contextual/button.tokens.json",
               "isSource": true,
               "original": {
-                "$value": "rgba(236, 89, 65, 0.4)",
+                "$value": "rgba(241, 81, 104, 0.4)",
                 "$type": "color",
                 "$description": "Used for the background of an outlined danger (destructive) button in the default state.",
                 "$extensions": {
@@ -18000,7 +18000,7 @@
             },
             "hover": {
               "key": "{button.danger.secondary.background.color.hover}",
-              "$value": "rgba(236, 89, 65, 0.64)",
+              "$value": "rgba(241, 81, 104, 0.64)",
               "$type": "color",
               "$description": "Used for the background of an outlined danger (destructive) button in the hover state.",
               "$extensions": {
@@ -18012,7 +18012,7 @@
               "filePath": "src/contextual/button.tokens.json",
               "isSource": true,
               "original": {
-                "$value": "rgba(236, 89, 65, 0.64)",
+                "$value": "rgba(241, 81, 104, 0.64)",
                 "$type": "color",
                 "$description": "Used for the background of an outlined danger (destructive) button in the hover state.",
                 "$extensions": {
@@ -18036,7 +18036,7 @@
             },
             "focus": {
               "key": "{button.danger.secondary.background.color.focus}",
-              "$value": "rgba(236, 89, 65, 0.64)",
+              "$value": "rgba(241, 81, 104, 0.64)",
               "$type": "color",
               "$description": "Used for the background of an outlined danger (destructive) button in the focus state.",
               "$extensions": {
@@ -18072,7 +18072,7 @@
             },
             "active": {
               "key": "{button.danger.secondary.background.color.active}",
-              "$value": "rgba(236, 89, 65, 0.32)",
+              "$value": "rgba(241, 81, 104, 0.32)",
               "$type": "color",
               "$description": "Used for the background of an outlined danger (destructive) button in the active state.",
               "$extensions": {
@@ -18084,7 +18084,7 @@
               "filePath": "src/contextual/button.tokens.json",
               "isSource": true,
               "original": {
-                "$value": "rgba(236, 89, 65, 0.32)",
+                "$value": "rgba(241, 81, 104, 0.32)",
                 "$type": "color",
                 "$description": "Used for the background of an outlined danger (destructive) button in the active state.",
                 "$extensions": {
@@ -18254,7 +18254,7 @@
           "color": {
             "default": {
               "key": "{button.danger.tertiary.foreground.color.default}",
-              "$value": "#fcb5aa",
+              "$value": "#ffafb8",
               "$type": "color",
               "$description": "Used for the foreground of a borderless, tertiary danger (destructive) button in the default state.",
               "$extensions": {
@@ -18290,7 +18290,7 @@
             },
             "hover": {
               "key": "{button.danger.tertiary.foreground.color.hover}",
-              "$value": "#fdd4cd",
+              "$value": "#ffd3d7",
               "$type": "color",
               "$description": "Used for the foreground of a borderless, tertiary danger (destructive) button in the hover state.",
               "$extensions": {
@@ -18326,7 +18326,7 @@
             },
             "focus": {
               "key": "{button.danger.tertiary.foreground.color.focus}",
-              "$value": "#fdd4cd",
+              "$value": "#ffd3d7",
               "$type": "color",
               "$description": "Used for the foreground of a borderless, tertiary danger (destructive) button in the focus state.",
               "$extensions": {
@@ -18362,7 +18362,7 @@
             },
             "active": {
               "key": "{button.danger.tertiary.foreground.color.active}",
-              "$value": "#fdd4cd",
+              "$value": "#ffd3d7",
               "$type": "color",
               "$description": "Used for the foreground of a borderless, tertiary danger (destructive) button in the active state.",
               "$extensions": {
@@ -18402,7 +18402,7 @@
           "color": {
             "default": {
               "key": "{button.danger.tertiary.background.color.default}",
-              "$value": "rgba(236, 89, 65, 0)",
+              "$value": "rgba(241, 81, 104, 0)",
               "$type": "color",
               "$description": "Used for the background of a borderless, tertiary danger (destructive) button in the default state.",
               "$extensions": {
@@ -18438,7 +18438,7 @@
             },
             "hover": {
               "key": "{button.danger.tertiary.background.color.hover}",
-              "$value": "rgba(236, 89, 65, 0.4)",
+              "$value": "rgba(241, 81, 104, 0.4)",
               "$type": "color",
               "$description": "Used for the background of a borderless, tertiary danger (destructive) button in the hover state.",
               "$extensions": {
@@ -18474,7 +18474,7 @@
             },
             "focus": {
               "key": "{button.danger.tertiary.background.color.focus}",
-              "$value": "rgba(236, 89, 65, 0.4)",
+              "$value": "rgba(241, 81, 104, 0.4)",
               "$type": "color",
               "$description": "Used for the background of a borderless, tertiary danger (destructive) button in the focus state.",
               "$extensions": {
@@ -18510,7 +18510,7 @@
             },
             "active": {
               "key": "{button.danger.tertiary.background.color.active}",
-              "$value": "rgba(236, 89, 65, 0.16)",
+              "$value": "rgba(241, 81, 104, 0.16)",
               "$type": "color",
               "$description": "Used for the background of a borderless, tertiary danger (destructive) button in the active state.",
               "$extensions": {
@@ -18873,7 +18873,7 @@
         "color": {
           "default": {
             "key": "{button.link.text.color.default}",
-            "$value": "#9dc7f1",
+            "$value": "#9dc8f2",
             "$type": "color",
             "$description": "Used for the text of a link button in the default state.",
             "$extensions": {
@@ -18908,7 +18908,7 @@
           },
           "hover": {
             "key": "{button.link.text.color.hover}",
-            "$value": "#9dc7f1",
+            "$value": "#9dc8f2",
             "$type": "color",
             "$description": "Used for the text of a link button in the hover state.",
             "$extensions": {
@@ -18943,7 +18943,7 @@
           },
           "focus": {
             "key": "{button.link.text.color.focus}",
-            "$value": "#9dc7f1",
+            "$value": "#9dc8f2",
             "$type": "color",
             "$description": "Used for the text of a link button in the focus state.",
             "$extensions": {
@@ -18978,7 +18978,7 @@
           },
           "active": {
             "key": "{button.link.text.color.active}",
-            "$value": "#9dc7f1",
+            "$value": "#9dc8f2",
             "$type": "color",
             "$description": "Used for the text of a link button in the active state.",
             "$extensions": {
@@ -19731,7 +19731,7 @@
       "area": {
         "color": {
           "key": "{chart.threshold.area.color}",
-          "$value": "rgba(221, 43, 14, 0.1)",
+          "$value": "rgba(222, 29, 75, 0.1)",
           "$type": "color",
           "$description": "Used in charts to delineate a threshold area in a chart.",
           "$extensions": {
@@ -19742,7 +19742,7 @@
           "filePath": "src/contextual/chart.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "rgba(221, 43, 14, 0.1)",
+            "$value": "rgba(222, 29, 75, 0.1)",
             "$type": "color",
             "$description": "Used in charts to delineate a threshold area in a chart.",
             "$extensions": {
@@ -19765,7 +19765,7 @@
       "line": {
         "color": {
           "key": "{chart.threshold.line.color}",
-          "$value": "#c02f12",
+          "$value": "#c52042",
           "$type": "color",
           "$description": "Used in charts to divide a threshold area in a chart from other data.",
           "$extensions": {
@@ -22661,7 +22661,7 @@
         "color": {
           "default": {
             "key": "{link.mention.text.color.default}",
-            "$value": "#cbe2f9",
+            "$value": "#c8e0f9",
             "$type": "color",
             "$description": "Used for the mention link text color.",
             "$extensions": {
@@ -22694,7 +22694,7 @@
           },
           "current": {
             "key": "{link.mention.text.color.current}",
-            "$value": "#f5d9a8",
+            "$value": "#fada9c",
             "$type": "color",
             "$description": "Used for the mention link text color when referencing the current user.",
             "$extensions": {
@@ -22731,7 +22731,7 @@
         "color": {
           "default": {
             "key": "{link.mention.background.color.default}",
-            "$value": "#284779",
+            "$value": "#254581",
             "$type": "color",
             "$description": "Used for the mention link default background.",
             "$extensions": {
@@ -22766,7 +22766,7 @@
           },
           "current": {
             "key": "{link.mention.background.color.current}",
-            "$value": "#693c14",
+            "$value": "#7d2d0e",
             "$type": "color",
             "$description": "Used for the mention link background when referencing the current user.",
             "$extensions": {
@@ -23536,7 +23536,7 @@
       "color": {
         "default": {
           "key": "{progress-bar.indicator.color.default}",
-          "$value": "#63a6e9",
+          "$value": "#64a7e9",
           "$type": "color",
           "$description": "Used for the indicator color for the primary progress-bar variant.",
           "$extensions": {
@@ -23570,7 +23570,7 @@
         },
         "success": {
           "key": "{progress-bar.indicator.color.success}",
-          "$value": "#52b87a",
+          "$value": "#35b597",
           "$type": "color",
           "$description": "Used for the indicator color for the success progress-bar variant.",
           "$extensions": {
@@ -23604,7 +23604,7 @@
         },
         "warning": {
           "key": "{progress-bar.indicator.color.warning}",
-          "$value": "#d99530",
+          "$value": "#fb8017",
           "$type": "color",
           "$description": "Used for the indicator color for the warning progress-bar variant.",
           "$extensions": {
@@ -23638,7 +23638,7 @@
         },
         "danger": {
           "key": "{progress-bar.indicator.color.danger}",
-          "$value": "#f6806d",
+          "$value": "#fc7988",
           "$type": "color",
           "$description": "Used for the indicator color for the danger progress-bar variant.",
           "$extensions": {
@@ -23920,7 +23920,7 @@
         "color": {
           "hover": {
             "key": "{table.row.background.color.hover}",
-            "$value": "#1d283e",
+            "$value": "#1d2153",
             "$type": "color",
             "$description": "Used for the background of a table row in hover state.",
             "$extensions": {
@@ -27522,7 +27522,7 @@
   "blue": {
     "50": {
       "key": "{blue.50}",
-      "$value": "#213454",
+      "$value": "#1f3166",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -27552,7 +27552,7 @@
     },
     "100": {
       "key": "{blue.100}",
-      "$value": "#284779",
+      "$value": "#254581",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -27582,7 +27582,7 @@
     },
     "200": {
       "key": "{blue.200}",
-      "$value": "#2f5ca0",
+      "$value": "#27599f",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -27612,7 +27612,7 @@
     },
     "300": {
       "key": "{blue.300}",
-      "$value": "#2f68b4",
+      "$value": "#2566b5",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -27642,7 +27642,7 @@
     },
     "400": {
       "key": "{blue.400}",
-      "$value": "#1f75cb",
+      "$value": "#1f73ca",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -27672,7 +27672,7 @@
     },
     "500": {
       "key": "{blue.500}",
-      "$value": "#428fdc",
+      "$value": "#3f8edd",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -27702,7 +27702,7 @@
     },
     "600": {
       "key": "{blue.600}",
-      "$value": "#63a6e9",
+      "$value": "#64a7e9",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -27732,7 +27732,7 @@
     },
     "700": {
       "key": "{blue.700}",
-      "$value": "#9dc7f1",
+      "$value": "#9dc8f2",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -27762,7 +27762,7 @@
     },
     "800": {
       "key": "{blue.800}",
-      "$value": "#cbe2f9",
+      "$value": "#c8e0f9",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -27792,7 +27792,7 @@
     },
     "900": {
       "key": "{blue.900}",
-      "$value": "#e9f3fc",
+      "$value": "#e8f2fd",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28216,7 +28216,7 @@
   "green": {
     "50": {
       "key": "{green.50}",
-      "$value": "#1e3e28",
+      "$value": "#003c36",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28246,7 +28246,7 @@
     },
     "100": {
       "key": "{green.100}",
-      "$value": "#225131",
+      "$value": "#075048",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28276,7 +28276,7 @@
     },
     "200": {
       "key": "{green.200}",
-      "$value": "#306440",
+      "$value": "#0b645a",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28306,7 +28306,7 @@
     },
     "300": {
       "key": "{green.300}",
-      "$value": "#2f7549",
+      "$value": "#0c7265",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28336,7 +28336,7 @@
     },
     "400": {
       "key": "{green.400}",
-      "$value": "#108548",
+      "$value": "#0d8070",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28366,7 +28366,7 @@
     },
     "500": {
       "key": "{green.500}",
-      "$value": "#2da160",
+      "$value": "#129c84",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28396,7 +28396,7 @@
     },
     "600": {
       "key": "{green.600}",
-      "$value": "#52b87a",
+      "$value": "#35b597",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28426,7 +28426,7 @@
     },
     "700": {
       "key": "{green.700}",
-      "$value": "#91d4a8",
+      "$value": "#84d4b6",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28456,7 +28456,7 @@
     },
     "800": {
       "key": "{green.800}",
-      "$value": "#c3e6cd",
+      "$value": "#bee6d0",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28486,7 +28486,7 @@
     },
     "900": {
       "key": "{green.900}",
-      "$value": "#ecf4ee",
+      "$value": "#e6f5ea",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28548,7 +28548,7 @@
   "orange": {
     "50": {
       "key": "{orange.50}",
-      "$value": "#532e16",
+      "$value": "#5d220d",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28578,7 +28578,7 @@
     },
     "100": {
       "key": "{orange.100}",
-      "$value": "#693c14",
+      "$value": "#7d2d0e",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28608,7 +28608,7 @@
     },
     "200": {
       "key": "{orange.200}",
-      "$value": "#894b16",
+      "$value": "#9e3811",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28638,7 +28638,7 @@
     },
     "300": {
       "key": "{orange.300}",
-      "$value": "#995715",
+      "$value": "#b34013",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28668,7 +28668,7 @@
     },
     "400": {
       "key": "{orange.400}",
-      "$value": "#ab6100",
+      "$value": "#c74816",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28698,7 +28698,7 @@
     },
     "500": {
       "key": "{orange.500}",
-      "$value": "#c17d10",
+      "$value": "#e95f21",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28728,7 +28728,7 @@
     },
     "600": {
       "key": "{orange.600}",
-      "$value": "#d99530",
+      "$value": "#fb8017",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28758,7 +28758,7 @@
     },
     "700": {
       "key": "{orange.700}",
-      "$value": "#e9be74",
+      "$value": "#f7b951",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28788,7 +28788,7 @@
     },
     "800": {
       "key": "{orange.800}",
-      "$value": "#f5d9a8",
+      "$value": "#fada9c",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28818,7 +28818,7 @@
     },
     "900": {
       "key": "{orange.900}",
-      "$value": "#fdf1dd",
+      "$value": "#fdf0d5",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28880,7 +28880,7 @@
   "purple": {
     "50": {
       "key": "{purple.50}",
-      "$value": "#27243e",
+      "$value": "#291a5c",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28910,7 +28910,7 @@
     },
     "100": {
       "key": "{purple.100}",
-      "$value": "#342d59",
+      "$value": "#362676",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28940,7 +28940,7 @@
     },
     "200": {
       "key": "{purple.200}",
-      "$value": "#493c83",
+      "$value": "#483698",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -28970,7 +28970,7 @@
     },
     "300": {
       "key": "{purple.300}",
-      "$value": "#5c47a6",
+      "$value": "#5b46b8",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -29000,7 +29000,7 @@
     },
     "400": {
       "key": "{purple.400}",
-      "$value": "#6a4fb4",
+      "$value": "#6a54c0",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -29030,7 +29030,7 @@
     },
     "500": {
       "key": "{purple.500}",
-      "$value": "#7b58cf",
+      "$value": "#7862c8",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -29060,7 +29060,7 @@
     },
     "600": {
       "key": "{purple.600}",
-      "$value": "#9475db",
+      "$value": "#927cd7",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -29090,7 +29090,7 @@
     },
     "700": {
       "key": "{purple.700}",
-      "$value": "#ac93e6",
+      "$value": "#a997e1",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -29120,7 +29120,7 @@
     },
     "800": {
       "key": "{purple.800}",
-      "$value": "#cbbbf2",
+      "$value": "#c9beef",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -29150,7 +29150,7 @@
     },
     "900": {
       "key": "{purple.900}",
-      "$value": "#e1d8f9",
+      "$value": "#e1daf7",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -29180,7 +29180,7 @@
     },
     "950": {
       "key": "{purple.950}",
-      "$value": "#f4f0ff",
+      "$value": "#f4f0fc",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -29212,7 +29212,7 @@
   "red": {
     "50": {
       "key": "{red.50}",
-      "$value": "#582014",
+      "$value": "#641925",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -29242,7 +29242,7 @@
     },
     "100": {
       "key": "{red.100}",
-      "$value": "#812713",
+      "$value": "#891c2f",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -29272,7 +29272,7 @@
     },
     "200": {
       "key": "{red.200}",
-      "$value": "#a32c12",
+      "$value": "#ac203a",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -29302,7 +29302,7 @@
     },
     "300": {
       "key": "{red.300}",
-      "$value": "#c02f12",
+      "$value": "#c52042",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -29332,7 +29332,7 @@
     },
     "400": {
       "key": "{red.400}",
-      "$value": "#dd2b0e",
+      "$value": "#de1d4b",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -29362,7 +29362,7 @@
     },
     "500": {
       "key": "{red.500}",
-      "$value": "#ec5941",
+      "$value": "#f15168",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -29392,7 +29392,7 @@
     },
     "600": {
       "key": "{red.600}",
-      "$value": "#f6806d",
+      "$value": "#fc7988",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -29422,7 +29422,7 @@
     },
     "700": {
       "key": "{red.700}",
-      "$value": "#fcb5aa",
+      "$value": "#ffafb8",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -29452,7 +29452,7 @@
     },
     "800": {
       "key": "{red.800}",
-      "$value": "#fdd4cd",
+      "$value": "#ffd3d7",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -29482,7 +29482,7 @@
     },
     "900": {
       "key": "{red.900}",
-      "$value": "#fcf1ef",
+      "$value": "#feeef0",
       "$type": "color",
       "$extensions": {
         "com.figma.scopes": []
@@ -31791,7 +31791,7 @@
         "color": {
           "default": {
             "key": "{action.danger.foreground.color.default}",
-            "$value": "#fcb5aa",
+            "$value": "#ffafb8",
             "$type": "color",
             "$description": "Used for the foreground of a danger (destructive) action in the default state.",
             "$extensions": {
@@ -31826,7 +31826,7 @@
           },
           "hover": {
             "key": "{action.danger.foreground.color.hover}",
-            "$value": "#fdd4cd",
+            "$value": "#ffd3d7",
             "$type": "color",
             "$description": "Used for the foreground of a danger (destructive) action in the hover state.",
             "$extensions": {
@@ -31861,7 +31861,7 @@
           },
           "focus": {
             "key": "{action.danger.foreground.color.focus}",
-            "$value": "#fdd4cd",
+            "$value": "#ffd3d7",
             "$type": "color",
             "$description": "Used for the foreground of a danger (destructive) action in the focus state.",
             "$extensions": {
@@ -31896,7 +31896,7 @@
           },
           "active": {
             "key": "{action.danger.foreground.color.active}",
-            "$value": "#fdd4cd",
+            "$value": "#ffd3d7",
             "$type": "color",
             "$description": "Used for the foreground of a danger (destructive) action in the active state.",
             "$extensions": {
@@ -31935,7 +31935,7 @@
         "color": {
           "default": {
             "key": "{action.danger.background.color.default}",
-            "$value": "rgba(236, 89, 65, 0)",
+            "$value": "rgba(241, 81, 104, 0)",
             "$type": "color",
             "$description": "Used for the background of a danger (destructive) action in the default state.",
             "$extensions": {
@@ -31947,7 +31947,7 @@
             "filePath": "src/semantic/action.tokens.json",
             "isSource": true,
             "original": {
-              "$value": "rgba(236, 89, 65, 0)",
+              "$value": "rgba(241, 81, 104, 0)",
               "$type": "color",
               "$description": "Used for the background of a danger (destructive) action in the default state.",
               "$extensions": {
@@ -31970,7 +31970,7 @@
           },
           "hover": {
             "key": "{action.danger.background.color.hover}",
-            "$value": "rgba(236, 89, 65, 0.4)",
+            "$value": "rgba(241, 81, 104, 0.4)",
             "$type": "color",
             "$description": "Used for the background of a danger (destructive) action in the hover state.",
             "$extensions": {
@@ -31982,7 +31982,7 @@
             "filePath": "src/semantic/action.tokens.json",
             "isSource": true,
             "original": {
-              "$value": "rgba(236, 89, 65, 0.4)",
+              "$value": "rgba(241, 81, 104, 0.4)",
               "$type": "color",
               "$description": "Used for the background of a danger (destructive) action in the hover state.",
               "$extensions": {
@@ -32005,7 +32005,7 @@
           },
           "focus": {
             "key": "{action.danger.background.color.focus}",
-            "$value": "rgba(236, 89, 65, 0.4)",
+            "$value": "rgba(241, 81, 104, 0.4)",
             "$type": "color",
             "$description": "Used for the background of a danger (destructive) action in the focus state.",
             "$extensions": {
@@ -32040,7 +32040,7 @@
           },
           "active": {
             "key": "{action.danger.background.color.active}",
-            "$value": "rgba(236, 89, 65, 0.16)",
+            "$value": "rgba(241, 81, 104, 0.16)",
             "$type": "color",
             "$description": "Used for the background of a danger (destructive) action in the active state.",
             "$extensions": {
@@ -32052,7 +32052,7 @@
             "filePath": "src/semantic/action.tokens.json",
             "isSource": true,
             "original": {
-              "$value": "rgba(236, 89, 65, 0.16)",
+              "$value": "rgba(241, 81, 104, 0.16)",
               "$type": "color",
               "$description": "Used for the background of a danger (destructive) action in the active state.",
               "$extensions": {
@@ -32218,7 +32218,7 @@
           "color": {
             "default": {
               "key": "{action.strong.confirm.background.color.default}",
-              "$value": "#63a6e9",
+              "$value": "#64a7e9",
               "$type": "color",
               "$description": "Used for the background of a strong confirm action in the default state.",
               "$extensions": {
@@ -32254,7 +32254,7 @@
             },
             "hover": {
               "key": "{action.strong.confirm.background.color.hover}",
-              "$value": "#9dc7f1",
+              "$value": "#9dc8f2",
               "$type": "color",
               "$description": "Used for the background of a strong confirm action in the hover state.",
               "$extensions": {
@@ -32290,7 +32290,7 @@
             },
             "focus": {
               "key": "{action.strong.confirm.background.color.focus}",
-              "$value": "#9dc7f1",
+              "$value": "#9dc8f2",
               "$type": "color",
               "$description": "Used for the background of a strong confirm action in the focus state.",
               "$extensions": {
@@ -32326,7 +32326,7 @@
             },
             "active": {
               "key": "{action.strong.confirm.background.color.active}",
-              "$value": "#428fdc",
+              "$value": "#3f8edd",
               "$type": "color",
               "$description": "Used for the background of a strong confirm action in the active state.",
               "$extensions": {
@@ -33706,7 +33706,7 @@
         },
         "error": {
           "key": "{control.border.color.error}",
-          "$value": "#f6806d",
+          "$value": "#fc7988",
           "$type": "color",
           "$description": "Used for invalid form control (input, textarea) border.",
           "$extensions": {
@@ -33874,7 +33874,7 @@
       "color": {
         "error": {
           "key": "{control.text.color.error}",
-          "$value": "#f6806d",
+          "$value": "#fc7988",
           "$type": "color",
           "$description": "Used for the helper text when the input is invalid.",
           "$extensions": {
@@ -33906,7 +33906,7 @@
         },
         "valid": {
           "key": "{control.text.color.valid}",
-          "$value": "#52b87a",
+          "$value": "#35b597",
           "$type": "color",
           "$description": "Used for the helper text when the input is valid.",
           "$extensions": {
@@ -34222,7 +34222,7 @@
       "link": {
         "color": {
           "key": "{feedback.strong.link.color}",
-          "$value": "#63a6e9",
+          "$value": "#64a7e9",
           "$type": "color",
           "$description": "Used for a link on a strong feedback background.",
           "$extensions": {
@@ -34400,7 +34400,7 @@
       "background": {
         "color": {
           "key": "{feedback.info.background.color}",
-          "$value": "#1d283e",
+          "$value": "#1d2153",
           "$type": "color",
           "$description": "Used for the background of an informational feedback item when highlighting new information or a change that doesn't require immediate action.",
           "$extensions": {
@@ -34436,7 +34436,7 @@
       "border": {
         "color": {
           "key": "{feedback.info.border.color}",
-          "$value": "#2f68b4",
+          "$value": "#2566b5",
           "$type": "color",
           "$description": "Used for the border of an informational feedback item when highlighting new information or a change that doesn't require immediate action.",
           "$extensions": {
@@ -34470,7 +34470,7 @@
       "text": {
         "color": {
           "key": "{feedback.info.text.color}",
-          "$value": "#9dc7f1",
+          "$value": "#9dc8f2",
           "$type": "color",
           "$description": "Used for the text of an informational feedback item when highlighting new information or a change that doesn't require immediate action.",
           "$extensions": {
@@ -34504,7 +34504,7 @@
       "icon": {
         "color": {
           "key": "{feedback.info.icon.color}",
-          "$value": "#9dc7f1",
+          "$value": "#9dc8f2",
           "$type": "color",
           "$description": "Used for the icon of an informational feedback item when highlighting new information or a change that doesn't require immediate action.",
           "$extensions": {
@@ -34542,7 +34542,7 @@
       "background": {
         "color": {
           "key": "{feedback.success.background.color}",
-          "$value": "#1e3e28",
+          "$value": "#003c36",
           "$type": "color",
           "$description": "Used for the background of a success feedback item when confirming the successful completion of a user-initiated action.",
           "$extensions": {
@@ -34578,7 +34578,7 @@
       "border": {
         "color": {
           "key": "{feedback.success.border.color}",
-          "$value": "#2f7549",
+          "$value": "#0c7265",
           "$type": "color",
           "$description": "Used for the border of a success feedback item when confirming the successful completion of a user-initiated action.",
           "$extensions": {
@@ -34612,7 +34612,7 @@
       "text": {
         "color": {
           "key": "{feedback.success.text.color}",
-          "$value": "#91d4a8",
+          "$value": "#84d4b6",
           "$type": "color",
           "$description": "Used for the text of a success feedback item when confirming the successful completion of a user-initiated action.",
           "$extensions": {
@@ -34646,7 +34646,7 @@
       "icon": {
         "color": {
           "key": "{feedback.success.icon.color}",
-          "$value": "#91d4a8",
+          "$value": "#84d4b6",
           "$type": "color",
           "$description": "Used for the icon of a success feedback item when confirming the successful completion of a user-initiated action.",
           "$extensions": {
@@ -34684,7 +34684,7 @@
       "background": {
         "color": {
           "key": "{feedback.warning.background.color}",
-          "$value": "#532e16",
+          "$value": "#5d220d",
           "$type": "color",
           "$description": "Used for the background of a warning feedback item when notifying about a potential issue or sensitive information.",
           "$extensions": {
@@ -34720,7 +34720,7 @@
       "border": {
         "color": {
           "key": "{feedback.warning.border.color}",
-          "$value": "#995715",
+          "$value": "#b34013",
           "$type": "color",
           "$description": "Used for the border of a warning feedback item when notifying about a potential issue or sensitive information.",
           "$extensions": {
@@ -34754,7 +34754,7 @@
       "text": {
         "color": {
           "key": "{feedback.warning.text.color}",
-          "$value": "#e9be74",
+          "$value": "#f7b951",
           "$type": "color",
           "$description": "Used for the text of a warning feedback item when notifying about a potential issue or sensitive information.",
           "$extensions": {
@@ -34788,7 +34788,7 @@
       "icon": {
         "color": {
           "key": "{feedback.warning.icon.color}",
-          "$value": "#e9be74",
+          "$value": "#f7b951",
           "$type": "color",
           "$description": "Used for the icon of a warning feedback item when notifying about a potential issue or sensitive information.",
           "$extensions": {
@@ -34826,7 +34826,7 @@
       "background": {
         "color": {
           "key": "{feedback.danger.background.color}",
-          "$value": "#582014",
+          "$value": "#641925",
           "$type": "color",
           "$description": "Used for the background of a danger feedback item when notifying about a critical issue that has just occurred and requires immediate attention.",
           "$extensions": {
@@ -34862,7 +34862,7 @@
       "border": {
         "color": {
           "key": "{feedback.danger.border.color}",
-          "$value": "#f6806d",
+          "$value": "#fc7988",
           "$type": "color",
           "$description": "Used for the border of a danger feedback item when notifying about a critical issue that has just occurred and requires immediate attention.",
           "$extensions": {
@@ -34896,7 +34896,7 @@
       "text": {
         "color": {
           "key": "{feedback.danger.text.color}",
-          "$value": "#fcb5aa",
+          "$value": "#ffafb8",
           "$type": "color",
           "$description": "Used for the text of a danger feedback item when notifying about a critical issue that has just occurred and requires immediate attention.",
           "$extensions": {
@@ -34930,7 +34930,7 @@
       "icon": {
         "color": {
           "key": "{feedback.danger.icon.color}",
-          "$value": "#fcb5aa",
+          "$value": "#ffafb8",
           "$type": "color",
           "$description": "Used for the icon of a danger feedback item when notifying about a critical issue that has just occurred and requires immediate attention.",
           "$extensions": {
@@ -34968,7 +34968,7 @@
       "background": {
         "color": {
           "key": "{feedback.brand.background.color}",
-          "$value": "#27243e",
+          "$value": "#291a5c",
           "$type": "color",
           "$description": "Used for the background of a brand-related feedback item when highlighting information that pertains to GitLab.",
           "$extensions": {
@@ -35004,7 +35004,7 @@
       "border": {
         "color": {
           "key": "{feedback.brand.border.color}",
-          "$value": "#6a4fb4",
+          "$value": "#6a54c0",
           "$type": "color",
           "$description": "Used for the border of a brand-related feedback item when highlighting information that pertains to GitLab.",
           "$extensions": {
@@ -35038,7 +35038,7 @@
       "text": {
         "color": {
           "key": "{feedback.brand.text.color}",
-          "$value": "#cbbbf2",
+          "$value": "#c9beef",
           "$type": "color",
           "$description": "Used for the text of a brand-related feedback item when highlighting information that pertains to GitLab.",
           "$extensions": {
@@ -35072,7 +35072,7 @@
       "icon": {
         "color": {
           "key": "{feedback.brand.icon.color}",
-          "$value": "#cbbbf2",
+          "$value": "#c9beef",
           "$type": "color",
           "$description": "Used for the icon of a brand-related feedback item when highlighting information that pertains to GitLab.",
           "$extensions": {
@@ -35111,7 +35111,7 @@
     "outer": {
       "color": {
         "key": "{focus-ring.outer.color}",
-        "$value": "#428fdc",
+        "$value": "#3f8edd",
         "$type": "color",
         "$description": "Used for the outer color portion of the focus ring.",
         "$extensions": {
@@ -35180,7 +35180,7 @@
       "background": {
         "color": {
           "key": "{highlight.match.background.color}",
-          "$value": "#e9be74",
+          "$value": "#f7b951",
           "$type": "color",
           "$description": "Used for temporary visual emphasis of backgrounds of matched search terms, filtered results, or autocomplete suggestions without implying any particular state or meaning.",
           "$extensions": {
@@ -35252,7 +35252,7 @@
       "background": {
         "color": {
           "key": "{highlight.target.background.color}",
-          "$value": "#1d283e",
+          "$value": "#1d2153",
           "$type": "color",
           "$description": "Used for temporary visual emphasis for backgrounds of referenced elements (for example URL anchors, hover states) or to show relationships between content without implying status or requiring action.",
           "$extensions": {
@@ -35288,7 +35288,7 @@
       "border": {
         "color": {
           "key": "{highlight.target.border.color}",
-          "$value": "#2f5ca0",
+          "$value": "#27599f",
           "$type": "color",
           "$description": "Used to provide additional visual emphasis for borders of temporarily targeted elements or when visualizing connections between related content, distinct from persistent states.",
           "$extensions": {
@@ -35457,7 +35457,7 @@
       },
       "link": {
         "key": "{icon.color.link}",
-        "$value": "#9dc7f1",
+        "$value": "#9dc8f2",
         "$type": "color",
         "$description": "Used for an icon within a link.",
         "$extensions": {
@@ -35490,7 +35490,7 @@
       },
       "info": {
         "key": "{icon.color.info}",
-        "$value": "#9dc7f1",
+        "$value": "#9dc8f2",
         "$type": "color",
         "$description": "Used for an icon associated with information or help.",
         "$extensions": {
@@ -35523,7 +35523,7 @@
       },
       "warning": {
         "key": "{icon.color.warning}",
-        "$value": "#d99530",
+        "$value": "#fb8017",
         "$type": "color",
         "$description": "Used for an icon associated with a warning.",
         "$extensions": {
@@ -35556,7 +35556,7 @@
       },
       "danger": {
         "key": "{icon.color.danger}",
-        "$value": "#f6806d",
+        "$value": "#fc7988",
         "$type": "color",
         "$description": "Used for an icon associated with an error or danger.",
         "$extensions": {
@@ -35589,7 +35589,7 @@
       },
       "success": {
         "key": "{icon.color.success}",
-        "$value": "#52b87a",
+        "$value": "#35b597",
         "$type": "color",
         "$description": "Used for an icon associated with success or validity.",
         "$extensions": {
@@ -35765,7 +35765,7 @@
       "background": {
         "color": {
           "key": "{status.info.background.color}",
-          "$value": "#284779",
+          "$value": "#254581",
           "$type": "color",
           "$description": "Used for the background of an informational status item when indicating a noteworthy ongoing condition or a state of active progress.",
           "$extensions": {
@@ -35801,7 +35801,7 @@
       "text": {
         "color": {
           "key": "{status.info.text.color}",
-          "$value": "#9dc7f1",
+          "$value": "#9dc8f2",
           "$type": "color",
           "$description": "Used for the text of an informational status item when indicating a noteworthy ongoing condition or a state of active progress.",
           "$extensions": {
@@ -35835,7 +35835,7 @@
       "icon": {
         "color": {
           "key": "{status.info.icon.color}",
-          "$value": "#63a6e9",
+          "$value": "#64a7e9",
           "$type": "color",
           "$description": "Used for the icon of an informational status item when indicating a noteworthy ongoing condition or a state of active progress.",
           "$extensions": {
@@ -35873,7 +35873,7 @@
       "background": {
         "color": {
           "key": "{status.success.background.color}",
-          "$value": "#225131",
+          "$value": "#075048",
           "$type": "color",
           "$description": "Used for the background of a success status item when indicating a positive outcome, completion, or desired state. Clearly conveys a positive connotation.",
           "$extensions": {
@@ -35909,7 +35909,7 @@
       "text": {
         "color": {
           "key": "{status.success.text.color}",
-          "$value": "#91d4a8",
+          "$value": "#84d4b6",
           "$type": "color",
           "$description": "Used for the text of a success status item when indicating a positive outcome, completion, or desired state. Clearly conveys a positive connotation.",
           "$extensions": {
@@ -35943,7 +35943,7 @@
       "icon": {
         "color": {
           "key": "{status.success.icon.color}",
-          "$value": "#52b87a",
+          "$value": "#35b597",
           "$type": "color",
           "$description": "Used for the icon of a success status item when indicating a positive outcome, completion, or desired state. Clearly conveys a positive connotation.",
           "$extensions": {
@@ -35981,7 +35981,7 @@
       "background": {
         "color": {
           "key": "{status.warning.background.color}",
-          "$value": "#693c14",
+          "$value": "#7d2d0e",
           "$type": "color",
           "$description": "Used for the background of a warning status item when indicating a state that requires heightened awareness or caution, but is not necessarily problematic. Represents a state that warrants extra attention or care when interacting with the item.",
           "$extensions": {
@@ -36017,7 +36017,7 @@
       "text": {
         "color": {
           "key": "{status.warning.text.color}",
-          "$value": "#e9be74",
+          "$value": "#f7b951",
           "$type": "color",
           "$description": "Used for the text of a warning status item when indicating a state that requires heightened awareness or caution, but is not necessarily problematic. Represents a state that warrants extra attention or care when interacting with the item.",
           "$extensions": {
@@ -36051,7 +36051,7 @@
       "icon": {
         "color": {
           "key": "{status.warning.icon.color}",
-          "$value": "#d99530",
+          "$value": "#fb8017",
           "$type": "color",
           "$description": "Used for the icon of a warning status item when indicating a state that requires heightened awareness or caution, but is not necessarily problematic. Represents a state that warrants extra attention or care when interacting with the item.",
           "$extensions": {
@@ -36089,7 +36089,7 @@
       "background": {
         "color": {
           "key": "{status.danger.background.color}",
-          "$value": "#812713",
+          "$value": "#891c2f",
           "$type": "color",
           "$description": "Used for the background of a danger status item when indicating a critical or severely problematic current state. Clearly conveys a negative connotation, representing a serious, ongoing issue or undesired condition.",
           "$extensions": {
@@ -36125,7 +36125,7 @@
       "text": {
         "color": {
           "key": "{status.danger.text.color}",
-          "$value": "#fcb5aa",
+          "$value": "#ffafb8",
           "$type": "color",
           "$description": "Used for the text of a danger status item when indicating a critical or severely problematic current state. Clearly conveys a negative connotation, representing a serious, ongoing issue or undesired condition.",
           "$extensions": {
@@ -36159,7 +36159,7 @@
       "icon": {
         "color": {
           "key": "{status.danger.icon.color}",
-          "$value": "#f6806d",
+          "$value": "#fc7988",
           "$type": "color",
           "$description": "Used for the icon of a danger status item when indicating a critical or severely problematic current state. Clearly conveys a negative connotation, representing a serious, ongoing issue or undesired condition.",
           "$extensions": {
@@ -36197,7 +36197,7 @@
       "background": {
         "color": {
           "key": "{status.brand.background.color}",
-          "$value": "#342d59",
+          "$value": "#362676",
           "$type": "color",
           "$description": "Used for the background of a brand-related status item when highlighting the state of unique features or elements specific to the GitLab brand identity. Helps distinguish and emphasize brand-specific elements within the interface.",
           "$extensions": {
@@ -36233,7 +36233,7 @@
       "text": {
         "color": {
           "key": "{status.brand.text.color}",
-          "$value": "#ac93e6",
+          "$value": "#a997e1",
           "$type": "color",
           "$description": "Used for the text of a brand-related status item when highlighting the state of unique features or elements specific to the GitLab brand identity. Helps distinguish and emphasize brand-specific elements within the interface.",
           "$extensions": {
@@ -36267,7 +36267,7 @@
       "icon": {
         "color": {
           "key": "{status.brand.icon.color}",
-          "$value": "#7b58cf",
+          "$value": "#7862c8",
           "$type": "color",
           "$description": "Used for the icon of a brand-related status item when highlighting the state of unique features or elements specific to the GitLab brand identity. Helps distinguish and emphasize brand-specific elements within the interface.",
           "$extensions": {
@@ -36526,7 +36526,7 @@
       },
       "link": {
         "key": "{text.color.link}",
-        "$value": "#9dc7f1",
+        "$value": "#9dc8f2",
         "$type": "color",
         "$description": "Used for default text links.",
         "$extensions": {
@@ -36557,7 +36557,7 @@
       },
       "warning": {
         "key": "{text.color.warning}",
-        "$value": "#d99530",
+        "$value": "#fb8017",
         "$type": "color",
         "$description": "Used for text that requires caution or careful attention.",
         "$extensions": {
@@ -36588,7 +36588,7 @@
       },
       "danger": {
         "key": "{text.color.danger}",
-        "$value": "#f6806d",
+        "$value": "#fc7988",
         "$type": "color",
         "$description": "Used for text indicating a problem, critical state, destructive action, error, failure, removal, stop, or declination.",
         "$extensions": {
@@ -36619,7 +36619,7 @@
       },
       "success": {
         "key": "{text.color.success}",
-        "$value": "#52b87a",
+        "$value": "#35b597",
         "$type": "color",
         "$description": "Used for text indicating success, completion, approval, addition, or validity.",
         "$extensions": {
