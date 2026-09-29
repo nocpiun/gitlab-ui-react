@@ -416,7 +416,7 @@
     "blue": {
       "50": {
         "key": "{blue.50}",
-        "$value": "#e9f3fc",
+        "$value": "#e8f2fd",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -447,7 +447,7 @@
       },
       "100": {
         "key": "{blue.100}",
-        "$value": "#cbe2f9",
+        "$value": "#c8e0f9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -478,7 +478,7 @@
       },
       "200": {
         "key": "{blue.200}",
-        "$value": "#9dc7f1",
+        "$value": "#9dc8f2",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -509,7 +509,7 @@
       },
       "300": {
         "key": "{blue.300}",
-        "$value": "#63a6e9",
+        "$value": "#64a7e9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -540,7 +540,7 @@
       },
       "400": {
         "key": "{blue.400}",
-        "$value": "#428fdc",
+        "$value": "#3f8edd",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -571,7 +571,7 @@
       },
       "500": {
         "key": "{blue.500}",
-        "$value": "#1f75cb",
+        "$value": "#1f73ca",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -602,7 +602,7 @@
       },
       "600": {
         "key": "{blue.600}",
-        "$value": "#2f68b4",
+        "$value": "#2566b5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -633,7 +633,7 @@
       },
       "700": {
         "key": "{blue.700}",
-        "$value": "#2f5ca0",
+        "$value": "#27599f",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -664,7 +664,7 @@
       },
       "800": {
         "key": "{blue.800}",
-        "$value": "#284779",
+        "$value": "#254581",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -695,7 +695,7 @@
       },
       "900": {
         "key": "{blue.900}",
-        "$value": "#213454",
+        "$value": "#1f3166",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -726,7 +726,7 @@
       },
       "950": {
         "key": "{blue.950}",
-        "$value": "#1d283e",
+        "$value": "#1d2153",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1133,7 +1133,7 @@
     "green": {
       "50": {
         "key": "{green.50}",
-        "$value": "#ecf4ee",
+        "$value": "#e6f5ea",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1164,7 +1164,7 @@
       },
       "100": {
         "key": "{green.100}",
-        "$value": "#c3e6cd",
+        "$value": "#bee6d0",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1195,7 +1195,7 @@
       },
       "200": {
         "key": "{green.200}",
-        "$value": "#91d4a8",
+        "$value": "#84d4b6",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1226,7 +1226,7 @@
       },
       "300": {
         "key": "{green.300}",
-        "$value": "#52b87a",
+        "$value": "#35b597",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1257,7 +1257,7 @@
       },
       "400": {
         "key": "{green.400}",
-        "$value": "#2da160",
+        "$value": "#129c84",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1288,7 +1288,7 @@
       },
       "500": {
         "key": "{green.500}",
-        "$value": "#108548",
+        "$value": "#0d8070",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1319,7 +1319,7 @@
       },
       "600": {
         "key": "{green.600}",
-        "$value": "#2f7549",
+        "$value": "#0c7265",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1350,7 +1350,7 @@
       },
       "700": {
         "key": "{green.700}",
-        "$value": "#306440",
+        "$value": "#0b645a",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1381,7 +1381,7 @@
       },
       "800": {
         "key": "{green.800}",
-        "$value": "#225131",
+        "$value": "#075048",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1412,7 +1412,7 @@
       },
       "900": {
         "key": "{green.900}",
-        "$value": "#1e3e28",
+        "$value": "#003c36",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1443,7 +1443,7 @@
       },
       "950": {
         "key": "{green.950}",
-        "$value": "#17291c",
+        "$value": "#002c26",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1476,7 +1476,7 @@
     "orange": {
       "50": {
         "key": "{orange.50}",
-        "$value": "#fdf1dd",
+        "$value": "#fdf0d5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1507,7 +1507,7 @@
       },
       "100": {
         "key": "{orange.100}",
-        "$value": "#f5d9a8",
+        "$value": "#fada9c",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1538,7 +1538,7 @@
       },
       "200": {
         "key": "{orange.200}",
-        "$value": "#e9be74",
+        "$value": "#f7b951",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1569,7 +1569,7 @@
       },
       "300": {
         "key": "{orange.300}",
-        "$value": "#d99530",
+        "$value": "#fb8017",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1600,7 +1600,7 @@
       },
       "400": {
         "key": "{orange.400}",
-        "$value": "#c17d10",
+        "$value": "#e95f21",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1631,7 +1631,7 @@
       },
       "500": {
         "key": "{orange.500}",
-        "$value": "#ab6100",
+        "$value": "#c74816",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1662,7 +1662,7 @@
       },
       "600": {
         "key": "{orange.600}",
-        "$value": "#995715",
+        "$value": "#b34013",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1693,7 +1693,7 @@
       },
       "700": {
         "key": "{orange.700}",
-        "$value": "#894b16",
+        "$value": "#9e3811",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1724,7 +1724,7 @@
       },
       "800": {
         "key": "{orange.800}",
-        "$value": "#693c14",
+        "$value": "#7d2d0e",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1755,7 +1755,7 @@
       },
       "900": {
         "key": "{orange.900}",
-        "$value": "#532e16",
+        "$value": "#5d220d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1786,7 +1786,7 @@
       },
       "950": {
         "key": "{orange.950}",
-        "$value": "#382315",
+        "$value": "#461807",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1819,7 +1819,7 @@
     "purple": {
       "50": {
         "key": "{purple.50}",
-        "$value": "#f4f0ff",
+        "$value": "#f4f0fc",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1850,7 +1850,7 @@
       },
       "100": {
         "key": "{purple.100}",
-        "$value": "#e1d8f9",
+        "$value": "#e1daf7",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1881,7 +1881,7 @@
       },
       "200": {
         "key": "{purple.200}",
-        "$value": "#cbbbf2",
+        "$value": "#c9beef",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1912,7 +1912,7 @@
       },
       "300": {
         "key": "{purple.300}",
-        "$value": "#ac93e6",
+        "$value": "#a997e1",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1943,7 +1943,7 @@
       },
       "400": {
         "key": "{purple.400}",
-        "$value": "#9475db",
+        "$value": "#927cd7",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -1974,7 +1974,7 @@
       },
       "500": {
         "key": "{purple.500}",
-        "$value": "#7b58cf",
+        "$value": "#7862c8",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -2005,7 +2005,7 @@
       },
       "600": {
         "key": "{purple.600}",
-        "$value": "#6a4fb4",
+        "$value": "#6a54c0",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -2036,7 +2036,7 @@
       },
       "700": {
         "key": "{purple.700}",
-        "$value": "#5c47a6",
+        "$value": "#5b46b8",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -2067,7 +2067,7 @@
       },
       "800": {
         "key": "{purple.800}",
-        "$value": "#493c83",
+        "$value": "#483698",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -2098,7 +2098,7 @@
       },
       "900": {
         "key": "{purple.900}",
-        "$value": "#342d59",
+        "$value": "#362676",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -2129,7 +2129,7 @@
       },
       "950": {
         "key": "{purple.950}",
-        "$value": "#27243e",
+        "$value": "#291a5c",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -2162,7 +2162,7 @@
     "red": {
       "50": {
         "key": "{red.50}",
-        "$value": "#fcf1ef",
+        "$value": "#feeef0",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -2193,7 +2193,7 @@
       },
       "100": {
         "key": "{red.100}",
-        "$value": "#fdd4cd",
+        "$value": "#ffd3d7",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -2224,7 +2224,7 @@
       },
       "200": {
         "key": "{red.200}",
-        "$value": "#fcb5aa",
+        "$value": "#ffafb8",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -2255,7 +2255,7 @@
       },
       "300": {
         "key": "{red.300}",
-        "$value": "#f6806d",
+        "$value": "#fc7988",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -2286,7 +2286,7 @@
       },
       "400": {
         "key": "{red.400}",
-        "$value": "#ec5941",
+        "$value": "#f15168",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -2317,7 +2317,7 @@
       },
       "500": {
         "key": "{red.500}",
-        "$value": "#dd2b0e",
+        "$value": "#de1d4b",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -2348,7 +2348,7 @@
       },
       "600": {
         "key": "{red.600}",
-        "$value": "#c02f12",
+        "$value": "#c52042",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -2379,7 +2379,7 @@
       },
       "700": {
         "key": "{red.700}",
-        "$value": "#a32c12",
+        "$value": "#ac203a",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -2410,7 +2410,7 @@
       },
       "800": {
         "key": "{red.800}",
-        "$value": "#812713",
+        "$value": "#891c2f",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -2441,7 +2441,7 @@
       },
       "900": {
         "key": "{red.900}",
-        "$value": "#582014",
+        "$value": "#641925",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -2472,7 +2472,7 @@
       },
       "950": {
         "key": "{red.950}",
-        "$value": "#3e1a14",
+        "$value": "#48151d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -5374,7 +5374,7 @@
       },
       "info": {
         "key": "{status.info.background.color}",
-        "$value": "#cbe2f9",
+        "$value": "#c8e0f9",
         "$type": "color",
         "$description": "Used for the background of an informational status item when indicating a noteworthy ongoing condition or a state of active progress.",
         "$extensions": {
@@ -5409,7 +5409,7 @@
       },
       "success": {
         "key": "{status.success.background.color}",
-        "$value": "#c3e6cd",
+        "$value": "#bee6d0",
         "$type": "color",
         "$description": "Used for the background of a success status item when indicating a positive outcome, completion, or desired state. Clearly conveys a positive connotation.",
         "$extensions": {
@@ -5444,7 +5444,7 @@
       },
       "warning": {
         "key": "{status.warning.background.color}",
-        "$value": "#f5d9a8",
+        "$value": "#fada9c",
         "$type": "color",
         "$description": "Used for the background of a warning status item when indicating a state that requires heightened awareness or caution, but is not necessarily problematic. Represents a state that warrants extra attention or care when interacting with the item.",
         "$extensions": {
@@ -5479,7 +5479,7 @@
       },
       "danger": {
         "key": "{status.danger.background.color}",
-        "$value": "#fdd4cd",
+        "$value": "#ffd3d7",
         "$type": "color",
         "$description": "Used for the background of a danger status item when indicating a critical or severely problematic current state. Clearly conveys a negative connotation, representing a serious, ongoing issue or undesired condition.",
         "$extensions": {
@@ -5514,7 +5514,7 @@
       },
       "brand": {
         "key": "{status.brand.background.color}",
-        "$value": "#e1d8f9",
+        "$value": "#e1daf7",
         "$type": "color",
         "$description": "Used for the background of a brand-related status item when highlighting the state of unique features or elements specific to the GitLab brand identity. Helps distinguish and emphasize brand-specific elements within the interface.",
         "$extensions": {
@@ -5621,7 +5621,7 @@
       },
       "info": {
         "key": "{feedback.info.background.color}",
-        "$value": "#e9f3fc",
+        "$value": "#e8f2fd",
         "$type": "color",
         "$description": "Used for the background of an informational feedback item when highlighting new information or a change that doesn't require immediate action.",
         "$extensions": {
@@ -5656,7 +5656,7 @@
       },
       "success": {
         "key": "{feedback.success.background.color}",
-        "$value": "#ecf4ee",
+        "$value": "#e6f5ea",
         "$type": "color",
         "$description": "Used for the background of a success feedback item when confirming the successful completion of a user-initiated action.",
         "$extensions": {
@@ -5691,7 +5691,7 @@
       },
       "warning": {
         "key": "{feedback.warning.background.color}",
-        "$value": "#fdf1dd",
+        "$value": "#fdf0d5",
         "$type": "color",
         "$description": "Used for the background of a warning feedback item when notifying about a potential issue or sensitive information.",
         "$extensions": {
@@ -5726,7 +5726,7 @@
       },
       "danger": {
         "key": "{feedback.danger.background.color}",
-        "$value": "#fcf1ef",
+        "$value": "#feeef0",
         "$type": "color",
         "$description": "Used for the background of a danger feedback item when notifying about a critical issue that has just occurred and requires immediate attention.",
         "$extensions": {
@@ -5761,7 +5761,7 @@
       },
       "brand": {
         "key": "{feedback.brand.background.color}",
-        "$value": "#f4f0ff",
+        "$value": "#f4f0fc",
         "$type": "color",
         "$description": "Used for the background of a brand-related feedback item when highlighting information that pertains to GitLab.",
         "$extensions": {
@@ -6423,7 +6423,7 @@
     "blue": {
       "50": {
         "key": "{blue.50}",
-        "$value": "#e9f3fc",
+        "$value": "#e8f2fd",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -6454,7 +6454,7 @@
       },
       "100": {
         "key": "{blue.100}",
-        "$value": "#cbe2f9",
+        "$value": "#c8e0f9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -6485,7 +6485,7 @@
       },
       "200": {
         "key": "{blue.200}",
-        "$value": "#9dc7f1",
+        "$value": "#9dc8f2",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -6516,7 +6516,7 @@
       },
       "300": {
         "key": "{blue.300}",
-        "$value": "#63a6e9",
+        "$value": "#64a7e9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -6547,7 +6547,7 @@
       },
       "400": {
         "key": "{blue.400}",
-        "$value": "#428fdc",
+        "$value": "#3f8edd",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -6578,7 +6578,7 @@
       },
       "500": {
         "key": "{blue.500}",
-        "$value": "#1f75cb",
+        "$value": "#1f73ca",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -6609,7 +6609,7 @@
       },
       "600": {
         "key": "{blue.600}",
-        "$value": "#2f68b4",
+        "$value": "#2566b5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -6640,7 +6640,7 @@
       },
       "700": {
         "key": "{blue.700}",
-        "$value": "#2f5ca0",
+        "$value": "#27599f",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -6671,7 +6671,7 @@
       },
       "800": {
         "key": "{blue.800}",
-        "$value": "#284779",
+        "$value": "#254581",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -6702,7 +6702,7 @@
       },
       "900": {
         "key": "{blue.900}",
-        "$value": "#213454",
+        "$value": "#1f3166",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -6733,7 +6733,7 @@
       },
       "950": {
         "key": "{blue.950}",
-        "$value": "#1d283e",
+        "$value": "#1d2153",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7140,7 +7140,7 @@
     "green": {
       "50": {
         "key": "{green.50}",
-        "$value": "#ecf4ee",
+        "$value": "#e6f5ea",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7171,7 +7171,7 @@
       },
       "100": {
         "key": "{green.100}",
-        "$value": "#c3e6cd",
+        "$value": "#bee6d0",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7202,7 +7202,7 @@
       },
       "200": {
         "key": "{green.200}",
-        "$value": "#91d4a8",
+        "$value": "#84d4b6",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7233,7 +7233,7 @@
       },
       "300": {
         "key": "{green.300}",
-        "$value": "#52b87a",
+        "$value": "#35b597",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7264,7 +7264,7 @@
       },
       "400": {
         "key": "{green.400}",
-        "$value": "#2da160",
+        "$value": "#129c84",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7295,7 +7295,7 @@
       },
       "500": {
         "key": "{green.500}",
-        "$value": "#108548",
+        "$value": "#0d8070",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7326,7 +7326,7 @@
       },
       "600": {
         "key": "{green.600}",
-        "$value": "#2f7549",
+        "$value": "#0c7265",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7357,7 +7357,7 @@
       },
       "700": {
         "key": "{green.700}",
-        "$value": "#306440",
+        "$value": "#0b645a",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7388,7 +7388,7 @@
       },
       "800": {
         "key": "{green.800}",
-        "$value": "#225131",
+        "$value": "#075048",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7419,7 +7419,7 @@
       },
       "900": {
         "key": "{green.900}",
-        "$value": "#1e3e28",
+        "$value": "#003c36",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7450,7 +7450,7 @@
       },
       "950": {
         "key": "{green.950}",
-        "$value": "#17291c",
+        "$value": "#002c26",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7483,7 +7483,7 @@
     "orange": {
       "50": {
         "key": "{orange.50}",
-        "$value": "#fdf1dd",
+        "$value": "#fdf0d5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7514,7 +7514,7 @@
       },
       "100": {
         "key": "{orange.100}",
-        "$value": "#f5d9a8",
+        "$value": "#fada9c",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7545,7 +7545,7 @@
       },
       "200": {
         "key": "{orange.200}",
-        "$value": "#e9be74",
+        "$value": "#f7b951",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7576,7 +7576,7 @@
       },
       "300": {
         "key": "{orange.300}",
-        "$value": "#d99530",
+        "$value": "#fb8017",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7607,7 +7607,7 @@
       },
       "400": {
         "key": "{orange.400}",
-        "$value": "#c17d10",
+        "$value": "#e95f21",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7638,7 +7638,7 @@
       },
       "500": {
         "key": "{orange.500}",
-        "$value": "#ab6100",
+        "$value": "#c74816",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7669,7 +7669,7 @@
       },
       "600": {
         "key": "{orange.600}",
-        "$value": "#995715",
+        "$value": "#b34013",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7700,7 +7700,7 @@
       },
       "700": {
         "key": "{orange.700}",
-        "$value": "#894b16",
+        "$value": "#9e3811",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7731,7 +7731,7 @@
       },
       "800": {
         "key": "{orange.800}",
-        "$value": "#693c14",
+        "$value": "#7d2d0e",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7762,7 +7762,7 @@
       },
       "900": {
         "key": "{orange.900}",
-        "$value": "#532e16",
+        "$value": "#5d220d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7793,7 +7793,7 @@
       },
       "950": {
         "key": "{orange.950}",
-        "$value": "#382315",
+        "$value": "#461807",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7826,7 +7826,7 @@
     "purple": {
       "50": {
         "key": "{purple.50}",
-        "$value": "#f4f0ff",
+        "$value": "#f4f0fc",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7857,7 +7857,7 @@
       },
       "100": {
         "key": "{purple.100}",
-        "$value": "#e1d8f9",
+        "$value": "#e1daf7",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7888,7 +7888,7 @@
       },
       "200": {
         "key": "{purple.200}",
-        "$value": "#cbbbf2",
+        "$value": "#c9beef",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7919,7 +7919,7 @@
       },
       "300": {
         "key": "{purple.300}",
-        "$value": "#ac93e6",
+        "$value": "#a997e1",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7950,7 +7950,7 @@
       },
       "400": {
         "key": "{purple.400}",
-        "$value": "#9475db",
+        "$value": "#927cd7",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -7981,7 +7981,7 @@
       },
       "500": {
         "key": "{purple.500}",
-        "$value": "#7b58cf",
+        "$value": "#7862c8",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -8012,7 +8012,7 @@
       },
       "600": {
         "key": "{purple.600}",
-        "$value": "#6a4fb4",
+        "$value": "#6a54c0",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -8043,7 +8043,7 @@
       },
       "700": {
         "key": "{purple.700}",
-        "$value": "#5c47a6",
+        "$value": "#5b46b8",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -8074,7 +8074,7 @@
       },
       "800": {
         "key": "{purple.800}",
-        "$value": "#493c83",
+        "$value": "#483698",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -8105,7 +8105,7 @@
       },
       "900": {
         "key": "{purple.900}",
-        "$value": "#342d59",
+        "$value": "#362676",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -8136,7 +8136,7 @@
       },
       "950": {
         "key": "{purple.950}",
-        "$value": "#27243e",
+        "$value": "#291a5c",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -8169,7 +8169,7 @@
     "red": {
       "50": {
         "key": "{red.50}",
-        "$value": "#fcf1ef",
+        "$value": "#feeef0",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -8200,7 +8200,7 @@
       },
       "100": {
         "key": "{red.100}",
-        "$value": "#fdd4cd",
+        "$value": "#ffd3d7",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -8231,7 +8231,7 @@
       },
       "200": {
         "key": "{red.200}",
-        "$value": "#fcb5aa",
+        "$value": "#ffafb8",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -8262,7 +8262,7 @@
       },
       "300": {
         "key": "{red.300}",
-        "$value": "#f6806d",
+        "$value": "#fc7988",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -8293,7 +8293,7 @@
       },
       "400": {
         "key": "{red.400}",
-        "$value": "#ec5941",
+        "$value": "#f15168",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -8324,7 +8324,7 @@
       },
       "500": {
         "key": "{red.500}",
-        "$value": "#dd2b0e",
+        "$value": "#de1d4b",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -8355,7 +8355,7 @@
       },
       "600": {
         "key": "{red.600}",
-        "$value": "#c02f12",
+        "$value": "#c52042",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -8386,7 +8386,7 @@
       },
       "700": {
         "key": "{red.700}",
-        "$value": "#a32c12",
+        "$value": "#ac203a",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -8417,7 +8417,7 @@
       },
       "800": {
         "key": "{red.800}",
-        "$value": "#812713",
+        "$value": "#891c2f",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -8448,7 +8448,7 @@
       },
       "900": {
         "key": "{red.900}",
-        "$value": "#582014",
+        "$value": "#641925",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -8479,7 +8479,7 @@
       },
       "950": {
         "key": "{red.950}",
-        "$value": "#3e1a14",
+        "$value": "#48151d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -11334,7 +11334,7 @@
       },
       "info": {
         "key": "{feedback.info.border.color}",
-        "$value": "#9dc7f1",
+        "$value": "#9dc8f2",
         "$type": "color",
         "$description": "Used for the border of an informational feedback item when highlighting new information or a change that doesn't require immediate action.",
         "$extensions": {
@@ -11367,7 +11367,7 @@
       },
       "success": {
         "key": "{feedback.success.border.color}",
-        "$value": "#91d4a8",
+        "$value": "#84d4b6",
         "$type": "color",
         "$description": "Used for the border of a success feedback item when confirming the successful completion of a user-initiated action.",
         "$extensions": {
@@ -11400,7 +11400,7 @@
       },
       "warning": {
         "key": "{feedback.warning.border.color}",
-        "$value": "#e9be74",
+        "$value": "#f7b951",
         "$type": "color",
         "$description": "Used for the border of a warning feedback item when notifying about a potential issue or sensitive information.",
         "$extensions": {
@@ -11433,7 +11433,7 @@
       },
       "danger": {
         "key": "{feedback.danger.border.color}",
-        "$value": "#dd2b0e",
+        "$value": "#de1d4b",
         "$type": "color",
         "$description": "Used for the border of a danger feedback item when notifying about a critical issue that has just occurred and requires immediate attention.",
         "$extensions": {
@@ -11466,7 +11466,7 @@
       },
       "brand": {
         "key": "{feedback.brand.border.color}",
-        "$value": "#cbbbf2",
+        "$value": "#c9beef",
         "$type": "color",
         "$description": "Used for the border of a brand-related feedback item when highlighting information that pertains to GitLab.",
         "$extensions": {
@@ -11637,7 +11637,7 @@
       },
       "error": {
         "key": "{control.border.color.error}",
-        "$value": "#dd2b0e",
+        "$value": "#de1d4b",
         "$type": "color",
         "$description": "Used for invalid form control (input, textarea) border.",
         "$extensions": {
@@ -12087,7 +12087,7 @@
     "blue": {
       "50": {
         "key": "{blue.50}",
-        "$value": "#e9f3fc",
+        "$value": "#e8f2fd",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12118,7 +12118,7 @@
       },
       "100": {
         "key": "{blue.100}",
-        "$value": "#cbe2f9",
+        "$value": "#c8e0f9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12149,7 +12149,7 @@
       },
       "200": {
         "key": "{blue.200}",
-        "$value": "#9dc7f1",
+        "$value": "#9dc8f2",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12180,7 +12180,7 @@
       },
       "300": {
         "key": "{blue.300}",
-        "$value": "#63a6e9",
+        "$value": "#64a7e9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12211,7 +12211,7 @@
       },
       "400": {
         "key": "{blue.400}",
-        "$value": "#428fdc",
+        "$value": "#3f8edd",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12242,7 +12242,7 @@
       },
       "500": {
         "key": "{blue.500}",
-        "$value": "#1f75cb",
+        "$value": "#1f73ca",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12273,7 +12273,7 @@
       },
       "600": {
         "key": "{blue.600}",
-        "$value": "#2f68b4",
+        "$value": "#2566b5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12304,7 +12304,7 @@
       },
       "700": {
         "key": "{blue.700}",
-        "$value": "#2f5ca0",
+        "$value": "#27599f",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12335,7 +12335,7 @@
       },
       "800": {
         "key": "{blue.800}",
-        "$value": "#284779",
+        "$value": "#254581",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12366,7 +12366,7 @@
       },
       "900": {
         "key": "{blue.900}",
-        "$value": "#213454",
+        "$value": "#1f3166",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12397,7 +12397,7 @@
       },
       "950": {
         "key": "{blue.950}",
-        "$value": "#1d283e",
+        "$value": "#1d2153",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12804,7 +12804,7 @@
     "green": {
       "50": {
         "key": "{green.50}",
-        "$value": "#ecf4ee",
+        "$value": "#e6f5ea",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12835,7 +12835,7 @@
       },
       "100": {
         "key": "{green.100}",
-        "$value": "#c3e6cd",
+        "$value": "#bee6d0",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12866,7 +12866,7 @@
       },
       "200": {
         "key": "{green.200}",
-        "$value": "#91d4a8",
+        "$value": "#84d4b6",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12897,7 +12897,7 @@
       },
       "300": {
         "key": "{green.300}",
-        "$value": "#52b87a",
+        "$value": "#35b597",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12928,7 +12928,7 @@
       },
       "400": {
         "key": "{green.400}",
-        "$value": "#2da160",
+        "$value": "#129c84",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12959,7 +12959,7 @@
       },
       "500": {
         "key": "{green.500}",
-        "$value": "#108548",
+        "$value": "#0d8070",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -12990,7 +12990,7 @@
       },
       "600": {
         "key": "{green.600}",
-        "$value": "#2f7549",
+        "$value": "#0c7265",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13021,7 +13021,7 @@
       },
       "700": {
         "key": "{green.700}",
-        "$value": "#306440",
+        "$value": "#0b645a",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13052,7 +13052,7 @@
       },
       "800": {
         "key": "{green.800}",
-        "$value": "#225131",
+        "$value": "#075048",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13083,7 +13083,7 @@
       },
       "900": {
         "key": "{green.900}",
-        "$value": "#1e3e28",
+        "$value": "#003c36",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13114,7 +13114,7 @@
       },
       "950": {
         "key": "{green.950}",
-        "$value": "#17291c",
+        "$value": "#002c26",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13147,7 +13147,7 @@
     "orange": {
       "50": {
         "key": "{orange.50}",
-        "$value": "#fdf1dd",
+        "$value": "#fdf0d5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13178,7 +13178,7 @@
       },
       "100": {
         "key": "{orange.100}",
-        "$value": "#f5d9a8",
+        "$value": "#fada9c",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13209,7 +13209,7 @@
       },
       "200": {
         "key": "{orange.200}",
-        "$value": "#e9be74",
+        "$value": "#f7b951",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13240,7 +13240,7 @@
       },
       "300": {
         "key": "{orange.300}",
-        "$value": "#d99530",
+        "$value": "#fb8017",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13271,7 +13271,7 @@
       },
       "400": {
         "key": "{orange.400}",
-        "$value": "#c17d10",
+        "$value": "#e95f21",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13302,7 +13302,7 @@
       },
       "500": {
         "key": "{orange.500}",
-        "$value": "#ab6100",
+        "$value": "#c74816",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13333,7 +13333,7 @@
       },
       "600": {
         "key": "{orange.600}",
-        "$value": "#995715",
+        "$value": "#b34013",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13364,7 +13364,7 @@
       },
       "700": {
         "key": "{orange.700}",
-        "$value": "#894b16",
+        "$value": "#9e3811",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13395,7 +13395,7 @@
       },
       "800": {
         "key": "{orange.800}",
-        "$value": "#693c14",
+        "$value": "#7d2d0e",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13426,7 +13426,7 @@
       },
       "900": {
         "key": "{orange.900}",
-        "$value": "#532e16",
+        "$value": "#5d220d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13457,7 +13457,7 @@
       },
       "950": {
         "key": "{orange.950}",
-        "$value": "#382315",
+        "$value": "#461807",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13490,7 +13490,7 @@
     "purple": {
       "50": {
         "key": "{purple.50}",
-        "$value": "#f4f0ff",
+        "$value": "#f4f0fc",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13521,7 +13521,7 @@
       },
       "100": {
         "key": "{purple.100}",
-        "$value": "#e1d8f9",
+        "$value": "#e1daf7",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13552,7 +13552,7 @@
       },
       "200": {
         "key": "{purple.200}",
-        "$value": "#cbbbf2",
+        "$value": "#c9beef",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13583,7 +13583,7 @@
       },
       "300": {
         "key": "{purple.300}",
-        "$value": "#ac93e6",
+        "$value": "#a997e1",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13614,7 +13614,7 @@
       },
       "400": {
         "key": "{purple.400}",
-        "$value": "#9475db",
+        "$value": "#927cd7",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13645,7 +13645,7 @@
       },
       "500": {
         "key": "{purple.500}",
-        "$value": "#7b58cf",
+        "$value": "#7862c8",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13676,7 +13676,7 @@
       },
       "600": {
         "key": "{purple.600}",
-        "$value": "#6a4fb4",
+        "$value": "#6a54c0",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13707,7 +13707,7 @@
       },
       "700": {
         "key": "{purple.700}",
-        "$value": "#5c47a6",
+        "$value": "#5b46b8",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13738,7 +13738,7 @@
       },
       "800": {
         "key": "{purple.800}",
-        "$value": "#493c83",
+        "$value": "#483698",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13769,7 +13769,7 @@
       },
       "900": {
         "key": "{purple.900}",
-        "$value": "#342d59",
+        "$value": "#362676",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13800,7 +13800,7 @@
       },
       "950": {
         "key": "{purple.950}",
-        "$value": "#27243e",
+        "$value": "#291a5c",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13833,7 +13833,7 @@
     "red": {
       "50": {
         "key": "{red.50}",
-        "$value": "#fcf1ef",
+        "$value": "#feeef0",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13864,7 +13864,7 @@
       },
       "100": {
         "key": "{red.100}",
-        "$value": "#fdd4cd",
+        "$value": "#ffd3d7",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13895,7 +13895,7 @@
       },
       "200": {
         "key": "{red.200}",
-        "$value": "#fcb5aa",
+        "$value": "#ffafb8",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13926,7 +13926,7 @@
       },
       "300": {
         "key": "{red.300}",
-        "$value": "#f6806d",
+        "$value": "#fc7988",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13957,7 +13957,7 @@
       },
       "400": {
         "key": "{red.400}",
-        "$value": "#ec5941",
+        "$value": "#f15168",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -13988,7 +13988,7 @@
       },
       "500": {
         "key": "{red.500}",
-        "$value": "#dd2b0e",
+        "$value": "#de1d4b",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -14019,7 +14019,7 @@
       },
       "600": {
         "key": "{red.600}",
-        "$value": "#c02f12",
+        "$value": "#c52042",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -14050,7 +14050,7 @@
       },
       "700": {
         "key": "{red.700}",
-        "$value": "#a32c12",
+        "$value": "#ac203a",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -14081,7 +14081,7 @@
       },
       "800": {
         "key": "{red.800}",
-        "$value": "#812713",
+        "$value": "#891c2f",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -14112,7 +14112,7 @@
       },
       "900": {
         "key": "{red.900}",
-        "$value": "#582014",
+        "$value": "#641925",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -14143,7 +14143,7 @@
       },
       "950": {
         "key": "{red.950}",
-        "$value": "#3e1a14",
+        "$value": "#48151d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -16906,7 +16906,7 @@
       },
       "link": {
         "key": "{icon.color.link}",
-        "$value": "#2f5ca0",
+        "$value": "#27599f",
         "$type": "color",
         "$description": "Used for an icon within a link.",
         "$extensions": {
@@ -16940,7 +16940,7 @@
       },
       "info": {
         "key": "{icon.color.info}",
-        "$value": "#2f5ca0",
+        "$value": "#27599f",
         "$type": "color",
         "$description": "Used for an icon associated with information or help.",
         "$extensions": {
@@ -16974,7 +16974,7 @@
       },
       "warning": {
         "key": "{icon.color.warning}",
-        "$value": "#995715",
+        "$value": "#b34013",
         "$type": "color",
         "$description": "Used for an icon associated with a warning.",
         "$extensions": {
@@ -17008,7 +17008,7 @@
       },
       "danger": {
         "key": "{icon.color.danger}",
-        "$value": "#c02f12",
+        "$value": "#c52042",
         "$type": "color",
         "$description": "Used for an icon associated with an error or danger.",
         "$extensions": {
@@ -17042,7 +17042,7 @@
       },
       "success": {
         "key": "{icon.color.success}",
-        "$value": "#2f7549",
+        "$value": "#0c7265",
         "$type": "color",
         "$description": "Used for an icon associated with success or validity.",
         "$extensions": {
@@ -17113,7 +17113,7 @@
       },
       "info": {
         "key": "{status.info.icon.color}",
-        "$value": "#1f75cb",
+        "$value": "#1f73ca",
         "$type": "color",
         "$description": "Used for the icon of an informational status item when indicating a noteworthy ongoing condition or a state of active progress.",
         "$extensions": {
@@ -17148,7 +17148,7 @@
       },
       "success": {
         "key": "{status.success.icon.color}",
-        "$value": "#108548",
+        "$value": "#0d8070",
         "$type": "color",
         "$description": "Used for the icon of a success status item when indicating a positive outcome, completion, or desired state. Clearly conveys a positive connotation.",
         "$extensions": {
@@ -17183,7 +17183,7 @@
       },
       "warning": {
         "key": "{status.warning.icon.color}",
-        "$value": "#ab6100",
+        "$value": "#c74816",
         "$type": "color",
         "$description": "Used for the icon of a warning status item when indicating a state that requires heightened awareness or caution, but is not necessarily problematic. Represents a state that warrants extra attention or care when interacting with the item.",
         "$extensions": {
@@ -17218,7 +17218,7 @@
       },
       "danger": {
         "key": "{status.danger.icon.color}",
-        "$value": "#dd2b0e",
+        "$value": "#de1d4b",
         "$type": "color",
         "$description": "Used for the icon of a danger status item when indicating a critical or severely problematic current state. Clearly conveys a negative connotation, representing a serious, ongoing issue or undesired condition.",
         "$extensions": {
@@ -17253,7 +17253,7 @@
       },
       "brand": {
         "key": "{status.brand.icon.color}",
-        "$value": "#7b58cf",
+        "$value": "#7862c8",
         "$type": "color",
         "$description": "Used for the icon of a brand-related status item when highlighting the state of unique features or elements specific to the GitLab brand identity. Helps distinguish and emphasize brand-specific elements within the interface.",
         "$extensions": {
@@ -17360,7 +17360,7 @@
       },
       "info": {
         "key": "{feedback.info.icon.color}",
-        "$value": "#2f68b4",
+        "$value": "#2566b5",
         "$type": "color",
         "$description": "Used for the icon of an informational feedback item when highlighting new information or a change that doesn't require immediate action.",
         "$extensions": {
@@ -17395,7 +17395,7 @@
       },
       "success": {
         "key": "{feedback.success.icon.color}",
-        "$value": "#2f7549",
+        "$value": "#0c7265",
         "$type": "color",
         "$description": "Used for the icon of a success feedback item when confirming the successful completion of a user-initiated action.",
         "$extensions": {
@@ -17430,7 +17430,7 @@
       },
       "warning": {
         "key": "{feedback.warning.icon.color}",
-        "$value": "#995715",
+        "$value": "#b34013",
         "$type": "color",
         "$description": "Used for the icon of a warning feedback item when notifying about a potential issue or sensitive information.",
         "$extensions": {
@@ -17465,7 +17465,7 @@
       },
       "danger": {
         "key": "{feedback.danger.icon.color}",
-        "$value": "#c02f12",
+        "$value": "#c52042",
         "$type": "color",
         "$description": "Used for the icon of a danger feedback item when notifying about a critical issue that has just occurred and requires immediate attention.",
         "$extensions": {
@@ -17500,7 +17500,7 @@
       },
       "brand": {
         "key": "{feedback.brand.icon.color}",
-        "$value": "#6a4fb4",
+        "$value": "#6a54c0",
         "$type": "color",
         "$description": "Used for the icon of a brand-related feedback item when highlighting information that pertains to GitLab.",
         "$extensions": {
@@ -17952,7 +17952,7 @@
     "blue": {
       "50": {
         "key": "{blue.50}",
-        "$value": "#e9f3fc",
+        "$value": "#e8f2fd",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -17983,7 +17983,7 @@
       },
       "100": {
         "key": "{blue.100}",
-        "$value": "#cbe2f9",
+        "$value": "#c8e0f9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18014,7 +18014,7 @@
       },
       "200": {
         "key": "{blue.200}",
-        "$value": "#9dc7f1",
+        "$value": "#9dc8f2",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18045,7 +18045,7 @@
       },
       "300": {
         "key": "{blue.300}",
-        "$value": "#63a6e9",
+        "$value": "#64a7e9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18076,7 +18076,7 @@
       },
       "400": {
         "key": "{blue.400}",
-        "$value": "#428fdc",
+        "$value": "#3f8edd",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18107,7 +18107,7 @@
       },
       "500": {
         "key": "{blue.500}",
-        "$value": "#1f75cb",
+        "$value": "#1f73ca",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18138,7 +18138,7 @@
       },
       "600": {
         "key": "{blue.600}",
-        "$value": "#2f68b4",
+        "$value": "#2566b5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18169,7 +18169,7 @@
       },
       "700": {
         "key": "{blue.700}",
-        "$value": "#2f5ca0",
+        "$value": "#27599f",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18200,7 +18200,7 @@
       },
       "800": {
         "key": "{blue.800}",
-        "$value": "#284779",
+        "$value": "#254581",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18231,7 +18231,7 @@
       },
       "900": {
         "key": "{blue.900}",
-        "$value": "#213454",
+        "$value": "#1f3166",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18262,7 +18262,7 @@
       },
       "950": {
         "key": "{blue.950}",
-        "$value": "#1d283e",
+        "$value": "#1d2153",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18669,7 +18669,7 @@
     "green": {
       "50": {
         "key": "{green.50}",
-        "$value": "#ecf4ee",
+        "$value": "#e6f5ea",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18700,7 +18700,7 @@
       },
       "100": {
         "key": "{green.100}",
-        "$value": "#c3e6cd",
+        "$value": "#bee6d0",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18731,7 +18731,7 @@
       },
       "200": {
         "key": "{green.200}",
-        "$value": "#91d4a8",
+        "$value": "#84d4b6",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18762,7 +18762,7 @@
       },
       "300": {
         "key": "{green.300}",
-        "$value": "#52b87a",
+        "$value": "#35b597",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18793,7 +18793,7 @@
       },
       "400": {
         "key": "{green.400}",
-        "$value": "#2da160",
+        "$value": "#129c84",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18824,7 +18824,7 @@
       },
       "500": {
         "key": "{green.500}",
-        "$value": "#108548",
+        "$value": "#0d8070",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18855,7 +18855,7 @@
       },
       "600": {
         "key": "{green.600}",
-        "$value": "#2f7549",
+        "$value": "#0c7265",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18886,7 +18886,7 @@
       },
       "700": {
         "key": "{green.700}",
-        "$value": "#306440",
+        "$value": "#0b645a",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18917,7 +18917,7 @@
       },
       "800": {
         "key": "{green.800}",
-        "$value": "#225131",
+        "$value": "#075048",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18948,7 +18948,7 @@
       },
       "900": {
         "key": "{green.900}",
-        "$value": "#1e3e28",
+        "$value": "#003c36",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -18979,7 +18979,7 @@
       },
       "950": {
         "key": "{green.950}",
-        "$value": "#17291c",
+        "$value": "#002c26",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19012,7 +19012,7 @@
     "orange": {
       "50": {
         "key": "{orange.50}",
-        "$value": "#fdf1dd",
+        "$value": "#fdf0d5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19043,7 +19043,7 @@
       },
       "100": {
         "key": "{orange.100}",
-        "$value": "#f5d9a8",
+        "$value": "#fada9c",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19074,7 +19074,7 @@
       },
       "200": {
         "key": "{orange.200}",
-        "$value": "#e9be74",
+        "$value": "#f7b951",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19105,7 +19105,7 @@
       },
       "300": {
         "key": "{orange.300}",
-        "$value": "#d99530",
+        "$value": "#fb8017",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19136,7 +19136,7 @@
       },
       "400": {
         "key": "{orange.400}",
-        "$value": "#c17d10",
+        "$value": "#e95f21",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19167,7 +19167,7 @@
       },
       "500": {
         "key": "{orange.500}",
-        "$value": "#ab6100",
+        "$value": "#c74816",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19198,7 +19198,7 @@
       },
       "600": {
         "key": "{orange.600}",
-        "$value": "#995715",
+        "$value": "#b34013",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19229,7 +19229,7 @@
       },
       "700": {
         "key": "{orange.700}",
-        "$value": "#894b16",
+        "$value": "#9e3811",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19260,7 +19260,7 @@
       },
       "800": {
         "key": "{orange.800}",
-        "$value": "#693c14",
+        "$value": "#7d2d0e",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19291,7 +19291,7 @@
       },
       "900": {
         "key": "{orange.900}",
-        "$value": "#532e16",
+        "$value": "#5d220d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19322,7 +19322,7 @@
       },
       "950": {
         "key": "{orange.950}",
-        "$value": "#382315",
+        "$value": "#461807",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19355,7 +19355,7 @@
     "purple": {
       "50": {
         "key": "{purple.50}",
-        "$value": "#f4f0ff",
+        "$value": "#f4f0fc",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19386,7 +19386,7 @@
       },
       "100": {
         "key": "{purple.100}",
-        "$value": "#e1d8f9",
+        "$value": "#e1daf7",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19417,7 +19417,7 @@
       },
       "200": {
         "key": "{purple.200}",
-        "$value": "#cbbbf2",
+        "$value": "#c9beef",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19448,7 +19448,7 @@
       },
       "300": {
         "key": "{purple.300}",
-        "$value": "#ac93e6",
+        "$value": "#a997e1",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19479,7 +19479,7 @@
       },
       "400": {
         "key": "{purple.400}",
-        "$value": "#9475db",
+        "$value": "#927cd7",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19510,7 +19510,7 @@
       },
       "500": {
         "key": "{purple.500}",
-        "$value": "#7b58cf",
+        "$value": "#7862c8",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19541,7 +19541,7 @@
       },
       "600": {
         "key": "{purple.600}",
-        "$value": "#6a4fb4",
+        "$value": "#6a54c0",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19572,7 +19572,7 @@
       },
       "700": {
         "key": "{purple.700}",
-        "$value": "#5c47a6",
+        "$value": "#5b46b8",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19603,7 +19603,7 @@
       },
       "800": {
         "key": "{purple.800}",
-        "$value": "#493c83",
+        "$value": "#483698",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19634,7 +19634,7 @@
       },
       "900": {
         "key": "{purple.900}",
-        "$value": "#342d59",
+        "$value": "#362676",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19665,7 +19665,7 @@
       },
       "950": {
         "key": "{purple.950}",
-        "$value": "#27243e",
+        "$value": "#291a5c",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19698,7 +19698,7 @@
     "red": {
       "50": {
         "key": "{red.50}",
-        "$value": "#fcf1ef",
+        "$value": "#feeef0",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19729,7 +19729,7 @@
       },
       "100": {
         "key": "{red.100}",
-        "$value": "#fdd4cd",
+        "$value": "#ffd3d7",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19760,7 +19760,7 @@
       },
       "200": {
         "key": "{red.200}",
-        "$value": "#fcb5aa",
+        "$value": "#ffafb8",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19791,7 +19791,7 @@
       },
       "300": {
         "key": "{red.300}",
-        "$value": "#f6806d",
+        "$value": "#fc7988",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19822,7 +19822,7 @@
       },
       "400": {
         "key": "{red.400}",
-        "$value": "#ec5941",
+        "$value": "#f15168",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19853,7 +19853,7 @@
       },
       "500": {
         "key": "{red.500}",
-        "$value": "#dd2b0e",
+        "$value": "#de1d4b",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19884,7 +19884,7 @@
       },
       "600": {
         "key": "{red.600}",
-        "$value": "#c02f12",
+        "$value": "#c52042",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19915,7 +19915,7 @@
       },
       "700": {
         "key": "{red.700}",
-        "$value": "#a32c12",
+        "$value": "#ac203a",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19946,7 +19946,7 @@
       },
       "800": {
         "key": "{red.800}",
-        "$value": "#812713",
+        "$value": "#891c2f",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -19977,7 +19977,7 @@
       },
       "900": {
         "key": "{red.900}",
-        "$value": "#582014",
+        "$value": "#641925",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -20008,7 +20008,7 @@
       },
       "950": {
         "key": "{red.950}",
-        "$value": "#3e1a14",
+        "$value": "#48151d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -22763,7 +22763,7 @@
       },
       "link": {
         "key": "{text.color.link}",
-        "$value": "#2f5ca0",
+        "$value": "#27599f",
         "$type": "color",
         "$description": "Used for default text links.",
         "$extensions": {
@@ -22795,7 +22795,7 @@
       },
       "warning": {
         "key": "{text.color.warning}",
-        "$value": "#995715",
+        "$value": "#b34013",
         "$type": "color",
         "$description": "Used for text that requires caution or careful attention.",
         "$extensions": {
@@ -22827,7 +22827,7 @@
       },
       "danger": {
         "key": "{text.color.danger}",
-        "$value": "#c02f12",
+        "$value": "#c52042",
         "$type": "color",
         "$description": "Used for text indicating a problem, critical state, destructive action, error, failure, removal, stop, or declination.",
         "$extensions": {
@@ -22859,7 +22859,7 @@
       },
       "success": {
         "key": "{text.color.success}",
-        "$value": "#2f7549",
+        "$value": "#0c7265",
         "$type": "color",
         "$description": "Used for text indicating success, completion, approval, addition, or validity.",
         "$extensions": {
@@ -22958,7 +22958,7 @@
       },
       "info": {
         "key": "{status.info.text.color}",
-        "$value": "#2f5ca0",
+        "$value": "#27599f",
         "$type": "color",
         "$description": "Used for the text of an informational status item when indicating a noteworthy ongoing condition or a state of active progress.",
         "$extensions": {
@@ -22991,7 +22991,7 @@
       },
       "success": {
         "key": "{status.success.text.color}",
-        "$value": "#306440",
+        "$value": "#0b645a",
         "$type": "color",
         "$description": "Used for the text of a success status item when indicating a positive outcome, completion, or desired state. Clearly conveys a positive connotation.",
         "$extensions": {
@@ -23024,7 +23024,7 @@
       },
       "warning": {
         "key": "{status.warning.text.color}",
-        "$value": "#894b16",
+        "$value": "#9e3811",
         "$type": "color",
         "$description": "Used for the text of a warning status item when indicating a state that requires heightened awareness or caution, but is not necessarily problematic. Represents a state that warrants extra attention or care when interacting with the item.",
         "$extensions": {
@@ -23057,7 +23057,7 @@
       },
       "danger": {
         "key": "{status.danger.text.color}",
-        "$value": "#a32c12",
+        "$value": "#ac203a",
         "$type": "color",
         "$description": "Used for the text of a danger status item when indicating a critical or severely problematic current state. Clearly conveys a negative connotation, representing a serious, ongoing issue or undesired condition.",
         "$extensions": {
@@ -23090,7 +23090,7 @@
       },
       "brand": {
         "key": "{status.brand.text.color}",
-        "$value": "#5c47a6",
+        "$value": "#5b46b8",
         "$type": "color",
         "$description": "Used for the text of a brand-related status item when highlighting the state of unique features or elements specific to the GitLab brand identity. Helps distinguish and emphasize brand-specific elements within the interface.",
         "$extensions": {
@@ -23191,7 +23191,7 @@
       },
       "info": {
         "key": "{feedback.info.text.color}",
-        "$value": "#2f5ca0",
+        "$value": "#27599f",
         "$type": "color",
         "$description": "Used for the text of an informational feedback item when highlighting new information or a change that doesn't require immediate action.",
         "$extensions": {
@@ -23224,7 +23224,7 @@
       },
       "success": {
         "key": "{feedback.success.text.color}",
-        "$value": "#306440",
+        "$value": "#0b645a",
         "$type": "color",
         "$description": "Used for the text of a success feedback item when confirming the successful completion of a user-initiated action.",
         "$extensions": {
@@ -23257,7 +23257,7 @@
       },
       "warning": {
         "key": "{feedback.warning.text.color}",
-        "$value": "#894b16",
+        "$value": "#9e3811",
         "$type": "color",
         "$description": "Used for the text of a warning feedback item when notifying about a potential issue or sensitive information.",
         "$extensions": {
@@ -23290,7 +23290,7 @@
       },
       "danger": {
         "key": "{feedback.danger.text.color}",
-        "$value": "#a32c12",
+        "$value": "#ac203a",
         "$type": "color",
         "$description": "Used for the text of a danger feedback item when notifying about a critical issue that has just occurred and requires immediate attention.",
         "$extensions": {
@@ -23323,7 +23323,7 @@
       },
       "brand": {
         "key": "{feedback.brand.text.color}",
-        "$value": "#5c47a6",
+        "$value": "#5b46b8",
         "$type": "color",
         "$description": "Used for the text of a brand-related feedback item when highlighting information that pertains to GitLab.",
         "$extensions": {
@@ -23489,7 +23489,7 @@
       },
       "error": {
         "key": "{control.text.color.error}",
-        "$value": "#c02f12",
+        "$value": "#c52042",
         "$type": "color",
         "$description": "Used for the helper text when the input is invalid.",
         "$extensions": {
@@ -23522,7 +23522,7 @@
       },
       "valid": {
         "key": "{control.text.color.valid}",
-        "$value": "#2f7549",
+        "$value": "#0c7265",
         "$type": "color",
         "$description": "Used for the helper text when the input is valid.",
         "$extensions": {
@@ -23558,7 +23558,7 @@
   "outline": {
     "focus": {
       "key": "{focus-ring.outer.color}",
-      "$value": "#1f75cb",
+      "$value": "#1f73ca",
       "$type": "color",
       "$description": "Used for the outer color portion of the focus ring.",
       "$extensions": {
@@ -24006,7 +24006,7 @@
     "blue": {
       "50": {
         "key": "{blue.50}",
-        "$value": "#e9f3fc",
+        "$value": "#e8f2fd",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24037,7 +24037,7 @@
       },
       "100": {
         "key": "{blue.100}",
-        "$value": "#cbe2f9",
+        "$value": "#c8e0f9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24068,7 +24068,7 @@
       },
       "200": {
         "key": "{blue.200}",
-        "$value": "#9dc7f1",
+        "$value": "#9dc8f2",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24099,7 +24099,7 @@
       },
       "300": {
         "key": "{blue.300}",
-        "$value": "#63a6e9",
+        "$value": "#64a7e9",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24130,7 +24130,7 @@
       },
       "400": {
         "key": "{blue.400}",
-        "$value": "#428fdc",
+        "$value": "#3f8edd",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24161,7 +24161,7 @@
       },
       "500": {
         "key": "{blue.500}",
-        "$value": "#1f75cb",
+        "$value": "#1f73ca",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24192,7 +24192,7 @@
       },
       "600": {
         "key": "{blue.600}",
-        "$value": "#2f68b4",
+        "$value": "#2566b5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24223,7 +24223,7 @@
       },
       "700": {
         "key": "{blue.700}",
-        "$value": "#2f5ca0",
+        "$value": "#27599f",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24254,7 +24254,7 @@
       },
       "800": {
         "key": "{blue.800}",
-        "$value": "#284779",
+        "$value": "#254581",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24285,7 +24285,7 @@
       },
       "900": {
         "key": "{blue.900}",
-        "$value": "#213454",
+        "$value": "#1f3166",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24316,7 +24316,7 @@
       },
       "950": {
         "key": "{blue.950}",
-        "$value": "#1d283e",
+        "$value": "#1d2153",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24723,7 +24723,7 @@
     "green": {
       "50": {
         "key": "{green.50}",
-        "$value": "#ecf4ee",
+        "$value": "#e6f5ea",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24754,7 +24754,7 @@
       },
       "100": {
         "key": "{green.100}",
-        "$value": "#c3e6cd",
+        "$value": "#bee6d0",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24785,7 +24785,7 @@
       },
       "200": {
         "key": "{green.200}",
-        "$value": "#91d4a8",
+        "$value": "#84d4b6",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24816,7 +24816,7 @@
       },
       "300": {
         "key": "{green.300}",
-        "$value": "#52b87a",
+        "$value": "#35b597",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24847,7 +24847,7 @@
       },
       "400": {
         "key": "{green.400}",
-        "$value": "#2da160",
+        "$value": "#129c84",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24878,7 +24878,7 @@
       },
       "500": {
         "key": "{green.500}",
-        "$value": "#108548",
+        "$value": "#0d8070",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24909,7 +24909,7 @@
       },
       "600": {
         "key": "{green.600}",
-        "$value": "#2f7549",
+        "$value": "#0c7265",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24940,7 +24940,7 @@
       },
       "700": {
         "key": "{green.700}",
-        "$value": "#306440",
+        "$value": "#0b645a",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -24971,7 +24971,7 @@
       },
       "800": {
         "key": "{green.800}",
-        "$value": "#225131",
+        "$value": "#075048",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25002,7 +25002,7 @@
       },
       "900": {
         "key": "{green.900}",
-        "$value": "#1e3e28",
+        "$value": "#003c36",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25033,7 +25033,7 @@
       },
       "950": {
         "key": "{green.950}",
-        "$value": "#17291c",
+        "$value": "#002c26",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25066,7 +25066,7 @@
     "orange": {
       "50": {
         "key": "{orange.50}",
-        "$value": "#fdf1dd",
+        "$value": "#fdf0d5",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25097,7 +25097,7 @@
       },
       "100": {
         "key": "{orange.100}",
-        "$value": "#f5d9a8",
+        "$value": "#fada9c",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25128,7 +25128,7 @@
       },
       "200": {
         "key": "{orange.200}",
-        "$value": "#e9be74",
+        "$value": "#f7b951",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25159,7 +25159,7 @@
       },
       "300": {
         "key": "{orange.300}",
-        "$value": "#d99530",
+        "$value": "#fb8017",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25190,7 +25190,7 @@
       },
       "400": {
         "key": "{orange.400}",
-        "$value": "#c17d10",
+        "$value": "#e95f21",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25221,7 +25221,7 @@
       },
       "500": {
         "key": "{orange.500}",
-        "$value": "#ab6100",
+        "$value": "#c74816",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25252,7 +25252,7 @@
       },
       "600": {
         "key": "{orange.600}",
-        "$value": "#995715",
+        "$value": "#b34013",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25283,7 +25283,7 @@
       },
       "700": {
         "key": "{orange.700}",
-        "$value": "#894b16",
+        "$value": "#9e3811",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25314,7 +25314,7 @@
       },
       "800": {
         "key": "{orange.800}",
-        "$value": "#693c14",
+        "$value": "#7d2d0e",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25345,7 +25345,7 @@
       },
       "900": {
         "key": "{orange.900}",
-        "$value": "#532e16",
+        "$value": "#5d220d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25376,7 +25376,7 @@
       },
       "950": {
         "key": "{orange.950}",
-        "$value": "#382315",
+        "$value": "#461807",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25409,7 +25409,7 @@
     "purple": {
       "50": {
         "key": "{purple.50}",
-        "$value": "#f4f0ff",
+        "$value": "#f4f0fc",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25440,7 +25440,7 @@
       },
       "100": {
         "key": "{purple.100}",
-        "$value": "#e1d8f9",
+        "$value": "#e1daf7",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25471,7 +25471,7 @@
       },
       "200": {
         "key": "{purple.200}",
-        "$value": "#cbbbf2",
+        "$value": "#c9beef",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25502,7 +25502,7 @@
       },
       "300": {
         "key": "{purple.300}",
-        "$value": "#ac93e6",
+        "$value": "#a997e1",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25533,7 +25533,7 @@
       },
       "400": {
         "key": "{purple.400}",
-        "$value": "#9475db",
+        "$value": "#927cd7",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25564,7 +25564,7 @@
       },
       "500": {
         "key": "{purple.500}",
-        "$value": "#7b58cf",
+        "$value": "#7862c8",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25595,7 +25595,7 @@
       },
       "600": {
         "key": "{purple.600}",
-        "$value": "#6a4fb4",
+        "$value": "#6a54c0",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25626,7 +25626,7 @@
       },
       "700": {
         "key": "{purple.700}",
-        "$value": "#5c47a6",
+        "$value": "#5b46b8",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25657,7 +25657,7 @@
       },
       "800": {
         "key": "{purple.800}",
-        "$value": "#493c83",
+        "$value": "#483698",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25688,7 +25688,7 @@
       },
       "900": {
         "key": "{purple.900}",
-        "$value": "#342d59",
+        "$value": "#362676",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25719,7 +25719,7 @@
       },
       "950": {
         "key": "{purple.950}",
-        "$value": "#27243e",
+        "$value": "#291a5c",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25752,7 +25752,7 @@
     "red": {
       "50": {
         "key": "{red.50}",
-        "$value": "#fcf1ef",
+        "$value": "#feeef0",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25783,7 +25783,7 @@
       },
       "100": {
         "key": "{red.100}",
-        "$value": "#fdd4cd",
+        "$value": "#ffd3d7",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25814,7 +25814,7 @@
       },
       "200": {
         "key": "{red.200}",
-        "$value": "#fcb5aa",
+        "$value": "#ffafb8",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25845,7 +25845,7 @@
       },
       "300": {
         "key": "{red.300}",
-        "$value": "#f6806d",
+        "$value": "#fc7988",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25876,7 +25876,7 @@
       },
       "400": {
         "key": "{red.400}",
-        "$value": "#ec5941",
+        "$value": "#f15168",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25907,7 +25907,7 @@
       },
       "500": {
         "key": "{red.500}",
-        "$value": "#dd2b0e",
+        "$value": "#de1d4b",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25938,7 +25938,7 @@
       },
       "600": {
         "key": "{red.600}",
-        "$value": "#c02f12",
+        "$value": "#c52042",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -25969,7 +25969,7 @@
       },
       "700": {
         "key": "{red.700}",
-        "$value": "#a32c12",
+        "$value": "#ac203a",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -26000,7 +26000,7 @@
       },
       "800": {
         "key": "{red.800}",
-        "$value": "#812713",
+        "$value": "#891c2f",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -26031,7 +26031,7 @@
       },
       "900": {
         "key": "{red.900}",
-        "$value": "#582014",
+        "$value": "#641925",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []
@@ -26062,7 +26062,7 @@
       },
       "950": {
         "key": "{red.950}",
-        "$value": "#3e1a14",
+        "$value": "#48151d",
         "$type": "color",
         "$extensions": {
           "com.figma.scopes": []

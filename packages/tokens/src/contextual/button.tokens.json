@@ -867,8 +867,8 @@
           "color": {
             "default": {
               "$value": {
-                "default": "{color.red.500}",
-                "dark": "{color.red.300}"
+                "default": "{color.red.600}",
+                "dark": "{color.red.400}"
               },
               "$type": "color",
               "$description": "Used for the background of a danger (destructive) primary button in the default state.",
@@ -881,8 +881,8 @@
             },
             "hover": {
               "$value": {
-                "default": "{color.red.600}",
-                "dark": "{color.red.200}"
+                "default": "{color.red.700}",
+                "dark": "{color.red.300}"
               },
               "$type": "color",
               "$description": "Used for the background of a danger (destructive) primary button in the hover state.",
@@ -906,8 +906,8 @@
             },
             "active": {
               "$value": {
-                "default": "{color.red.800}",
-                "dark": "{color.red.400}"
+                "default": "{color.red.900}",
+                "dark": "{color.red.200}"
               },
               "$type": "color",
               "$description": "Used for the background of a danger (destructive) primary button in the active state.",
@@ -924,7 +924,7 @@
           "color": {
             "default": {
               "$value": {
-                "default": "{color.red.600}",
+                "default": "{color.red.700}",
                 "dark": "{color.alpha.0}"
               },
               "$type": "color",
@@ -937,7 +937,7 @@
             },
             "hover": {
               "$value": {
-                "default": "{color.red.800}",
+                "default": "{color.red.900}",
                 "dark": "{color.alpha.0}"
               },
               "$type": "color",
@@ -960,7 +960,7 @@
             },
             "active": {
               "$value": {
-                "default": "{color.red.900}",
+                "default": "{color.red.950}",
                 "dark": "{color.alpha.0}"
               },
               "$type": "color",
@@ -979,7 +979,7 @@
           "color": {
             "default": {
               "$value": {
-                "default": "{color.red.500}",
+                "default": "{color.red.600}",
                 "dark": "{color.red.100}"
               },
               "$type": "color",
@@ -993,7 +993,7 @@
             },
             "hover": {
               "$value": {
-                "default": "{color.red.700}",
+                "default": "{color.red.800}",
                 "dark": "{color.red.50}"
               },
               "$type": "color",
@@ -1040,9 +1040,9 @@
                 "dark": {
                   "colorSpace": "srgb",
                   "components": [
-                    0.9254901960784314,
-                    0.34901960784313724,
-                    0.2549019607843137
+                    0.9450980392156862,
+                    0.3176470588235294,
+                    0.40784313725490196
                   ],
                   "alpha": 0.4
                 }
@@ -1062,9 +1062,9 @@
                 "dark": {
                   "colorSpace": "srgb",
                   "components": [
-                    0.9254901960784314,
-                    0.34901960784313724,
-                    0.2549019607843137
+                    0.9450980392156862,
+                    0.3176470588235294,
+                    0.40784313725490196
                   ],
                   "alpha": 0.64
                 }
@@ -1095,9 +1095,9 @@
                 "dark": {
                   "colorSpace": "srgb",
                   "components": [
-                    0.9254901960784314,
-                    0.34901960784313724,
-                    0.2549019607843137
+                    0.9450980392156862,
+                    0.3176470588235294,
+                    0.40784313725490196
                   ],
                   "alpha": 0.32
                 }
@@ -1117,7 +1117,7 @@
           "color": {
             "default": {
               "$value": {
-                "default": "{color.red.500}",
+                "default": "{color.red.600}",
                 "dark": "{color.alpha.0}"
               },
               "$type": "color",
@@ -1130,7 +1130,7 @@
             },
             "hover": {
               "$value": {
-                "default": "{color.red.700}",
+                "default": "{color.red.800}",
                 "dark": "{color.alpha.0}"
               },
               "$type": "color",
