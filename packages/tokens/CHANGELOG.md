@@ -1,5 +1,11 @@
 # @gitlab-ui-react/tokens
 
+## 0.3.0
+
+### Upstream Syncs
+
+- **tokens:** sync upstream design tokens (2026-09-29) (#138)
+
 ## 0.2.0
 
 ### Version Synchronization
