@@ -334,6 +334,40 @@ function resetPrereleaseCounters(root: string, preState: PreState | null): void 
   }
 }
 
+function withHiddenFixedWorkspacePeers(root: string, operation: () => void): void {
+  const fixedNames = new Set(PUBLISHABLE_PACKAGES.map(({ name }) => name));
+  const originals = new Map<string, Record<string, string>>();
+
+  // Changesets 2.x promotes minor peer dependency updates to major releases.
+  // Our fixed group already versions together; its workspace peers must not
+  // override the bump selected by automatic or maintainer-authored changesets.
+  try {
+    for(const { directory } of PUBLISHABLE_PACKAGES) {
+      const manifestPath = join(root, directory, "package.json");
+      const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as {
+        peerDependencies?: Record<string, string>;
+      };
+      if(!manifest.peerDependencies) continue;
+      const peers = Object.entries(manifest.peerDependencies);
+      const remaining = peers.filter(
+        ([name, range]) => !fixedNames.has(name) || !range.startsWith("workspace:"),
+      );
+      if(remaining.length === peers.length) continue;
+
+      originals.set(manifestPath, manifest.peerDependencies);
+      manifest.peerDependencies = Object.fromEntries(remaining);
+      writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
+    }
+    operation();
+  } finally {
+    for(const [manifestPath, peerDependencies] of originals) {
+      const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+      manifest.peerDependencies = peerDependencies;
+      writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
+    }
+  }
+}
+
 export function run(root = REPOSITORY_ROOT, options: VersionRunOptions = {}): void {
   const preState = readPreState(root);
   const previousSnapshot = readReleaseSnapshot(root);
@@ -353,15 +387,17 @@ export function run(root = REPOSITORY_ROOT, options: VersionRunOptions = {}): vo
 
   resetPrereleaseCounters(root, preState);
   console.log("[release] Running `changeset version`.");
-  if(options.runChangesetVersion) {
-    options.runChangesetVersion();
-  } else {
-    const version = pnpmInvocation(["exec", "changeset", "version"]);
-    execFileSync(version.command, version.args, {
-      cwd: root,
-      stdio: "inherit",
-    });
-  }
+  withHiddenFixedWorkspacePeers(root, () => {
+    if(options.runChangesetVersion) {
+      options.runChangesetVersion();
+    } else {
+      const version = pnpmInvocation(["exec", "changeset", "version"]);
+      execFileSync(version.command, version.args, {
+        cwd: root,
+        stdio: "inherit",
+      });
+    }
+  });
 
   const after = readVersions(root);
   const nextFixedVersion = assertFixedVersions(after);
