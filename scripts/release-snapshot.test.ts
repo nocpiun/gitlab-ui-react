@@ -54,7 +54,7 @@ function commit(root: string, message: string): string {
   return git(root, "rev-parse", "HEAD");
 }
 
-function createRepository(): string {
+function createRepository(version = "0.1.0"): string {
   const root = mkdtempSync(join(tmpdir(), "gitlab-ui-snapshot-"));
   temporaryDirectories.push(root);
   mkdirSync(join(root, ".changeset"));
@@ -91,8 +91,15 @@ function createRepository(): string {
       join(root, directory, "package.json"),
       `${JSON.stringify({
         name,
-        version: "0.1.0",
+        version,
         ...(dependencies ? { dependencies } : {}),
+        ...(name === "@gitlab-ui-react/json-render" ? {
+          peerDependencies: {
+            "@gitlab-ui-react/styles": "workspace:^",
+            react: "^19.2.8",
+          },
+          devDependencies: { "@gitlab-ui-react/styles": "workspace:^" },
+        } : {}),
       }, null, 2)}\n`,
     );
   }
@@ -102,7 +109,7 @@ function createRepository(): string {
   git(root, "config", "user.name", "Release Test");
   commit(root, "chore: create release fixture");
   for(const [, name] of PACKAGES) {
-    git(root, "-c", "tag.gpgSign=false", "tag", `${name}@0.1.0`);
+    git(root, "-c", "tag.gpgSign=false", "tag", `${name}@${version}`);
   }
   return root;
 }
@@ -152,6 +159,50 @@ function writeManualChangeset(
 }
 
 describe("pending release snapshots", () => {
+  it("versions internal workspace peers from 0.2.0 to 0.3.0 for a feature", () => {
+    const root = createRepository("0.2.0");
+    writeFileSync(join(root, "packages/styles/feature.css"), ".feature {}\n");
+    const featureSha = commit(root, "feat(styles): add a feature");
+    expect(createAutomaticChangeset(root).bumps).toEqual({
+      "@gitlab-ui-react/styles": "minor",
+    });
+
+    versionPackages(root, { runChangesetVersion: () => runChangesetVersion(root) });
+
+    expect(fixedVersion(root)).toBe("0.3.0");
+    expect(readReleaseSnapshot(root)).toMatchObject({
+      coveredThrough: featureSha,
+      version: "0.3.0",
+    });
+    const manifest = JSON.parse(
+      readFileSync(join(root, "packages/json-render/package.json"), "utf8"),
+    );
+    expect(manifest.peerDependencies).toEqual({
+      "@gitlab-ui-react/styles": "workspace:^",
+      react: "^19.2.8",
+    });
+    expect(manifest.devDependencies).toEqual({
+      "@gitlab-ui-react/styles": "workspace:^",
+    });
+  }, 30_000);
+
+  it("restores workspace peers when Changesets fails and keeps external peers visible", () => {
+    const root = createRepository();
+    const manifestPath = join(root, "packages/json-render/package.json");
+    const original = readFileSync(manifestPath, "utf8");
+
+    expect(() => versionPackages(root, {
+      runChangesetVersion: () => {
+        const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+        expect(manifest.peerDependencies).toEqual({ react: "^19.2.8" });
+        throw new Error("Changesets failed");
+      },
+    })).toThrow("Changesets failed");
+
+    expect(readFileSync(manifestPath, "utf8")).toBe(original);
+    expect(fixedVersion(root)).toBe("0.1.0");
+  });
+
   it("rolls release-worthy commits after a stale snapshot into a new version", () => {
     const root = createRepository();
 
