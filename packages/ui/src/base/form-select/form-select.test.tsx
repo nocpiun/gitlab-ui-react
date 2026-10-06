@@ -84,6 +84,20 @@ describe("GlFormSelect", () => {
       },
     );
 
+    it.each(["false", "grammar", "spelling"])(
+      "preserves ariaInvalid=%s without an invalid validation state",
+      (ariaInvalid) => {
+        expect(renderSelect({ ariaInvalid })).toContain(`aria-invalid="${ariaInvalid}"`);
+      },
+    );
+
+    it.each([false, "false", "grammar", "spelling"])(
+      "gives state=false precedence over ariaInvalid=%s",
+      (ariaInvalid) => {
+        expect(renderSelect({ ariaInvalid, state: false })).toContain("aria-invalid=\"true\"");
+      },
+    );
+
     it("renders required and disabled semantics on the select", () => {
       const markup = renderSelect({ disabled: true, required: true });
 
