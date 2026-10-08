@@ -148,7 +148,7 @@ describe("GlSorting", () => {
     const onSortDirectionChange = vi.fn();
     render(<GlSorting sortOptions={sortOptions} defaultSortBy="relevant"
       onSortDirectionChange={onSortDirectionChange} />);
-    const direction = screen.getByRole("button", { name: "Sort direction unavailable for Most relevant" });
+    const direction = screen.getByRole("button", { name: "Sorting is unavailable for Most relevant" });
     expect(direction.getAttribute("aria-disabled")).toBe("true");
     expect(direction.hasAttribute("disabled")).toBe(false);
     screen.getByRole("button", { name: "Sort by: Most relevant" }).focus();
@@ -163,7 +163,7 @@ describe("GlSorting", () => {
     const user = userEvent.setup();
     const { rerender } = render(<GlSorting sortOptions={[{ value: "x", text: "", directionToggleDisabled: true }]}
       sortBy="x" />);
-    expect(screen.getByRole("button", { name: "Sort direction unavailable" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Sorting is unavailable" })).toBeTruthy();
     rerender(<GlSorting sortOptions={sortOptions} sortBy="relevant" sortDirectionTooltip="Custom reason" />);
     expect(screen.getByRole("button", { name: "Custom reason" }).getAttribute("aria-disabled")).toBe("true");
     rerender(<GlSorting sortOptions={sortOptions} sortBy="created" sortDirectionTooltip="" />);
@@ -190,6 +190,60 @@ describe("GlSorting", () => {
       .toContain("sorting-direction-button direction-class");
   });
 
+  it("disables both controls, keeps direction focusable and overrides custom labels", async () => {
+    const user = userEvent.setup();
+    const onSortByChange = vi.fn();
+    const onSortDirectionChange = vi.fn();
+    render(<GlSorting disabled sortOptions={sortOptions} defaultSortBy="created"
+      sortByLabel="Order by:" sortDirectionTooltip="Change direction"
+      onSortByChange={onSortByChange} onSortDirectionChange={onSortDirectionChange} />);
+    const trigger = screen.getByRole("button", { name: "Sorting is unavailable Created date" });
+    const direction = screen.getByRole("button", { name: "Sorting is unavailable for Created date" });
+    expect(trigger.getAttribute("aria-disabled")).toBe("true");
+    expect(direction.getAttribute("aria-disabled")).toBe("true");
+    expect(direction.hasAttribute("disabled")).toBe(false);
+    trigger.focus();
+    await user.keyboard("{ArrowDown}{Enter} ");
+    await user.click(trigger);
+    expect(screen.queryByRole("listbox")).toBeNull();
+    trigger.focus();
+    await user.tab();
+    expect(document.activeElement).toBe(direction);
+    await user.keyboard("{Enter} ");
+    await user.click(direction);
+    expect(onSortByChange).not.toHaveBeenCalled();
+    expect(onSortDirectionChange).not.toHaveBeenCalled();
+  });
+
+  it("uses a generic unavailable label without a selected field", () => {
+    render(<GlSorting disabled sortDirectionTooltip="Change direction" />);
+    expect(screen.getAllByRole("button", { name: "Sorting is unavailable" })).toHaveLength(2);
+  });
+
+  it("closes an open dropdown when disabled and restores interaction when enabled", async () => {
+    const user = userEvent.setup();
+    const onSortByChange = vi.fn();
+    const onSortDirectionChange = vi.fn();
+    const props = { sortOptions, defaultSortBy: "created", onSortByChange, onSortDirectionChange };
+    const { rerender } = render(<GlSorting {...props} />);
+    const trigger = screen.getByRole("button", { name: "Sort by: Created date" });
+    await user.click(trigger);
+    await screen.findByRole("option", { name: "Updated date" });
+    rerender(<GlSorting {...props} disabled />);
+    await waitFor(() => expect(trigger.getAttribute("aria-expanded")).toBe("false"));
+    await waitFor(() => expect(screen.queryByRole("listbox")).toBeNull());
+    expect(onSortByChange).not.toHaveBeenCalled();
+    expect(onSortDirectionChange).not.toHaveBeenCalled();
+
+    rerender(<GlSorting {...props} />);
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
+    await user.click(trigger);
+    await user.click(await screen.findByRole("option", { name: "Updated date" }));
+    await user.click(screen.getByRole("button", { name: "Sort direction: descending" }));
+    expect(onSortByChange).toHaveBeenCalledExactlyOnceWith("updated");
+    expect(onSortDirectionChange).toHaveBeenCalledExactlyOnceWith(true);
+  });
+
   it("associates unique prefix and text IDs across instances", () => {
     render(<><GlSorting text="First" /><GlSorting text="Second" /></>);
     const ids = ["First", "Second"].flatMap((text) => {
@@ -205,6 +259,37 @@ describe("GlSorting", () => {
 });
 
 describe("useSorting", () => {
+  it.each([false, true])("guards every operation while disabled (controlled: %s)", (controlled) => {
+    const onSortByChange = vi.fn();
+    const onSortDirectionChange = vi.fn();
+    const options: UseSortingOptions = {
+      sortOptions, defaultSortBy: "created", defaultIsAscending: true,
+      ...(controlled ? { sortBy: "created", isAscending: true } : {}),
+      onSortByChange, onSortDirectionChange,
+    };
+    const { result, rerender } = renderHook(
+      ({ disabled }) => useSorting({ ...options, disabled }),
+      { initialProps: { disabled: false } },
+    );
+    rerender({ disabled: true });
+    expect(result.current.sortingProps.disabled).toBe(true);
+    expect(result.current.directionToggleDisabled).toBe(true);
+    act(() => result.current.setSortBy("updated"));
+    act(() => result.current.setIsAscending(false));
+    act(() => result.current.toggleSortDirection());
+    act(() => result.current.sortingProps.onSortByChange("updated"));
+    act(() => result.current.sortingProps.onSortDirectionChange(false));
+    expect(result.current.sortBy).toBe("created");
+    expect(result.current.isAscending).toBe(true);
+    expect(onSortByChange).not.toHaveBeenCalled();
+    expect(onSortDirectionChange).not.toHaveBeenCalled();
+    rerender({ disabled: false });
+    act(() => result.current.setSortBy("updated"));
+    act(() => result.current.toggleSortDirection());
+    expect(onSortByChange).toHaveBeenCalledExactlyOnceWith("updated");
+    expect(onSortDirectionChange).toHaveBeenCalledExactlyOnceWith(false);
+  });
+
   it("defaults to no field and descending without options", () => {
     const { result } = renderHook(() => useSorting());
     expect(result.current.sortBy).toBeNull();

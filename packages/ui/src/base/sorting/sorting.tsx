@@ -3,7 +3,8 @@
  * packages/gitlab-ui/src/components/base/sorting/sorting.vue
  */
 
-import { forwardRef, useId, type HTMLAttributes } from "react";
+import type { GlDropdownHandle } from "../../internal/dropdown/dropdown-types.js";
+import { forwardRef, useEffect, useId, useRef, type HTMLAttributes } from "react";
 import { cva } from "class-variance-authority";
 import GlButton from "../button/button.js";
 import GlButtonGroup from "../button-group/button-group.js";
@@ -30,7 +31,7 @@ export type GlSortingProps = SortingElementProps & UseSortingOptions & {
   block?: boolean;
   /** Screen-reader prefix for the selected field. Defaults to "Sort by:". */
   sortByLabel?: string;
-  /** Overrides both the direction tooltip and accessible name when non-empty. */
+  /** Overrides the direction tooltip and accessible name unless the whole control is disabled. */
   sortDirectionTooltip?: string | null;
   dropdownClassName?: string;
   dropdownToggleClassName?: string;
@@ -42,6 +43,7 @@ const dropdownVariants = cva("gl-w-full");
 const directionVariants = cva("sorting-direction-button");
 
 const GlSorting = forwardRef<HTMLDivElement, GlSortingProps>(function GlSorting({
+  disabled = false,
   sortOptions,
   sortBy,
   defaultSortBy,
@@ -60,6 +62,7 @@ const GlSorting = forwardRef<HTMLDivElement, GlSortingProps>(function GlSorting(
   ...elementProps
 }, forwardedRef) {
   const sorting = useSorting({
+    disabled,
     sortOptions,
     sortBy,
     defaultSortBy,
@@ -70,12 +73,18 @@ const GlSorting = forwardRef<HTMLDivElement, GlSortingProps>(function GlSorting(
   });
   const labelId = useId();
   const textId = useId();
+  const listboxRef = useRef<GlDropdownHandle>(null);
+  useEffect(() => {
+    if(disabled) listboxRef.current?.close();
+  }, [disabled]);
+
   const selectedText = sorting.selectedSortOption?.text ?? "";
-  const directionText = sortDirectionTooltip || (
+  const unavailableLabel = "Sorting is unavailable";
+  const directionText = (!disabled && sortDirectionTooltip) || (
     sorting.directionToggleDisabled
       ? selectedText
-        ? `Sort direction unavailable for ${selectedText}`
-        : "Sort direction unavailable"
+        ? `${unavailableLabel} for ${selectedText}`
+        : unavailableLabel
       : sorting.isAscending
         ? "Sort direction: ascending"
         : "Sort direction: descending"
@@ -87,6 +96,8 @@ const GlSorting = forwardRef<HTMLDivElement, GlSortingProps>(function GlSorting(
       ref={forwardedRef}
       className={sortingVariants({ className })}>
       <GlListbox
+        ref={listboxRef}
+        disabled={disabled}
         className={dropdownVariants({ className: dropdownClassName })}
         onValueChange={sorting.setSortBy}
         value={sorting.sortBy}>
@@ -104,7 +115,7 @@ const GlSorting = forwardRef<HTMLDivElement, GlSortingProps>(function GlSorting(
           ))}
         </GlListboxContent>
       </GlListbox>
-      <span className="gl-sr-only" id={labelId}>{sortByLabel}</span>
+      <span className="gl-sr-only" id={labelId}>{disabled ? unavailableLabel : sortByLabel}</span>
       <GlTooltip>
         <GlTooltipTrigger asChild>
           <GlButton

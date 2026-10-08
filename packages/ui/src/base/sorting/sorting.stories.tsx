@@ -30,6 +30,9 @@ const meta = {
           + "Use sortBy/isAscending with their callbacks, or defaultSortBy/defaultIsAscending for local state. "
           + "useSorting returns the current field and direction, setters, toggleSortDirection, selectedSortOption, "
           + "directionToggleDisabled, and sortingProps for <GlSorting {...sortingProps} />. "
+          + "Set disabled (default false) on GlSorting or useSorting to disable both controls and suppress changes. "
+          + "Disabling closes an open dropdown and preserves the current field and direction. "
+          + "The unavailable accessible label takes precedence over sortDirectionTooltip while disabled. "
           + "Data sorting, fetching, persistence, pagination resets, and result announcements belong to the caller. "
           + "Pajamas recommends at most ten options.",
       },
@@ -81,15 +84,18 @@ export const Default: Story = {
     await userEvent.keyboard("{ArrowDown}");
     await canvas.findByRole("listbox");
     await userEvent.keyboard("{Escape}");
+
     await waitFor(() => expect(trigger).toHaveFocus());
 
     await userEvent.click(canvas.getByRole("button", { name: "Sort direction: descending" }));
+
     const direction = canvas.getByRole("button", { name: "Sort direction: ascending" });
 
     await expect(direction.querySelector("[data-testid=\"sort-lowest-icon\"]")).not.toBeNull();
     await expect(args.onSortDirectionChange).toHaveBeenLastCalledWith(true);
 
     await userEvent.keyboard(" ");
+
     await expect(args.onSortDirectionChange).toHaveBeenLastCalledWith(false);
   },
 };
@@ -113,6 +119,7 @@ export const Controlled: Story = {
     await expect(canvas.getByRole("button", { name: "Sort by: Updated date" })).toBeVisible();
 
     await userEvent.click(canvas.getByRole("button", { name: "Sort direction: descending" }));
+
     await expect(canvas.getByRole("button", { name: "Sort direction: ascending" })).toBeVisible();
   },
 };
@@ -164,7 +171,7 @@ function SortingExample() {
 export const DisabledDirectionToggle: Story = {
   args: { defaultSortBy: "relevant" },
   play: async ({ args, canvas }) => {
-    const direction = canvas.getByRole("button", { name: "Sort direction unavailable for Most relevant" });
+    const direction = canvas.getByRole("button", { name: "Sorting is unavailable for Most relevant" });
 
     await expect(direction).toHaveAttribute("aria-disabled", "true");
     await expect(direction).not.toHaveAttribute("disabled");
@@ -177,7 +184,7 @@ export const DisabledDirectionToggle: Story = {
     const tooltip = await within(document.body).findByRole("tooltip");
 
     await waitFor(() => expect(tooltip).toBeVisible());
-    await expect(tooltip).toHaveTextContent("Sort direction unavailable for Most relevant");
+    await expect(tooltip).toHaveTextContent("Sorting is unavailable for Most relevant");
 
     await userEvent.keyboard("{Enter} ");
     await userEvent.click(direction);
@@ -197,6 +204,42 @@ export const DisabledDirectionToggle: Story = {
 
     await expect(args.onSortDirectionChange).toHaveBeenCalledTimes(1);
     await expect(args.onSortDirectionChange).toHaveBeenLastCalledWith(true);
+  },
+};
+
+export const DisabledSorting: Story = {
+  args: {
+    disabled: true,
+    sortOptions: [{ value: "manual", text: "Manual" }],
+    defaultSortBy: "manual",
+    sortDirectionTooltip: "Change direction",
+  },
+  play: async ({ args, canvas }) => {
+    const trigger = canvas.getByRole("button", { name: "Sorting is unavailable Manual" });
+    const direction = canvas.getByRole("button", { name: "Sorting is unavailable for Manual" });
+
+    await expect(trigger).toHaveAttribute("aria-disabled", "true");
+
+    await userEvent.click(trigger);
+
+    await expect(canvas.queryByRole("listbox")).toBeNull();
+
+    trigger.focus();
+    await userEvent.tab();
+
+    await expect(direction).toHaveFocus();
+    await expect(direction).toHaveAttribute("aria-disabled", "true");
+    await expect(direction).not.toHaveAttribute("disabled");
+
+    const tooltip = await within(document.body).findByRole("tooltip");
+
+    await expect(tooltip).toHaveTextContent("Sorting is unavailable for Manual");
+
+    await userEvent.keyboard("{Enter} ");
+    await userEvent.click(direction);
+
+    await expect(args.onSortByChange).not.toHaveBeenCalled();
+    await expect(args.onSortDirectionChange).not.toHaveBeenCalled();
   },
 };
 
