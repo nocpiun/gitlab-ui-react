@@ -1,6 +1,6 @@
 import type { CSSProperties, MouseEvent } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, fn, userEvent } from "storybook/test";
+import { expect, fn, userEvent, within } from "storybook/test";
 import GlButton, {
   type GlButtonCategory,
   type GlButtonSize,
@@ -158,6 +158,77 @@ export const Disabled: Story = {
     await userEvent.click(button);
     await expect(button).toHaveAttribute("aria-disabled", "true");
     await expect(button).not.toHaveAttribute("disabled");
+    await expect(args.onClick).not.toHaveBeenCalled();
+  },
+};
+
+export const DisabledFocusRing: Story = {
+  args: { onClick: fn() },
+  render: (args) => (
+    <div style={{ display: "grid", gap: "1rem" }}>
+      {[false, true].map((dark) => (
+        <section key={String(dark)} aria-label={dark ? "Dark buttons" : "Light buttons"}
+          className={dark ? "gl-dark-scope gl-bg-default gl-p-4" : "gl-light-scope gl-bg-default gl-p-4"}
+          style={collectionStyle}>
+          <span tabIndex={-1} data-testid="focus-start" />
+          {(["primary", "tertiary", "link"] as const).flatMap((appearance) => (
+            ["disabled", "loading", "selected"].map((state) => (
+              <GlButton {...args} key={`${appearance}-${state}`}
+                category={appearance === "link" ? "primary" : appearance}
+                variant={appearance === "link" ? "link" : "default"}
+                disabled={state !== "loading"} loading={state === "loading"}
+                selected={state === "selected"}
+                aria-pressed={state === "selected" ? true : undefined}
+                style={{ transition: "none" }}>
+                {appearance} {state}
+              </GlButton>
+            ))
+          ))}
+        </section>
+      ))}
+    </div>
+  ),
+  play: async ({ args, canvas }) => {
+    for(const region of canvas.getAllByRole("region")) {
+      const scope = within(region);
+      const buttons = scope.getAllByRole("button");
+
+      scope.getByTestId("focus-start").focus();
+
+      for(const button of buttons) {
+        const transparent = button.classList.contains("btn-default-tertiary")
+          || button.classList.contains("btn-link");
+
+        await userEvent.tab();
+
+        await expect(button).toHaveFocus();
+        await expect(button).toHaveAttribute("aria-disabled", "true");
+        await expect(button).not.toHaveAttribute("disabled");
+        await expect(button.matches(":focus-visible")).toBe(true);
+        await expect(getComputedStyle(button).boxShadow).toContain("0px 0px 0px 3px");
+
+        if(transparent) {
+          await expect(getComputedStyle(button).backgroundColor).toBe("rgba(0, 0, 0, 0)");
+        }
+
+        await userEvent.keyboard("{Enter} ");
+        await userEvent.pointer({ target: button, keys: "[MouseLeft>]" });
+
+        if(transparent) {
+          await expect(getComputedStyle(button).backgroundColor).toBe("rgba(0, 0, 0, 0)");
+        }
+
+        await userEvent.pointer({ keys: "[/MouseLeft]" });
+        button.blur();
+
+        // Shadow-none can serialize as transparent zero-sized shadows in Tailwind.
+        await expect(getComputedStyle(button).boxShadow).not.toContain("0px 0px 0px 3px");
+
+        // Restore the tab starting point after checking the unfocused appearance.
+        button.focus();
+      }
+    }
+
     await expect(args.onClick).not.toHaveBeenCalled();
   },
 };
