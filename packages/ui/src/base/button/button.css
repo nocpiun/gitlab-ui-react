@@ -325,19 +325,35 @@
 .gl-button.gl-button.disabled:focus-visible,
 .gl-button.gl-button.disabled:active,
 .gl-button.gl-button.disabled.selected {
-  @apply gl-shadow-none gl-opacity-100 gl-cursor-not-allowed;
+  @apply gl-opacity-100 gl-cursor-not-allowed;
   border-color: var(--gl-button-disabled-border-color);
   color: var(--gl-button-disabled-foreground-color);
   background-color: var(--gl-button-disabled-background-color);
+
+  /* Disabled and loading buttons remain keyboard-focusable in the React port. */
+  &:not(:focus-visible) {
+    @apply gl-shadow-none;
+  }
 }
 
 .gl-button.disabled::before {
   background-color: var(--gl-button-disabled-border-color);
 }
 
+/* After the disabled rule so transparency also wins on focus, active and selected. */
 .gl-button.gl-button.disabled[class*="-tertiary"],
 .gl-button.gl-button.btn-link.disabled {
-  @apply gl-bg-transparent gl-shadow-none;
+  &,
+  &:hover,
+  &:focus-visible,
+  &:active,
+  &.selected {
+    @apply gl-bg-transparent;
+  }
+
+  &:not(:focus-visible) {
+    @apply gl-shadow-none;
+  }
 }
 
 .gl-button-text:has(.gl-sr-only) {
