@@ -10,6 +10,8 @@ export type GlSortingOption = {
 };
 
 export type UseSortingOptions = {
+  /** Disables field and direction changes. Defaults to false. */
+  disabled?: boolean;
   sortOptions?: readonly GlSortingOption[];
   sortBy?: GlSortingSortBy;
   defaultSortBy?: GlSortingSortBy;
@@ -28,6 +30,7 @@ export type UseSortingResult = {
   setIsAscending: (isAscending: boolean) => void;
   toggleSortDirection: () => void;
   sortingProps: {
+    disabled: boolean;
     sortOptions: readonly GlSortingOption[];
     sortBy: GlSortingSortBy;
     isAscending: boolean;
@@ -43,6 +46,7 @@ const EMPTY_SORT_OPTIONS: readonly GlSortingOption[] = [];
  * Data sorting, persistence, and fetching belong to the caller.
  */
 export function useSorting({
+  disabled = false,
   sortOptions = EMPTY_SORT_OPTIONS,
   sortBy: controlledSortBy,
   defaultSortBy = null,
@@ -61,13 +65,13 @@ export function useSorting({
     () => sortOptions.find((option) => option.value === sortBy),
     [sortBy, sortOptions],
   );
-  const directionToggleDisabled = Boolean(selectedSortOption?.directionToggleDisabled);
+  const directionToggleDisabled = disabled || Boolean(selectedSortOption?.directionToggleDisabled);
 
   const setSortBy = useCallback((nextSortBy: GlSortingSortBy) => {
-    if(nextSortBy === sortBy) return;
+    if(disabled || nextSortBy === sortBy) return;
     if(controlledSortBy === undefined) setUncontrolledSortBy(nextSortBy);
     onSortByChange?.(nextSortBy);
-  }, [controlledSortBy, onSortByChange, sortBy]);
+  }, [controlledSortBy, disabled, onSortByChange, sortBy]);
 
   const setIsAscending = useCallback((nextIsAscending: boolean) => {
     if(directionToggleDisabled || nextIsAscending === isAscending) return;
@@ -80,12 +84,13 @@ export function useSorting({
   }, [isAscending, setIsAscending]);
 
   const sortingProps = useMemo(() => ({
+    disabled,
     sortOptions,
     sortBy,
     isAscending,
     onSortByChange: setSortBy,
     onSortDirectionChange: setIsAscending,
-  }), [isAscending, setIsAscending, setSortBy, sortBy, sortOptions]);
+  }), [disabled, isAscending, setIsAscending, setSortBy, sortBy, sortOptions]);
 
   return {
     sortBy,
