@@ -699,6 +699,7 @@ $gl-nav-item-selected-background-color-default: var(--gl-nav-item-selected-backg
 $gl-nav-item-selected-background-color-hover: var(--gl-nav-item-selected-background-color-hover);
 $gl-nav-item-selected-background-color-focus: var(--gl-nav-item-selected-background-color-focus);
 $gl-nav-item-selected-background-color-active: var(--gl-nav-item-selected-background-color-active);
+$gl-nav-item-selected-indicator-color: var(--gl-nav-item-selected-indicator-color);
 $gl-progress-bar-indicator-color-default: var(--gl-progress-bar-indicator-color-default);
 $gl-progress-bar-indicator-color-success: var(--gl-progress-bar-indicator-color-success);
 $gl-progress-bar-indicator-color-warning: var(--gl-progress-bar-indicator-color-warning);
@@ -999,6 +1000,7 @@ $gl-control-background-color-readonly: var(--gl-control-background-color-readonl
 $gl-control-background-color-selected-default: var(--gl-control-background-color-selected-default);
 $gl-control-background-color-selected-hover: var(--gl-control-background-color-selected-hover);
 $gl-control-background-color-selected-focus: var(--gl-control-background-color-selected-focus);
+$gl-control-background-color-selected-disabled: var(--gl-control-background-color-selected-disabled);
 $gl-control-border-color-default: var(--gl-control-border-color-default);
 $gl-control-border-color-hover: var(--gl-control-border-color-hover);
 $gl-control-border-color-focus: var(--gl-control-border-color-focus);
@@ -1007,6 +1009,7 @@ $gl-control-border-color-error: var(--gl-control-border-color-error);
 $gl-control-border-color-selected-default: var(--gl-control-border-color-selected-default);
 $gl-control-border-color-selected-hover: var(--gl-control-border-color-selected-hover);
 $gl-control-border-color-selected-focus: var(--gl-control-border-color-selected-focus);
+$gl-control-border-color-selected-disabled: var(--gl-control-border-color-selected-disabled);
 $gl-control-border-radius: var(--gl-control-border-radius);
 $gl-control-text-color-error: var(--gl-control-text-color-error);
 $gl-control-text-color-valid: var(--gl-control-text-color-valid);

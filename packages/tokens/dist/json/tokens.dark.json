@@ -23113,7 +23113,7 @@
           },
           "hover": {
             "key": "{nav.item.background.color.hover}",
-            "$value": "#28272d",
+            "$value": "#3a383d",
             "$type": "color",
             "$description": "Used for the background of a default navigation item in the hover state.",
             "$extensions": {
@@ -23124,7 +23124,7 @@
             "filePath": "src/contextual/nav.tokens.json",
             "isSource": true,
             "original": {
-              "$value": "{color.neutral.900}",
+              "$value": "{color.neutral.800}",
               "$type": "color",
               "$description": "Used for the background of a default navigation item in the hover state.",
               "$extensions": {
@@ -23146,7 +23146,7 @@
           },
           "focus": {
             "key": "{nav.item.background.color.focus}",
-            "$value": "#28272d",
+            "$value": "#3a383d",
             "$type": "color",
             "$description": "Used for the background of a default navigation item in the focus state.",
             "$extensions": {
@@ -23263,7 +23263,7 @@
               "filePath": "src/contextual/nav.tokens.json",
               "isSource": true,
               "original": {
-                "$value": "{color.neutral.0}",
+                "$value": "{nav.item.foreground.color.hover}",
                 "$type": "color",
                 "$description": "Used for the foreground of a selected navigation item in the default state.",
                 "$extensions": {
@@ -23392,7 +23392,7 @@
           "color": {
             "default": {
               "key": "{nav.item.selected.background.color.default}",
-              "$value": "#28272d",
+              "$value": "#3a383d",
               "$type": "color",
               "$description": "Used for the background of a selected navigation item in the default state.",
               "$extensions": {
@@ -23403,7 +23403,7 @@
               "filePath": "src/contextual/nav.tokens.json",
               "isSource": true,
               "original": {
-                "$value": "{color.neutral.900}",
+                "$value": "{color.neutral.800}",
                 "$type": "color",
                 "$description": "Used for the background of a selected navigation item in the default state.",
                 "$extensions": {
@@ -23426,7 +23426,7 @@
             },
             "hover": {
               "key": "{nav.item.selected.background.color.hover}",
-              "$value": "#28272d",
+              "$value": "#3a383d",
               "$type": "color",
               "$description": "Used for the background of a selected navigation item in the hover state.",
               "$extensions": {
@@ -23460,7 +23460,7 @@
             },
             "focus": {
               "key": "{nav.item.selected.background.color.focus}",
-              "$value": "#28272d",
+              "$value": "#3a383d",
               "$type": "color",
               "$description": "Used for the background of a selected navigation item in the focus state.",
               "$extensions": {
@@ -23526,6 +23526,41 @@
                 "active"
               ]
             }
+          }
+        },
+        "indicator": {
+          "color": {
+            "key": "{nav.item.selected.indicator.color}",
+            "$value": "#fb8017",
+            "$type": "color",
+            "$description": "Used for the indicator beside a selected navigation item. Tinted themes override it in src/scss/themes.scss.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL"
+              ]
+            },
+            "filePath": "src/contextual/nav.tokens.json",
+            "isSource": true,
+            "original": {
+              "$value": "{color.orange.300}",
+              "$type": "color",
+              "$description": "Used for the indicator beside a selected navigation item. Tinted themes override it in src/scss/themes.scss.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "SHAPE_FILL"
+                ]
+              },
+              "key": "{nav.item.selected.indicator.color}"
+            },
+            "name": "NAV_ITEM_SELECTED_INDICATOR_COLOR",
+            "attributes": {},
+            "path": [
+              "nav",
+              "item",
+              "selected",
+              "indicator",
+              "color"
+            ]
           }
         }
       }
@@ -33367,7 +33402,7 @@
           "key": "{control.background.color.disabled}",
           "$value": "rgba(255, 255, 255, 0.04)",
           "$type": "color",
-          "$description": "Used for disabled form control (checkbox, input, radio button, textarea) background.",
+          "$description": "Used for disabled form control (input, textarea) background.",
           "$extensions": {
             "com.figma.scopes": [
               "FRAME_FILL",
@@ -33379,7 +33414,7 @@
           "original": {
             "$value": "{color.alpha.light.4}",
             "$type": "color",
-            "$description": "Used for disabled form control (checkbox, input, radio button, textarea) background.",
+            "$description": "Used for disabled form control (input, textarea) background.",
             "$extensions": {
               "com.figma.scopes": [
                 "FRAME_FILL",
@@ -33569,6 +33604,41 @@
               "color",
               "selected",
               "focus"
+            ]
+          },
+          "disabled": {
+            "key": "{control.background.color.selected.disabled}",
+            "$value": "#747273",
+            "$type": "color",
+            "$description": "Used for checked and indeterminate (selected) form control (checkbox, radio button) background when disabled.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            },
+            "filePath": "src/semantic/control.tokens.json",
+            "isSource": true,
+            "original": {
+              "$value": "{action.selected.background.color.disabled}",
+              "$type": "color",
+              "$description": "Used for checked and indeterminate (selected) form control (checkbox, radio button) background when disabled.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "FRAME_FILL",
+                  "SHAPE_FILL"
+                ]
+              },
+              "key": "{control.background.color.selected.disabled}"
+            },
+            "name": "CONTROL_BACKGROUND_COLOR_SELECTED_DISABLED",
+            "attributes": {},
+            "path": [
+              "control",
+              "background",
+              "color",
+              "selected",
+              "disabled"
             ]
           }
         }
@@ -33835,6 +33905,39 @@
               "selected",
               "focus"
             ]
+          },
+          "disabled": {
+            "key": "{control.border.color.selected.disabled}",
+            "$value": "#747273",
+            "$type": "color",
+            "$description": "Used for checked and indeterminate (selected) form control (checkbox, radio button) border when disabled.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "STROKE_COLOR"
+              ]
+            },
+            "filePath": "src/semantic/control.tokens.json",
+            "isSource": true,
+            "original": {
+              "$value": "{control.background.color.selected.disabled}",
+              "$type": "color",
+              "$description": "Used for checked and indeterminate (selected) form control (checkbox, radio button) border when disabled.",
+              "$extensions": {
+                "com.figma.scopes": [
+                  "STROKE_COLOR"
+                ]
+              },
+              "key": "{control.border.color.selected.disabled}"
+            },
+            "name": "CONTROL_BORDER_COLOR_SELECTED_DISABLED",
+            "attributes": {},
+            "path": [
+              "control",
+              "border",
+              "color",
+              "selected",
+              "disabled"
+            ]
           }
         }
       },
@@ -34009,7 +34112,7 @@
         },
         "disabled": {
           "key": "{control.indicator.color.disabled}",
-          "$value": "#8a8888",
+          "$value": "#18171d",
           "$type": "color",
           "$description": "Used for disabled checkbox and radio button state indicators.",
           "$extensions": {
@@ -34021,7 +34124,7 @@
           "filePath": "src/semantic/control.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "{color.neutral.400}",
+            "$value": "{control.indicator.color.selected}",
             "$type": "color",
             "$description": "Used for disabled checkbox and radio button state indicators.",
             "$extensions": {

@@ -657,11 +657,11 @@
   --gl-nav-item-foreground-color-default: var(--gl-color-neutral-200); /** Used for the foreground of a default navigation item in the default state. */
   --gl-nav-item-foreground-color-hover: var(--gl-color-neutral-0); /** Used for the foreground of a default navigation item in the hover state. */
   --gl-nav-item-background-color-default: var(--gl-color-alpha-0); /** Used for the background of a default navigation item in the default state. */
-  --gl-nav-item-background-color-hover: var(--gl-color-neutral-900); /** Used for the background of a default navigation item in the hover state. */
+  --gl-nav-item-background-color-hover: var(--gl-color-neutral-800); /** Used for the background of a default navigation item in the hover state. */
   --gl-nav-item-background-color-active: var(--gl-color-neutral-950); /** Used for the background of a default navigation item in the active state. */
   --gl-nav-item-selected-font-weight: var(--gl-font-weight-bold); /** Used for the font weight of a selected navigation item. */
-  --gl-nav-item-selected-foreground-color-default: var(--gl-color-neutral-0); /** Used for the foreground of a selected navigation item in the default state. */
-  --gl-nav-item-selected-background-color-default: var(--gl-color-neutral-900); /** Used for the background of a selected navigation item in the default state. */
+  --gl-nav-item-selected-background-color-default: var(--gl-color-neutral-800); /** Used for the background of a selected navigation item in the default state. */
+  --gl-nav-item-selected-indicator-color: var(--gl-color-orange-300); /** Used for the indicator beside a selected navigation item. Tinted themes override it in src/scss/themes.scss. */
   --gl-progress-bar-track-color: var(--gl-color-neutral-700); /** Used for the track color for all progress-bar variants. */
   --gl-skeleton-loader-background-color: var(--gl-color-neutral-800); /** Used for the skeleton loader background color. */
   --gl-skeleton-loader-shimmer-color: var(--gl-color-neutral-700); /** Used for the animated shimmer effect in a skeleton loader. */
@@ -782,7 +782,7 @@
   --gl-background-color-overlap: var(--gl-color-neutral-900); /** Used for components, like tooltips and drawers, and content, like a sticky header, that overlap other content. */
   --gl-background-color-section: var(--gl-color-neutral-800); /** Used for containers, like a card header, that are visually distinct from the default page background only when necessary to maintain affordance and hierarchy in different modes. */
   --gl-control-background-color-default: var(--gl-color-alpha-dark-40); /** Used for form control (input, radio button, checkbox, textarea) default background. */
-  --gl-control-background-color-disabled: var(--gl-color-alpha-light-4); /** Used for disabled form control (checkbox, input, radio button, textarea) background. */
+  --gl-control-background-color-disabled: var(--gl-color-alpha-light-4); /** Used for disabled form control (input, textarea) background. */
   --gl-control-background-color-concatenation: var(--gl-color-alpha-light-4); /** Used for the background of static content that prepends or appends a text input. */
   --gl-control-background-color-readonly: var(--gl-color-alpha-light-8); /** Used for the background of static content that prepends or appends a text input. */
   --gl-control-background-color-selected-default: var(--gl-color-neutral-50); /** Used for checked and indeterminate (selected) form control (checkbox, radio button) background. */
@@ -793,7 +793,6 @@
   --gl-control-border-color-disabled: var(--gl-color-neutral-800); /** Used for disabled form control (input, radio button, checkbox, textarea) border. */
   --gl-control-placeholder-color: var(--gl-color-neutral-400); /** Used for placeholder text within inputs. */
   --gl-control-indicator-color-selected: var(--gl-color-neutral-950); /** Used for checkbox and radio button state indicators. */
-  --gl-control-indicator-color-disabled: var(--gl-color-neutral-400); /** Used for disabled checkbox and radio button state indicators. */
   --gl-feedback-strong-background-color: var(--gl-color-neutral-800); /** Used for a background associated with strong feedback like a tooltip or toast message. */
   --gl-feedback-strong-border-color: var(--gl-color-neutral-300); /** Used for the border associated with strong feedback. */
   --gl-feedback-strong-text-color: var(--gl-color-neutral-0); /** Used for text on a strong feedback background. */
@@ -1023,6 +1022,7 @@
   --gl-modal-border-radius: var(--gl-border-radius-2xl); /** Used for modal border radius. */
   --gl-nav-item-foreground-color-focus: var(--gl-nav-item-foreground-color-hover); /** Used for the foreground of a default navigation item in the focus state. */
   --gl-nav-item-background-color-focus: var(--gl-nav-item-background-color-hover); /** Used for the background of a default navigation item in the focus state. */
+  --gl-nav-item-selected-foreground-color-default: var(--gl-nav-item-foreground-color-hover); /** Used for the foreground of a selected navigation item in the default state. */
   --gl-nav-item-selected-foreground-color-hover: var(--gl-nav-item-foreground-color-hover); /** Used for the foreground of a selected navigation item in the hover state. */
   --gl-nav-item-selected-background-color-hover: var(--gl-nav-item-background-color-hover); /** Used for the background of a selected navigation item in the hover state. */
   --gl-nav-item-selected-background-color-active: var(--gl-nav-item-background-color-active); /** Used for the background of a selected navigation item in the active state. */
@@ -1081,12 +1081,14 @@
   --gl-action-strong-neutral-background-color-focus: var(--gl-action-strong-neutral-background-color-hover); /** Used for the background of a strong neutral action in the focus state. */
   --gl-action-strong-neutral-border-color-hover: var(--gl-action-strong-neutral-border-color-default); /** Used for the border of a strong neutral action in the hover state. */
   --gl-control-background-color-selected-focus: var(--gl-control-background-color-selected-hover); /** Used for checked and indeterminate (selected) form control (checkbox, radio button) background on focus. */
+  --gl-control-background-color-selected-disabled: var(--gl-action-selected-background-color-disabled); /** Used for checked and indeterminate (selected) form control (checkbox, radio button) background when disabled. */
   --gl-control-border-color-error: var(--gl-feedback-danger-border-color); /** Used for invalid form control (input, textarea) border. */
   --gl-control-border-color-selected-default: var(--gl-control-background-color-selected-default); /** Used for checked and indeterminate (selected) form control (checkbox, radio button) border. */
   --gl-control-border-color-selected-hover: var(--gl-control-background-color-selected-hover); /** Used for checked and indeterminate (selected) form control (checkbox, radio button) border on hover. */
   --gl-control-border-radius: var(--gl-border-radius-lg); /** Used for form control (input, radio button, checkbox, textarea) default border radius. */
   --gl-control-text-color-error: var(--gl-text-color-danger); /** Used for the helper text when the input is invalid. */
   --gl-control-text-color-valid: var(--gl-text-color-success); /** Used for the helper text when the input is valid. */
+  --gl-control-indicator-color-disabled: var(--gl-control-indicator-color-selected); /** Used for disabled checkbox and radio button state indicators. */
   --gl-feedback-border-radius: var(--gl-border-radius-lg); /** Used for the border radius of a feedback element. */
   --gl-focus-ring-inner-color: var(--gl-background-color-default); /** Used for the inner neutral portion of the focus ring. */
   --gl-icon-color-default: var(--gl-text-color-default); /** Used for the default icon color. Can be paired with default text. */
@@ -1264,6 +1266,7 @@
   --gl-action-strong-confirm-border-color-focus: var(--gl-action-strong-confirm-border-color-hover); /** Used for the border of a strong confirm action in the focus state. */
   --gl-action-strong-neutral-border-color-focus: var(--gl-action-strong-neutral-border-color-hover); /** Used for the border of a strong neutral action in the focus state. */
   --gl-control-border-color-selected-focus: var(--gl-control-background-color-selected-focus); /** Used for checked and indeterminate (selected) form control (checkbox, radio button) border on focus. */
+  --gl-control-border-color-selected-disabled: var(--gl-control-background-color-selected-disabled); /** Used for checked and indeterminate (selected) form control (checkbox, radio button) border when disabled. */
   --gl-button-confirm-primary-foreground-color-active: var(--gl-button-confirm-primary-foreground-color-focus); /** Used for the foreground of a confirm (positive) primary button in the active state. */
   --gl-nav-item-selected-foreground-color-active: var(--gl-nav-item-foreground-color-active); /** Used for the foreground of a selected navigation item in the active state. */
   --gl-toggle-switch-track-color-unchecked-focus: var(--gl-toggle-switch-track-color-unchecked-hover); /** Used for the track color of an unchecked toggle switch in the focus state. The track is deliberately unchanged from the default state; focus is carried by the focus ring, the track border and the thumb size. */

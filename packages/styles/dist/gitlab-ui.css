@@ -642,8 +642,8 @@
     --gl-nav-item-background-color-hover: var(--gl-color-neutral-100);
     --gl-nav-item-background-color-active: var(--gl-color-neutral-200);
     --gl-nav-item-selected-font-weight: var(--gl-font-weight-bold);
-    --gl-nav-item-selected-foreground-color-default: var(--gl-color-neutral-950);
     --gl-nav-item-selected-background-color-default: var(--gl-color-neutral-100);
+    --gl-nav-item-selected-indicator-color: var(--gl-color-orange-500);
     --gl-progress-bar-track-color: var(--gl-color-neutral-200);
     --gl-skeleton-loader-background-color: var(--gl-color-neutral-100);
     --gl-skeleton-loader-shimmer-color: var(--gl-color-neutral-50);
@@ -777,7 +777,6 @@
     --gl-control-border-color-disabled: var(--gl-color-neutral-100);
     --gl-control-placeholder-color: var(--gl-color-neutral-500);
     --gl-control-indicator-color-selected: var(--gl-color-neutral-0);
-    --gl-control-indicator-color-disabled: var(--gl-color-neutral-500);
     --gl-feedback-strong-background-color: var(--gl-color-neutral-800);
     --gl-feedback-strong-border-color: var(--gl-color-neutral-1000);
     --gl-feedback-strong-text-color: var(--gl-color-neutral-0);
@@ -1016,6 +1015,7 @@
     --gl-modal-border-radius: var(--gl-border-radius-2xl);
     --gl-nav-item-foreground-color-focus: var(--gl-nav-item-foreground-color-hover);
     --gl-nav-item-background-color-focus: var(--gl-nav-item-background-color-hover);
+    --gl-nav-item-selected-foreground-color-default: var(--gl-nav-item-foreground-color-hover);
     --gl-nav-item-selected-foreground-color-hover: var(--gl-nav-item-foreground-color-hover);
     --gl-nav-item-selected-background-color-hover: var(--gl-nav-item-background-color-hover);
     --gl-nav-item-selected-background-color-active: var(--gl-nav-item-background-color-active);
@@ -1075,12 +1075,14 @@
     --gl-action-strong-neutral-foreground-color-hover: var(--gl-action-strong-neutral-foreground-color-default);
     --gl-action-strong-neutral-border-color-hover: var(--gl-action-strong-neutral-border-color-default);
     --gl-control-background-color-selected-focus: var(--gl-control-background-color-selected-hover);
+    --gl-control-background-color-selected-disabled: var(--gl-action-selected-background-color-disabled);
     --gl-control-border-color-error: var(--gl-feedback-danger-border-color);
     --gl-control-border-color-selected-default: var(--gl-control-background-color-selected-default);
     --gl-control-border-color-selected-hover: var(--gl-control-background-color-selected-hover);
     --gl-control-border-radius: var(--gl-border-radius-lg);
     --gl-control-text-color-error: var(--gl-text-color-danger);
     --gl-control-text-color-valid: var(--gl-text-color-success);
+    --gl-control-indicator-color-disabled: var(--gl-control-indicator-color-selected);
     --gl-feedback-border-radius: var(--gl-border-radius-lg);
     --gl-focus-ring-inner-color: var(--gl-background-color-default);
     --gl-icon-color-default: var(--gl-text-color-default);
@@ -1263,6 +1265,7 @@
     --gl-action-strong-neutral-foreground-color-focus: var(--gl-action-strong-neutral-foreground-color-hover);
     --gl-action-strong-neutral-border-color-focus: var(--gl-action-strong-neutral-border-color-hover);
     --gl-control-border-color-selected-focus: var(--gl-control-background-color-selected-focus);
+    --gl-control-border-color-selected-disabled: var(--gl-control-background-color-selected-disabled);
     --gl-button-confirm-primary-foreground-color-active: var(--gl-button-confirm-primary-foreground-color-focus);
     --gl-nav-item-selected-foreground-color-active: var(--gl-nav-item-foreground-color-active);
     --gl-toggle-switch-track-color-unchecked-focus: var(--gl-toggle-switch-track-color-unchecked-hover);
@@ -1933,11 +1936,11 @@
     --gl-nav-item-foreground-color-default: var(--gl-color-neutral-200);
     --gl-nav-item-foreground-color-hover: var(--gl-color-neutral-0);
     --gl-nav-item-background-color-default: var(--gl-color-alpha-0);
-    --gl-nav-item-background-color-hover: var(--gl-color-neutral-900);
+    --gl-nav-item-background-color-hover: var(--gl-color-neutral-800);
     --gl-nav-item-background-color-active: var(--gl-color-neutral-950);
     --gl-nav-item-selected-font-weight: var(--gl-font-weight-bold);
-    --gl-nav-item-selected-foreground-color-default: var(--gl-color-neutral-0);
-    --gl-nav-item-selected-background-color-default: var(--gl-color-neutral-900);
+    --gl-nav-item-selected-background-color-default: var(--gl-color-neutral-800);
+    --gl-nav-item-selected-indicator-color: var(--gl-color-orange-300);
     --gl-progress-bar-track-color: var(--gl-color-neutral-700);
     --gl-skeleton-loader-background-color: var(--gl-color-neutral-800);
     --gl-skeleton-loader-shimmer-color: var(--gl-color-neutral-700);
@@ -2069,7 +2072,6 @@
     --gl-control-border-color-disabled: var(--gl-color-neutral-800);
     --gl-control-placeholder-color: var(--gl-color-neutral-400);
     --gl-control-indicator-color-selected: var(--gl-color-neutral-950);
-    --gl-control-indicator-color-disabled: var(--gl-color-neutral-400);
     --gl-feedback-strong-background-color: var(--gl-color-neutral-800);
     --gl-feedback-strong-border-color: var(--gl-color-neutral-300);
     --gl-feedback-strong-text-color: var(--gl-color-neutral-0);
@@ -2299,6 +2301,7 @@
     --gl-modal-border-radius: var(--gl-border-radius-2xl);
     --gl-nav-item-foreground-color-focus: var(--gl-nav-item-foreground-color-hover);
     --gl-nav-item-background-color-focus: var(--gl-nav-item-background-color-hover);
+    --gl-nav-item-selected-foreground-color-default: var(--gl-nav-item-foreground-color-hover);
     --gl-nav-item-selected-foreground-color-hover: var(--gl-nav-item-foreground-color-hover);
     --gl-nav-item-selected-background-color-hover: var(--gl-nav-item-background-color-hover);
     --gl-nav-item-selected-background-color-active: var(--gl-nav-item-background-color-active);
@@ -2357,12 +2360,14 @@
     --gl-action-strong-neutral-background-color-focus: var(--gl-action-strong-neutral-background-color-hover);
     --gl-action-strong-neutral-border-color-hover: var(--gl-action-strong-neutral-border-color-default);
     --gl-control-background-color-selected-focus: var(--gl-control-background-color-selected-hover);
+    --gl-control-background-color-selected-disabled: var(--gl-action-selected-background-color-disabled);
     --gl-control-border-color-error: var(--gl-feedback-danger-border-color);
     --gl-control-border-color-selected-default: var(--gl-control-background-color-selected-default);
     --gl-control-border-color-selected-hover: var(--gl-control-background-color-selected-hover);
     --gl-control-border-radius: var(--gl-border-radius-lg);
     --gl-control-text-color-error: var(--gl-text-color-danger);
     --gl-control-text-color-valid: var(--gl-text-color-success);
+    --gl-control-indicator-color-disabled: var(--gl-control-indicator-color-selected);
     --gl-feedback-border-radius: var(--gl-border-radius-lg);
     --gl-focus-ring-inner-color: var(--gl-background-color-default);
     --gl-icon-color-default: var(--gl-text-color-default);
@@ -2540,6 +2545,7 @@
     --gl-action-strong-confirm-border-color-focus: var(--gl-action-strong-confirm-border-color-hover);
     --gl-action-strong-neutral-border-color-focus: var(--gl-action-strong-neutral-border-color-hover);
     --gl-control-border-color-selected-focus: var(--gl-control-background-color-selected-focus);
+    --gl-control-border-color-selected-disabled: var(--gl-control-background-color-selected-disabled);
     --gl-button-confirm-primary-foreground-color-active: var(--gl-button-confirm-primary-foreground-color-focus);
     --gl-nav-item-selected-foreground-color-active: var(--gl-nav-item-foreground-color-active);
     --gl-toggle-switch-track-color-unchecked-focus: var(--gl-toggle-switch-track-color-unchecked-hover);

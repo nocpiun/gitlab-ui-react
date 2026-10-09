@@ -5903,7 +5903,7 @@
         "key": "{control.background.color.disabled}",
         "$value": "rgba(255, 255, 255, 0.04)",
         "$type": "color",
-        "$description": "Used for disabled form control (checkbox, input, radio button, textarea) background.",
+        "$description": "Used for disabled form control (input, textarea) background.",
         "$extensions": {
           "com.figma.scopes": [
             "FRAME_FILL",
@@ -5915,7 +5915,7 @@
         "original": {
           "$value": "{color.alpha.light.4}",
           "$type": "color",
-          "$description": "Used for disabled form control (checkbox, input, radio button, textarea) background.",
+          "$description": "Used for disabled form control (input, textarea) background.",
           "$extensions": {
             "com.figma.scopes": [
               "FRAME_FILL",

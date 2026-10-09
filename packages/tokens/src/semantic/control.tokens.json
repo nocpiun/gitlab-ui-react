@@ -22,7 +22,7 @@
             "dark": "{color.alpha.light.4}"
           },
           "$type": "color",
-          "$description": "Used for disabled form control (checkbox, input, radio button, textarea) background.",
+          "$description": "Used for disabled form control (input, textarea) background.",
           "$extensions": {
             "com.figma.scopes": [
               "FRAME_FILL",
@@ -91,6 +91,17 @@
             "$value": "{control.background.color.selected.hover}",
             "$type": "color",
             "$description": "Used for checked and indeterminate (selected) form control (checkbox, radio button) background on focus.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            }
+          },
+          "disabled": {
+            "$value": "{action.selected.background.color.disabled}",
+            "$type": "color",
+            "$description": "Used for checked and indeterminate (selected) form control (checkbox, radio button) background when disabled.",
             "$extensions": {
               "com.figma.scopes": [
                 "FRAME_FILL",
@@ -195,6 +206,16 @@
                 "STROKE_COLOR"
               ]
             }
+          },
+          "disabled": {
+            "$value": "{control.background.color.selected.disabled}",
+            "$type": "color",
+            "$description": "Used for checked and indeterminate (selected) form control (checkbox, radio button) border when disabled.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "STROKE_COLOR"
+              ]
+            }
           }
         }
       },
@@ -265,10 +286,7 @@
           }
         },
         "disabled": {
-          "$value": {
-            "default": "{color.neutral.500}",
-            "dark": "{color.neutral.400}"
-          },
+          "$value": "{control.indicator.color.selected}",
           "$type": "color",
           "$description": "Used for disabled checkbox and radio button state indicators.",
           "$extensions": {
