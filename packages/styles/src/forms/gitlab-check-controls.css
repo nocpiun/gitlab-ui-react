@@ -171,8 +171,8 @@
 .gl-form-radio.custom-control
   .custom-control-input:checked:disabled
   ~ .custom-control-label::before {
-  background-color: var(--gl-control-background-color-disabled);
-  border-color: var(--gl-control-border-color-disabled);
+  background-color: var(--gl-control-background-color-selected-disabled);
+  border-color: var(--gl-control-border-color-selected-disabled);
 }
 
 .gl-form-checkbox.custom-control

@@ -3440,8 +3440,8 @@
     }
   }
   .gl-form-checkbox.custom-control .custom-control-input:checked:disabled ~ .custom-control-label::before, .gl-form-checkbox.custom-control .custom-control-input[type="checkbox"]:indeterminate:disabled ~ .custom-control-label::before, .gl-form-radio.custom-control .custom-control-input:checked:disabled ~ .custom-control-label::before {
-    background-color: var(--gl-control-background-color-disabled);
-    border-color: var(--gl-control-border-color-disabled);
+    background-color: var(--gl-control-background-color-selected-disabled);
+    border-color: var(--gl-control-border-color-selected-disabled);
   }
   .gl-form-checkbox.custom-control .custom-control-input:checked:disabled ~ .custom-control-label::after, .gl-form-checkbox.custom-control .custom-control-input[type="checkbox"]:indeterminate:disabled ~ .custom-control-label::after, .gl-form-radio.custom-control .custom-control-input:checked:disabled ~ .custom-control-label::after {
     background-image: none;
