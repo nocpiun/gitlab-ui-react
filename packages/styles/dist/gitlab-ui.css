@@ -2883,7 +2883,7 @@
     --gl-color-neutral-800: #3f3546;
     --gl-color-neutral-900: #2e2434;
     --gl-color-neutral-950: #1d1424;
-    --gl-color-neutral-1000: #09030e;
+    --gl-color-neutral-1000: #120a18;
   }
   :root.tint-neutral-blue, .ui-blue-scope {
     --gl-color-neutral-0: #fff;
@@ -2899,7 +2899,7 @@
     --gl-color-neutral-800: #333945;
     --gl-color-neutral-900: #222733;
     --gl-color-neutral-950: #121722;
-    --gl-color-neutral-1000: #03050d;
+    --gl-color-neutral-1000: #090d17;
   }
   :root.tint-neutral-green, .ui-green-scope {
     --gl-color-neutral-0: #fff;
@@ -2915,7 +2915,7 @@
     --gl-color-neutral-800: #313b38;
     --gl-color-neutral-900: #1f2a26;
     --gl-color-neutral-950: #101916;
-    --gl-color-neutral-1000: #010705;
+    --gl-color-neutral-1000: #060f0c;
   }
   :root.tint-neutral-red, .ui-red-scope {
     --gl-color-neutral-0: #fff;
@@ -2931,7 +2931,7 @@
     --gl-color-neutral-800: #423539;
     --gl-color-neutral-900: #312428;
     --gl-color-neutral-950: #201418;
-    --gl-color-neutral-1000: #0b0306;
+    --gl-color-neutral-1000: #150a0e;
   }
   :root.tint-neutral-gray, .ui-gray-scope {
     --gl-color-neutral-0: #fff;
@@ -2947,7 +2947,57 @@
     --gl-color-neutral-800: #383839;
     --gl-color-neutral-900: #272727;
     --gl-color-neutral-950: #171717;
-    --gl-color-neutral-1000: #050505;
+    --gl-color-neutral-1000: #0d0d0d;
+  }
+  :root.tint-neutral-indigo, .ui-indigo-scope {
+    --gl-nav-item-selected-indicator-color: var(--gl-color-purple-500);
+    --gl-nav-item-foreground-color-default: var(--gl-color-purple-800);
+    --gl-nav-item-foreground-color-hover: var(--gl-color-purple-950);
+  }
+  :root.tint-neutral-indigo.gl-dark, .ui-indigo-scope.gl-dark-scope {
+    --gl-nav-item-selected-indicator-color: var(--gl-color-purple-300);
+    --gl-nav-item-foreground-color-default: var(--gl-color-purple-200);
+    --gl-nav-item-foreground-color-hover: var(--gl-color-purple-50);
+  }
+  :root.tint-neutral-blue, .ui-blue-scope {
+    --gl-nav-item-selected-indicator-color: var(--gl-color-blue-500);
+    --gl-nav-item-foreground-color-default: var(--gl-color-blue-800);
+    --gl-nav-item-foreground-color-hover: var(--gl-color-blue-950);
+  }
+  :root.tint-neutral-blue.gl-dark, .ui-blue-scope.gl-dark-scope {
+    --gl-nav-item-selected-indicator-color: var(--gl-color-blue-300);
+    --gl-nav-item-foreground-color-default: var(--gl-color-blue-200);
+    --gl-nav-item-foreground-color-hover: var(--gl-color-blue-50);
+  }
+  :root.tint-neutral-green, .ui-green-scope {
+    --gl-nav-item-selected-indicator-color: var(--gl-color-green-500);
+    --gl-nav-item-foreground-color-default: var(--gl-color-green-800);
+    --gl-nav-item-foreground-color-hover: var(--gl-color-green-950);
+  }
+  :root.tint-neutral-green.gl-dark, .ui-green-scope.gl-dark-scope {
+    --gl-nav-item-selected-indicator-color: var(--gl-color-green-300);
+    --gl-nav-item-foreground-color-default: var(--gl-color-green-200);
+    --gl-nav-item-foreground-color-hover: var(--gl-color-green-50);
+  }
+  :root.tint-neutral-red, .ui-red-scope {
+    --gl-nav-item-selected-indicator-color: var(--gl-color-red-500);
+    --gl-nav-item-foreground-color-default: var(--gl-color-red-800);
+    --gl-nav-item-foreground-color-hover: var(--gl-color-red-950);
+  }
+  :root.tint-neutral-red.gl-dark, .ui-red-scope.gl-dark-scope {
+    --gl-nav-item-selected-indicator-color: var(--gl-color-red-300);
+    --gl-nav-item-foreground-color-default: var(--gl-color-red-200);
+    --gl-nav-item-foreground-color-hover: var(--gl-color-red-50);
+  }
+  :root.tint-neutral-gray, .ui-gray-scope {
+    --gl-nav-item-selected-indicator-color: var(--gl-color-neutral-500);
+    --gl-nav-item-foreground-color-default: var(--gl-color-neutral-800);
+    --gl-nav-item-foreground-color-hover: var(--gl-color-neutral-950);
+  }
+  :root.tint-neutral-gray.gl-dark, .ui-gray-scope.gl-dark-scope {
+    --gl-nav-item-selected-indicator-color: var(--gl-color-neutral-300);
+    --gl-nav-item-foreground-color-default: var(--gl-color-neutral-200);
+    --gl-nav-item-foreground-color-hover: var(--gl-color-neutral-50);
   }
   :root {
     --gl-icon-chevron-left: url('data:image/svg+xml;utf8,<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 0 0 0 1.414l3 3a1 1 0 0 0 1.414-1.414L7.414 8l2.293-2.293a1 1 0 0 0-1.414-1.414l-3 3z"/></svg>');
@@ -7568,7 +7618,7 @@
   .gl-nav-item.selected::before {
     position: absolute;
     content: "";
-    background-color: currentColor;
+    background-color: var(--gl-nav-item-selected-indicator-color);
   }
   .gl-nav-item-indicator-left.selected::before {
     left: calc(var(--gl-spacing-scale-3) * -1);

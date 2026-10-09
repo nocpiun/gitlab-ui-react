@@ -69,6 +69,104 @@ export const Selected: Story = {
   ),
 };
 
+const navThemes = [
+  { name: "default", ramp: "neutral", darkest: "#050408" },
+  { name: "indigo", ramp: "purple", darkest: "#120a18" },
+  { name: "blue", ramp: "blue", darkest: "#090d17" },
+  { name: "green", ramp: "green", darkest: "#060f0c" },
+  { name: "red", ramp: "red", darkest: "#150a0e" },
+  { name: "gray", ramp: "neutral", darkest: "#0d0d0d" },
+];
+
+function ThemeNavigation({ label }: { label: string }) {
+  return (
+    <GlNav aria-label={label} style={wideNavStyle}>
+      <GlNavItem><GlNavButton>Default item</GlNavButton></GlNavItem>
+      {(["left", "right", "bottom"] as const).map((position) => (
+        <GlNavItem key={position} selected indicatorPosition={position}>
+          <GlNavButton>{position} indicator</GlNavButton>
+        </GlNavItem>
+      ))}
+    </GlNav>
+  );
+}
+
+export const ThemeColors: Story = {
+  render: () => (
+    <div>
+      <section data-testid="root-theme" className="gl-bg-default gl-p-5">
+        <ThemeNavigation label="Root theme" />
+      </section>
+      {navThemes.flatMap(({ name }) => [false, true].map((dark) => (
+        <section
+          key={`${name}-${dark}`}
+          data-testid={`${name}-${dark}`}
+          className={`${dark ? "gl-dark-scope" : "gl-light-scope"} ${name === "default" ? "" : `ui-${name}-scope`} gl-bg-default gl-p-5`}>
+          <ThemeNavigation label={`${name} ${dark ? "dark" : "light"}`} />
+        </section>
+      )))}
+    </div>
+  ),
+  play: async ({ canvas, canvasElement }) => {
+    // Resolve primitive palette colors in the same scope, independently of
+    // the semantic nav tokens whose wiring and inheritance are under test.
+    function paletteColor(scope: HTMLElement, name: string) {
+      const probe = scope.ownerDocument.createElement("span");
+      probe.style.color = `var(--gl-color-${name})`;
+      scope.append(probe);
+      const color = getComputedStyle(probe).color;
+      probe.remove();
+      return color;
+    }
+
+    async function checkTheme(scope: HTMLElement, theme: typeof navThemes[number], dark: boolean) {
+      const items = within(scope);
+      const normal = items.getByRole("button", { name: "Default item" });
+      const defaultTheme = theme.name === "default";
+      const foreground = paletteColor(scope, `${theme.ramp}-${dark ? 200 : (defaultTheme ? 600 : 800)}`);
+      const hover = paletteColor(scope, `${theme.ramp}-${dark ? (defaultTheme ? 0 : 50) : 950}`);
+      const indicator = paletteColor(scope, `${defaultTheme ? "orange" : theme.ramp}-${dark ? 300 : 500}`);
+
+      await expect(getComputedStyle(scope).getPropertyValue("--gl-color-neutral-1000").trim()).toBe(theme.darkest);
+      await expect(getComputedStyle(normal).color).toBe(foreground);
+      normal.focus();
+      await expect(normal.matches(":focus-visible")).toBe(true);
+      await expect(getComputedStyle(normal).color).toBe(hover);
+      normal.blur();
+
+      for(const position of ["left", "right", "bottom"]) {
+        const selected = items.getByRole("button", { name: `${position} indicator` });
+        await expect(getComputedStyle(selected).color).toBe(hover);
+        await expect(getComputedStyle(selected, "::before").backgroundColor).toBe(indicator);
+        selected.focus();
+        await expect(getComputedStyle(selected).color).toBe(hover);
+        await expect(getComputedStyle(selected, "::before").backgroundColor).toBe(indicator);
+        selected.blur();
+      }
+    }
+
+    for(const theme of navThemes) {
+      for(const dark of [false, true]) {
+        await checkTheme(canvas.getByTestId(`${theme.name}-${dark}`), theme, dark);
+      }
+    }
+
+    const root = canvasElement.ownerDocument.documentElement;
+    const originalClasses = root.className;
+    const baseClasses = originalClasses.split(/\s+/).filter((name) => name !== "gl-dark" && !name.startsWith("tint-neutral-"));
+    try {
+      for(const theme of navThemes) {
+        for(const dark of [false, true]) {
+          root.className = [...baseClasses, dark ? "gl-dark" : "", theme.name === "default" ? "" : `tint-neutral-${theme.name}`].join(" ");
+          await checkTheme(canvas.getByTestId("root-theme"), theme, dark);
+        }
+      }
+    } finally {
+      root.className = originalClasses;
+    }
+  },
+};
+
 const disabledActivation = fn();
 
 export const Disabled: Story = {
