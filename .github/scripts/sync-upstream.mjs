@@ -13,6 +13,7 @@
  */
 
 import { execFileSync } from "node:child_process";
+import { randomUUID } from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -497,8 +498,9 @@ function writeIssueDraft(entry, issue, commits) {
     "Created automatically by the upstream-sync workflow.";
   const slug = entry.local.replace(/[^a-zA-Z0-9]+/g, "-");
   fs.mkdirSync(ISSUES_DIR, { recursive: true });
-  const bodyFile = path.join(ISSUES_DIR, `${slug}-${Date.now()}.md`);
-  fs.writeFileSync(bodyFile, body);
+  // One tracked entry can produce several drafts within the same millisecond.
+  const bodyFile = path.join(ISSUES_DIR, `${slug}-${randomUUID()}.md`);
+  fs.writeFileSync(bodyFile, body, { flag: "wx" });
   return bodyFile;
 }
 
