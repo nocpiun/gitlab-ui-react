@@ -115,14 +115,14 @@ export const DisabledCheckControls: Story = {
         theme: "Light",
         background: "rgb(138, 136, 136)",
         indicator: "rgb(255, 255, 255)",
-        uncheckedBackground: "rgb(247, 247, 245)",
+        uncheckedBackground: "rgb(255, 255, 255)",
         uncheckedBorder: "rgb(220, 219, 217)",
       },
       {
         theme: "Dark",
         background: "rgb(116, 114, 115)",
         indicator: "rgb(24, 23, 29)",
-        uncheckedBackground: "rgba(255, 255, 255, 0.04)",
+        uncheckedBackground: "rgba(5, 5, 6, 0.4)",
         uncheckedBorder: "rgb(58, 56, 61)",
       },
     ]) {
