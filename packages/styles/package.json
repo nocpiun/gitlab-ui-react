@@ -26,7 +26,11 @@
     "build": "node scripts/build.mjs",
     "test": "vitest run --root ../.. packages/styles"
   },
-  "keywords": [],
+  "keywords": [
+    "ui",
+    "gitlab",
+    "styles"
+  ],
   "author": "NriotHrreion",
   "license": "MIT",
   "packageManager": "pnpm@10.33.0",

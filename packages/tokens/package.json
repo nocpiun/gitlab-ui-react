@@ -20,7 +20,10 @@
   "scripts": {
     "build": "node ./scripts/build_tokens.mjs"
   },
-  "keywords": [],
+  "keywords": [
+    "ui",
+    "gitlab"
+  ],
   "author": "NriotHrreion",
   "license": "MIT",
   "packageManager": "pnpm@10.33.0",
