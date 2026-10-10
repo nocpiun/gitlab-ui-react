@@ -39,6 +39,8 @@
     "build": "vite build && tsc --project tsconfig.build.json"
   },
   "keywords": [
+    "ui",
+    "gitlab",
     "json-render",
     "generative-ui"
   ],

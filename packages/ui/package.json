@@ -28,7 +28,11 @@
   "scripts": {
     "build": "vite build && tsc --project tsconfig.build.json"
   },
-  "keywords": [],
+  "keywords": [
+    "ui",
+    "gitlab",
+    "components"
+  ],
   "author": "NriotHrreion",
   "license": "MIT",
   "packageManager": "pnpm@10.33.0",
