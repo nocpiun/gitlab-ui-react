@@ -100,7 +100,7 @@
           "hover": {
             "$value": {
               "default": "{color.neutral.100}",
-              "dark": "{color.neutral.900}"
+              "dark": "{color.neutral.800}"
             },
             "$type": "color",
             "$description": "Used for the background of a default navigation item in the hover state.",
@@ -151,10 +151,7 @@
         "foreground": {
           "color": {
             "default": {
-              "$value": {
-                "default": "{color.neutral.950}",
-                "dark": "{color.neutral.0}"
-              },
+              "$value": "{nav.item.foreground.color.hover}",
               "$type": "color",
               "$description": "Used for the foreground of a selected navigation item in the default state.",
               "$extensions": {
@@ -200,7 +197,7 @@
             "default": {
               "$value": {
                 "default": "{color.neutral.100}",
-                "dark": "{color.neutral.900}"
+                "dark": "{color.neutral.800}"
               },
               "$type": "color",
               "$description": "Used for the background of a selected navigation item in the default state.",
@@ -239,6 +236,21 @@
                   "SHAPE_FILL"
                 ]
               }
+            }
+          }
+        },
+        "indicator": {
+          "color": {
+            "$value": {
+              "default": "{color.orange.500}",
+              "dark": "{color.orange.300}"
+            },
+            "$type": "color",
+            "$description": "Used for the indicator beside a selected navigation item. Tinted themes override it in src/scss/themes.scss.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL"
+              ]
             }
           }
         }

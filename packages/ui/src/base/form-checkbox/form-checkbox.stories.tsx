@@ -5,6 +5,7 @@ import GlFormField, {
   GlFormFieldLegend,
   GlFormFieldSet,
 } from "../form-field/form-field";
+import GlFormRadio from "../form-radio/form-radio";
 import GlFormCheckbox, { type GlFormCheckboxProps } from "./form-checkbox";
 import GlFormCheckboxGroup from "./form-checkbox-group";
 
@@ -87,6 +88,68 @@ export const Default: Story = {
     await expect(indicator.transitionProperty).toBe("background-color, border-color, box-shadow");
     await expect(indicator.transitionDuration).toBe("0.15s, 0.15s, 0.15s");
     await expect(indicator.transitionTimingFunction).toBe("ease-in-out, ease-in-out, ease-in-out");
+  },
+};
+
+// Checkbox and radio share the disabled indicator styles. Keep their theme
+// coverage together so token updates cannot hide checked or mixed states.
+export const DisabledCheckControls: Story = {
+  render: () => (
+    <div>
+      {(["Light", "Dark"] as const).map((theme) => (
+        <section
+          key={theme}
+          className={theme === "Dark" ? "gl-dark-scope gl-bg-default gl-p-4" : "gl-light-scope gl-bg-default gl-p-4"}>
+          <GlFormCheckbox checked disabled>{theme} checked checkbox</GlFormCheckbox>
+          <GlFormCheckbox indeterminate disabled>{theme} mixed checkbox</GlFormCheckbox>
+          <GlFormCheckbox disabled>{theme} unchecked checkbox</GlFormCheckbox>
+          <GlFormRadio checked disabled name={`${theme}-checked`}>{theme} checked radio</GlFormRadio>
+          <GlFormRadio disabled name={`${theme}-unchecked`}>{theme} unchecked radio</GlFormRadio>
+        </section>
+      ))}
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    for(const { theme, background, indicator, uncheckedBackground, uncheckedBorder } of [
+      {
+        theme: "Light",
+        background: "rgb(138, 136, 136)",
+        indicator: "rgb(255, 255, 255)",
+        uncheckedBackground: "rgb(255, 255, 255)",
+        uncheckedBorder: "rgb(220, 219, 217)",
+      },
+      {
+        theme: "Dark",
+        background: "rgb(116, 114, 115)",
+        indicator: "rgb(24, 23, 29)",
+        uncheckedBackground: "rgba(5, 5, 6, 0.4)",
+        uncheckedBorder: "rgb(58, 56, 61)",
+      },
+    ]) {
+      await waitFor(() => expect(
+        canvas.getByRole("checkbox", { name: `${theme} mixed checkbox` }),
+      ).toHaveProperty("indeterminate", true));
+
+      for(const name of ["checked checkbox", "mixed checkbox", "checked radio", "unchecked checkbox", "unchecked radio"]) {
+        const input = canvas.getByRole(name.endsWith("radio") ? "radio" : "checkbox", {
+          name: `${theme} ${name}`,
+        }) as HTMLInputElement;
+        const label = input.labels![0];
+        const selected = !name.startsWith("unchecked");
+
+        await expect(input).toBeDisabled();
+        await waitFor(() => {
+          const box = getComputedStyle(label, "::before");
+          expect(box.backgroundColor).toBe(selected ? background : uncheckedBackground);
+          expect(box.borderColor).toBe(selected ? background : uncheckedBorder);
+        });
+        if(selected) {
+          const mark = getComputedStyle(label, "::after");
+          await expect(mark.backgroundColor).toBe(indicator);
+          await expect(mark.maskImage).not.toBe("none");
+        }
+      }
+    }
   },
 };
 

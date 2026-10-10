@@ -152,7 +152,7 @@
 
     .custom-control-input:disabled ~ .custom-control-label::before {
       @apply gl-pointer-events-auto;
-      background-color: var(--gl-control-background-color-disabled);
+      background-color: var(--gl-control-background-color-default);
       border-color: var(--gl-control-border-color-disabled);
 
       @media (forced-colors: active) {
@@ -171,8 +171,8 @@
 .gl-form-radio.custom-control
   .custom-control-input:checked:disabled
   ~ .custom-control-label::before {
-  background-color: var(--gl-control-background-color-disabled);
-  border-color: var(--gl-control-border-color-disabled);
+  background-color: var(--gl-control-background-color-selected-disabled);
+  border-color: var(--gl-control-border-color-selected-disabled);
 }
 
 .gl-form-checkbox.custom-control

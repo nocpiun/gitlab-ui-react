@@ -4897,7 +4897,7 @@
     }
   },
   "🔒/nav-item-selected-foreground-color-default": {
-    "$value": "{color-neutral-950}",
+    "$value": "{🔒/nav-item-foreground-color-hover}",
     "$type": "color",
     "$description": "Used for the foreground of a selected navigation item in the default state.",
     "$extensions": {
@@ -4970,6 +4970,16 @@
     "$value": "{🔒/nav-item-background-color-active}",
     "$type": "color",
     "$description": "Used for the background of a selected navigation item in the active state.",
+    "$extensions": {
+      "com.figma.scopes": [
+        "SHAPE_FILL"
+      ]
+    }
+  },
+  "🔒/nav-item-selected-indicator-color": {
+    "$value": "{color-orange-500}",
+    "$type": "color",
+    "$description": "Used for the indicator beside a selected navigation item. Tinted themes override it in src/scss/themes.scss.",
     "$extensions": {
       "com.figma.scopes": [
         "SHAPE_FILL"
@@ -6544,7 +6554,7 @@
   "control-background-color-disabled": {
     "$value": "{color-neutral-10}",
     "$type": "color",
-    "$description": "Used for disabled form control (checkbox, input, radio button, textarea) background.",
+    "$description": "Used for disabled form control (input, textarea) background.",
     "$extensions": {
       "com.figma.scopes": [
         "FRAME_FILL",
@@ -6600,6 +6610,17 @@
     "$value": "{control-background-color-selected-hover}",
     "$type": "color",
     "$description": "Used for checked and indeterminate (selected) form control (checkbox, radio button) background on focus.",
+    "$extensions": {
+      "com.figma.scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    }
+  },
+  "control-background-color-selected-disabled": {
+    "$value": "{action-selected-background-color-disabled}",
+    "$type": "color",
+    "$description": "Used for checked and indeterminate (selected) form control (checkbox, radio button) background when disabled.",
     "$extensions": {
       "com.figma.scopes": [
         "FRAME_FILL",
@@ -6687,6 +6708,16 @@
       ]
     }
   },
+  "control-border-color-selected-disabled": {
+    "$value": "{control-background-color-selected-disabled}",
+    "$type": "color",
+    "$description": "Used for checked and indeterminate (selected) form control (checkbox, radio button) border when disabled.",
+    "$extensions": {
+      "com.figma.scopes": [
+        "STROKE_COLOR"
+      ]
+    }
+  },
   "control-border-radius": {
     "$value": "{border-radius-lg}",
     "$type": "dimension",
@@ -6739,7 +6770,7 @@
     }
   },
   "control-indicator-color-disabled": {
-    "$value": "{color-neutral-500}",
+    "$value": "{control-indicator-color-selected}",
     "$type": "color",
     "$description": "Used for disabled checkbox and radio button state indicators.",
     "$extensions": {

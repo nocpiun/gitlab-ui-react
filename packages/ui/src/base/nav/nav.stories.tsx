@@ -69,6 +69,35 @@ export const Selected: Story = {
   ),
 };
 
+const navThemes = ["default", "indigo", "blue", "green", "red", "gray"];
+
+function ThemeNavigation({ label }: { label: string }) {
+  return (
+    <GlNav aria-label={label} style={wideNavStyle}>
+      <GlNavItem><GlNavButton>Default item</GlNavButton></GlNavItem>
+      {(["left", "right", "bottom"] as const).map((position) => (
+        <GlNavItem key={position} selected indicatorPosition={position}>
+          <GlNavButton>{position} indicator</GlNavButton>
+        </GlNavItem>
+      ))}
+    </GlNav>
+  );
+}
+
+export const ThemeColors: Story = {
+  render: () => (
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(2, max-content)", gap: "1rem" }}>
+      {navThemes.flatMap((name) => [false, true].map((dark) => (
+        <section
+          key={`${name}-${dark}`}
+          className={`${dark ? "gl-dark-scope" : "gl-light-scope"} ${name === "default" ? "" : `ui-${name}-scope`} gl-bg-default gl-p-5`}>
+          <ThemeNavigation label={`${name} ${dark ? "dark" : "light"}`} />
+        </section>
+      )))}
+    </div>
+  ),
+};
+
 const disabledActivation = fn();
 
 export const Disabled: Story = {

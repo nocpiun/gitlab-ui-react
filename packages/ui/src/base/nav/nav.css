@@ -116,7 +116,7 @@
 .gl-nav-item.selected::before {
   @apply gl-absolute;
   content: "";
-  background-color: currentColor;
+  background-color: var(--gl-nav-item-selected-indicator-color);
 }
 
 .gl-nav-item-indicator-left.selected::before {

@@ -1,3 +1,6 @@
+/* Ported from packages/gitlab-ui/src/scss/themes.scss.
+ * Root themes retain the React port's tint-neutral-* class names.
+ */
 :root.tint-neutral-indigo,
 .ui-indigo-scope {
   --gl-color-neutral-0: #fff;
@@ -13,7 +16,7 @@
   --gl-color-neutral-800: #3f3546;
   --gl-color-neutral-900: #2e2434;
   --gl-color-neutral-950: #1d1424;
-  --gl-color-neutral-1000: #09030e;
+  --gl-color-neutral-1000: #120a18;
 }
 
 :root.tint-neutral-blue,
@@ -31,7 +34,7 @@
   --gl-color-neutral-800: #333945;
   --gl-color-neutral-900: #222733;
   --gl-color-neutral-950: #121722;
-  --gl-color-neutral-1000: #03050d;
+  --gl-color-neutral-1000: #090d17;
 }
 
 :root.tint-neutral-green,
@@ -49,7 +52,7 @@
   --gl-color-neutral-800: #313b38;
   --gl-color-neutral-900: #1f2a26;
   --gl-color-neutral-950: #101916;
-  --gl-color-neutral-1000: #010705;
+  --gl-color-neutral-1000: #060f0c;
 }
 
 :root.tint-neutral-red,
@@ -67,7 +70,7 @@
   --gl-color-neutral-800: #423539;
   --gl-color-neutral-900: #312428;
   --gl-color-neutral-950: #201418;
-  --gl-color-neutral-1000: #0b0306;
+  --gl-color-neutral-1000: #150a0e;
 }
 
 :root.tint-neutral-gray,
@@ -85,6 +88,111 @@
   --gl-color-neutral-800: #383839;
   --gl-color-neutral-900: #272727;
   --gl-color-neutral-950: #171717;
-  --gl-color-neutral-1000: #050505;
+  --gl-color-neutral-1000: #0d0d0d;
+}
+
+/**
+ * Theme overrides. Hand-maintained: keep these when regenerating the
+ * ramps above.
+ *
+ * React scopes allow the tint and color mode to live on different ancestors.
+ * Inherit both palettes independently, then resolve public tokens at every
+ * tint/mode boundary. A custom property's `initial` value selects the var()
+ * fallback; an empty value contributes nothing. The closest mode boundary
+ * therefore selects exactly one palette, including nested light resets.
+ * https://www.w3.org/TR/css-variables-1/#guaranteed-invalid
+ */
+:root {
+  --_gl-nav-light-indicator: var(--gl-color-orange-500);
+  --_gl-nav-dark-indicator: var(--gl-color-orange-300);
+  --_gl-nav-light-foreground: var(--gl-color-neutral-600);
+  --_gl-nav-dark-foreground: var(--gl-color-neutral-200);
+  --_gl-nav-light-hover: var(--gl-color-neutral-950);
+  --_gl-nav-dark-hover: var(--gl-color-neutral-0);
+}
+
+:root,
+.gl-light-scope {
+  --_gl-nav-light: initial;
+  --_gl-nav-dark: ;
+}
+
+:root.gl-dark,
+.gl-dark-scope {
+  --_gl-nav-light: ;
+  --_gl-nav-dark: initial;
+}
+
+:root.tint-neutral-indigo,
+.ui-indigo-scope {
+  --_gl-nav-light-indicator: var(--gl-color-purple-500);
+  --_gl-nav-dark-indicator: var(--gl-color-purple-300);
+  --_gl-nav-light-foreground: var(--gl-color-purple-800);
+  --_gl-nav-dark-foreground: var(--gl-color-purple-200);
+  --_gl-nav-light-hover: var(--gl-color-purple-950);
+  --_gl-nav-dark-hover: var(--gl-color-purple-50);
+}
+
+:root.tint-neutral-blue,
+.ui-blue-scope {
+  --_gl-nav-light-indicator: var(--gl-color-blue-500);
+  --_gl-nav-dark-indicator: var(--gl-color-blue-300);
+  --_gl-nav-light-foreground: var(--gl-color-blue-800);
+  --_gl-nav-dark-foreground: var(--gl-color-blue-200);
+  --_gl-nav-light-hover: var(--gl-color-blue-950);
+  --_gl-nav-dark-hover: var(--gl-color-blue-50);
+}
+
+:root.tint-neutral-green,
+.ui-green-scope {
+  --_gl-nav-light-indicator: var(--gl-color-green-500);
+  --_gl-nav-dark-indicator: var(--gl-color-green-300);
+  --_gl-nav-light-foreground: var(--gl-color-green-800);
+  --_gl-nav-dark-foreground: var(--gl-color-green-200);
+  --_gl-nav-light-hover: var(--gl-color-green-950);
+  --_gl-nav-dark-hover: var(--gl-color-green-50);
+}
+
+:root.tint-neutral-red,
+.ui-red-scope {
+  --_gl-nav-light-indicator: var(--gl-color-red-500);
+  --_gl-nav-dark-indicator: var(--gl-color-red-300);
+  --_gl-nav-light-foreground: var(--gl-color-red-800);
+  --_gl-nav-dark-foreground: var(--gl-color-red-200);
+  --_gl-nav-light-hover: var(--gl-color-red-950);
+  --_gl-nav-dark-hover: var(--gl-color-red-50);
+}
+
+:root.tint-neutral-gray,
+.ui-gray-scope {
+  --_gl-nav-light-indicator: var(--gl-color-neutral-500);
+  --_gl-nav-dark-indicator: var(--gl-color-neutral-300);
+  --_gl-nav-light-foreground: var(--gl-color-neutral-800);
+  --_gl-nav-dark-foreground: var(--gl-color-neutral-200);
+  --_gl-nav-light-hover: var(--gl-color-neutral-950);
+  --_gl-nav-dark-hover: var(--gl-color-neutral-50);
+}
+
+/* Rebind aliases here: inherited var() aliases have already resolved on the
+ * ancestor and cannot follow a palette or mode changed on this element.
+ */
+:root,
+:root.gl-dark,
+.gl-light-scope,
+.gl-dark-scope,
+.ui-indigo-scope,
+.ui-blue-scope,
+.ui-green-scope,
+.ui-red-scope,
+.ui-gray-scope {
+  --gl-nav-item-selected-indicator-color: var(--_gl-nav-light, var(--_gl-nav-light-indicator)) var(--_gl-nav-dark, var(--_gl-nav-dark-indicator));
+  --gl-nav-item-foreground-color-default: var(--_gl-nav-light, var(--_gl-nav-light-foreground)) var(--_gl-nav-dark, var(--_gl-nav-dark-foreground));
+  --gl-nav-item-foreground-color-hover: var(--_gl-nav-light, var(--_gl-nav-light-hover)) var(--_gl-nav-dark, var(--_gl-nav-dark-hover));
+  --gl-nav-item-foreground-color-focus: var(--gl-nav-item-foreground-color-hover);
+  --gl-nav-item-foreground-color-active: var(--gl-nav-item-foreground-color-focus);
+  --gl-nav-item-selected-foreground-color-default: var(--gl-nav-item-foreground-color-hover);
+  --gl-nav-item-selected-foreground-color-hover: var(--gl-nav-item-foreground-color-hover);
+  --gl-nav-item-selected-foreground-color-focus: var(--gl-nav-item-foreground-color-focus);
+  --gl-nav-item-selected-foreground-color-active: var(--gl-nav-item-foreground-color-active);
 }
 
