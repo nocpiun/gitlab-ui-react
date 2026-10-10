@@ -1,5 +1,23 @@
 # gitlab-ui-react
 
+## 0.4.0
+
+### Features
+
+- **sorting:** support disabling the entire sorting control (#145)
+
+### Bug Fixes
+
+- **button:** preserve focus rings on disabled buttons (#146) (#148)
+
+### Upstream Syncs
+
+- **tokens:** sync upstream design tokens (2026-10-09) (#153)
+
+### Contributors
+
+- @NriotHrreion
+
 ## 0.3.0
 
 ### Features
