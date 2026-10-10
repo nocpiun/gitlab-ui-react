@@ -1,5 +1,11 @@
 # @gitlab-ui-react/json-render
 
+## 0.4.0
+
+### Version Synchronization
+
+- Version synchronized with the GitLab UI React package set.
+
 ## 0.3.0
 
 ### Features
