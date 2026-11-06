@@ -99,6 +99,8 @@ Dropdown API 由多个组合部件构成。触发器支持相应的 GitLab 按�
 
 ### `GlDisclosureDropdown`
 
+根组件的 ref 暴露 `GlDisclosureDropdownHandle`：`open()`、`close()`、`closeAndFocus()`、`containsElement()` 和 `focusToggle()`。调用 `focusToggle()` 可聚焦当前触发器（包括 `asChild` 触发器），不会打开或关闭面板。`gitlab-ui-react/disclosure-dropdown` 仍导出 `GlDropdownHandle`，作为此 handle 的别名。
+
 | 属性 | 说明 | 默认值 |
 | --- | --- | --- |
 | `autoClose` | 激活项目后关闭面板，除非该项目覆盖此行为。 | `true` |

@@ -65,6 +65,10 @@ export type GlDisclosureDropdownActionDetails = {
   value: unknown;
 };
 
+export type GlDisclosureDropdownHandle = GlDropdownHandle & {
+  focusToggle(): void;
+};
+
 export type GlDisclosureDropdownProps = Omit<
   HTMLAttributes<HTMLDivElement>,
   "children" | "onChange"
@@ -250,7 +254,7 @@ function useDropdownContext(componentName: string) {
 }
 
 export const GlDisclosureDropdown = forwardRef<
-  GlDropdownHandle,
+  GlDisclosureDropdownHandle,
   GlDisclosureDropdownProps
 >(function GlDisclosureDropdown({
   autoClose = true,
@@ -337,6 +341,10 @@ export const GlDisclosureDropdown = forwardRef<
     handle.close();
   }, [handle]);
 
+  const focusToggle = useCallback(() => {
+    triggerElementRef.current?.focus();
+  }, []);
+
   const containsElement = useCallback((element: Element | null) => {
     if(!element) return false;
 
@@ -350,8 +358,9 @@ export const GlDisclosureDropdown = forwardRef<
     close: closeMenu,
     closeAndFocus: closeMenuAndFocus,
     containsElement,
+    focusToggle,
     open: openMenu,
-  }), [closeMenu, closeMenuAndFocus, containsElement, openMenu]);
+  }), [closeMenu, closeMenuAndFocus, containsElement, focusToggle, openMenu]);
 
   const contextValue = useMemo<DropdownContextValue>(() => ({
     autoClose,
@@ -819,17 +828,23 @@ export const GlDisclosureDropdownItem = forwardRef<
 }, forwardedRef) {
   const context = useDropdownContext("GlDisclosureDropdownItem");
   const reserveIconSpace = useContext(DisclosureDropdownIconSpacingContext);
-  const handleClick: MouseEventHandler<HTMLElement> = (event) => {
+  const shouldCloseOnClick = closeOnClick ?? context.autoClose;
+  const handleClick: NonNullable<BaseMenu.Item.Props["onClick"]> = (event) => {
+    const ownerDocument = event.currentTarget.ownerDocument;
+    const activeElement = ownerDocument.activeElement;
     onClick?.(event);
     if(event.defaultPrevented) {
-      (event as Parameters<NonNullable<BaseMenu.Item.Props["onClick"]>>[0])
-        .preventBaseUIHandler();
+      event.preventBaseUIHandler();
       return;
     }
 
     const details = { event, value };
     onAction?.(details);
     context.dispatchAction(details);
+
+    if(!shouldCloseOnClick && ownerDocument.activeElement !== activeElement) {
+      event.preventBaseUIHandler();
+    }
   };
 
   const itemRender = render
@@ -842,7 +857,7 @@ export const GlDisclosureDropdownItem = forwardRef<
       {...elementProps}
       ref={forwardedRef}
       className={itemVariants({ className, disabled, variant })}
-      closeOnClick={closeOnClick ?? context.autoClose}
+      closeOnClick={shouldCloseOnClick}
       disabled={disabled}
       data-typeahead-label={label}
       label={label}
