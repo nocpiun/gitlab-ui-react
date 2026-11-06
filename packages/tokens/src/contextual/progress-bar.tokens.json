@@ -3,9 +3,23 @@
     "indicator": {
       "color": {
         "default": {
+          "$value": {
+            "default": "{color.neutral.900}",
+            "dark": "{color.neutral.50}"
+          },
+          "$type": "color",
+          "$description": "Used for the indicator color for the default progress-bar variant.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          }
+        },
+        "info": {
           "$value": "{status.info.icon.color}",
           "$type": "color",
-          "$description": "Used for the indicator color for the primary progress-bar variant.",
+          "$description": "Used for the indicator color for the info progress-bar variant.",
           "$extensions": {
             "com.figma.scopes": [
               "FRAME_FILL",

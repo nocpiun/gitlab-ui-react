@@ -644,6 +644,7 @@
   --gl-nav-item-selected-font-weight: var(--gl-font-weight-bold); /** Used for the font weight of a selected navigation item. */
   --gl-nav-item-selected-background-color-default: var(--gl-color-neutral-100); /** Used for the background of a selected navigation item in the default state. */
   --gl-nav-item-selected-indicator-color: var(--gl-color-orange-500); /** Used for the indicator beside a selected navigation item. Tinted themes override it in src/scss/themes.scss. */
+  --gl-progress-bar-indicator-color-default: var(--gl-color-neutral-900); /** Used for the indicator color for the default progress-bar variant. */
   --gl-progress-bar-track-color: var(--gl-color-neutral-200); /** Used for the track color for all progress-bar variants. */
   --gl-skeleton-loader-background-color: var(--gl-color-neutral-100); /** Used for the skeleton loader background color. */
   --gl-skeleton-loader-shimmer-color: var(--gl-color-neutral-50); /** Used for the animated shimmer effect in a skeleton loader. */
@@ -1019,7 +1020,7 @@
   --gl-nav-item-selected-foreground-color-hover: var(--gl-nav-item-foreground-color-hover); /** Used for the foreground of a selected navigation item in the hover state. */
   --gl-nav-item-selected-background-color-hover: var(--gl-nav-item-background-color-hover); /** Used for the background of a selected navigation item in the hover state. */
   --gl-nav-item-selected-background-color-active: var(--gl-nav-item-background-color-active); /** Used for the background of a selected navigation item in the active state. */
-  --gl-progress-bar-indicator-color-default: var(--gl-status-info-icon-color); /** Used for the indicator color for the primary progress-bar variant. */
+  --gl-progress-bar-indicator-color-info: var(--gl-status-info-icon-color); /** Used for the indicator color for the info progress-bar variant. */
   --gl-progress-bar-indicator-color-success: var(--gl-status-success-icon-color); /** Used for the indicator color for the success progress-bar variant. */
   --gl-progress-bar-indicator-color-warning: var(--gl-status-warning-icon-color); /** Used for the indicator color for the warning progress-bar variant. */
   --gl-progress-bar-indicator-color-danger: var(--gl-status-danger-icon-color); /** Used for the indicator color for the danger progress-bar variant. */
