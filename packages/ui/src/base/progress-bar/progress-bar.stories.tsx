@@ -4,7 +4,8 @@ import { expect } from "storybook/test";
 import GlProgressBar, { type GlProgressBarVariant } from "./progress-bar";
 
 const variants = [
-  "primary",
+  "default",
+  "info",
   "success",
   "warning",
   "danger",
@@ -22,7 +23,7 @@ const meta = {
   args: {
     max: 100,
     value: 30,
-    variant: "primary",
+    variant: "default",
   },
   argTypes: {
     variant: {
@@ -47,7 +48,7 @@ export const Default: Story = {
   play: async ({ canvas }) => {
     const bar = canvas.getByRole("progressbar", { name: "Progress bar" });
 
-    await expect(bar).toHaveClass("gl-progress", "gl-progress-bar-primary");
+    await expect(bar).toHaveClass("gl-progress", "gl-progress-bar-default");
     await expect(bar).toHaveAttribute("aria-valuemin", "0");
     await expect(bar).toHaveAttribute("aria-valuemax", "100");
     await expect(bar).toHaveAttribute("aria-valuenow", "30");

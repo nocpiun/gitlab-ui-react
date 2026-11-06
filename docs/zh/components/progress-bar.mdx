@@ -24,7 +24,9 @@ import { GlProgressBar } from "gitlab-ui-react/progress-bar";
 
 ## 变体
 
-只有在周围文字也能清楚表达含义时才使用语义变体。`value` 表示 `max` 中已完成的比例。
+`default` 变体使用中性色。只有在周围文字也能清楚表达含义时才使用 `info`、`success`、`warning` 或 `danger`。`value` 表示 `max` 中已完成的比例。
+
+`primary` 已弃用，仍作为 `info` 的蓝色兼容别名。迁移原先未设置 `variant` 的进度条时，可设置 `variant="info"` 保留原来的蓝色外观。
 
 <DocsExample
   filename="progress-bar/ProgressBarVariantsExample.tsx"
@@ -55,7 +57,7 @@ import { GlProgressBar } from "gitlab-ui-react/progress-bar";
 | --- | --- | --- |
 | `value` | 设置当前进度值。 | `0` |
 | `max` | 设置最大值；非正数会回退到 `100`。 | `100` |
-| `variant` | 设置 `primary`、`success`、`warning` 或 `danger`。 | `"primary"` |
+| `variant` | 设置 `default`、`info`、`success`、`warning` 或 `danger`。`primary` 是已弃用的 `info` 别名。 | `"default"` |
 | `height` | 设置 `8px` 或 `1rem` 等自定义 CSS 高度。 | `"1rem"` |
 | `aria-label` | 设置进度指示器的无障碍名称。 | `"Progress bar"` |
 

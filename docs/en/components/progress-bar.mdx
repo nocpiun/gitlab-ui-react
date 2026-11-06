@@ -24,7 +24,9 @@ Use a progress bar when an operation has a known completion amount. Use a loadin
 
 ## Variants
 
-Choose a semantic variant only when its meaning is also clear from nearby text. The value is expressed as a fraction of `max`.
+The `default` variant uses a neutral color. Choose `info`, `success`, `warning`, or `danger` only when its meaning is also clear from nearby text. The value is expressed as a fraction of `max`.
+
+`primary` is deprecated and remains a blue alias for `info`. Set `variant="info"` to keep the previous blue appearance when migrating a bar that omitted `variant`.
 
 <DocsExample
   filename="progress-bar/ProgressBarVariantsExample.tsx"
@@ -55,7 +57,7 @@ Set `height` to a CSS length when the progress track needs to fit a compact or p
 | --- | --- | --- |
 | `value` | Sets the current progress value. | `0` |
 | `max` | Sets the maximum value; non-positive values fall back to `100`. | `100` |
-| `variant` | Sets `primary`, `success`, `warning`, or `danger`. | `"primary"` |
+| `variant` | Sets `default`, `info`, `success`, `warning`, or `danger`. `primary` is a deprecated alias for `info`. | `"default"` |
 | `height` | Sets a custom CSS height such as `8px` or `1rem`. | `"1rem"` |
 | `aria-label` | Sets the progress indicator's accessible name. | `"Progress bar"` |
 

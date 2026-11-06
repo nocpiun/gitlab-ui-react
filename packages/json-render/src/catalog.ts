@@ -202,7 +202,7 @@ export const gitlabComponentDefinitions = {
     props: z.object({
       value: z.number().nonnegative(),
       max: z.number().positive().optional(),
-      variant: z.enum(["primary", "success", "warning", "danger"]).optional(),
+      variant: z.enum(["default", "info", "primary", "success", "warning", "danger"]).optional(),
       label: z.string().optional(),
     }).refine(({ value, max }) => value <= (max ?? 100), {
       message: "Progress value must not exceed max",

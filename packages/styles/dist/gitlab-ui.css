@@ -8136,8 +8136,11 @@
     transform-origin: left;
     transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
-  .gl-progress-bar-primary {
+  .gl-progress-bar-default {
     background-color: var(--gl-progress-bar-indicator-color-default);
+  }
+  .gl-progress-bar-info, .gl-progress-bar-primary {
+    background-color: var(--gl-progress-bar-indicator-color-info);
   }
   .gl-progress-bar-success {
     background-color: var(--gl-progress-bar-indicator-color-success);

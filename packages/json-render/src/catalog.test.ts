@@ -83,6 +83,16 @@ describe("gitlabComponentDefinitions", () => {
     expect(parsed.data).toEqual({});
   });
 
+  it("accepts current progress variants and the deprecated primary alias", () => {
+    const progressProps = gitlabComponentDefinitions.GlProgressBar.props;
+
+    for(const variant of ["default", "info", "primary", "success", "warning", "danger"]) {
+      expect(progressProps.safeParse({ value: 30, variant }).success).toBe(true);
+    }
+
+    expect(progressProps.safeParse({ value: 30, variant: "unknown" }).success).toBe(false);
+  });
+
   it("constrains progress values to zero through the declared or default maximum", () => {
     const progressProps = gitlabComponentDefinitions.GlProgressBar.props;
 
