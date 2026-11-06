@@ -87,6 +87,8 @@ export type GlTokenSelectorProps = {
   id?: string;
   inputProps?: GlTokenSelectorInputProps;
   items?: readonly GlTokenSelectorItem[];
+  /** Keeps the dropdown open after keyboard selection. Pointer selection always keeps it open. */
+  keepOpenOnSelect?: boolean;
   loading?: boolean;
   loadingContent?: ReactNode;
   menuClassName?: string;
@@ -160,6 +162,7 @@ const GlTokenSelector = forwardRef<HTMLInputElement, GlTokenSelectorProps>(funct
   id,
   inputProps,
   items = [],
+  keepOpenOnSelect = false,
   loading = false,
   loadingContent = "Searching...",
   menuClassName,
@@ -250,13 +253,18 @@ const GlTokenSelector = forwardRef<HTMLInputElement, GlTokenSelectorProps>(funct
     if(!hideDropdown && !viewOnly) setOpen(true);
   }, [hideDropdown, viewOnly]);
 
-  const addToken = useCallback((item: GlTokenSelectorItem) => {
+  const addToken = useCallback((item: GlTokenSelectorItem, keepOpen = keepOpenOnSelect) => {
     commitValue([...selectedItems, item]);
-    closeDropdown();
+    if(keepOpen) {
+      setActiveIndex(0);
+      setActiveItemFocusVisible(false);
+    } else {
+      closeDropdown();
+    }
     onTokenAdd?.(item);
     updateInputValue("");
     focusInput();
-  }, [closeDropdown, commitValue, focusInput, onTokenAdd, selectedItems, updateInputValue]);
+  }, [closeDropdown, commitValue, focusInput, keepOpenOnSelect, onTokenAdd, selectedItems, updateInputValue]);
 
   const removeToken = useCallback((item: GlTokenSelectorItem) => {
     commitValue(selectedItems.filter((selectedItem) => !idsAreEqual(selectedItem.id, item.id)));
@@ -484,7 +492,7 @@ const GlTokenSelector = forwardRef<HTMLInputElement, GlTokenSelectorProps>(funct
           menuClassName={menuClassName}
           noResultsContent={noResultsContent}
           open={open}
-          onSelect={addToken}
+          onSelect={(item) => addToken(item, true)}
           portalContainer={portalContainerRef}
           renderDropdownItem={renderDropdownItem}
           renderUserDefinedToken={renderUserDefinedToken}
