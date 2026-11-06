@@ -1,5 +1,27 @@
 # gitlab-ui-react
 
+## 0.4.0
+
+### Features
+
+- **sorting:** support disabling the entire sorting control (#145)
+- **disclosure-dropdown:** expose focusToggle handle method (#164)
+
+### Bug Fixes
+
+- **button:** preserve focus rings on disabled buttons (#146) (#148)
+- **token-selector:** align selection persistence with upstream (#166)
+- **toggle:** remove redundant selection styles (#165)
+
+### Upstream Syncs
+
+- **tokens:** sync upstream design tokens (2026-10-09) (#153)
+- **tokens:** sync upstream design tokens (2026-11-03) (#161)
+
+### Contributors
+
+- @NriotHrreion
+
 ## 0.3.0
 
 ### Features

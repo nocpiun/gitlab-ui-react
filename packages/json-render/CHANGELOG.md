@@ -1,5 +1,11 @@
 # @gitlab-ui-react/json-render
 
+## 0.4.0
+
+### Upstream Syncs
+
+- **tokens:** sync upstream design tokens (2026-11-03) (#161)
+
 ## 0.3.0
 
 ### Features
