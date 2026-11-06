@@ -60,6 +60,57 @@ describe("GlDisclosureDropdown interactions", () => {
     expect(onOpenChange).not.toHaveBeenCalled();
   });
 
+  it.each([
+    { activation: "pointer", autoClose: true, closeOnClick: false },
+    { activation: "Enter", autoClose: true, closeOnClick: false },
+    { activation: "Space", autoClose: true, closeOnClick: false },
+    { activation: "pointer", autoClose: false, closeOnClick: undefined },
+    { activation: "Enter", autoClose: false, closeOnClick: undefined },
+    { activation: "Space", autoClose: false, closeOnClick: undefined },
+  ])("preserves action focus without closing ($activation, autoClose=$autoClose)", async ({
+    activation,
+    autoClose,
+    closeOnClick,
+  }) => {
+    const user = userEvent.setup();
+    const dropdownRef = createRef<GlDisclosureDropdownHandle>();
+    const onItemAction = vi.fn(() => dropdownRef.current?.focusToggle());
+    const onRootAction = vi.fn();
+    const onOpenChange = vi.fn();
+    render(
+      <GlDisclosureDropdown
+        ref={dropdownRef}
+        autoClose={autoClose}
+        defaultOpen
+        onAction={onRootAction}
+        onOpenChange={onOpenChange}>
+        <GlDisclosureDropdownTrigger>Actions</GlDisclosureDropdownTrigger>
+        <GlDisclosureDropdownContent>
+          <GlDisclosureDropdownItem
+            closeOnClick={closeOnClick}
+            onAction={onItemAction}
+            value="focus-toggle">
+            Focus without closing
+          </GlDisclosureDropdownItem>
+        </GlDisclosureDropdownContent>
+      </GlDisclosureDropdown>,
+    );
+    const item = await screen.findByRole("menuitem", { name: "Focus without closing" });
+    if(activation === "pointer") {
+      await user.click(item);
+    } else {
+      act(() => item.focus());
+      await user.keyboard(activation === "Enter" ? "{Enter}" : " ");
+    }
+
+    const trigger = screen.getByRole("button", { name: "Actions" });
+    expect(document.activeElement).toBe(trigger);
+    expect(trigger.getAttribute("aria-expanded")).toBe("true");
+    expect(onItemAction).toHaveBeenCalledOnce();
+    expect(onRootAction).toHaveBeenCalledOnce();
+    expect(onOpenChange).not.toHaveBeenCalled();
+  });
+
   function renderDisabledItem() {
     const onClick = vi.fn();
     const onItemAction = vi.fn();

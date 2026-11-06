@@ -828,17 +828,23 @@ export const GlDisclosureDropdownItem = forwardRef<
 }, forwardedRef) {
   const context = useDropdownContext("GlDisclosureDropdownItem");
   const reserveIconSpace = useContext(DisclosureDropdownIconSpacingContext);
-  const handleClick: MouseEventHandler<HTMLElement> = (event) => {
+  const shouldCloseOnClick = closeOnClick ?? context.autoClose;
+  const handleClick: NonNullable<BaseMenu.Item.Props["onClick"]> = (event) => {
+    const ownerDocument = event.currentTarget.ownerDocument;
+    const activeElement = ownerDocument.activeElement;
     onClick?.(event);
     if(event.defaultPrevented) {
-      (event as Parameters<NonNullable<BaseMenu.Item.Props["onClick"]>>[0])
-        .preventBaseUIHandler();
+      event.preventBaseUIHandler();
       return;
     }
 
     const details = { event, value };
     onAction?.(details);
     context.dispatchAction(details);
+
+    if(!shouldCloseOnClick && ownerDocument.activeElement !== activeElement) {
+      event.preventBaseUIHandler();
+    }
   };
 
   const itemRender = render
@@ -851,7 +857,7 @@ export const GlDisclosureDropdownItem = forwardRef<
       {...elementProps}
       ref={forwardedRef}
       className={itemVariants({ className, disabled, variant })}
-      closeOnClick={closeOnClick ?? context.autoClose}
+      closeOnClick={shouldCloseOnClick}
       disabled={disabled}
       data-typeahead-label={label}
       label={label}
