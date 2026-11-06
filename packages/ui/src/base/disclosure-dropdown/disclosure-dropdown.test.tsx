@@ -1,4 +1,4 @@
-import type { GlDropdownHandle } from "../../internal/dropdown/dropdown-types";
+import type { GlDropdownHandle } from "./index";
 import { Fragment, createRef, type ReactNode } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, expectTypeOf, it, vi } from "vitest";
@@ -9,6 +9,7 @@ import GlDisclosureDropdown, {
   GlDisclosureDropdownItem,
   GlDisclosureDropdownTrigger,
   hasDirectDisclosureDropdownItemIcon,
+  type GlDisclosureDropdownHandle,
   type GlDisclosureDropdownTriggerProps,
 } from "./disclosure-dropdown";
 import { resolveDropdownPlacement } from "../../internal/dropdown/dropdown-utils";
@@ -193,10 +194,12 @@ describe("GlDisclosureDropdown", () => {
   });
 
   it("exposes the complete imperative handle contract", () => {
-    expectTypeOf<GlDropdownHandle>().toMatchTypeOf<{
+    expectTypeOf<GlDropdownHandle>().toEqualTypeOf<GlDisclosureDropdownHandle>();
+    expectTypeOf<GlDisclosureDropdownHandle>().toMatchTypeOf<{
       close(): void;
       closeAndFocus(): void;
       containsElement(element: Element | null): boolean;
+      focusToggle(): void;
       open(): void;
     }>();
   });

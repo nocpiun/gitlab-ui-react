@@ -1,6 +1,5 @@
 import type {
   GlDropdownBeforeCloseDetails,
-  GlDropdownHandle,
 } from "../../internal/dropdown/dropdown-types";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
@@ -27,6 +26,7 @@ import GlDisclosureDropdown, {
   GlDisclosureDropdownItem,
   GlDisclosureDropdownTrigger,
   type GlDisclosureDropdownActionDetails,
+  type GlDisclosureDropdownHandle,
 } from "./disclosure-dropdown";
 import {
   GlDisclosureDropdownGroup,
@@ -367,13 +367,14 @@ export const OutsideAndFocusOut: Story = {
 };
 
 function ImperativeExample() {
-  const dropdownRef = useRef<GlDropdownHandle>(null);
+  const dropdownRef = useRef<GlDisclosureDropdownHandle>(null);
   const [containsResult, setContainsResult] = useState("unchecked");
 
   return (
     <div style={{ display: "grid", gap: "1rem", justifyItems: "start" }}>
       <div style={storyLayout}>
         <GlButton onClick={() => dropdownRef.current?.open()}>Imperative open</GlButton>
+        <GlButton onClick={() => dropdownRef.current?.focusToggle()}>Focus toggle</GlButton>
       </div>
       <output data-testid="contains-result">{containsResult}</output>
       <GlDisclosureDropdown ref={dropdownRef}>
@@ -387,6 +388,12 @@ function ImperativeExample() {
               ))}
               value="contains">
               Check containsElement
+            </GlDisclosureDropdownItem>
+            <GlDisclosureDropdownItem
+              closeOnClick={false}
+              onAction={() => dropdownRef.current?.focusToggle()}
+              value="focus-toggle">
+              Focus without closing
             </GlDisclosureDropdownItem>
             <GlDisclosureDropdownItem
               closeOnClick={false}
@@ -413,10 +420,18 @@ export const ImperativeHandle: Story = {
     const trigger = canvas.getByRole("button", { name: "Imperative actions" });
     const openButton = canvas.getByRole("button", { name: "Imperative open" });
 
+    await userEvent.click(canvas.getByRole("button", { name: "Focus toggle" }));
+    await expect(trigger).toHaveFocus();
+    await expect(trigger).not.toHaveAttribute("aria-expanded", "true");
+
     await userEvent.click(openButton);
     await waitFor(() => expect(trigger).toHaveAttribute("aria-expanded", "true"));
     await userEvent.click(await canvas.findByRole("menuitem", { name: "Check containsElement" }));
     await expect(canvas.getByTestId("contains-result")).toHaveTextContent("true");
+
+    await userEvent.click(canvas.getByRole("menuitem", { name: "Focus without closing" }));
+    await expect(trigger).toHaveFocus();
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
 
     await userEvent.click(canvas.getByRole("menuitem", { name: "Imperative close" }));
     await waitFor(() => expect(trigger).not.toHaveAttribute("aria-expanded", "true"));

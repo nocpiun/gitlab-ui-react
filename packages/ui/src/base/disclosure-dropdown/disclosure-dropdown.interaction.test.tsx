@@ -1,14 +1,15 @@
 // @vitest-environment jsdom
 
-import { useState } from "react";
+import { createRef, useState } from "react";
 import { flushSync } from "react-dom";
-import { cleanup, render, screen } from "@testing-library/react";
+import { act, cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import GlDisclosureDropdown, {
   GlDisclosureDropdownContent,
   GlDisclosureDropdownItem,
   GlDisclosureDropdownTrigger,
+  type GlDisclosureDropdownHandle,
 } from "./disclosure-dropdown";
 
 afterEach(() => {
@@ -17,6 +18,48 @@ afterEach(() => {
 });
 
 describe("GlDisclosureDropdown interactions", () => {
+  it.each([
+    { asChild: false, defaultOpen: false },
+    { asChild: false, defaultOpen: true },
+    { asChild: true, defaultOpen: false },
+    { asChild: true, defaultOpen: true },
+  ])("focuses the toggle without changing state ($asChild, $defaultOpen)", async ({
+    asChild,
+    defaultOpen,
+  }) => {
+    const dropdownRef = createRef<GlDisclosureDropdownHandle>();
+    const onOpenChange = vi.fn();
+    render(
+      <GlDisclosureDropdown
+        ref={dropdownRef}
+        defaultOpen={defaultOpen}
+        onOpenChange={onOpenChange}>
+        {asChild ? (
+          <GlDisclosureDropdownTrigger asChild>
+            <button type="button">Custom actions</button>
+          </GlDisclosureDropdownTrigger>
+        ) : (
+          <GlDisclosureDropdownTrigger>Actions</GlDisclosureDropdownTrigger>
+        )}
+        <GlDisclosureDropdownContent>
+          <GlDisclosureDropdownItem value="edit">Edit</GlDisclosureDropdownItem>
+        </GlDisclosureDropdownContent>
+      </GlDisclosureDropdown>,
+    );
+    const trigger = screen.getByRole("button", { name: asChild ? "Custom actions" : "Actions" });
+    if(defaultOpen) {
+      const item = await screen.findByRole("menuitem", { name: "Edit" });
+      act(() => item.focus());
+    }
+    onOpenChange.mockClear();
+
+    act(() => dropdownRef.current?.focusToggle());
+
+    expect(document.activeElement).toBe(trigger);
+    expect(trigger.getAttribute("aria-expanded") === "true").toBe(defaultOpen);
+    expect(onOpenChange).not.toHaveBeenCalled();
+  });
+
   function renderDisabledItem() {
     const onClick = vi.fn();
     const onItemAction = vi.fn();

@@ -65,6 +65,10 @@ export type GlDisclosureDropdownActionDetails = {
   value: unknown;
 };
 
+export type GlDisclosureDropdownHandle = GlDropdownHandle & {
+  focusToggle(): void;
+};
+
 export type GlDisclosureDropdownProps = Omit<
   HTMLAttributes<HTMLDivElement>,
   "children" | "onChange"
@@ -250,7 +254,7 @@ function useDropdownContext(componentName: string) {
 }
 
 export const GlDisclosureDropdown = forwardRef<
-  GlDropdownHandle,
+  GlDisclosureDropdownHandle,
   GlDisclosureDropdownProps
 >(function GlDisclosureDropdown({
   autoClose = true,
@@ -337,6 +341,10 @@ export const GlDisclosureDropdown = forwardRef<
     handle.close();
   }, [handle]);
 
+  const focusToggle = useCallback(() => {
+    triggerElementRef.current?.focus();
+  }, []);
+
   const containsElement = useCallback((element: Element | null) => {
     if(!element) return false;
 
@@ -350,8 +358,9 @@ export const GlDisclosureDropdown = forwardRef<
     close: closeMenu,
     closeAndFocus: closeMenuAndFocus,
     containsElement,
+    focusToggle,
     open: openMenu,
-  }), [closeMenu, closeMenuAndFocus, containsElement, openMenu]);
+  }), [closeMenu, closeMenuAndFocus, containsElement, focusToggle, openMenu]);
 
   const contextValue = useMemo<DropdownContextValue>(() => ({
     autoClose,

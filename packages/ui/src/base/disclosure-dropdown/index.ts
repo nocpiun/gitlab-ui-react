@@ -10,6 +10,8 @@ export {
 export type {
   GlDisclosureDropdownActionDetails,
   GlDisclosureDropdownContentProps,
+  GlDisclosureDropdownHandle,
+  GlDisclosureDropdownHandle as GlDropdownHandle,
   GlDisclosureDropdownItemProps,
   GlDisclosureDropdownItemVariant,
   GlDisclosureDropdownProps,
@@ -31,7 +33,6 @@ export type {
   GlDropdownBeforeCloseDetails,
   GlDropdownCloseReason,
   GlDropdownFooterProps,
-  GlDropdownHandle,
   GlDropdownHeaderProps,
   GlDropdownOffset,
   GlDropdownOpenChangeDetails,

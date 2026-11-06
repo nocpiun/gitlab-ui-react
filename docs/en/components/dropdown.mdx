@@ -99,6 +99,8 @@ The dropdown APIs use compound parts. Trigger parts also accept the supported Gi
 
 ### `GlDisclosureDropdown`
 
+The root ref exposes `GlDisclosureDropdownHandle`: `open()`, `close()`, `closeAndFocus()`, `containsElement()`, and `focusToggle()`. Use `focusToggle()` to focus the current trigger, including an `asChild` trigger, without opening or closing the panel. `GlDropdownHandle` from `gitlab-ui-react/disclosure-dropdown` remains available as an alias for this handle.
+
 | Prop | Description | Default |
 | --- | --- | --- |
 | `autoClose` | Closes the panel after an item is activated unless the item overrides it. | `true` |
