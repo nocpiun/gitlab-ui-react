@@ -1,5 +1,21 @@
 # @gitlab-ui-react/styles
 
+## 0.4.0
+
+### Bug Fixes
+
+- **button:** preserve focus rings on disabled buttons (#146) (#148)
+- **toggle:** remove redundant selection styles (#165)
+
+### Upstream Syncs
+
+- **tokens:** sync upstream design tokens (2026-10-09) (#153)
+- **tokens:** sync upstream design tokens (2026-11-03) (#161)
+
+### Contributors
+
+- @NriotHrreion
+
 ## 0.3.0
 
 ### Features
