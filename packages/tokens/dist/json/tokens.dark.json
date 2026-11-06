@@ -23571,9 +23571,9 @@
       "color": {
         "default": {
           "key": "{progress-bar.indicator.color.default}",
-          "$value": "#64a7e9",
+          "$value": "#ecebea",
           "$type": "color",
-          "$description": "Used for the indicator color for the primary progress-bar variant.",
+          "$description": "Used for the indicator color for the default progress-bar variant.",
           "$extensions": {
             "com.figma.scopes": [
               "FRAME_FILL",
@@ -23583,9 +23583,9 @@
           "filePath": "src/contextual/progress-bar.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "{status.info.icon.color}",
+            "$value": "{color.neutral.50}",
             "$type": "color",
-            "$description": "Used for the indicator color for the primary progress-bar variant.",
+            "$description": "Used for the indicator color for the default progress-bar variant.",
             "$extensions": {
               "com.figma.scopes": [
                 "FRAME_FILL",
@@ -23601,6 +23601,40 @@
             "indicator",
             "color",
             "default"
+          ]
+        },
+        "info": {
+          "key": "{progress-bar.indicator.color.info}",
+          "$value": "#64a7e9",
+          "$type": "color",
+          "$description": "Used for the indicator color for the info progress-bar variant.",
+          "$extensions": {
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          },
+          "filePath": "src/contextual/progress-bar.tokens.json",
+          "isSource": true,
+          "original": {
+            "$value": "{status.info.icon.color}",
+            "$type": "color",
+            "$description": "Used for the indicator color for the info progress-bar variant.",
+            "$extensions": {
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ]
+            },
+            "key": "{progress-bar.indicator.color.info}"
+          },
+          "name": "PROGRESS_BAR_INDICATOR_COLOR_INFO",
+          "attributes": {},
+          "path": [
+            "progress-bar",
+            "indicator",
+            "color",
+            "info"
           ]
         },
         "success": {

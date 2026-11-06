@@ -6,7 +6,7 @@
 import { forwardRef, type HTMLAttributes } from "react";
 import { cva } from "class-variance-authority";
 
-export type GlProgressBarVariant = "primary" | "success" | "warning" | "danger";
+export type GlProgressBarVariant = "default" | "info" | "primary" | "success" | "warning" | "danger";
 
 type ProgressBarElementProps = Omit<HTMLAttributes<HTMLDivElement>, "aria-label" | "children">;
 
@@ -19,7 +19,7 @@ export type GlProgressBarProps = ProgressBarElementProps & {
   max?: number | string;
   /** Current progress value, between `0` and `max`. Non-numeric values fall back to `0`. */
   value?: number | string;
-  /** Visual variant of the progress indicator. */
+  /** Visual variant of the progress indicator. `primary` is deprecated; use `info` instead. */
   variant?: GlProgressBarVariant;
 };
 
@@ -29,7 +29,9 @@ const progressVariants = cva("gl-progress", {
   variants: {
     variant: {
       danger: "gl-progress-bar-danger",
-      primary: "gl-progress-bar-primary",
+      default: "gl-progress-bar-default",
+      info: "gl-progress-bar-info",
+      primary: "gl-progress-bar-info",
       success: "gl-progress-bar-success",
       warning: "gl-progress-bar-warning",
     },
@@ -48,7 +50,7 @@ const GlProgressBar = forwardRef<HTMLDivElement, GlProgressBarProps>(function Gl
   max = 100,
   style,
   value = 0,
-  variant = "primary",
+  variant = "default",
   ...elementProps
 }, forwardedRef) {
   const computedValue = toFloat(value, 0);

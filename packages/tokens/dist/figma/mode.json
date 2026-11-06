@@ -4987,9 +4987,20 @@
     }
   },
   "🔒/progress-bar-indicator-color-default": {
+    "$value": "{color-neutral-900}",
+    "$type": "color",
+    "$description": "Used for the indicator color for the default progress-bar variant.",
+    "$extensions": {
+      "com.figma.scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ]
+    }
+  },
+  "🔒/progress-bar-indicator-color-info": {
     "$value": "{status-info-icon-color}",
     "$type": "color",
-    "$description": "Used for the indicator color for the primary progress-bar variant.",
+    "$description": "Used for the indicator color for the info progress-bar variant.",
     "$extensions": {
       "com.figma.scopes": [
         "FRAME_FILL",

@@ -1,6 +1,6 @@
 import { GlProgressBar } from "gitlab-ui-react/progress-bar";
 
-const variants = ["primary", "success", "warning", "danger"] as const;
+const variants = ["default", "info", "success", "warning", "danger"] as const;
 
 export default function ProgressBarVariantsExample() {
   return (

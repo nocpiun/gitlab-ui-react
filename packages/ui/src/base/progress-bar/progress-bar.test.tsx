@@ -18,7 +18,7 @@ describe("GlProgressBar", () => {
     it("renders the indicator with the expected classes and ARIA attributes", () => {
       const markup = renderProgressBar();
 
-      expect(markup).toContain("class=\"gl-progress gl-progress-bar-primary\"");
+      expect(markup).toContain("class=\"gl-progress gl-progress-bar-default\"");
       expect(markup).toContain("role=\"progressbar\"");
       expect(markup).toContain("aria-label=\"Progress bar\"");
       expect(markup).toContain("aria-valuemin=\"0\"");
@@ -75,12 +75,21 @@ describe("GlProgressBar", () => {
 
   describe("variant", () => {
     it.each([
-      "primary",
+      "default",
+      "info",
       "success",
       "warning",
       "danger",
     ] as GlProgressBarVariant[])("applies the %s variant class", (variant) => {
       expect(renderProgressBar({ variant })).toContain(`gl-progress gl-progress-bar-${variant}`);
+    });
+
+    it("maps the deprecated primary variant to info instead of the neutral default", () => {
+      const markup = renderProgressBar({ variant: "primary", value: 30 });
+
+      expect(markup).toBe(renderProgressBar({ variant: "info", value: 30 }));
+      expect(markup).toContain("gl-progress gl-progress-bar-info");
+      expect(markup).not.toContain("gl-progress-bar-default");
     });
   });
 

@@ -644,6 +644,7 @@
     --gl-nav-item-selected-font-weight: var(--gl-font-weight-bold);
     --gl-nav-item-selected-background-color-default: var(--gl-color-neutral-100);
     --gl-nav-item-selected-indicator-color: var(--gl-color-orange-500);
+    --gl-progress-bar-indicator-color-default: var(--gl-color-neutral-900);
     --gl-progress-bar-track-color: var(--gl-color-neutral-200);
     --gl-skeleton-loader-background-color: var(--gl-color-neutral-100);
     --gl-skeleton-loader-shimmer-color: var(--gl-color-neutral-50);
@@ -1019,7 +1020,7 @@
     --gl-nav-item-selected-foreground-color-hover: var(--gl-nav-item-foreground-color-hover);
     --gl-nav-item-selected-background-color-hover: var(--gl-nav-item-background-color-hover);
     --gl-nav-item-selected-background-color-active: var(--gl-nav-item-background-color-active);
-    --gl-progress-bar-indicator-color-default: var(--gl-status-info-icon-color);
+    --gl-progress-bar-indicator-color-info: var(--gl-status-info-icon-color);
     --gl-progress-bar-indicator-color-success: var(--gl-status-success-icon-color);
     --gl-progress-bar-indicator-color-warning: var(--gl-status-warning-icon-color);
     --gl-progress-bar-indicator-color-danger: var(--gl-status-danger-icon-color);
@@ -1941,6 +1942,7 @@
     --gl-nav-item-selected-font-weight: var(--gl-font-weight-bold);
     --gl-nav-item-selected-background-color-default: var(--gl-color-neutral-800);
     --gl-nav-item-selected-indicator-color: var(--gl-color-orange-300);
+    --gl-progress-bar-indicator-color-default: var(--gl-color-neutral-50);
     --gl-progress-bar-track-color: var(--gl-color-neutral-700);
     --gl-skeleton-loader-background-color: var(--gl-color-neutral-800);
     --gl-skeleton-loader-shimmer-color: var(--gl-color-neutral-700);
@@ -2305,7 +2307,7 @@
     --gl-nav-item-selected-foreground-color-hover: var(--gl-nav-item-foreground-color-hover);
     --gl-nav-item-selected-background-color-hover: var(--gl-nav-item-background-color-hover);
     --gl-nav-item-selected-background-color-active: var(--gl-nav-item-background-color-active);
-    --gl-progress-bar-indicator-color-default: var(--gl-status-info-icon-color);
+    --gl-progress-bar-indicator-color-info: var(--gl-status-info-icon-color);
     --gl-progress-bar-indicator-color-success: var(--gl-status-success-icon-color);
     --gl-progress-bar-indicator-color-warning: var(--gl-status-warning-icon-color);
     --gl-progress-bar-indicator-color-danger: var(--gl-status-danger-icon-color);
@@ -8134,8 +8136,11 @@
     transform-origin: left;
     transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
-  .gl-progress-bar-primary {
+  .gl-progress-bar-default {
     background-color: var(--gl-progress-bar-indicator-color-default);
+  }
+  .gl-progress-bar-info, .gl-progress-bar-primary {
+    background-color: var(--gl-progress-bar-indicator-color-info);
   }
   .gl-progress-bar-success {
     background-color: var(--gl-progress-bar-indicator-color-success);

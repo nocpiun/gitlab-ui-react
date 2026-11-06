@@ -128,6 +128,18 @@ describe("gitlabComponents display renderers", () => {
     expect(container.textContent).toBe("<img src=x onerror=alert(1)>");
   });
 
+  it.each([
+    [undefined, "default"],
+    ["default", "default"],
+    ["info", "info"],
+    ["primary", "info"],
+  ] as const)("renders progress variant %s with %s styles", (variant, expectedVariant) => {
+    renderComponent("GlProgressBar", { label: "Upload", value: 30, variant });
+
+    expect(screen.getByRole("progressbar", { name: "Upload" }).classList)
+      .toContain(`gl-progress-bar-${expectedVariant}`);
+  });
+
   it("keeps progress ARIA values and indicator within range for direct registry calls", () => {
     renderComponent("GlProgressBar", { label: "Upload", max: 40, value: 60 });
     const overMax = screen.getByRole("progressbar", { name: "Upload" });
