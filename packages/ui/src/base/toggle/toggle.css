@@ -58,12 +58,6 @@
     transition: none;
   }
 
-  /* Upstream also lists `::before::selection` / `::after::selection`, which are
-   * invalid selectors that browsers ignore and lightningcss rejects. */
-  &::selection {
-    @apply gl-bg-transparent;
-  }
-
   &:hover {
     color: var(--gl-toggle-switch-icon-color-unchecked-hover);
     background-color: var(--gl-toggle-switch-track-color-unchecked-hover);

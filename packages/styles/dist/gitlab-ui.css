@@ -8506,9 +8506,6 @@
       transition: none;
     }
   }
-  .gl-toggle::selection {
-    background-color: transparent;
-  }
   .gl-toggle:hover {
     color: var(--gl-toggle-switch-icon-color-unchecked-hover);
     background-color: var(--gl-toggle-switch-track-color-unchecked-hover);
