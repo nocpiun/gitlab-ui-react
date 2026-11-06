@@ -55,6 +55,7 @@ const meta = {
     hideDropdownWithNoItems: false,
     id: "project-token-selector",
     items: projects,
+    keepOpenOnSelect: false,
     loading: false,
     onInputValueChange: fn(),
     onKeyDown: fn(),
@@ -184,6 +185,47 @@ export const Uncontrolled: Story = {
         .getByRole("button", { name: "Remove" }),
     );
     await expect(canvas.queryByText("Runner")).not.toBeInTheDocument();
+  },
+};
+
+export const SelectionBehavior: Story = {
+  render: (args) => (
+    <div style={{ display: "grid", gap: "1rem" }}>
+      {[false, true].map((keepOpenOnSelect) => (
+        <ControlledSelector
+          {...args}
+          key={String(keepOpenOnSelect)}
+          aria-label={keepOpenOnSelect ? "Keep open after Enter" : "Close after Enter"}
+          defaultValue={[]}
+          id={`selection-behavior-${keepOpenOnSelect}`}
+          keepOpenOnSelect={keepOpenOnSelect} />
+      ))}
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Enter closes the dropdown by default. Set keepOpenOnSelect to keep it open for consecutive keyboard selections. Pointer selection keeps it open in either mode. Escape, blur, and hideDropdownWithNoItems still dismiss it.",
+      },
+    },
+  },
+  play: async ({ canvas }) => {
+    for(const keepOpenOnSelect of [false, true]) {
+      const input = canvas.getByRole("combobox", {
+        name: keepOpenOnSelect ? "Keep open after Enter" : "Close after Enter",
+      });
+      await userEvent.click(input);
+      await userEvent.keyboard("{Enter}");
+      await expect(input).toHaveAttribute("aria-expanded", String(keepOpenOnSelect));
+      await expect(input).toHaveFocus();
+
+      await userEvent.click(input);
+      await userEvent.click(await canvas.findByRole("option", { name: "Runner" }));
+      await expect(input).toHaveAttribute("aria-expanded", "true");
+      await expect(input).toHaveFocus();
+      await userEvent.keyboard("{Escape}");
+      await expect(input).toHaveAttribute("aria-expanded", "false");
+    }
   },
 };
 
