@@ -3,26 +3,8 @@
     "green": {
       "50": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.8666666666666667,
-              0.9803921568627451,
-              0.7176470588235294
-            ],
-            "alpha": 1,
-            "hex": "#ddfab7"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.07450980392156863,
-              0.22745098039215686,
-              0.011764705882352941
-            ],
-            "alpha": 1,
-            "hex": "#133a03"
-          }
+          "default": "{color.data-green.50}",
+          "dark": "{color.data-green.950}"
         },
         "$type": "color",
         "$extensions": {
@@ -34,26 +16,8 @@
       },
       "100": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.7764705882352941,
-              0.9294117647058824,
-              0.5803921568627451
-            ],
-            "alpha": 1,
-            "hex": "#c6ed94"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.10196078431372549,
-              0.27058823529411763,
-              0
-            ],
-            "alpha": 1,
-            "hex": "#1a4500"
-          }
+          "default": "{color.data-green.100}",
+          "dark": "{color.data-green.900}"
         },
         "$type": "color",
         "$extensions": {
@@ -65,26 +29,8 @@
       },
       "200": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.6901960784313725,
-              0.8509803921568627,
-              0.4823529411764706
-            ],
-            "alpha": 1,
-            "hex": "#b0d97b"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.15294117647058825,
-              0.33725490196078434,
-              0
-            ],
-            "alpha": 1,
-            "hex": "#275600"
-          }
+          "default": "{color.data-green.200}",
+          "dark": "{color.data-green.800}"
         },
         "$type": "color",
         "$extensions": {
@@ -96,26 +42,8 @@
       },
       "300": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.5803921568627451,
-              0.7607843137254902,
-              0.3686274509803922
-            ],
-            "alpha": 1,
-            "hex": "#94c25e"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.21176470588235294,
-              0.40784313725490196,
-              0
-            ],
-            "alpha": 1,
-            "hex": "#366800"
-          }
+          "default": "{color.data-green.300}",
+          "dark": "{color.data-green.700}"
         },
         "$type": "color",
         "$extensions": {
@@ -127,26 +55,8 @@
       },
       "400": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.5058823529411764,
-              0.6745098039215687,
-              0.2549019607843137
-            ],
-            "alpha": 1,
-            "hex": "#81ac41"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.3058823529411765,
-              0.4980392156862745,
-              0.054901960784313725
-            ],
-            "alpha": 1,
-            "hex": "#4e7f0e"
-          }
+          "default": "{color.data-green.400}",
+          "dark": "{color.data-green.600}"
         },
         "$type": "color",
         "$extensions": {
@@ -158,26 +68,8 @@
       },
       "500": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.3803921568627451,
-              0.5647058823529412,
-              0.1450980392156863
-            ],
-            "alpha": 1,
-            "hex": "#619025"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.3803921568627451,
-              0.5647058823529412,
-              0.1450980392156863
-            ],
-            "alpha": 1,
-            "hex": "#619025"
-          }
+          "default": "{color.data-green.500}",
+          "dark": "{color.data-green.500}"
         },
         "$type": "color",
         "$extensions": {
@@ -189,26 +81,8 @@
       },
       "600": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.3058823529411765,
-              0.4980392156862745,
-              0.054901960784313725
-            ],
-            "alpha": 1,
-            "hex": "#4e7f0e"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.5058823529411764,
-              0.6745098039215687,
-              0.2549019607843137
-            ],
-            "alpha": 1,
-            "hex": "#81ac41"
-          }
+          "default": "{color.data-green.600}",
+          "dark": "{color.data-green.400}"
         },
         "$type": "color",
         "$extensions": {
@@ -220,26 +94,8 @@
       },
       "700": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.21176470588235294,
-              0.40784313725490196,
-              0
-            ],
-            "alpha": 1,
-            "hex": "#366800"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.5803921568627451,
-              0.7607843137254902,
-              0.3686274509803922
-            ],
-            "alpha": 1,
-            "hex": "#94c25e"
-          }
+          "default": "{color.data-green.700}",
+          "dark": "{color.data-green.300}"
         },
         "$type": "color",
         "$extensions": {
@@ -251,26 +107,8 @@
       },
       "800": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.15294117647058825,
-              0.33725490196078434,
-              0
-            ],
-            "alpha": 1,
-            "hex": "#275600"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.6901960784313725,
-              0.8509803921568627,
-              0.4823529411764706
-            ],
-            "alpha": 1,
-            "hex": "#b0d97b"
-          }
+          "default": "{color.data-green.800}",
+          "dark": "{color.data-green.200}"
         },
         "$type": "color",
         "$extensions": {
@@ -282,26 +120,8 @@
       },
       "900": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.10196078431372549,
-              0.27058823529411763,
-              0
-            ],
-            "alpha": 1,
-            "hex": "#1a4500"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.7764705882352941,
-              0.9294117647058824,
-              0.5803921568627451
-            ],
-            "alpha": 1,
-            "hex": "#c6ed94"
-          }
+          "default": "{color.data-green.900}",
+          "dark": "{color.data-green.100}"
         },
         "$type": "color",
         "$extensions": {
@@ -313,26 +133,8 @@
       },
       "950": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.07450980392156863,
-              0.22745098039215686,
-              0.011764705882352941
-            ],
-            "alpha": 1,
-            "hex": "#133a03"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.8666666666666667,
-              0.9803921568627451,
-              0.7176470588235294
-            ],
-            "alpha": 1,
-            "hex": "#ddfab7"
-          }
+          "default": "{color.data-green.950}",
+          "dark": "{color.data-green.50}"
         },
         "$type": "color",
         "$extensions": {
@@ -346,26 +148,8 @@
     "aqua": {
       "50": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.7098039215686275,
-              0.996078431372549,
-              0.9921568627450981
-            ],
-            "alpha": 1,
-            "hex": "#b5fefd"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0.20392156862745098,
-              0.29411764705882354
-            ],
-            "alpha": 1,
-            "hex": "#00344b"
-          }
+          "default": "{color.data-aqua.50}",
+          "dark": "{color.data-aqua.950}"
         },
         "$type": "color",
         "$extensions": {
@@ -377,26 +161,8 @@
       },
       "100": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.5764705882352941,
-              0.9490196078431372,
-              0.9372549019607843
-            ],
-            "alpha": 1,
-            "hex": "#93f2ef"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0.25098039215686274,
-              0.34901960784313724
-            ],
-            "alpha": 1,
-            "hex": "#004059"
-          }
+          "default": "{color.data-aqua.100}",
+          "dark": "{color.data-aqua.900}"
         },
         "$type": "color",
         "$extensions": {
@@ -408,26 +174,8 @@
       },
       "200": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.3686274509803922,
-              0.8705882352941177,
-              0.8901960784313725
-            ],
-            "alpha": 1,
-            "hex": "#5edee3"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0.3176470588235294,
-              0.4235294117647059
-            ],
-            "alpha": 1,
-            "hex": "#00516c"
-          }
+          "default": "{color.data-aqua.200}",
+          "dark": "{color.data-aqua.800}"
         },
         "$type": "color",
         "$extensions": {
@@ -439,26 +187,8 @@
       },
       "300": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.19607843137254902,
-              0.7725490196078432,
-              0.8235294117647058
-            ],
-            "alpha": 1,
-            "hex": "#32c5d2"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0.38823529411764707,
-              0.5058823529411764
-            ],
-            "alpha": 1,
-            "hex": "#006381"
-          }
+          "default": "{color.data-aqua.300}",
+          "dark": "{color.data-aqua.700}"
         },
         "$type": "color",
         "$extensions": {
@@ -470,26 +200,8 @@
       },
       "400": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0.6745098039215687,
-              0.7686274509803922
-            ],
-            "alpha": 1,
-            "hex": "#00acc4"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0.4823529411764706,
-              0.6078431372549019
-            ],
-            "alpha": 1,
-            "hex": "#007b9b"
-          }
+          "default": "{color.data-aqua.400}",
+          "dark": "{color.data-aqua.600}"
         },
         "$type": "color",
         "$extensions": {
@@ -501,26 +213,8 @@
       },
       "500": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0.5647058823529412,
-              0.6941176470588235
-            ],
-            "alpha": 1,
-            "hex": "#0090b1"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0.5647058823529412,
-              0.6941176470588235
-            ],
-            "alpha": 1,
-            "hex": "#0090b1"
-          }
+          "default": "{color.data-aqua.500}",
+          "dark": "{color.data-aqua.500}"
         },
         "$type": "color",
         "$extensions": {
@@ -532,26 +226,8 @@
       },
       "600": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0.4823529411764706,
-              0.6078431372549019
-            ],
-            "alpha": 1,
-            "hex": "#007b9b"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0.6745098039215687,
-              0.7686274509803922
-            ],
-            "alpha": 1,
-            "hex": "#00acc4"
-          }
+          "default": "{color.data-aqua.600}",
+          "dark": "{color.data-aqua.400}"
         },
         "$type": "color",
         "$extensions": {
@@ -563,26 +239,8 @@
       },
       "700": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0.38823529411764707,
-              0.5058823529411764
-            ],
-            "alpha": 1,
-            "hex": "#006381"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.19607843137254902,
-              0.7725490196078432,
-              0.8235294117647058
-            ],
-            "alpha": 1,
-            "hex": "#32c5d2"
-          }
+          "default": "{color.data-aqua.700}",
+          "dark": "{color.data-aqua.300}"
         },
         "$type": "color",
         "$extensions": {
@@ -594,26 +252,8 @@
       },
       "800": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0.3176470588235294,
-              0.4235294117647059
-            ],
-            "alpha": 1,
-            "hex": "#00516c"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.3686274509803922,
-              0.8705882352941177,
-              0.8901960784313725
-            ],
-            "alpha": 1,
-            "hex": "#5edee3"
-          }
+          "default": "{color.data-aqua.800}",
+          "dark": "{color.data-aqua.200}"
         },
         "$type": "color",
         "$extensions": {
@@ -625,26 +265,8 @@
       },
       "900": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0.25098039215686274,
-              0.34901960784313724
-            ],
-            "alpha": 1,
-            "hex": "#004059"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.5764705882352941,
-              0.9490196078431372,
-              0.9372549019607843
-            ],
-            "alpha": 1,
-            "hex": "#93f2ef"
-          }
+          "default": "{color.data-aqua.900}",
+          "dark": "{color.data-aqua.100}"
         },
         "$type": "color",
         "$extensions": {
@@ -656,26 +278,8 @@
       },
       "950": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0,
-              0.20392156862745098,
-              0.29411764705882354
-            ],
-            "alpha": 1,
-            "hex": "#00344b"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.7098039215686275,
-              0.996078431372549,
-              0.9921568627450981
-            ],
-            "alpha": 1,
-            "hex": "#b5fefd"
-          }
+          "default": "{color.data-aqua.950}",
+          "dark": "{color.data-aqua.50}"
         },
         "$type": "color",
         "$extensions": {
@@ -689,26 +293,8 @@
     "blue": {
       "50": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.9137254901960784,
-              0.9215686274509803,
-              1
-            ],
-            "alpha": 1,
-            "hex": "#e9ebff"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.16470588235294117,
-              0.16862745098039217,
-              0.34901960784313724
-            ],
-            "alpha": 1,
-            "hex": "#2a2b59"
-          }
+          "default": "{color.data-blue.50}",
+          "dark": "{color.data-blue.950}"
         },
         "$type": "color",
         "$extensions": {
@@ -720,26 +306,8 @@
       },
       "100": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.8235294117647058,
-              0.8627450980392157,
-              1
-            ],
-            "alpha": 1,
-            "hex": "#d2dcff"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.18823529411764706,
-              0.20392156862745098,
-              0.4392156862745098
-            ],
-            "alpha": 1,
-            "hex": "#303470"
-          }
+          "default": "{color.data-blue.100}",
+          "dark": "{color.data-blue.900}"
         },
         "$type": "color",
         "$extensions": {
@@ -751,26 +319,8 @@
       },
       "200": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.7176470588235294,
-              0.7764705882352941,
-              1
-            ],
-            "alpha": 1,
-            "hex": "#b7c6ff"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.21568627450980393,
-              0.25882352941176473,
-              0.5686274509803921
-            ],
-            "alpha": 1,
-            "hex": "#374291"
-          }
+          "default": "{color.data-blue.200}",
+          "dark": "{color.data-blue.800}"
         },
         "$type": "color",
         "$extensions": {
@@ -782,26 +332,8 @@
       },
       "300": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.592156862745098,
-              0.6745098039215687,
-              1
-            ],
-            "alpha": 1,
-            "hex": "#97acff"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.24705882352941178,
-              0.3176470588235294,
-              0.6823529411764706
-            ],
-            "alpha": 1,
-            "hex": "#3f51ae"
-          }
+          "default": "{color.data-blue.300}",
+          "dark": "{color.data-blue.700}"
         },
         "$type": "color",
         "$extensions": {
@@ -813,26 +345,8 @@
       },
       "400": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.4745098039215686,
-              0.5725490196078431,
-              0.9607843137254902
-            ],
-            "alpha": 1,
-            "hex": "#7992f5"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.3058823529411765,
-              0.396078431372549,
-              0.803921568627451
-            ],
-            "alpha": 1,
-            "hex": "#4e65cd"
-          }
+          "default": "{color.data-blue.400}",
+          "dark": "{color.data-blue.600}"
         },
         "$type": "color",
         "$extensions": {
@@ -844,26 +358,8 @@
       },
       "500": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.3803921568627451,
-              0.47843137254901963,
-              0.8862745098039215
-            ],
-            "alpha": 1,
-            "hex": "#617ae2"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.3803921568627451,
-              0.47843137254901963,
-              0.8862745098039215
-            ],
-            "alpha": 1,
-            "hex": "#617ae2"
-          }
+          "default": "{color.data-blue.500}",
+          "dark": "{color.data-blue.500}"
         },
         "$type": "color",
         "$extensions": {
@@ -875,26 +371,8 @@
       },
       "600": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.3058823529411765,
-              0.396078431372549,
-              0.803921568627451
-            ],
-            "alpha": 1,
-            "hex": "#4e65cd"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.4745098039215686,
-              0.5725490196078431,
-              0.9607843137254902
-            ],
-            "alpha": 1,
-            "hex": "#7992f5"
-          }
+          "default": "{color.data-blue.600}",
+          "dark": "{color.data-blue.400}"
         },
         "$type": "color",
         "$extensions": {
@@ -906,26 +384,8 @@
       },
       "700": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.24705882352941178,
-              0.3176470588235294,
-              0.6823529411764706
-            ],
-            "alpha": 1,
-            "hex": "#3f51ae"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.592156862745098,
-              0.6745098039215687,
-              1
-            ],
-            "alpha": 1,
-            "hex": "#97acff"
-          }
+          "default": "{color.data-blue.700}",
+          "dark": "{color.data-blue.300}"
         },
         "$type": "color",
         "$extensions": {
@@ -937,26 +397,8 @@
       },
       "800": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.21568627450980393,
-              0.25882352941176473,
-              0.5686274509803921
-            ],
-            "alpha": 1,
-            "hex": "#374291"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.7176470588235294,
-              0.7764705882352941,
-              1
-            ],
-            "alpha": 1,
-            "hex": "#b7c6ff"
-          }
+          "default": "{color.data-blue.800}",
+          "dark": "{color.data-blue.200}"
         },
         "$type": "color",
         "$extensions": {
@@ -968,26 +410,8 @@
       },
       "900": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.18823529411764706,
-              0.20392156862745098,
-              0.4392156862745098
-            ],
-            "alpha": 1,
-            "hex": "#303470"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.8235294117647058,
-              0.8627450980392157,
-              1
-            ],
-            "alpha": 1,
-            "hex": "#d2dcff"
-          }
+          "default": "{color.data-blue.900}",
+          "dark": "{color.data-blue.100}"
         },
         "$type": "color",
         "$extensions": {
@@ -999,26 +423,8 @@
       },
       "950": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.16470588235294117,
-              0.16862745098039217,
-              0.34901960784313724
-            ],
-            "alpha": 1,
-            "hex": "#2a2b59"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.9137254901960784,
-              0.9215686274509803,
-              1
-            ],
-            "alpha": 1,
-            "hex": "#e9ebff"
-          }
+          "default": "{color.data-blue.950}",
+          "dark": "{color.data-blue.50}"
         },
         "$type": "color",
         "$extensions": {
@@ -1032,26 +438,8 @@
     "magenta": {
       "50": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              1,
-              0.8901960784313725,
-              0.9215686274509803
-            ],
-            "alpha": 1,
-            "hex": "#ffe3eb"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.32941176470588235,
-              0.11372549019607843,
-              0.19215686274509805
-            ],
-            "alpha": 1,
-            "hex": "#541d31"
-          }
+          "default": "{color.data-magenta.50}",
+          "dark": "{color.data-magenta.950}"
         },
         "$type": "color",
         "$extensions": {
@@ -1063,26 +451,8 @@
       },
       "100": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              1,
-              0.8,
-              0.8588235294117647
-            ],
-            "alpha": 1,
-            "hex": "#ffccdb"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.4,
-              0.11764705882352941,
-              0.22745098039215686
-            ],
-            "alpha": 1,
-            "hex": "#661e3a"
-          }
+          "default": "{color.data-magenta.100}",
+          "dark": "{color.data-magenta.900}"
         },
         "$type": "color",
         "$extensions": {
@@ -1094,26 +464,8 @@
       },
       "200": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.9882352941176471,
-              0.6745098039215687,
-              0.7725490196078432
-            ],
-            "alpha": 1,
-            "hex": "#fcacc5"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.48627450980392156,
-              0.12941176470588237,
-              0.30980392156862746
-            ],
-            "alpha": 1,
-            "hex": "#7c214f"
-          }
+          "default": "{color.data-magenta.200}",
+          "dark": "{color.data-magenta.800}"
         },
         "$type": "color",
         "$extensions": {
@@ -1125,26 +477,8 @@
       },
       "300": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.9725490196078431,
-              0.5411764705882353,
-              0.6862745098039216
-            ],
-            "alpha": 1,
-            "hex": "#f88aaf"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.6039215686274509,
-              0.1803921568627451,
-              0.36470588235294116
-            ],
-            "alpha": 1,
-            "hex": "#9a2e5d"
-          }
+          "default": "{color.data-magenta.300}",
+          "dark": "{color.data-magenta.700}"
         },
         "$type": "color",
         "$extensions": {
@@ -1156,26 +490,8 @@
       },
       "400": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.9098039215686274,
-              0.43137254901960786,
-              0.6039215686274509
-            ],
-            "alpha": 1,
-            "hex": "#e86e9a"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.7254901960784313,
-              0.23921568627450981,
-              0.44313725490196076
-            ],
-            "alpha": 1,
-            "hex": "#b93d71"
-          }
+          "default": "{color.data-magenta.400}",
+          "dark": "{color.data-magenta.600}"
         },
         "$type": "color",
         "$extensions": {
@@ -1187,26 +503,8 @@
       },
       "500": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.8117647058823529,
-              0.30196078431372547,
-              0.5058823529411764
-            ],
-            "alpha": 1,
-            "hex": "#cf4d81"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.8117647058823529,
-              0.30196078431372547,
-              0.5058823529411764
-            ],
-            "alpha": 1,
-            "hex": "#cf4d81"
-          }
+          "default": "{color.data-magenta.500}",
+          "dark": "{color.data-magenta.500}"
         },
         "$type": "color",
         "$extensions": {
@@ -1218,26 +516,8 @@
       },
       "600": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.7254901960784313,
-              0.23921568627450981,
-              0.44313725490196076
-            ],
-            "alpha": 1,
-            "hex": "#b93d71"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.9098039215686274,
-              0.43137254901960786,
-              0.6039215686274509
-            ],
-            "alpha": 1,
-            "hex": "#e86e9a"
-          }
+          "default": "{color.data-magenta.600}",
+          "dark": "{color.data-magenta.400}"
         },
         "$type": "color",
         "$extensions": {
@@ -1249,26 +529,8 @@
       },
       "700": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.6039215686274509,
-              0.1803921568627451,
-              0.36470588235294116
-            ],
-            "alpha": 1,
-            "hex": "#9a2e5d"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.9725490196078431,
-              0.5411764705882353,
-              0.6862745098039216
-            ],
-            "alpha": 1,
-            "hex": "#f88aaf"
-          }
+          "default": "{color.data-magenta.700}",
+          "dark": "{color.data-magenta.300}"
         },
         "$type": "color",
         "$extensions": {
@@ -1280,26 +542,8 @@
       },
       "800": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.48627450980392156,
-              0.12941176470588237,
-              0.30980392156862746
-            ],
-            "alpha": 1,
-            "hex": "#7c214f"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.9882352941176471,
-              0.6745098039215687,
-              0.7725490196078432
-            ],
-            "alpha": 1,
-            "hex": "#fcacc5"
-          }
+          "default": "{color.data-magenta.800}",
+          "dark": "{color.data-magenta.200}"
         },
         "$type": "color",
         "$extensions": {
@@ -1311,26 +555,8 @@
       },
       "900": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.4,
-              0.11764705882352941,
-              0.22745098039215686
-            ],
-            "alpha": 1,
-            "hex": "#661e3a"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              1,
-              0.8,
-              0.8588235294117647
-            ],
-            "alpha": 1,
-            "hex": "#ffccdb"
-          }
+          "default": "{color.data-magenta.900}",
+          "dark": "{color.data-magenta.100}"
         },
         "$type": "color",
         "$extensions": {
@@ -1342,26 +568,8 @@
       },
       "950": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.32941176470588235,
-              0.11372549019607843,
-              0.19215686274509805
-            ],
-            "alpha": 1,
-            "hex": "#541d31"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              1,
-              0.8901960784313725,
-              0.9215686274509803
-            ],
-            "alpha": 1,
-            "hex": "#ffe3eb"
-          }
+          "default": "{color.data-magenta.950}",
+          "dark": "{color.data-magenta.50}"
         },
         "$type": "color",
         "$extensions": {
@@ -1375,26 +583,8 @@
     "orange": {
       "50": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.9803921568627451,
-              0.9098039215686274,
-              0.8196078431372549
-            ],
-            "alpha": 1,
-            "hex": "#fae8d1"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.29411764705882354,
-              0.15294117647058825,
-              0.027450980392156862
-            ],
-            "alpha": 1,
-            "hex": "#4b2707"
-          }
+          "default": "{color.data-orange.50}",
+          "dark": "{color.data-orange.950}"
         },
         "$type": "color",
         "$extensions": {
@@ -1406,26 +596,8 @@
       },
       "100": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.9607843137254902,
-              0.8392156862745098,
-              0.7019607843137254
-            ],
-            "alpha": 1,
-            "hex": "#f5d6b3"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.3686274509803922,
-              0.1843137254901961,
-              0.0196078431372549
-            ],
-            "alpha": 1,
-            "hex": "#5e2f05"
-          }
+          "default": "{color.data-orange.100}",
+          "dark": "{color.data-orange.900}"
         },
         "$type": "color",
         "$extensions": {
@@ -1437,26 +609,8 @@
       },
       "200": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.9333333333333333,
-              0.7411764705882353,
-              0.5490196078431373
-            ],
-            "alpha": 1,
-            "hex": "#eebd8c"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.43529411764705883,
-              0.20784313725490197,
-              0
-            ],
-            "alpha": 1,
-            "hex": "#6f3500"
-          }
+          "default": "{color.data-orange.200}",
+          "dark": "{color.data-orange.800}"
         },
         "$type": "color",
         "$extensions": {
@@ -1468,26 +622,8 @@
       },
       "300": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.9137254901960784,
-              0.6078431372549019,
-              0.3764705882352941
-            ],
-            "alpha": 1,
-            "hex": "#e99b60"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.5725490196078431,
-              0.2627450980392157,
-              0.0392156862745098
-            ],
-            "alpha": 1,
-            "hex": "#92430a"
-          }
+          "default": "{color.data-orange.300}",
+          "dark": "{color.data-orange.700}"
         },
         "$type": "color",
         "$extensions": {
@@ -1499,26 +635,8 @@
       },
       "400": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.8784313725490196,
-              0.49411764705882355,
-              0.2549019607843137
-            ],
-            "alpha": 1,
-            "hex": "#e07e41"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.6941176470588235,
-              0.30980392156862746,
-              0.09411764705882353
-            ],
-            "alpha": 1,
-            "hex": "#b14f18"
-          }
+          "default": "{color.data-orange.400}",
+          "dark": "{color.data-orange.600}"
         },
         "$type": "color",
         "$extensions": {
@@ -1530,26 +648,8 @@
       },
       "500": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.788235294117647,
-              0.36470588235294116,
-              0.1803921568627451
-            ],
-            "alpha": 1,
-            "hex": "#c95d2e"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.788235294117647,
-              0.36470588235294116,
-              0.1803921568627451
-            ],
-            "alpha": 1,
-            "hex": "#c95d2e"
-          }
+          "default": "{color.data-orange.500}",
+          "dark": "{color.data-orange.500}"
         },
         "$type": "color",
         "$extensions": {
@@ -1561,26 +661,8 @@
       },
       "600": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.6941176470588235,
-              0.30980392156862746,
-              0.09411764705882353
-            ],
-            "alpha": 1,
-            "hex": "#b14f18"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.8784313725490196,
-              0.49411764705882355,
-              0.2549019607843137
-            ],
-            "alpha": 1,
-            "hex": "#e07e41"
-          }
+          "default": "{color.data-orange.600}",
+          "dark": "{color.data-orange.400}"
         },
         "$type": "color",
         "$extensions": {
@@ -1592,26 +674,8 @@
       },
       "700": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.5725490196078431,
-              0.2627450980392157,
-              0.0392156862745098
-            ],
-            "alpha": 1,
-            "hex": "#92430a"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.9137254901960784,
-              0.6078431372549019,
-              0.3764705882352941
-            ],
-            "alpha": 1,
-            "hex": "#e99b60"
-          }
+          "default": "{color.data-orange.700}",
+          "dark": "{color.data-orange.300}"
         },
         "$type": "color",
         "$extensions": {
@@ -1623,26 +687,8 @@
       },
       "800": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.43529411764705883,
-              0.20784313725490197,
-              0
-            ],
-            "alpha": 1,
-            "hex": "#6f3500"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.9333333333333333,
-              0.7411764705882353,
-              0.5490196078431373
-            ],
-            "alpha": 1,
-            "hex": "#eebd8c"
-          }
+          "default": "{color.data-orange.800}",
+          "dark": "{color.data-orange.200}"
         },
         "$type": "color",
         "$extensions": {
@@ -1654,26 +700,8 @@
       },
       "900": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.3686274509803922,
-              0.1843137254901961,
-              0.0196078431372549
-            ],
-            "alpha": 1,
-            "hex": "#5e2f05"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.9607843137254902,
-              0.8392156862745098,
-              0.7019607843137254
-            ],
-            "alpha": 1,
-            "hex": "#f5d6b3"
-          }
+          "default": "{color.data-orange.900}",
+          "dark": "{color.data-orange.100}"
         },
         "$type": "color",
         "$extensions": {
@@ -1685,26 +713,8 @@
       },
       "950": {
         "$value": {
-          "default": {
-            "colorSpace": "srgb",
-            "components": [
-              0.29411764705882354,
-              0.15294117647058825,
-              0.027450980392156862
-            ],
-            "alpha": 1,
-            "hex": "#4b2707"
-          },
-          "dark": {
-            "colorSpace": "srgb",
-            "components": [
-              0.9803921568627451,
-              0.9098039215686274,
-              0.8196078431372549
-            ],
-            "alpha": 1,
-            "hex": "#fae8d1"
-          }
+          "default": "{color.data-orange.950}",
+          "dark": "{color.data-orange.50}"
         },
         "$type": "color",
         "$extensions": {
@@ -1717,4 +727,3 @@
     }
   }
 }
-
