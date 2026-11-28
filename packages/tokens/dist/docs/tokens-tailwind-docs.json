@@ -2913,7 +2913,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#ddfab7",
+            "$value": "{color.data-green.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -2945,7 +2945,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#c6ed94",
+            "$value": "{color.data-green.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -2977,7 +2977,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b0d97b",
+            "$value": "{color.data-green.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3009,7 +3009,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#94c25e",
+            "$value": "{color.data-green.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3041,7 +3041,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#81ac41",
+            "$value": "{color.data-green.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3073,7 +3073,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#619025",
+            "$value": "{color.data-green.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3105,7 +3105,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#4e7f0e",
+            "$value": "{color.data-green.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3137,7 +3137,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#366800",
+            "$value": "{color.data-green.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3169,7 +3169,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#275600",
+            "$value": "{color.data-green.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3201,7 +3201,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#1a4500",
+            "$value": "{color.data-green.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3233,7 +3233,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#133a03",
+            "$value": "{color.data-green.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3267,7 +3267,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b5fefd",
+            "$value": "{color.data-aqua.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3299,7 +3299,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#93f2ef",
+            "$value": "{color.data-aqua.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3331,7 +3331,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#5edee3",
+            "$value": "{color.data-aqua.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3363,7 +3363,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#32c5d2",
+            "$value": "{color.data-aqua.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3395,7 +3395,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#00acc4",
+            "$value": "{color.data-aqua.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3427,7 +3427,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#0090b1",
+            "$value": "{color.data-aqua.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3459,7 +3459,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#007b9b",
+            "$value": "{color.data-aqua.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3491,7 +3491,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#006381",
+            "$value": "{color.data-aqua.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3523,7 +3523,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#00516c",
+            "$value": "{color.data-aqua.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3555,7 +3555,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#004059",
+            "$value": "{color.data-aqua.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3587,7 +3587,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#00344b",
+            "$value": "{color.data-aqua.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3621,7 +3621,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#e9ebff",
+            "$value": "{color.data-blue.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3653,7 +3653,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#d2dcff",
+            "$value": "{color.data-blue.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3685,7 +3685,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b7c6ff",
+            "$value": "{color.data-blue.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3717,7 +3717,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#97acff",
+            "$value": "{color.data-blue.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3749,7 +3749,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#7992f5",
+            "$value": "{color.data-blue.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3781,7 +3781,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#617ae2",
+            "$value": "{color.data-blue.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3813,7 +3813,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#4e65cd",
+            "$value": "{color.data-blue.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3845,7 +3845,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#3f51ae",
+            "$value": "{color.data-blue.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3877,7 +3877,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#374291",
+            "$value": "{color.data-blue.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3909,7 +3909,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#303470",
+            "$value": "{color.data-blue.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3941,7 +3941,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#2a2b59",
+            "$value": "{color.data-blue.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -3975,7 +3975,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#ffe3eb",
+            "$value": "{color.data-magenta.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -4007,7 +4007,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#ffccdb",
+            "$value": "{color.data-magenta.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -4039,7 +4039,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#fcacc5",
+            "$value": "{color.data-magenta.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -4071,7 +4071,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#f88aaf",
+            "$value": "{color.data-magenta.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -4103,7 +4103,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#e86e9a",
+            "$value": "{color.data-magenta.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -4135,7 +4135,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#cf4d81",
+            "$value": "{color.data-magenta.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -4167,7 +4167,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b93d71",
+            "$value": "{color.data-magenta.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -4199,7 +4199,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#9a2e5d",
+            "$value": "{color.data-magenta.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -4231,7 +4231,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#7c214f",
+            "$value": "{color.data-magenta.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -4263,7 +4263,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#661e3a",
+            "$value": "{color.data-magenta.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -4295,7 +4295,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#541d31",
+            "$value": "{color.data-magenta.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -4329,7 +4329,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#fae8d1",
+            "$value": "{color.data-orange.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -4361,7 +4361,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#f5d6b3",
+            "$value": "{color.data-orange.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -4393,7 +4393,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#eebd8c",
+            "$value": "{color.data-orange.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -4425,7 +4425,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#e99b60",
+            "$value": "{color.data-orange.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -4457,7 +4457,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#e07e41",
+            "$value": "{color.data-orange.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -4489,7 +4489,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#c95d2e",
+            "$value": "{color.data-orange.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -4521,7 +4521,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b14f18",
+            "$value": "{color.data-orange.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -4553,7 +4553,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#92430a",
+            "$value": "{color.data-orange.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -4585,7 +4585,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#6f3500",
+            "$value": "{color.data-orange.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -4617,7 +4617,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#5e2f05",
+            "$value": "{color.data-orange.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -4649,7 +4649,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#4b2707",
+            "$value": "{color.data-orange.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -8920,7 +8920,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#ddfab7",
+            "$value": "{color.data-green.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -8952,7 +8952,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#c6ed94",
+            "$value": "{color.data-green.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -8984,7 +8984,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b0d97b",
+            "$value": "{color.data-green.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9016,7 +9016,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#94c25e",
+            "$value": "{color.data-green.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9048,7 +9048,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#81ac41",
+            "$value": "{color.data-green.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9080,7 +9080,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#619025",
+            "$value": "{color.data-green.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9112,7 +9112,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#4e7f0e",
+            "$value": "{color.data-green.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9144,7 +9144,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#366800",
+            "$value": "{color.data-green.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9176,7 +9176,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#275600",
+            "$value": "{color.data-green.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9208,7 +9208,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#1a4500",
+            "$value": "{color.data-green.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9240,7 +9240,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#133a03",
+            "$value": "{color.data-green.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9274,7 +9274,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b5fefd",
+            "$value": "{color.data-aqua.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9306,7 +9306,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#93f2ef",
+            "$value": "{color.data-aqua.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9338,7 +9338,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#5edee3",
+            "$value": "{color.data-aqua.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9370,7 +9370,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#32c5d2",
+            "$value": "{color.data-aqua.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9402,7 +9402,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#00acc4",
+            "$value": "{color.data-aqua.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9434,7 +9434,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#0090b1",
+            "$value": "{color.data-aqua.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9466,7 +9466,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#007b9b",
+            "$value": "{color.data-aqua.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9498,7 +9498,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#006381",
+            "$value": "{color.data-aqua.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9530,7 +9530,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#00516c",
+            "$value": "{color.data-aqua.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9562,7 +9562,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#004059",
+            "$value": "{color.data-aqua.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9594,7 +9594,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#00344b",
+            "$value": "{color.data-aqua.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9628,7 +9628,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#e9ebff",
+            "$value": "{color.data-blue.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9660,7 +9660,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#d2dcff",
+            "$value": "{color.data-blue.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9692,7 +9692,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b7c6ff",
+            "$value": "{color.data-blue.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9724,7 +9724,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#97acff",
+            "$value": "{color.data-blue.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9756,7 +9756,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#7992f5",
+            "$value": "{color.data-blue.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9788,7 +9788,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#617ae2",
+            "$value": "{color.data-blue.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9820,7 +9820,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#4e65cd",
+            "$value": "{color.data-blue.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9852,7 +9852,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#3f51ae",
+            "$value": "{color.data-blue.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9884,7 +9884,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#374291",
+            "$value": "{color.data-blue.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9916,7 +9916,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#303470",
+            "$value": "{color.data-blue.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9948,7 +9948,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#2a2b59",
+            "$value": "{color.data-blue.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -9982,7 +9982,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#ffe3eb",
+            "$value": "{color.data-magenta.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -10014,7 +10014,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#ffccdb",
+            "$value": "{color.data-magenta.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -10046,7 +10046,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#fcacc5",
+            "$value": "{color.data-magenta.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -10078,7 +10078,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#f88aaf",
+            "$value": "{color.data-magenta.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -10110,7 +10110,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#e86e9a",
+            "$value": "{color.data-magenta.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -10142,7 +10142,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#cf4d81",
+            "$value": "{color.data-magenta.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -10174,7 +10174,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b93d71",
+            "$value": "{color.data-magenta.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -10206,7 +10206,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#9a2e5d",
+            "$value": "{color.data-magenta.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -10238,7 +10238,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#7c214f",
+            "$value": "{color.data-magenta.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -10270,7 +10270,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#661e3a",
+            "$value": "{color.data-magenta.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -10302,7 +10302,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#541d31",
+            "$value": "{color.data-magenta.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -10336,7 +10336,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#fae8d1",
+            "$value": "{color.data-orange.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -10368,7 +10368,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#f5d6b3",
+            "$value": "{color.data-orange.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -10400,7 +10400,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#eebd8c",
+            "$value": "{color.data-orange.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -10432,7 +10432,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#e99b60",
+            "$value": "{color.data-orange.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -10464,7 +10464,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#e07e41",
+            "$value": "{color.data-orange.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -10496,7 +10496,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#c95d2e",
+            "$value": "{color.data-orange.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -10528,7 +10528,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b14f18",
+            "$value": "{color.data-orange.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -10560,7 +10560,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#92430a",
+            "$value": "{color.data-orange.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -10592,7 +10592,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#6f3500",
+            "$value": "{color.data-orange.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -10624,7 +10624,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#5e2f05",
+            "$value": "{color.data-orange.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -10656,7 +10656,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#4b2707",
+            "$value": "{color.data-orange.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -14584,7 +14584,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#ddfab7",
+            "$value": "{color.data-green.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -14616,7 +14616,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#c6ed94",
+            "$value": "{color.data-green.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -14648,7 +14648,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b0d97b",
+            "$value": "{color.data-green.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -14680,7 +14680,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#94c25e",
+            "$value": "{color.data-green.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -14712,7 +14712,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#81ac41",
+            "$value": "{color.data-green.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -14744,7 +14744,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#619025",
+            "$value": "{color.data-green.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -14776,7 +14776,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#4e7f0e",
+            "$value": "{color.data-green.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -14808,7 +14808,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#366800",
+            "$value": "{color.data-green.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -14840,7 +14840,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#275600",
+            "$value": "{color.data-green.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -14872,7 +14872,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#1a4500",
+            "$value": "{color.data-green.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -14904,7 +14904,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#133a03",
+            "$value": "{color.data-green.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -14938,7 +14938,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b5fefd",
+            "$value": "{color.data-aqua.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -14970,7 +14970,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#93f2ef",
+            "$value": "{color.data-aqua.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15002,7 +15002,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#5edee3",
+            "$value": "{color.data-aqua.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15034,7 +15034,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#32c5d2",
+            "$value": "{color.data-aqua.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15066,7 +15066,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#00acc4",
+            "$value": "{color.data-aqua.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15098,7 +15098,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#0090b1",
+            "$value": "{color.data-aqua.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15130,7 +15130,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#007b9b",
+            "$value": "{color.data-aqua.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15162,7 +15162,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#006381",
+            "$value": "{color.data-aqua.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15194,7 +15194,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#00516c",
+            "$value": "{color.data-aqua.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15226,7 +15226,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#004059",
+            "$value": "{color.data-aqua.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15258,7 +15258,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#00344b",
+            "$value": "{color.data-aqua.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15292,7 +15292,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#e9ebff",
+            "$value": "{color.data-blue.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15324,7 +15324,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#d2dcff",
+            "$value": "{color.data-blue.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15356,7 +15356,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b7c6ff",
+            "$value": "{color.data-blue.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15388,7 +15388,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#97acff",
+            "$value": "{color.data-blue.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15420,7 +15420,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#7992f5",
+            "$value": "{color.data-blue.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15452,7 +15452,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#617ae2",
+            "$value": "{color.data-blue.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15484,7 +15484,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#4e65cd",
+            "$value": "{color.data-blue.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15516,7 +15516,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#3f51ae",
+            "$value": "{color.data-blue.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15548,7 +15548,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#374291",
+            "$value": "{color.data-blue.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15580,7 +15580,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#303470",
+            "$value": "{color.data-blue.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15612,7 +15612,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#2a2b59",
+            "$value": "{color.data-blue.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15646,7 +15646,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#ffe3eb",
+            "$value": "{color.data-magenta.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15678,7 +15678,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#ffccdb",
+            "$value": "{color.data-magenta.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15710,7 +15710,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#fcacc5",
+            "$value": "{color.data-magenta.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15742,7 +15742,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#f88aaf",
+            "$value": "{color.data-magenta.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15774,7 +15774,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#e86e9a",
+            "$value": "{color.data-magenta.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15806,7 +15806,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#cf4d81",
+            "$value": "{color.data-magenta.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15838,7 +15838,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b93d71",
+            "$value": "{color.data-magenta.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15870,7 +15870,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#9a2e5d",
+            "$value": "{color.data-magenta.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15902,7 +15902,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#7c214f",
+            "$value": "{color.data-magenta.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15934,7 +15934,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#661e3a",
+            "$value": "{color.data-magenta.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -15966,7 +15966,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#541d31",
+            "$value": "{color.data-magenta.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -16000,7 +16000,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#fae8d1",
+            "$value": "{color.data-orange.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -16032,7 +16032,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#f5d6b3",
+            "$value": "{color.data-orange.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -16064,7 +16064,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#eebd8c",
+            "$value": "{color.data-orange.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -16096,7 +16096,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#e99b60",
+            "$value": "{color.data-orange.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -16128,7 +16128,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#e07e41",
+            "$value": "{color.data-orange.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -16160,7 +16160,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#c95d2e",
+            "$value": "{color.data-orange.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -16192,7 +16192,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b14f18",
+            "$value": "{color.data-orange.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -16224,7 +16224,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#92430a",
+            "$value": "{color.data-orange.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -16256,7 +16256,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#6f3500",
+            "$value": "{color.data-orange.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -16288,7 +16288,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#5e2f05",
+            "$value": "{color.data-orange.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -16320,7 +16320,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#4b2707",
+            "$value": "{color.data-orange.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -20449,7 +20449,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#ddfab7",
+            "$value": "{color.data-green.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -20481,7 +20481,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#c6ed94",
+            "$value": "{color.data-green.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -20513,7 +20513,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b0d97b",
+            "$value": "{color.data-green.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -20545,7 +20545,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#94c25e",
+            "$value": "{color.data-green.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -20577,7 +20577,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#81ac41",
+            "$value": "{color.data-green.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -20609,7 +20609,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#619025",
+            "$value": "{color.data-green.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -20641,7 +20641,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#4e7f0e",
+            "$value": "{color.data-green.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -20673,7 +20673,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#366800",
+            "$value": "{color.data-green.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -20705,7 +20705,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#275600",
+            "$value": "{color.data-green.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -20737,7 +20737,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#1a4500",
+            "$value": "{color.data-green.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -20769,7 +20769,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#133a03",
+            "$value": "{color.data-green.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -20803,7 +20803,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b5fefd",
+            "$value": "{color.data-aqua.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -20835,7 +20835,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#93f2ef",
+            "$value": "{color.data-aqua.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -20867,7 +20867,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#5edee3",
+            "$value": "{color.data-aqua.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -20899,7 +20899,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#32c5d2",
+            "$value": "{color.data-aqua.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -20931,7 +20931,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#00acc4",
+            "$value": "{color.data-aqua.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -20963,7 +20963,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#0090b1",
+            "$value": "{color.data-aqua.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -20995,7 +20995,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#007b9b",
+            "$value": "{color.data-aqua.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21027,7 +21027,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#006381",
+            "$value": "{color.data-aqua.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21059,7 +21059,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#00516c",
+            "$value": "{color.data-aqua.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21091,7 +21091,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#004059",
+            "$value": "{color.data-aqua.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21123,7 +21123,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#00344b",
+            "$value": "{color.data-aqua.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21157,7 +21157,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#e9ebff",
+            "$value": "{color.data-blue.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21189,7 +21189,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#d2dcff",
+            "$value": "{color.data-blue.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21221,7 +21221,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b7c6ff",
+            "$value": "{color.data-blue.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21253,7 +21253,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#97acff",
+            "$value": "{color.data-blue.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21285,7 +21285,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#7992f5",
+            "$value": "{color.data-blue.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21317,7 +21317,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#617ae2",
+            "$value": "{color.data-blue.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21349,7 +21349,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#4e65cd",
+            "$value": "{color.data-blue.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21381,7 +21381,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#3f51ae",
+            "$value": "{color.data-blue.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21413,7 +21413,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#374291",
+            "$value": "{color.data-blue.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21445,7 +21445,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#303470",
+            "$value": "{color.data-blue.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21477,7 +21477,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#2a2b59",
+            "$value": "{color.data-blue.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21511,7 +21511,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#ffe3eb",
+            "$value": "{color.data-magenta.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21543,7 +21543,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#ffccdb",
+            "$value": "{color.data-magenta.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21575,7 +21575,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#fcacc5",
+            "$value": "{color.data-magenta.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21607,7 +21607,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#f88aaf",
+            "$value": "{color.data-magenta.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21639,7 +21639,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#e86e9a",
+            "$value": "{color.data-magenta.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21671,7 +21671,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#cf4d81",
+            "$value": "{color.data-magenta.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21703,7 +21703,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b93d71",
+            "$value": "{color.data-magenta.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21735,7 +21735,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#9a2e5d",
+            "$value": "{color.data-magenta.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21767,7 +21767,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#7c214f",
+            "$value": "{color.data-magenta.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21799,7 +21799,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#661e3a",
+            "$value": "{color.data-magenta.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21831,7 +21831,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#541d31",
+            "$value": "{color.data-magenta.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21865,7 +21865,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#fae8d1",
+            "$value": "{color.data-orange.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21897,7 +21897,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#f5d6b3",
+            "$value": "{color.data-orange.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21929,7 +21929,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#eebd8c",
+            "$value": "{color.data-orange.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21961,7 +21961,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#e99b60",
+            "$value": "{color.data-orange.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -21993,7 +21993,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#e07e41",
+            "$value": "{color.data-orange.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -22025,7 +22025,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#c95d2e",
+            "$value": "{color.data-orange.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -22057,7 +22057,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b14f18",
+            "$value": "{color.data-orange.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -22089,7 +22089,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#92430a",
+            "$value": "{color.data-orange.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -22121,7 +22121,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#6f3500",
+            "$value": "{color.data-orange.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -22153,7 +22153,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#5e2f05",
+            "$value": "{color.data-orange.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -22185,7 +22185,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#4b2707",
+            "$value": "{color.data-orange.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -26503,7 +26503,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#ddfab7",
+            "$value": "{color.data-green.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -26535,7 +26535,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#c6ed94",
+            "$value": "{color.data-green.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -26567,7 +26567,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b0d97b",
+            "$value": "{color.data-green.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -26599,7 +26599,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#94c25e",
+            "$value": "{color.data-green.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -26631,7 +26631,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#81ac41",
+            "$value": "{color.data-green.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -26663,7 +26663,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#619025",
+            "$value": "{color.data-green.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -26695,7 +26695,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#4e7f0e",
+            "$value": "{color.data-green.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -26727,7 +26727,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#366800",
+            "$value": "{color.data-green.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -26759,7 +26759,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#275600",
+            "$value": "{color.data-green.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -26791,7 +26791,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#1a4500",
+            "$value": "{color.data-green.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -26823,7 +26823,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#133a03",
+            "$value": "{color.data-green.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -26857,7 +26857,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b5fefd",
+            "$value": "{color.data-aqua.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -26889,7 +26889,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#93f2ef",
+            "$value": "{color.data-aqua.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -26921,7 +26921,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#5edee3",
+            "$value": "{color.data-aqua.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -26953,7 +26953,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#32c5d2",
+            "$value": "{color.data-aqua.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -26985,7 +26985,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#00acc4",
+            "$value": "{color.data-aqua.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27017,7 +27017,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#0090b1",
+            "$value": "{color.data-aqua.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27049,7 +27049,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#007b9b",
+            "$value": "{color.data-aqua.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27081,7 +27081,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#006381",
+            "$value": "{color.data-aqua.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27113,7 +27113,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#00516c",
+            "$value": "{color.data-aqua.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27145,7 +27145,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#004059",
+            "$value": "{color.data-aqua.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27177,7 +27177,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#00344b",
+            "$value": "{color.data-aqua.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27211,7 +27211,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#e9ebff",
+            "$value": "{color.data-blue.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27243,7 +27243,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#d2dcff",
+            "$value": "{color.data-blue.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27275,7 +27275,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b7c6ff",
+            "$value": "{color.data-blue.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27307,7 +27307,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#97acff",
+            "$value": "{color.data-blue.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27339,7 +27339,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#7992f5",
+            "$value": "{color.data-blue.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27371,7 +27371,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#617ae2",
+            "$value": "{color.data-blue.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27403,7 +27403,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#4e65cd",
+            "$value": "{color.data-blue.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27435,7 +27435,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#3f51ae",
+            "$value": "{color.data-blue.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27467,7 +27467,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#374291",
+            "$value": "{color.data-blue.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27499,7 +27499,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#303470",
+            "$value": "{color.data-blue.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27531,7 +27531,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#2a2b59",
+            "$value": "{color.data-blue.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27565,7 +27565,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#ffe3eb",
+            "$value": "{color.data-magenta.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27597,7 +27597,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#ffccdb",
+            "$value": "{color.data-magenta.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27629,7 +27629,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#fcacc5",
+            "$value": "{color.data-magenta.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27661,7 +27661,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#f88aaf",
+            "$value": "{color.data-magenta.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27693,7 +27693,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#e86e9a",
+            "$value": "{color.data-magenta.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27725,7 +27725,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#cf4d81",
+            "$value": "{color.data-magenta.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27757,7 +27757,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b93d71",
+            "$value": "{color.data-magenta.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27789,7 +27789,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#9a2e5d",
+            "$value": "{color.data-magenta.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27821,7 +27821,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#7c214f",
+            "$value": "{color.data-magenta.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27853,7 +27853,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#661e3a",
+            "$value": "{color.data-magenta.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27885,7 +27885,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#541d31",
+            "$value": "{color.data-magenta.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27919,7 +27919,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#fae8d1",
+            "$value": "{color.data-orange.50}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27951,7 +27951,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#f5d6b3",
+            "$value": "{color.data-orange.100}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -27983,7 +27983,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#eebd8c",
+            "$value": "{color.data-orange.200}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -28015,7 +28015,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#e99b60",
+            "$value": "{color.data-orange.300}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -28047,7 +28047,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#e07e41",
+            "$value": "{color.data-orange.400}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -28079,7 +28079,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#c95d2e",
+            "$value": "{color.data-orange.500}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -28111,7 +28111,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#b14f18",
+            "$value": "{color.data-orange.600}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -28143,7 +28143,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#92430a",
+            "$value": "{color.data-orange.700}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -28175,7 +28175,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#6f3500",
+            "$value": "{color.data-orange.800}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -28207,7 +28207,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#5e2f05",
+            "$value": "{color.data-orange.900}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
@@ -28239,7 +28239,7 @@
           "filePath": "src/deprecated/deprecated.color.data_viz.tokens.json",
           "isSource": true,
           "original": {
-            "$value": "#4b2707",
+            "$value": "{color.data-orange.950}",
             "$type": "color",
             "$extensions": {
               "com.figma.scopes": []
